@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Survi.Prevention.DataLayer;
+using Survi.Prevention.ServiceLayer.Services;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Survi.Prevention.WebApi
@@ -18,6 +21,11 @@ namespace Survi.Prevention.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+	        var connectionString = Configuration.GetConnectionString("SurviPreventionDatabase");
+	        services.AddDbContext<ManagementContext>(options => options.UseNpgsql(connectionString));
+	        //services.AddTransient<ManagementContext>();
+	        services.AddTransient<AuthentificationService>();
+
             services.AddMvc();
 	        services.AddSwaggerGen(c =>
 	        {

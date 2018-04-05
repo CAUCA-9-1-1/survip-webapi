@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Survi.Prevention.DataLayer;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
@@ -8,7 +9,7 @@ namespace Survi.Prevention.WebApi.Controllers
     {
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<string> Get([FromServices]ManagementContext context)
         {
             return new string[] { "value1", "value2" };
         }

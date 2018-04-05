@@ -14,7 +14,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 
       b.Property(m => m.Id).HasColumnName("id_access_token").IsRequired();
       b.Property(m => m.IdWebuser).HasColumnName("id_webuser").IsRequired();
-      b.Property(m => m.TokenForAccess).HasColumnName("access_token").HasMaxLength(100).IsRequired();
+      b.Property(m => m.TokenForAccess).HasColumnName("access_token").HasMaxLength(500).IsRequired();
       b.Property(m => m.RefreshToken).HasColumnName("refresh_token").HasMaxLength(100).IsRequired();
       b.Property(m => m.CreatedOn).HasColumnName("created_on").IsRequired();
       b.Property(m => m.ExpiresIn).HasColumnName("expires_in").IsRequired();
