@@ -1,11 +1,12 @@
 using System;
+using NpgsqlTypes;
 using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.FireHydrants
 {
   public class FireHydrant : BaseModel
   {
-    public object Coordinates { get; set; }
+    public PostgisGeometry Coordinates { get; set; }
     public decimal Altitude { get; set; }
     public string Number { get; set; }
     public string RateFrom { get; set; }

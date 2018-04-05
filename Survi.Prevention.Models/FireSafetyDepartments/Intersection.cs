@@ -1,11 +1,12 @@
 using System;
+using NpgsqlTypes;
 using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.FireSafetyDepartments
 {
   public class Intersection : BaseModel
   {
-    public object Coordinates { get; set; }
+    public PostgisGeometry Coordinates { get; set; }
 
     public Guid IdLane { get; set; }
     public Guid IdLaneTransversal { get; set; }
