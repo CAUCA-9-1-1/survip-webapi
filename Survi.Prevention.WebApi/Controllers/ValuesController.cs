@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
     public class ValuesController : Controller
     {
         // GET api/values

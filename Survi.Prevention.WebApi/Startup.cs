@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Survi.Prevention.WebApi
 {
@@ -18,17 +19,28 @@ namespace Survi.Prevention.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+	        services.AddSwaggerGen(c =>
+	        {
+		        c.OrderActionsBy(action => action.RelativePath);
+		        c.SwaggerDoc("v1", new Info {Title = "SURVI Prevention", Version = "v1"});
+	        });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+	    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+	    {
+		    if (env.IsDevelopment())
+		    {
+			    app.UseDeveloperExceptionPage();
+		    }
 
-            app.UseMvc();
-        }
+		    app.UseMvc();
+		    app.UseSwagger();
+		    app.UseSwaggerUI(c =>
+		    {
+			    c.SwaggerEndpoint("/swagger/v1/swagger.json", "SURVI Prevention v1");
+			    c.RoutePrefix = "docs";
+		    });
+	    }
     }
 }
