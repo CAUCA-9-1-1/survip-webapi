@@ -1,15 +1,27 @@
 using System;
+using System.Collections.Generic;
 using Survi.Prevention.Models.Base;
+using Survi.Prevention.Models.SecurityManagement;
+using Survi.Prevention.Models.SurveyManagement;
 
 namespace Survi.Prevention.Models.InspectionManagement
 {
-  public class Inspection : BaseModel
-  {
-    public Guid IdSurvey { get; set; }
-    public Guid IdInterventionPlan { get; set; }
-    public Guid IdBuilding { get; set; }
-    public Guid IdWebuser { get; set; }
-    public Guid CreatedBy { get; set; }
-    public bool IsCompleted { get; set; }
-  }
+	public class Inspection : BaseModel
+	{
+		public Guid IdSurvey { get; set; }
+		public Guid IdInterventionForm { get; set; }
+		public Guid IdBuilding { get; set; }
+		public Guid IdWebuserInspectedBy { get; set; }
+		public Guid IdWebuserCreatedBy { get; set; }
+		public Guid IdWebUserAssignedTo { get; set; }
+		public bool IsCompleted { get; set; }
+
+		public Survey Survey { get; set; }
+		public InterventionForm Form { get; set; }
+		public Webuser InspectedBy { get; set;}
+		public Webuser CreatedBy { get; set; }
+		public Webuser AssignedTo { get; set; }
+
+		public ICollection<InspectionAnswer> Answers { get; set; }
+	}
 }

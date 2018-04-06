@@ -3,8 +3,8 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.FireSafetyDepartments
 {
-  public class CityType : BaseModel 
-  {
-    public Guid IdLanguageContentName { get; set; }
-  }
+	public class CityType : BaseModel
+	{
+		public Guid IdLanguageContentName { get; set; }
+	}
 }
