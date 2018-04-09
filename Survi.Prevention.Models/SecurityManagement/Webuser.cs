@@ -9,6 +9,6 @@ namespace Survi.Prevention.Models.SecurityManagement
 		public string Password { get; set; }
 
 		public ICollection<WebuserAttributes> Attributes { get; set; }
-		public ICollection<WebuserFireSafetyDepartment> FireSafetyDerpartments { get; set; }
+		public ICollection<WebuserFireSafetyDepartment> FireSafetyDepartments { get; set; }
 	}
 }

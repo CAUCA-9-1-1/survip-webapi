@@ -5,18 +5,26 @@ using Survi.Prevention.Models.SecurityManagement;
 
 namespace Survi.Prevention.DataLayer.Mapping
 {
-  public class WebuserMapping : EntityMappingConfiguration<Webuser>
-  {
-    public override void Map(EntityTypeBuilder<Webuser> b)
-    {
-      b.ToTable("tbl_webuser")
-        .HasKey(p => p.Id);
+	public class WebuserMapping : EntityMappingConfiguration<Webuser>
+	{
+		public override void Map(EntityTypeBuilder<Webuser> b)
+		{
+			b.ToTable("tbl_webuser")
+				.HasKey(p => p.Id);
 
-      b.Property(p => p.Id).HasColumnName("id_webuser").IsRequired();
-      b.Property(p => p.Username).HasColumnName("username").HasMaxLength(100).IsRequired();
-      b.Property(p => p.Password).HasColumnName("password").HasMaxLength(100).IsRequired();
-      b.Property(p => p.IsActive).HasColumnName("is_active").IsRequired();
-      b.Property(p => p.CreatedOn).HasColumnName("created_on").IsRequired();
-    }
-  }
+			b.Property(p => p.Id).HasColumnName("id_webuser").IsRequired();
+			b.Property(p => p.Username).HasColumnName("username").HasMaxLength(100).IsRequired();
+			b.Property(p => p.Password).HasColumnName("password").HasMaxLength(100).IsRequired();
+			b.Property(p => p.IsActive).HasColumnName("is_active").IsRequired();
+			b.Property(p => p.CreatedOn).HasColumnName("created_on").IsRequired();
+
+			b.HasMany(p => p.Attributes)
+				.WithOne(p => p.User)
+				.HasForeignKey(p => p.IdWebuser);
+
+			b.HasMany(p => p.FireSafetyDepartments)
+				.WithOne(p => p.User)
+				.HasForeignKey(p => p.IdWebuser);
+		}
+	}
 }
