@@ -17,7 +17,6 @@ namespace Survi.Prevention.Models.Buildings
 		public string OtherNumberExtension { get; set; }
 
 		public Guid IdBuilding { get; set; }
-		public Guid IdBuildingOther { get; set; } // C'est quoi ça?
 
 		public Building Building { get; set; }
 	}
