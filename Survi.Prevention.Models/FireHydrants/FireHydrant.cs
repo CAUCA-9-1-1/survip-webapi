@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NpgsqlTypes;
 using Survi.Prevention.Models.Base;
 using Survi.Prevention.Models.FireSafetyDepartments;
@@ -42,5 +43,7 @@ namespace Survi.Prevention.Models.FireHydrants
 		public OperatorType PressureOperatorType { get; set; }
 		public UnitOfMeasure RateUnitOfMeasure { get; set; }
 		public UnitOfMeasure PressureUnitOfMeasure { get; set; }		
+
+		public ICollection<FireHydrantConnection> Connections { get; set; }
 	}
 }
