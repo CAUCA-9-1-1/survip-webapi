@@ -11,6 +11,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasKey(m => m.Id);
 			b.Property(m => m.ObjectTable).HasMaxLength(255).IsRequired();
 			b.Property(m => m.GenericId).HasMaxLength(50);
+			b.Property(m => m.GroupName).HasMaxLength(50);
 
 			b.HasOne(m => m.System)
 				.WithMany()

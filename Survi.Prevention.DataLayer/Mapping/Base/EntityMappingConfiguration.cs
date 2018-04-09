@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.DataLayer.Mapping.Base
 {

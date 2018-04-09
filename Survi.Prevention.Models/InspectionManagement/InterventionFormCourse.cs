@@ -7,7 +7,7 @@ namespace Survi.Prevention.Models.InspectionManagement
 {
 	public class InterventionFormCourse : BaseModel
 	{
-		public Guid IdInterventionPlan { get; set; }
+		public Guid IdInterventionForm { get; set; }
 		public Guid IdFirestation { get; set; }
 
 		public InterventionForm Form { get; set; }

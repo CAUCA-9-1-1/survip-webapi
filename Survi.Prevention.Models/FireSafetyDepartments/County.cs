@@ -6,7 +6,6 @@ namespace Survi.Prevention.Models.FireSafetyDepartments
 {
 	public class County : BaseModel
 	{
-		public Guid IdLanguageContentName { get; set; }
 		public Guid IdRegion { get; set; }
 		public Guid IdState { get; set; }
 
@@ -15,5 +14,6 @@ namespace Survi.Prevention.Models.FireSafetyDepartments
 
 		public ICollection<City> Cities { get; set; }
 		public ICollection<FireSafetyDepartment> FireSafetyDepartments { get; set; }
+		public ICollection<CountyLocalization> Localizations { get; set; }
 	}
 }

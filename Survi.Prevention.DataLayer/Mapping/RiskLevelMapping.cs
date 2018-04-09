@@ -11,7 +11,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasKey(m => m.Id);
 
 			b.Property(m => m.Sequence).IsRequired();
-			b.Property(m => m.Color).IsRequired();
+			b.Property(m => m.Color).HasMaxLength(50).IsRequired();
 			b.Property(m => m.CreatedOn).IsRequired();
 			b.Property(m => m.IsActive).IsRequired();
 			b.HasMany(m => m.Localizations).WithOne(m => m.Parent).HasForeignKey(m => m.IdParent);

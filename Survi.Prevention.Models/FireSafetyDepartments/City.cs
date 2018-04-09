@@ -12,12 +12,12 @@ namespace Survi.Prevention.Models.FireSafetyDepartments
 
 		public Guid IdCityType { get; set; }
 		public Guid IdCounty { get; set; }
-		public Guid IdLanguageContentName { get; set; }
 
 		public CityType CityType { get; set; }
 		public County County { get; set; }
 
 		public ICollection<FireSafetyDeparmentCityServing> ServedByFireSafetyDepartments { get; set; }
 		public ICollection<Lane> Lanes { get; set; }
+		public ICollection<CityLocalization> Localizations { get; set; }
 	}
 }

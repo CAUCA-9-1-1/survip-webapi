@@ -11,6 +11,9 @@ namespace Survi.Prevention.DataLayer.Mapping
 		{
 			b.HasKey(m => m.Id);
 			b.Property(m => m.IdParent).HasColumnName("id_survey_question");
+			b.Property(m => m.Name).HasMaxLength(100).IsRequired();
+			b.Property(m => m.Title).HasMaxLength(100).IsRequired();
+			b.Property(m => m.LanguageCode).HasMaxLength(2).IsRequired();
 		}
 	}
 }

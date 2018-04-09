@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Survi.Prevention.DataLayer.Mapping.Base;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.FireSafetyDepartments;
@@ -33,7 +34,7 @@ namespace Survi.Prevention.DataLayer
 		{
 			foreach (var entity in modelBuilder.Model.GetEntityTypes())
 			{
-				entity.Relational().TableName = entity.Relational().TableName.ToSnakeCase();
+				entity.Relational().TableName = entity.DisplayName().ToSnakeCase();
 
 				foreach (var property in entity.GetProperties())
 					property.Relational().ColumnName = property.Name.ToSnakeCase();

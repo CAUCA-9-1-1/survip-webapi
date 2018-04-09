@@ -12,6 +12,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.Property(m => m.Language).HasMaxLength(2).IsRequired();
 			b.HasMany(m => m.Firestations).WithOne(m => m.FireSafetyDepartment).HasForeignKey(m => m.IdFireSafetyDepartment);
 			b.HasMany(m => m.FireSafetyDeparmentServing).WithOne(m => m.FireSafetyDepartment).HasForeignKey(m => m.IdFireSafetyDepartment);
+			b.HasMany(m => m.Localizations).WithOne(m => m.Parent).HasForeignKey(m => m.IdParent);
 		}
 	}
 }

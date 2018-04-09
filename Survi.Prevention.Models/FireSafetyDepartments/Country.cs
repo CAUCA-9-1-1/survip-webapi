@@ -8,8 +8,8 @@ namespace Survi.Prevention.Models.FireSafetyDepartments
 	{
 		public string CodeAlpha2 { get; set; }
 		public string CodeAlpha3 { get; set; }
-		public Guid IdLanguageContentName { get; set; }
 
 		public ICollection<State> States { get; set; }
+		public ICollection<CountryLocalization> Localizations { get; set; }
 	}
 }
