@@ -18,5 +18,6 @@ namespace Survi.Prevention.Models.SurveyManagement
 		public SurveyQuestion NextQuestion { get; set; }
 
 		public ICollection<SurveyQuestionChoice> Choices { get; set; }
+		public ICollection<SurveyQuestionLocalization> Localizations { get; set; }
 	}
 }
