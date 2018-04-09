@@ -12,7 +12,7 @@ namespace Survi.Prevention.Models.FireSafetyDepartments
 
 		public County County { get; set; }
 
-		public ICollection<FireSafetyDeparmentServing> FireSafetyDeparmentServing { get; set; }
+		public ICollection<FireSafetyDeparmentCityServing> FireSafetyDeparmentServing { get; set; }
 		public ICollection<Firestation> Firestations { get; set; }
 	}
 }

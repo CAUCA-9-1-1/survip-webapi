@@ -13,6 +13,7 @@ namespace Survi.Prevention.Models.FireSafetyDepartments
 		public Region Region { get; set; }
 		public State State { get; set; }
 
-		public ICollection<County> Counties { get; set; }
+		public ICollection<City> Cities { get; set; }
+		public ICollection<FireSafetyDepartment> FireSafetyDepartments { get; set; }
 	}
 }
