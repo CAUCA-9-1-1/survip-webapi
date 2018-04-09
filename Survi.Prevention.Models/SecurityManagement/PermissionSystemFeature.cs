@@ -7,7 +7,7 @@ namespace Survi.Prevention.Models.SecurityManagement
 	{
 		public string FeatureName { get; set; }
 		public string Description { get; set; }
-		public string DefaultValue { get; set; }
+		public bool DefaultValue { get; set; }
 		public Guid IdPermissionSystem { get; set; }
 
 		public PermissionSystem System { get; set; }

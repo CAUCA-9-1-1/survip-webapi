@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.SurveyManagement
@@ -15,5 +16,7 @@ namespace Survi.Prevention.Models.SurveyManagement
 
 		public Survey Survey { get; set; }
 		public SurveyQuestion NextQuestion { get; set; }
+
+		public ICollection<SurveyQuestionChoice> Choices { get; set; }
 	}
 }
