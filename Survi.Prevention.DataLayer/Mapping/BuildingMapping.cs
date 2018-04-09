@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Survi.Prevention.DataLayer.Mapping.Base;
 using Survi.Prevention.Models.Buildings;
@@ -21,7 +22,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.Property(m => m.UtilisationDescription).HasMaxLength(255).IsRequired();
 			b.Property(m => m.Matricule).HasMaxLength(18).IsRequired();
 			b.Property(m => m.CoordinatesSource).HasMaxLength(50).IsRequired();
-			b.Property(m => m.Details).HasMaxLength(500).IsRequired();
+			b.Property(m => m.Details).IsRequired();
 
 			b.Property(m => m.CreatedOn).IsRequired();
 			b.Property(m => m.IsActive).IsRequired();

@@ -9,13 +9,8 @@ namespace Survi.Prevention.DataLayer.Mapping
 	{
 		public override void Map(EntityTypeBuilder<State> b)
 		{
-			b.ToTable("tbl_state").HasKey(m => m.Id);
-
-			b.Property(m => m.AnsiCode).HasColumnName("ansi_code").HasMaxLength(2).IsRequired();
-			b.Property(m => m.Id).HasColumnName("id_state");
-			b.Property(m => m.CreatedOn).HasColumnName("created_on").IsRequired();
-			b.Property(m => m.IsActive).HasColumnName("is_active").IsRequired();
-
+			b.HasKey(m => m.Id);
+			b.Property(m => m.AnsiCode).HasMaxLength(2).IsRequired();
 			b.HasMany(m => m.Counties).WithOne(m => m.State).HasForeignKey(m => m.IdState);
 			b.HasMany(m => m.Regions).WithOne(m => m.State).HasForeignKey(m => m.IdState);
 		}

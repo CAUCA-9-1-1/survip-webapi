@@ -22,6 +22,6 @@ namespace Survi.Prevention.Models.Buildings
 		public Guid IdPersonRequiringAssistanceType { get; set; }
 
 		public Building Building { get; set; }
-		public Building PersonType { get; set; }
+		public PersonRequiringAssistanceType PersonType { get; set; }
 	}
 }

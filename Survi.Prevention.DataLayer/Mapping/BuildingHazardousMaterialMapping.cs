@@ -15,8 +15,8 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.Property(m => m.Floor).HasMaxLength(4).IsRequired();
 			b.Property(m => m.Place).HasMaxLength(150).IsRequired();
 			b.Property(m => m.GasInlet).HasMaxLength(100).IsRequired();
-			b.Property(m => m.SecurityPerimeter).HasMaxLength(500).IsRequired();
-			b.Property(m => m.OtherInformation).HasMaxLength(500).IsRequired();
+			b.Property(m => m.SecurityPerimeter).IsRequired();
+			b.Property(m => m.OtherInformation).IsRequired();
 
 			b.Property(m => m.CreatedOn).IsRequired();
 			b.Property(m => m.IsActive).IsRequired();

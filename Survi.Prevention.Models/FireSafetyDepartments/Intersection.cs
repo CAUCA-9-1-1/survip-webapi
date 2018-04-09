@@ -6,7 +6,7 @@ namespace Survi.Prevention.Models.FireSafetyDepartments
 {
 	public class Intersection : BaseModel
 	{
-		public PostgisGeometry Coordinates { get; set; }
+		public /*PostgisGeometry*/string Coordinates { get; set; }
 
 		public Guid IdLane { get; set; }
 		public Guid IdLaneTransversal { get; set; }

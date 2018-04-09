@@ -33,7 +33,7 @@ namespace Survi.Prevention.Models.Buildings
 		public string UtilisationDescription { get; set; }
 		public bool ShowInResources { get; set; }
 		public string Matricule { get; set; }
-		public PostgisGeometry Coordinates { get; set; }
+		public /*PostgisGeometry*/string Coordinates { get; set; }
 		public string CoordinatesSource { get; set; }
 		public string Details { get; set; }
 		public BuildingChildType ChildType { get; set; }

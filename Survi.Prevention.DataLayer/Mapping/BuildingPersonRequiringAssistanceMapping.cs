@@ -10,7 +10,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 		{
 			b.HasKey(m => m.Id);
 
-			b.Property(m => m.Description).HasMaxLength(400).IsRequired();
+			b.Property(m => m.Description).IsRequired();
 			b.Property(m => m.PersonName).HasMaxLength(60).IsRequired();
 			b.Property(m => m.Floor).HasMaxLength(3).IsRequired();
 			b.Property(m => m.Local).HasMaxLength(10).IsRequired();

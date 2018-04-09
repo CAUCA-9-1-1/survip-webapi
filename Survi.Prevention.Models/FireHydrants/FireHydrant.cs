@@ -17,7 +17,7 @@ namespace Survi.Prevention.Models.FireHydrants
 	public class FireHydrant : BaseModel
 	{
 		public FireHydrantLocationType LocationType { get; set; }
-		public PostgisGeometry Coordinates { get; set; }
+		public /*PostgisGeometry*/string Coordinates { get; set; }
 		public decimal Altitude { get; set; }
 		public string Number { get; set; }
 		public string RateFrom { get; set; }
