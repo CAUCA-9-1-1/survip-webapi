@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings
@@ -6,6 +7,6 @@ namespace Survi.Prevention.Models.Buildings
 	{
 		public string Cubf { get; set; }
 		public string Scian { get; set; }
-		public string IdLanguageContentDescription { get; set; }
+		public ICollection<UtilisationCodeLocalization> Localizations { get; set; }
 	}
 }

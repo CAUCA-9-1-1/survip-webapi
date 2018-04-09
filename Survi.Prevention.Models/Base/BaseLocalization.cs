@@ -1,8 +1,12 @@
-﻿namespace Survi.Prevention.Models.Base
+﻿using System;
+
+namespace Survi.Prevention.Models.Base
 {
-    public class BaseLocalization : BaseModel
+    public class BaseLocalization<T> : BaseModel
+		where T: class
     {
 		public string LanguageCode { get; set; }
-		public string LocalizedText { get; set; }
+		public T Parent { get; set; }
+		public Guid IdParent { get; set; }
     }
 }

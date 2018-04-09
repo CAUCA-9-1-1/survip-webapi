@@ -14,6 +14,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.Property(m => m.Scian).HasMaxLength(10).IsRequired();
 			b.Property(m => m.CreatedOn).IsRequired();
 			b.Property(m => m.IsActive).IsRequired();
+			b.HasMany(m => m.Localizations).WithOne(m => m.Parent).HasForeignKey(m => m.IdParent);
 		}
 	}
 }

@@ -42,9 +42,7 @@ namespace Survi.Prevention.Models.Buildings
 		public Guid IdUtilisationCode { get; set; }
 		public Guid IdRiskLevel { get; set; }
 		public Guid IdParentBuilding { get; set; }
-
-		public Guid IdLanguageContentName { get; set; }
-
+		
 		public RiskLevel RiskLevel { get; set; }
 		public UtilisationCode UtilisationCode { get; set; }
 		public Lane Lane { get; set; }
@@ -53,5 +51,6 @@ namespace Survi.Prevention.Models.Buildings
 		public ICollection<BuildingContact> Contacts { get; set; }
 		public ICollection<BuildingHazardousMaterial> HazardousMaterials { get; set; }
 		public ICollection<BuildingPersonRequiringAssistance> PersonsRequiringAssistance { get; set; }
+		public ICollection<BuildingLocalization> Localizations { get; set; }
 	}
 }
