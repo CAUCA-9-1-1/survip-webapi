@@ -15,7 +15,7 @@ namespace Survi.Prevention.Models.InspectionManagement
 		public bool IsVacant { get; set; }
 
 		public Guid IdInspection { get; set; }
-		public Guid IdWebUser { get; set; }
+		public Guid? IdWebuserAnsweredBy { get; set; }
 
 		public Inspection Inspection { get; set; }
 		public Webuser AnsweredBy { get; set; }

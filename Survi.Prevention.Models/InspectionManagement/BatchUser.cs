@@ -9,7 +9,7 @@ namespace Survi.Prevention.Models.InspectionManagement
 
 		public Guid Id { get; set; } = Guid.NewGuid();
 		public Guid IdWebuser { get; set; }
-		public Guid IdInspectionBatch { get; set; }
+		public Guid IdBatch { get; set; }
 
 		public Batch Batch { get; set; }
 		public Webuser User { get; set; }

@@ -11,11 +11,13 @@ namespace Survi.Prevention.Models.InspectionManagement
 		public Guid IdSurvey { get; set; }
 		public Guid IdInterventionForm { get; set; }
 		public Guid IdBuilding { get; set; }
-		public Guid IdWebuserInspectedBy { get; set; }
+		public Guid? IdWebuserInspectedBy { get; set; }
 		public Guid IdWebuserCreatedBy { get; set; }
-		public Guid IdWebUserAssignedTo { get; set; }
+		public Guid? IdWebUserAssignedTo { get; set; }
+		public Guid IdBatch { get; set; }
 		public bool IsCompleted { get; set; }
 
+		public Batch Batch { get; set; }
 		public Survey Survey { get; set; }
 		public InterventionForm Form { get; set; }
 		public Webuser InspectedBy { get; set;}

@@ -7,7 +7,7 @@ namespace Survi.Prevention.Models.InspectionManagement
 	public class InterventionFormBuilding : BaseModel
 	{
 		public string AdditionalInformation { get; set; }
-		public string Height { get; set; }
+		public decimal Height { get; set; }
 		public int EstimatedWaterFlow { get; set; }
 		public string SprinklerType { get; set; }
 		public string SprinklerFloor { get; set; }
