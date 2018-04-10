@@ -12,23 +12,20 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class AuthentificationService : BaseService
 	{
-		private readonly string issuer = "http://cauca.ca";
-		private readonly string secretKey = "SURVI-Prevention-API";
-
 		public AuthentificationService(ManagementContext context) : base(context)
 		{
 		}
 
-		public (AccessToken token, Webuser user) Login(string username, string password)
+		public (AccessToken token, Webuser user) Login(string username, string password, string applicationName, string issuer)
 		{
-			var encodedPassword = EncodePassword(password);
+			var encodedPassword = EncodePassword(password, applicationName);
 			var userFound = Context.Webusers.FirstOrDefault(user => user.Username == username && user.Password == encodedPassword && user.IsActive);
 			if (userFound != null)
 			{
-				var token = GenerateJwtToken(userFound);
+				var token = GenerateJwtToken(userFound, applicationName, issuer);
 				var handler = new JwtSecurityTokenHandler();
 				var tokenString = handler.WriteToken(token);
-				var accessToken = new AccessToken {TokenForAccess = tokenString, CreatedOn = DateTime.Now, ExpiresIn = 60, IdWebuser = userFound.Id};
+				var accessToken = new AccessToken {TokenForAccess = tokenString, ExpiresIn = 60, IdWebuser = userFound.Id};
 				Context.Add(accessToken);
 				Context.SaveChanges();
 				return (accessToken, userFound);
@@ -37,9 +34,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return (null, null);
 		}
 
-		private string EncodePassword(string password)
+		private string EncodePassword(string password, string applicationName)
 		{
-			var secret = Encoding.UTF8.GetBytes(secretKey);
+			var secret = Encoding.UTF8.GetBytes(applicationName);
 			var bytePassword = Encoding.UTF8.GetBytes(password);
 
 			var hmac = new HMACSHA256(secret);
@@ -58,7 +55,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return sbinary;
 		}
 
-		public (bool isAuthorized, Guid idUser) GetAuthorizedUser(string token)
+		public (bool isAuthorized, Guid idUser) GetAuthorizedUser(string token, string applicationName, string issuer)
 		{
 #if DEBUG
 			// backdoor!
@@ -75,7 +72,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			try
 			{
-				TokenValidationParameters validationParameters = GetTokenValidationParameters();
+				TokenValidationParameters validationParameters = GetTokenValidationParameters(applicationName, issuer);
 				handler.ValidateToken(token, validationParameters, out var securityToken);
 				return ClaimsAreValid(securityToken);
 			}
@@ -87,14 +84,14 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 		}
 
-		private TokenValidationParameters GetTokenValidationParameters()
+		private TokenValidationParameters GetTokenValidationParameters(string applicationName, string issuer)
 		{
 			var validationParameters = new TokenValidationParameters
 			{
 				ValidateIssuer = true,
 				ValidateLifetime = true,
 				ValidateIssuerSigningKey = true,
-				IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
+				IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(applicationName)),
 				ValidAudience = issuer,
 				ValidIssuer = issuer
 			};
@@ -123,7 +120,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return (false, Guid.Empty);
 		}
 
-		protected JwtSecurityToken GenerateJwtToken(Webuser userLoggedIn)
+		protected JwtSecurityToken GenerateJwtToken(Webuser userLoggedIn, string applicationName, string issuer)
 		{
 			var claims = new[]
 			{
@@ -131,7 +128,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				new Claim(JwtRegisteredClaimNames.Sid, userLoggedIn.Id.ToString()),
 			};
 
-			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(applicationName));
 			var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
 			var token = new JwtSecurityToken(issuer,

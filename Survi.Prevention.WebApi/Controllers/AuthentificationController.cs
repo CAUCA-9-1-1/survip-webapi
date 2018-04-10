@@ -8,16 +8,20 @@ namespace Survi.Prevention.WebApi.Controllers
 	public class AuthentificationController : Controller
 	{
 		private readonly AuthentificationService service;
+		private readonly string issuer;
+		private readonly string applicationName;
 
 		public AuthentificationController([FromServices] AuthentificationService service, IConfiguration configuration)
 		{
 			this.service = service;
+			issuer = configuration.GetSection("APIConfig:Issuer").Value;
+			applicationName = configuration.GetSection("APIConfig:PackageName").Value;
 		}
 
 		[Route("[Action]"), HttpPost]
 		public ActionResult Logon(string user, string password)
 		{
-			var result = service.Login(user, password);
+			var result = service.Login(user, password, applicationName, issuer);
 			if (result.user == null || result.token == null)
 				return Unauthorized();
 
