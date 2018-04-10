@@ -22,7 +22,7 @@ namespace Survi.Prevention.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
 	        var connectionString = Configuration.GetConnectionString("SurviPreventionDatabase");
-	        services.AddDbContext<ManagementContext>(options => options.UseNpgsql(connectionString));
+	        services.AddDbContext<ManagementContext>(options => options.UseNpgsql(connectionString));			
 	        //services.AddTransient<ManagementContext>();
 	        services.AddTransient<AuthentificationService>();
 
