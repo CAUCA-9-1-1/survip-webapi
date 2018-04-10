@@ -6,8 +6,8 @@ namespace Survi.Prevention.Models.SecurityManagement
 	{
 		public Guid Id { get; set; }
 		public string TokenForAccess { get; set; }
-		public string RefreshToken { get; set; }
-		public DateTime CreatedOn { get; set; }
+		public string RefreshToken { get; set; } = "";
+		public DateTime CreatedOn { get; set; } = DateTime.Now;
 		public int ExpiresIn { get; set; }
 		public Guid IdWebuser { get; set; }
 

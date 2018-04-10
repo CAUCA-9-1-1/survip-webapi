@@ -1,10 +1,11 @@
 using System;
-using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.SecurityManagement
 {
-	public class PermissionObject : BaseModel
+	public class PermissionObject
 	{
+		public Guid Id { get; set; } = Guid.NewGuid();
+
 		public string ObjectTable { get; set; }
 		public string GenericId { get; set; }
 		public bool IsGroup { get; set; }

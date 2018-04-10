@@ -9,6 +9,6 @@ namespace Survi.Prevention.Models.SecurityManagement
 		public string AttributeValue { get; set; }
 
 		public Guid IdWebuser { get; set; }
-		public Webuser User { get; set; }
+		public Webuser User { get; set; }		
 	}
 }

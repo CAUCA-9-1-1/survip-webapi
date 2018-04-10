@@ -1,12 +1,14 @@
 using System;
-using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.SecurityManagement
 {
-	public class Permission : BaseModel
+	public class Permission
 	{
+		public Guid Id { get; set; } = Guid.NewGuid();
+
 		public string Comments { get; set; }
 		public bool Access { get; set; }
+		public DateTime CreatedOn { get; set; } = DateTime.Now;
 
 		public Guid IdPermissionObject { get; set; }
 		public Guid IdPermissionSystem { get; set; }

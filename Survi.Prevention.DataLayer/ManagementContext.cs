@@ -13,21 +13,27 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<AccessSecretKey> AccessSecretKeys { get; set; }
 		public DbSet<AccessToken> AccessTokens { get; set; }
 		public DbSet<Webuser> Webusers { get; set; }
-		public DbSet<Batch> Batches { get; set; }
-		public DbSet<Building> Buildings { get; set; }
+
 		public DbSet<Permission> Permissions { get; set; }
+		public DbSet<PermissionSystem> PermissionSystems { get; set; }
+
+		public DbSet<Batch> Batches { get; set; }
+
+		public DbSet<Building> Buildings { get; set; }		
 		public DbSet<Country> Countries { get; set; }
+
+		public DbSet<Lane> Lanes { get; set; }
+		public DbSet<LaneGenericCode> LaneGenericCodes { get; set; }
+		public DbSet<LanePublicCode> LanePublicCodes { get; set; }
 
 		public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
 		{
-			/*Database.EnsureDeleted();
-			Database.EnsureCreated();*/
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			UseSnakeCaseMapping(modelBuilder);
-			modelBuilder.AddEntityConfigurationsFromAssembly(GetType().Assembly);			
+			modelBuilder.AddEntityConfigurationsFromAssembly(GetType().Assembly);
 		}
 
 		private static void UseSnakeCaseMapping(ModelBuilder modelBuilder)
