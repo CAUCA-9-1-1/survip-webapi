@@ -16,13 +16,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public (AccessToken token, Webuser user) Login(string username, string password, string applicationName, string issuer)
+		public (AccessToken token, Webuser user) Login(string username, string password, string applicationName, string issuer, string secretKey)
 		{
 			var encodedPassword = EncodePassword(password, applicationName);
 			var userFound = Context.Webusers.FirstOrDefault(user => user.Username == username && user.Password == encodedPassword && user.IsActive);
 			if (userFound != null)
 			{
-				var token = GenerateJwtToken(userFound, applicationName, issuer);
+				var token = GenerateJwtToken(userFound, applicationName, issuer, secretKey);
 				var handler = new JwtSecurityTokenHandler();
 				var tokenString = handler.WriteToken(token);
 				var accessToken = new AccessToken {TokenForAccess = tokenString, ExpiresIn = 60, IdWebuser = userFound.Id};
@@ -55,7 +55,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return sbinary;
 		}
 
-		public (bool isAuthorized, Guid idUser) GetAuthorizedUser(string token, string applicationName, string issuer)
+		/*public (bool isAuthorized, Guid idUser) GetAuthorizedUser(string token, string applicationName, string issuer, string secretKey)
 		{
 #if DEBUG
 			// backdoor!
@@ -72,7 +72,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			try
 			{
-				TokenValidationParameters validationParameters = GetTokenValidationParameters(applicationName, issuer);
+				TokenValidationParameters validationParameters = GetTokenValidationParameters(applicationName, issuer, secretKey);
 				handler.ValidateToken(token, validationParameters, out var securityToken);
 				return ClaimsAreValid(securityToken);
 			}
@@ -82,29 +82,29 @@ namespace Survi.Prevention.ServiceLayer.Services
 				//LogInvalidTokenRequest(token, ex.Message);
 				return (false, Guid.Empty);
 			}
-		}
+		}*/
 
-		private TokenValidationParameters GetTokenValidationParameters(string applicationName, string issuer)
+		/*private TokenValidationParameters GetTokenValidationParameters(string applicationName, string issuer, string secretKey)
 		{
 			var validationParameters = new TokenValidationParameters
 			{
 				ValidateIssuer = true,
 				ValidateLifetime = true,
 				ValidateIssuerSigningKey = true,
-				IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(applicationName)),
+				IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
 				ValidAudience = issuer,
 				ValidIssuer = issuer
 			};
 
 			return validationParameters;
-		}
+		}*/
 
 		/*private void LogInvalidTokenRequest(string token, string message)
 		{
 		  loggingService.LogWebApiCallWithInvalidToken(token, message);
 		}*/
 
-		private (bool isAuthorized, Guid idUser) ClaimsAreValid(SecurityToken securityToken)
+		/*private (bool isAuthorized, Guid idUser) ClaimsAreValid(SecurityToken securityToken)
 		{
 			if (securityToken is JwtSecurityToken jwtToken)
 			{
@@ -118,9 +118,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 
 			return (false, Guid.Empty);
-		}
+		}*/
 
-		protected JwtSecurityToken GenerateJwtToken(Webuser userLoggedIn, string applicationName, string issuer)
+		protected JwtSecurityToken GenerateJwtToken(Webuser userLoggedIn, string applicationName, string issuer, string secretKey)
 		{
 			var claims = new[]
 			{
@@ -128,11 +128,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 				new Claim(JwtRegisteredClaimNames.Sid, userLoggedIn.Id.ToString()),
 			};
 
-			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(applicationName));
+			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 			var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
 			var token = new JwtSecurityToken(issuer,
-				issuer,
+				applicationName,
 				claims,
 				expires: DateTime.UtcNow.AddMinutes(60),
 				signingCredentials: creds);
