@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
+using Microsoft.EntityFrameworkCore;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -14,20 +15,23 @@ namespace Survi.Prevention.ServiceLayer.Services
 
         public List<Country> GetList()
         {
-            return Context.Countries.ToList();
+            var result = Context.Countries
+                        .Include(c => c.Localizations)
+                        .ToList();
+            return result;
         }
 
-        public void AddOrUpdate(Country country)
+        public void AddOrUpdate(Country newCountry)
         {
-            var isExistRecord = Context.Countries.Any(c => c.Id == country.Id);
+            var isExistRecord = Context.Countries.Any(c => c.Id == newCountry.Id);
 
             if (isExistRecord)
             {
-                
+
             }
             else
             {
-                Context.Countries.Add(country);
+                Context.Countries.Add(newCountry);
             }
             
             Context.SaveChanges();
