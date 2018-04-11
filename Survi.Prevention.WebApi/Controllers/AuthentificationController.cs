@@ -20,7 +20,6 @@ namespace Survi.Prevention.WebApi.Controllers
 		private readonly string issuer;
 		private readonly string applicationName;
 		private readonly string secretKey;
-		private readonly IConfiguration configuration;
 
 		public AuthentificationController(AuthentificationService service, IConfiguration configuration)
 		{
