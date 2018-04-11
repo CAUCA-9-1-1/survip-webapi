@@ -5,50 +5,43 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.ServiceLayer.Services;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace Survi.Prevention.WebApi
 {
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+	public class Startup
+	{
+		public IConfiguration Configuration { get; }
 
-        public IConfiguration Configuration { get; }
+		public Startup(IConfiguration configuration)
+		{
+			Configuration = configuration;
+		}		
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-	        var connectionString = Configuration.GetConnectionString("SurviPreventionDatabase");
-	        services.AddDbContext<ManagementContext>(options => options.UseNpgsql(connectionString));			
-	        //services.AddTransient<ManagementContext>();
-	        services.AddTransient<AuthentificationService>();
+		// This method gets called by the runtime. Use this method to add services to the container.
+		public void ConfigureServices(IServiceCollection services)
+		{
+			RegisterServicesAndContext(services);
+			services.AddTokenAuthentification(Configuration);
+			services.AddSwaggerDocumentation();
+			services.AddMvc();
+		}
 
-            services.AddMvc();
-	        services.AddSwaggerGen(c =>
-	        {
-		        c.OrderActionsBy(action => action.RelativePath);
-		        c.SwaggerDoc("v1", new Info {Title = "SURVI Prevention", Version = "v1"});
-	        });
-        }
+		private void RegisterServicesAndContext(IServiceCollection services)
+		{
+			var connectionString = Configuration.GetConnectionString("SurviPreventionDatabase");
+			services.AddDbContext<ManagementContext>(options => options.UseNpgsql(connectionString));
+			services.AddTransient<AuthentificationService>();
+		}
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-	    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-	    {
-		    if (env.IsDevelopment())
-		    {
-			    app.UseDeveloperExceptionPage();
-		    }
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		{
+			if (env.IsDevelopment())
+				app.UseDeveloperExceptionPage();
 
-		    app.UseMvc();
-		    app.UseSwagger();
-		    app.UseSwaggerUI(c =>
-		    {
-			    c.SwaggerEndpoint("/swagger/v1/swagger.json", "SURVI Prevention v1");
-			    c.RoutePrefix = "docs";
-		    });
-	    }
-    }
+			app.UseAuthentication();
+			app.UseSwaggerDocumentation();
+			app.UseMvc();
+		}
+	}
 }

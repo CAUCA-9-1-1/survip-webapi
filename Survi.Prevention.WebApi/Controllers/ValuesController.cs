@@ -1,17 +1,19 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Survi.Prevention.DataLayer;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
 	[Route("api/[controller]")]
-    public class ValuesController : Controller
-    {
-        // GET api/values
+    public class ValuesController : BaseSecuredController
+    {        
         [HttpGet]
-        public IEnumerable<string> Get([FromServices]ManagementContext context)
+        public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+	        return new []
+	        {
+				CurrentUserId.ToString(),
+				CurrentUserName
+	        };
         }
 
         // GET api/values/5
