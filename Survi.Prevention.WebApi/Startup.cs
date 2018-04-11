@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -23,8 +24,10 @@ namespace Survi.Prevention.WebApi
 			RegisterServicesAndContext(services);
 			services.AddTokenAuthentification(Configuration);
 			services.AddSwaggerDocumentation();
-			services.AddMvc();
-		}
+			services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+        }
 
 		private void RegisterServicesAndContext(IServiceCollection services)
 		{
