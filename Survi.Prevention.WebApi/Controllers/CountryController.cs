@@ -22,6 +22,15 @@ namespace Survi.Prevention.WebApi.Controllers
         }
 
         [HttpGet]
+        [Route("{id:Guid}")]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(typeof(Country), 200)]
+        public Country Get(Guid id)
+        {
+            return service.Get(id);
+        }
+
+        [HttpGet]
         [ProducesResponseType(401)]
         [ProducesResponseType(typeof(List<Country>), 200)]
         public List<Country> Get()
@@ -35,6 +44,15 @@ namespace Survi.Prevention.WebApi.Controllers
         public void Post([FromBody] Country country)
         {
             service.AddOrUpdate(country);
+        }
+
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(200)]
+        public void Delete(Guid id)
+        {
+            service.Remove(id);
         }
     }
 }
