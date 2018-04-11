@@ -12,7 +12,7 @@ namespace Survi.Prevention.WebApi.Controllers
 {
     [Produces("application/json")]
     [Route("api/Country")]
-    public class CountryController : Controller
+    public class CountryController : BaseSecuredController
     {
         private readonly CountryService service;
 
@@ -25,34 +25,52 @@ namespace Survi.Prevention.WebApi.Controllers
         [Route("{id:Guid}")]
         [ProducesResponseType(401)]
         [ProducesResponseType(typeof(Country), 200)]
-        public Country Get(Guid id)
+        public ActionResult Get(Guid id)
         {
-            return service.Get(id);
+            var country = service.Get(id);
+            return Ok(country);
         }
 
         [HttpGet]
         [ProducesResponseType(401)]
         [ProducesResponseType(typeof(List<Country>), 200)]
-        public List<Country> Get()
+        public ActionResult Get()
         {
-            return service.GetList();
+            var result = service.GetList();
+
+            if(result.Count > 0)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
         }
 
         [HttpPost]
         [ProducesResponseType(401)]
         [ProducesResponseType(200)]
-        public void Post([FromBody] Country country)
+        public ActionResult Post([FromBody] Country country)
         {
-            service.AddOrUpdate(country);
+            if (service.AddOrUpdate(country))
+            {
+                return Ok();
+            }
+
+            return BadRequest();
         }
 
         [HttpDelete]
         [Route("{id:Guid}")]
         [ProducesResponseType(401)]
         [ProducesResponseType(200)]
-        public void Delete(Guid id)
+        public ActionResult Delete(Guid id)
         {
-            service.Remove(id);
+            if (service.Remove(id))
+            {
+                return Ok();
+            }
+
+            return BadRequest();
         }
     }
 }
