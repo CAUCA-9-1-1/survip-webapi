@@ -10,6 +10,9 @@ namespace Survi.Prevention.DataLayer.Mapping
 		{
 			b.HasKey(m => m.Id);
 			b.Property(m => m.Description).HasMaxLength(400).IsRequired();
+			b.HasMany(m => m.Objects).WithOne(m => m.System).HasForeignKey(m => m.IdPermissionSystem);
+			b.HasMany(m => m.Permissions).WithOne(m => m.System).HasForeignKey(m => m.IdPermissionSystem);
+			b.HasMany(m => m.Features).WithOne(m => m.System).HasForeignKey(m => m.IdPermissionSystem);
 		}
 	}
 }

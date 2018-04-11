@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Configurations>Debug;Release;Initialize</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Initialize|AnyCPU'">
+    <DefineConstants>TRACE;INITIALIZE;NETCOREAPP2_0;CREATEDB</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
