@@ -22,7 +22,15 @@ namespace Survi.Prevention.WebApi
 		public void ConfigureServices(IServiceCollection services)
 		{
 			RegisterServicesAndContext(services);
-			services.AddTokenAuthentification(Configuration);
+            services.AddCors(options => {
+                options.AddPolicy("AllowAllOrigin",
+                    builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+            });
+
+            services.AddTokenAuthentification(Configuration);
 			services.AddSwaggerDocumentation();
 			services.AddMvc().AddJsonOptions(options => {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -41,11 +49,12 @@ namespace Survi.Prevention.WebApi
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
 			if (env.IsDevelopment())
-				app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
 
-			app.UseAuthentication();
+            app.UseCors("AllowAllOrigin");
+            app.UseAuthentication();
 			app.UseSwaggerDocumentation();
 			app.UseMvc();
-		}
+        }
 	}
 }
