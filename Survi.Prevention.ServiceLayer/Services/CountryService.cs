@@ -8,55 +8,55 @@ using Microsoft.EntityFrameworkCore;
 namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class CountryService : BaseService
-    {
-        public CountryService(ManagementContext context) : base(context)
-        {
-        }
+	{
+		public CountryService(ManagementContext context) : base(context)
+		{
+		}
 
-        public Country Get(Guid id)
-        {
-            var result = Context.Countries
-                        .Include(c => c.Localizations)
-                        .First(c => c.Id == id);
+		public Country Get(Guid id)
+		{
+			var result = Context.Countries
+				.Include(c => c.Localizations)
+				.First(c => c.Id == id);
 
-            return result;
-        }
+			return result;
+		}
 
-        public List<Country> GetList()
-        {
-            var result = Context.Countries
-                        .Include(c => c.Localizations)
-                        .ToList();
+		public List<Country> GetList()
+		{
+			var result = Context.Countries
+				.Include(c => c.Localizations)
+				.ToList();
 
-            return result;
-        }
+			return result;
+		}
 
-        public Boolean AddOrUpdate(Country country)
-        {
-            var isExistRecord = Context.Countries.Any(c => c.Id == country.Id);
+		public Boolean AddOrUpdate(Country country)
+		{
+			var isExistRecord = Context.Countries.Any(c => c.Id == country.Id);
 
-            if (isExistRecord)
-            {
-                Context.Countries.Update(country);
-            }
-            else
-            {
-                Context.Countries.Add(country);
-            }
-            
-            Context.SaveChanges();
+			if (isExistRecord)
+			{
+				Context.Countries.Update(country);
+			}
+			else
+			{
+				Context.Countries.Add(country);
+			}
 
-            return true;
-        }
+			Context.SaveChanges();
 
-        public Boolean Remove(Guid id)
-        {
-            var country = Context.Countries.Find(id);
+			return true;
+		}
 
-            country.IsActive = false;
-            Context.SaveChanges();
+		public Boolean Remove(Guid id)
+		{
+			var country = Context.Countries.Find(id);
 
-            return true;
-        }
-    }
+			country.IsActive = false;
+			Context.SaveChanges();
+
+			return true;
+		}
+	}
 }

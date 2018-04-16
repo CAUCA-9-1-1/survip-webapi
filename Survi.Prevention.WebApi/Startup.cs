@@ -44,6 +44,7 @@ namespace Survi.Prevention.WebApi
 			services.AddTransient<AuthentificationService>();
             services.AddTransient<CountryService>();
 			services.AddTransient<RiskLevelService>();
+			services.AddTransient<InspectionService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

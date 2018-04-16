@@ -19,6 +19,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasOne(m => m.CreatedBy).WithMany().HasForeignKey(m => m.IdWebuserCreatedBy);
 			b.HasOne(m => m.AssignedTo).WithMany().HasForeignKey(m => m.IdWebUserAssignedTo);
 			b.HasMany(m => m.Answers).WithOne(m => m.Inspection).HasForeignKey(m => m.IdInspection);
+			b.HasOne(m => m.Building).WithMany().HasForeignKey(m => m.IdBuilding);
 		}
 	}
 }
