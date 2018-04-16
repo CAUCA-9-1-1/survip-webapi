@@ -43,6 +43,7 @@ namespace Survi.Prevention.WebApi
 			services.AddDbContext<ManagementContext>(options => options.UseNpgsql(connectionString));
 			services.AddTransient<AuthentificationService>();
             services.AddTransient<CountryService>();
+			services.AddTransient<RiskLevelService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-    public class CountryService : BaseService
+	public class CountryService : BaseService
     {
         public CountryService(ManagementContext context) : base(context)
         {
