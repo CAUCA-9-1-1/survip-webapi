@@ -22,7 +22,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpGet]
 		[Route("{id:Guid}")]
 		[ProducesResponseType(401)]
-		[ProducesResponseType(typeof(Country), 200)]
+		[ProducesResponseType(200)]
 		public ActionResult Get(Guid id)
 		{
 			var entity = Service.Get(id);
@@ -31,7 +31,7 @@ namespace Survi.Prevention.WebApi.Controllers
 
 		[HttpGet]
 		[ProducesResponseType(401)]
-		[ProducesResponseType(typeof(List<Country>), 200)]
+		[ProducesResponseType(200)]
 		public ActionResult Get()
 		{
 			var result = Service.GetList();
