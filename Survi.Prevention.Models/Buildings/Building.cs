@@ -41,7 +41,7 @@ namespace Survi.Prevention.Models.Buildings
 		public Guid IdLane { get; set; }
 		public Guid IdUtilisationCode { get; set; }
 		public Guid IdRiskLevel { get; set; }
-		public Guid IdParentBuilding { get; set; }
+		public Guid? IdParentBuilding { get; set; }
 		
 		public RiskLevel RiskLevel { get; set; }
 		public UtilisationCode UtilisationCode { get; set; }
