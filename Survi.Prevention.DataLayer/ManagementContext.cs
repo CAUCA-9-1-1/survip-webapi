@@ -21,6 +21,7 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<Country> Countries { get; set; }
 		public DbSet<RiskLevel> RiskLevels { get; set; }
         public DbSet<State> States { get; set; }
+        public DbSet<Region> Regions { get; set; }
 
         public DbSet<Lane> Lanes { get; set; }
 		public DbSet<LaneGenericCode> LaneGenericCodes { get; set; }

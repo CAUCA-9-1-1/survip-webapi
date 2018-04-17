@@ -44,6 +44,7 @@ namespace Survi.Prevention.WebApi
 			services.AddTransient<AuthentificationService>();
             services.AddTransient<CountryService>();
             services.AddTransient<StateService>();
+            services.AddTransient<RegionService>();
 			services.AddTransient<RiskLevelService>();
 			services.AddTransient<InspectionService>();
 		}
