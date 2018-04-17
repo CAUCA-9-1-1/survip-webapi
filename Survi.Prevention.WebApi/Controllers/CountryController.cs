@@ -17,22 +17,20 @@ namespace Survi.Prevention.WebApi.Controllers
 			this.service = service;
 		}
 
-		[HttpGet]
-		[Route("{id:Guid}")]
-		[ProducesResponseType(401)]
-		[ProducesResponseType(typeof(Country), 200)]
-		public ActionResult Get(Guid id)
-		{
-			var country = service.Get(id);
-			return Ok(country);
-		}
+        [HttpGet]
+        [Route("{id:Guid}")]
+        [ProducesResponseType(typeof(Country), 200)]
+        public ActionResult Get(Guid id)
+        {
+            var country = service.Get(id);
+            return Ok(country);
+        }
 
-		[HttpGet]
-		[ProducesResponseType(401)]
-		[ProducesResponseType(typeof(List<Country>), 200)]
-		public ActionResult Get()
-		{
-			var result = service.GetList();
+        [HttpGet]
+        [ProducesResponseType(typeof(List<Country>), 200)]
+        public ActionResult Get()
+        {
+            var result = service.GetList();
 
 			if (result.Count > 0)
 			{
@@ -42,29 +40,27 @@ namespace Survi.Prevention.WebApi.Controllers
 			return BadRequest();
 		}
 
-		[HttpPost]
-		[ProducesResponseType(401)]
-		[ProducesResponseType(200)]
-		public ActionResult Post([FromBody] Country country)
-		{
-			if (service.AddOrUpdate(country))
-			{
-				return Ok();
-			}
+        [HttpPost]
+        [ProducesResponseType(200)]
+        public ActionResult Post([FromBody] Country country)
+        {
+            if (service.AddOrUpdate(country))
+            {
+                return Ok();
+            }
 
 			return BadRequest();
 		}
 
-		[HttpDelete]
-		[Route("{id:Guid}")]
-		[ProducesResponseType(401)]
-		[ProducesResponseType(200)]
-		public ActionResult Delete(Guid id)
-		{
-			if (service.Remove(id))
-			{
-				return Ok();
-			}
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        [ProducesResponseType(200)]
+        public ActionResult Delete(Guid id)
+        {
+            if (service.Remove(id))
+            {
+                return Ok();
+            }
 
 			return BadRequest();
 		}

@@ -43,6 +43,7 @@ namespace Survi.Prevention.WebApi
 			services.AddDbContext<ManagementContext>(options => options.UseNpgsql(connectionString));
 			services.AddTransient<AuthentificationService>();
             services.AddTransient<CountryService>();
+            services.AddTransient<StateService>();
 			services.AddTransient<RiskLevelService>();
 			services.AddTransient<InspectionService>();
 		}
