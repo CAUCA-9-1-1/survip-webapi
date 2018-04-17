@@ -36,10 +36,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			var result = Service.GetList();
 
-			if (result.Count > 0)
-				return Ok(result);
-
-			return BadRequest();  // est-ce vraiment un BadRequest s'il n'y a rien à retourner?
+			return Ok(result);
 		}
 
 		[HttpPost]

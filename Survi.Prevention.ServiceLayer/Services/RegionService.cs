@@ -16,8 +16,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public override Region Get(Guid id)
 		{
 			var result = Context.Regions
-                .Include(c => c.Localizations)
-				.First(c => c.Id == id);
+                .Include(r => r.Localizations)
+				.First(r => r.Id == id);
 
 			return result;
 		}
@@ -25,7 +25,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public override List<Region> GetList()
 		{
 			var result = Context.Regions
-                .Include(c => c.Localizations)
+                .Include(r => r.Localizations)
 				.ToList();
 
 			return result;
