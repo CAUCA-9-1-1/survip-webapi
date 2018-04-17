@@ -1,5 +1,4 @@
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer.InitialData;
 
 namespace Survi.Prevention.DataLayer
@@ -37,6 +36,8 @@ namespace Survi.Prevention.DataLayer
 				context.AddRange(InitialUserGenerator.GetInitialData().ToList());
 			if (!context.PermissionSystems.Any())				
 				context.AddRange(InitialPermissionGenerator.GetInitialData((context.Webusers.FirstOrDefault()??context.Webusers.Local.First()).Id));
+			if (!context.RiskLevels.Any())
+				context.AddRange(InitialRiskLevelGenerator.GetInitialData());
 			context.SaveChanges();
 		}
 	}

@@ -1,6 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Survi.Prevention.DataLayer.Mapping.Base;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.Models.InspectionManagement;
@@ -21,6 +19,7 @@ namespace Survi.Prevention.DataLayer
 
 		public DbSet<Building> Buildings { get; set; }		
 		public DbSet<Country> Countries { get; set; }
+		public DbSet<RiskLevel> RiskLevels { get; set; }
 
 		public DbSet<Lane> Lanes { get; set; }
 		public DbSet<LaneGenericCode> LaneGenericCodes { get; set; }
@@ -32,28 +31,8 @@ namespace Survi.Prevention.DataLayer
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			UseSnakeCaseMapping(modelBuilder);
-			modelBuilder.AddEntityConfigurationsFromAssembly(GetType().Assembly);
-		}
-
-		private static void UseSnakeCaseMapping(ModelBuilder modelBuilder)
-		{
-			foreach (var entity in modelBuilder.Model.GetEntityTypes())
-			{
-				entity.Relational().TableName = entity.DisplayName().ToSnakeCase();
-
-				foreach (var property in entity.GetProperties())
-					property.Relational().ColumnName = property.Name.ToSnakeCase();
-
-				foreach (var key in entity.GetKeys())
-					key.Relational().Name = key.Relational().Name.ToSnakeCase();
-
-				foreach (var key in entity.GetForeignKeys())
-					key.Relational().Name = key.Relational().Name.ToSnakeCase();
-
-				foreach (var index in entity.GetIndexes())
-					index.Relational().Name = index.Relational().Name.ToSnakeCase();
-			}
+			modelBuilder.UseAutoSnakeCaseMapping();
+			this.UseAutoDetectedMappings(modelBuilder);
 		}
 	}
 }
