@@ -12,7 +12,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public List<InspectionForList> GetUserInspections(string languageCode, Guid userId)
+		public List<BatchForList> GetGroupedUserInspections(string languageCode, Guid userId)
 		{
 			var query =
 				from batch in Context.Batches
@@ -54,13 +54,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 					IdBuilding = result.IdBuilding,
 					IdRiskLevel = result.IdRiskLevel,
 					Matricule = result.Matricule,
-					Address = new AddressGenerator().GenerateAddress(result.CivicNumber, result.CivicLetter, result.Name, result.GenericDescription, result.publicDescription, result.AddWhiteSpaceAfter)
+					Address = new AddressGenerator()
+						.GenerateAddress(result.CivicNumber, result.CivicLetter, result.Name, result.GenericDescription, result.publicDescription, result.AddWhiteSpaceAfter)
 				});
 
-			var fake1 = new InspectionForList { Id = Guid.NewGuid(), IdBatch = Guid.NewGuid(), BatchDescription = "Batch A", IdBuilding = Guid.NewGuid(), IdInterventionForm = Guid.NewGuid(), IdRiskLevel = Guid.Parse("74b65770-4a12-494b-ab73-042c1fd381a3"), Matricule = "12340981", Address = "525, Rue des Finfins"};
-			var fake2 = new InspectionForList { Id = Guid.NewGuid(), IdBatch = Guid.NewGuid(), BatchDescription = "Batch A", IdBuilding = Guid.NewGuid(), IdInterventionForm = Guid.NewGuid(), IdRiskLevel = Guid.Parse("74b65770-4a12-494b-ab73-042c1fd381a3"), Matricule = "12340981", Address = "535, Rue des Finfins"};
+			var fake1 = new InspectionForList { Id = Guid.NewGuid(), IdBatch = Guid.Parse("ad58af45-89e5-4cc4-8c71-294e9b9a9c63"), BatchDescription = "Batch A", IdBuilding = Guid.NewGuid(), IdInterventionForm = Guid.NewGuid(), IdRiskLevel = Guid.Parse("74b65770-4a12-494b-ab73-042c1fd381a3"), Matricule = "12340981", Address = "525, Rue des Finfins"};
+			var fake2 = new InspectionForList { Id = Guid.NewGuid(), IdBatch = Guid.Parse("ad58af45-89e5-4cc4-8c71-294e9b9a9c63"), BatchDescription = "Batch A", IdBuilding = Guid.NewGuid(), IdInterventionForm = Guid.NewGuid(), IdRiskLevel = Guid.Parse("74b65770-4a12-494b-ab73-042c1fd381a3"), Matricule = "12340981", Address = "535, Rue des Finfins"};
 			var fake3 = new InspectionForList { Id = Guid.NewGuid(), IdBatch = Guid.NewGuid(), BatchDescription = "Batch B", IdBuilding = Guid.NewGuid(), IdInterventionForm = Guid.NewGuid(), IdRiskLevel = Guid.Parse("b1d41784-5e49-4ffb-ab5e-e0665ad0b330"), Matricule = "12340981", Address = "164, Rue des Pinpons" };
-			return results.Union(new List<InspectionForList> { fake1, fake2, fake3 }).ToList();
+			return results.Union(new List<InspectionForList> {fake1, fake2, fake3})
+				.GroupBy(data => new {data.IdBatch, data.BatchDescription})
+				.Select(group => new BatchForList { Id = group.Key.IdBatch, Description = group.Key.BatchDescription, Inspections = group.ToList() })
+				.ToList();
 		}
 	}
 }

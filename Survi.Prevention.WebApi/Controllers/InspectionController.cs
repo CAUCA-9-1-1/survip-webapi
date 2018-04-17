@@ -17,10 +17,10 @@ namespace Survi.Prevention.WebApi.Controllers
 
 		[HttpGet]
 		[ProducesResponseType(401)]
-		[ProducesResponseType(typeof(List<InspectionForList>), 200)]
+		[ProducesResponseType(typeof(List<BatchForList>), 200)]
 		public ActionResult GetUserInspections([FromHeader]string languageCode)
 		{
-			return Ok(service.GetUserInspections(languageCode, CurrentUserId));
+			return Ok(service.GetGroupedUserInspections(languageCode, CurrentUserId));
 		}
 	}
 }
