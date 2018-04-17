@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Survi.Prevention.Models;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.Models.InspectionManagement;
@@ -16,6 +17,8 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<PermissionSystem> PermissionSystems { get; set; }
 
 		public DbSet<Batch> Batches { get; set; }
+		public DbSet<InterventionForm> InterventionForms { get; set; }
+		public DbSet<InterventionFormCourse> InterventionFormCourses { get; set; }
 
 		public DbSet<Building> Buildings { get; set; }		
 		public DbSet<Country> Countries { get; set; }
@@ -26,6 +29,8 @@ namespace Survi.Prevention.DataLayer
         public DbSet<Lane> Lanes { get; set; }
 		public DbSet<LaneGenericCode> LaneGenericCodes { get; set; }
 		public DbSet<LanePublicCode> LanePublicCodes { get; set; }
+
+		public DbSet<Picture> Pictures { get; set; }
 
 		public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
 		{
