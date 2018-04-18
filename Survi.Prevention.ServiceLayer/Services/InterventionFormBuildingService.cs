@@ -38,7 +38,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					IdBuilding = building.IdBuilding,
 					IdInterventionForm = building.IdInterventionForm,
 					Name = building.Name,
-					Picture = Base64UrlEncoder.Decode(Convert.ToBase64String(building.Data))
+					Picture = building.Data == null ? null : Base64UrlEncoder.Decode(Convert.ToBase64String(building.Data))
 				}).ToList();
 		}
 	}
