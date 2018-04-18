@@ -53,6 +53,7 @@ namespace Survi.Prevention.WebApi
 			services.AddTransient<InterventionFormService>();
 			services.AddTransient<InterventionFormBuildingService>();
 			services.AddTransient<InterventionFormCourseService>();
+			services.AddTransient<InterventionFormFireHydrantService>();
 			services.AddTransient<PictureService>();
 			services.AddTransient<LaneService>();			
 		}

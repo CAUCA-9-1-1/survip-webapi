@@ -17,6 +17,6 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 		public Guid MainBuildingIdLane { get; set; }
 		public string MainBuildingName { get; set; }
 		public Guid MainBuildingIdRiskLevel { get; set; }
-		public Guid MainBuildingIdUtilisationCode { get; set; }
+		public Guid? MainBuildingIdUtilisationCode { get; set; }
     }
 }
