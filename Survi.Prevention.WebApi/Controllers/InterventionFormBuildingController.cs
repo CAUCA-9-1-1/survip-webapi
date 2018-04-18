@@ -14,7 +14,7 @@ namespace Survi.Prevention.WebApi.Controllers
 			this.service = service;
 		}
 
-		[HttpGet, Route("{idInteventionForm:Guid}")]
+		[HttpGet, Route("{idInterventionForm:Guid}")]
 		public ActionResult GetList(Guid idInterventionForm, [FromHeader]string languageCode)
 		{
 			return Ok(service.GetFormBuildings(idInterventionForm, languageCode));
