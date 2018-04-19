@@ -59,6 +59,7 @@ namespace Survi.Prevention.WebApi
 			services.AddTransient<LaneService>();
             services.AddTransient<LaneGenericCodeService>();
             services.AddTransient<LanePublicCodeService>();
+            services.AddTransient<FireSafetyDepartmentService>();
 			services.AddTransient<UtilisationCodeService>();
 		}
 

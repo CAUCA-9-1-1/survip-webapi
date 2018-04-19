@@ -4,9 +4,9 @@ using Survi.Prevention.Models.FireSafetyDepartments;
 
 namespace Survi.Prevention.DataLayer.Mapping
 {
-	public class FireSafetyDepartmentCityServingMapping : EntityMappingConfiguration<FireSafetyDeparmentCityServing>
+	public class FireSafetyDepartmentCityServingMapping : EntityMappingConfiguration<FireSafetyDepartmentCityServing>
 	{
-		public override void Map(EntityTypeBuilder<FireSafetyDeparmentCityServing> b)
+		public override void Map(EntityTypeBuilder<FireSafetyDepartmentCityServing> b)
 		{
 			b.HasKey(m => m.Id);
 		}

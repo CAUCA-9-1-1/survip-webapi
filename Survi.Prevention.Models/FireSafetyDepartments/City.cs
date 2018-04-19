@@ -16,7 +16,7 @@ namespace Survi.Prevention.Models.FireSafetyDepartments
 		public CityType CityType { get; set; }
 		public County County { get; set; }
 
-		public ICollection<FireSafetyDeparmentCityServing> ServedByFireSafetyDepartments { get; set; }
+		public ICollection<FireSafetyDepartmentCityServing> ServedByFireSafetyDepartments { get; set; }
 		public ICollection<Lane> Lanes { get; set; }
 		public ICollection<CityLocalization> Localizations { get; set; }
 	}
