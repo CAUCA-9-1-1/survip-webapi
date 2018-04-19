@@ -42,6 +42,7 @@ namespace Survi.Prevention.WebApi
 			var connectionString = Configuration.GetConnectionString("SurviPreventionDatabase");
 			services.AddDbContext<ManagementContext>(options => options.UseNpgsql(connectionString));
 			services.AddTransient<AuthentificationService>();
+            services.AddTransient<WebuserService>();
             services.AddTransient<CountryService>();
             services.AddTransient<StateService>();
             services.AddTransient<RegionService>();
