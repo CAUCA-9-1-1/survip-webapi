@@ -5,6 +5,7 @@ using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
+    [Route("api/Lane")]
     public class LaneController : BaseCrudController<LaneService, Lane>
     {
 	    public LaneController(LaneService service) : base(service)
