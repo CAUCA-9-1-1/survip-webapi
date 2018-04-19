@@ -3,7 +3,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.FireSafetyDepartments
 {
-	public class FireSafetyDeparmentCityServing : BaseModel
+	public class FireSafetyDepartmentCityServing : BaseModel
 	{
 		public Guid IdFireSafetyDepartment { get; set; }
 		public Guid IdCity { get; set; }

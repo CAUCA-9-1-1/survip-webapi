@@ -34,6 +34,7 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<LanePublicCode> LanePublicCodes { get; set; }
 
 		public DbSet<Picture> Pictures { get; set; }
+        public DbSet<FireSafetyDepartment> FireSafetyDepartments { get; set; }
 
 		public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
 		{
