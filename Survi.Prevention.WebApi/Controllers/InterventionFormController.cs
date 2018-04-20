@@ -24,11 +24,19 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 
 		[HttpPost, Route("ForWeb/{id:Guid}/idLaneIntersection/{idLane:Guid?}")]	
-		public ActionResult Save(Guid id, Guid? idLane)
+		public ActionResult SaveIntersection(Guid id, Guid? idLane)
 		{			
 			if (service.TryToChangeIntersection(id, idLane))
-				return BadRequest("Unknown form.");
-			return Ok();
+				return Ok();
+			return BadRequest("Unknown form.");			
+		}
+
+		[HttpPost, Route("ForWeb/{id:Guid}/idPicture/{idPicture:Guid?}")]
+		public ActionResult SavePicture(Guid id, Guid? idPicture)
+		{
+			if (service.TryToChangeIdPicture(id, idPicture))
+				return Ok();
+			return BadRequest("Unknown form.");			
 		}
 	}
 }

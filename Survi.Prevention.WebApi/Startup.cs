@@ -58,6 +58,7 @@ namespace Survi.Prevention.WebApi
 			services.AddTransient<LaneService>();
             services.AddTransient<LaneGenericCodeService>();
             services.AddTransient<LanePublicCodeService>();
+			services.AddTransient<UtilisationCodeService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
