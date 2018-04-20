@@ -35,6 +35,7 @@ namespace Survi.Prevention.DataLayer
 
 		public DbSet<Picture> Pictures { get; set; }
         public DbSet<FireSafetyDepartment> FireSafetyDepartments { get; set; }
+        public DbSet<Firestation> Firestations { get; set; }
 
 		public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
 		{
