@@ -22,9 +22,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 				from inspection in batch.Inspections
 				where inspection.IsActive
 					  && !inspection.IsCompleted
-				      && (inspection.IdWebUserAssignedTo == null || inspection.IdWebUserAssignedTo == userId)
-				      && inspection.Building.IsActive
-				let building = inspection.Building
+				      && (inspection.IdWebuserAssignedTo == null || inspection.IdWebuserAssignedTo == userId)
+				      && inspection.MainBuilding.IsActive
+				let building = inspection.MainBuilding
 				from laneLocalization in building.Lane.Localizations
 				where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
 				select new 

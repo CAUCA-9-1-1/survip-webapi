@@ -2,10 +2,10 @@
 
 namespace Survi.Prevention.Models.DataTransfertObjects
 {
-	public class InterventionFormFireHydrantForList
+	public class InspectionBuildingFireHydrantForList
 	{
 		public Guid Id { get; set; }
-		public Guid IdInterventionForm { get; set; }
+		public Guid IdInspection { get; set; }
 		public string Number { get; set; }
 		public string Address { get; set; }
 	}

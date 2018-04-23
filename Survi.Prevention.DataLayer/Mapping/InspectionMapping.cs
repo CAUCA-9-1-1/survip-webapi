@@ -14,12 +14,12 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.Property(m => m.IsActive).IsRequired();
 
 			b.HasOne(m => m.Survey).WithMany().HasForeignKey(m => m.IdSurvey);
-			b.HasOne(m => m.Form).WithMany().HasForeignKey(m => m.IdInterventionForm);
-			b.HasOne(m => m.InspectedBy).WithMany().HasForeignKey(m => m.IdWebuserInspectedBy);
 			b.HasOne(m => m.CreatedBy).WithMany().HasForeignKey(m => m.IdWebuserCreatedBy);
-			b.HasOne(m => m.AssignedTo).WithMany().HasForeignKey(m => m.IdWebUserAssignedTo);
-			b.HasMany(m => m.Answers).WithOne(m => m.Inspection).HasForeignKey(m => m.IdInspection);
-			b.HasOne(m => m.Building).WithMany().HasForeignKey(m => m.IdBuilding);
+			b.HasOne(m => m.AssignedTo).WithMany().HasForeignKey(m => m.IdWebuserAssignedTo);			
+			b.HasOne(m => m.MainBuilding).WithMany().HasForeignKey(m => m.IdBuilding);
+
+			b.HasMany(m => m.Visits).WithOne(m => m.Inspection).HasForeignKey(m => m.IdInspection);
+			b.HasMany(m => m.SurveyAnswers).WithOne(m => m.Inspection).HasForeignKey(m => m.IdInspection);
 		}
 	}
 }

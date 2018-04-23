@@ -29,12 +29,19 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasOne(m => m.RiskLevel).WithMany().HasForeignKey(m => m.IdRiskLevel);
 			b.HasOne(m => m.UtilisationCode).WithMany().HasForeignKey(m => m.IdUtilisationCode);
 			b.HasOne(m => m.Lane).WithMany().HasForeignKey(m => m.IdLane);
-			b.HasOne(m => m.Parent).WithMany().HasForeignKey(m => m.IdParentBuilding);
+			b.HasOne(m => m.Transversal).WithMany().HasForeignKey(m => m.IdLane);
+			b.HasOne(m => m.Picture).WithMany().HasForeignKey(m => m.IdPicture);
+			b.HasOne(m => m.Detail).WithOne(m => m.Building).HasForeignKey<BuildingDetail>(m => m.IdBuilding);
 
 			b.HasMany(m => m.Contacts).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
 			b.HasMany(m => m.HazardousMaterials).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
 			b.HasMany(m => m.PersonsRequiringAssistance).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
 			b.HasMany(m => m.Localizations).WithOne(m => m.Parent).HasForeignKey(m => m.IdParent);
+			b.HasMany(m => m.AlarmPanels).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
+			b.HasMany(m => m.FireHydrants).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
+			b.HasMany(m => m.Sprinklers).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
+			b.HasMany(m => m.Courses).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
+			b.HasMany(m => m.Children).WithOne(m => m.Parent).HasForeignKey(m => m.IdParentBuilding);
 		}
 	}
 }

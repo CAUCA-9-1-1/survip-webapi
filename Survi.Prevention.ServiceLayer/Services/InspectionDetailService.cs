@@ -1,46 +1,42 @@
 using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
-using Survi.Prevention.Models.InspectionManagement;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class InterventionFormService : BaseService
+	public class InspectionDetailService : BaseService
 	{
-		public InterventionFormService(ManagementContext context) : base(context)
+		public InspectionDetailService(ManagementContext context) : base(context)
 		{
 		}
 
-		public InterventionDetailForWeb GetFormForWeb(Guid id, string languageCode)
+		public InspectionBuildingDetailForWeb GetDetailForWeb(Guid inspectionId, string languageCode)
 		{
 			var query =
-				from form in Context.InterventionForms
-				where form.IsActive && form.Id == id
-				from formBuilding in form.Buildings
-				where formBuilding.IsActive && formBuilding.IsParent
-				let building = formBuilding.Building
+				from inspection in Context.Inspections.AsNoTracking()
+				where inspection.Id == inspectionId
+				let building = inspection.MainBuilding
 				let lane = building.Lane
 				from loc in building.Localizations
 				where loc.IsActive && loc.LanguageCode == languageCode
 				from laneLoc in lane.Localizations
 				where laneLoc.IsActive && laneLoc.LanguageCode == languageCode
-				select new 
+				select new
 				{
-					form.Id,
-					form.CreatedOn,
-					form.IsActive,
-					form.IdLaneTransversal,
-					form.IdPictureSitePlan,
-					PlanName = form.Name,
-					PlanNumber = form.Number,
+					building.Id,
+					IdDetail = building.Detail.Id,
+					building.IdLaneTransversal,
+					building.Detail.IdPicturePlan,
 					MainBuildingName = loc.Name,
 					MainBuildingIdLane = building.IdLane,
 					MainBuildingIdRiskLevel = building.IdRiskLevel,
 					MainBuildingIdUtilisationCode = building.IdUtilisationCode,
 					building.Matricule,
 					lane.IdCity,
-					OtherInformation = formBuilding.AdditionalInformation,
+					OtherInformation = building.Detail.AdditionalInformation,
 					lane.LaneGenericCode.AddWhiteSpaceAfter,
 					GenericDescription = lane.LaneGenericCode.Description,
 					PublicDescription = lane.PublicCode.Description,
@@ -53,15 +49,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 			if (result == null)
 				return null;
 
-			return new InterventionDetailForWeb
+			return new InspectionBuildingDetailForWeb
 			{
 				Id = result.Id,
-				CreatedOn = result.CreatedOn,
-				IsActive = result.IsActive,
+				IdInspection = inspectionId,
+				IdDetail = result.IdDetail,
 				IdLaneTransversal = result.IdLaneTransversal,
-				IdPictureSitePlan = result.IdPictureSitePlan,
-				PlanName = result.PlanName,
-				PlanNumber = result.PlanNumber,
+				IdPictureSitePlan = result.IdPicturePlan,
 				IdCity = result.IdCity,
 				MainBuildingAddress = new AddressGenerator()
 					.GenerateAddress(result.CivicNumber, result.CivicLetter, result.LaneName, result.GenericDescription, result.PublicDescription, result.AddWhiteSpaceAfter),
@@ -75,9 +69,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 		}
 
 		// todo: try to get these two functions to be more generic so there can be only one.
-		public bool TryToChangeIntersection(Guid id, Guid? idLaneTransversal)
+		public bool TryToChangeIntersection(Guid buildingId, Guid? idLaneTransversal)
 		{
-			var form = Context.Find<InterventionForm>(id);
+			var form = Context.Find<Building>(buildingId);
 			if (form != null)
 			{
 				form.IdLaneTransversal = idLaneTransversal;
@@ -87,12 +81,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return false;
 		}
 
-		public bool TryToChangeIdPicture(Guid id, Guid? idPicture)
+		public bool TryToChangeIdPicture(Guid detailId, Guid? idPicture)
 		{
-			var form = Context.Find<InterventionForm>(id);
+			var form = Context.Find<BuildingDetail>(detailId);
 			if (form != null)
 			{
-				form.IdPictureSitePlan = idPicture;
+				form.IdPicturePlan = idPicture;
 				Context.SaveChanges();
 				return true;
 			}

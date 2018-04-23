@@ -17,10 +17,7 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<PermissionSystem> PermissionSystems { get; set; }
 
 		public DbSet<Batch> Batches { get; set; }
-		public DbSet<InterventionForm> InterventionForms { get; set; }
-		public DbSet<InterventionFormCourse> InterventionFormCourses { get; set; }
-		public DbSet<InterventionFormBuilding> InterventionFormBuildings { get; set; }
-		public DbSet<InterventionFormFireHydrant> InterventionFormFireHydrants { get; set; }
+		public DbSet<Inspection> Inspections { get; set; }
 
 		public DbSet<Building> Buildings { get; set; }		
 		public DbSet<Country> Countries { get; set; }
