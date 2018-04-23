@@ -1,4 +1,4 @@
-namespace Survi.Prevention.Models.InspectionManagement
+namespace Survi.Prevention.Models.Buildings
 {
 	public enum CourseLaneDirection
 	{

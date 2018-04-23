@@ -39,18 +39,30 @@ namespace Survi.Prevention.Models.Buildings
 		public BuildingChildType ChildType { get; set; }
 
 		public Guid IdLane { get; set; }
+		public Guid? IdLaneTransversal { get; set; }
 		public Guid? IdUtilisationCode { get; set; }
 		public Guid IdRiskLevel { get; set; }
 		public Guid? IdParentBuilding { get; set; }
+		public Guid? IdPicture { get; set; }
+		public Guid? IdBuildingType { get; set; }
+		public Guid? IdBuildingSidingType { get; set; }
 		
 		public RiskLevel RiskLevel { get; set; }
 		public UtilisationCode UtilisationCode { get; set; }
 		public Lane Lane { get; set; }
 		public Building Parent { get; set; }
+		public Picture Picture { get; set; }
+		public BuildingDetail Detail { get; set; }
+		public BuildingType BuildingType { get; set; }
+		public BuildingSidingType SidingType { get; set; }
 
 		public ICollection<BuildingContact> Contacts { get; set; }
 		public ICollection<BuildingHazardousMaterial> HazardousMaterials { get; set; }
 		public ICollection<BuildingPersonRequiringAssistance> PersonsRequiringAssistance { get; set; }
 		public ICollection<BuildingLocalization> Localizations { get; set; }
+		public ICollection<BuildingCourse> Courses { get; set; }
+		public ICollection<BuildingFireHydrant> FireHydrants { get; set; }
+		public ICollection<BuildingAlarmPanel> AlarmPanels { get; set; }
+		public ICollection<BuildingSprinkler> Sprinklers { get; set; }
 	}
 }
