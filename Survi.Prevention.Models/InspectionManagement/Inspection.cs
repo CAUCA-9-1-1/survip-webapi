@@ -12,9 +12,8 @@ namespace Survi.Prevention.Models.InspectionManagement
 		public Guid? IdSurvey { get; set; }
 		public Guid IdInterventionForm { get; set; }
 		public Guid IdBuilding { get; set; }
-		public Guid? IdWebuserInspectedBy { get; set; }
 		public Guid IdWebuserCreatedBy { get; set; }
-		public Guid? IdWebUserAssignedTo { get; set; }
+		public Guid? IdWebuserAssignedTo { get; set; }
 		public Guid IdBatch { get; set; }
 
 		public bool IsStarted { get; set; }
@@ -24,12 +23,11 @@ namespace Survi.Prevention.Models.InspectionManagement
 
 		public Batch Batch { get; set; }
 		public Survey Survey { get; set; }
-		public InterventionForm Form { get; set; }
-		public Webuser InspectedBy { get; set;}
 		public Webuser CreatedBy { get; set; }
 		public Webuser AssignedTo { get; set; }
-		public Building Building { get; set; }
+		public Building MainBuilding { get; set; }
 
-		public ICollection<InspectionAnswer> Answers { get; set; }
+		public ICollection<InspectionVisit> Visits { get; set; }
+		public ICollection<InspectionQuestion> SurveyAnswers { get; set; }
 	}
 }

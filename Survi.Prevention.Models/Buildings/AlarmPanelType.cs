@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Survi.Prevention.Models.Base;
 
-namespace Survi.Prevention.Models.InspectionManagement
+namespace Survi.Prevention.Models.Buildings
 {
 	public class AlarmPanelType : BaseModel
 	{
