@@ -4,13 +4,12 @@ using Survi.Prevention.Models.InspectionManagement;
 
 namespace Survi.Prevention.DataLayer.Mapping
 {
-	public class InspectionAnswerMapping : EntityMappingConfiguration<InspectionAnswer>
+	public class InspectionVisitMapping : EntityMappingConfiguration<InspectionVisit>
 	{
-		public override void Map(EntityTypeBuilder<InspectionAnswer> b)
+		public override void Map(EntityTypeBuilder<InspectionVisit> b)
 		{
 			b.HasKey(m => m.Id);
-			b.HasOne(m => m.AnsweredBy).WithMany().HasForeignKey(m => m.IdWebuserAnsweredBy);
-			b.HasMany(m => m.SurveyAnswers).WithOne(m => m.InspectionAnswer).HasForeignKey(m => m.IdInspectionAnswer);
+			b.HasOne(m => m.VisitedBy).WithMany().HasForeignKey(m => m.IdWebuserVisitedBy);
 		}
 	}
 }

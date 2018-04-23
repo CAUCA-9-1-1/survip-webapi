@@ -8,22 +8,23 @@ using Survi.Prevention.Models.FireHydrants;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class InterventionFormFireHydrantService : BaseService
+	public class InspectionBuildingFireHydrantService : BaseService
 	{
-		public InterventionFormFireHydrantService(ManagementContext context) : base(context)
+		public InspectionBuildingFireHydrantService(ManagementContext context) : base(context)
 		{
 		}
 
-		public List<InterventionFormFireHydrantForList> GetFormFireHydrants(Guid interventionFormId, string languageCode)
+		public List<InspectionBuildingFireHydrantForList> GetFormFireHydrants(Guid inspectionId, string languageCode)
 		{
 			var results = (
-				from formHydrant in Context.InterventionFormFireHydrants.AsNoTracking()
-				where formHydrant.IdInterventionForm == interventionFormId && formHydrant.IsActive
+				from inspection in Context.Inspections.AsNoTracking()
+				where inspection.Id == inspectionId
+				from formHydrant in inspection.MainBuilding.FireHydrants
+				where formHydrant.IsActive
 				let hydrant = formHydrant.Hydrant
 				select new
 				{
 					formHydrant.Id,
-					formHydrant.IdInterventionForm,
 					hydrant.Number,
 					hydrant.IdLane,
 					hydrant.IdIntersection,
@@ -33,10 +34,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 				}).ToList();
 
 			return results
-				.Select(hydrant => new InterventionFormFireHydrantForList
+				.Select(hydrant => new InspectionBuildingFireHydrantForList
 				{
 					Id = hydrant.Id,
-					IdInterventionForm = hydrant.IdInterventionForm,
+					IdInspection = inspectionId,
 					Number = hydrant.Number,
 					Address = GenerateAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition, hydrant.Coordinates, languageCode)
 
