@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models;
 using Survi.Prevention.Models.DataTransfertObjects;
 
 namespace Survi.Prevention.ServiceLayer.Services
@@ -23,22 +23,47 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			var data = await query.SingleOrDefaultAsync();
 			if (data != null)
-				return new PictureForWeb { Id = pictureId, Picture = Base64UrlEncoder.Decode(Convert.ToBase64String(data)) };
+			{
+				//var pic = Base64UrlEncoder.Encode(data);
+				var pic = Convert.ToBase64String(data);
+				return new PictureForWeb { Id = pictureId, Picture = pic};
+			}				
 			return null;
 		}
 
-		public Guid UploadFile(Guid? pictureId, PictureForWeb data)
+		public Guid UploadFile(PictureForWeb data)
 		{
-			var picture = Context.Pictures.Find(pictureId);
+			Picture picture = null;
+			if (data.Id.HasValue)
+				picture = Context.Pictures.Find(data.Id);
+
 			if (picture == null)
 			{
-				picture = new Models.Picture();
+				picture = new Picture{ Name = ""};
 				Context.Add(picture);				
 			}
 
-			picture.Data = Convert.FromBase64String(Base64UrlEncoder.Encode(data.Picture));
+			var encodedPicture = DecodeBase64Picture(data.Picture); //Bae64UrlEncoder.DecodeBytes(data.Picture);
+			picture.Data = encodedPicture;
 			Context.SaveChanges();
 			return picture.Id;
+		}
+
+		static byte[] DecodeBase64Picture(string picture)
+		{
+			string s = picture;
+			s = s.Replace('-', '+'); // 62nd char of encoding
+			s = s.Replace('_', '/'); // 63rd char of encoding
+			switch (s.Length % 4) // Pad with trailing '='s
+			{
+				case 0: break; // No pad chars in this case
+				case 2: s += "=="; break; // Two pad chars
+				case 3: s += "="; break; // One pad char
+				default:
+					throw new System.Exception(
+						"Illegal base64url string!");
+			}
+			return Convert.FromBase64String(s); // Standard base64 decoder
 		}
 	}
 }

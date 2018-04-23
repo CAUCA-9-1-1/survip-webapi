@@ -49,5 +49,24 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return result;
 		}
+
+		public string GetLaneLocalizedName(Guid laneId, string languageCode)
+		{
+			var query =
+				from lane in Context.Lanes.AsNoTracking()
+				where lane.Id == laneId && lane.IsActive
+				let genericCode = lane.LaneGenericCode
+				let publicCode = lane.PublicCode
+				from localization in lane.Localizations.DefaultIfEmpty()
+				where localization.IsActive && localization.LanguageCode == languageCode
+				select new { localization.Name, genericDescription = genericCode.Description, genericCode.AddWhiteSpaceAfter, publicDescription = publicCode.Description };
+
+			var laneFound = query.SingleOrDefault();
+			
+			if (laneFound == null)
+				return null;
+			return new LocalizedLaneNameGenerator()
+				.GenerateLaneName(laneFound.Name, laneFound.genericDescription, laneFound.publicDescription, laneFound.AddWhiteSpaceAfter);
+		}
 	}
 }

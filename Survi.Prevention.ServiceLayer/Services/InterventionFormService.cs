@@ -38,6 +38,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					MainBuildingIdLane = building.IdLane,
 					MainBuildingIdRiskLevel = building.IdRiskLevel,
 					MainBuildingIdUtilisationCode = building.IdUtilisationCode,
+					building.Matricule,
 					lane.IdCity,
 					OtherInformation = formBuilding.AdditionalInformation,
 					lane.LaneGenericCode.AddWhiteSpaceAfter,
@@ -68,6 +69,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				MainBuildingName = result.MainBuildingName,
 				MainBuildingIdRiskLevel = result.MainBuildingIdRiskLevel,
 				MainBuildingIdUtilisationCode = result.MainBuildingIdUtilisationCode,
+				MainBuildingMatricule = result.Matricule,
 				OtherInformation = result.OtherInformation
 			};
 		}
