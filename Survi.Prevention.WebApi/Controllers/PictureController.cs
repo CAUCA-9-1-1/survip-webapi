@@ -25,10 +25,10 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(data);
 		}
 
-		[Route("{id:Guid}"), HttpPost]
-		public ActionResult PostPicture(Guid id, [FromBody]PictureForWeb picture)
+		[HttpPost]
+		public ActionResult PostPicture([FromBody]PictureForWeb picture)
 		{
-			return Ok(service.UploadFile(id, picture));
+			return Ok(service.UploadFile(picture));
 		}
 	}
 }
