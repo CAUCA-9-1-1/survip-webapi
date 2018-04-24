@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models;
 using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.Models.InspectionManagement;
 using Survi.Prevention.Models.SecurityManagement;
@@ -36,6 +37,20 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<Picture> Pictures { get; set; }
         public DbSet<FireSafetyDepartment> FireSafetyDepartments { get; set; }
         public DbSet<Firestation> Firestations { get; set; }
+
+		public DbSet<ConstructionType> ConstructionTypes { get; set; }
+		public DbSet<RoofType> RoofTypes { get; set; }
+		public DbSet<RoofMaterialType> RoofMaterialTypes { get; set; }
+		public DbSet<SidingType> SidingTypes { get; set; }
+		public DbSet<SprinklerType> SprinklerTypes { get; set; }
+		public DbSet<PersonRequiringAssistanceType> PersonRequiringAssistanceTypes { get; set; }
+		public DbSet<BuildingType> BuildingTypes { get; set; }
+		public DbSet<AlarmPanelType> AlarmPanelTypes { get; set; }
+		public DbSet<FireHydrantType> FireHydrantTypes { get; set; }
+		public DbSet<FireHydrantConnectionType> FireHydrantConnectionTypes { get; set; }
+		public DbSet<OperatorType> OperatorTypes { get; set; }
+		public DbSet<ConstructionFireResistanceType> ConstructionFireResistanceTypes { get; set; }
+		public DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
 
 		public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
 		{

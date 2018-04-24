@@ -28,6 +28,8 @@ namespace Survi.Prevention.DataLayer
 			context.Database.EnsureCreated();
 			//context.Database.Migrate();
 
+			context.AddInitialData();
+
 			if (!context.LaneGenericCodes.Any())
 				context.AddRange(InitialLaneGenericCodesGenerator.GetInitialData().ToList());
 			if (!context.LanePublicCodes.Any())

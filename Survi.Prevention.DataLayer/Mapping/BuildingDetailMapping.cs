@@ -16,7 +16,6 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasOne(m => m.HeightUnitOfMeasure).WithMany().HasForeignKey(m => m.IdUnitOfMeasureHeight).HasConstraintName("fk_unit_of_measure_height");
 			b.HasOne(m => m.EstimatedWaterFlowUnitOfMeasure).WithMany().HasForeignKey(m => m.IdUnitOfMeasureEstimatedWaterFlow).HasConstraintName("fk_unit_of_measure_ewf");
 			b.HasOne(m => m.ConstructionType).WithMany().HasForeignKey(m => m.IdConstructionType).HasConstraintName("fk_construction_type");
-			b.HasOne(m => m.JoistConstructionType).WithMany().HasForeignKey(m => m.IdConstructionTypeForJoist).HasConstraintName("fk_joist_construction_type");
 			b.HasOne(m => m.RoofType).WithMany().HasForeignKey(m => m.IdRoofType);
 			b.HasOne(m => m.SidingType).WithMany().HasForeignKey(m => m.IdBuildingSidingType);
 			b.HasOne(m => m.BuildingType).WithMany().HasForeignKey(m => m.IdBuildingType);
