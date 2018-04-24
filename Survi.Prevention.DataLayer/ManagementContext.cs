@@ -37,6 +37,9 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<Picture> Pictures { get; set; }
         public DbSet<FireSafetyDepartment> FireSafetyDepartments { get; set; }
         public DbSet<Firestation> Firestations { get; set; }
+        public DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
+        public DbSet<FireSafetyDepartment> FireSafetyDepartments { get; set; }
+        public DbSet<Firestation> Firestations { get; set; }
 
 		public DbSet<ConstructionType> ConstructionTypes { get; set; }
 		public DbSet<RoofType> RoofTypes { get; set; }
@@ -51,6 +54,9 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<OperatorType> OperatorTypes { get; set; }
 		public DbSet<ConstructionFireResistanceType> ConstructionFireResistanceTypes { get; set; }
 		public DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
+
+        public DbSet<FireHydrantType> FireHydrantTypes { get; set; }
+        public DbSet<OperatorType> OperatorTypes { get; set; }
 
 		public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
 		{
