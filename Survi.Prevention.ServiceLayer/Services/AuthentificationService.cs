@@ -19,7 +19,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public (AccessToken token, Webuser user) Login(string username, string password, string applicationName, string issuer, string secretKey)
 		{
 			var encodedPassword = EncodePassword(password, applicationName);
-			var userFound = Context.Webusers.FirstOrDefault(user => user.Username == username && user.Password == encodedPassword && user.IsActive);
+			var userFound = Context.Webusers.SingleOrDefault(user => user.Username == username && user.Password == encodedPassword && user.IsActive);
 			if (userFound != null)
 			{
 				var token = GenerateJwtToken(userFound, applicationName, issuer, secretKey);

@@ -8,7 +8,7 @@ namespace Survi.Prevention.Models.FireSafetyDepartments
 	{
 		public string Code { get; set; }
 		public string Code3Letters { get; set; }
-		public string EmailAddress { get; set; }
+		public string EmailAddress { get; set; } = "";
 
 		public Guid IdCityType { get; set; }
 		public Guid IdCounty { get; set; }

@@ -10,8 +10,6 @@ namespace Survi.Prevention.Models.SurveyManagement
 		public int QuestionType { get; set; }
 
 		public Guid IdSurvey { get; set; }
-		public Guid IdLanguageContentTitle { get; set; }
-		public Guid IdLanguageContentName { get; set; }
 		public Guid? IdSurveyQuestionNext { get; set; }
 
 		public Survey Survey { get; set; }
