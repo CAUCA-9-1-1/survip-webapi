@@ -12,7 +12,7 @@ namespace Survi.Prevention.Models.FireHydrants
 		public Guid IdFireHydrantConnectionType { get; set; }
 
 		public FireHydrant Hydrant { get; set; }
-		public UnitOfMeasure DiameterUnitOfMeasure { get; set; }
+		public DiameterUnitOfMeasure DiameterUnitOfMeasure { get; set; }
 		public FireHydrantConnectionType ConnectionType { get; set; }
 	}
 }

@@ -62,5 +62,6 @@ namespace Survi.Prevention.Models.Buildings
 		public ICollection<BuildingAlarmPanel> AlarmPanels { get; set; }
 		public ICollection<BuildingSprinkler> Sprinklers { get; set; }
 		public ICollection<Building> Children { get; set; }
+		public ICollection<BuildingAnomaly> Anomalies { get; set; }
 	}
 }

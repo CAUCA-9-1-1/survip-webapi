@@ -43,8 +43,8 @@ namespace Survi.Prevention.Models.FireHydrants
 		public FireHydrantType HydrantType { get; set; }
 		public OperatorType RateOperatorType { get; set; }
 		public OperatorType PressureOperatorType { get; set; }
-		public UnitOfMeasure RateUnitOfMeasure { get; set; }
-		public UnitOfMeasure PressureUnitOfMeasure { get; set; }		
+		public RateUnitOfMeasure RateUnitOfMeasure { get; set; }
+		public PressureUnitOfMeasure PressureUnitOfMeasure { get; set; }		
 
 		public ICollection<FireHydrantConnection> Connections { get; set; }
 	}

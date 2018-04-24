@@ -20,6 +20,6 @@ namespace Survi.Prevention.Models.Buildings
 
 		public Building Building { get; set; }
 		public HazardousMaterial Material { get; set; }
-		public UnitOfMeasure Unit { get; set; }
+		public CapacityUnitOfMeasure Unit { get; set; }
 	}
 }

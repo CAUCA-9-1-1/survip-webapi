@@ -9,6 +9,7 @@ namespace Survi.Prevention.Models.Buildings
 		public string Wall { get; set; }
 		public string Sector { get; set; }
 		public string PipeLocation { get; set; }
+		public string CollectorLocation { get; set; }
 
 		public Guid IdBuilding { get; set; }
 		public Guid IdSprinklerType { get; set; }
