@@ -35,9 +35,13 @@ namespace Survi.Prevention.DataLayer
 			if (!context.Webusers.Any())
 				context.AddRange(InitialUserGenerator.GetInitialData().ToList());
 			if (!context.PermissionSystems.Any())				
-				context.AddRange(InitialPermissionGenerator.GetInitialData((context.Webusers.FirstOrDefault()??context.Webusers.Local.First()).Id));
+				context.AddRange(InitialPermissionGenerator.GetInitialData((context.Webusers.SingleOrDefault()??context.Webusers.Local.First()).Id));
 			if (!context.RiskLevels.Any())
 				context.AddRange(InitialRiskLevelGenerator.GetInitialData());
+
+			context.Countries.AddRange(InitialDataForCauca.GetInitialGeographicData());
+			context.CityTypes.AddRange(InitialDataForCauca.GetInitialCityTypes());
+
 			context.SaveChanges();
 		}
 	}

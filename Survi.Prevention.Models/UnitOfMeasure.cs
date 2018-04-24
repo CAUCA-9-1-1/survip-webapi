@@ -1,13 +1,20 @@
-using System;
+using System.Collections.Generic;
 using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models
 {
-  public class UnitOfMeasure : BaseModel
-  {
-    public string Abbreviation { get; set; }
-    public string MeasureType { get; set; }
+	public enum MeasureType
+	{
+		Weight,
+		Length,
+		Liquid
+	}
 
-    public Guid IdLanguageContentName { get; set; }
-  }
+	public class UnitOfMeasure : BaseModel
+	{
+		public string Abbreviation { get; set; }
+		public MeasureType MeasureType { get; set; }
+
+		public List<UnitOfMeasureLocalization> Localizations { get; set; }
+	}
 }
