@@ -2,29 +2,29 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
-using Survi.Prevention.Models;
+using Survi.Prevention.Models.FireHydrants;
 using Microsoft.EntityFrameworkCore;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-    public class UnitOfMeasureService : BaseCrudService<UnitOfMeasure>
+    public class FireHydrantConnectionTypeService : BaseCrudService<FireHydrantConnectionType>
     {
-        public UnitOfMeasureService(ManagementContext context) : base(context)
+        public FireHydrantConnectionTypeService(ManagementContext context) : base(context)
         {
         }
 
-        public override UnitOfMeasure Get(Guid id)
+        public override FireHydrantConnectionType Get(Guid id)
         {
-            var result = Context.UnitOfMeasures
+            var result = Context.FireHydrantConnectionTypes
                         .Include(s => s.Localizations)
                         .First(s => s.Id == id);
 
             return result;
         }
 
-        public override List<UnitOfMeasure> GetList()
+        public override List<FireHydrantConnectionType> GetList()
         {
-            var result = Context.UnitOfMeasures
+            var result = Context.FireHydrantConnectionTypes
                         .Include(s => s.Localizations)
                         .ToList();
 

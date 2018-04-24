@@ -63,6 +63,11 @@ namespace Survi.Prevention.WebApi
             services.AddTransient<FirestationService>();
 			services.AddTransient<UtilisationCodeService>();
             services.AddTransient<BuildingService>();
+            services.AddTransient<FireHydrantService>();
+            services.AddTransient<FireHydrantTypeService>();
+            services.AddTransient<FireHydrantConnectionTypeService>();
+            services.AddTransient<OperatorTypeService>();
+            services.AddTransient<UnitOfMeasureService>();
         }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
