@@ -58,22 +58,237 @@ namespace Survi.Prevention.ServiceLayer.Services
 						.GenerateAddress(result.CivicNumber, result.CivicLetter, result.Name, result.GenericDescription, result.publicDescription, result.AddWhiteSpaceAfter)
 				});
 
-			var fake1 = new InspectionForList { Id = Guid.NewGuid(), IdBatch = Guid.Parse("ad58af45-89e5-4cc4-8c71-294e9b9a9c63"), BatchDescription = "Batch A", IdBuilding = Guid.NewGuid(), IdInterventionForm = Guid.NewGuid(), IdRiskLevel = Guid.Parse("74b65770-4a12-494b-ab73-042c1fd381a3"), Matricule = "12340981", Address = "525, Rue des Finfins"};
-			var fake2 = new InspectionForList { Id = Guid.NewGuid(), IdBatch = Guid.Parse("ad58af45-89e5-4cc4-8c71-294e9b9a9c63"), BatchDescription = "Batch A", IdBuilding = Guid.NewGuid(), IdInterventionForm = Guid.NewGuid(), IdRiskLevel = Guid.Parse("74b65770-4a12-494b-ab73-042c1fd381a3"), Matricule = "12340981", Address = "535, Rue des Finfins"};
-			var fake3 = new InspectionForList { Id = Guid.NewGuid(), IdBatch = Guid.NewGuid(), BatchDescription = "Batch B", IdBuilding = Guid.NewGuid(), IdInterventionForm = Guid.NewGuid(), IdRiskLevel = Guid.Parse("b1d41784-5e49-4ffb-ab5e-e0665ad0b330"), Matricule = "12340981", Address = "164, Rue des Pinpons" };
-			return results.Union(new List<InspectionForList> {fake1, fake2, fake3})
+			return results
 				.GroupBy(data => new {data.IdBatch, data.BatchDescription})
 				.Select(group => new BatchForList { Id = group.Key.IdBatch, Description = group.Key.BatchDescription, Inspections = group.ToList() })
 				.ToList();
 		}
 
-        public List<Building> GetBuildingWithoutInspection(string languageCode)
+        public List<InspectionForDashboard> GetToDoInspection(string languageCode)
         {
-            var results = Context.Buildings
-                .Include(b => b.Localizations)
-                .Include(b => b.Lane)
-                .Where(b => b.IsActive == true && b.IsParent == true)
-                .Where(b => !Context.Inspections.Where(i => i.IsActive == true && i.IsCompleted == false).Select(i => i.IdBuilding).Contains(b.Id))
+            var query =
+                from inspection in Context.Inspections
+                where inspection.IsActive && !inspection.IsCompleted
+                let batch = inspection.Batch
+                let building = inspection.MainBuilding
+                let lane = building.Lane
+                from laneLocalization in lane.Localizations.DefaultIfEmpty()
+                where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
+                select new
+                {
+                    Inspection = inspection,
+                    Batch = batch,
+                    Building = building,
+                    LaneName = laneLocalization.Name,
+                    IdCity = lane.IdCity,
+                    PublicDescription = lane.PublicCode.Description,
+                    GenericDescription = lane.LaneGenericCode.Description,
+                    AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter
+                };
+
+            var results = query.ToList()
+                .Select(r => new InspectionForDashboard
+                {
+                    Id = r.Inspection.Id,
+                    IdBatch = r.Inspection.IdBatch,
+                    BatchDescription = r.Batch.Description,
+                    IdWebuserAssignedTo = Guid.NewGuid(),
+                    IdBuilding = r.Building.Id,
+                    IdRiskLevel = r.Building.IdRiskLevel,
+                    Address = new AddressGenerator()
+                        .GenerateAddress(r.Building.CivicNumber, r.Building.CivicLetter, r.LaneName, r.GenericDescription, r.PublicDescription, r.AddWhiteSpaceAfter),
+                    IdCity = r.IdCity,
+                    IdLaneTransversal = r.Building.IdLaneTransversal,
+                    PostalCode = r.Building.PostalCode,
+                    VisitStatus = "",
+                    VisitNote = false,
+                    Anomaly = false,
+                    //LastInspection = null,
+                    //LastReport = null,
+                    Contact = "",
+                    Owner = "",
+                    IdUtilisationCode = r.Building.IdUtilisationCode,
+                    IdPicture = r.Building.IdPicture,
+                    BuildingValue = r.Building.BuildingValue,
+                    Matricule = r.Building.Matricule,
+                    NumberOfAppartment = r.Building.NumberOfAppartment,
+                    NumberOfBuilding = r.Building.NumberOfBuilding,
+                    NumberOfFloor = r.Building.NumberOfFloor,
+                    UtilisationDescription = r.Building.UtilisationDescription,
+                    VacantLand = r.Building.VacantLand,
+                    Details = r.Building.Details
+                });
+
+            return results.ToList();
+        }
+
+        public List<InspectionForDashboard> GetApprovedInspection(string languageCode)
+        {
+            var query =
+                from inspection in Context.Inspections
+                where inspection.IsActive && inspection.IsCompleted
+                orderby inspection.CompletedOn
+                let batch = inspection.Batch
+                let building = inspection.MainBuilding
+                let lane = building.Lane
+                from laneLocalization in lane.Localizations.DefaultIfEmpty()
+                where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
+                select new
+                {
+                    Inspection = inspection,
+                    Batch = batch,
+                    Building = building,
+                    LaneName = laneLocalization.Name,
+                    IdCity = lane.IdCity,
+                    PublicDescription = lane.PublicCode.Description,
+                    GenericDescription = lane.LaneGenericCode.Description,
+                    AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter
+                };
+
+            var results = query.ToList()
+                .Select(r => new InspectionForDashboard
+                {
+                    Id = r.Inspection.Id,
+                    IdBatch = r.Inspection.IdBatch,
+                    BatchDescription = r.Batch.Description,
+                    IdBuilding = r.Building.Id,
+                    IdRiskLevel = r.Building.IdRiskLevel,
+                    Address = new AddressGenerator()
+                        .GenerateAddress(r.Building.CivicNumber, r.Building.CivicLetter, r.LaneName, r.GenericDescription, r.PublicDescription, r.AddWhiteSpaceAfter),
+                    IdCity = r.IdCity,
+                    IdLaneTransversal = r.Building.IdLaneTransversal,
+                    PostalCode = r.Building.PostalCode,
+                    VisitStatus = "",
+                    VisitNote = false,
+                    Anomaly = false,
+                    //LastInspection = null,
+                    //LastReport = null,
+                    Contact = "",
+                    Owner = "",
+                    IdUtilisationCode = r.Building.IdUtilisationCode,
+                    IdPicture = r.Building.IdPicture,
+                    BuildingValue = r.Building.BuildingValue,
+                    Matricule = r.Building.Matricule,
+                    NumberOfAppartment = r.Building.NumberOfAppartment,
+                    NumberOfBuilding = r.Building.NumberOfBuilding,
+                    NumberOfFloor = r.Building.NumberOfFloor,
+                    UtilisationDescription = r.Building.UtilisationDescription,
+                    VacantLand = r.Building.VacantLand,
+                    Details = r.Building.Details
+                });
+
+            return results.ToList();
+        }
+
+        public List<InspectionForDashboard> GetBuildingWithHistory(string languageCode)
+        {
+            var query =
+                from building in Context.Buildings
+                where building.IsActive == true && building.IsParent == true
+                from inspection in Context.Inspections
+                where inspection.IdBuilding == building.Id && inspection.IsActive && inspection.IsCompleted
+                orderby inspection.CompletedOn
+                let batch = inspection.Batch
+                let lane = building.Lane
+                from laneLocalization in lane.Localizations
+                where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
+                select new
+                {
+                    Inspection = inspection,
+                    Batch = batch,
+                    Building = building,
+                    LaneName = laneLocalization.Name,
+                    IdCity = lane.IdCity,
+                    PublicDescription = lane.PublicCode.Description,
+                    GenericDescription = lane.LaneGenericCode.Description,
+                    AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter,
+                };
+
+            var results = query
+                .Select(r => new InspectionForDashboard
+                {
+                    Id = Guid.NewGuid(),
+                    IdBatch = Guid.NewGuid(),
+                    BatchDescription = "",
+                    IdBuilding = r.Building.Id,
+                    IdRiskLevel = r.Building.IdRiskLevel,
+                    Address = new AddressGenerator()
+                        .GenerateAddress(r.Building.CivicNumber, r.Building.CivicLetter, r.LaneName, r.GenericDescription, r.PublicDescription, r.AddWhiteSpaceAfter),
+                    IdCity = r.IdCity,
+                    IdLaneTransversal = r.Building.IdLaneTransversal,
+                    PostalCode = r.Building.PostalCode,
+                    VisitStatus = "",
+                    VisitNote = false,
+                    Anomaly = false,
+                    LastInspection = (DateTime)r.Inspection.CompletedOn,
+                    //LastReport = null,
+                    Contact = "",
+                    Owner = "",
+                    IdUtilisationCode = r.Building.IdUtilisationCode,
+                    IdPicture = r.Building.IdPicture,
+                    BuildingValue = r.Building.BuildingValue,
+                    Matricule = r.Building.Matricule,
+                    NumberOfAppartment = r.Building.NumberOfAppartment,
+                    NumberOfBuilding = r.Building.NumberOfBuilding,
+                    NumberOfFloor = r.Building.NumberOfFloor,
+                    UtilisationDescription = r.Building.UtilisationDescription,
+                    VacantLand = r.Building.VacantLand,
+                    Details = r.Building.Details
+                })
+                .ToList();
+
+            return results;
+        }
+
+        public List<InspectionForDashboard> GetBuildingWithoutInspection(string languageCode)
+        {
+            var query =
+                from building in Context.Buildings
+                where building.IsActive == true && building.IsParent == true && !Context.Inspections.Any(i => i.IsActive && !i.IsCompleted && i.IdBuilding == building.Id)
+                let lane = building.Lane
+                from laneLocalization in lane.Localizations
+                where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
+                select new
+                {
+                    Building = building,
+                    LaneName = laneLocalization.Name,
+                    IdCity = lane.IdCity,
+                    PublicDescription = lane.PublicCode.Description,
+                    GenericDescription = lane.LaneGenericCode.Description,
+                    AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter,
+                };
+
+            var results = query
+                .Select(r => new InspectionForDashboard
+                {
+                    Id = Guid.NewGuid(),
+                    IdBatch = Guid.NewGuid(),
+                    BatchDescription = "",
+                    IdBuilding = r.Building.Id,
+                    IdRiskLevel = r.Building.IdRiskLevel,
+                    Address = new AddressGenerator()
+                        .GenerateAddress(r.Building.CivicNumber, r.Building.CivicLetter, r.LaneName, r.GenericDescription, r.PublicDescription, r.AddWhiteSpaceAfter),
+                    IdCity = r.IdCity,
+                    IdLaneTransversal = r.Building.IdLaneTransversal,
+                    PostalCode = r.Building.PostalCode,
+                    VisitStatus = "",
+                    VisitNote = false,
+                    Anomaly = false,
+                    //LastInspection = null,
+                    //LastReport = null,
+                    Contact = "",
+                    Owner = "",
+                    IdUtilisationCode = r.Building.IdUtilisationCode,
+                    IdPicture = r.Building.IdPicture,
+                    BuildingValue = r.Building.BuildingValue,
+                    Matricule = r.Building.Matricule,
+                    NumberOfAppartment = r.Building.NumberOfAppartment,
+                    NumberOfBuilding = r.Building.NumberOfBuilding,
+                    NumberOfFloor = r.Building.NumberOfFloor,
+                    UtilisationDescription = r.Building.UtilisationDescription,
+                    VacantLand = r.Building.VacantLand,
+                    Details = r.Building.Details
+                })
                 .ToList();
 
             return results;

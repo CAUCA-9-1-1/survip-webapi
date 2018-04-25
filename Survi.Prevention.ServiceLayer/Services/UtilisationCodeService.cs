@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 
 namespace Survi.Prevention.ServiceLayer.Services
@@ -11,7 +14,16 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public UtilisationCodeForWeb GetForWeb(Guid utilisationCodeId, string language)
+        public List<UtilisationCode> GetList()
+        {
+            var result = Context.UtilisationCodes
+                        .Include(c => c.Localizations)
+                        .ToList();
+
+            return result;
+        }
+
+        public UtilisationCodeForWeb GetForWeb(Guid utilisationCodeId, string language)
 		{
 			var query =
 				from code in Context.UtilisationCodes
