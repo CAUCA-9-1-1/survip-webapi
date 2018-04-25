@@ -63,7 +63,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				return coordinate;
 			if (type == FireHydrantLocationType.LaneAndIntersection)
 			{
-				return new AddressGenerator().GenerateAddressFromLanes(Context, idLane, idIntersection, languageCode);
+				return new AddressGeneratorWithDB().GenerateAddressFromLanes(Context, idLane, idIntersection, languageCode);
 			}
 			return "";
 		}
