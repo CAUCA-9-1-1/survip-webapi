@@ -11,5 +11,11 @@ namespace Survi.Prevention.WebApi.Controllers
 	    public FireHydrantController(FireHydrantService service) : base(service)
 	    {
 	    }
-    }
+
+		[HttpGet, Route("city/{idCity:Guid}")]
+		public ActionResult GetListLocalized(Guid idCity, [FromHeader]string languageCode)
+		{
+			return Ok(Service.GetListForCity(idCity, languageCode));
+		}
+	}
 }
