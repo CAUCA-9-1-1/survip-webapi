@@ -25,6 +25,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasOne(m => m.PressureOperatorType).WithMany().HasForeignKey(m => m.IdOperatorTypePressure);
 			b.HasOne(m => m.RateUnitOfMeasure).WithMany().HasForeignKey(m => m.IdUnitOfMeasureRate);
 			b.HasOne(m => m.PressureUnitOfMeasure).WithMany().HasForeignKey(m => m.IdUnitOfMeasurePressure);
+			b.HasOne(m => m.City).WithMany().HasForeignKey(m => m.IdCity);
 		}
 	}
 }
