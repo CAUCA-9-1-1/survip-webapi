@@ -29,5 +29,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return result;
 		}
+
+		public List<FirestationForList> GetListLocalized(Guid idCity)
+		{
+			var result =
+				from department in Context.FireSafetyDepartments.AsNoTracking()
+				where department.FireSafetyDepartmentServing.Any(serving => serving.IdCity == idCity && serving.IsActive) && department.IsActive
+				from station in department.Firestations
+				where station.IsActive
+				select new FirestationForList { Id = station.Id, Name = station.Name};
+
+			return result.Distinct().ToList();
+		}
 	}
 }
