@@ -5,7 +5,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
     public class InspectionBuildingDetailForWeb
     {
 		public Guid Id { get; set; }
-		public Guid IdDetail { get; set; }
+		public Guid? IdDetail { get; set; }
 		public Guid IdInspection { get; set; }
 		public Guid? IdLaneTransversal { get; set; }
 		public Guid? IdPictureSitePlan { get; set; }

@@ -24,10 +24,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 				where loc.IsActive && loc.LanguageCode == languageCode
 				from laneLoc in lane.Localizations
 				where laneLoc.IsActive && laneLoc.LanguageCode == languageCode
+				let detail = building.Detail
 				select new
 				{
 					building.Id,
-					IdDetail = building.Detail.Id,
+					IdDetail = detail != null ? (Guid?)building.Detail.Id : null,
 					building.IdLaneTransversal,
 					building.Detail.IdPicturePlan,
 					MainBuildingName = loc.Name,
@@ -36,7 +37,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					MainBuildingIdUtilisationCode = building.IdUtilisationCode,
 					building.Matricule,
 					lane.IdCity,
-					OtherInformation = building.Detail.AdditionalInformation,
+					OtherInformation = detail != null ? detail.AdditionalInformation : "",
 					lane.LaneGenericCode.AddWhiteSpaceAfter,
 					GenericDescription = lane.LaneGenericCode.Description,
 					PublicDescription = lane.PublicCode.Description,
