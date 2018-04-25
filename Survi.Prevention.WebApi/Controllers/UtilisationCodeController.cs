@@ -15,7 +15,17 @@ namespace Survi.Prevention.WebApi.Controllers
 			this.service = service;
 		}
 
-		[HttpGet]
+        [HttpGet]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(200)]
+        public ActionResult Get()
+        {
+            var result = service.GetList();
+
+            return Ok(result);
+        }
+
+        [HttpGet]
 		[Route("{id:Guid}")]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(404)]

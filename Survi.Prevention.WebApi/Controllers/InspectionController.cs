@@ -23,8 +23,29 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(service.GetGroupedUserInspections(languageCode, CurrentUserId));
 		}
 
+        [HttpGet, Route("ToDoInspection")]
+        [ProducesResponseType(typeof(List<InspectionForDashboard>), 200)]
+        public ActionResult GetToDoInspection([FromHeader]string languageCode)
+        {
+            return Ok(service.GetToDoInspection(languageCode));
+        }
+
+        [HttpGet, Route("ApprovedInspection")]
+        [ProducesResponseType(typeof(List<InspectionForDashboard>), 200)]
+        public ActionResult GetApprovedInspection([FromHeader]string languageCode)
+        {
+            return Ok(service.GetApprovedInspection(languageCode));
+        }
+
+        [HttpGet, Route("BuildingWithHistory")]
+        [ProducesResponseType(typeof(List<InspectionForDashboard>), 200)]
+        public ActionResult GetBuildingWithHistory([FromHeader]string languageCode)
+        {
+            return Ok(service.GetBuildingWithHistory(languageCode));
+        }
+
         [HttpGet, Route("BuildingWithoutInspection")]
-        [ProducesResponseType(typeof(List<Building>), 200)]
+        [ProducesResponseType(typeof(List<InspectionForDashboard>), 200)]
         public ActionResult GetBuildingWithoutInspection([FromHeader]string languageCode)
         {
             return Ok(service.GetBuildingWithoutInspection(languageCode));
