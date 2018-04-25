@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Services;
@@ -11,6 +10,12 @@ namespace Survi.Prevention.WebApi.Controllers
 	{
 		public FirestationController(FirestationService service) : base(service)
 		{
+		}
+
+		[Route("/api/city/{idCity:Guid}/firestations"), HttpGet]
+		public ActionResult GetLocalizedFirestations(Guid idCity)
+		{
+			return Ok(Service.GetListLocalized(idCity));
 		}
 	}
 }
