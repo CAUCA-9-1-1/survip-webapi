@@ -10,7 +10,6 @@ namespace Survi.Prevention.Models.InspectionManagement
 	public class Inspection : BaseModel
 	{
 		public Guid? IdSurvey { get; set; }
-		public Guid IdInterventionForm { get; set; }
 		public Guid IdBuilding { get; set; }
 		public Guid IdWebuserCreatedBy { get; set; }
 		public Guid? IdWebuserAssignedTo { get; set; }
