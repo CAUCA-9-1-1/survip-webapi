@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.Buildings;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -64,5 +66,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.Select(group => new BatchForList { Id = group.Key.IdBatch, Description = group.Key.BatchDescription, Inspections = group.ToList() })
 				.ToList();
 		}
+
+        public List<Building> GetBuildingWithoutInspection(string languageCode)
+        {
+            var results = Context.Buildings
+                .Include(b => b.Localizations)
+                .Include(b => b.Lane)
+                .Where(b => b.IsActive == true && b.IsParent == true)
+                .Where(b => !Context.Inspections.Where(i => i.IsActive == true && i.IsCompleted == false).Select(i => i.IdBuilding).Contains(b.Id))
+                .ToList();
+
+            return results;
+        }
 	}
 }
