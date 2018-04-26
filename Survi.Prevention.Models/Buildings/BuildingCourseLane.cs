@@ -1,7 +1,6 @@
 using System;
 using Survi.Prevention.Models.Base;
 using Survi.Prevention.Models.FireSafetyDepartments;
-using Survi.Prevention.Models.InspectionManagement;
 
 namespace Survi.Prevention.Models.Buildings
 {
