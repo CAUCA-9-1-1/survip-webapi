@@ -21,6 +21,9 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<Inspection> Inspections { get; set; }
 
 		public DbSet<Building> Buildings { get; set; }		
+		public DbSet<BuildingCourse> BuildingCourses { get; set; }
+		public DbSet<BuildingCourseLane> BuildingCourseLanes { get; set; }
+
 		public DbSet<Country> Countries { get; set; }
 		public DbSet<RiskLevel> RiskLevels { get; set; }
 		public DbSet<UtilisationCode> UtilisationCodes { get; set; }
@@ -56,6 +59,12 @@ namespace Survi.Prevention.DataLayer
 
 		public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
 		{
+		}
+
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			base.OnConfiguring(optionsBuilder);
+			optionsBuilder.EnableSensitiveDataLogging();
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
