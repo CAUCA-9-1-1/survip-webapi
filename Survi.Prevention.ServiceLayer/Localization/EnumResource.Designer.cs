@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Survi.Prevention.WebApi.Localization {
+namespace Survi.Prevention.ServiceLayer.Localization {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Survi.Prevention.WebApi.Localization {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Survi.Prevention.WebApi.Localization.EnumResource", typeof(EnumResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Survi.Prevention.ServiceLayer.Localization.EnumResource", typeof(EnumResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

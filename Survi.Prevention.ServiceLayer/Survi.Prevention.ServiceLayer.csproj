@@ -10,4 +10,19 @@
     <ProjectReference Include="..\Survi.Prevention.Models\Survi.Prevention.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Localization\EnumResource.Designer.cs">
+      <DependentUpon>EnumResource.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Localization\EnumResource.resx">
+      <LastGenOutput>EnumResource.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

@@ -6,6 +6,7 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Base;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.Localization.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -51,15 +52,24 @@ namespace Survi.Prevention.ServiceLayer.Services
 				where loc.IsActive && loc.LanguageCode == languageCode
 				let genericCode = lane.LaneGenericCode
 				let publicCode = lane.PublicCode
-				select new { courseLane.Id, loc.Name, genericDescription = genericCode.Description, genericCode.AddWhiteSpaceAfter, publicDescription = publicCode.Description };
+				select new { courseLane.Id, loc.Name, genericDescription = genericCode.Description, genericCode.AddWhiteSpaceAfter, publicDescription = publicCode.Description, courseLane.Direction, courseLane.Sequence };
 
 			var result = query.ToList()
 				.Select(lane => new InspectionBuildingCourseLaneForList {
 					Id = lane.Id,
-					Description = new LocalizedLaneNameGenerator().GenerateLaneName(lane.Name, lane.genericDescription, lane.publicDescription, lane.AddWhiteSpaceAfter) })
+					Sequence = lane.Sequence,
+					Description = GenerateLaneName(lane.Direction, lane.Name, lane.genericDescription, lane.publicDescription, lane.AddWhiteSpaceAfter, languageCode) })
 				.ToList();
 
 			return result;
+		}
+
+		private static string GenerateLaneName(CourseLaneDirection direction, string name, string genericDescription, string publicDescription, bool addWhiteSpaceAfter, string languageCode)
+		{
+			var laneName = new LocalizedLaneNameGenerator().GenerateLaneName(name, genericDescription, publicDescription, addWhiteSpaceAfter);
+			if (direction != CourseLaneDirection.StraightAhead)
+				laneName += $" ({direction.GetDisplayName(languageCode)})";
+			return laneName;
 		}
 
 		private InspectionBuildingCourseForWeb GetCourse(Guid idCourse)
