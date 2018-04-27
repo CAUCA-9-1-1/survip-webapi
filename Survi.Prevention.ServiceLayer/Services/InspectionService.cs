@@ -100,9 +100,8 @@ namespace Survi.Prevention.ServiceLayer.Services
                     PostalCode = r.Building.PostalCode,
                     VisitStatus = "",
                     HasVisitNote = false,
-                    HasAnomaly = false,
+                    HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                     //LastInspectionOn = null,
-                    //LastReportOn = null,
                     Contact = "",
                     Owner = "",
                     IdUtilisationCode = r.Building.IdUtilisationCode,
@@ -112,7 +111,6 @@ namespace Survi.Prevention.ServiceLayer.Services
                     NumberOfAppartment = r.Building.NumberOfAppartment,
                     NumberOfBuilding = r.Building.NumberOfBuilding,
                     NumberOfFloor = r.Building.NumberOfFloor,
-                    UtilisationDescription = r.Building.UtilisationDescription,
                     VacantLand = r.Building.VacantLand,
                     Details = r.Building.Details
                 });
@@ -158,9 +156,8 @@ namespace Survi.Prevention.ServiceLayer.Services
                     PostalCode = r.Building.PostalCode,
                     VisitStatus = "",
                     HasVisitNote = false,
-                    HasAnomaly = false,
+                    HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                     //LastInspectionOn = null,
-                    //LastReportOn = null,
                     Contact = "",
                     Owner = "",
                     IdUtilisationCode = r.Building.IdUtilisationCode,
@@ -170,7 +167,6 @@ namespace Survi.Prevention.ServiceLayer.Services
                     NumberOfAppartment = r.Building.NumberOfAppartment,
                     NumberOfBuilding = r.Building.NumberOfBuilding,
                     NumberOfFloor = r.Building.NumberOfFloor,
-                    UtilisationDescription = r.Building.UtilisationDescription,
                     VacantLand = r.Building.VacantLand,
                     Details = r.Building.Details
                 });
@@ -205,8 +201,8 @@ namespace Survi.Prevention.ServiceLayer.Services
             var results = query
                 .Select(r => new InspectionForDashboard
                 {
-                    Id = Guid.NewGuid(),
-                    IdBatch = Guid.NewGuid(),
+                    Id = Guid.Empty,
+                    IdBatch = Guid.Empty,
                     BatchDescription = "",
                     IdBuilding = r.Building.Id,
                     IdRiskLevel = r.Building.IdRiskLevel,
@@ -217,9 +213,8 @@ namespace Survi.Prevention.ServiceLayer.Services
                     PostalCode = r.Building.PostalCode,
                     VisitStatus = "",
                     HasVisitNote = false,
-                    HasAnomaly = false,
+                    HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                     LastInspectionOn = (DateTime)r.Inspection.CompletedOn,
-                    //LastReport = null,
                     Contact = "",
                     Owner = "",
                     IdUtilisationCode = r.Building.IdUtilisationCode,
@@ -229,7 +224,6 @@ namespace Survi.Prevention.ServiceLayer.Services
                     NumberOfAppartment = r.Building.NumberOfAppartment,
                     NumberOfBuilding = r.Building.NumberOfBuilding,
                     NumberOfFloor = r.Building.NumberOfFloor,
-                    UtilisationDescription = r.Building.UtilisationDescription,
                     VacantLand = r.Building.VacantLand,
                     Details = r.Building.Details
                 });
@@ -258,8 +252,8 @@ namespace Survi.Prevention.ServiceLayer.Services
             var results = query
                 .Select(r => new InspectionForDashboard
                 {
-                    Id = Guid.NewGuid(),
-                    IdBatch = Guid.NewGuid(),
+                    Id = Guid.Empty,
+                    IdBatch = Guid.Empty,
                     BatchDescription = "",
                     IdBuilding = r.Building.Id,
                     IdRiskLevel = r.Building.IdRiskLevel,
@@ -270,9 +264,8 @@ namespace Survi.Prevention.ServiceLayer.Services
                     PostalCode = r.Building.PostalCode,
                     VisitStatus = "",
                     HasVisitNote = false,
-                    HasAnomaly = false,
+                    HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                     //LastInspectionOn = null,
-                    //LastReportOn = null,
                     Contact = "",
                     Owner = "",
                     IdUtilisationCode = r.Building.IdUtilisationCode,
@@ -282,7 +275,6 @@ namespace Survi.Prevention.ServiceLayer.Services
                     NumberOfAppartment = r.Building.NumberOfAppartment,
                     NumberOfBuilding = r.Building.NumberOfBuilding,
                     NumberOfFloor = r.Building.NumberOfFloor,
-                    UtilisationDescription = r.Building.UtilisationDescription,
                     VacantLand = r.Building.VacantLand,
                     Details = r.Building.Details
                 });
