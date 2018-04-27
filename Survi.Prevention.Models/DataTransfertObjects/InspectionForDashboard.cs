@@ -15,7 +15,6 @@ namespace Survi.Prevention.Models.DataTransfertObjects
         public Boolean HasVisitNote { get; set; }
         public Boolean HasAnomaly { get; set; }
         public DateTime LastInspectionOn { get; set; }
-        public DateTime LastReportOn { get; set; }
         public Guid IdBuilding { get; set; }
         public Guid? IdLaneTransversal { get; set; }
         public Guid IdCity { get; set; }
@@ -29,7 +28,6 @@ namespace Survi.Prevention.Models.DataTransfertObjects
         public int NumberOfAppartment { get; set; }
         public int NumberOfBuilding { get; set; }
         public int NumberOfFloor { get; set; }
-        public string UtilisationDescription { get; set; }
         public Boolean VacantLand { get; set; }
         public int YearOfConstruction { get; set; }
         public string Details { get; set; }
