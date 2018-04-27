@@ -12,10 +12,10 @@ namespace Survi.Prevention.Models.DataTransfertObjects
         public string BatchDescription { get; set; }
         public DateTime VisitDate { get; set; }
         public string VisitStatus { get; set; }
-        public Boolean VisitNote { get; set; }
-        public Boolean Anomaly { get; set; }
-        public DateTime LastInspection { get; set; }
-        public DateTime LastReport { get; set; }
+        public Boolean HasVisitNote { get; set; }
+        public Boolean HasAnomaly { get; set; }
+        public DateTime LastInspectionOn { get; set; }
+        public DateTime LastReportOn { get; set; }
         public Guid IdBuilding { get; set; }
         public Guid? IdLaneTransversal { get; set; }
         public Guid IdCity { get; set; }

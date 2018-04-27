@@ -101,10 +101,10 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
                     VisitStatus = "",
-                    VisitNote = false,
-                    Anomaly = false,
-                    //LastInspection = null,
-                    //LastReport = null,
+                    HasVisitNote = false,
+                    HasAnomaly = false,
+                    //LastInspectionOn = null,
+                    //LastReportOn = null,
                     Contact = "",
                     Owner = "",
                     IdUtilisationCode = r.Building.IdUtilisationCode,
@@ -159,10 +159,10 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
                     VisitStatus = "",
-                    VisitNote = false,
-                    Anomaly = false,
-                    //LastInspection = null,
-                    //LastReport = null,
+                    HasVisitNote = false,
+                    HasAnomaly = false,
+                    //LastInspectionOn = null,
+                    //LastReportOn = null,
                     Contact = "",
                     Owner = "",
                     IdUtilisationCode = r.Building.IdUtilisationCode,
@@ -218,9 +218,9 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
                     VisitStatus = "",
-                    VisitNote = false,
-                    Anomaly = false,
-                    LastInspection = (DateTime)r.Inspection.CompletedOn,
+                    HasVisitNote = false,
+                    HasAnomaly = false,
+                    LastInspectionOn = (DateTime)r.Inspection.CompletedOn,
                     //LastReport = null,
                     Contact = "",
                     Owner = "",
@@ -234,10 +234,9 @@ namespace Survi.Prevention.ServiceLayer.Services
                     UtilisationDescription = r.Building.UtilisationDescription,
                     VacantLand = r.Building.VacantLand,
                     Details = r.Building.Details
-                })
-                .ToList();
+                });
 
-            return results;
+            return results.ToList();
         }
 
         public List<InspectionForDashboard> GetBuildingWithoutInspection(string languageCode)
@@ -272,10 +271,10 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
                     VisitStatus = "",
-                    VisitNote = false,
-                    Anomaly = false,
-                    //LastInspection = null,
-                    //LastReport = null,
+                    HasVisitNote = false,
+                    HasAnomaly = false,
+                    //LastInspectionOn = null,
+                    //LastReportOn = null,
                     Contact = "",
                     Owner = "",
                     IdUtilisationCode = r.Building.IdUtilisationCode,
@@ -288,10 +287,9 @@ namespace Survi.Prevention.ServiceLayer.Services
                     UtilisationDescription = r.Building.UtilisationDescription,
                     VacantLand = r.Building.VacantLand,
                     Details = r.Building.Details
-                })
-                .ToList();
+                });
 
-            return results;
+            return results.ToList();
         }
 	}
 }
