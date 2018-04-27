@@ -56,6 +56,7 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<ConstructionFireResistanceType> ConstructionFireResistanceTypes { get; set; }
 
         public DbSet<FireHydrant> FireHydrants { get; set; }
+		public DbSet<BuildingFireHydrant> BuildingFireHydrants { get; set; }
 
 		public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
 		{
