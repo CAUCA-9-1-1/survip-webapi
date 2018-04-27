@@ -79,5 +79,33 @@ namespace Survi.Prevention.ServiceLayer.Services
 				return new LocalizedLaneNameGenerator().GenerateLaneName(laneFound.Name, laneFound.genDescription, laneFound.pubDescription, laneFound.AddWhiteSpaceAfter);
 			return "";
 		}
+
+		public bool DeleteBuildingFireHydrant(Guid idBuildingFireHydrant)
+		{
+			var buildingfirehydrant = Context.BuildingFireHydrants.Find(idBuildingFireHydrant);
+			if(buildingfirehydrant != null)
+			{
+				buildingfirehydrant.IsActive = false;
+				Context.SaveChanges();
+				return true;
+			}
+			return false;
+		}
+
+		public bool AddBuildingFireHydrant(Guid id_Building, Guid id_FireHydrant)
+		{
+			if((id_Building != null)&& (id_Building != null))
+			{
+				Models.Buildings.BuildingFireHydrant newbf = new Models.Buildings.BuildingFireHydrant();
+				newbf.IdFireHydrant = id_FireHydrant;
+				newbf.IdBuilding = id_Building;
+				newbf.IsActive = true;
+				Context.BuildingFireHydrants.Add(newbf);
+
+				Context.SaveChanges();
+				return true;
+			}
+			return false;
+		}
 	}
 }
