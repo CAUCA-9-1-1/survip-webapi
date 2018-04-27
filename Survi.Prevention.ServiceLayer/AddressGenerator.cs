@@ -1,4 +1,9 @@
-﻿namespace Survi.Prevention.ServiceLayer
+﻿using Microsoft.EntityFrameworkCore;
+using Survi.Prevention.DataLayer;
+using System;
+using System.Linq;
+
+namespace Survi.Prevention.ServiceLayer
 {
     public class AddressGenerator
     {
@@ -12,5 +17,5 @@
 	    {
 		    return $"{civicNumber}{civicLetter}, {localizedLaneName}";
 	    }
-    }
+	}
 }
