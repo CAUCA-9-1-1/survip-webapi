@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Resources;
 
-namespace Survi.Prevention.WebApi.Localization.Base
+namespace Survi.Prevention.ServiceLayer.Localization.Base
 {
 	public class EnumItem//<TEnum> where TEnum : Enum
 	{

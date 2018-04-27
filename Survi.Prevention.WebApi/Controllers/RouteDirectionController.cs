@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.Buildings;
-using Survi.Prevention.WebApi.Localization.Base;
+using Survi.Prevention.ServiceLayer.Localization.Base;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
