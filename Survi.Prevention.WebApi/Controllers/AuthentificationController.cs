@@ -47,7 +47,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(401)]
 		public ActionResult TokenIsStillValid()
 		{
-			return Ok();
+			return Ok(true);
 		}
 	}
 }
