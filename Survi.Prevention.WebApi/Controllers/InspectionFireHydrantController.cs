@@ -32,8 +32,9 @@ namespace Survi.Prevention.WebApi.Controllers
 		public ActionResult AddBuildingFireHydrant(Guid idBuilding, Guid idFireHydrant)
 		{
 			if (service.AddBuildingFireHydrant(idBuilding, idFireHydrant))
-				return Ok();
-			return BadRequest("Unknown fire hydrant for this building.");
+				return NoContent();
+			else
+				return BadRequest("Erreur dans l'ajout de la borne");
 		}
 	}
 }

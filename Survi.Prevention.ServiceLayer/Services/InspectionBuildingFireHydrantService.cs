@@ -92,13 +92,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return false;
 		}
 
-		public bool AddBuildingFireHydrant(Guid id_Building, Guid id_FireHydrant)
+		public bool AddBuildingFireHydrant(Guid idBuilding, Guid idFireHydrant)
 		{
-			if((id_Building != null)&& (id_Building != null))
+			if((idBuilding != Guid.Empty) && (idFireHydrant != Guid.Empty))
 			{
 				Models.Buildings.BuildingFireHydrant newbf = new Models.Buildings.BuildingFireHydrant();
-				newbf.IdFireHydrant = id_FireHydrant;
-				newbf.IdBuilding = id_Building;
+				newbf.IdFireHydrant = idFireHydrant;
+				newbf.IdBuilding = idBuilding;
 				newbf.IsActive = true;
 				Context.BuildingFireHydrants.Add(newbf);
 
