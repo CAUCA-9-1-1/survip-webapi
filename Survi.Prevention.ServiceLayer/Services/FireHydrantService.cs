@@ -55,7 +55,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				}).ToList();
 		}
 
-		public List<FireHydrantForList> GeCitytListForBuilding(Guid idCity, Guid idBuilding, string languageCode)
+		public List<FireHydrantForList> GetCityListForBuilding(Guid idCity, Guid idBuilding, string languageCode)
 		{
 			var results = (
 				from hydrant in Context.FireHydrants.AsNoTracking()
@@ -77,12 +77,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 				{
 					Id = hydrant.Id,
 					Number = hydrant.Number,
-					Address = getFireHydrantAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition, hydrant.Coordinates, languageCode)
+					Address = GetFireHydrantAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition, hydrant.Coordinates, languageCode)
 
 				}).ToList();
 		}
 
-		private string getFireHydrantAddress(FireHydrantLocationType type, Guid? idLane, Guid? idIntersection, string physicalPosition, string coordinate, string languageCode)
+		private string GetFireHydrantAddress(FireHydrantLocationType type, Guid? idLane, Guid? idIntersection, string physicalPosition, string coordinate, string languageCode)
 		{
 			if (type == FireHydrantLocationType.Text)
 				return physicalPosition;
