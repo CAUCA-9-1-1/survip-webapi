@@ -72,12 +72,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return laneName;
 		}
 
-		private InspectionBuildingCourseForWeb GetCourse(Guid idCourse)
+		private BuildingCourse GetCourse(Guid idCourse)
 		{
-			return Context.BuildingCourses.AsNoTracking()
-				.Where(course => course.Id == idCourse)
-				.Select(course => new InspectionBuildingCourseForWeb {Id = course.Id, IdFirestation = course.IdFirestation, IdInspectionBuilding = course.IdBuilding})
-				.SingleOrDefault();
+			return Context.BuildingCourses
+				.AsNoTracking()
+				.SingleOrDefault(course => course.Id == idCourse);
 		}
 
 		public object GetCourseLane(Guid idCourseLane)
