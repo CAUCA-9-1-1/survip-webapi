@@ -52,6 +52,7 @@ namespace Survi.Prevention.WebApi
             services.AddTransient<CityService>();
             services.AddTransient<RiskLevelService>();
 			services.AddTransient<InspectionService>();
+            services.AddTransient<InspectionBatchService>();
 			services.AddTransient<InspectionBuildingService>();
 			services.AddTransient<InspectionDetailService>();
 			services.AddTransient<InspectionBuildingCourseService>();
