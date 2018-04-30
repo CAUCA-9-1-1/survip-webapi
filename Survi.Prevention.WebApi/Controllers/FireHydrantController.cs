@@ -17,5 +17,11 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return Ok(Service.GetListForCity(idCity, languageCode));
 		}
+
+		[HttpGet, Route("city/{idCity:Guid}/building/{idBuilding:Guid}")]
+		public ActionResult GetCityListLocalizedForBuilding(Guid idCity, Guid idBuilding, [FromHeader]string languageCode)
+		{
+			return Ok(Service.GeCitytListForBuilding(idCity, idBuilding, languageCode));
+		}
 	}
 }
