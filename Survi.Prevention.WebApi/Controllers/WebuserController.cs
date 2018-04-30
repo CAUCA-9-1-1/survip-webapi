@@ -12,5 +12,11 @@ namespace Survi.Prevention.WebApi.Controllers
         public WebuserController(WebuserService service) : base(service)
         {
         }
+
+        [HttpGet, Route("Active")]
+        public ActionResult GetListActive()
+        {
+            return Ok(Service.GetListActive());
+        }
     }
 }
