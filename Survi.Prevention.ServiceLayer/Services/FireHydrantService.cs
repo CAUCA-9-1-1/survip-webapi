@@ -50,7 +50,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				{
 					Id = hydrant.Id,
 					Number = hydrant.Number,
-					Address = getFireHydrantAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition, hydrant.Coordinates, languageCode)
+					Address = GetFireHydrantAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition, hydrant.Coordinates, languageCode)
 
 				}).ToList();
 		}
