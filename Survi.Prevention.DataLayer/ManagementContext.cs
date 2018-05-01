@@ -5,6 +5,7 @@ using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.Models.InspectionManagement;
 using Survi.Prevention.Models.SecurityManagement;
+using Survi.Prevention.Models.SurveyManagement;
 
 namespace Survi.Prevention.DataLayer
 {
@@ -60,6 +61,7 @@ namespace Survi.Prevention.DataLayer
 
         public DbSet<FireHydrant> FireHydrants { get; set; }
 		public DbSet<BuildingFireHydrant> BuildingFireHydrants { get; set; }
+		public DbSet<Survey> Surveys { get; set; }
 
 		public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
 		{

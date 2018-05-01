@@ -40,7 +40,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 					IdInspection = inspectionId,
 					Number = hydrant.Number,
 					Address = GenerateAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition, hydrant.Coordinates, languageCode)
-
 				}).ToList();
 		}
 
