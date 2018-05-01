@@ -15,6 +15,7 @@ namespace Survi.Prevention.Models.Buildings
 		public string CellphoneNumber { get; set; }
 		public string OtherNumber { get; set; }
 		public string OtherNumberExtension { get; set; }
+		public bool IsOwner { get; set; }
 
 		public Guid IdBuilding { get; set; }
 
