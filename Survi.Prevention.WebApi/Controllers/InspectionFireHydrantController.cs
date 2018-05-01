@@ -24,8 +24,9 @@ namespace Survi.Prevention.WebApi.Controllers
 		public ActionResult DeleteBuildingFireHydrant(Guid idBuildingFireHydrant)
 		{
 			if (service.DeleteBuildingFireHydrant(idBuildingFireHydrant))
-				return Ok();
-			return BadRequest("Unknown fire hydrant for this building.");
+				return NoContent();
+			else
+				return BadRequest("Unknown fire hydrant for this building.");
 		}
 
 		[HttpPost, Route("building/{idBuilding:Guid}/firehydrant/{idFireHydrant:Guid}")]
