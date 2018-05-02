@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.Base;
-using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
@@ -45,7 +43,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		public ActionResult Post([FromBody] TModel entity)
 		{
 			if (Service.AddOrUpdate(entity))
-				return Ok();
+				return NoContent();
 
 			return BadRequest();
 		}
@@ -57,7 +55,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		public ActionResult Delete(Guid id)
 		{
 			if (Service.Remove(id))
-				return Ok();
+				return NoContent();
 
 			return BadRequest();
 		}
