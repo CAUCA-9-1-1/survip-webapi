@@ -16,6 +16,12 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Services\SurveyQuestionChoiceService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Services\SurveyQuestionService.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Services\SurveyService.cs">
       <SubType>Code</SubType>
     </Compile>
