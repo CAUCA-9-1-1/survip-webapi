@@ -18,6 +18,7 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<PermissionSystem> PermissionSystems { get; set; }
 
 		public DbSet<Batch> Batches { get; set; }
+        public DbSet<BatchUser> BatchUsers { get; set; }
 		public DbSet<Inspection> Inspections { get; set; }
 
 		public DbSet<Building> Buildings { get; set; }		
