@@ -21,7 +21,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[Route("{id:Guid}")]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(200)]
-		public ActionResult Get(Guid id)
+		public virtual ActionResult Get(Guid id)
 		{
 			var entity = Service.Get(id);
 			return Ok(entity);
@@ -30,7 +30,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpGet]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(200)]
-		public ActionResult Get()
+		public virtual ActionResult Get()
 		{
 			var result = Service.GetList();
 
@@ -40,7 +40,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPost]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(200)]
-		public ActionResult Post([FromBody] TModel entity)
+		public virtual ActionResult Post([FromBody] TModel entity)
 		{
 			if (Service.AddOrUpdate(entity)!= Guid.Empty)			
 				return Ok(new{id = entity.Id});
@@ -52,7 +52,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[Route("{id:Guid}")]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(200)]
-		public ActionResult Delete(Guid id)
+		public virtual ActionResult Delete(Guid id)
 		{
 			if (Service.Remove(id))
 				return NoContent();

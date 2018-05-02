@@ -74,6 +74,7 @@ namespace Survi.Prevention.WebApi
 			services.AddTransient<SurveyQuestionService>();
 			services.AddTransient<SurveyQuestionChoiceService>();
 			services.AddTransient<ConstructionService>();
+			services.AddTransient<BuildingDetailService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
