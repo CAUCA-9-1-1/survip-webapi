@@ -14,14 +14,18 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public bool AddOrUpdate(T entity)
+		public virtual bool AddOrUpdate(T entity)
 		{
 			var isExistRecord = Context.Set<T>().Any(c => c.Id == entity.Id);
 
-			if (isExistRecord)
-				Context.Set<T>().Update(entity);
-			else
-				Context.Set<T>().Add(entity);
+            if (isExistRecord)
+            {
+                Context.Set<T>().Update(entity);
+            } 
+            else
+            {
+                Context.Set<T>().Add(entity);
+            }
 
 			Context.SaveChanges();
 			return true;

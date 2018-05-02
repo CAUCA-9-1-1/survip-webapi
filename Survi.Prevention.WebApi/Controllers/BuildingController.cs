@@ -12,5 +12,11 @@ namespace Survi.Prevention.WebApi.Controllers
 		public BuildingController(BuildingService service) : base(service)
 		{
 		}
-	}
+
+        [HttpGet, Route("Active")]
+        public ActionResult GetListActive([FromHeader]string languageCode)
+        {
+            return Ok(Service.GetListActive(languageCode));
+        }
+    }
 }
