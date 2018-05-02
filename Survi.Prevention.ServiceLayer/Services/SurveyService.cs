@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.SurveyManagement;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 namespace Survi.Prevention.ServiceLayer.Services { 
@@ -17,7 +17,7 @@ namespace Survi.Prevention.ServiceLayer.Services {
 		{
 			var result = Context.Surveys
 				.Include(s => s.Localizations)
-				.First(s => s.Id == id);
+				.FirstOrDefault(s => s.Id == id);
 
 			return result;
 		}

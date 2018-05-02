@@ -62,6 +62,8 @@ namespace Survi.Prevention.DataLayer
         public DbSet<FireHydrant> FireHydrants { get; set; }
 		public DbSet<BuildingFireHydrant> BuildingFireHydrants { get; set; }
 		public DbSet<Survey> Surveys { get; set; }
+		public DbSet<SurveyQuestion> SurveyQuestions { get; set; }
+		public DbSet<SurveyQuestionChoice> SurveyQuestionChoices { get; set; }
 
 		public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
 		{
