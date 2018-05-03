@@ -32,7 +32,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-        public override bool AddOrUpdate(Batch batch)
+        public override Guid AddOrUpdate(Batch batch)
         {
             updateBatchUser(batch);
             updateInspection(batch);
