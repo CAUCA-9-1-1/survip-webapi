@@ -42,8 +42,8 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public ActionResult Post([FromBody] TModel entity)
 		{
-			if (Service.AddOrUpdate(entity))
-				return NoContent();
+			if (Service.AddOrUpdate(entity)!= Guid.Empty)			
+				return Ok(new{id = entity.Id});
 
 			return BadRequest();
 		}
