@@ -48,5 +48,11 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return Ok(service.GetRoofTypes(languageCode));
 		}
+
+		[HttpGet, Route("All")]
+		public ActionResult GetAllTypes([FromHeader]string languageCode)
+		{
+			return Ok(service.GetAllTypes(languageCode));
+		}
 	}
 }
