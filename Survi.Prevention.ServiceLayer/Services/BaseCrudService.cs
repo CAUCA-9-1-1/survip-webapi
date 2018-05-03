@@ -14,7 +14,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public virtual bool AddOrUpdate(T entity)
+		public virtual Guid AddOrUpdate(T entity)
 		{
 			var isExistRecord = Context.Set<T>().Any(c => c.Id == entity.Id);
 			
@@ -24,7 +24,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				Context.Set<T>().Add(entity);
 
 			Context.SaveChanges();
-			return true;
+			return entity.Id;
 		}
 
 		public bool Remove(Guid id)
