@@ -23,7 +23,7 @@ namespace Survi.Prevention.WebApi.Controllers
 			if (Service.MoveQuestion(idSurveyQuestion, sequence))
 				return NoContent();
 			else
-				return BadRequest("Données incorrectes transmises");
+				return BadRequest("Error during the moving processs of the question");
 		}
 	}
 }

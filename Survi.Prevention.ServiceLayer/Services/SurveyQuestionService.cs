@@ -19,7 +19,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			var result = Context.SurveyQuestions
 				.Include(sq => sq.Localizations)
-				.FirstOrDefault(sq => sq.Id == id);
+				.Single(sq => sq.Id == id);
 
 			return result;
 		}
@@ -35,9 +35,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public bool MoveQuestion(Guid idSurveyQuestion, int sequence)
 		{
-			if ((idSurveyQuestion != Guid.Empty) && (sequence > 0))
+			if (idSurveyQuestion != Guid.Empty && sequence > 0)
 			{
-				var Question = Context.SurveyQuestions.FirstOrDefault(sq => sq.Id == idSurveyQuestion);
+				var Question = Context.SurveyQuestions.Single(sq => sq.Id == idSurveyQuestion);
 				Question.Sequence = sequence;
 				Context.SaveChanges();
 				return true;

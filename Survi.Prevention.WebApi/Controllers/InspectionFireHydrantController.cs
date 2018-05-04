@@ -35,7 +35,7 @@ namespace Survi.Prevention.WebApi.Controllers
 			if (service.AddBuildingFireHydrant(idBuilding, idFireHydrant))
 				return NoContent();
 			else
-				return BadRequest("Erreur dans l'ajout de la borne");
+				return BadRequest("Error during the adding process of the fire hydrant");
 		}
 	}
 }

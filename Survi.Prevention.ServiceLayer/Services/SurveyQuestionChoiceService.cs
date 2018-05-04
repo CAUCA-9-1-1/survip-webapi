@@ -19,7 +19,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			var result = Context.SurveyQuestionChoices
 				.Include(sqc => sqc.Localizations)
-				.First(sqc => sqc.Id == id);
+				.Single(sqc => sqc.Id == id);
 
 			return result;
 		}
