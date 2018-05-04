@@ -88,6 +88,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			return new AllTypesForConstruction
 			{
+				BuildingSidingTypes = GetBuildingSidingTypes(languageCode),
 				BuildingTypes = GetBuildingTypes(languageCode),
 				ConstructionFireResistanceTypes = GetConstructionFireResistanceTypes(languageCode),
 				ConstructionTypes = GetConstructionTypes(languageCode),
