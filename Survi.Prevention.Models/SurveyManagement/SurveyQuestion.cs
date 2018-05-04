@@ -17,10 +17,5 @@ namespace Survi.Prevention.Models.SurveyManagement
 
 		public ICollection<SurveyQuestionChoice> Choices { get; set; }
 		public ICollection<SurveyQuestionLocalization> Localizations { get; set; }
-
-		public static explicit operator SurveyQuestion(Guid v)
-		{
-			throw new NotImplementedException();
-		}
 	}
 }
