@@ -5,14 +5,14 @@ using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
-	[Route("api/building/detail")]
-    public class BuildingDetailController : BaseCrudController<BuildingDetailService, BuildingDetail>
+	[Route("api/inspection/building/detail")]
+    public class InspectionBuildingDetailController : BaseCrudController<BuildingDetailService, BuildingDetail>
     {
-	    public BuildingDetailController(BuildingDetailService service) : base(service)
+	    public InspectionBuildingDetailController(BuildingDetailService service) : base(service)
 	    {
 	    }
 
-		[Route("/api/building/{idBuilding:Guid}/detail"), HttpGet]
+		[Route("/api/inspection/building/{idBuilding:Guid}/detail"), HttpGet]
 		public ActionResult GetByBuilding(Guid idBuilding)
 		{
 			return Ok(Service.GetByIdBuilding(idBuilding));
