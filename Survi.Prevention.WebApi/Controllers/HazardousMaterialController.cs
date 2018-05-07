@@ -1,0 +1,22 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Survi.Prevention.ServiceLayer.Services;
+
+namespace Survi.Prevention.WebApi.Controllers
+{
+	[Route("api/HazardousMaterial")]
+	public class HazardousMaterialController : BaseSecuredController
+	{
+		private readonly HazardousMaterialService service;
+
+		public HazardousMaterialController(HazardousMaterialService service)
+		{
+			this.service = service;
+		}
+
+		[HttpGet, Route("{searchTerm: string}")]
+		public ActionResult GetList(string searchTerm, [FromHeader] string languageCode)
+		{
+			return Ok(service.GetList(languageCode, searchTerm));
+		}
+	}
+}
