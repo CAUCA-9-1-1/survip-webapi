@@ -17,7 +17,7 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(Service.GetListLocalized(idSurvey, languageCode));
 		}
 
-		[HttpGet, Route("{idSurveyQuestion:Guid}/{sequence:int}")]
+		[HttpPost, Route("{idSurveyQuestion:Guid}/Sequence/{sequence:int}")]
 		public ActionResult Move(Guid idSurveyQuestion, int sequence)
 		{
 			if (Service.MoveQuestion(idSurveyQuestion, sequence))
