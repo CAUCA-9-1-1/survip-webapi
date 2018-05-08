@@ -53,12 +53,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			var question = Context.SurveyQuestions.Include(sqc => sqc.Localizations).Single(sq => sq.Id == idSurveyQuestion);
 			question.IsActive = false;
-			if (question.Localizations.Any())
-			{
-				List<SurveyQuestionLocalization> questionLocalization = new List<SurveyQuestionLocalization>();
-				questionLocalization.AddRange(question.Localizations);
-				questionLocalization.ForEach(sql => sql.IsActive = false);
-			}
+			List<SurveyQuestionLocalization> questionLocalization = new List<SurveyQuestionLocalization>();
+			questionLocalization.AddRange(question.Localizations);
+			questionLocalization.ForEach(sql => sql.IsActive = false);
 		}
 
 		private void deleteQuestionChoices(Guid idSurveyQuestion)
@@ -91,6 +88,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 				}
 
 				Question.Sequence = sequence;
+				QuestionDest.Sequence = OldSequence;
+
 				Context.SaveChanges();
 				return true;
 			}
