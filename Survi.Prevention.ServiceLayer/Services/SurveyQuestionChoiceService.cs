@@ -42,6 +42,30 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return result;
 		}
+
+		public bool DeleteQuestionChoices(Guid idSurveyQuestion)
+		{
+			if (idSurveyQuestion != Guid.Empty)
+			{
+				var QuestionChoices = Context.SurveyQuestionChoices
+					.Include(sqc => sqc.Localizations)
+					.Where(sqc => sqc.IdSurveyQuestion == idSurveyQuestion)
+					.ToList();
+
+				QuestionChoices.ForEach(qc =>
+				{
+					qc.IsActive = false;
+					List<SurveyQuestionChoiceLocalization> choices = new List<SurveyQuestionChoiceLocalization>();
+					choices.AddRange(qc.Localizations);
+					choices.ForEach(sqcl => sqcl.IsActive = false);
+				});
+
+				Context.SaveChanges();
+
+				return true;
+			}
+			return false;
+		}
 	}
 
 }
