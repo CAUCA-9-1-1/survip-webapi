@@ -18,5 +18,11 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return Ok(Service.GetListLocalized(idSurveyQuestion, languageCode));
 		}
+
+		[HttpDelete, Route("SurveyQuestion/{idSurveyQuestion:Guid}")]
+		public ActionResult DeleteQuestionChoices(Guid idSurveyQuestion)
+		{
+			return Ok(Service.DeleteQuestionChoices(idSurveyQuestion));
+		}
 	}
 }
