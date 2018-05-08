@@ -12,10 +12,10 @@ namespace Survi.Prevention.Models.Buildings
 
 	public class BuildingDetail : BaseModel
 	{
-		public string AdditionalInformation { get; set; }
+		public string AdditionalInformation { get; set; } = "";
 		public decimal Height { get; set; }
 		public int EstimatedWaterFlow { get; set; }
-		public GarageType GarageType { get; set; }
+		public GarageType GarageType { get; set; } = GarageType.No;
 		public DateTime? RevisedOn { get; set; }
 		public DateTime? ApprovedOn { get; set; }
 

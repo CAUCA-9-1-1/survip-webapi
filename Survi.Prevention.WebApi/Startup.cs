@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Survi.Prevention.DataLayer;
-using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi
@@ -74,6 +73,8 @@ namespace Survi.Prevention.WebApi
 			services.AddTransient<SurveyService>();
 			services.AddTransient<SurveyQuestionService>();
 			services.AddTransient<SurveyQuestionChoiceService>();
+			services.AddTransient<ConstructionService>();
+			services.AddTransient<BuildingDetailService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

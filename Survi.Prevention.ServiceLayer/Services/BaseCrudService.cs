@@ -27,7 +27,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return entity.Id;
 		}
 
-		public bool Remove(Guid id)
+		public virtual bool Remove(Guid id)
 		{
 			var entity = Context.Set<T>().Find(id);
 			entity.IsActive = false;
