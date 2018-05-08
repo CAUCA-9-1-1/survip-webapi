@@ -5,9 +5,9 @@ namespace Survi.Prevention.Models.InspectionManagement
 		Todo,
 		Started,
 		Absent,
-		Refused,
-		Completed,
+		WaitingApprobation,
 		Approved,
-		Rejected
+        Refused,
+        Canceled
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.InspectionManagement;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -98,7 +99,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdCity = r.IdCity,
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
-                    VisitStatus = "",
+                    VisitStatus = InspectionVisitStatus.Todo,
                     HasVisitNote = false,
                     HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                     //LastInspectionOn = null,
@@ -129,10 +130,14 @@ namespace Survi.Prevention.ServiceLayer.Services
                 let lane = building.Lane
                 from laneLocalization in lane.Localizations.DefaultIfEmpty()
                 where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
+                from visits in inspection.Visits
+                where visits.IsActive
+                orderby visits.CompletedOn
                 select new
                 {
                     Inspection = inspection,
                     Batch = batch,
+                    Visit = visits,
                     Building = building,
                     LaneName = laneLocalization.Name,
                     IdCity = lane.IdCity,
@@ -141,7 +146,8 @@ namespace Survi.Prevention.ServiceLayer.Services
                     AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter
                 };
 
-            var results = query.ToList()
+            var results = query
+                .ToList()
                 .Select(r => new InspectionForDashboard
                 {
                     Id = r.Inspection.Id,
@@ -154,7 +160,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdCity = r.IdCity,
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
-                    VisitStatus = "",
+                    VisitStatus = r.Visit.Status,
                     HasVisitNote = false,
                     HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                     //LastInspectionOn = null,
@@ -192,7 +198,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     Batch = batch,
                     Building = building,
                     LaneName = laneLocalization.Name,
-                    IdCity = lane.IdCity,
+                    LaneIdCity = lane.IdCity,
                     PublicDescription = lane.PublicCode.Description,
                     GenericDescription = lane.LaneGenericCode.Description,
                     AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter,
@@ -208,10 +214,10 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdRiskLevel = r.Building.IdRiskLevel,
                     Address = new AddressGenerator()
                         .GenerateAddress(r.Building.CivicNumber, r.Building.CivicLetter, r.LaneName, r.GenericDescription, r.PublicDescription, r.AddWhiteSpaceAfter),
-                    IdCity = r.IdCity,
+                    IdCity = r.LaneIdCity,
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
-                    VisitStatus = "",
+                    VisitStatus = InspectionVisitStatus.Approved,
                     HasVisitNote = false,
                     HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                     LastInspectionOn = (DateTime)r.Inspection.CompletedOn,
@@ -262,7 +268,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdCity = r.IdCity,
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
-                    VisitStatus = "",
+                    VisitStatus = InspectionVisitStatus.Todo,
                     HasVisitNote = false,
                     HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                     //LastInspectionOn = null,
