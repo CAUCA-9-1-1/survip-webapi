@@ -91,8 +91,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 				}
 
 				Question.Sequence = sequence;
-				QuestionDest.Sequence = OldSequence;
-
 				Context.SaveChanges();
 				return true;
 			}
