@@ -82,7 +82,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			if (idSurveyQuestion != Guid.Empty && sequence > 0)
 			{
 				var Question = Context.SurveyQuestions.Single(sq => sq.Id == idSurveyQuestion);
-				var QuestionDest = Context.SurveyQuestions.Single(sqd => sqd.Sequence == sequence && sqd.Id != idSurveyQuestion);
+				var QuestionDest = Context.SurveyQuestions.Single(sqd => sqd.Sequence == sequence && sqd.Id != idSurveyQuestion && sqd.IdSurvey == Question.IdSurvey && sqd.IsActive);
 
 				int OldSequence = Question.Sequence;
 				Question.Sequence = sequence;
