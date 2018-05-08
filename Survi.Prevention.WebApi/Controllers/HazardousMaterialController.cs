@@ -13,7 +13,7 @@ namespace Survi.Prevention.WebApi.Controllers
 			this.service = service;
 		}
 
-		[HttpGet, Route("{searchTerm: string}")]
+		[HttpGet, Route("search/{searchTerm}")]
 		public ActionResult GetList(string searchTerm, [FromHeader] string languageCode)
 		{
 			return Ok(service.GetList(languageCode, searchTerm));
