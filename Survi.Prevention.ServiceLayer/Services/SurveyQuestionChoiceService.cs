@@ -36,8 +36,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public List<SurveyQuestionChoice> GetListLocalized(Guid idSurveyQuestion, string languageCode)
 		{
 			var result = Context.SurveyQuestionChoices
-						.Include(sqc => sqc.Localizations)
-						.Where(sqc => sqc.IdSurveyQuestion == idSurveyQuestion)
+						.Include(sqcl => sqcl.Localizations)
+						.Where(sqc => sqc.IdSurveyQuestion == idSurveyQuestion && sqc.IsActive)
 						.ToList();
 
 			return result;
@@ -48,8 +48,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 			if (idSurveyQuestion != Guid.Empty)
 			{
 				var QuestionChoices = Context.SurveyQuestionChoices
-					.Include(sqc => sqc.Localizations)
-					.Where(sqc => sqc.IdSurveyQuestion == idSurveyQuestion)
+					.Include(sqcl => sqcl.Localizations)
+					.Where(sqc => sqc.IdSurveyQuestion == idSurveyQuestion && sqc.IsActive)
 					.ToList();
 
 				QuestionChoices.ForEach(qc =>
