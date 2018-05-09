@@ -103,8 +103,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public List<SurveyQuestion> GetListLocalized(Guid idSurvey, string languageCode)
 		{
 			var result = Context.SurveyQuestions
-						.Include(sq => sq.Localizations)
-						.Where(sq => sq.IdSurvey == idSurvey)
+						.Include(sql => sql.Localizations)
+						.Where(sq => sq.IdSurvey == idSurvey && sq.IsActive)
 						.OrderBy(sq => sq.Sequence)
 						.ToList();
 

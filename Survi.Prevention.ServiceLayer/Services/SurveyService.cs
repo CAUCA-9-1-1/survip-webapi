@@ -16,7 +16,7 @@ namespace Survi.Prevention.ServiceLayer.Services {
 		public override Survey Get(Guid id)
 		{
 			var result = Context.Surveys
-				.Include(s => s.Localizations)
+				.Include(sl => sl.Localizations)
 				.Single(s => s.Id == id);
 
 			return result;
