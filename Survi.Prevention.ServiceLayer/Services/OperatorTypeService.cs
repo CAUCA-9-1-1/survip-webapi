@@ -3,11 +3,10 @@ using System.Linq;
 using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireHydrants;
-using Microsoft.EntityFrameworkCore;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-    public class OperatorTypeService : BaseCrudService<OperatorType>
+	public class OperatorTypeService : BaseCrudService<OperatorType>
     {
         public OperatorTypeService(ManagementContext context) : base(context)
         {
