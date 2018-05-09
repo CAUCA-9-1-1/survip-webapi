@@ -9,8 +9,7 @@ namespace Survi.Prevention.Models.Buildings
 		Underground,
 		Aboveground
 	} 
-
-
+	
 	public class BuildingHazardousMaterial : BaseModel
 	{
 		public int Quantity { get; set; }
@@ -28,7 +27,7 @@ namespace Survi.Prevention.Models.Buildings
 
 		public Guid IdBuilding { get; set; }
 		public Guid IdHazardousMaterial { get; set; }
-		public Guid IdUnitOfMeasure { get; set; }
+		public Guid? IdUnitOfMeasure { get; set; }
 
 		public Building Building { get; set; }
 		public HazardousMaterial Material { get; set; }

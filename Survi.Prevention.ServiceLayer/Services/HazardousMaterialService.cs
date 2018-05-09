@@ -20,11 +20,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 				where mat.IsActive
 				from loc in mat.Localizations
 				where loc.IsActive && loc.LanguageCode == languageCode
-				where loc.Name.Contains(searchTerm) || mat.GuideNumber.Contains(searchTerm)
+				where loc.Name.Contains(searchTerm) || mat.Number.Contains(searchTerm)
 				select new HazardousMaterialForList
 				{
 					Id = mat.Id,
-					GuideNumber = mat.GuideNumber,
+					Number = mat.Number,
 					Name = loc.Name
 				};
 

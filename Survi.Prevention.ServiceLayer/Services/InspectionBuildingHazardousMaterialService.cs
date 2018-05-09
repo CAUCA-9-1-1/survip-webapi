@@ -34,15 +34,46 @@ namespace Survi.Prevention.ServiceLayer.Services
 				let mat = matBuilding.Material
 				from loc in mat.Localizations
 				where loc.IsActive && loc.LanguageCode == languageCode
-				let unit = matBuilding.Unit
-				select new BuildingHazardousMaterialForList
+				select new
 				{
 					Id = matBuilding.Id,
-					HazardousMaterialName = loc.Name,
-					QuantityDescription = matBuilding.Quantity + " " + unit.Abbreviation
+					Name = loc.Name,
+					Quantity = matBuilding.Quantity,
+					matBuilding.CapacityContainer,
+					abbreviation = matBuilding.Unit == null ? null : matBuilding.Unit.Abbreviation,
+					unitName = matBuilding.Unit == null ? "" :
+						matBuilding.Unit.Localizations
+							.Where(locUnit => locUnit.IsActive && locUnit.LanguageCode == languageCode)
+							.Select(locUnit => locUnit.Name)
+							.FirstOrDefault()
 				};
 
-			return query.ToList();
+			var result = query
+				.ToList()
+				.Select(mat => new BuildingHazardousMaterialForList
+				{
+					Id = mat.Id,
+					HazardousMaterialName = mat.Name,
+					QuantityDescription = GetQuantityDescription(mat.Quantity, mat.CapacityContainer, mat.abbreviation??mat.unitName)
+				});
+
+			return result.ToList();
+		}
+
+		private string GetQuantityDescription(int quantity, decimal capacityContainer, string abbreviation)
+		{
+			var quantityDescription = "";
+			if (capacityContainer > 0)
+			{
+				quantityDescription = capacityContainer.ToString("G26");
+				if (!string.IsNullOrWhiteSpace(abbreviation))
+					quantityDescription += " " + abbreviation;
+
+				if (quantity > 0)
+					quantityDescription = $"{quantity} x {quantityDescription}";
+			}
+
+			return quantityDescription;
 		}
 	}
 }
