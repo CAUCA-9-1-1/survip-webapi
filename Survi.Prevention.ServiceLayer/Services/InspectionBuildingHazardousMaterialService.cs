@@ -36,9 +36,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 				where loc.IsActive && loc.LanguageCode == languageCode
 				select new
 				{
-					Id = matBuilding.Id,
-					Name = loc.Name,
-					Quantity = matBuilding.Quantity,
+					matBuilding.Id,
+					loc.Name,
+					matBuilding.Quantity,
 					matBuilding.CapacityContainer,
 					abbreviation = matBuilding.Unit == null ? null : matBuilding.Unit.Abbreviation,
 					unitName = matBuilding.Unit == null ? "" :
@@ -74,43 +74,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 
 			return quantityDescription;
-		}
-	}
-
-	public class InspectionBuildingPersonRequiringAssistanceService : BaseCrudService<BuildingPersonRequiringAssistance>
-	{
-		public InspectionBuildingPersonRequiringAssistanceService(ManagementContext context) : base(context)
-		{
-		}
-
-		public override BuildingPersonRequiringAssistance Get(Guid id)
-		{
-			var entity = Context.BuildingPersonsRequiringAssistance.AsNoTracking()
-				.SingleOrDefault(mat => mat.Id == id);
-			return entity;
-		}
-
-		public override List<BuildingPersonRequiringAssistance> GetList()
-		{
-			throw new NotImplementedException();
-		}
-
-		public List<BuildingPersonRequiringAssistanceForList> GetListLocalized(string languageCode, Guid idBuilding)
-		{
-			var query =
-				from person in Context.BuildingPersonsRequiringAssistance.AsNoTracking()
-				where person.IdBuilding == idBuilding && person.IsActive
-				let type = person.PersonType
-				from loc in type.Localizations
-				where loc.IsActive && loc.LanguageCode == languageCode
-				select new BuildingPersonRequiringAssistanceForList
-				{
-					Id = person.Id,
-					Name = person.PersonName,
-					TypeDescription = loc.Name
-				};
-
-			return query.ToList();
 		}
 	}
 }
