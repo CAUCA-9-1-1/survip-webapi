@@ -8,9 +8,9 @@ using Survi.Prevention.Models.DataTransfertObjects;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class InspectionBuildingAlamPanel : BaseCrudService<BuildingAlarmPanel>
+	public class InspectionBuildingAlarmPanelService : BaseCrudService<BuildingAlarmPanel>
 	{
-		public InspectionBuildingAlamPanel(ManagementContext context) : base(context)
+		public InspectionBuildingAlarmPanelService(ManagementContext context) : base(context)
 		{
 		}
 

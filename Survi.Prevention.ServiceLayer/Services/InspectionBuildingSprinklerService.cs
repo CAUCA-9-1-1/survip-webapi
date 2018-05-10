@@ -8,9 +8,9 @@ using Survi.Prevention.Models.DataTransfertObjects;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class InspectionBuildingSprinkler: BaseCrudService<BuildingSprinkler>
+	public class InspectionBuildingSprinklerService: BaseCrudService<BuildingSprinkler>
 	{
-		public InspectionBuildingSprinkler(ManagementContext context) : base(context)
+		public InspectionBuildingSprinklerService(ManagementContext context) : base(context)
 		{
 		}
 
