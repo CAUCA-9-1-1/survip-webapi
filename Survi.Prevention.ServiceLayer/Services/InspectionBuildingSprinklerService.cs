@@ -57,14 +57,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		private string GetSprinklerLocationDescription(string floor, string sector, string wall)
 		{
-			var result = "";
-			if (!string.IsNullOrWhiteSpace(floor))
-				result = $"Étage: {floor}.";
-			if (!string.IsNullOrWhiteSpace(sector))
-				result += $"Secteur: {sector}.";
+			var wallDescription = "";
 			if (!string.IsNullOrWhiteSpace(wall))
-				result += $"Mur: {wall}.";
-			return result;
+				wallDescription = $"Mur: {wall}.";
+			var sectorDescription = "";
+			if (!string.IsNullOrWhiteSpace(sector))
+				sectorDescription = $"Secteur: {sector}.";
+			var floorDescription = "";
+			if (!string.IsNullOrWhiteSpace(floor))
+				floorDescription = $"Étage: {floor}.";
+
+			return string.Join(" ", sectorDescription, floorDescription, wallDescription);
 		}
 	}
 }

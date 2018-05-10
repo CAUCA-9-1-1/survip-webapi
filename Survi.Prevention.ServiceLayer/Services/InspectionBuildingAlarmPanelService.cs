@@ -57,14 +57,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		private string GetPanelLocationDescription(string floor, string sector, string wall)
 		{
-			var result = "";
+			var wallDescription = "";
+			if (!string.IsNullOrWhiteSpace(wall))
+				wallDescription = $"Mur: {wall}.";
+			var sectorDescription = "";
+			if (!string.IsNullOrWhiteSpace(sector))
+				sectorDescription = $"Secteur: {sector}.";
+			var floorDescription = "";
 			if (!string.IsNullOrWhiteSpace(floor))
-				result = $"Étage: {floor}.";
-			if (!string.IsNullOrWhiteSpace(sector))
-				result += $"Secteur: {sector}.";
-			if (!string.IsNullOrWhiteSpace(sector))
-				result += $"Mur: {wall}.";
-			return result;
+				floorDescription = $"Étage: {floor}.";
+
+			return string.Join(" ", sectorDescription, floorDescription, wallDescription);
 		}
 	}
 }
