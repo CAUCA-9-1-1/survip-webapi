@@ -27,6 +27,7 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<BuildingCourseLane> BuildingCourseLanes { get; set; }
 		public DbSet<BuildingContact> BuildingContacts { get; set; }
 		public DbSet<BuildingDetail> BuildingDetails { get; set; }
+		public DbSet<BuildingHazardousMaterial> BuildingHazardousMaterials { get; set; }
 
         public DbSet<BuildingAnomaly> BuildingAnomalies { get; set; }
 		public DbSet<Country> Countries { get; set; }
@@ -59,6 +60,8 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<FireHydrantConnectionType> FireHydrantConnectionTypes { get; set; }
 		public DbSet<OperatorType> OperatorTypes { get; set; }
 		public DbSet<ConstructionFireResistanceType> ConstructionFireResistanceTypes { get; set; }
+
+		public DbSet<HazardousMaterial> HazardousMaterials { get; set; }
 
         public DbSet<FireHydrant> FireHydrants { get; set; }
 		public DbSet<BuildingFireHydrant> BuildingFireHydrants { get; set; }

@@ -11,12 +11,16 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasKey(m => m.Id);
 
 			b.Property(m => m.Container).HasMaxLength(100).IsRequired();
-			b.Property(m => m.CapacityContainer).HasMaxLength(7).IsRequired();
+			b.Property(m => m.CapacityContainer).IsRequired();
 			b.Property(m => m.Floor).HasMaxLength(4).IsRequired();
 			b.Property(m => m.Place).HasMaxLength(150).IsRequired();
 			b.Property(m => m.GasInlet).HasMaxLength(100).IsRequired();
+			b.Property(m => m.Wall).HasMaxLength(15).IsRequired();
+			b.Property(m => m.SupplyLine).HasMaxLength(50).IsRequired();
+			b.Property(m => m.Sector).HasMaxLength(15).IsRequired();
 			b.Property(m => m.SecurityPerimeter).IsRequired();
 			b.Property(m => m.OtherInformation).IsRequired();
+			b.Property(m => m.TankType).IsRequired();
 
 			b.Property(m => m.CreatedOn).IsRequired();
 			b.Property(m => m.IsActive).IsRequired();
