@@ -48,7 +48,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 					 Title = surveyquestion.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Title,
 					 Description = surveyquestion.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
  					 ChoicesList = surveyquestion.Choices,
-					 Sequence = surveyquestion.Sequence
+					 Sequence = surveyquestion.Sequence,
+					 QuestionType = surveyquestion.QuestionType
 				 });
 
 			var InspectionQuestionWithChoice =
@@ -63,6 +64,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Title = question.Title,
 					Description = question.Description,
 					Sequence = question.Sequence,
+					QuestionType = question.QuestionType,
 					ChoicesList = (
 						from choice in question.ChoicesList
 						where choice.IsActive
@@ -81,6 +83,22 @@ namespace Survi.Prevention.ServiceLayer.Services
 				
 
 			return InspectionQuestionWithChoice.ToList();
+		}
+
+		public bool SaveQuestionAnswer(Guid idInspection, Guid idSurveyQuestion, string answer)
+		{
+			if (idInspection != Guid.Empty && idSurveyQuestion != Guid.Empty && answer != "")
+			{
+				var questionAnswer = new InspectionQuestion();
+				questionAnswer.Answer = answer;
+				questionAnswer.IdSurveyQuestion = idSurveyQuestion;
+				questionAnswer.IdInspection = idInspection;
+				Context.InspectionQuestions.Add(questionAnswer);
+
+				Context.SaveChanges();
+				return true;
+			}
+		return false;
 		}
 	}
 

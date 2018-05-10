@@ -8,6 +8,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 		public Guid? Id { get; set; }
 		public Guid IdSurveyQuestion { get; set; }
 		public Guid? IdSurveyQuestionChoice { get; set; }
+		public int QuestionType { get; set; }
 		public string Answer { get; set; } = "";
 		public string Title { get; set; }
 		public string Description { get; set; }

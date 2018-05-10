@@ -17,5 +17,11 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return Ok(Service.GetListLocalized(idSurvey, languageCode));
 		}
+
+		[HttpPost, Route("Inspection/{idInspection:Guid}/SurveyQuestion/{idSurveyQuestion:Guid}/Answer/{answer}")]
+		public ActionResult SaveQuestionAnswer(Guid idInspection, Guid idSurveyQuestion, string answer)
+		{
+			return Ok(Service.SaveQuestionAnswer(idInspection, idSurveyQuestion, answer));
+		}
 	}
 }
