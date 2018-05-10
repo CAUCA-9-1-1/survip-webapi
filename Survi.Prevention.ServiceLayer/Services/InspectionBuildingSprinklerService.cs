@@ -62,7 +62,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				result = $"Étage: {floor}.";
 			if (!string.IsNullOrWhiteSpace(sector))
 				result += $"Secteur: {sector}.";
-			if (!string.IsNullOrWhiteSpace(sector))
+			if (!string.IsNullOrWhiteSpace(wall))
 				result += $"Mur: {wall}.";
 			return result;
 		}
