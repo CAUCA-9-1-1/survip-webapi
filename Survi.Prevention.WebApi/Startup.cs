@@ -57,6 +57,7 @@ namespace Survi.Prevention.WebApi
 			services.AddTransient<InspectionBuildingCourseService>();
 			services.AddTransient<InspectionBuildingFireHydrantService>();
 			services.AddTransient<InspectionBuildingContactService>();
+			services.AddTransient<InspectionBuildingPersonRequiringAssistanceService>();
 			services.AddTransient<PictureService>();
 			services.AddTransient<LaneService>();
             services.AddTransient<LaneGenericCodeService>();
@@ -77,6 +78,7 @@ namespace Survi.Prevention.WebApi
 			services.AddTransient<BuildingDetailService>();
 			services.AddTransient<InspectionBuildingHazardousMaterialService>();
 			services.AddTransient<HazardousMaterialService>();
+			services.AddTransient<PersonRequiringAssistanceTypeService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
