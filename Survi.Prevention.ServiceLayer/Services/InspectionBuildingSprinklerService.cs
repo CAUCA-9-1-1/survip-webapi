@@ -1,0 +1,73 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.DataTransfertObjects;
+
+namespace Survi.Prevention.ServiceLayer.Services
+{
+	public class InspectionBuildingSprinklerService: BaseCrudService<BuildingSprinkler>
+	{
+		public InspectionBuildingSprinklerService(ManagementContext context) : base(context)
+		{
+		}
+
+		public override BuildingSprinkler Get(Guid id)
+		{
+			var entity = Context.BuildingSprinklers.AsNoTracking()
+				.SingleOrDefault(mat => mat.Id == id);
+			return entity;
+		}
+
+		public override List<BuildingSprinkler> GetList()
+		{
+			throw new NotImplementedException();
+		}
+
+		public List<BuildingFireProtectionForList> GetListLocalized(string languageCode, Guid idBuilding)
+		{
+			var query =
+				from sprinkler in Context.BuildingSprinklers.AsNoTracking()
+				where sprinkler.IdBuilding == idBuilding && sprinkler.IsActive
+				let type = sprinkler.SprinklerType
+				from loc in type.Localizations
+				where loc.IsActive && loc.LanguageCode == languageCode
+				select new 
+				{
+					sprinkler.Id,
+					loc.Name,
+					sprinkler.Floor,
+					sprinkler.Sector,
+					sprinkler.Wall
+				};
+
+			var result =
+				from sprinkler in query.ToList()
+				select new BuildingFireProtectionForList
+				{
+					Id = sprinkler.Id,
+					TypeDescription = sprinkler.Name,
+					LocationDescription = GetSprinklerLocationDescription(sprinkler.Floor, sprinkler.Sector, sprinkler.Wall)
+				};
+
+			return result.ToList();
+		}
+
+		private string GetSprinklerLocationDescription(string floor, string sector, string wall)
+		{
+			var wallDescription = "";
+			if (!string.IsNullOrWhiteSpace(wall))
+				wallDescription = $"Mur: {wall}.";
+			var sectorDescription = "";
+			if (!string.IsNullOrWhiteSpace(sector))
+				sectorDescription = $"Secteur: {sector}.";
+			var floorDescription = "";
+			if (!string.IsNullOrWhiteSpace(floor))
+				floorDescription = $"Étage: {floor}.";
+
+			return string.Join(" ", sectorDescription, floorDescription, wallDescription);
+		}
+	}
+}

@@ -29,6 +29,8 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<BuildingDetail> BuildingDetails { get; set; }
 		public DbSet<BuildingHazardousMaterial> BuildingHazardousMaterials { get; set; }
 		public DbSet<BuildingPersonRequiringAssistance> BuildingPersonsRequiringAssistance { get; set; }
+		public DbSet<BuildingSprinkler> BuildingSprinklers { get; set; }
+		public DbSet<BuildingAlarmPanel> BuildingAlarmPanels { get; set; }
 
         public DbSet<BuildingAnomaly> BuildingAnomalies { get; set; }
 		public DbSet<Country> Countries { get; set; }
