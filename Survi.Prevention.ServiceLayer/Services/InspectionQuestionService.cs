@@ -32,13 +32,14 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-		public List<InspectionQuestionForList> GetListLocalized(Guid idSurvey, string languageCode)
+		public List<InspectionQuestionForList> GetListLocalized(Guid idInspection, string languageCode)
 		{
 			var inspectionQuestionQuery =
-				(from surveyquestion in Context.SurveyQuestions
+				(from inspection in Context.Inspections
+				 from surveyquestion in Context.SurveyQuestions.Where(sq => sq.IdSurvey == inspection.IdSurvey && sq.IsActive)
 				 join questionanswser in Context.InspectionQuestions.Where(iq => iq.IsActive) on surveyquestion.Id equals questionanswser.IdSurveyQuestion into iqa
 				 from questionanswser in iqa.DefaultIfEmpty()
-				 where surveyquestion.IsActive && surveyquestion.IdSurvey == idSurvey
+				 where inspection.IsActive && inspection.Id == idInspection
 				 select new
 				 {
 					 Id = questionanswser.Id,
@@ -47,9 +48,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 					 Answer = questionanswser.Answer,
 					 Title = surveyquestion.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Title,
 					 Description = surveyquestion.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
- 					 ChoicesList = surveyquestion.Choices,
+					 ChoicesList = surveyquestion.Choices,
 					 Sequence = surveyquestion.Sequence,
-					 QuestionType = surveyquestion.QuestionType
+					 QuestionType = surveyquestion.QuestionType,
+					 idInspection = inspection.Id
 				 });
 
 			var InspectionQuestionWithChoice =
@@ -65,6 +67,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Description = question.Description,
 					Sequence = question.Sequence,
 					QuestionType = question.QuestionType,
+					IdInpsection = question.idInspection,
 					ChoicesList = (
 						from choice in question.ChoicesList
 						where choice.IsActive
@@ -85,14 +88,16 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return InspectionQuestionWithChoice.ToList();
 		}
 
-		public bool SaveQuestionAnswer(Guid idInspection, Guid idSurveyQuestion, string answer)
+		public bool SaveQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
 		{
-			if (idInspection != Guid.Empty && idSurveyQuestion != Guid.Empty && answer != "")
+			if (inspectionQuestionAnswer != null)
 			{
 				var questionAnswer = new InspectionQuestion();
-				questionAnswer.Answer = answer;
-				questionAnswer.IdSurveyQuestion = idSurveyQuestion;
-				questionAnswer.IdInspection = idInspection;
+				questionAnswer.Answer = inspectionQuestionAnswer.Answer;
+				questionAnswer.IdSurveyQuestion = inspectionQuestionAnswer.IdSurveyQuestion;
+				questionAnswer.IdInspection = inspectionQuestionAnswer.IdInpsection;
+				questionAnswer.IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice;
+
 				Context.InspectionQuestions.Add(questionAnswer);
 
 				Context.SaveChanges();

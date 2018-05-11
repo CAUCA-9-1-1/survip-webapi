@@ -6,6 +6,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
     public class InspectionQuestionForList
     {
 		public Guid? Id { get; set; }
+		public Guid IdInpsection { get; set; }
 		public Guid IdSurveyQuestion { get; set; }
 		public Guid? IdSurveyQuestionChoice { get; set; }
 		public int QuestionType { get; set; }
