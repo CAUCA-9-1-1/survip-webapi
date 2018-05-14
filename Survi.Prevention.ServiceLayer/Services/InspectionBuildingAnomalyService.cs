@@ -18,6 +18,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 	    public override BuildingAnomaly Get(Guid id)
 	    {
 		    return Context.BuildingAnomalies.AsNoTracking()
+				.Include(anomaly => anomaly.Pictures)
 			    .FirstOrDefault(anomaly => anomaly.Id == id);
 	    }
 
@@ -62,5 +63,18 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return query.Distinct().ToList();
 		}
-    }
+
+	    public virtual Guid AddOrUpdatePicture(BuildingAnomalyPicture entity)
+	    {
+		    var isExistRecord = Context.BuildingAnomalyPictures.Any(c => c.Id == entity.Id);
+
+		    if (isExistRecord)
+			    Context.BuildingAnomalyPictures.Update(entity);
+		    else
+			    Context.BuildingAnomalyPictures.Add(entity);
+
+		    Context.SaveChanges();
+		    return entity.Id;
+	    }
+	}
 }
