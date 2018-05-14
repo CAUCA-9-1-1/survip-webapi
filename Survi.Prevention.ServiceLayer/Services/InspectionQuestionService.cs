@@ -67,7 +67,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Description = question.Description,
 					Sequence = question.Sequence,
 					QuestionType = question.QuestionType,
-					IdInpsection = question.idInspection,
+					IdInspection = question.idInspection,
 					ChoicesList = (
 						from choice in question.ChoicesList
 						where choice.IsActive
@@ -95,7 +95,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				var questionAnswer = new InspectionQuestion();
 				questionAnswer.Answer = inspectionQuestionAnswer.Answer;
 				questionAnswer.IdSurveyQuestion = inspectionQuestionAnswer.IdSurveyQuestion;
-				questionAnswer.IdInspection = inspectionQuestionAnswer.IdInpsection;
+				questionAnswer.IdInspection = inspectionQuestionAnswer.IdInspection;
 				questionAnswer.IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice;
 
 				Context.InspectionQuestions.Add(questionAnswer);
