@@ -23,11 +23,5 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return Ok(Service.GetThemes());
 		}
-
-		[Route("api/inspection/anomaly/picture"), HttpPost]
-		public ActionResult SavePicture([FromBody] BuildingAnomalyPicture picture)
-		{
-			return Ok(Service.AddOrUpdatePicture(picture));
-		}
 	}
 }
