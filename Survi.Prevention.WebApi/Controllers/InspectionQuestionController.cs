@@ -33,5 +33,14 @@ namespace Survi.Prevention.WebApi.Controllers
 			else
 				return BadRequest("Error on question answer saving process");
 		}
+
+		[HttpPost, Route("CompleteSurvey")]
+		public ActionResult SaveQuestionAnswer([FromBody] Guid idInspection)
+		{
+			if (Service.CompleteSurvey(idInspection))
+				return NoContent();
+			else
+				return BadRequest("Error on updating the inspection survey completed status");
+		}
 	}
 }

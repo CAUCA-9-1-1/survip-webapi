@@ -44,7 +44,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 					LaneName = laneLoc.Name,
 					building.CivicNumber,
 					building.CivicLetter,
-					IdBuilding = building.Id
+					IdBuilding = building.Id,
+					IsSurveyCompleted = inspection.IsSurveyCompleted
 				};
 
 			var result = query.SingleOrDefault();
@@ -67,7 +68,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 				MainBuildingIdUtilisationCode = result.MainBuildingIdUtilisationCode,
 				MainBuildingMatricule = result.Matricule,
 				OtherInformation = result.OtherInformation,
-				IdBuilding = result.IdBuilding
+				IdBuilding = result.IdBuilding,
+				IsSurveyCompleted = result.IsSurveyCompleted
 			};
 		}
 
