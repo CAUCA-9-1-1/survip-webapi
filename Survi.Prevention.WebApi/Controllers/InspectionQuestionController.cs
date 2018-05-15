@@ -13,19 +13,25 @@ namespace Survi.Prevention.WebApi.Controllers
 		public InspectionQuestionController(InspectionQuestionService service) : base(service)
 		{
 		}
-		[HttpGet, Route("Inspection/{idInspection:Guid}"), AllowAnonymous]
-		public ActionResult GetListLocalized(Guid idInspection, [FromHeader]string languageCode)
+		[HttpGet, Route("Answer/{idInspection:Guid}"), AllowAnonymous]
+		public ActionResult GetAnswerListLocalized(Guid idInspection, [FromHeader]string languageCode)
 		{
-			return Ok(Service.GetListLocalized(idInspection, languageCode));
+			return Ok(Service.GetAnswerListLocalized(idInspection, languageCode));
+		}
+
+		[HttpGet, Route("Question/{idInspection:Guid}"), AllowAnonymous]
+		public ActionResult GetSurveyQuestionListLocalized(Guid idInspection, [FromHeader]string languageCode)
+		{
+			return Ok(Service.GetSurveyQuestionListLocalized(idInspection, languageCode));
 		}
 
 		[HttpPost, Route("Answer")]
 		public ActionResult SaveQuestionAnswer([FromBody] InspectionQuestionForList inspectionQuestionAnswer)
 		{
-			if (Service.SaveQuestionAnswer(inspectionQuestionAnswer))
-				return NoContent();
+			if (Service.SaveQuestionAnswer(inspectionQuestionAnswer) != Guid.Empty)
+				return Ok(new { id = inspectionQuestionAnswer.Id });
 			else
-				return BadRequest("Error during the survey question answer saving process");
+				return BadRequest("Error on question answer saving process");
 		}
 	}
 }
