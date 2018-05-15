@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.InspectionManagement;
@@ -13,7 +14,33 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public List<BatchForList> GetGroupedUserInspections(string languageCode, Guid userId)
+        public bool Remove(Guid id)
+        {
+            var entity = Context.Inspections.Find(id);
+            entity.IsActive = false;
+            Context.SaveChanges();
+
+            return true;
+        }
+
+        public bool SetVisitStatus(InspectionVisitStatus status, Guid id)
+        {
+            var entity = Context.Inspections
+                .Where(i => i.Id == id)
+                .Include(i => i.Visits)
+                .Single();
+            var visit = entity.Visits
+                .Where(v => v.Status == InspectionVisitStatus.WaitingApprobation)
+                .OrderBy(v => v.CompletedOn)
+                .Single();
+
+            visit.Status = status;
+            Context.SaveChanges();
+
+            return true;
+        }
+
+        public List<BatchForList> GetGroupedUserInspections(string languageCode, Guid userId)
 		{
 			var query =
 				from batch in Context.Batches
@@ -91,9 +118,9 @@ namespace Survi.Prevention.ServiceLayer.Services
                     Id = r.Inspection.Id,
                     IdBatch = r.Inspection.IdBatch,
                     BatchDescription = r.Batch.Description,
-                    IdWebuserAssignedTo = Guid.NewGuid(),
                     IdBuilding = r.Building.Id,
                     IdRiskLevel = r.Building.IdRiskLevel,
+                    IdWebuserAssignedTo = r.Inspection.IdWebuserAssignedTo,
                     Address = new AddressGenerator()
                         .GenerateAddress(r.Building.CivicNumber, r.Building.CivicLetter, r.LaneName, r.GenericDescription, r.PublicDescription, r.AddWhiteSpaceAfter),
                     IdCity = r.IdCity,
@@ -119,7 +146,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             return results.ToList();
         }
 
-        public List<InspectionForDashboard> GetApprovedInspection(string languageCode)
+        public List<InspectionForDashboard> GetForApprovalInspection(string languageCode)
         {
             var query =
                 from inspection in Context.Inspections
@@ -131,7 +158,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 from laneLocalization in lane.Localizations.DefaultIfEmpty()
                 where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
                 from visits in inspection.Visits
-                where visits.IsActive
+                where visits.IsActive && visits.Status == InspectionVisitStatus.WaitingApprobation
                 orderby visits.CompletedOn
                 select new
                 {
@@ -155,6 +182,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     BatchDescription = r.Batch.Description,
                     IdBuilding = r.Building.Id,
                     IdRiskLevel = r.Building.IdRiskLevel,
+                    IdWebuserAssignedTo = r.Inspection.IdWebuserAssignedTo,
                     Address = new AddressGenerator()
                         .GenerateAddress(r.Building.CivicNumber, r.Building.CivicLetter, r.LaneName, r.GenericDescription, r.PublicDescription, r.AddWhiteSpaceAfter),
                     IdCity = r.IdCity,
@@ -185,13 +213,16 @@ namespace Survi.Prevention.ServiceLayer.Services
             var query =
                 from building in Context.Buildings
                 where building.IsActive == true && building.IsParent == true
-                from inspection in Context.Inspections
-                where inspection.IdBuilding == building.Id && inspection.IsActive && inspection.IsCompleted
+                join inspection in Context.Inspections
+                on building.Id equals inspection.IdBuilding
+                where inspection.IsActive && inspection.IsCompleted
                 orderby inspection.CompletedOn
                 let batch = inspection.Batch
                 let lane = building.Lane
                 from laneLocalization in lane.Localizations
                 where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
+                from visits in inspection.Visits
+                where visits.IsActive && visits.Status == InspectionVisitStatus.Approved
                 select new
                 {
                     Inspection = inspection,
@@ -205,34 +236,35 @@ namespace Survi.Prevention.ServiceLayer.Services
                 };
 
             var results = query
-                .Select(r => new InspectionForDashboard
-                {
-                    Id = Guid.Empty,
-                    IdBatch = Guid.Empty,
-                    BatchDescription = "",
-                    IdBuilding = r.Building.Id,
-                    IdRiskLevel = r.Building.IdRiskLevel,
-                    Address = new AddressGenerator()
-                        .GenerateAddress(r.Building.CivicNumber, r.Building.CivicLetter, r.LaneName, r.GenericDescription, r.PublicDescription, r.AddWhiteSpaceAfter),
-                    IdCity = r.LaneIdCity,
-                    IdLaneTransversal = r.Building.IdLaneTransversal,
-                    PostalCode = r.Building.PostalCode,
-                    VisitStatus = InspectionVisitStatus.Approved,
-                    HasVisitNote = false,
-                    HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
-                    LastInspectionOn = (DateTime)r.Inspection.CompletedOn,
-                    Contact = "",
-                    Owner = "",
-                    IdUtilisationCode = r.Building.IdUtilisationCode,
-                    IdPicture = r.Building.IdPicture,
-                    BuildingValue = r.Building.BuildingValue,
-                    Matricule = r.Building.Matricule,
-                    NumberOfAppartment = r.Building.NumberOfAppartment,
-                    NumberOfBuilding = r.Building.NumberOfBuilding,
-                    NumberOfFloor = r.Building.NumberOfFloor,
-                    VacantLand = r.Building.VacantLand,
-                    Details = r.Building.Details
-                });
+            .Select(r => new InspectionForDashboard
+            {
+                Id = Guid.Empty,
+                IdBatch = Guid.Empty,
+                BatchDescription = "",
+                IdBuilding = r.Building.Id,
+                IdRiskLevel = r.Building.IdRiskLevel,
+                IdWebuserAssignedTo = r.Inspection.IdWebuserAssignedTo,
+                Address = new AddressGenerator()
+                    .GenerateAddress(r.Building.CivicNumber, r.Building.CivicLetter, r.LaneName, r.GenericDescription, r.PublicDescription, r.AddWhiteSpaceAfter),
+                IdCity = r.LaneIdCity,
+                IdLaneTransversal = r.Building.IdLaneTransversal,
+                PostalCode = r.Building.PostalCode,
+                VisitStatus = InspectionVisitStatus.Approved,
+                HasVisitNote = false,
+                HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
+                LastInspectionOn = (DateTime)r.Inspection.CompletedOn,
+                Contact = "",
+                Owner = "",
+                IdUtilisationCode = r.Building.IdUtilisationCode,
+                IdPicture = r.Building.IdPicture,
+                BuildingValue = r.Building.BuildingValue,
+                Matricule = r.Building.Matricule,
+                NumberOfAppartment = r.Building.NumberOfAppartment,
+                NumberOfBuilding = r.Building.NumberOfBuilding,
+                NumberOfFloor = r.Building.NumberOfFloor,
+                VacantLand = r.Building.VacantLand,
+                Details = r.Building.Details
+            });
 
             return results.ToList();
         }
