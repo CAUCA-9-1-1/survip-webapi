@@ -32,13 +32,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-		public List<InspectionQuestionForList> GetListLocalized(Guid idInspection, string languageCode)
+		public List<InspectionQuestionForList> GetAnswerListLocalized(Guid idInspection, string languageCode)
 		{
 			var inspectionQuestionQuery =
 				(from inspection in Context.Inspections
 				 from surveyquestion in Context.SurveyQuestions.Where(sq => sq.IdSurvey == inspection.IdSurvey && sq.IsActive)
-				 join questionanswser in Context.InspectionQuestions.Where(iq => iq.IsActive) on surveyquestion.Id equals questionanswser.IdSurveyQuestion into iqa
-				 from questionanswser in iqa.DefaultIfEmpty()
+				 from questionanswser in Context.InspectionQuestions.Where(iq => iq.IsActive && iq.IdSurveyQuestion == surveyquestion.Id)
 				 where inspection.IsActive && inspection.Id == idInspection
 				 select new
 				 {
@@ -51,12 +50,14 @@ namespace Survi.Prevention.ServiceLayer.Services
 					 ChoicesList = surveyquestion.Choices,
 					 Sequence = surveyquestion.Sequence,
 					 QuestionType = surveyquestion.QuestionType,
-					 idInspection = inspection.Id
+					 idInspection = inspection.Id,
+					 IdSurveyQuestionNext = surveyquestion.IdSurveyQuestionNext,
+					 created_on = questionanswser.CreatedOn
 				 });
 
 			var InspectionQuestionWithChoice =
 				from question in inspectionQuestionQuery
-				orderby question.Sequence
+				orderby question.created_on, question.Sequence
 				select new InspectionQuestionForList
 				{
 					Id = question.Id,
@@ -68,6 +69,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Sequence = question.Sequence,
 					QuestionType = question.QuestionType,
 					IdInspection = question.idInspection,
+					IdSurveyQuestionNext = question.IdSurveyQuestionNext,
 					ChoicesList = (
 						from choice in question.ChoicesList
 						where choice.IsActive
@@ -87,23 +89,69 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return InspectionQuestionWithChoice.ToList();
 		}
+		public List<InspectionQuestionForList> GetSurveyQuestionListLocalized(Guid idInspection, string languageCode)
+		{
+			var SurveyQuestionQuery =
+				(from inspection in Context.Inspections
+				 from surveyquestion in Context.SurveyQuestions.Where(sq => sq.IdSurvey == inspection.IdSurvey && sq.IsActive)
+				 where inspection.IsActive && inspection.Id == idInspection
+				 orderby surveyquestion.Sequence
+				 select new InspectionQuestionForList
+				 {
+					 Id = null,
+					 IdSurveyQuestion = surveyquestion.Id,
+					 IdSurveyQuestionChoice = null,
+					 Answer = null,
+					 Title = surveyquestion.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Title,
+					 Description = surveyquestion.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
+					 ChoicesList = (
+										from choice in surveyquestion.Choices
+										where choice.IsActive
+										from loc in choice.Localizations
+										where loc.IsActive && loc.LanguageCode == languageCode
+										orderby choice.Sequence
+										select new SurveyQuestionChoiceForList
+										{
+											Id = choice.Id,
+											Description = loc.Name,
+											IdSurveyQuestionNext = choice.IdSurveyQuestionNext,
+											Sequence = choice.Sequence
+										}
+									).ToList(),
+					 Sequence = surveyquestion.Sequence,
+					 QuestionType = surveyquestion.QuestionType,
+					 IdInspection = inspection.Id,
+					 IdSurveyQuestionNext = surveyquestion.IdSurveyQuestionNext
+				 });
 
-		public bool SaveQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
+			return SurveyQuestionQuery.ToList();
+		}
+
+		public Guid SaveQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
 		{
 			if (inspectionQuestionAnswer != null)
 			{
-				var questionAnswer = new InspectionQuestion();
-				questionAnswer.Answer = inspectionQuestionAnswer.Answer;
-				questionAnswer.IdSurveyQuestion = inspectionQuestionAnswer.IdSurveyQuestion;
-				questionAnswer.IdInspection = inspectionQuestionAnswer.IdInspection;
-				questionAnswer.IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice;
-
-				Context.InspectionQuestions.Add(questionAnswer);
+				if((inspectionQuestionAnswer.Id != null)&&(inspectionQuestionAnswer.Id != Guid.Empty))
+				{
+					var existingAnswer = Context.InspectionQuestions.Single(ea => ea.Id == inspectionQuestionAnswer.Id);
+					existingAnswer.Answer = inspectionQuestionAnswer.Answer;
+					existingAnswer.IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice;
+					Context.InspectionQuestions.Update(existingAnswer);
+				}
+				else
+				{
+					var questionAnswer = new InspectionQuestion();
+					questionAnswer.Answer = inspectionQuestionAnswer.Answer;
+					questionAnswer.IdSurveyQuestion = inspectionQuestionAnswer.IdSurveyQuestion;
+					questionAnswer.IdInspection = inspectionQuestionAnswer.IdInspection;
+					questionAnswer.IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice;
+					inspectionQuestionAnswer.Id = questionAnswer.Id;
+					Context.InspectionQuestions.Add(questionAnswer);
+				}
 
 				Context.SaveChanges();
-				return true;
 			}
-		return false;
+		return inspectionQuestionAnswer.Id.Value;
 		}
 	}
 
