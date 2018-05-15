@@ -20,6 +20,7 @@ namespace Survi.Prevention.Models.InspectionManagement
 		public bool IsCompleted { get; set; }
 		public DateTime? StartedOn { get; set; }
 		public DateTime? CompletedOn { get; set; }
+		public bool IsSurveyCompleted { get; set; }
 
 		public Batch Batch { get; set; }
 		public Survey Survey { get; set; }

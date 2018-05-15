@@ -13,6 +13,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.Property(m => m.CreatedOn).IsRequired();
 			b.Property(m => m.IsActive).IsRequired();
 
+			b.Property(m => m.IsSurveyCompleted);
 			b.HasOne(m => m.Survey).WithMany().HasForeignKey(m => m.IdSurvey);
 			b.HasOne(m => m.CreatedBy).WithMany().HasForeignKey(m => m.IdWebuserCreatedBy);
 			b.HasOne(m => m.AssignedTo).WithMany().HasForeignKey(m => m.IdWebuserAssignedTo);			

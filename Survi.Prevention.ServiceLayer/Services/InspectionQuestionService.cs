@@ -153,6 +153,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 		return inspectionQuestionAnswer.Id.Value;
 		}
+
+		public bool CompleteSurvey(Guid idInspection)
+		{
+			if(idInspection != null && idInspection != Guid.Empty)
+			{
+				Context.Inspections.Single(i => i.Id == idInspection && i.IsActive).IsSurveyCompleted = true;
+				Context.SaveChanges();
+				return true;
+			}
+			return false;
+		}
 	}
 
 }
