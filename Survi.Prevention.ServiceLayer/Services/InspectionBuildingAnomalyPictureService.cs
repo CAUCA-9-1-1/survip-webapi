@@ -3,31 +3,64 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models;
 using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.DataTransfertObjects;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class InspectionBuildingAnomalyPictureService : BaseCrudService<BuildingAnomalyPicture>
+	public class InspectionBuildingAnomalyPictureService : BaseService
 	{
 		public InspectionBuildingAnomalyPictureService(ManagementContext context) : base(context)
 		{
 		}
 
-		public override BuildingAnomalyPicture Get(Guid id)
+		public List<BuildingAnomalyPictureForWeb> GetAnomalyPictures(Guid idBuildingAnomaly)
 		{
-			throw new NotImplementedException();
+			var query =
+				from picture in Context.BuildingAnomalyPictures.AsNoTracking()
+				let data = picture.Picture
+				where picture.IdBuildingAnomaly == idBuildingAnomaly && picture.IsActive && data != null && data.IsActive
+				select new 
+				{
+					picture.Id,
+					picture.IdBuildingAnomaly,
+					picture.IdPicture,
+					PictureData = data.Data
+				};
+
+			var result = query.ToList();
+
+			return result.Select(pic => new BuildingAnomalyPictureForWeb
+			{
+				Id = pic.Id,
+				IdPicture = pic.IdPicture,
+				IdBuildingAnomaly = pic.IdBuildingAnomaly,
+				PictureData = Convert.ToBase64String(pic.PictureData)
+			}).ToList();
 		}
 
-		public override List<BuildingAnomalyPicture> GetList()
+		public virtual Guid AddPicture(BuildingAnomalyPictureForWeb entity)
 		{
-			throw new NotImplementedException();
+			var currentRecord = new BuildingAnomalyPicture
+			{
+				Id = entity.Id,
+				IdBuildingAnomaly = entity.IdBuildingAnomaly,
+				Picture = new Picture { Id = entity.Id, Data = PictureService.DecodeBase64Picture(entity.PictureData) }
+			};
+			Context.Add(currentRecord);
+			Context.SaveChanges();
+			return entity.Id;
 		}
 
-		public List<BuildingAnomalyPicture> GetAnomalyPictures(Guid idBuildingAnomaly)
+		public virtual bool Remove(Guid id)
 		{
-			return Context.BuildingAnomalyPictures.AsNoTracking()
-				.Where(picture => picture.IdBuildingAnomaly == idBuildingAnomaly)
-				.ToList();
+			var entity = Context.BuildingAnomalyPictures.Find(id);
+			entity.IsActive = false;
+			var picture = Context.Pictures.Find(entity.IdPicture);
+			Context.Remove(picture);
+			Context.SaveChanges();
+			return true;
 		}
 	}
 }

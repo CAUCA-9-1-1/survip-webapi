@@ -42,6 +42,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasMany(m => m.Sprinklers).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
 			b.HasMany(m => m.Courses).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
 			b.HasMany(m => m.Children).WithOne(m => m.Parent).HasForeignKey(m => m.IdParentBuilding);
+			b.HasMany(m => m.Anomalies).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
 		}
 	}
 }

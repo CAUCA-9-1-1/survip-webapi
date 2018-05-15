@@ -18,7 +18,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 	    public override BuildingAnomaly Get(Guid id)
 	    {
 		    return Context.BuildingAnomalies.AsNoTracking()
-				.Include(anomaly => anomaly.Pictures)
 			    .FirstOrDefault(anomaly => anomaly.Id == id);
 	    }
 

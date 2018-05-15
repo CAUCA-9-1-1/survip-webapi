@@ -49,7 +49,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return picture.Id;
 		}
 
-		static byte[] DecodeBase64Picture(string picture)
+		public static byte[] DecodeBase64Picture(string picture)
 		{
 			string s = picture;
 			s = s.Replace('-', '+'); // 62nd char of encoding

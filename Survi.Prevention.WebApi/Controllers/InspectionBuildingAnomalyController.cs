@@ -18,7 +18,7 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(Service.GetListForWeb(idBuilding));
 		}
 
-		[Route("api/inspection/anomalythemes"), HttpGet]
+		[Route("/api/inspection/anomalythemes"), HttpGet]
 		public ActionResult GetThemeList()
 		{
 			return Ok(Service.GetThemes());
