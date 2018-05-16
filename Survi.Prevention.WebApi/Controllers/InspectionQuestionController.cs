@@ -13,16 +13,22 @@ namespace Survi.Prevention.WebApi.Controllers
 		public InspectionQuestionController(InspectionQuestionService service) : base(service)
 		{
 		}
-		[HttpGet, Route("Answer/{idInspection:Guid}"), AllowAnonymous]
+		[HttpGet, Route("Inspection/{idInspection:Guid}/Answer"), AllowAnonymous]
 		public ActionResult GetAnswerListLocalized(Guid idInspection, [FromHeader]string languageCode)
 		{
 			return Ok(Service.GetAnswerListLocalized(idInspection, languageCode));
 		}
 
-		[HttpGet, Route("Question/{idInspection:Guid}"), AllowAnonymous]
+		[HttpGet, Route("Inspection/{idInspection:Guid}/Question"), AllowAnonymous]
 		public ActionResult GetSurveyQuestionListLocalized(Guid idInspection, [FromHeader]string languageCode)
 		{
 			return Ok(Service.GetSurveyQuestionListLocalized(idInspection, languageCode));
+		}
+
+		[HttpGet, Route("Inspection/{idInspection:Guid}/Summary"), AllowAnonymous]
+		public ActionResult GetInspectionQuestionSummaryListLocalized(Guid idInspection, [FromHeader]string languageCode)
+		{
+			return Ok(Service.getInspectionQuestionSummaryListLocalized(idInspection, languageCode));
 		}
 
 		[HttpPost, Route("Answer")]
