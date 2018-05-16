@@ -35,7 +35,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 
 		[HttpPost, Route("CompleteSurvey")]
-		public ActionResult SaveQuestionAnswer([FromBody] Guid idInspection)
+		public ActionResult CompleteSurvey([FromBody] Guid idInspection)
 		{
 			if (Service.CompleteSurvey(idInspection))
 				return NoContent();
