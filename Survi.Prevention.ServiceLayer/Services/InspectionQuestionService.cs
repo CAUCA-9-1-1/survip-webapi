@@ -89,6 +89,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return InspectionQuestionWithChoice.ToList();
 		}
+
 		public List<InspectionQuestionForList> GetSurveyQuestionListLocalized(Guid idInspection, string languageCode)
 		{
 			var SurveyQuestionQuery =
@@ -129,29 +130,27 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public Guid SaveQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
 		{
-			if (inspectionQuestionAnswer != null)
+			if((inspectionQuestionAnswer.Id != null)&&(inspectionQuestionAnswer.Id != Guid.Empty))
 			{
-				if((inspectionQuestionAnswer.Id != null)&&(inspectionQuestionAnswer.Id != Guid.Empty))
-				{
-					var existingAnswer = Context.InspectionQuestions.Single(ea => ea.Id == inspectionQuestionAnswer.Id);
-					existingAnswer.Answer = inspectionQuestionAnswer.Answer;
-					existingAnswer.IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice;
-					Context.InspectionQuestions.Update(existingAnswer);
-				}
-				else
-				{
-					var questionAnswer = new InspectionQuestion();
-					questionAnswer.Answer = inspectionQuestionAnswer.Answer;
-					questionAnswer.IdSurveyQuestion = inspectionQuestionAnswer.IdSurveyQuestion;
-					questionAnswer.IdInspection = inspectionQuestionAnswer.IdInspection;
-					questionAnswer.IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice;
-					inspectionQuestionAnswer.Id = questionAnswer.Id;
-					Context.InspectionQuestions.Add(questionAnswer);
-				}
-
-				Context.SaveChanges();
+				var existingAnswer = Context.InspectionQuestions.Single(ea => ea.Id == inspectionQuestionAnswer.Id);
+				existingAnswer.Answer = inspectionQuestionAnswer.Answer;
+				existingAnswer.IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice;
+				Context.InspectionQuestions.Update(existingAnswer);
 			}
-		return inspectionQuestionAnswer.Id.Value;
+			else
+			{
+				var questionAnswer = new InspectionQuestion();
+				questionAnswer.Answer = inspectionQuestionAnswer.Answer;
+				questionAnswer.IdSurveyQuestion = inspectionQuestionAnswer.IdSurveyQuestion;
+				questionAnswer.IdInspection = inspectionQuestionAnswer.IdInspection;
+				questionAnswer.IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice;
+				inspectionQuestionAnswer.Id = questionAnswer.Id;
+				Context.InspectionQuestions.Add(questionAnswer);
+			}
+
+			Context.SaveChanges();
+
+			return inspectionQuestionAnswer.Id.Value;
 		}
 
 		public bool CompleteSurvey(Guid idInspection)
@@ -164,6 +163,24 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 			return false;
 		}
+
+		public List<InspectionQuestionForSummary> getInspectionQuestionSummaryListLocalized(Guid idInspection, string languageCode)
+		{
+			var AnswerSummary = (
+				from inspectionQuestion in Context.InspectionQuestions
+				from surveyQuestion in Context.SurveyQuestions.Where(sq => sq.IsActive && sq.Id == inspectionQuestion.IdSurveyQuestion)
+				join surveyQuestionChoice in Context.SurveyQuestionChoices.Where(sqc => sqc.IsActive) on inspectionQuestion.IdSurveyQuestionChoice equals surveyQuestionChoice.Id into aqc
+				from surveyQuestionChoice in aqc.DefaultIfEmpty()
+				select new InspectionQuestionForSummary
+				{
+					Id = inspectionQuestion.Id,
+					QuestionDescription = surveyQuestion.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
+					Answer = surveyQuestion.QuestionType != 1 ? surveyQuestionChoice.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name : inspectionQuestion.Answer
+				}
+				);
+			return AnswerSummary.ToList();
+		}
+
 	}
 
 }
