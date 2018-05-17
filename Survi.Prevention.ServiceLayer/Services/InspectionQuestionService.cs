@@ -164,21 +164,35 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return false;
 		}
 
-		public List<InspectionQuestionForSummary> getInspectionQuestionSummaryListLocalized(Guid idInspection, string languageCode)
+		public List<InspectionSummaryCategoryForList> getInspectionQuestionSummaryListLocalized(Guid idInspection, string languageCode)
 		{
 			var AnswerSummary = (
 				from inspectionQuestion in Context.InspectionQuestions
 				from surveyQuestion in Context.SurveyQuestions.Where(sq => sq.IsActive && sq.Id == inspectionQuestion.IdSurveyQuestion)
 				join surveyQuestionChoice in Context.SurveyQuestionChoices.Where(sqc => sqc.IsActive) on inspectionQuestion.IdSurveyQuestionChoice equals surveyQuestionChoice.Id into aqc
 				from surveyQuestionChoice in aqc.DefaultIfEmpty()
+				orderby inspectionQuestion.CreatedOn
 				select new InspectionQuestionForSummary
 				{
 					Id = inspectionQuestion.Id,
+					QuestionTitle = surveyQuestion.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Title,
 					QuestionDescription = surveyQuestion.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
-					Answer = surveyQuestion.QuestionType != 1 ? surveyQuestionChoice.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name : inspectionQuestion.Answer
-				}
-				);
-			return AnswerSummary.ToList();
+					Answer = surveyQuestion.QuestionType != 1 ? inspectionQuestion.Answer : surveyQuestionChoice.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
+					QuestionType = surveyQuestion.QuestionType,
+					Sequence = surveyQuestion.Sequence
+				}).ToList();
+
+			var groupedTitle =
+				from groupedQuestion in AnswerSummary
+				group groupedQuestion by groupedQuestion.QuestionTitle
+				into gq
+				select new InspectionSummaryCategoryForList
+				{
+					Title = gq.Key,
+					AnswerSummary = gq.ToList()
+				};
+
+			return groupedTitle.ToList();
 		}
 
 	}
