@@ -24,13 +24,13 @@ namespace Survi.Prevention.WebApi.Controllers
 		[Route("/api/inspection/building/{idBuilding:Guid}/particularrisk/floor"), HttpGet]
 		public ActionResult GetFloor(Guid idBuilding)
 		{
-			return Ok(Service.Get<FoundationParticularRisk>(idBuilding));
+			return Ok(Service.Get<FloorParticularRisk>(idBuilding));
 		}
 
 		[Route("/api/inspection/building/{idBuilding:Guid}/particularrisk/wall"), HttpGet]
 		public ActionResult GetWall(Guid idBuilding)
 		{
-			return Ok(Service.Get<FoundationParticularRisk>(idBuilding));
+			return Ok(Service.Get<WallParticularRisk>(idBuilding));
 		}
 
 		[Route("/api/inspection/building/{idBuilding:Guid}/particularrisk/roof"), HttpGet]
