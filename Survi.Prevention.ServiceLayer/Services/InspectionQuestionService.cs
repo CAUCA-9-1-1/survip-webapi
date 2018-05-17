@@ -171,6 +171,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				from surveyQuestion in Context.SurveyQuestions.Where(sq => sq.IsActive && sq.Id == inspectionQuestion.IdSurveyQuestion)
 				join surveyQuestionChoice in Context.SurveyQuestionChoices.Where(sqc => sqc.IsActive) on inspectionQuestion.IdSurveyQuestionChoice equals surveyQuestionChoice.Id into aqc
 				from surveyQuestionChoice in aqc.DefaultIfEmpty()
+				where inspectionQuestion.IdInspection == idInspection
 				orderby inspectionQuestion.CreatedOn
 				select new InspectionQuestionForSummary
 				{
