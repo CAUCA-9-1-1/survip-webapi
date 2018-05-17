@@ -9,22 +9,22 @@ using Survi.Prevention.Models.DataTransfertObjects;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class InspectionBuildingAnomalyPictureService : BaseService
+	public class InspectionBuildingParticularRiskPictureService : BaseService
 	{
-		public InspectionBuildingAnomalyPictureService(ManagementContext context) : base(context)
+		public InspectionBuildingParticularRiskPictureService(ManagementContext context) : base(context)
 		{
 		}
 
-		public List<BuildingChildPictureForWeb> GetAnomalyPictures(Guid idBuildingAnomaly)
+		public List<BuildingChildPictureForWeb> GetAnomalyPictures(Guid idBuildingParticularRisk)
 		{
 			var query =
-				from picture in Context.BuildingAnomalyPictures.AsNoTracking()
+				from picture in Context.BuildingParticularRiskPictures.AsNoTracking()
 				let data = picture.Picture
-				where picture.IdBuildingAnomaly == idBuildingAnomaly && picture.IsActive && data != null && data.IsActive
-				select new 
+				where picture.IdBuildingParticularRisk == idBuildingParticularRisk && picture.IsActive && data != null && data.IsActive
+				select new
 				{
 					picture.Id,
-					picture.IdBuildingAnomaly,
+					picture.IdBuildingParticularRisk,
 					picture.IdPicture,
 					PictureData = data.Data
 				};
@@ -35,17 +35,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 			{
 				Id = pic.Id,
 				IdPicture = pic.IdPicture,
-				IdParent = pic.IdBuildingAnomaly,
+				IdParent = pic.IdBuildingParticularRisk,
 				PictureData = Convert.ToBase64String(pic.PictureData)
 			}).ToList();
 		}
 
 		public virtual Guid AddPicture(BuildingChildPictureForWeb entity)
 		{
-			var currentRecord = new BuildingAnomalyPicture
+			var currentRecord = new BuildingParticularRiskPicture
 			{
 				Id = entity.Id,
-				IdBuildingAnomaly = entity.IdParent,
+				IdBuildingParticularRisk = entity.IdParent,
 				Picture = new Picture { Id = entity.Id, Data = PictureService.DecodeBase64Picture(entity.PictureData) }
 			};
 			Context.Add(currentRecord);
@@ -55,7 +55,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public virtual bool Remove(Guid id)
 		{
-			var entity = Context.BuildingAnomalyPictures.Find(id);
+			var entity = Context.BuildingParticularRiskPictures.Find(id);
 			entity.IsActive = false;
 			var picture = Context.Pictures.Find(entity.IdPicture);
 			Context.Remove(picture);

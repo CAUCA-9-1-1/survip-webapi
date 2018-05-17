@@ -33,6 +33,8 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<BuildingAlarmPanel> BuildingAlarmPanels { get; set; } 
         public DbSet<BuildingAnomaly> BuildingAnomalies { get; set; }
 		public DbSet<BuildingAnomalyPicture> BuildingAnomalyPictures { get; set; }
+		public DbSet<BuildingParticularRisk> BuildingParticularRisks { get; set; }
+		public DbSet<BuildingParticularRiskPicture> BuildingParticularRiskPictures { get; set; }
 
 		public DbSet<Country> Countries { get; set; }
 		public DbSet<RiskLevel> RiskLevels { get; set; }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using NpgsqlTypes;
 using Survi.Prevention.Models.Base;
 using Survi.Prevention.Models.FireSafetyDepartments;
 
@@ -63,5 +62,6 @@ namespace Survi.Prevention.Models.Buildings
 		public ICollection<BuildingSprinkler> Sprinklers { get; set; }
 		public ICollection<Building> Children { get; set; }
 		public ICollection<BuildingAnomaly> Anomalies { get; set; }
+		public ICollection<BuildingParticularRisk> ParticularRisks { get; set; }
 	}
 }

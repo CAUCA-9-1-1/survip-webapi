@@ -5,20 +5,20 @@ using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
-	[Route("api/inspection/building/anomaly/picture")]
-	public class InspectionBuildingAnomalyPictureController : BaseSecuredController
+	[Route("api/inspection/building/particularrisk/picture")]
+	public class InspectionBuildingParticularRiskPictureController : BaseSecuredController
 	{
-		protected InspectionBuildingAnomalyPictureService Service;
+		protected InspectionBuildingParticularRiskPictureService Service;
 
-		public InspectionBuildingAnomalyPictureController(InspectionBuildingAnomalyPictureService service)
+		public InspectionBuildingParticularRiskPictureController(InspectionBuildingParticularRiskPictureService service)
 		{
 			Service = service;
 		}
 
-		[Route("/api/inspection/building/anomaly/{idBuildingAnomaly:Guid}/picture"), HttpGet]
-		public ActionResult GetListForDisplay(Guid idBuildingAnomaly)
+		[Route("/api/inspection/building/particularrisk/{idBuildingParticularRisk:Guid}/picture"), HttpGet]
+		public ActionResult GetListForDisplay(Guid idBuildingParticularRisk)
 		{
-			return Ok(Service.GetAnomalyPictures(idBuildingAnomaly));
+			return Ok(Service.GetAnomalyPictures(idBuildingParticularRisk));
 		}
 
 		[HttpPost]
