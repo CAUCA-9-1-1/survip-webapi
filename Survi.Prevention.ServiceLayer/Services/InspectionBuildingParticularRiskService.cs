@@ -12,11 +12,21 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public BuildingParticularRisk Get<T>(Guid id) where T: BuildingParticularRisk
+		public BuildingParticularRisk Get<T>(Guid idBuilding) where T: BuildingParticularRisk, new()
 		{
-			return Context.BuildingParticularRisks.AsNoTracking()
+			var entity = Context.BuildingParticularRisks.AsNoTracking()
 				.OfType<T>()
-				.FirstOrDefault(risk => risk.Id == id);
+				.FirstOrDefault(risk => risk.IdBuilding == idBuilding && risk.IsActive)
+				?? CreateMissingParticularRisk<T>(idBuilding);
+			return entity;
+		}
+
+		private T CreateMissingParticularRisk<T>(Guid idBuilding) where T : BuildingParticularRisk, new()
+		{
+			var entity = new T {IdBuilding = idBuilding};
+			Context.Add(entity);
+			Context.SaveChanges();
+			return entity;
 		}
 
 		public virtual Guid AddOrUpdate<T>(T entity) where T: BuildingParticularRisk
