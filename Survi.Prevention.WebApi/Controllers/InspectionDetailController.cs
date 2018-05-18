@@ -27,7 +27,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		public ActionResult SaveIntersection(Guid idBuilding, Guid? idLane)
 		{			
 			if (service.TryToChangeIntersection(idBuilding, idLane))
-				return Ok();
+				return NoContent();
 			return BadRequest("Unknown building.");			
 		}
 
@@ -35,7 +35,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		public ActionResult SavePicture(Guid idBuildingDetail, Guid? idPicture)
 		{
 			if (service.TryToChangeIdPicture(idBuildingDetail, idPicture))
-				return Ok();
+				return NoContent();
 			return BadRequest("Unknown building detail.");			
 		}
 	}
