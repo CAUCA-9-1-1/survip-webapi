@@ -6,6 +6,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 	public class InspectionQuestionForSummary
 	{
 		public Guid Id { get; set; }
+		public Guid NextQuestionId { get; set; }
 		public string QuestionTitle { get;  set; } = "";
 		public string QuestionDescription { get; set; } = "";
 		public string Answer { get; set; } = "";
