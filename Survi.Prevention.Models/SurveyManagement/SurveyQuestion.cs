@@ -15,6 +15,8 @@ namespace Survi.Prevention.Models.SurveyManagement
 		public Survey Survey { get; set; }
 		public SurveyQuestion NextQuestion { get; set; }
 
+		public bool IsRecursive { get; set; }
+
 		public ICollection<SurveyQuestionChoice> Choices { get; set; }
 		public ICollection<SurveyQuestionLocalization> Localizations { get; set; }
 	}
