@@ -180,8 +180,23 @@ namespace Survi.Prevention.ServiceLayer.Services
 					QuestionDescription = surveyQuestion.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
 					Answer = surveyQuestion.QuestionType != 1 ? inspectionQuestion.Answer : surveyQuestionChoice.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
 					QuestionType = surveyQuestion.QuestionType,
-					Sequence = surveyQuestion.Sequence
+					Sequence = surveyQuestion.Sequence,
+					IsRecursive = surveyQuestion.IsRecursive,
+					RecursiveAnswer = new List<InspectionQuestionForSummary>()
 				}).ToList();
+
+			/*List<InspectionQuestionForSummary> recursivelist = new List<InspectionQuestionForSummary>();
+			InspectionQuestionForSummary recursiveone = null;
+			AnswerSummary.ForEach(item =>
+			{
+				if (item.IsRecursive)
+				{
+					recursiveone = item;
+				}
+				if (item.Id != recursiveone.Id)
+				{ item.RecursiveAnswer.Add(item); }
+
+			});*/
 
 			var groupedTitle =
 				from groupedQuestion in AnswerSummary
@@ -192,6 +207,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Title = gq.Key,
 					AnswerSummary = gq.ToList()
 				};
+
 
 			return groupedTitle.ToList();
 		}

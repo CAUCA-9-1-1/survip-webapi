@@ -11,5 +11,8 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 		public string Answer { get; set; } = "";
 		public int QuestionType { get; set; }
 		public int Sequence { get; set; }
+		public bool IsRecursive { get; set; }
+
+		public List<InspectionQuestionForSummary> RecursiveAnswer { get; set; }
 	}
 }
