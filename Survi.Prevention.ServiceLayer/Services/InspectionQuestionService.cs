@@ -176,30 +176,49 @@ namespace Survi.Prevention.ServiceLayer.Services
 				select new InspectionQuestionForSummary
 				{
 					Id = inspectionQuestion.Id,
+					NextQuestionId = surveyQuestion.Id,
 					QuestionTitle = surveyQuestion.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Title,
 					QuestionDescription = surveyQuestion.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
 					Answer = surveyQuestion.QuestionType != 1 ? inspectionQuestion.Answer : surveyQuestionChoice.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
 					QuestionType = surveyQuestion.QuestionType,
 					Sequence = surveyQuestion.Sequence,
-					IsRecursive = surveyQuestion.IsRecursive,
-					RecursiveAnswer = new List<InspectionQuestionForSummary>()
+					IsRecursive = surveyQuestion.IsRecursive
+					
 				}).ToList();
 
-			/*List<InspectionQuestionForSummary> recursivelist = new List<InspectionQuestionForSummary>();
+			List<InspectionQuestionForSummary> recursivelist = new List<InspectionQuestionForSummary>();
 			InspectionQuestionForSummary recursiveone = null;
+			bool recon = false;
 			AnswerSummary.ForEach(item =>
 			{
+				if (recursiveone != null && item.Id == recursiveone.Id && recon)
+				{
+					recon = false;
+				}
+
 				if (item.IsRecursive)
 				{
 					recursiveone = item;
+					recursivelist.Add(item);
+					recursivelist[recursivelist.Count - 1].RecursiveAnswer = new List<InspectionQuestionForSummary>();
+					recon = true;
 				}
-				if (item.Id != recursiveone.Id)
-				{ item.RecursiveAnswer.Add(item); }
-
-			});*/
+				if ((item.Id != recursiveone.Id) && recon)
+				{
+					if (item.QuestionTitle == recursiveone.QuestionTitle)
+						recursivelist[recursivelist.Count - 1].RecursiveAnswer.Add(item);
+					else
+						recon = false;
+				}
+				
+				if (!recon)
+				{
+					recursivelist.Add(item);
+				}
+			});
 
 			var groupedTitle =
-				from groupedQuestion in AnswerSummary
+				from groupedQuestion in recursivelist
 				group groupedQuestion by groupedQuestion.QuestionTitle
 				into gq
 				select new InspectionSummaryCategoryForList
@@ -208,6 +227,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					AnswerSummary = gq.ToList()
 				};
 
+			
 
 			return groupedTitle.ToList();
 		}
