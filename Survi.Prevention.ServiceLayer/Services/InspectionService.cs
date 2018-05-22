@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
@@ -93,7 +94,7 @@ namespace Survi.Prevention.ServiceLayer.Services
         public List<InspectionForDashboard> GetToDoInspection(string languageCode)
         {
             var query =
-                from inspection in Context.Inspections
+                from inspection in Context.Inspections.AsNoTracking()
                 where inspection.IsActive && !inspection.IsCompleted
                 let batch = inspection.Batch
                 let building = inspection.MainBuilding
@@ -127,11 +128,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
                     VisitStatus = InspectionVisitStatus.Todo,
-                    HasVisitNote = false,
                     HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
-                    //LastInspectionOn = null,
-                    Contact = "",
-                    Owner = "",
                     IdUtilisationCode = r.Building.IdUtilisationCode,
                     IdPicture = r.Building.IdPicture,
                     BuildingValue = r.Building.BuildingValue,
@@ -140,16 +137,17 @@ namespace Survi.Prevention.ServiceLayer.Services
                     NumberOfBuilding = r.Building.NumberOfBuilding,
                     NumberOfFloor = r.Building.NumberOfFloor,
                     VacantLand = r.Building.VacantLand,
+                    YearOfConstruction = r.Building.YearOfConstruction,
                     Details = r.Building.Details
                 });
 
-            return results.ToList();
+            return InsertMissingInformation(results.ToList());
         }
 
         public List<InspectionForDashboard> GetForApprovalInspection(string languageCode)
         {
             var query =
-                from inspection in Context.Inspections
+                from inspection in Context.Inspections.AsNoTracking()
                 where inspection.IsActive && inspection.IsCompleted
                 orderby inspection.CompletedOn
                 let batch = inspection.Batch
@@ -189,11 +187,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
                     VisitStatus = r.Visit.Status,
-                    HasVisitNote = false,
                     HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
-                    //LastInspectionOn = null,
-                    Contact = "",
-                    Owner = "",
                     IdUtilisationCode = r.Building.IdUtilisationCode,
                     IdPicture = r.Building.IdPicture,
                     BuildingValue = r.Building.BuildingValue,
@@ -202,10 +196,11 @@ namespace Survi.Prevention.ServiceLayer.Services
                     NumberOfBuilding = r.Building.NumberOfBuilding,
                     NumberOfFloor = r.Building.NumberOfFloor,
                     VacantLand = r.Building.VacantLand,
+                    YearOfConstruction = r.Building.YearOfConstruction,
                     Details = r.Building.Details
                 });
 
-            return results.ToList();
+            return InsertMissingInformation(results.ToList());
         }
 
         public List<InspectionForDashboard> GetBuildingWithHistory(string languageCode)
@@ -213,7 +208,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             var query =
                 from building in Context.Buildings
                 where building.IsActive == true && building.IsParent == true
-                join inspection in Context.Inspections
+                join inspection in Context.Inspections.AsNoTracking()
                 on building.Id equals inspection.IdBuilding
                 where inspection.IsActive && inspection.IsCompleted
                 orderby inspection.CompletedOn
@@ -250,11 +245,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 IdLaneTransversal = r.Building.IdLaneTransversal,
                 PostalCode = r.Building.PostalCode,
                 VisitStatus = InspectionVisitStatus.Approved,
-                HasVisitNote = false,
                 HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
-                LastInspectionOn = (DateTime)r.Inspection.CompletedOn,
-                Contact = "",
-                Owner = "",
                 IdUtilisationCode = r.Building.IdUtilisationCode,
                 IdPicture = r.Building.IdPicture,
                 BuildingValue = r.Building.BuildingValue,
@@ -263,10 +254,11 @@ namespace Survi.Prevention.ServiceLayer.Services
                 NumberOfBuilding = r.Building.NumberOfBuilding,
                 NumberOfFloor = r.Building.NumberOfFloor,
                 VacantLand = r.Building.VacantLand,
+                YearOfConstruction = r.Building.YearOfConstruction,
                 Details = r.Building.Details
             });
 
-            return results.ToList();
+            return InsertMissingInformation(results.ToList());
         }
 
         public List<InspectionForDashboard> GetBuildingWithoutInspection(string languageCode)
@@ -301,11 +293,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
                     VisitStatus = InspectionVisitStatus.Todo,
-                    HasVisitNote = false,
                     HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
-                    //LastInspectionOn = null,
-                    Contact = "",
-                    Owner = "",
                     IdUtilisationCode = r.Building.IdUtilisationCode,
                     IdPicture = r.Building.IdPicture,
                     BuildingValue = r.Building.BuildingValue,
@@ -314,10 +302,67 @@ namespace Survi.Prevention.ServiceLayer.Services
                     NumberOfBuilding = r.Building.NumberOfBuilding,
                     NumberOfFloor = r.Building.NumberOfFloor,
                     VacantLand = r.Building.VacantLand,
+                    YearOfConstruction = r.Building.YearOfConstruction,
                     Details = r.Building.Details
                 });
 
-            return results.ToList();
+            return InsertMissingInformation(results.ToList());
+        }
+
+        private List<InspectionForDashboard> InsertMissingInformation(List<InspectionForDashboard> data)
+        {
+            data.ForEach(row =>
+            {
+                row.LastInspectionOn = GetLastInspection(row.IdBuilding);
+                row.Contact = GetBuildingContact(row.IdBuilding);
+                row.Owner = GetBuildingOwner(row.IdBuilding);
+            });
+
+            return data;
+        }
+
+        private string GetBuildingContact(Guid idBuilding)
+        {
+            var list = new List<string>();
+            var contacts = Context.BuildingContacts
+                .AsNoTracking()
+                .Where(c => c.IdBuilding == idBuilding && c.IsActive);
+
+            contacts.ToList().ForEach(contact => {
+                list.Add(contact.FirstName + " " + contact.LastName);
+            });
+
+            return String.Join(", ", list);
+        }
+
+        private string GetBuildingOwner(Guid idBuilding)
+        {
+            var owner = Context.BuildingContacts
+                .AsNoTracking()
+                .SingleOrDefault(c => c.IdBuilding == idBuilding && c.IsActive && c.IsOwner);
+
+            if (owner is null)
+            {
+                return "";
+            }
+
+            return owner.FirstName + " " + owner.LastName;
+        }
+
+        private DateTime GetLastInspection(Guid idBuilding)
+        {
+            var lastInspection = Context.Inspections
+                .AsNoTracking()
+                .Where(i => i.IdBuilding == idBuilding && i.IsActive)
+                .OrderBy(i => i.CompletedOn)
+                .SingleOrDefault(i => i.IsCompleted);
+
+            if (lastInspection is null)
+            {
+                return new DateTime(2000,1,1);
+            }
+
+            return (DateTime)lastInspection.CompletedOn;
         }
 	}
 }
