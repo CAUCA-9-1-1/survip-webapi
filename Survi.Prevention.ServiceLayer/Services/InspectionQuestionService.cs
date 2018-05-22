@@ -35,10 +35,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public List<InspectionQuestionForList> GetAnswerListLocalized(Guid idInspection, string languageCode)
 		{
 			var inspectionQuestionQuery =
-				(from inspection in Context.Inspections
+				(from inspection in Context.Inspections.Where(i=> i.Id == idInspection && i.IsActive)
 				 from surveyquestion in Context.SurveyQuestions.Where(sq => sq.IdSurvey == inspection.IdSurvey && sq.IsActive)
-				 from questionanswser in Context.InspectionQuestions.Where(iq => iq.IsActive && iq.IdSurveyQuestion == surveyquestion.Id)
-				 where inspection.IsActive && inspection.Id == idInspection
+				 from questionanswser in Context.InspectionQuestions.Where(iq => iq.IsActive && iq.IdSurveyQuestion == surveyquestion.Id && iq.IdInspection == inspection.Id)
 				 select new
 				 {
 					 Id = questionanswser.Id,
