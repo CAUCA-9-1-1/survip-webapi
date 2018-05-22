@@ -15,6 +15,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public InspectionBuildingDetailForWeb GetDetailForWeb(Guid inspectionId, string languageCode)
 		{
+			CreateDetailForMainBuildingWhenMissing(inspectionId);
+
 			var query =
 				from inspection in Context.Inspections.AsNoTracking()
 				where inspection.Id == inspectionId
@@ -45,7 +47,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					building.CivicNumber,
 					building.CivicLetter,
 					IdBuilding = building.Id,
-					IsSurveyCompleted = inspection.IsSurveyCompleted
+					inspection.IsSurveyCompleted
 				};
 
 			var result = query.SingleOrDefault();
@@ -71,6 +73,21 @@ namespace Survi.Prevention.ServiceLayer.Services
 				IdBuilding = result.IdBuilding,
 				IsSurveyCompleted = result.IsSurveyCompleted
 			};
+		}
+
+		private void CreateDetailForMainBuildingWhenMissing(Guid inspectionId)
+		{
+			var idBuilding = Context.Inspections.AsNoTracking()
+				.Where(i => i.Id == inspectionId)
+				.Select(i => i.IdBuilding)
+				.FirstOrDefault();
+
+			if (idBuilding != Guid.Empty && !Context.BuildingDetails.Any(d => d.IdBuilding == idBuilding && d.IsActive))
+			{
+				var detail = new BuildingDetail {IdBuilding = idBuilding};
+				Context.Add(detail);
+				Context.SaveChanges();
+			}
 		}
 
 		// todo: try to get these two functions to be more generic so there can be only one.
