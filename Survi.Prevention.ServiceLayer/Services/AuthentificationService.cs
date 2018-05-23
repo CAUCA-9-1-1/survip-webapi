@@ -7,6 +7,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.SecurityManagement;
+using Microsoft.EntityFrameworkCore;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -19,7 +20,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public (AccessToken token, Webuser user) Login(string username, string password, string applicationName, string issuer, string secretKey)
 		{
 			var encodedPassword = EncodePassword(password, applicationName);
-			var userFound = Context.Webusers.SingleOrDefault(user => user.Username == username && user.Password == encodedPassword && user.IsActive);
+			var userFound = Context.Webusers
+				.Include(user => user.Attributes)
+				.SingleOrDefault(user => user.Username == username && user.Password == encodedPassword && user.IsActive);
 			if (userFound != null)
 			{
 				var token = GenerateJwtToken(userFound, applicationName, issuer, secretKey);
@@ -54,72 +57,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return sbinary;
 		}
-
-		/*public (bool isAuthorized, Guid idUser) GetAuthorizedUser(string token, string applicationName, string issuer, string secretKey)
-		{
-#if DEBUG
-			// backdoor!
-			if (token == "T")
-				return (true, Guid.Parse(""));
-#endif
-
-			var handler = new JwtSecurityTokenHandler();
-			if (!handler.CanReadToken(token))
-			{
-				//LogInvalidTokenRequest(token, "Le token reçu n'est pas d'un format valide.");
-				return (false, Guid.Empty);
-			}
-
-			try
-			{
-				TokenValidationParameters validationParameters = GetTokenValidationParameters(applicationName, issuer, secretKey);
-				handler.ValidateToken(token, validationParameters, out var securityToken);
-				return ClaimsAreValid(securityToken);
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine(ex.Message);
-				//LogInvalidTokenRequest(token, ex.Message);
-				return (false, Guid.Empty);
-			}
-		}*/
-
-		/*private TokenValidationParameters GetTokenValidationParameters(string applicationName, string issuer, string secretKey)
-		{
-			var validationParameters = new TokenValidationParameters
-			{
-				ValidateIssuer = true,
-				ValidateLifetime = true,
-				ValidateIssuerSigningKey = true,
-				IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
-				ValidAudience = issuer,
-				ValidIssuer = issuer
-			};
-
-			return validationParameters;
-		}*/
-
-		/*private void LogInvalidTokenRequest(string token, string message)
-		{
-		  loggingService.LogWebApiCallWithInvalidToken(token, message);
-		}*/
-
-		/*private (bool isAuthorized, Guid idUser) ClaimsAreValid(SecurityToken securityToken)
-		{
-			if (securityToken is JwtSecurityToken jwtToken)
-			{
-				var securityTokenClaims = jwtToken.Claims.ToList();
-				var idUserFromClaim = Guid.Parse(securityTokenClaims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.Sid)?.Value);
-				var usernameFromClaim = securityTokenClaims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.UniqueName)?.Value;
-				var userHasBeenFound = Context.Webusers.Any(user => user.Id == idUserFromClaim && user.Username == usernameFromClaim && user.IsActive);
-
-				if (userHasBeenFound)
-					return (true, idUserFromClaim);
-			}
-
-			return (false, Guid.Empty);
-		}*/
-
+		
 		protected JwtSecurityToken GenerateJwtToken(Webuser userLoggedIn, string applicationName, string issuer, string secretKey)
 		{
 			var claims = new[]
