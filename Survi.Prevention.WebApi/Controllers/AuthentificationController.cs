@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -37,7 +38,9 @@ namespace Survi.Prevention.WebApi.Controllers
 						result.token.ExpiresIn,
 						AccessToken = result.token.TokenForAccess,
 						result.token.RefreshToken,
-						IdWebuser = result.user.Id
+						IdWebuser = result.user.Id,
+						LastName = result.user.Attributes.Where(a => a.AttributeName=="last_name").Select(a => a.AttributeValue).FirstOrDefault() ?? "",
+						FirstName = result.user.Attributes.Where(a => a.AttributeName == "first_name").Select(a => a.AttributeValue).FirstOrDefault() ?? "",
 					}
 			});
 		}
