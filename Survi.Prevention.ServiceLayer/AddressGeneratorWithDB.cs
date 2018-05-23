@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Survi.Prevention.ServiceLayer
 {
-    public class AddressGeneratorWithDB
+    public class AddressGeneratorWithDb
     {
 		public string GenerateAddressFromLanes(ManagementContext context, Guid? idLane, Guid? idIntersection, string languageCode)
 		{

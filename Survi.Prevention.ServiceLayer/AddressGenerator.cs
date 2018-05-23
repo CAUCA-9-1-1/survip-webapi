@@ -1,9 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Survi.Prevention.DataLayer;
-using System;
-using System.Linq;
-
-namespace Survi.Prevention.ServiceLayer
+﻿namespace Survi.Prevention.ServiceLayer
 {
     public class AddressGenerator
     {

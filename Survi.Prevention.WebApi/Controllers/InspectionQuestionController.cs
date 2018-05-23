@@ -28,7 +28,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpGet, Route("Inspection/{idInspection:Guid}/Summary"), AllowAnonymous]
 		public ActionResult GetInspectionQuestionSummaryListLocalized(Guid idInspection, [FromHeader]string languageCode)
 		{
-			return Ok(Service.getInspectionQuestionSummaryListLocalized(idInspection, languageCode));
+			return Ok(Service.GetInspectionQuestionSummaryListLocalized(idInspection, languageCode));
 		}
 
 		[HttpPost, Route("Answer")]
