@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
@@ -36,6 +38,25 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return query.Take(30).ToList();
 		}
+
+	    public List<HazardousMaterialForList> GetListRegex(string languageCode, string searchTerm)
+	    {
+			var newsearch = searchTerm.Trim().Normalize(NormalizationForm.FormD).Where(c => c < 128).ToArray();
+		    var query =
+			    from mat in Context.HazardousMaterials
+			    where mat.IsActive
+			    from loc in mat.Localizations
+			    where loc.IsActive && loc.LanguageCode == languageCode
+			    where new String(loc.Name.Trim().Normalize(NormalizationForm.FormD).Where(c => c < 128).ToArray()) == searchTerm || mat.Number.Contains(searchTerm)
+			    select new HazardousMaterialForList
+			    {
+				    Id = mat.Id,
+				    Number = mat.Number,
+				    Name = loc.Name
+			    };
+
+		    return query.ToList();
+	    }
 
 	    public HazardousMaterialForList Get(string languageCode, Guid idHazardousMaterial)
 	    {
