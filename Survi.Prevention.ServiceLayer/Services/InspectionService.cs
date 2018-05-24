@@ -105,7 +105,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     lane.IdCity,
                     PublicDescription = lane.PublicCode.Description,
                     GenericDescription = lane.LaneGenericCode.Description,
-                    AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter
+                    lane.LaneGenericCode.AddWhiteSpaceAfter
                 };
 
             var results = query.ToList()
@@ -122,7 +122,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdCity = r.IdCity,
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
-                    VisitStatus = InspectionStatus.Todo,
+	                InspectionStatus = InspectionStatus.Todo,
                     HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                     IdUtilisationCode = r.Building.IdUtilisationCode,
                     IdPicture = r.Building.IdPicture,
@@ -159,7 +159,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     lane.IdCity,
                     PublicDescription = lane.PublicCode.Description,
                     GenericDescription = lane.LaneGenericCode.Description,
-                    AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter
+                    lane.LaneGenericCode.AddWhiteSpaceAfter
                 };
 
             var results = query
@@ -177,7 +177,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdCity = r.IdCity,
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
-                    VisitStatus = InspectionStatus.WaitingForApprobation,
+	                InspectionStatus = InspectionStatus.WaitingForApprobation,
                     HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                     IdUtilisationCode = r.Building.IdUtilisationCode,
                     IdPicture = r.Building.IdPicture,
@@ -216,7 +216,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     LaneIdCity = lane.IdCity,
                     PublicDescription = lane.PublicCode.Description,
                     GenericDescription = lane.LaneGenericCode.Description,
-                    AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter,
+                    lane.LaneGenericCode.AddWhiteSpaceAfter,
                 };
 
             var results = query
@@ -233,7 +233,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 IdCity = r.LaneIdCity,
                 IdLaneTransversal = r.Building.IdLaneTransversal,
                 PostalCode = r.Building.PostalCode,
-                VisitStatus = InspectionStatus.Approved,
+	            InspectionStatus = InspectionStatus.Approved,
                 HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                 IdUtilisationCode = r.Building.IdUtilisationCode,
                 IdPicture = r.Building.IdPicture,
@@ -267,7 +267,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     lane.IdCity,
                     PublicDescription = lane.PublicCode.Description,
                     GenericDescription = lane.LaneGenericCode.Description,
-                    AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter,
+                    lane.LaneGenericCode.AddWhiteSpaceAfter,
                 };
 
             var results = query
@@ -283,7 +283,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdCity = r.IdCity,
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
-                    VisitStatus = InspectionStatus.Todo,
+	                InspectionStatus = InspectionStatus.Todo,
                     HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                     IdUtilisationCode = r.Building.IdUtilisationCode,
                     IdPicture = r.Building.IdPicture,

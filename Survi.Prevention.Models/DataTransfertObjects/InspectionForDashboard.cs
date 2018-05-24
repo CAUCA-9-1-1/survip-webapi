@@ -12,7 +12,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
         public Guid IdBatch { get; set; }
         public string BatchDescription { get; set; }
         public DateTime VisitDate { get; set; }
-        public InspectionStatus VisitStatus { get; set; }
+        public InspectionStatus InspectionStatus { get; set; }
         public Boolean HasVisitNote { get; set; }
         public Boolean HasAnomaly { get; set; }
         public DateTime LastInspectionOn { get; set; }
