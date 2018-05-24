@@ -15,11 +15,14 @@ namespace Survi.Prevention.Models.InspectionManagement
 		public Guid? IdWebuserAssignedTo { get; set; }
 		public Guid IdBatch { get; set; }
 
-        public int sequence { get; set; }
-		public bool IsStarted { get; set; }
-		public bool IsCompleted { get; set; }
+        public int Sequence { get; set; }
+
+		public InspectionStatus Status { get; set; }
+
 		public DateTime? StartedOn { get; set; }
 		public DateTime? CompletedOn { get; set; }
+		public DateTime? SurveyCompletedOn { get; set; }
+
 		public bool IsSurveyCompleted { get; set; }
 
 		public Batch Batch { get; set; }

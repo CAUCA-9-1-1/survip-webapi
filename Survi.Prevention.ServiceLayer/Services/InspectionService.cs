@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
@@ -24,18 +23,14 @@ namespace Survi.Prevention.ServiceLayer.Services
             return true;
         }
 
-        public bool SetVisitStatus(InspectionVisitStatus status, Guid id)
+        public bool SetVisitStatus(InspectionStatus status, Guid id)
         {
             var entity = Context.Inspections
                 .Where(i => i.Id == id)
                 .Include(i => i.Visits)
                 .Single();
-            var visit = entity.Visits
-                .Where(v => v.Status == InspectionVisitStatus.WaitingApprobation)
-                .OrderBy(v => v.CompletedOn)
-                .Single();
 
-            visit.Status = status;
+            entity.Status = status;
             Context.SaveChanges();
 
             return true;
@@ -50,7 +45,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				      && batch.Users.Any(user => user.IdWebuser == userId)
 				from inspection in batch.Inspections
 				where inspection.IsActive
-					  && !inspection.IsCompleted
+					  && (inspection.Status == InspectionStatus.Todo || inspection.Status == InspectionStatus.Started || inspection.Status == InspectionStatus.Refused)
 				      && (inspection.IdWebuserAssignedTo == null || inspection.IdWebuserAssignedTo == userId)
 				      && inspection.MainBuilding.IsActive
 				let building = inspection.MainBuilding
@@ -95,8 +90,8 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
             var query =
                 from inspection in Context.Inspections.AsNoTracking()
-                where inspection.IsActive && !inspection.IsCompleted
-                let batch = inspection.Batch
+                where inspection.IsActive && (inspection.Status == InspectionStatus.Todo || inspection.Status == InspectionStatus.Started || inspection.Status == InspectionStatus.Refused)
+				let batch = inspection.Batch
                 let building = inspection.MainBuilding
                 let lane = building.Lane
                 from laneLocalization in lane.Localizations.DefaultIfEmpty()
@@ -107,7 +102,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     Batch = batch,
                     Building = building,
                     LaneName = laneLocalization.Name,
-                    IdCity = lane.IdCity,
+                    lane.IdCity,
                     PublicDescription = lane.PublicCode.Description,
                     GenericDescription = lane.LaneGenericCode.Description,
                     AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter
@@ -127,7 +122,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdCity = r.IdCity,
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
-                    VisitStatus = InspectionVisitStatus.Todo,
+                    VisitStatus = InspectionStatus.Todo,
                     HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                     IdUtilisationCode = r.Building.IdUtilisationCode,
                     IdPicture = r.Building.IdPicture,
@@ -148,24 +143,20 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
             var query =
                 from inspection in Context.Inspections.AsNoTracking()
-                where inspection.IsActive && inspection.IsCompleted
+                where inspection.IsActive && inspection.Status == InspectionStatus.WaitingForApprobation
                 orderby inspection.CompletedOn
                 let batch = inspection.Batch
                 let building = inspection.MainBuilding
                 let lane = building.Lane
                 from laneLocalization in lane.Localizations.DefaultIfEmpty()
                 where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
-                from visits in inspection.Visits
-                where visits.IsActive && visits.Status == InspectionVisitStatus.WaitingApprobation
-                orderby visits.CompletedOn
                 select new
                 {
                     Inspection = inspection,
                     Batch = batch,
-                    Visit = visits,
                     Building = building,
                     LaneName = laneLocalization.Name,
-                    IdCity = lane.IdCity,
+                    lane.IdCity,
                     PublicDescription = lane.PublicCode.Description,
                     GenericDescription = lane.LaneGenericCode.Description,
                     AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter
@@ -186,7 +177,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdCity = r.IdCity,
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
-                    VisitStatus = r.Visit.Status,
+                    VisitStatus = InspectionStatus.WaitingForApprobation,
                     HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                     IdUtilisationCode = r.Building.IdUtilisationCode,
                     IdPicture = r.Building.IdPicture,
@@ -207,17 +198,15 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
             var query =
                 from building in Context.Buildings
-                where building.IsActive == true && building.IsParent == true
+                where building.IsActive && building.IsParent 
                 join inspection in Context.Inspections.AsNoTracking()
                 on building.Id equals inspection.IdBuilding
-                where inspection.IsActive && inspection.IsCompleted
+                where inspection.IsActive && inspection.Status == InspectionStatus.Approved
                 orderby inspection.CompletedOn
                 let batch = inspection.Batch
                 let lane = building.Lane
                 from laneLocalization in lane.Localizations
                 where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
-                from visits in inspection.Visits
-                where visits.IsActive && visits.Status == InspectionVisitStatus.Approved
                 select new
                 {
                     Inspection = inspection,
@@ -244,7 +233,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 IdCity = r.LaneIdCity,
                 IdLaneTransversal = r.Building.IdLaneTransversal,
                 PostalCode = r.Building.PostalCode,
-                VisitStatus = InspectionVisitStatus.Approved,
+                VisitStatus = InspectionStatus.Approved,
                 HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                 IdUtilisationCode = r.Building.IdUtilisationCode,
                 IdPicture = r.Building.IdPicture,
@@ -265,7 +254,9 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
             var query =
                 from building in Context.Buildings
-                where building.IsActive == true && building.IsParent == true && !Context.Inspections.Any(i => i.IsActive && !i.IsCompleted && i.IdBuilding == building.Id)
+                where building.IsActive 
+                      && building.IsParent 
+                      && !Context.Inspections.Any(i => i.IsActive && i.Status != InspectionStatus.Approved && i.Status != InspectionStatus.Cancelled && i.IdBuilding == building.Id)
                 let lane = building.Lane
                 from laneLocalization in lane.Localizations
                 where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
@@ -273,7 +264,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 {
                     Building = building,
                     LaneName = laneLocalization.Name,
-                    IdCity = lane.IdCity,
+                    lane.IdCity,
                     PublicDescription = lane.PublicCode.Description,
                     GenericDescription = lane.LaneGenericCode.Description,
                     AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter,
@@ -292,7 +283,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdCity = r.IdCity,
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
-                    VisitStatus = InspectionVisitStatus.Todo,
+                    VisitStatus = InspectionStatus.Todo,
                     HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                     IdUtilisationCode = r.Building.IdUtilisationCode,
                     IdPicture = r.Building.IdPicture,
@@ -353,16 +344,11 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
             var lastInspection = Context.Inspections
                 .AsNoTracking()
-                .Where(i => i.IdBuilding == idBuilding && i.IsActive)
-                .OrderBy(i => i.CompletedOn)
-                .SingleOrDefault(i => i.IsCompleted);
+                .Where(i => i.IdBuilding == idBuilding && i.IsActive && i.Status == InspectionStatus.Approved)
+                .OrderByDescending(i => i.CompletedOn)
+                .FirstOrDefault();
 
-            if (lastInspection is null)
-            {
-                return new DateTime(2000,1,1);
-            }
-
-            return (DateTime)lastInspection.CompletedOn;
+	        return lastInspection?.CompletedOn ?? new DateTime(2000, 1, 1);
         }
 	}
 }

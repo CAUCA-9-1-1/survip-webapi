@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.InspectionManagement;
 using Survi.Prevention.ServiceLayer.Services;
@@ -22,21 +21,21 @@ namespace Survi.Prevention.WebApi.Controllers
         [ProducesResponseType(typeof(bool), 200)]
         public ActionResult ApproveInspection(Guid id)
         {
-            return Ok(service.SetVisitStatus(InspectionVisitStatus.Approved, id));
+            return Ok(service.SetVisitStatus(InspectionStatus.Approved, id));
         }
 
         [HttpPost, Route("{id:Guid}/refuse")]
         [ProducesResponseType(typeof(bool), 200)]
         public ActionResult RefusedInspection(Guid id)
         {
-            return Ok(service.SetVisitStatus(InspectionVisitStatus.Refused, id));
+            return Ok(service.SetVisitStatus(InspectionStatus.Refused, id));
         }
 
         [HttpPost, Route("{id:Guid}/cancel")]
         [ProducesResponseType(typeof(bool), 200)]
         public ActionResult CancelInspection(Guid id)
         {
-            service.SetVisitStatus(InspectionVisitStatus.Canceled, id);
+            service.SetVisitStatus(InspectionStatus.Cancelled, id);
             service.Remove(id);
 
             return Ok(true);
