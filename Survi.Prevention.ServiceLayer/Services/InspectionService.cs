@@ -105,7 +105,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     lane.IdCity,
                     PublicDescription = lane.PublicCode.Description,
                     GenericDescription = lane.LaneGenericCode.Description,
-                    lane.LaneGenericCode.AddWhiteSpaceAfter
+	                AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter
                 };
 
             var results = query.ToList()
@@ -159,7 +159,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     lane.IdCity,
                     PublicDescription = lane.PublicCode.Description,
                     GenericDescription = lane.LaneGenericCode.Description,
-                    lane.LaneGenericCode.AddWhiteSpaceAfter
+	                AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter
                 };
 
             var results = query
@@ -216,7 +216,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     LaneIdCity = lane.IdCity,
                     PublicDescription = lane.PublicCode.Description,
                     GenericDescription = lane.LaneGenericCode.Description,
-                    lane.LaneGenericCode.AddWhiteSpaceAfter,
+	                AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter,
                 };
 
             var results = query
@@ -267,7 +267,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     lane.IdCity,
                     PublicDescription = lane.PublicCode.Description,
                     GenericDescription = lane.LaneGenericCode.Description,
-                    lane.LaneGenericCode.AddWhiteSpaceAfter,
+	                AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter
                 };
 
             var results = query
