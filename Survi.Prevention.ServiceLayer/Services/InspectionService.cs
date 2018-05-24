@@ -105,7 +105,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     lane.IdCity,
                     PublicDescription = lane.PublicCode.Description,
                     GenericDescription = lane.LaneGenericCode.Description,
-	                AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter
+                    lane.LaneGenericCode.AddWhiteSpaceAfter
                 };
 
             var results = query.ToList()
@@ -159,7 +159,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     lane.IdCity,
                     PublicDescription = lane.PublicCode.Description,
                     GenericDescription = lane.LaneGenericCode.Description,
-	                AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter
+                    lane.LaneGenericCode.AddWhiteSpaceAfter
                 };
 
             var results = query
@@ -216,10 +216,10 @@ namespace Survi.Prevention.ServiceLayer.Services
                     LaneIdCity = lane.IdCity,
                     PublicDescription = lane.PublicCode.Description,
                     GenericDescription = lane.LaneGenericCode.Description,
-	                AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter,
+                    lane.LaneGenericCode.AddWhiteSpaceAfter,
                 };
 
-            var results = query
+            var results = query.ToList()
             .Select(r => new InspectionForDashboard
             {
                 Id = Guid.Empty,
@@ -267,10 +267,10 @@ namespace Survi.Prevention.ServiceLayer.Services
                     lane.IdCity,
                     PublicDescription = lane.PublicCode.Description,
                     GenericDescription = lane.LaneGenericCode.Description,
-	                AddWhiteSpaceAfter = (Boolean)lane.LaneGenericCode.AddWhiteSpaceAfter
+                    lane.LaneGenericCode.AddWhiteSpaceAfter,
                 };
 
-            var results = query
+            var results = query.ToList()
                 .Select(r => new InspectionForDashboard
                 {
                     Id = Guid.Empty,
