@@ -25,5 +25,10 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return Ok(service.Get(languageCode, id));
 		}
+		[HttpGet, Route("regex/search/{searchTerm}")]
+		public ActionResult GetListRegex(string searchTerm, [FromHeader] string languageCode)
+		{
+			return Ok(service.GetList(languageCode, searchTerm));
+		}
 	}
 }
