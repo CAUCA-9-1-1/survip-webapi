@@ -4,10 +4,6 @@ namespace Survi.Prevention.Models.InspectionManagement
 	{
 		Todo,
 		Started,
-		Absent,
-		WaitingApprobation,
-		Approved,
-        Refused,
-        Canceled
+		Completed
 	}
 }
