@@ -23,7 +23,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             return true;
         }
 
-        public bool SetVisitStatus(InspectionStatus status, Guid id)
+        public bool SetStatus(InspectionStatus status, Guid id)
         {
             var entity = Context.Inspections
                 .Where(i => i.Id == id)

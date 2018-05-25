@@ -76,7 +76,9 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<SurveyQuestionChoice> SurveyQuestionChoices { get; set; }
 		public DbSet<InspectionQuestion> InspectionQuestions { get; set; }
 
-		public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
+        public DbSet<FireSafetyDepartmentRiskLevel> FireSafetyDepartmentRiskLevels { get; set; }
+
+        public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
 		{
 		}
 
