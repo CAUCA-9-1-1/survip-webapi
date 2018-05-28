@@ -21,21 +21,21 @@ namespace Survi.Prevention.WebApi.Controllers
         [ProducesResponseType(typeof(bool), 200)]
         public ActionResult ApproveInspection(Guid id)
         {
-            return Ok(service.SetVisitStatus(InspectionStatus.Approved, id));
+            return Ok(service.SetStatus(InspectionStatus.Approved, id));
         }
 
         [HttpPost, Route("{id:Guid}/refuse")]
         [ProducesResponseType(typeof(bool), 200)]
         public ActionResult RefusedInspection(Guid id)
         {
-            return Ok(service.SetVisitStatus(InspectionStatus.Refused, id));
+            return Ok(service.SetStatus(InspectionStatus.Refused, id));
         }
 
         [HttpPost, Route("{id:Guid}/cancel")]
         [ProducesResponseType(typeof(bool), 200)]
         public ActionResult CancelInspection(Guid id)
         {
-            service.SetVisitStatus(InspectionStatus.Cancelled, id);
+            service.SetStatus(InspectionStatus.Cancelled, id);
             service.Remove(id);
 
             return Ok(true);

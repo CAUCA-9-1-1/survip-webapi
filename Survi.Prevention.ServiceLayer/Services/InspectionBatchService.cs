@@ -61,6 +61,17 @@ namespace Survi.Prevention.ServiceLayer.Services
             {
                 var isExistRecord = Context.Inspections.Any(c => c.Id == child.Id);
 
+                if (child.IdSurvey is null)
+                {
+                    var building = Context.Buildings
+                        .Include(b => b.Lane)
+                        .Single(b => b.Id == child.IdBuilding && b.IsActive);
+                    var idSSI = Context.FireSafetyDepartments
+                        .Single(d => d.FireSafetyDepartmentServing.Any(c => c.IdCity == building.Lane.IdCity)).Id;
+
+                    child.IdSurvey = Context.FireSafetyDepartmentRiskLevels.Where(c => c.IdRiskLevel == building.IdRiskLevel && c.IdFireSafetyDepartment == idSSI).Single().IdSurvey;
+                }
+
                 if (!isExistRecord)
                 {
                     Context.Inspections.Add(child);
