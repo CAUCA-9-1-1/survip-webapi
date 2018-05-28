@@ -38,6 +38,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				{
 					matBuilding.Id,
 					loc.Name,
+					matNumber = mat.Number,
 					matBuilding.Quantity,
 					matBuilding.CapacityContainer,
 					abbreviation = matBuilding.Unit == null ? null : matBuilding.Unit.Abbreviation,
@@ -53,6 +54,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.Select(mat => new BuildingHazardousMaterialForList
 				{
 					Id = mat.Id,
+					HazardousMaterialNumber = mat.matNumber,
 					HazardousMaterialName = mat.Name,
 					QuantityDescription = GetQuantityDescription(mat.Quantity, mat.CapacityContainer, mat.abbreviation??mat.unitName)
 				});

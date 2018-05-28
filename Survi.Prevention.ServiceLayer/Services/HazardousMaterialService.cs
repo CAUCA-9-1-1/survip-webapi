@@ -31,16 +31,21 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return query.ToList();
 		}
 
-	    public string GetName(string languageCode, Guid idHazardousMaterial)
+	    public HazardousMaterialForList Get(string languageCode, Guid idHazardousMaterial)
 	    {
 		    var query =
 			    from mat in Context.HazardousMaterials.AsNoTracking()
 			    where mat.IsActive && mat.Id == idHazardousMaterial
 			    from loc in mat.Localizations
 			    where loc.IsActive && loc.LanguageCode == languageCode
-			    select loc.Name;
+				select new HazardousMaterialForList
+			    {
+				    Id = mat.Id,
+				    Number = mat.Number,
+				    Name = loc.Name
+			    };
 
-		    return query.SingleOrDefault() ?? "";
+			return query.SingleOrDefault();
 	    }
     }
 }
