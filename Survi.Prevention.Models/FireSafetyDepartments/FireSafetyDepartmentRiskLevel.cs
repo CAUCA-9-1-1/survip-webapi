@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Survi.Prevention.Models.Base;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.SurveyManagement;
