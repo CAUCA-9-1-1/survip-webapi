@@ -51,7 +51,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					inspection.IdSurvey,
 					inspection.IsSurveyCompleted,
 					inspection.Status,
-					ApprobationRefusal = getApprobationRefusalReason(inspection)
+					ApprobationRefusal = GetApprobationRefusalReason(inspection)
 				};
 
 			var result = query.SingleOrDefault();
@@ -122,7 +122,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return false;
 		}
 
-		private string getApprobationRefusalReason(Inspection inspection)
+		private string GetApprobationRefusalReason(Inspection inspection)
 		{
 			if(inspection.Visits != null)
 				return inspection.Visits.Last(iv => iv.IsActive && iv.Status == InspectionVisitStatus.Completed)
