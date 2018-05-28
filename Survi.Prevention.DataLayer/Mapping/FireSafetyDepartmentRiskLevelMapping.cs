@@ -12,6 +12,6 @@ namespace Survi.Prevention.DataLayer.Mapping
 
             b.HasOne(m => m.RiskLevel).WithMany().HasForeignKey(m => m.IdRiskLevel);
 			b.HasOne(m => m.Survey).WithMany().HasForeignKey(m => m.IdSurvey);
-		}
+        }
 	}
 }

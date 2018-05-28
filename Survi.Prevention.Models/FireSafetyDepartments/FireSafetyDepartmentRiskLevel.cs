@@ -23,7 +23,7 @@ namespace Survi.Prevention.Models.FireSafetyDepartments
         public Boolean HasBuildingAnomalies { get; set; }
 
         public Guid IdRiskLevel { get; set; }
-        public Guid IdSurvey { get; set; }
+        public Guid? IdSurvey { get; set; }
 
         public RiskLevel RiskLevel { get; set; }
 		public Survey Survey { get; set; }
