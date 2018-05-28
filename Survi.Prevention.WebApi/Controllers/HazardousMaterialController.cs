@@ -23,7 +23,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpGet, Route("{id:Guid}/name")]
 		public ActionResult GetList(Guid id, [FromHeader] string languageCode)
 		{
-			return Ok(new {Name = service.GetName(languageCode, id)});
+			return Ok(service.Get(languageCode, id));
 		}
 	}
 }
