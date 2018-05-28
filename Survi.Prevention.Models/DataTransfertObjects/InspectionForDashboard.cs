@@ -8,6 +8,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 		public Guid Id { get; set; }
         public Guid? IdRiskLevel { get; set; }
         public string Address { get; set; }
+        public string WebuserAssignedTo { get; set; }
         public Guid? IdWebuserAssignedTo { get; set; }
         public Guid IdBatch { get; set; }
         public string BatchDescription { get; set; }

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.InspectionManagement;
+using Survi.Prevention.Models.SecurityManagement;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -122,7 +123,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdCity = r.IdCity,
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
-	                InspectionStatus = InspectionStatus.Todo,
+	                InspectionStatus = r.Inspection.Status,
                     HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                     IdUtilisationCode = r.Building.IdUtilisationCode,
                     IdPicture = r.Building.IdPicture,
@@ -177,7 +178,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdCity = r.IdCity,
                     IdLaneTransversal = r.Building.IdLaneTransversal,
                     PostalCode = r.Building.PostalCode,
-	                InspectionStatus = InspectionStatus.WaitingForApprobation,
+	                InspectionStatus = r.Inspection.Status,
                     HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                     IdUtilisationCode = r.Building.IdUtilisationCode,
                     IdPicture = r.Building.IdPicture,
@@ -233,7 +234,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 IdCity = r.LaneIdCity,
                 IdLaneTransversal = r.Building.IdLaneTransversal,
                 PostalCode = r.Building.PostalCode,
-	            InspectionStatus = InspectionStatus.Approved,
+	            InspectionStatus = r.Inspection.Status,
                 HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
                 IdUtilisationCode = r.Building.IdUtilisationCode,
                 IdPicture = r.Building.IdPicture,
@@ -304,12 +305,48 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
             data.ForEach(row =>
             {
+                row.WebuserAssignedTo = (Guid.Empty == row.Id ? "" : GetListWebuser(row.Id));
                 row.LastInspectionOn = GetLastInspection(row.IdBuilding);
                 row.Contact = GetBuildingContact(row.IdBuilding);
                 row.Owner = GetBuildingOwner(row.IdBuilding);
             });
 
             return data;
+        }
+
+        private string GetListWebuser(Guid idInspection)
+        {
+            var list = new List<String>();
+            var inspection = Context.Inspections.Single(i => i.Id == idInspection);
+
+            if (inspection.IdWebuserAssignedTo != null)
+            {
+                list.Add(GetUsername(inspection.IdWebuserAssignedTo));
+            }
+            else
+            {
+                var users = Context.Batches
+                    .Include(b => b.Users)
+                    .Single(b => b.Id == inspection.IdBatch)
+                    .Users
+                    .ToList();
+
+                users.ForEach(user =>
+                {
+                    list.Add(GetUsername(user.IdWebuser));
+                });
+            }
+
+            return String.Join(", ", list);
+        }
+
+        private string GetUsername(Guid? idWebuser)
+        {
+            var user = Context.Webusers
+                    .Include(u => u.Attributes)
+                    .Single(u => u.Id == idWebuser);
+
+            return user.Attributes.Single(a => a.AttributeName == "first_name").AttributeValue + " " + user.Attributes.Single(a => a.AttributeName == "last_name").AttributeValue;
         }
 
         private string GetBuildingContact(Guid idBuilding)
