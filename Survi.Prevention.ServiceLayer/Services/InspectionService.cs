@@ -421,7 +421,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			RefuseCurrentInspectionVisit(targetInspection, inspectionVisit, idUser);
 			if (inspectionVisit.RequestedDateOfVisit != null)
 			{
-				targetInspection.Visits.Add(new InspectionVisit(){Status = InspectionVisitStatus.Todo, CreatedOn = DateTime.Now, IdWebuserVisitedBy = idUser});
+				targetInspection.Visits.Add(new InspectionVisit(){Status = InspectionVisitStatus.Todo, CreatedOn = DateTime.Now, IdWebuserVisitedBy = idUser, RequestedDateOfVisit = inspectionVisit.RequestedDateOfVisit});
 			}
 
 			Context.SaveChanges();
@@ -447,6 +447,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					currentVisit.OwnerWasAbsent = refusedInspectionVisit.OwnerWasAbsent;
 					currentVisit.DoorHangerHasBeenLeft = refusedInspectionVisit.DoorHangerHasBeenLeft;
 					currentVisit.EndedOn = refusedInspectionVisit.EndedOn;
+					currentVisit.RequestedDateOfVisit = refusedInspectionVisit.RequestedDateOfVisit;
 				}
 			}
 		}
