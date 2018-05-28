@@ -424,6 +424,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 				targetInspection.Visits.Add(new InspectionVisit(){Status = InspectionVisitStatus.Todo, CreatedOn = DateTime.Now, IdWebuserVisitedBy = idUser, RequestedDateOfVisit = inspectionVisit.RequestedDateOfVisit});
 			}
 
+			targetInspection.Status = InspectionStatus.Todo;
+
 			Context.SaveChanges();
 			return true;
 		}
