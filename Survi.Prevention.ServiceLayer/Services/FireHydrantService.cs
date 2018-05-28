@@ -42,13 +42,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 					hydrant.IdIntersection,
 					hydrant.PhysicalPosition,
 					hydrant.LocationType,
-					hydrant.Coordinates
+					hydrant.Coordinates,
+					hydrant.Color
 				}).ToList();
 
 			return results
 				.Select(hydrant => new FireHydrantForList
 				{
 					Id = hydrant.Id,
+					Color = hydrant.Color,
 					Number = hydrant.Number,
 					Address = GetFireHydrantAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition, hydrant.Coordinates, languageCode)
 
@@ -69,13 +71,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 					hydrant.IdIntersection,
 					hydrant.PhysicalPosition,
 					hydrant.LocationType,
-					hydrant.Coordinates
+					hydrant.Coordinates,
+					hydrant.Color
 				}).ToList();
 
 			return results
 				.Select(hydrant => new FireHydrantForList
 				{
 					Id = hydrant.Id,
+					Color = hydrant.Color,
 					Number = hydrant.Number,
 					Address = GetFireHydrantAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition, hydrant.Coordinates, languageCode)
 

@@ -25,6 +25,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				select new
 				{
 					formHydrant.Id,
+					hydrant.Color,
 					hydrant.Number,
 					hydrant.IdLane,
 					hydrant.IdIntersection,
@@ -37,6 +38,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.Select(hydrant => new InspectionBuildingFireHydrantForList
 				{
 					Id = hydrant.Id,
+					Color = hydrant.Color,
 					IdInspection = inspectionId,
 					Number = hydrant.Number,
 					Address = GenerateAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition, hydrant.Coordinates, languageCode)
