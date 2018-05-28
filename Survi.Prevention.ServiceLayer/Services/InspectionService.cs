@@ -256,7 +256,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 from building in Context.Buildings
                 where building.IsActive 
                       && building.IsParent 
-                      && !Context.Inspections.Any(i => i.IsActive && i.Status != InspectionStatus.Approved && i.Status != InspectionStatus.Cancelled && i.IdBuilding == building.Id)
+                      && !Context.Inspections.Any(i => i.IsActive && i.Status != InspectionStatus.Approved && i.Status != InspectionStatus.Canceled && i.IdBuilding == building.Id)
                 let lane = building.Lane
                 from laneLocalization in lane.Localizations
                 where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
@@ -350,5 +350,91 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 	        return lastInspection?.CompletedOn ?? new DateTime(2000, 1, 1);
         }
+
+		public bool StartInspection(Guid idInspection, Guid idUser)
+		{
+			if (idInspection != Guid.Empty)
+			{
+				var targetInspection = Context.Inspections.Where(i => i.Id == idInspection && i.IsActive)
+										.Include(i => i.Visits)
+										.Single();
+				if (!targetInspection.Visits.Any(iv => iv.IsActive && iv.Status != InspectionVisitStatus.Completed))
+				{		
+					targetInspection.Visits.Add(new InspectionVisit(){Status = InspectionVisitStatus.Started, CreatedOn = DateTime.Now, IdWebuserVisitedBy = idUser});
+				}
+
+				targetInspection.Status = InspectionStatus.Started;
+				targetInspection.StartedOn = DateTime.Now;
+				
+				Context.SaveChanges();
+
+				return true;
+			}
+
+			return false;
+		}
+
+		public bool CompleteInspection(Guid idInspection, Guid idUser)
+		{
+			if (idInspection != Guid.Empty)
+			{
+				var targetInspection = Context.Inspections.Where(i => i.Id == idInspection && i.IsActive)
+					.Include(i => i.Visits)
+					.Single();
+
+				targetInspection.Status = InspectionStatus.WaitingForApprobation;
+				targetInspection.CompletedOn = DateTime.Now;
+
+				completeInspectionVisit(targetInspection);
+
+				Context.SaveChanges();
+
+				return true;
+			}
+
+			return false;
+		}
+
+		private void completeInspectionVisit(Inspection inspection)
+		{
+			InspectionVisit currentVisit = inspection.Visits.Single(v=> v.IsActive && v.Status != InspectionVisitStatus.Completed);
+			currentVisit.EndedOn = DateTime.Now;
+			currentVisit.Status = InspectionVisitStatus.Completed;
+		}
+
+		public bool RefuseInspectionVisit(InspectionVisit inspectionVisit, Guid idUser)
+		{
+			var targetInspection = Context.Inspections.Where(i => i.Id == inspectionVisit.IdInspection && i.IsActive)
+									.Include(i => i.Visits)
+									.Single();
+
+			RefuseCurrentInspectionVisit(targetInspection, inspectionVisit, idUser);
+			if (inspectionVisit.RequestedDateOfVisit != null)
+			{
+				targetInspection.Visits.Add(new InspectionVisit(){Status = InspectionVisitStatus.Todo, CreatedOn = DateTime.Now, IdWebuserVisitedBy = idUser});
+			}
+
+			Context.SaveChanges();
+			return true;
+		}
+
+		private void RefuseCurrentInspectionVisit(Inspection inspection, InspectionVisit refusedInspectionVisit, Guid idUser)
+		{
+			if (!inspection.Visits.Any())
+			{
+				refusedInspectionVisit.IdWebuserVisitedBy = idUser;
+				inspection.Visits.Add(refusedInspectionVisit);
+			}
+			else
+			{
+				InspectionVisit currentVisit = inspection.Visits.Last(v=> v.IsActive && v.Status != InspectionVisitStatus.Completed);			
+				currentVisit.Status = refusedInspectionVisit.Status;
+				currentVisit.ReasonForInspectionRefusal = refusedInspectionVisit.ReasonForInspectionRefusal;
+				currentVisit.HasBeenRefused = refusedInspectionVisit.HasBeenRefused;
+				currentVisit.OwnerWasAbsent = refusedInspectionVisit.OwnerWasAbsent;
+				currentVisit.DoorHangerHasBeenLeft = refusedInspectionVisit.DoorHangerHasBeenLeft;
+				currentVisit.EndedOn = refusedInspectionVisit.EndedOn;
+			}
+		}
 	}
 }

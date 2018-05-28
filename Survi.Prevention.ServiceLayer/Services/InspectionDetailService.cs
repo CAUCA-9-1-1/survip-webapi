@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.InspectionManagement;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -47,7 +48,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 					building.CivicNumber,
 					building.CivicLetter,
 					IdBuilding = building.Id,
-					inspection.IsSurveyCompleted
+					inspection.IdSurvey,
+					inspection.IsSurveyCompleted,
+					inspection.Status,
+					ApprobationRefusal = getApprobationRefusalReason(inspection)
 				};
 
 			var result = query.SingleOrDefault();
@@ -71,7 +75,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 				MainBuildingMatricule = result.Matricule,
 				OtherInformation = result.OtherInformation,
 				IdBuilding = result.IdBuilding,
-				IsSurveyCompleted = result.IsSurveyCompleted
+				IdSurvey = result.IdSurvey,
+				IsSurveyCompleted = result.IsSurveyCompleted,
+				Status = result.Status,
+				ApprobationRefusalReason = result.Status == InspectionStatus.Refused ? result.ApprobationRefusal : ""
 			};
 		}
 
@@ -113,6 +120,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 				return true;
 			}
 			return false;
+		}
+
+		private string getApprobationRefusalReason(Inspection inspection)
+		{
+			if(inspection.Visits != null)
+				return inspection.Visits.Last(iv => iv.IsActive && iv.Status == InspectionVisitStatus.Completed)
+					.ReasonForApprobationRefusal;
+
+			return "";
 		}
 	}
 }

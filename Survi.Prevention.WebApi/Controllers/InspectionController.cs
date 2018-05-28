@@ -75,5 +75,32 @@ namespace Survi.Prevention.WebApi.Controllers
         {
             return Ok(service.GetBuildingWithoutInspection(languageCode));
         }
+
+		[HttpPost, Route("StartInspection")]
+		public ActionResult StartInspection([FromBody] Guid idInspection)
+		{
+			if(service.StartInspection(idInspection, CurrentUserId))
+				return NoContent();
+			else
+				return BadRequest("Error during the starting process of the inspection");
+		}
+
+		[HttpPost, Route("CompleteInspection")]
+		public ActionResult CompleteInspection([FromBody] Guid idInspection)
+		{
+			if(service.CompleteInspection(idInspection, CurrentUserId))
+				return NoContent();
+			else
+				return BadRequest("Error during the starting process of the inspection");
+		}
+
+		[HttpPost, Route("RefuseInspectionVisit")]
+		public ActionResult RefuseInspectionVisit([FromBody] InspectionVisit inspectionVisit)
+		{
+			if(service.RefuseInspectionVisit(inspectionVisit, CurrentUserId))
+				return NoContent();
+			else
+				return BadRequest("Error during the starting process of the inspection");
+		}
     }
 }
