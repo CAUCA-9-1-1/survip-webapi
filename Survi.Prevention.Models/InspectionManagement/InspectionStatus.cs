@@ -7,6 +7,6 @@ namespace Survi.Prevention.Models.InspectionManagement
 		WaitingForApprobation,
 		Approved,
 		Refused,
-		Cancelled
+		Canceled
 	}
 }

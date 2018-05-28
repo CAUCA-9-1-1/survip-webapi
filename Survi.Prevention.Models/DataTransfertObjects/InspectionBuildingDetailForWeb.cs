@@ -1,4 +1,5 @@
 ﻿using System;
+using Survi.Prevention.Models.InspectionManagement;
 
 namespace Survi.Prevention.Models.DataTransfertObjects
 {
@@ -18,6 +19,9 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 		public Guid MainBuildingIdRiskLevel { get; set; }
 		public Guid? MainBuildingIdUtilisationCode { get; set; }
 	    public Guid? IdBuilding { get; set; }
-		public bool IsSurveyCompleted { get; set; }
+	    public Guid? IdSurvey { get; set; }
+	    public bool IsSurveyCompleted { get; set; }
+	    public InspectionStatus Status { get; set; }
+	    public string ApprobationRefusalReason { get; set; } = "";
     }
 }

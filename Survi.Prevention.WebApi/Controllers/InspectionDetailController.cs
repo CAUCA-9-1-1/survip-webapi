@@ -38,5 +38,7 @@ namespace Survi.Prevention.WebApi.Controllers
 				return NoContent();
 			return BadRequest("Unknown building detail.");			
 		}
+
+
 	}
 }
