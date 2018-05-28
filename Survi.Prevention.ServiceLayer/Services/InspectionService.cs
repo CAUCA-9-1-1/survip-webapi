@@ -382,24 +382,34 @@ namespace Survi.Prevention.ServiceLayer.Services
 					.Include(i => i.Visits)
 					.Single();
 
-				targetInspection.Status = InspectionStatus.WaitingForApprobation;
-				targetInspection.CompletedOn = DateTime.Now;
+				if (CompleteInspectionVisit(targetInspection))
+				{
+					targetInspection.Status = InspectionStatus.WaitingForApprobation;
+					targetInspection.CompletedOn = DateTime.Now;
+					Context.SaveChanges();
 
-				completeInspectionVisit(targetInspection);
-
-				Context.SaveChanges();
-
-				return true;
+					return true;
+				}
+				else
+					return false;
 			}
 
 			return false;
 		}
 
-		private void completeInspectionVisit(Inspection inspection)
+		private bool CompleteInspectionVisit(Inspection inspection)
 		{
-			InspectionVisit currentVisit = inspection.Visits.Single(v=> v.IsActive && v.Status != InspectionVisitStatus.Completed);
-			currentVisit.EndedOn = DateTime.Now;
-			currentVisit.Status = InspectionVisitStatus.Completed;
+			if (inspection.Visits.Any(v => v.IsActive && v.Status != InspectionVisitStatus.Completed))
+			{
+				InspectionVisit currentVisit =
+					inspection.Visits.Single(v => v.IsActive && v.Status != InspectionVisitStatus.Completed);
+				currentVisit.EndedOn = DateTime.Now;
+				currentVisit.Status = InspectionVisitStatus.Completed;
+
+				return true;
+			}
+
+			return false;
 		}
 
 		public bool RefuseInspectionVisit(InspectionVisit inspectionVisit, Guid idUser)
@@ -427,13 +437,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 			else
 			{
-				InspectionVisit currentVisit = inspection.Visits.Last(v=> v.IsActive && v.Status != InspectionVisitStatus.Completed);			
-				currentVisit.Status = refusedInspectionVisit.Status;
-				currentVisit.ReasonForInspectionRefusal = refusedInspectionVisit.ReasonForInspectionRefusal;
-				currentVisit.HasBeenRefused = refusedInspectionVisit.HasBeenRefused;
-				currentVisit.OwnerWasAbsent = refusedInspectionVisit.OwnerWasAbsent;
-				currentVisit.DoorHangerHasBeenLeft = refusedInspectionVisit.DoorHangerHasBeenLeft;
-				currentVisit.EndedOn = refusedInspectionVisit.EndedOn;
+				if (inspection.Visits.Any(v => v.IsActive && v.Status != InspectionVisitStatus.Completed))
+				{
+					InspectionVisit currentVisit =
+						inspection.Visits.Last(v => v.IsActive && v.Status != InspectionVisitStatus.Completed);
+					currentVisit.Status = refusedInspectionVisit.Status;
+					currentVisit.ReasonForInspectionRefusal = refusedInspectionVisit.ReasonForInspectionRefusal;
+					currentVisit.HasBeenRefused = refusedInspectionVisit.HasBeenRefused;
+					currentVisit.OwnerWasAbsent = refusedInspectionVisit.OwnerWasAbsent;
+					currentVisit.DoorHangerHasBeenLeft = refusedInspectionVisit.DoorHangerHasBeenLeft;
+					currentVisit.EndedOn = refusedInspectionVisit.EndedOn;
+				}
 			}
 		}
 	}
