@@ -35,7 +35,7 @@ namespace Survi.Prevention.WebApi.Controllers
         [ProducesResponseType(typeof(bool), 200)]
         public ActionResult CancelInspection(Guid id)
         {
-            service.SetStatus(InspectionStatus.Cancelled, id);
+            service.SetStatus(InspectionStatus.Canceled, id);
             service.Remove(id);
 
             return Ok(true);
