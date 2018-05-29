@@ -115,6 +115,8 @@ namespace Survi.Prevention.ServiceLayer.Services
                     Id = r.Inspection.Id,
                     IdBatch = r.Inspection.IdBatch,
                     BatchDescription = r.Batch.Description,
+                    ShouldStartOn = r.Batch.ShouldStartOn,
+                    IsReadyForInspection = r.Batch.IsReadyForInspection,
                     IdBuilding = r.Building.Id,
                     IdRiskLevel = r.Building.IdRiskLevel,
                     IdWebuserAssignedTo = r.Inspection.IdWebuserAssignedTo,
@@ -170,6 +172,8 @@ namespace Survi.Prevention.ServiceLayer.Services
                     Id = r.Inspection.Id,
                     IdBatch = r.Inspection.IdBatch,
                     BatchDescription = r.Batch.Description,
+                    ShouldStartOn = r.Batch.ShouldStartOn,
+                    IsReadyForInspection = r.Batch.IsReadyForInspection,
                     IdBuilding = r.Building.Id,
                     IdRiskLevel = r.Building.IdRiskLevel,
                     IdWebuserAssignedTo = r.Inspection.IdWebuserAssignedTo,
@@ -225,7 +229,6 @@ namespace Survi.Prevention.ServiceLayer.Services
             {
                 Id = Guid.Empty,
                 IdBatch = Guid.Empty,
-                BatchDescription = "",
                 IdBuilding = r.Building.Id,
                 IdRiskLevel = r.Building.IdRiskLevel,
                 IdWebuserAssignedTo = r.Inspection.IdWebuserAssignedTo,
@@ -276,7 +279,6 @@ namespace Survi.Prevention.ServiceLayer.Services
                 {
                     Id = Guid.Empty,
                     IdBatch = Guid.Empty,
-                    BatchDescription = "",
                     IdBuilding = r.Building.Id,
                     IdRiskLevel = r.Building.IdRiskLevel,
                     Address = new AddressGenerator()
