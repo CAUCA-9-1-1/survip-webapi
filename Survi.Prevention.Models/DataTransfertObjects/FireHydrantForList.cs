@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Survi.Prevention.Models.DataTransfertObjects
 {
@@ -9,5 +7,6 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 		public Guid Id { get; set; }
 		public string Number { get; set; }
 		public string Address { get; set; }
+		public string Color { get; set; }
 	}
 }
