@@ -41,6 +41,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             inspections.ForEach(inspection =>
             {
                 inspection.IsActive = false;
+                inspection.Status = InspectionStatus.Canceled;
             });
 
             Context.SaveChanges();
