@@ -41,9 +41,38 @@ namespace Survi.Prevention.ServiceLayer.Services
 				let publicCode = lane.PublicCode
 				from localization in lane.Localizations.DefaultIfEmpty()
 				where localization.IsActive && localization.LanguageCode == languageCode
+				orderby localization.Name
 				select new {lane.Id, localization.Name, genericDescription = genericCode.Description, genericCode.AddWhiteSpaceAfter, publicDescription = publicCode.Description};
 
 			var result = query.ToList()
+				.Select(lane => new LaneLocalized {Id = lane.Id, Name = new LocalizedLaneNameGenerator().GenerateLaneName(lane.Name, lane.genericDescription, lane.publicDescription, lane.AddWhiteSpaceAfter)})
+				.Take(30)
+				.ToList();
+
+			return result;
+		}
+
+		public List<LaneLocalized> GetFilteredLanesLocalized(Guid cityId, string languageCode, string searchTerm = "")
+		{
+			if (searchTerm == null)
+				searchTerm = "";
+
+			searchTerm = searchTerm.ToLower();
+
+			var query =
+				from lane in Context.Lanes.AsNoTracking()
+				where lane.IdCity == cityId && lane.IsActive
+				let genericCode = lane.LaneGenericCode
+				let publicCode = lane.PublicCode
+				from localization in lane.Localizations.DefaultIfEmpty()
+				where localization.IsActive && localization.LanguageCode == languageCode
+				&& (((localization.Name.ToLower().Contains(searchTerm) 
+				    || genericCode.Description.ToLower().Contains(searchTerm)
+				    || publicCode.Description.ToLower().Contains(searchTerm))&& searchTerm != "")||(searchTerm == ""))
+				orderby localization.Name
+				select new {lane.Id, localization.Name, genericDescription = genericCode.Description, genericCode.AddWhiteSpaceAfter, publicDescription = publicCode.Description};
+
+			var result = query.Take(30).ToList()
 				.Select(lane => new LaneLocalized {Id = lane.Id, Name = new LocalizedLaneNameGenerator().GenerateLaneName(lane.Name, lane.genericDescription, lane.publicDescription, lane.AddWhiteSpaceAfter)})
 				.ToList();
 
