@@ -32,6 +32,22 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
+        public override bool Remove(Guid id)
+        {
+            var inspections = Context.Inspections
+                .Where(i => i.IdBatch == id)
+                .ToList();
+
+            inspections.ForEach(inspection =>
+            {
+                inspection.IsActive = false;
+            });
+
+            Context.SaveChanges();
+
+            return base.Remove(id);
+        }
+
         public override Guid AddOrUpdate(Batch batch)
         {
             updateBatchUser(batch);
