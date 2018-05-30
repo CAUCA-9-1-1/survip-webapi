@@ -15,12 +15,18 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public List<HazardousMaterialForList> GetList(string languageCode, string searchTerm)
 		{
+			if (searchTerm == null)
+				searchTerm = "";
+
+			searchTerm = searchTerm.ToLower();
+
 			var query =
 				from mat in Context.HazardousMaterials.AsNoTracking()
 				where mat.IsActive
 				from loc in mat.Localizations
 				where loc.IsActive && loc.LanguageCode == languageCode
-				where loc.Name.Contains(searchTerm) || mat.Number.Contains(searchTerm)
+				where loc.Name.ToLower().Contains(searchTerm) || mat.Number.ToLower().Contains(searchTerm)
+				orderby loc.Name
 				select new HazardousMaterialForList
 				{
 					Id = mat.Id,
@@ -28,7 +34,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Name = loc.Name
 				};
 
-			return query.ToList();
+			return query.Take(30).ToList();
 		}
 
 	    public HazardousMaterialForList Get(string languageCode, Guid idHazardousMaterial)
