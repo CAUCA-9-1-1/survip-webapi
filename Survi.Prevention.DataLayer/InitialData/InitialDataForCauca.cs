@@ -7,6 +7,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 	public class InitialDataForCauca
 	{
 		private static readonly Guid CityTypeId = Guid.NewGuid();
+		private static readonly Guid CityStGeorgesId = Guid.Parse("8a4737d2-e3c8-4d1f-b5ad-76a4703568a5");
 		private static readonly Guid StateId = Guid.NewGuid();
 
 		public static IEnumerable<Country> GetInitialGeographicData()
@@ -93,7 +94,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 			return new List<City>
 			{
 				new City { Code = "29045", Code3Letters = "SIN", IdCityType = CityTypeId, Localizations = GetStMartinLocalizations()},
-				new City { Code = "29073", Code3Letters = "SGS", IdCityType = CityTypeId, Localizations = GetStGeorgesLocalizations()}
+				new City { Id = CityStGeorgesId, Code = "29073", Code3Letters = "SGS", IdCityType = CityTypeId, Localizations = GetStGeorgesLocalizations()}
 			};
 		}
 
