@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models.Base;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.InspectionManagement;
-using Survi.Prevention.Models.SecurityManagement;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -87,12 +90,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.ToList();
 		}
 
-        public List<InspectionForDashboard> GetToDoInspection(string languageCode)
+        public List<InspectionForDashboard> GetToDoInspection(string languageCode, string loadOptions)
         {
             var query =
                 from inspection in Context.Inspections.AsNoTracking()
                 where inspection.IsActive && (inspection.Status == InspectionStatus.Todo || inspection.Status == InspectionStatus.Started || inspection.Status == InspectionStatus.Refused)
-				let batch = inspection.Batch
+                let batch = inspection.Batch
                 let building = inspection.MainBuilding
                 let lane = building.Lane
                 from laneLocalization in lane.Localizations.DefaultIfEmpty()
@@ -108,6 +111,25 @@ namespace Survi.Prevention.ServiceLayer.Services
                     GenericDescription = lane.LaneGenericCode.Description,
                     lane.LaneGenericCode.AddWhiteSpaceAfter
                 };
+
+            var options = JObject.Parse(loadOptions);
+            var skip = options["skip"];
+            var take = options["take"];
+            var filter = options["filter"];
+
+            if (filter != null)
+            {
+                var search = (string)filter.First.Last;
+                query = query.Where(x => x.LaneName.ToUpper().Contains(search.ToUpper()));
+            }
+            if (skip != null)
+            {
+                query = query.Skip((int)skip);
+            }
+            if (take != null)
+            {
+                query = query.Take((int)take);
+            }
 
             var results = query.ToList()
                 .Select(r => new InspectionForDashboard
@@ -139,10 +161,20 @@ namespace Survi.Prevention.ServiceLayer.Services
                     Details = r.Building.Details
                 });
 
-            return InsertMissingInformation(results.ToList());
+            return InsertMissingInformation(results);
         }
 
-        public List<InspectionForDashboard> GetForApprovalInspection(string languageCode)
+        public int GetToDoInspectionTotal()
+        {
+            return Context.Inspections.AsNoTracking()
+                .Where(i =>
+                    i.IsActive &&
+                    (i.Status == InspectionStatus.Todo || i.Status == InspectionStatus.Started || i.Status == InspectionStatus.Refused)
+                )
+                .Count();
+        }
+
+        public List<InspectionForDashboard> GetForApprovalInspection(string languageCode, string loadOptions)
         {
             var query =
                 from inspection in Context.Inspections.AsNoTracking()
@@ -164,6 +196,25 @@ namespace Survi.Prevention.ServiceLayer.Services
                     GenericDescription = lane.LaneGenericCode.Description,
                     lane.LaneGenericCode.AddWhiteSpaceAfter
                 };
+
+            var options = JObject.Parse(loadOptions);
+            var skip = options["skip"];
+            var take = options["take"];
+            var filter = options["filter"];
+
+            if (filter != null)
+            {
+                var search = (string)filter.First.Last;
+                query = query.Where(x => x.LaneName.ToUpper().Contains(search.ToUpper()));
+            }
+            if (skip != null)
+            {
+                query = query.Skip((int)skip);
+            }
+            if (take != null)
+            {
+                query = query.Take((int)take);
+            }
 
             var results = query
                 .ToList()
@@ -196,10 +247,20 @@ namespace Survi.Prevention.ServiceLayer.Services
                     Details = r.Building.Details
                 });
 
-            return InsertMissingInformation(results.ToList());
+            return InsertMissingInformation(results);
         }
 
-        public List<InspectionForDashboard> GetBuildingWithHistory(string languageCode)
+        public int GetForApprovalInspectionTotal()
+        {
+            return Context.Inspections.AsNoTracking()
+                .Where(i =>
+                    i.IsActive &&
+                    i.Status == InspectionStatus.WaitingForApprobation
+                )
+                .Count();
+        }
+
+        public List<InspectionForDashboard> GetBuildingWithHistory(string languageCode, string loadOptions)
         {
             var query =
                 from building in Context.Buildings
@@ -224,37 +285,69 @@ namespace Survi.Prevention.ServiceLayer.Services
                     lane.LaneGenericCode.AddWhiteSpaceAfter,
                 };
 
-            var results = query.ToList()
-            .Select(r => new InspectionForDashboard
-            {
-                Id = Guid.Empty,
-                IdBatch = Guid.Empty,
-                IdBuilding = r.Building.Id,
-                IdRiskLevel = r.Building.IdRiskLevel,
-                IdWebuserAssignedTo = r.Inspection.IdWebuserAssignedTo,
-                Address = new AddressGenerator()
-                    .GenerateAddress(r.Building.CivicNumber, r.Building.CivicLetter, r.LaneName, r.GenericDescription, r.PublicDescription, r.AddWhiteSpaceAfter),
-                IdCity = r.LaneIdCity,
-                IdLaneTransversal = r.Building.IdLaneTransversal,
-                PostalCode = r.Building.PostalCode,
-	            InspectionStatus = r.Inspection.Status,
-                HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
-                IdUtilisationCode = r.Building.IdUtilisationCode,
-                IdPicture = r.Building.IdPicture,
-                BuildingValue = r.Building.BuildingValue,
-                Matricule = r.Building.Matricule,
-                NumberOfAppartment = r.Building.NumberOfAppartment,
-                NumberOfBuilding = r.Building.NumberOfBuilding,
-                NumberOfFloor = r.Building.NumberOfFloor,
-                VacantLand = r.Building.VacantLand,
-                YearOfConstruction = r.Building.YearOfConstruction,
-                Details = r.Building.Details
-            });
+            var options = JObject.Parse(loadOptions);
+            var skip = options["skip"];
+            var take = options["take"];
+            var filter = options["filter"];
 
-            return InsertMissingInformation(results.ToList());
+            if (filter != null)
+            {
+                var search = (string)filter.First.Last;
+                query = query.Where(x => x.LaneName.ToUpper().Contains(search.ToUpper()));
+            }
+            if (skip != null)
+            {
+                query = query.Skip((int)skip);
+            }
+            if (take != null)
+            {
+                query = query.Take((int)take);
+            }
+
+            var results = query.ToList()
+                .Select(r => new InspectionForDashboard
+                {
+                    Id = Guid.Empty,
+                    IdBatch = Guid.Empty,
+                    IdBuilding = r.Building.Id,
+                    IdRiskLevel = r.Building.IdRiskLevel,
+                    IdWebuserAssignedTo = r.Inspection.IdWebuserAssignedTo,
+                    Address = new AddressGenerator()
+                        .GenerateAddress(r.Building.CivicNumber, r.Building.CivicLetter, r.LaneName, r.GenericDescription, r.PublicDescription, r.AddWhiteSpaceAfter),
+                    IdCity = r.LaneIdCity,
+                    IdLaneTransversal = r.Building.IdLaneTransversal,
+                    PostalCode = r.Building.PostalCode,
+	                InspectionStatus = r.Inspection.Status,
+                    HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
+                    IdUtilisationCode = r.Building.IdUtilisationCode,
+                    IdPicture = r.Building.IdPicture,
+                    BuildingValue = r.Building.BuildingValue,
+                    Matricule = r.Building.Matricule,
+                    NumberOfAppartment = r.Building.NumberOfAppartment,
+                    NumberOfBuilding = r.Building.NumberOfBuilding,
+                    NumberOfFloor = r.Building.NumberOfFloor,
+                    VacantLand = r.Building.VacantLand,
+                    YearOfConstruction = r.Building.YearOfConstruction,
+                    Details = r.Building.Details
+                });
+
+            return InsertMissingInformation(results);
         }
 
-        public List<InspectionForDashboard> GetBuildingWithoutInspection(string languageCode)
+        public int GetBuildingWithHistoryTotal()
+        {
+            var query =
+                from building in Context.Buildings
+                where building.IsActive && building.IsParent
+                join inspection in Context.Inspections.AsNoTracking()
+                on building.Id equals inspection.IdBuilding
+                where inspection.IsActive && inspection.Status == InspectionStatus.Approved
+                select 1;
+
+            return query.Count();
+        }
+
+        public List<InspectionForDashboard> GetBuildingWithoutInspection(string languageCode, string loadOptions)
         {
             var query =
                 from building in Context.Buildings
@@ -273,6 +366,25 @@ namespace Survi.Prevention.ServiceLayer.Services
                     GenericDescription = lane.LaneGenericCode.Description,
                     lane.LaneGenericCode.AddWhiteSpaceAfter,
                 };
+
+            var options = JObject.Parse(loadOptions);
+            var skip = options["skip"];
+            var take = options["take"];
+            var filter = options["filter"];
+
+            if (filter != null)
+            {
+                var search = (string)filter.First.Last;
+                query = query.Where(x => x.LaneName.ToUpper().Contains(search.ToUpper()));
+            }
+            if (skip != null)
+            {
+                query = query.Skip((int)skip);
+            }
+            if (take != null)
+            {
+                query = query.Take((int)take);
+            }
 
             var results = query.ToList()
                 .Select(r => new InspectionForDashboard
@@ -300,11 +412,24 @@ namespace Survi.Prevention.ServiceLayer.Services
                     Details = r.Building.Details
                 });
 
-            return InsertMissingInformation(results.ToList());
+            return InsertMissingInformation(results);
         }
 
-        private List<InspectionForDashboard> InsertMissingInformation(List<InspectionForDashboard> data)
+        public int GetBuildingWithoutInspectionTotal()
         {
+            return Context.Buildings
+                .Where(
+                    b => b.IsActive &&
+                    b.IsParent &&
+                    !Context.Inspections.Any(i => i.IsActive && i.Status != InspectionStatus.Approved && i.Status != InspectionStatus.Canceled && i.IdBuilding == b.Id)
+                )
+                .Count();
+        }
+
+        private List<InspectionForDashboard> InsertMissingInformation(IEnumerable<InspectionForDashboard> query)
+        {
+            var data = query.ToList();
+            
             data.ForEach(row =>
             {
                 row.WebuserAssignedTo = (Guid.Empty == row.Id ? "" : GetListWebuser(row.Id));

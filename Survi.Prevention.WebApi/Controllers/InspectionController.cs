@@ -50,30 +50,54 @@ namespace Survi.Prevention.WebApi.Controllers
 
         [HttpGet, Route("ToDoInspection")]
         [ProducesResponseType(typeof(List<InspectionForDashboard>), 200)]
-        public ActionResult GetToDoInspection([FromHeader]string languageCode)
+        public ActionResult GetToDoInspection([FromHeader]string languageCode, [FromHeader]string queryLoadOptions)
         {
-            return Ok(service.GetToDoInspection(languageCode));
+            var result = new LimitedItemList<InspectionForDashboard>
+            {
+                Data = service.GetToDoInspection(languageCode, queryLoadOptions),
+                TotalCount = service.GetToDoInspectionTotal()
+            };
+
+            return Ok(result);
         }
 
         [HttpGet, Route("ForApprovalInspection")]
         [ProducesResponseType(typeof(List<InspectionForDashboard>), 200)]
-        public ActionResult GetForApprovalInspection([FromHeader]string languageCode)
+        public ActionResult GetForApprovalInspection([FromHeader]string languageCode, [FromHeader]string queryLoadOptions)
         {
-            return Ok(service.GetForApprovalInspection(languageCode));
+            var result = new LimitedItemList<InspectionForDashboard>
+            {
+                Data = service.GetForApprovalInspection(languageCode, queryLoadOptions),
+                TotalCount = service.GetForApprovalInspectionTotal()
+            };
+
+            return Ok(result);
         }
 
         [HttpGet, Route("BuildingWithHistory")]
         [ProducesResponseType(typeof(List<InspectionForDashboard>), 200)]
-        public ActionResult GetBuildingWithHistory([FromHeader]string languageCode)
+        public ActionResult GetBuildingWithHistory([FromHeader]string languageCode, [FromHeader]string queryLoadOptions)
         {
-            return Ok(service.GetBuildingWithHistory(languageCode));
+            var result = new LimitedItemList<InspectionForDashboard>
+            {
+                Data = service.GetBuildingWithHistory(languageCode, queryLoadOptions),
+                TotalCount = service.GetBuildingWithHistoryTotal()
+            };
+
+            return Ok(result);
         }
 
         [HttpGet, Route("BuildingWithoutInspection")]
-        [ProducesResponseType(typeof(List<InspectionForDashboard>), 200)]
-        public ActionResult GetBuildingWithoutInspection([FromHeader]string languageCode)
+        [ProducesResponseType(typeof(LimitedItemList<InspectionForDashboard>), 200)]
+        public ActionResult GetBuildingWithoutInspection([FromHeader]string languageCode, [FromHeader]string queryLoadOptions)
         {
-            return Ok(service.GetBuildingWithoutInspection(languageCode));
+            var result = new LimitedItemList<InspectionForDashboard>
+            {
+                Data = service.GetBuildingWithoutInspection(languageCode, queryLoadOptions),
+                TotalCount = service.GetBuildingWithoutInspectionTotal()
+            };
+
+            return Ok(result);
         }
 
 		[HttpPost, Route("StartInspection")]
