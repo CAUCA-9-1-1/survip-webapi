@@ -90,6 +90,7 @@ namespace Survi.Prevention.DataLayer
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			modelBuilder.HasPostgresExtension("uuid-ossp");
 			modelBuilder.UseAutoSnakeCaseMapping();
 			this.UseAutoDetectedMappings(modelBuilder);
 		}

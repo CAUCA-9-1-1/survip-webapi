@@ -100,12 +100,12 @@ namespace Survi.Prevention.DataLayer.InitialData
 
 		private static List<CityLocalization> GetStGeorgesLocalizations()
 		{
-			return new List<CityLocalization> {new CityLocalization {LanguageCode = "fr", Name = "Saint-Georges"}, new CityLocalization { LanguageCode = "en", Name = "St. Georges"}};
+			return new List<CityLocalization> {new CityLocalization {LanguageCode = "fr", Name = "Caucaville"}, new CityLocalization { LanguageCode = "en", Name = "Caucatown"}};
 		}
 
 		private static List<CityLocalization> GetStMartinLocalizations()
 		{
-			return new List<CityLocalization> {new CityLocalization {LanguageCode = "fr", Name = "Saint-Martin"}, new CityLocalization { LanguageCode = "en", Name = "St. Martin"}};
+			return new List<CityLocalization> {new CityLocalization {LanguageCode = "fr", Name = "Causeville"}, new CityLocalization { LanguageCode = "en", Name = "Causetown"}};
 		}
 	}
 }

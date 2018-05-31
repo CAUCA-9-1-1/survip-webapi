@@ -11,8 +11,9 @@ namespace Survi.Prevention.DataLayer.Mapping
 		{
 			b.HasKey(m => m.Id);
 			b.Property(m => m.IdParent).HasColumnName("id_hazardous_material");
-			b.Property(m => m.Name).HasMaxLength(100).IsRequired();
+			b.Property(m => m.Name).HasMaxLength(250).IsRequired();
 			b.Property(m => m.LanguageCode).HasMaxLength(2).IsRequired();
+			b.HasIndex(m => new { m.IdParent, m.IsActive, m.LanguageCode });
 		}
 	}
 }
