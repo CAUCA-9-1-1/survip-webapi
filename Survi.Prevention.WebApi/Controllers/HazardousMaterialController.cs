@@ -15,7 +15,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 
 		[HttpGet, Route("search/{searchTerm?}")]
-		public ActionResult GetList(string searchTerm, [FromHeader] string languageCode)
+		public ActionResult GetList([FromHeader] string languageCode, string searchTerm)
 		{
 			return Ok(service.GetList(languageCode, searchTerm));
 		}
