@@ -28,7 +28,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				var token = GenerateJwtToken(userFound, applicationName, issuer, secretKey);
 				var handler = new JwtSecurityTokenHandler();
 				var tokenString = handler.WriteToken(token);
-				var accessToken = new AccessToken {TokenForAccess = tokenString, ExpiresIn = 60, IdWebuser = userFound.Id};
+				var accessToken = new AccessToken {TokenForAccess = tokenString, ExpiresIn = 600000, IdWebuser = userFound.Id};
 				Context.Add(accessToken);
 				Context.SaveChanges();
 				return (accessToken, userFound);
