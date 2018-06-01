@@ -10,9 +10,9 @@ namespace Survi.Prevention.DataLayer.Mapping
 		public override void Map(EntityTypeBuilder<BuildingParticularRisk> b)
 		{
 			b.HasKey(m => m.Id);
-			b.Property(m => m.Wall).HasMaxLength(15).IsRequired();
-			b.Property(m => m.Sector).HasMaxLength(15).IsRequired();
-			b.Property(m => m.Dimension).HasMaxLength(100).IsRequired();
+			b.Property(m => m.Wall).HasMaxLength(15);
+			b.Property(m => m.Sector).HasMaxLength(15);
+			b.Property(m => m.Dimension).HasMaxLength(100);
 
 			b.HasMany(m => m.Pictures).WithOne(m => m.Risk).HasForeignKey(m => m.IdBuildingParticularRisk);
 
