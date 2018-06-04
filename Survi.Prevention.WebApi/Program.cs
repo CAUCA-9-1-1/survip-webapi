@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.AspNetCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Survi.Prevention.WebApi
@@ -8,7 +9,8 @@ namespace Survi.Prevention.WebApi
     {
         public static void Main(string[] args)
         {
-	        var host = BuildWebHost(args);
+	        var host = CreateWebHostBuilding(args)
+		        .Build();
 
 #if CREATEDB
 			using (var scope = host.Services.CreateScope())
@@ -23,7 +25,7 @@ namespace Survi.Prevention.WebApi
         }
 
 
-	    public static IWebHost BuildWebHost(string[] args)
+	    public static IWebHostBuilder CreateWebHostBuilding(string[] args)
 	    {
 		    var config = new ConfigurationBuilder()
 			    .SetBasePath(Directory.GetCurrentDirectory())
@@ -31,14 +33,11 @@ namespace Survi.Prevention.WebApi
 			    .AddJsonFile("appsettings.json", false)
 			    .Build();
 
-		    var host = new WebHostBuilder()
+		    return WebHost.CreateDefaultBuilder(args)
 			    .UseKestrel()
 			    .UseConfiguration(config)
 			    .UseContentRoot(Directory.GetCurrentDirectory())
-			    .UseStartup<Startup>()
-			    .Build();
-
-		    return host;
+			    .UseStartup<Startup>();
 	    }
     }
 }

@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Survi.Prevention.DataLayer\Survi.Prevention.DataLayer.csproj" />
     <ProjectReference Include="..\Survi.Prevention.Models\Survi.Prevention.Models.csproj" />
     <ProjectReference Include="..\Survi.Prevention.ServiceLayer\Survi.Prevention.ServiceLayer.csproj" />

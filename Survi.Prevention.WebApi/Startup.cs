@@ -32,9 +32,9 @@ namespace Survi.Prevention.WebApi
 
             services.AddTokenAuthentification(Configuration);
 			services.AddSwaggerDocumentation();
-			services.AddMvc().AddJsonOptions(options => {
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            });
+			services.AddMvc()
+				.AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
+				.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
         }
 
 		private void RegisterServicesAndContext(IServiceCollection services)
@@ -95,8 +95,11 @@ namespace Survi.Prevention.WebApi
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
 			if (env.IsDevelopment())
-                app.UseDeveloperExceptionPage();
+				app.UseDeveloperExceptionPage();
+			else
+				app.UseHsts();
 
+			app.UseHttpsRedirection();
             app.UseCors("AllowAllOrigin");
             app.UseAuthentication();
 			app.UseSwaggerDocumentation();
