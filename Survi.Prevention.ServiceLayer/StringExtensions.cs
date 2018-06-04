@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Survi.Prevention.ServiceLayer
 {
-    public class AiciValidator
+    public static class StringExtensions
     {
-	    public string RemoveDiacritics(string str)
+	    public static string RemoveDiacritics(this string str)
 	    {
 		    if (null == str) return null;
 		    var chars = str

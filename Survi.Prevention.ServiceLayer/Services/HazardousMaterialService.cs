@@ -15,17 +15,14 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 	    public List<HazardousMaterialForList> GetList(string languageCode, string searchTerm)
 	    {
-		    if (searchTerm == null)
-			    searchTerm = "";
-			var insensitiveValidator = new AiciValidator();
+		    searchTerm = (searchTerm??"").RemoveDiacritics();
 
-		    var newsearch = insensitiveValidator.RemoveDiacritics(searchTerm);
 		    var query =
 			    from mat in Context.HazardousMaterials
 			    where mat.IsActive
 			    from loc in mat.Localizations
 			    where loc.IsActive && loc.LanguageCode == languageCode
-			    where insensitiveValidator.RemoveDiacritics(loc.Name).Contains(newsearch) || insensitiveValidator.RemoveDiacritics(mat.Number).Contains(newsearch)
+			    where loc.Name.RemoveDiacritics().Contains(searchTerm) || mat.Number.RemoveDiacritics().Contains(searchTerm)
 			    orderby loc.Name
 			    select new HazardousMaterialForList
 			    {
