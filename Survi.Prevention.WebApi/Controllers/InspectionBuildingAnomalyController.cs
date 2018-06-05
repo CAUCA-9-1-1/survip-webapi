@@ -23,5 +23,18 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return Ok(Service.GetThemes());
 		}
+
+		[HttpDelete]
+		[Route("{idBuildingAnomaly:Guid}")]
+		[ProducesResponseType(401)]
+		[ProducesResponseType(200)]
+		public override ActionResult Delete(Guid idBuildingAnomaly)
+		{
+			if (Service.Delete(idBuildingAnomaly))
+				return NoContent();
+
+			return BadRequest();
+		}
+
 	}
 }

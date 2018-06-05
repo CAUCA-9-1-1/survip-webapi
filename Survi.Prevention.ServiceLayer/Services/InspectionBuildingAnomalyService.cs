@@ -74,5 +74,30 @@ namespace Survi.Prevention.ServiceLayer.Services
 		    Context.SaveChanges();
 		    return entity.Id;
 	    }
+
+	    public virtual bool Delete(Guid id)
+	    {
+		    var entity = Context.BuildingAnomalies.Find(id);
+		    if(entity != null){
+				DeleteAnomalyPictures(entity.Id);
+			    Context.Remove(entity);
+			    Context.SaveChanges();
+			    return true;
+		    }
+	
+			return false;
+	    }
+
+	    private void DeleteAnomalyPictures(Guid idBuildingAnomaly)
+	    {
+		    var anomalyPictures = Context.BuildingAnomalyPictures
+									.Where(bap => bap.IdBuildingAnomaly == idBuildingAnomaly)
+									.ToList();
+		    anomalyPictures.ForEach(pic => {
+			    var picture = Context.Pictures.Find(pic.IdPicture);
+			    Context.Remove(picture);
+		    });
+			Context.RemoveRange(anomalyPictures);
+	    }
 	}
 }
