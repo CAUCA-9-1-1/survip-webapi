@@ -417,7 +417,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
                 select new InspectionForDashboardQueryable
 				{
-					FullLaneName = laneLocalization.Name + (!string.IsNullOrWhiteSpace(genericCode.Description) || !string.IsNullOrWhiteSpace(publicCode.Description) ? publicCode.Description + " " + genericCode.Description : ""),
+					FullLaneName = laneLocalization.Name + (!string.IsNullOrWhiteSpace(genericCode.Description) || !string.IsNullOrWhiteSpace(publicCode.Description) ? " (" + publicCode.Description + " " + genericCode.Description + ")" : ""),
 					FullCivicNumber = building.CivicNumber + building.CivicLetter,
 					 
 					IdBuilding = building.Id,

@@ -1,3 +1,5 @@
+using Microsoft.AspNet.OData.Builder;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -5,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi
@@ -32,6 +35,7 @@ namespace Survi.Prevention.WebApi
 
             services.AddTokenAuthentification(Configuration);
 			services.AddSwaggerDocumentation();
+			services.AddOData();
 			services.AddMvc()
 				.AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
 				.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
@@ -98,6 +102,12 @@ namespace Survi.Prevention.WebApi
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
+			var builder = new ODataConventionModelBuilder();
+			builder.EntitySet<InspectionForDashboardQueryable>(nameof(InspectionForDashboardQueryable)).EntityType
+				.Filter(Microsoft.AspNet.OData.Query.QueryOptionSetting.Allowed)
+				.OrderBy(Microsoft.AspNet.OData.Query.QueryOptionSetting.Allowed)
+				.Page();				
+
 			if (env.IsDevelopment())
 				app.UseDeveloperExceptionPage();
 			else
@@ -107,7 +117,7 @@ namespace Survi.Prevention.WebApi
             app.UseCors("AllowAllOrigin");
             app.UseAuthentication();
 			app.UseSwaggerDocumentation();
-			app.UseMvc();
-        }
+			app.UseMvc(routeBuilder => routeBuilder.MapODataServiceRoute("", "odata", builder.GetEdmModel()));
+		}
 	}
 }

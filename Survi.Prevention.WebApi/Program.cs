@@ -36,6 +36,7 @@ namespace Survi.Prevention.WebApi
 			    .Build();
 
 		    return WebHost.CreateDefaultBuilder(args)
+				.UseDefaultServiceProvider(options => options.ValidateScopes = false)
 			    .UseKestrel()
 			    .UseConfiguration(config)
 			    .UseContentRoot(Directory.GetCurrentDirectory())
