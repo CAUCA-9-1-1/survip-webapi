@@ -252,12 +252,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 
         public int GetForApprovalInspectionTotal()
         {
-            return Context.Inspections.AsNoTracking()
-                .Where(i =>
-                    i.IsActive &&
-                    i.Status == InspectionStatus.WaitingForApprobation
-                )
-                .Count();
+            return Context.Inspections
+                .AsNoTracking()
+                .Count(i => i.IsActive &&
+                    i.Status == InspectionStatus.WaitingForApprobation);
         }
 
         public List<InspectionForDashboard> GetBuildingWithHistory(string languageCode, string loadOptions)
@@ -347,7 +345,65 @@ namespace Survi.Prevention.ServiceLayer.Services
             return query.Count();
         }
 
-        public List<InspectionForDashboard> GetBuildingWithoutInspection(string languageCode, string loadOptions)
+		/*public IQueryable<InspectionForDashboardQueryable> GetBuildingWithoutInspection(string languageCode, string loadOptions)
+		{
+			var options = loadOptions.GetQueryNameValuePairs()
+				.ToDictionary(x => x.Key, x => JsonConvert.DeserializeObject(x.Value)); //parsed options
+
+			var query =
+				from building in Context.Buildings
+				where building.IsActive
+					  && building.IsParent
+					  && !Context.Inspections.Any(i => i.IsActive && i.Status != InspectionStatus.Approved && i.Status != InspectionStatus.Canceled && i.IdBuilding == building.Id)
+				let lane = building.Lane
+				from laneLocalization in lane.Localizations
+				where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
+				select new InspectionForDashboardQueryable
+				{
+					LaneName = laneLocalization.Name,
+					LanePublicDescription = lane.PublicCode.Description,
+					LaneGenericDescription = lane.LaneGenericCode.Description,
+					LaneAddWhiteSpaceAfterGenericDescription = lane.LaneGenericCode.AddWhiteSpaceAfter,
+
+					IdBuilding = building.Id,
+					IdRiskLevel = building.IdRiskLevel,
+					IdCity = lane.IdCity,
+					IdLaneTransversal = building.IdLaneTransversal,
+					PostalCode = building.PostalCode,
+					InspectionStatus = InspectionStatus.Todo,
+					HasAnomaly = building.Anomalies.Any(anomaly => anomaly.IsActive),
+					IdUtilisationCode = building.IdUtilisationCode,
+					IdPicture = building.IdPicture,
+					BuildingValue = building.BuildingValue,
+					Matricule = building.Matricule,
+					NumberOfAppartment = building.NumberOfAppartment,
+					NumberOfBuilding = building.NumberOfBuilding,
+					NumberOfFloor = building.NumberOfFloor,
+					VacantLand = building.VacantLand,
+					YearOfConstruction = building.YearOfConstruction,
+					Details = building.Details,
+					WebuserAssignedTo = null,
+					LastInspectionOn = Context.Inspections
+						.Where(inspection => inspection.IdBuilding == building.Id && inspection.Status == InspectionStatus.Approved)
+						.OrderBy(inspection => inspection.CompletedOn)
+						.Select(inspection => inspection.CompletedOn)
+						.LastOrDefault(),
+					Owner = building.Contacts.Where(contact => contact.IsActive && contact.IsOwner)
+						.Select(contact => contact.FirstName + " " + contact.LastName)
+						.FirstOrDefault(),
+					Contact = string.Join(",", building.Contacts.Where(contact => contact.IsActive)
+						.Select(contact => contact.FirstName + " " + contact.LastName))
+				};
+				
+			query
+				.FilterByOptions(options)   //filtering
+				.SortByOptions(options)     //sorting
+				.PageByOptions(options);    //paging
+
+			return query;
+		}*/
+
+		public IQueryable<InspectionForDashboardQueryable> GetBuildingWithoutInspectionQueryable(string languageCode)
         {
             var query =
                 from building in Context.Buildings
@@ -355,75 +411,57 @@ namespace Survi.Prevention.ServiceLayer.Services
                       && building.ChildType == Models.Buildings.BuildingChildType.None 
                       && !Context.Inspections.Any(i => i.IsActive && i.Status != InspectionStatus.Approved && i.Status != InspectionStatus.Canceled && i.IdBuilding == building.Id)
                 let lane = building.Lane
-                from laneLocalization in lane.Localizations
+				let publicCode =lane.PublicCode
+				let genericCode = lane.LaneGenericCode
+                from laneLocalization in lane.Localizations				
                 where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
-                select new
-                {
-                    Building = building,
-                    LaneName = laneLocalization.Name,
-                    lane.IdCity,
-                    PublicDescription = lane.PublicCode.Description,
-                    GenericDescription = lane.LaneGenericCode.Description,
-                    lane.LaneGenericCode.AddWhiteSpaceAfter,
-                };
+                select new InspectionForDashboardQueryable
+				{
+					FullLaneName = laneLocalization.Name + (!string.IsNullOrWhiteSpace(genericCode.Description) || !string.IsNullOrWhiteSpace(publicCode.Description) ? publicCode.Description + " " + genericCode.Description : ""),
+					FullCivicNumber = building.CivicNumber + building.CivicLetter,
+					 
+					IdBuilding = building.Id,
+					IdRiskLevel = building.IdRiskLevel,
+					IdCity = lane.IdCity,
+					IdLaneTransversal = building.IdLaneTransversal,
+					PostalCode = building.PostalCode,
+					InspectionStatus = InspectionStatus.Todo,
+					HasAnomaly = building.Anomalies.Any(anomaly => anomaly.IsActive),
+					IdUtilisationCode = building.IdUtilisationCode,
+					IdPicture = building.IdPicture,
+					BuildingValue = building.BuildingValue,
+					Matricule = building.Matricule,
+					NumberOfAppartment = building.NumberOfAppartment,
+					NumberOfBuilding = building.NumberOfBuilding,
+					NumberOfFloor = building.NumberOfFloor,
+					VacantLand = building.VacantLand,
+					YearOfConstruction = building.YearOfConstruction,
+					Details = building.Details,
+					WebuserAssignedTo = null,
+					LastInspectionOn = Context.Inspections
+						.Where(inspection => inspection.IdBuilding == building.Id && inspection.Status == InspectionStatus.Approved)
+						.OrderBy(inspection => inspection.CompletedOn)
+						.Select(inspection => inspection.CompletedOn)
+						.LastOrDefault(),
+					Owner = building.Contacts.Where(contact => contact.IsActive && contact.IsOwner)
+						.Select(contact => contact.FirstName + " " + contact.LastName)
+						.FirstOrDefault(),
+					Contact = string.Join(",", building.Contacts.Where(contact => contact.IsActive)
+						.Select(contact => contact.FirstName + " " + contact.LastName))
+				};
 
-            var options = JObject.Parse(loadOptions);
-            var skip = options["skip"];
-            var take = options["take"];
-            var filter = options["filter"];
-
-            if (filter != null)
-            {
-                var search = (string)filter.First.Last;
-                query = query.Where(x => x.LaneName.ToUpper().Contains(search.ToUpper()));
-            }
-            if (skip != null)
-            {
-                query = query.Skip((int)skip);
-            }
-            if (take != null)
-            {
-                query = query.Take((int)take);
-            }
-
-            var results = query.ToList()
-                .Select(r => new InspectionForDashboard
-                {
-                    Id = Guid.Empty,
-                    IdBatch = Guid.Empty,
-                    IdBuilding = r.Building.Id,
-                    IdRiskLevel = r.Building.IdRiskLevel,
-                    Address = new AddressGenerator()
-                        .GenerateAddress(r.Building.CivicNumber, r.Building.CivicLetter, r.LaneName, r.GenericDescription, r.PublicDescription, r.AddWhiteSpaceAfter),
-                    IdCity = r.IdCity,
-                    IdLaneTransversal = r.Building.IdLaneTransversal,
-                    PostalCode = r.Building.PostalCode,
-	                InspectionStatus = InspectionStatus.Todo,
-                    HasAnomaly = Context.BuildingAnomalies.Any(a => a.IsActive && a.IdBuilding == r.Building.Id),
-                    IdUtilisationCode = r.Building.IdUtilisationCode,
-                    IdPicture = r.Building.IdPicture,
-                    BuildingValue = r.Building.BuildingValue,
-                    Matricule = r.Building.Matricule,
-                    NumberOfAppartment = r.Building.NumberOfAppartment,
-                    NumberOfBuilding = r.Building.NumberOfBuilding,
-                    NumberOfFloor = r.Building.NumberOfFloor,
-                    VacantLand = r.Building.VacantLand,
-                    YearOfConstruction = r.Building.YearOfConstruction,
-                    Details = r.Building.Details
-                });
-
-            return InsertMissingInformation(results);
+			return query;
         }
 
         public int GetBuildingWithoutInspectionTotal()
         {
             return Context.Buildings
-                .Where(
-                    b => b.IsActive &&
-                    b.ChildType == Models.Buildings.BuildingChildType.None &&
-                    !Context.Inspections.Any(i => i.IsActive && i.Status != InspectionStatus.Approved && i.Status != InspectionStatus.Canceled && i.IdBuilding == b.Id)
-                )
-                .Count();
+                .Count(b => b.IsActive &&
+                    b.IsParent &&
+                    !Context.Inspections.Any(i => i.IsActive 
+                        && i.Status != InspectionStatus.Approved 
+                        && i.Status != InspectionStatus.Canceled 
+                        && i.IdBuilding == b.Id));
         }
 
         private List<InspectionForDashboard> InsertMissingInformation(IEnumerable<InspectionForDashboard> query)
@@ -616,6 +654,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 					currentVisit.RequestedDateOfVisit = refusedInspectionVisit.RequestedDateOfVisit;
 				}
 			}
-		}
+		}		
 	}
 }

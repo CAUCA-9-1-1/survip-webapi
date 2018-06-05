@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.InspectionManagement;
@@ -93,12 +94,19 @@ namespace Survi.Prevention.WebApi.Controllers
         {
             var result = new LimitedItemList<InspectionForDashboard>
             {
-                Data = service.GetBuildingWithoutInspection(languageCode, queryLoadOptions),
+                Data = new List<InspectionForDashboard>(), // service.GetBuildingWithoutInspection(languageCode, queryLoadOptions),
                 TotalCount = service.GetBuildingWithoutInspectionTotal()
             };
 
             return Ok(result);
         }
+
+		[HttpGet, Route("BuildingWithoutInspectionOData"), EnableQuery]
+		[ProducesResponseType(typeof(LimitedItemList<InspectionForDashboard>), 200)]
+		public ActionResult GetBuildingWithoutInspectionOData([FromHeader]string languageCode, [FromHeader]string queryLoadOptions)
+		{
+			return Ok(service.GetBuildingWithoutInspectionQueryable(languageCode));
+		}
 
 		[HttpPost, Route("StartInspection")]
 		public ActionResult StartInspection([FromBody] Guid idInspection)
