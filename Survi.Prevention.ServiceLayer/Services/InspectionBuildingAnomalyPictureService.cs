@@ -56,10 +56,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public virtual bool Remove(Guid id)
 		{
 			var entity = Context.BuildingAnomalyPictures.Find(id);
-			entity.IsActive = false;
-			var picture = Context.Pictures.Find(entity.IdPicture);
-			Context.Remove(picture);
-			Context.SaveChanges();
+			if (entity != null)
+			{
+				var picture = Context.Pictures.Find(entity.IdPicture);
+				if(picture != null)
+				Context.Remove(picture);
+
+				Context.Remove(entity);
+				Context.SaveChanges();
+			}
 			return true;
 		}
 	}
