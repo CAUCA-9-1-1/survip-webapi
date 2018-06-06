@@ -1,10 +1,13 @@
+using System.Linq;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
+using Microsoft.AspNet.OData.Formatter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
@@ -23,7 +26,8 @@ namespace Survi.Prevention.WebApi
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
-		{
+		{			
+
 			RegisterServicesAndContext(services);
             services.AddCors(options => {
                 options.AddPolicy("AllowAllOrigin",
@@ -36,7 +40,17 @@ namespace Survi.Prevention.WebApi
             services.AddTokenAuthentification(Configuration);
 			services.AddSwaggerDocumentation();
 			services.AddOData();
-			services.AddMvc()
+			services.AddMvc(options =>
+				{
+					foreach (var outputFormatter in options.OutputFormatters.OfType<ODataOutputFormatter>().Where(_ => _.SupportedMediaTypes.Count == 0))
+					{
+						outputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
+					}
+					foreach (var inputFormatter in options.InputFormatters.OfType<ODataInputFormatter>().Where(_ => _.SupportedMediaTypes.Count == 0))
+					{
+						inputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
+					}
+				})
 				.AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
 				.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
         }
@@ -103,7 +117,15 @@ namespace Survi.Prevention.WebApi
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
 			var builder = new ODataConventionModelBuilder();
-			builder.EntitySet<InspectionForDashboardQueryable>(nameof(InspectionForDashboardQueryable));
+			builder.EntitySet<BuildingForDashboard>("BuildingForDashboard")
+				.EntityType
+				.Filter()
+				.Count()
+				.Expand()
+				.OrderBy()
+				.Page()			
+				.Select();
+		
 			
 			if (env.IsDevelopment())
 				app.UseDeveloperExceptionPage();
@@ -117,7 +139,7 @@ namespace Survi.Prevention.WebApi
 			app.UseMvc(routeBuilder =>
 			{
 				routeBuilder.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
-				routeBuilder.MapODataServiceRoute("", "odata", builder.GetEdmModel());
+				routeBuilder.MapODataServiceRoute("odataroutes", "api/odata", builder.GetEdmModel());
 			});
 		}
 	}
