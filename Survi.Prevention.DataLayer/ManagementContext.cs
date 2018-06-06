@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models;
 using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.Models.InspectionManagement;
@@ -81,6 +82,8 @@ namespace Survi.Prevention.DataLayer
 
         public DbSet<FireSafetyDepartmentRiskLevel> FireSafetyDepartmentRiskLevels { get; set; }
 
+		public DbQuery<InspectionForDashboardQueryable> BuildingsWithoutInspection { get; set; }
+
         public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
 		{
 		}
@@ -96,6 +99,8 @@ namespace Survi.Prevention.DataLayer
 			modelBuilder.HasPostgresExtension("uuid-ossp");
 			modelBuilder.UseAutoSnakeCaseMapping();
 			this.UseAutoDetectedMappings(modelBuilder);
+			modelBuilder.Query<InspectionForDashboardQueryable>()
+				.ToView("building_with_no_active_inspection");
 		}
 	}
 }

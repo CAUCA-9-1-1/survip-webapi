@@ -103,11 +103,8 @@ namespace Survi.Prevention.WebApi
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
 			var builder = new ODataConventionModelBuilder();
-			builder.EntitySet<InspectionForDashboardQueryable>(nameof(InspectionForDashboardQueryable)).EntityType
-				.Filter(Microsoft.AspNet.OData.Query.QueryOptionSetting.Allowed)
-				.OrderBy(Microsoft.AspNet.OData.Query.QueryOptionSetting.Allowed)
-				.Page();				
-
+			builder.EntitySet<InspectionForDashboardQueryable>(nameof(InspectionForDashboardQueryable));
+			
 			if (env.IsDevelopment())
 				app.UseDeveloperExceptionPage();
 			else
@@ -117,7 +114,11 @@ namespace Survi.Prevention.WebApi
             app.UseCors("AllowAllOrigin");
             app.UseAuthentication();
 			app.UseSwaggerDocumentation();
-			app.UseMvc(routeBuilder => routeBuilder.MapODataServiceRoute("", "odata", builder.GetEdmModel()));
+			app.UseMvc(routeBuilder =>
+			{
+				routeBuilder.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
+				routeBuilder.MapODataServiceRoute("", "odata", builder.GetEdmModel());
+			});
 		}
 	}
 }

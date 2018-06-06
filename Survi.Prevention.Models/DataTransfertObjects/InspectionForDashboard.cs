@@ -65,7 +65,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 		public Guid? IdLaneTransversal { get; set; }
 		public Guid IdCity { get; set; }
 		public string PostalCode { get; set; }
-		public string Contact { get; set; }
+		public string Contacts { get; set; }
 		public string Owner { get; set; }
 		public string Matricule { get; set; }
 		public Guid? IdUtilisationCode { get; set; }
@@ -77,5 +77,6 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 		public Boolean VacantLand { get; set; }
 		public int YearOfConstruction { get; set; }
 		public string Details { get; set; }
+		public string LanguageCode { get; set; }
 	}
 }
