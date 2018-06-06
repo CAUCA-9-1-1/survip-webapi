@@ -3,17 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-    public class HazardousMaterialService : BaseService
+    public class HazardousMaterialService : BaseCrudService<HazardousMaterial>
     {
 	    public HazardousMaterialService(ManagementContext context) : base(context)
 	    {
 	    }
 
-	    public List<HazardousMaterialForList> GetList(string languageCode, string searchTerm)
+        public override HazardousMaterial Get(Guid id)
+        {
+            var result = Context.HazardousMaterials
+                .Include(r => r.Localizations)
+                .First(r => r.Id == id);
+
+            return result;
+        }
+
+        public override List<HazardousMaterial> GetList()
+        {
+            var result = Context.HazardousMaterials
+                .Include(r => r.Localizations)
+                .ToList();
+
+            return result;
+        }
+
+        public List<HazardousMaterialForList> GetList(string languageCode, string searchTerm)
 	    {
 		    searchTerm = (searchTerm??"").RemoveDiacritics();
 
