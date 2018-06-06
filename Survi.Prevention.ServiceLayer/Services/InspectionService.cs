@@ -401,7 +401,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return query;
 		}*/
 
-		public IQueryable<InspectionForDashboardQueryable> GetBuildingWithoutInspectionQueryable(string languageCode)
+		public IQueryable<BuildingForDashboard> GetBuildingWithoutInspectionQueryable(string languageCode)
 		{
 			var query = Context.BuildingsWithoutInspection
 				.Where(b => b.LanguageCode == languageCode);

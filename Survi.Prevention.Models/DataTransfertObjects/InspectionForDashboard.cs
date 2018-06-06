@@ -36,7 +36,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
         public string Details { get; set; }
     }
 
-	public class InspectionForDashboardQueryable
+	public class BuildingForDashboard
 	{
 		public Guid Id { get; set; }
 		public Guid? IdRiskLevel { get; set; }
