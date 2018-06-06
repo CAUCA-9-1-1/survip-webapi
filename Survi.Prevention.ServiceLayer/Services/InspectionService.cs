@@ -166,12 +166,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 
         public int GetToDoInspectionTotal()
         {
-            return Context.Inspections.AsNoTracking()
-                .Where(i =>
-                    i.IsActive &&
-                    (i.Status == InspectionStatus.Todo || i.Status == InspectionStatus.Started || i.Status == InspectionStatus.Refused)
-                )
-                .Count();
+            return Context.Inspections
+                .AsNoTracking()
+                .Count(i => i.IsActive &&
+                    (i.Status == InspectionStatus.Todo || i.Status == InspectionStatus.Started || i.Status == InspectionStatus.Refused));
         }
 
         public List<InspectionForDashboard> GetForApprovalInspection(string languageCode, string loadOptions)
@@ -404,22 +402,33 @@ namespace Survi.Prevention.ServiceLayer.Services
 		}*/
 
 		public IQueryable<InspectionForDashboardQueryable> GetBuildingWithoutInspectionQueryable(string languageCode)
-        {
-            var query =
-                from building in Context.Buildings
-                where building.IsActive 
-                      && building.ChildType == Models.Buildings.BuildingChildType.None 
-                      && !Context.Inspections.Any(i => i.IsActive && i.Status != InspectionStatus.Approved && i.Status != InspectionStatus.Canceled && i.IdBuilding == building.Id)
-                let lane = building.Lane
-				let publicCode =lane.PublicCode
+		{
+			var query = Context.BuildingsWithoutInspection
+				.Where(b => b.LanguageCode == languageCode);
+			/*var query = (
+				from building in Context.Buildings
+				where building.IsActive
+				      && building.IsParent
+				      && !Context.Inspections.Any(i => i.IsActive && i.Status != InspectionStatus.Approved && i.Status != InspectionStatus.Canceled && i.IdBuilding == building.Id)
+				let lane = building.Lane
+				let publicCode = lane.PublicCode
 				let genericCode = lane.LaneGenericCode
-                from laneLocalization in lane.Localizations				
-                where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
-                select new InspectionForDashboardQueryable
+				let lastInspectedOn = Context.Inspections.Where(inspection => inspection.IdBuilding == building.Id && inspection.Status == InspectionStatus.Approved)
+					.OrderBy(inspection => inspection.CompletedOn)
+					.Select(inspection => inspection.CompletedOn)
+					.LastOrDefault()
+				let owner = building.Contacts.Where(contact => contact.IsActive && contact.IsOwner)
+					.Select(contact => contact.FirstName + " " + contact.LastName)
+					.FirstOrDefault()
+				let contact = string.Join(",", building.Contacts.Where(contact => contact.IsActive)
+						.Select(contact => contact.FirstName + " " + contact.LastName))
+				from laneLocalization in lane.Localizations
+				where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
+				select new InspectionForDashboardQueryable
 				{
 					FullLaneName = laneLocalization.Name + (!string.IsNullOrWhiteSpace(genericCode.Description) || !string.IsNullOrWhiteSpace(publicCode.Description) ? " (" + publicCode.Description + " " + genericCode.Description + ")" : ""),
 					FullCivicNumber = building.CivicNumber + building.CivicLetter,
-					 
+
 					IdBuilding = building.Id,
 					IdRiskLevel = building.IdRiskLevel,
 					IdCity = lane.IdCity,
@@ -437,18 +446,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 					VacantLand = building.VacantLand,
 					YearOfConstruction = building.YearOfConstruction,
 					Details = building.Details,
-					WebuserAssignedTo = null,
-					LastInspectionOn = Context.Inspections
-						.Where(inspection => inspection.IdBuilding == building.Id && inspection.Status == InspectionStatus.Approved)
-						.OrderBy(inspection => inspection.CompletedOn)
-						.Select(inspection => inspection.CompletedOn)
-						.LastOrDefault(),
-					Owner = building.Contacts.Where(contact => contact.IsActive && contact.IsOwner)
-						.Select(contact => contact.FirstName + " " + contact.LastName)
-						.FirstOrDefault(),
-					Contact = string.Join(",", building.Contacts.Where(contact => contact.IsActive)
-						.Select(contact => contact.FirstName + " " + contact.LastName))
-				};
+					WebuserAssignedTo = "",
+					//LastInspectionOn = lastInspectedOn,
+					Owner = owner,
+					Contact = contact
+				}
+				).OrderBy(i => i.IdBuilding);*/
 
 			return query;
         }
