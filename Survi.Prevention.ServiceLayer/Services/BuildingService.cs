@@ -26,6 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public override List<Building> GetList()
 		{
 			var result = Context.Buildings
+                .Where(b => b.IsParent)
                 .Include(b => b.Localizations)
                 .ToList();
 
