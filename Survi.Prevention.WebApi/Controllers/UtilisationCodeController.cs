@@ -1,41 +1,40 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
 	[Route("api/UtilisationCode")]
-	public class UtilisationCodeController : BaseSecuredController
-	{
-		private readonly UtilisationCodeService service;
+    public class UtilisationCodeController : BaseCrudController<UtilisationCodeService, UtilisationCode>
+    {
+        private readonly UtilisationCodeService service;
 
-		public UtilisationCodeController(UtilisationCodeService service)
-		{
-			this.service = service;
-		}
-
-        [HttpGet]
-        [ProducesResponseType(401)]
-        [ProducesResponseType(200)]
-        public ActionResult Get()
+        public UtilisationCodeController(UtilisationCodeService service) : base(service)
         {
-            var result = service.GetList();
-
-            return Ok(result);
+            this.service = service;
         }
 
-        [HttpGet]
-		[Route("{id:Guid}")]
-		[ProducesResponseType(401)]
-		[ProducesResponseType(404)]
-		[ProducesResponseType(typeof(RiskLevelForWeb), 200)]
-		public ActionResult GetCodeForWeb([FromHeader]string languageCode, Guid id)
-		{
-			var riskLevel = service.GetForWeb(id, languageCode);
-			if (riskLevel == null)
-				return NotFound();
-			return Ok(riskLevel);
-		}
-	}
+        [HttpGet, Route("localized")]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(typeof(List<UtilisationCodeForWeb>), 200)]
+        public ActionResult GetListLocalized([FromHeader]string languageCode)
+        {
+            return Ok(service.GetListLocalized(languageCode));
+        }
+
+        [HttpGet, Route("localized/{id:Guid}")]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(typeof(UtilisationCodeForWeb), 200)]
+        public ActionResult GetUtilisationCodeForWeb([FromHeader]string languageCode, Guid id)
+        {
+            var riskLevel = service.GetUtilisationCodeForWeb(id, languageCode);
+            if (riskLevel == null)
+                return NotFound();
+            return Ok(riskLevel);
+        }
+    }
 }
