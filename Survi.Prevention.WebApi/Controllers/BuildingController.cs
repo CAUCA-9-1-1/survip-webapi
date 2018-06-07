@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Services;
+using System;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
@@ -16,5 +17,11 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return Ok(Service.GetListActive(languageCode));
 		}
-	}
+
+        [HttpGet, Route("child/{idParentBuilding:Guid}")]
+        public ActionResult GetChildList(Guid idParentBuilding, [FromHeader] string languageCode)
+        {
+            return Ok(Service.GetChildList(idParentBuilding, languageCode));
+        }
+    }
 }
