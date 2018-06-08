@@ -72,6 +72,7 @@ namespace Survi.Prevention.WebApi
             services.AddTransient<FirestationService>();
 			services.AddTransient<UtilisationCodeService>();
             services.AddTransient<BuildingService>();
+            services.AddTransient<BuildingContactService>();
             services.AddTransient<FireHydrantService>();
             services.AddTransient<FireHydrantTypeService>();
             services.AddTransient<FireHydrantConnectionTypeService>();
