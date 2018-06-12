@@ -26,7 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			throw new NotImplementedException();
 		}
 
-		public List<BuildingPersonRequiringAssistance> GetListOfBuilding(Guid idBuilding)
+		public List<BuildingPersonRequiringAssistance> GetBuildingPnapsList(Guid idBuilding)
 		{
             var result = Context.BuildingPersonsRequiringAssistance
                 .Where(p => p.IdBuilding == idBuilding)

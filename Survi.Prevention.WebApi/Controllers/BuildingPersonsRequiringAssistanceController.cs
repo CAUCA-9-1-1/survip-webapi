@@ -15,7 +15,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[Route("/api/building/{idBuilding:Guid}/pnaps"), HttpGet]
 		public ActionResult GetList(Guid idBuilding)
 		{
-			return Ok(Service.GetListOfBuilding(idBuilding));
+			return Ok(Service.GetBuildingPnapsList(idBuilding));
 		}
 	}
 }
