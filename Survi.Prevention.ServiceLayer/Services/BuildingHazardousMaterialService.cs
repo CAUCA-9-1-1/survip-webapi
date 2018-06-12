@@ -24,7 +24,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             throw new NotImplementedException();
         }
 
-        public List<BuildingHazardousMaterial> GetListOfBuilding(Guid idBuilding)
+        public List<BuildingHazardousMaterial> GetBuildingHazardousMaterialList(Guid idBuilding)
 		{
             var result = Context.BuildingHazardousMaterials
                 .Where(c => c.IdBuilding == idBuilding)
