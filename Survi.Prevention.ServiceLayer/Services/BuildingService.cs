@@ -33,6 +33,16 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
+        public List<Building> GetChildList(Guid idParentBuilding, string languageCode)
+        {
+            var result = Context.Buildings
+                .Where(b => !b.IsParent && b.IdParentBuilding == idParentBuilding)
+                .Include(b => b.Localizations)
+                .ToList();
+
+            return result;
+        }
+
         public List<BuildingForWeb> GetListActive(string languageCode)
         {
             var query =
