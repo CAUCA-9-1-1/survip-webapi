@@ -1,15 +1,16 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
 	[Route("api/HazardousMaterial")]
-	public class HazardousMaterialController : BaseSecuredController
-	{
+	public class HazardousMaterialController : BaseCrudController<HazardousMaterialService, HazardousMaterial>
+    {
 		private readonly HazardousMaterialService service;
 
-		public HazardousMaterialController(HazardousMaterialService service)
+		public HazardousMaterialController(HazardousMaterialService service) : base(service)
 		{
 			this.service = service;
 		}
