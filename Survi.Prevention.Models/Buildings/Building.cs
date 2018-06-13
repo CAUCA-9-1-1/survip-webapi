@@ -28,7 +28,6 @@ namespace Survi.Prevention.Models.Buildings
 		public string PostalCode { get; set; }
 		public int Suite { get; set; }
 		public string Source { get; set; }
-		public bool IsParent { get; set; }
 		public string UtilisationDescription { get; set; }
 		public bool ShowInResources { get; set; }
 		public string Matricule { get; set; }

@@ -26,7 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public override List<Building> GetList()
 		{
 			var result = Context.Buildings
-                .Where(b => b.IsParent)
+                .Where(b => b.ChildType == BuildingChildType.None)
                 .Include(b => b.Localizations)
                 .ToList();
 
@@ -36,7 +36,7 @@ namespace Survi.Prevention.ServiceLayer.Services
         public List<Building> GetChildList(Guid idParentBuilding, string languageCode)
         {
             var result = Context.Buildings
-                .Where(b => !b.IsParent && b.IdParentBuilding == idParentBuilding)
+                .Where(b => b.ChildType == BuildingChildType.Child && b.IdParentBuilding == idParentBuilding)
                 .Include(b => b.Localizations)
                 .ToList();
 

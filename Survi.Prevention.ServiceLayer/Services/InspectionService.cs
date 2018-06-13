@@ -264,7 +264,7 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
             var query =
                 from building in Context.Buildings
-                where building.IsActive && building.IsParent 
+                where building.IsActive && building.ChildType == Models.Buildings.BuildingChildType.None 
                 join inspection in Context.Inspections.AsNoTracking()
                 on building.Id equals inspection.IdBuilding
                 where inspection.IsActive && inspection.Status == InspectionStatus.Approved
@@ -338,7 +338,7 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
             var query =
                 from building in Context.Buildings
-                where building.IsActive && building.IsParent
+                where building.IsActive && building.ChildType == Models.Buildings.BuildingChildType.None
                 join inspection in Context.Inspections.AsNoTracking()
                 on building.Id equals inspection.IdBuilding
                 where inspection.IsActive && inspection.Status == InspectionStatus.Approved
@@ -352,7 +352,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             var query =
                 from building in Context.Buildings
                 where building.IsActive 
-                      && building.IsParent 
+                      && building.ChildType == Models.Buildings.BuildingChildType.None 
                       && !Context.Inspections.Any(i => i.IsActive && i.Status != InspectionStatus.Approved && i.Status != InspectionStatus.Canceled && i.IdBuilding == building.Id)
                 let lane = building.Lane
                 from laneLocalization in lane.Localizations
@@ -420,7 +420,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             return Context.Buildings
                 .Where(
                     b => b.IsActive &&
-                    b.IsParent &&
+                    b.ChildType == Models.Buildings.BuildingChildType.None &&
                     !Context.Inspections.Any(i => i.IsActive && i.Status != InspectionStatus.Approved && i.Status != InspectionStatus.Canceled && i.IdBuilding == b.Id)
                 )
                 .Count();

@@ -26,7 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				{
 					building.Id,
 					loc.Name,
-                    building.IsParent,
+                    building.ChildType,
 					building.Picture.Data
 				}).ToList();
 
@@ -35,7 +35,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				{
 					Id = building.Id,
 					IdInspection = inspectionId,
-                    IsParent = building.IsParent,
+                    IsParent = building.ChildType == 0,
                     Name = building.Name,
 					Picture = building.Data == null ? null : Convert.ToBase64String(building.Data)
 				})
