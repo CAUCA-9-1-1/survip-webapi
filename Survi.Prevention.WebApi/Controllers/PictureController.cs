@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Survi.Prevention.Models;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -28,7 +29,13 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPost]
 		public ActionResult PostPicture([FromBody]PictureForWeb picture)
 		{
-			return Ok(service.UploadFile(picture));
+			return Ok(service.UploadFileBase64(picture));
 		}
-	}
+
+        [HttpPut]
+        public ActionResult PostPictureFile([FromBody]Picture picture)
+        {
+            return Ok(service.UploadFile(picture));
+        }
+    }
 }

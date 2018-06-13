@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -74,6 +75,30 @@ namespace Survi.Prevention.ServiceLayer.Services
                 .ToList();
 
             return result;
+        }
+
+        public override Guid AddOrUpdate(Building building)
+        {
+            if (building.Picture is Picture)
+            {
+                building.IdPicture = updatePicture(building);
+            }
+
+            return base.AddOrUpdate(building);
+        }
+
+        private Guid updatePicture(Building building)
+        {
+            var isExistRecord = Context.Pictures.Any(p => p.Id == building.Picture.Id);
+
+            if (!isExistRecord)
+            {
+                Context.Add(building.Picture);
+            }
+
+            Context.SaveChanges();
+
+            return building.Picture.Id;
         }
     }
 }
