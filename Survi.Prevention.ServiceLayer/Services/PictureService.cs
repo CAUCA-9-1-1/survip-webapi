@@ -17,21 +17,41 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public async Task<PictureForWeb> GetFile(Guid pictureId)
 		{
 			var query =
-				from picture in Context.Pictures
-				where picture.IsActive && picture.Id == pictureId
-				select picture.Data;
+				from p in Context.Pictures
+				where p.IsActive && p.Id == pictureId
+				select p;
 
-			var data = await query.SingleOrDefaultAsync();
-			if (data != null)
+			var picture = await query.SingleOrDefaultAsync();
+			if (picture == null)
 			{
-				//var pic = Base64UrlEncoder.Encode(data);
-				var pic = Convert.ToBase64String(data);
-				return new PictureForWeb { Id = pictureId, Picture = pic};
-			}				
-			return null;
-		}
+                return null;
+			}
 
-		public Guid UploadFile(PictureForWeb data)
+            return new PictureForWeb
+            {
+                Id = picture.Id,
+                DataUri = string.Format(
+                    "data:{0};base64,{1}",
+                    picture.MimeType == "" || picture.MimeType is null ? "image/jpeg" : picture.MimeType,
+                    Convert.ToBase64String(picture.Data)
+                ),
+            };
+        }
+
+        public Guid UploadFile(Picture picture)
+        {
+            var isExistRecord = Context.Pictures.Any(p => p.Id == picture.Id);
+
+            if (!isExistRecord)
+            {
+                Context.Add(picture);
+            }
+
+            Context.SaveChanges();
+            return picture.Id;
+        }
+
+        public Guid UploadFileBase64(PictureForWeb data)
 		{
 			Picture picture = null;
 			if (data.Id.HasValue)
@@ -40,7 +60,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			if (picture == null)
 			{
 				picture = new Picture{ Name = ""};
-				Context.Add(picture);				
+				Context.Add(picture);		
 			}
 
 			var encodedPicture = DecodeBase64Picture(data.Picture); //Bae64UrlEncoder.DecodeBytes(data.Picture);
@@ -49,7 +69,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return picture.Id;
 		}
 
-		public static byte[] DecodeBase64Picture(string picture)
+        public static byte[] DecodeBase64Picture(string picture)
 		{
 			string s = picture;
 			s = s.Replace('-', '+'); // 62nd char of encoding
