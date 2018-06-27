@@ -32,8 +32,8 @@ namespace Survi.Prevention.Models.Buildings
 		public Guid? IdBuildingSidingType { get; set; }
 
 		public Building Building { get; set; }
-		public DimensionUnitOfMeasure HeightUnitOfMeasure { get; set; }
-		public RateUnitOfMeasure EstimatedWaterFlowUnitOfMeasure { get; set; }
+		public UnitOfMeasure HeightUnitOfMeasure { get; set; }
+		public UnitOfMeasure EstimatedWaterFlowUnitOfMeasure { get; set; }
 		public ConstructionType ConstructionType { get; set; }
 		public ConstructionFireResistanceType FireResistanceType { get; set; }
 		public RoofType RoofType { get; set; }
