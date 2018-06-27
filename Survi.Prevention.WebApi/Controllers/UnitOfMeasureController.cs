@@ -14,31 +14,31 @@ namespace Survi.Prevention.WebApi.Controllers
 	    [HttpGet, Route("rate")]
 	    public ActionResult GetRateMeasuringUnits([FromHeader]string languageCode)
 	    {
-		    return Ok(Service.GetListLocalized<RateUnitOfMeasure>(languageCode));
+		    return Ok(Service.GetListLocalized(languageCode, MeasureType.Rate));
 	    }
 
 	    [HttpGet, Route("diameter")]
 	    public ActionResult GetDiameterMeasuringUnits([FromHeader]string languageCode)
 	    {
-		    return Ok(Service.GetListLocalized<DiameterUnitOfMeasure>(languageCode));
+		    return Ok(Service.GetListLocalized(languageCode, MeasureType.Diameter));
 		}
 
 	    [HttpGet, Route("pressure")]
 	    public ActionResult GetPressureMeasuringUnits([FromHeader]string languageCode)
 	    {
-		    return Ok(Service.GetListLocalized<PressureUnitOfMeasure>(languageCode));
+		    return Ok(Service.GetListLocalized(languageCode, MeasureType.Pressure));
 		}
 
 	    [HttpGet, Route("capacity")]
 	    public ActionResult GetCapacityMeasuringUnits([FromHeader]string languageCode)
 	    {
-		    return Ok(Service.GetListLocalized<CapacityUnitOfMeasure>(languageCode));
+		    return Ok(Service.GetListLocalized(languageCode, MeasureType.Capacity));
 		}
 
 	    [HttpGet, Route("dimension")]
 	    public ActionResult GetDimensionMeasuringUnits([FromHeader]string languageCode)
 	    {
-		    return Ok(Service.GetListLocalized<DimensionUnitOfMeasure>(languageCode));
+		    return Ok(Service.GetListLocalized(languageCode, MeasureType.Dimension));
 		}
 	}
 }
