@@ -34,6 +34,43 @@ namespace Survi.Prevention.ServiceLayer.Services
             return result;
         }
 
+        public override Guid AddOrUpdate(Webuser user)
+        {
+            updateUserDepartment(user);
+
+            return base.AddOrUpdate(user);
+        }
+
+        private void updateUserDepartment(Webuser user)
+        {
+            var fireSafetyDepartments = new List<WebuserFireSafetyDepartment>();
+            var dbFireSafetyDepartments = new List<WebuserFireSafetyDepartment>();
+
+            if (user.FireSafetyDepartments != null)
+                fireSafetyDepartments = user.FireSafetyDepartments.Where(d => d.IdWebuser == user.Id).ToList();
+            if (Context.WebuserFireSafetyDepartments.AsNoTracking().Any(d => d.IdWebuser == user.Id))
+                dbFireSafetyDepartments = Context.WebuserFireSafetyDepartments.AsNoTracking().Where(i => i.IdWebuser == user.Id).ToList();
+
+            dbFireSafetyDepartments.ForEach(child =>
+            {
+                if (!fireSafetyDepartments.Any(i => i.Id == child.Id))
+                {
+                    Context.WebuserFireSafetyDepartments.Remove(child);
+                }
+            });
+            fireSafetyDepartments.ForEach(child =>
+            {
+                var isExistRecord = Context.WebuserFireSafetyDepartments.Any(c => c.Id == child.Id);
+
+                if (!isExistRecord)
+                {
+                    Context.WebuserFireSafetyDepartments.Add(child);
+                }
+            });
+
+            Context.SaveChanges();
+        }
+
         public List<WebuserForWeb> GetListActive()
         {
             var query =
