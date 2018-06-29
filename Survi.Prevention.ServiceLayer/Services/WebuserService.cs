@@ -37,8 +37,44 @@ namespace Survi.Prevention.ServiceLayer.Services
         public override Guid AddOrUpdate(Webuser user)
         {
             updateUserDepartment(user);
+            updateUserAttribute(user);
+
+            if (user.Password == "")
+            {
+                user.Password = Context.Webusers.AsNoTracking().First(u => u.Id == user.Id).Password;
+            }
 
             return base.AddOrUpdate(user);
+        }
+
+        private void updateUserAttribute(Webuser user)
+        {
+            var webuserAttributes = new List<WebuserAttributes>();
+            var dbWebuserAttributes = new List<WebuserAttributes>();
+
+            if (user.Attributes != null)
+                webuserAttributes = user.Attributes.Where(a => a.IdWebuser == user.Id).ToList();
+            if (Context.WebuserAttributes.AsNoTracking().Any(a => a.IdWebuser == user.Id))
+                dbWebuserAttributes = Context.WebuserAttributes.AsNoTracking().Where(a => a.IdWebuser == user.Id).ToList();
+
+            dbWebuserAttributes.ForEach(child =>
+            {
+                if (!webuserAttributes.Any(a => a.Id == child.Id))
+                {
+                    Context.WebuserAttributes.Remove(child);
+                }
+            });
+            webuserAttributes.ForEach(child =>
+            {
+                var isExistRecord = Context.WebuserAttributes.Any(a => a.Id == child.Id);
+
+                if (!isExistRecord)
+                {
+                    Context.WebuserAttributes.Add(child);
+                }
+            });
+
+            Context.SaveChanges();
         }
 
         private void updateUserDepartment(Webuser user)
