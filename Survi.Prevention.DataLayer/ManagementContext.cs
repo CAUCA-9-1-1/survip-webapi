@@ -14,6 +14,7 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<AccessSecretKey> AccessSecretKeys { get; set; }
 		public DbSet<AccessToken> AccessTokens { get; set; }
 		public DbSet<Webuser> Webusers { get; set; }
+        public DbSet<WebuserAttributes> WebuserAttributes { get; set; }
 
 		public DbSet<Permission> Permissions { get; set; }
 		public DbSet<PermissionSystem> PermissionSystems { get; set; }
@@ -51,6 +52,7 @@ namespace Survi.Prevention.DataLayer
 
 		public DbSet<Picture> Pictures { get; set; }
         public DbSet<FireSafetyDepartment> FireSafetyDepartments { get; set; }
+        public DbSet<WebuserFireSafetyDepartment> WebuserFireSafetyDepartments { get; set; }
         public DbSet<Firestation> Firestations { get; set; }
         public DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
 
