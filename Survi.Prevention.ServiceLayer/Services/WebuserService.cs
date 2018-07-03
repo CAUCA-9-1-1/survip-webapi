@@ -34,7 +34,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             return result;
         }
 
-        public override Guid AddOrUpdate(Webuser user)
+        public Guid AddOrUpdate(Webuser user, string applicationName)
         {
             updateUserDepartment(user);
             updateUserAttribute(user);
@@ -42,6 +42,9 @@ namespace Survi.Prevention.ServiceLayer.Services
             if (user.Password == "")
             {
                 user.Password = Context.Webusers.AsNoTracking().First(u => u.Id == user.Id).Password;
+            } else
+            {
+                user.Password = new PasswordGenerator().EncodePassword(user.Password, applicationName);
             }
 
             return base.AddOrUpdate(user);

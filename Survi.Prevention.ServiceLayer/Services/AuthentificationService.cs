@@ -2,7 +2,6 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Survi.Prevention.DataLayer;
@@ -19,7 +18,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public (AccessToken token, Webuser user) Login(string username, string password, string applicationName, string issuer, string secretKey)
 		{
-			var encodedPassword = EncodePassword(password, applicationName);
+			var encodedPassword = new PasswordGenerator().EncodePassword(password, applicationName);
 			var userFound = Context.Webusers
 				.Include(user => user.Attributes)
 				.SingleOrDefault(user => user.Username == username && user.Password == encodedPassword && user.IsActive);
@@ -35,27 +34,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 
 			return (null, null);
-		}
-
-		private string EncodePassword(string password, string applicationName)
-		{
-			var secret = Encoding.UTF8.GetBytes(applicationName);
-			var bytePassword = Encoding.UTF8.GetBytes(password);
-
-			var hmac = new HMACSHA256(secret);
-
-			var hmacPassword = hmac.ComputeHash(bytePassword);
-			return ByteToString(hmacPassword);
-		}
-
-		private string ByteToString(byte[] buff)
-		{
-			string sbinary = "";
-
-			for (int i = 0; i < buff.Length; i++)
-				sbinary += buff[i].ToString("X2"); // hex format
-
-			return sbinary;
 		}
 		
 		protected JwtSecurityToken GenerateJwtToken(Webuser userLoggedIn, string applicationName, string issuer, string secretKey)
