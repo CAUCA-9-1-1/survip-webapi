@@ -68,7 +68,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			var result = query.ToList()
 				.Select(lane => new LaneLocalized {Id = lane.Id, Name = new LocalizedLaneNameGenerator().GenerateLaneName(lane.Name, lane.genericDescription, lane.publicDescription, lane.AddWhiteSpaceAfter)})
-				.Take(30)
 				.ToList();
 
 			return result;
