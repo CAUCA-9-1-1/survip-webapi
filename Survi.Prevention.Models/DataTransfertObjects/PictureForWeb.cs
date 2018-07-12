@@ -7,5 +7,6 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 		public Guid? Id { get; set; }
         public string Picture { get; set; }
         public string DataUri { get; set; }
+        public string SketchJson { get; set; }
     }
 }

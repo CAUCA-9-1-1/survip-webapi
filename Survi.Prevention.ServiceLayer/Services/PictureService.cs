@@ -35,6 +35,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     picture.MimeType == "" || picture.MimeType is null ? "image/jpeg" : picture.MimeType,
                     Convert.ToBase64String(picture.Data)
                 ),
+                SketchJson = picture.SketchJson,
             };
         }
 

@@ -11,7 +11,8 @@ namespace Survi.Prevention.Models
         public string Name { get; set; } = "";
         public string MimeType { get; set; }
         public byte[] Data { get; set; }
-        public string Json { get; set; }
+        [Column(TypeName = "json")]
+        public string SketchJson { get; set; }
 
         public string DataUri
         {
@@ -28,6 +29,3 @@ namespace Survi.Prevention.Models
         }
 	}
 }
-
-        [Column(TypeName = "json")]
-        public string Json { get; set; }
