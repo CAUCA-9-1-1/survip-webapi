@@ -6,9 +6,9 @@ using Survi.Prevention.Models;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-    public class ReportConfigurationService : BaseCrudService<ReportConfigurationTemplate>
+    public class ReportConfigurationTemplateService : BaseCrudService<ReportConfigurationTemplate>
     {
-        public ReportConfigurationService(ManagementContext context) : base(context)
+        public ReportConfigurationTemplateService(ManagementContext context) : base(context)
         {
         }
 
