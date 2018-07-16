@@ -36,7 +36,8 @@ namespace Survi.Prevention.Models.Buildings
 		public string Details { get; set; }
 		public BuildingChildType ChildType { get; set; }
 
-		public Guid IdLane { get; set; }
+        public Guid IdCity { get; set; }
+        public Guid IdLane { get; set; }
 		public Guid? IdLaneTransversal { get; set; }
 		public Guid? IdUtilisationCode { get; set; }
 		public Guid IdRiskLevel { get; set; }
@@ -45,7 +46,8 @@ namespace Survi.Prevention.Models.Buildings
 		
 		public RiskLevel RiskLevel { get; set; }
 		public UtilisationCode UtilisationCode { get; set; }
-		public Lane Lane { get; set; }
+        public City City { get; set; }
+        public Lane Lane { get; set; }
 		public Lane Transversal { get; set; }
 		public Building Parent { get; set; }
 		public Picture Picture { get; set; }
