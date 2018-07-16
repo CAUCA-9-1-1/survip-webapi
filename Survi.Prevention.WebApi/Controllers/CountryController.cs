@@ -12,5 +12,11 @@ namespace Survi.Prevention.WebApi.Controllers
 		public CountryController(CountryService service) : base(service)
 		{
 		}
-	}
+
+        [HttpGet, Route("localized")]
+        public ActionResult GetListLocalized([FromHeader] string languageCode)
+        {
+            return Ok(Service.GetListLocalized(languageCode));
+        }
+    }
 }

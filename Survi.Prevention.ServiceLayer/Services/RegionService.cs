@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Microsoft.EntityFrameworkCore;
+using Survi.Prevention.Models.DataTransfertObjects;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -29,6 +30,23 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.ToList();
 
 			return result;
-		}		
-	}
+		}
+
+        public List<RegionLocalized> GetListLocalized(string languageCode)
+        {
+            var query =
+                from region in Context.Regions.AsNoTracking()
+                where region.IsActive
+                from localization in region.Localizations.DefaultIfEmpty()
+                where localization.IsActive && localization.LanguageCode == languageCode
+                orderby localization.Name
+                select new RegionLocalized
+                {
+                    Id = region.Id,
+                    Name = localization.Name
+                };
+
+            return query.ToList();
+        }
+    }
 }
