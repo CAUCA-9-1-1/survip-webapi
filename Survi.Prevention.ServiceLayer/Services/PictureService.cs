@@ -66,7 +66,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			var encodedPicture = DecodeBase64Picture(data.Picture); //Bae64UrlEncoder.DecodeBytes(data.Picture);
 			picture.Data = encodedPicture;
-			Context.SaveChanges();
+            picture.SketchJson = data.SketchJson;
+            Context.SaveChanges();
 			return picture.Id;
 		}
 
