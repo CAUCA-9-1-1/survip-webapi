@@ -10,6 +10,8 @@ namespace Survi.Prevention.ServiceLayer
         
         public string ReplacePlaceholders(string template)
         {
+            if (template == null)
+                return "";
             var res = Regex.Replace(template, "{{(.*?)}}", m => GetValue(ref m));
             return res;
         }

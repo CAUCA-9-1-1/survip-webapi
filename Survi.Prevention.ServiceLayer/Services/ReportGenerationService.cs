@@ -18,8 +18,8 @@ namespace Survi.Prevention.ServiceLayer.Services
         
         private ReportConfigurationTemplate GetTemplate()
         {
-            var result = Context.ReportConfigurationTemplate.First(t => t.Name == "Rapport Cauca");
-            return result;
+            // TODO For now there is only one available Report Template
+            return Context.ReportConfigurationTemplate.FirstOrDefault(t => t.Name == "Rapport Cauca");
         }
 
         private ReportPlaceholders SetPlaceholders(Guid id, string languageCode)
@@ -71,8 +71,13 @@ namespace Survi.Prevention.ServiceLayer.Services
             var streamWriter = new StreamWriter(inputStream, new UnicodeEncoding());
 
             var template = GetTemplate();
-            var reportPlaceholders = SetPlaceholders(id, languageCode);
-            var inspectionTextReport = reportPlaceholders.ReplacePlaceholders(template.Data);
+            var inspectionTextReport = "";
+            if (template != null)
+            {
+                var reportPlaceholders = SetPlaceholders(id, languageCode);
+                inspectionTextReport = reportPlaceholders.ReplacePlaceholders(template.Data);
+            }
+
             streamWriter.Write(inspectionTextReport);
             
             // Prevents getting an empty stream
