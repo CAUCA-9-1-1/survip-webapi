@@ -1,17 +1,16 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using Survi.Prevention.Models;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
     [Route("api/ReportGeneration")]
-    public class ReportGenerationController : BaseCrudController<ReportGenerationService, ReportConfigurationTemplate>
+    public class ReportGenerationController : Controller
     {
         
-        protected ReportGenerationService Service;
+        private ReportGenerationService Service;
         
-        public ReportGenerationController(ReportGenerationService service) : base(service)
+        public ReportGenerationController(ReportGenerationService service)
         {
             Service = service;
         }
@@ -21,7 +20,7 @@ namespace Survi.Prevention.WebApi.Controllers
         {
             var fileStream = Service.Generate(id, languageCode);
             var fileName = id + ".pdf";
-            Response.Headers.Add("Content-Disposition", "inline; filename=" + fileName); //this opens file in tab when you return it
+            Response.Headers.Add("Content-Disposition", "inline; filename=" + fileName);
             return File(fileStream, "application/pdf", fileName);
         }
     }
