@@ -17,9 +17,9 @@ namespace Survi.Prevention.WebApi.Controllers
         }
 
         [HttpGet("generate/{id:guid}")]
-        public ActionResult Generate(Guid id)
+        public ActionResult Generate(Guid id, [FromHeader]string languageCode)
         {
-            var fileStream = Service.Generate(id);
+            var fileStream = Service.Generate(id, languageCode);
             var fileName = id + ".pdf";
             Response.Headers.Add("Content-Disposition", "inline; filename=" + fileName); //this opens file in tab when you return it
             return File(fileStream, "application/pdf", fileName);

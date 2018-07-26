@@ -12,7 +12,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
     public class ReportGenerationService : BaseCrudService<ReportConfigurationTemplate>
     {
-        private const double KMarginInMM = 19.05;
+        private const double KMarginInMm = 19.05;
 
         public ReportGenerationService(ManagementContext context) : base(context)
         {
@@ -36,22 +36,58 @@ namespace Survi.Prevention.ServiceLayer.Services
         
         private ReportConfigurationTemplate GetTemplate()
         {
-            var result = Context.ReportConfigurationTemplate
-                .ToList();
-            var template = result.ElementAt(0);
-            return template;
+            var result = Context.ReportConfigurationTemplate.First(t => t.Name == "Rapport Cauca");
+            return result;
         }
 
-        public MemoryStream Generate(Guid id)
+        private ReportPlaceholders SetPlaceholders(Guid id, string languageCode)
+        {
+            var query =
+                from inspection in Context.Inspections
+                where inspection.Id == id
+                let building = inspection.MainBuilding
+                from laneLocalization in building.Lane.Localizations
+                where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
+                select new 
+                {
+                    building.CivicLetter,
+                    building.CivicNumber,
+                    building.PostalCode,
+                    laneLocalization.Name,
+                    publicDescription = building.Lane.PublicCode.Description,
+                    GenericDescription = building.Lane.LaneGenericCode.Description,
+                    building.Lane.LaneGenericCode.AddWhiteSpaceAfter
+                };
+
+            var results = query.Single();
+            var result = new
+                {
+                    ZipCode = results.PostalCode,
+                    Address = new AddressGenerator()
+                        .GenerateAddress(results.CivicNumber, results.CivicLetter, results.Name, results.GenericDescription, results.publicDescription, results.AddWhiteSpaceAfter)
+                };
+
+            
+            var reportPlaceholders = new ReportPlaceholders
+            {
+                Address = result.Address,
+                ZipCode = result.ZipCode
+            };
+            return reportPlaceholders;
+        }
+
+        public MemoryStream Generate(Guid id, string languageCode)
         {
             var inputStream = new MemoryStream();
-            var outputStream = new MemoryStream();
             var streamWriter = new StreamWriter(inputStream, new UnicodeEncoding());
 
             var template = GetTemplate();
-            var inspectionTextReport = report.ReplacePlaceholders(template.Data);
+            var reportPlaceholders = SetPlaceholders(id, languageCode);
+            var inspectionTextReport = reportPlaceholders.ReplacePlaceholders(template.Data);
             streamWriter.Write(inspectionTextReport);
-            streamWriter.Flush();    // Prevents getting an empty stream
+            
+            // Prevents getting an empty stream
+            streamWriter.Flush(); 
             inputStream.Seek(0, SeekOrigin.Begin);
 
             var settings = new ConversionSettings
@@ -59,27 +95,21 @@ namespace Survi.Prevention.ServiceLayer.Services
                 PageSize = PageSize.Letter,
                 Margins = new PageMargins
                 {
-                    Bottom = KMarginInMM,
-                    Top = KMarginInMM,
-                    Left = KMarginInMM,
-                    Right = KMarginInMM
+                    Bottom = KMarginInMm,
+                    Top = KMarginInMm,
+                    Left = KMarginInMm,
+                    Right = KMarginInMm
                 }
             };
             var wkhtmltopdf = new FileInfo(@"/usr/bin/wkhtmltopdf");
             var converter = new HtmlToPdfConverter(wkhtmltopdf);
+            
+            var outputStream = new MemoryStream();
             converter.ConvertToPdf(inputStream, outputStream, settings);
             outputStream.Seek(0, SeekOrigin.Begin);
             streamWriter.Dispose();
             
             return outputStream;
         }
-        
-
-        
-        private Report report = new Report
-        {
-            Address = "2712 Rue Linton",
-            ZipCode = "H2L 9N2"
-        };
     }
 }

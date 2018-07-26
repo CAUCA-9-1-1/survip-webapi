@@ -1,12 +1,16 @@
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
+using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.ServiceLayer.Services;
 
-namespace Survi.Prevention.Models
+namespace Survi.Prevention.Models 
 {
-    public class Report
+    public class ReportPlaceholders
     {
-        public string Address {get; set; }
-        public string ZipCode {get; set; }
+        public string Address { get; set; }
+        public string ZipCode { get; set; }
         
         public string ReplacePlaceholders(string template)
         {
