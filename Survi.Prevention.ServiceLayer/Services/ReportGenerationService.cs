@@ -1,37 +1,19 @@
 using System;
 using System.Linq;
-using System.Collections.Generic;
 using System.IO;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models;
 using System.Text;
-using System.Text.RegularExpressions;
 using WkWrap;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-    public class ReportGenerationService : BaseCrudService<ReportConfigurationTemplate>
+    public class ReportGenerationService : BaseService
     {
         private const double KMarginInMm = 19.05;
 
         public ReportGenerationService(ManagementContext context) : base(context)
         {
-        }
-
-        public override ReportConfigurationTemplate Get(Guid id)
-        {
-            var result = Context.ReportConfigurationTemplate
-                .First(u => u.Id == id);
-
-            return result;
-        }
-
-        public override List<ReportConfigurationTemplate> GetList()
-        {
-            var result = Context.ReportConfigurationTemplate
-                .ToList();
-
-            return result;
         }
         
         private ReportConfigurationTemplate GetTemplate()
@@ -64,7 +46,14 @@ namespace Survi.Prevention.ServiceLayer.Services
                 {
                     ZipCode = results.PostalCode,
                     Address = new AddressGenerator()
-                        .GenerateAddress(results.CivicNumber, results.CivicLetter, results.Name, results.GenericDescription, results.publicDescription, results.AddWhiteSpaceAfter)
+                        .GenerateAddress(
+                            results.CivicNumber,
+                            results.CivicLetter, 
+                            results.Name,
+                            results.GenericDescription, 
+                            results.publicDescription,
+                            results.AddWhiteSpaceAfter
+                            )
                 };
 
             

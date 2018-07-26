@@ -1,11 +1,7 @@
 using System;
-using System.Linq;
 using System.Text.RegularExpressions;
-using Survi.Prevention.DataLayer;
-using Survi.Prevention.Models.FireSafetyDepartments;
-using Survi.Prevention.ServiceLayer.Services;
 
-namespace Survi.Prevention.Models 
+namespace Survi.Prevention.ServiceLayer 
 {
     public class ReportPlaceholders
     {
