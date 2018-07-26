@@ -26,7 +26,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 					picture.Id,
 					picture.IdBuildingAnomaly,
 					picture.IdPicture,
-					PictureData = data.Data
+					PictureData = data.Data,
+                    picture.SketchJson
 				};
 
 			var result = query.ToList();
@@ -36,7 +37,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 				Id = pic.Id,
 				IdPicture = pic.IdPicture,
 				IdParent = pic.IdBuildingAnomaly,
-				PictureData = Convert.ToBase64String(pic.PictureData)
+				PictureData = Convert.ToBase64String(pic.PictureData),
+                SketchJson = pic.SketchJson
 			}).ToList();
 		}
 
