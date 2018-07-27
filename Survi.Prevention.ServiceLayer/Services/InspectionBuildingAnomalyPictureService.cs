@@ -17,17 +17,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public List<BuildingChildPictureForWeb> GetAnomalyPictures(Guid idBuildingAnomaly)
 		{
-			var query =
-				from picture in Context.BuildingAnomalyPictures.AsNoTracking()
-				let data = picture.Picture
-				where picture.IdBuildingAnomaly == idBuildingAnomaly && picture.IsActive && data != null && data.IsActive
-				select new 
-				{
-					picture.Id,
-					picture.IdBuildingAnomaly,
-					picture.IdPicture,
-					PictureData = data.Data,
-                    picture.SketchJson
+            var query =
+                from picture in Context.BuildingAnomalyPictures.AsNoTracking()
+                let data = picture.Picture
+                where picture.IdBuildingAnomaly == idBuildingAnomaly && picture.IsActive && data != null && data.IsActive
+                select new
+                {
+                    picture.Id,
+                    picture.IdBuildingAnomaly,
+                    picture.IdPicture,
+                    PictureData = data.Data,
+                    data.SketchJson
 				};
 
 			var result = query.ToList();
@@ -42,17 +42,26 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}).ToList();
 		}
 
-		public virtual Guid AddPicture(BuildingChildPictureForWeb entity)
+		public virtual Guid AddOrUpdatePicture(BuildingChildPictureForWeb entity)
 		{
-			var currentRecord = new BuildingAnomalyPicture
-			{
-				Id = entity.Id,
-				IdBuildingAnomaly = entity.IdParent,
-				Picture = new Picture { Id = entity.Id, Data = PictureService.DecodeBase64Picture(entity.PictureData) }
-			};
-			Context.Add(currentRecord);
-			Context.SaveChanges();
-			return entity.Id;
+            var isExistRecord = Context.BuildingAnomalyPictures.Any(c => c.Id == entity.Id);
+
+            var currentRecord = new BuildingAnomalyPicture
+            {
+                Id = entity.Id,
+                IdBuildingAnomaly = entity.IdParent,
+                Picture = new Picture { Id = entity.Id, Data = PictureService.DecodeBase64Picture(entity.PictureData), SketchJson = entity.SketchJson }
+            };
+
+            if (!isExistRecord)
+            {
+                Context.Add(currentRecord);
+            }
+
+
+            Context.SaveChanges();
+
+            return entity.Id;
 		}
 
 		public virtual bool Remove(Guid id)
