@@ -1,19 +1,18 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Mime;
+using System.Reflection;
 using Survi.Prevention.DataLayer;
-using Survi.Prevention.Models.SecurityManagement;
-using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models;
-using Survi.Prevention.Models.DataTransfertObjects;
-using System.Net.Http;
+using System.Text;
+using WkWrap;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
     public class ReportGenerationService : BaseCrudService<ReportConfigurationTemplate>
-    {
-        private static readonly HttpClient client = new HttpClient();
-        
+    {        
         public ReportGenerationService(ManagementContext context) : base(context)
         {
         }
@@ -34,20 +33,25 @@ namespace Survi.Prevention.ServiceLayer.Services
             return result;
         }
 
-        public Guid Generate(Guid id)
+        public MemoryStream Generate(Guid id)
         {
-            var inspection = Context.Inspections
-                .First(u => u.Id == id);
-            var building = Context.Buildings.First(u => u.Id == inspection.IdBuilding);
+            var output = new MemoryStream();
+            var input = new MemoryStream();
+            var uniEncoding = new UnicodeEncoding();
+            var sw = new StreamWriter(input, uniEncoding);
+
             var template = GetTemplate();
-            var newString = template.Data.Replace("@BUILDING.postal_code", building.PostalCode);
-            var values = new Dictionary<string, string>
-            {
-                { "value", newString }
-            };
-            var content = new FormUrlEncodedContent(values);
-            var response = client.PostAsync("http://localhost:5762/save", content);
-            return id;
+            sw.Write(template.Data);
+            sw.Flush();    // Prevents getting an empty stream
+            input.Seek(0, SeekOrigin.Begin);
+
+            var wkhtmltopdf = new FileInfo(@"/usr/bin/wkhtmltopdf");
+            var converter = new HtmlToPdfConverter(wkhtmltopdf);
+            converter.ConvertToPdf(input, output);
+            output.Seek(0, SeekOrigin.Begin);
+            sw.Dispose();
+            
+            return output;
         }
 
         private ReportConfigurationTemplate GetTemplate()
