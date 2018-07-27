@@ -4,6 +4,8 @@ using System.IO;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models;
 using System.Text;
+using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.DataTransfertObjects;
 using WkWrap;
 
 namespace Survi.Prevention.ServiceLayer.Services
@@ -29,27 +31,33 @@ namespace Survi.Prevention.ServiceLayer.Services
                 let building = inspection.MainBuilding
                 from laneLocalization in building.Lane.Localizations
                 where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
+                from riskLevelLocalization in building.RiskLevel.Localizations
+                where riskLevelLocalization.IsActive && riskLevelLocalization.LanguageCode == languageCode
                 select new 
                 {
-                    building.CivicLetter,
-                    building.CivicNumber,
-                    building.PostalCode,
-                    laneLocalization.Name,
+                    civicLetter = building.CivicLetter,
+                    civicNumber = building.CivicNumber,
+                    matricule = building.Matricule,
+                    postalCode = building.PostalCode,
+                    riskLevelName = riskLevelLocalization.Name,
+                    laneName = laneLocalization.Name,
                     publicDescription = building.Lane.PublicCode.Description,
-                    GenericDescription = building.Lane.LaneGenericCode.Description,
+                    genericDescription = building.Lane.LaneGenericCode.Description,
                     building.Lane.LaneGenericCode.AddWhiteSpaceAfter
                 };
 
             var results = query.First();
             var result = new
                 {
-                    ZipCode = results.PostalCode,
-                    Address = new AddressGenerator()
+                    riskCategory = results.riskLevelName,
+                    matricule = results.matricule,
+                    zipCode = results.postalCode,
+                    address = new AddressGenerator()
                         .GenerateAddress(
-                            results.CivicNumber,
-                            results.CivicLetter, 
-                            results.Name,
-                            results.GenericDescription, 
+                            results.civicNumber,
+                            results.civicLetter, 
+                            results.laneName,
+                            results.genericDescription, 
                             results.publicDescription,
                             results.AddWhiteSpaceAfter
                             )
@@ -58,8 +66,28 @@ namespace Survi.Prevention.ServiceLayer.Services
             
             var reportPlaceholders = new ReportPlaceholders
             {
-                Address = result.Address,
-                ZipCode = result.ZipCode
+                //
+                RiskCategory = result.riskCategory,
+                Assignment = SetAssignment(id),
+                Matricule = result.matricule,
+                Alias = SetAlias(id),
+                Lane = SetLane(id),
+                Transversal = SetTransversal(id),
+                //
+                ImplementationPlan = SetImplementationPlan(id),
+                //
+                Address = result.address,
+                ZipCode = result.zipCode,
+                //
+                BuildingType = SetBuildingType(id),
+                BuildingGarage = SetBuildingGarage(id),
+                BuildingHeight = SetBuildingHeight(id),
+                BuildingEstimatedWaterFlow = SetBuildingWaterFlow(id),
+                ConstructionType = SetConstructionType(id),
+                ConstructionFireResistance = SetConstructionFireResistance(id),
+                ConstructionSiding = SetConstructionSiding(id),
+                RoofType = SetRoofType(id),
+                RoofMaterial = SetRoofMaterial(id)
             };
             return reportPlaceholders;
         }
@@ -123,6 +151,309 @@ namespace Survi.Prevention.ServiceLayer.Services
             streamWriter.Dispose();
             
             return outputStream;
+        }
+        
+        ///
+        ///
+        ///
+        private string SetAssignment(Guid id)
+        {
+            var inspection = Context.Inspections
+                .First(u => u.Id == id);
+            var building = Context.Buildings.First(u => u.Id == inspection.IdBuilding);
+            var utilisationCodeId = building.IdUtilisationCode;
+            var query =
+                from utilisationCode in Context.UtilisationCodes
+                where utilisationCode.IsActive && utilisationCode.Id == utilisationCodeId
+                from localization in utilisationCode.Localizations
+                where localization.LanguageCode == "fr"
+                select new RiskLevelForWeb
+                {
+                    Name = localization.Description
+                };
+
+            var res = query.SingleOrDefault();
+            return res != null ? res.Name : "";
+        }
+        
+        private string SetAlias(Guid id)
+        {
+            var inspection = Context.Inspections
+                .First(u => u.Id == id);
+            var query =
+                from building in Context.Buildings
+                where building.IsActive && building.Id == inspection.IdBuilding
+                from localization in building.Localizations
+                where localization.LanguageCode == "fr"
+                select new RiskLevelForWeb
+                {
+                    Name = localization.Name
+                };
+
+            var res = query.SingleOrDefault();
+
+            return res != null ? res.Name : "";
+        }
+        
+        private string SetLane(Guid id)
+        {
+            var inspection = Context.Inspections
+                .First(u => u.Id == id);
+            var building = Context.Buildings.First(u => u.Id == inspection.IdBuilding);
+            var laneId = building.IdLane;
+            var query =
+                from lane in Context.Lanes
+                where lane.IsActive && lane.Id == laneId
+                from localization in lane.Localizations
+                where localization.LanguageCode == "fr"
+                select new RiskLevelForWeb
+                {
+                    Name = localization.Name
+                };
+
+            var res = query.SingleOrDefault();
+
+            return res != null ? res.Name : "";
+        }
+        
+        private string SetTransversal(Guid id)
+        {
+            var inspection = Context.Inspections
+                .First(u => u.Id == id);
+            var building = Context.Buildings.First(u => u.Id == inspection.IdBuilding);
+            var laneId = building.IdLaneTransversal;
+            if (laneId == null)
+                return "";
+            var query =
+                from lane in Context.Lanes
+                where lane.IsActive && lane.Id == laneId
+                from localization in lane.Localizations
+                where localization.LanguageCode == "fr"
+                select new RiskLevelForWeb
+                {
+                    Name = localization.Name
+                };
+
+            var res = query.SingleOrDefault();
+
+            return res != null ? res.Name : "";
+        }
+        
+        private string SetImplementationPlan(Guid id)
+        {
+            var inspection = Context.Inspections
+                .First(u => u.Id == id);
+            var building = Context.Buildings.First(u => u.Id == inspection.IdBuilding);
+            var details = Context.BuildingDetails.FirstOrDefault(u => u.IdBuilding == building.Id);
+            
+            if (details?.IdPicturePlan == null)
+            {
+                return "";
+            }
+            var photo = Context.Pictures
+                .First(u => u.Id == details.IdPicturePlan);
+            if (photo == null)
+            {
+                return "";
+            }
+            var base64String = "<img src=\"data:image/png;base64, " + Convert.ToBase64String(photo.Data) + "\" height=\"400\" />";
+            return base64String;
+        }
+                
+        private string SetBuildingType(Guid id)
+        {
+            var inspection = Context.Inspections
+                .First(u => u.Id == id);
+            var building = Context.Buildings.First(u => u.Id == inspection.IdBuilding);
+            var details = Context.BuildingDetails.FirstOrDefault(u => u.IdBuilding == building.Id);
+            
+            if (details == null)
+            {
+                return "";
+            }
+ 
+            var query =
+                from buildingTypes in Context.BuildingTypes
+                where buildingTypes.IsActive && buildingTypes.Id == details.IdBuildingType
+                from localization in buildingTypes.Localizations
+                where localization.LanguageCode == "fr"
+                select new RiskLevelForWeb
+                {
+                    Name = localization.Name
+                };
+            var res = query.SingleOrDefault();
+            return res == null ? "" : res.Name;
+        }
+        
+        private string SetBuildingGarage(Guid id)
+        {
+            var inspection = Context.Inspections
+                .First(u => u.Id == id);
+            var building = Context.Buildings.First(u => u.Id == inspection.IdBuilding);
+            var details = Context.BuildingDetails.FirstOrDefault(u => u.IdBuilding == building.Id);
+            var val = "Non";
+            if (details != null && details.GarageType == GarageType.Detached)
+            {
+                val = "Détaché";
+            }
+            else if (details != null && details.GarageType == GarageType.Yes)
+            {
+                val = "Oui";
+            }
+            return val;
+        }
+        
+        private string SetBuildingHeight(Guid id)
+        {
+            var inspection = Context.Inspections
+                .First(u => u.Id == id);
+            var building = Context.Buildings.First(u => u.Id == inspection.IdBuilding);
+            var details = Context.BuildingDetails.FirstOrDefault(u => u.IdBuilding == building.Id);
+            var val = "";
+            if (details != null)
+            {
+                val = details.Height.ToString();
+            }
+            return val;
+        }
+        
+        private string SetBuildingWaterFlow(Guid id)
+        {
+            var inspection = Context.Inspections
+                .First(u => u.Id == id);
+            var building = Context.Buildings.First(u => u.Id == inspection.IdBuilding);
+            var details = Context.BuildingDetails.FirstOrDefault(u => u.IdBuilding == building.Id);
+            var val = "";
+            if (details != null)
+            {
+                val = details.EstimatedWaterFlow.ToString();
+            }
+            return val;
+        }
+        
+        private string SetConstructionType(Guid id)
+        {
+            var inspection = Context.Inspections
+                .First(u => u.Id == id);
+            var building = Context.Buildings.First(u => u.Id == inspection.IdBuilding);
+            var details = Context.BuildingDetails.FirstOrDefault(u => u.IdBuilding == building.Id);
+            if (details == null)
+            {
+                return "";
+            }
+            var query =
+                from constructionType in Context.ConstructionTypes
+                where constructionType.IsActive && constructionType.Id == details.IdConstructionType
+                from localization in constructionType.Localizations
+                where localization.LanguageCode == "fr"
+                select new RiskLevelForWeb
+                {
+                    Name = localization.Name
+                };
+            var res = query.SingleOrDefault();
+            return res == null ? "" : res.Name;
+        }
+        
+        private string SetConstructionFireResistance(Guid id)
+        {
+            var inspection = Context.Inspections
+                .First(u => u.Id == id);
+            var building = Context.Buildings.First(u => u.Id == inspection.IdBuilding);
+            var details = Context.BuildingDetails.FirstOrDefault(u => u.IdBuilding == building.Id);
+            if (details == null)
+            {
+                return "";
+            }
+            var query =
+                from constructionFireResistanceType in Context.ConstructionFireResistanceTypes
+                where constructionFireResistanceType.IsActive && 
+                constructionFireResistanceType.Id == details.IdConstructionFireResistanceType
+                from localization in constructionFireResistanceType.Localizations
+                where localization.LanguageCode == "fr"
+                select new RiskLevelForWeb
+                {
+                    Name = localization.Name
+                };
+            var res = query.SingleOrDefault();
+            return res == null ? "" : res.Name;
+        }
+        
+        private string SetConstructionSiding(Guid id)
+        {
+            var inspection = Context.Inspections
+                .First(u => u.Id == id);
+            var building = Context.Buildings.First(u => u.Id == inspection.IdBuilding);
+            var details = Context.BuildingDetails.FirstOrDefault(u => u.IdBuilding == building.Id);
+            if (details == null)
+            {
+                return "";
+            }
+            var query =
+                from sidingType in Context.SidingTypes
+                where sidingType.IsActive && 
+                      sidingType.Id == details.IdBuildingSidingType
+                from localization in sidingType.Localizations
+                where localization.LanguageCode == "fr"
+                select new RiskLevelForWeb
+                {
+                    Name = localization.Name
+                };
+            var res = query.SingleOrDefault();
+            return res == null ? "" : res.Name;
+        }
+       
+        private string SetRoofType(Guid id)
+        {
+            var inspection = Context.Inspections
+                .First(u => u.Id == id);
+            var building = Context.Buildings.First(u => u.Id == inspection.IdBuilding);
+            var details = Context.BuildingDetails.FirstOrDefault(u => u.IdBuilding == building.Id);
+            if (details == null)
+            {
+                return "";
+            }
+            var query =
+                from roofType in Context.RoofTypes
+                where roofType.IsActive && roofType.Id == details.IdRoofType
+                from localization in roofType.Localizations
+                where localization.LanguageCode == "fr"
+                select new RiskLevelForWeb
+                {
+                    Name = localization.Name
+                };
+            var res = query.SingleOrDefault();
+            return res == null ? "" : res.Name;
+        }
+        
+        private string SetRoofMaterial(Guid id)
+        {
+            var inspection = Context.Inspections
+                .First(u => u.Id == id);
+            var building = Context.Buildings.First(u => u.Id == inspection.IdBuilding);
+            var details = Context.BuildingDetails.FirstOrDefault(u => u.IdBuilding == building.Id);
+            if (details == null)
+            {
+                return "";
+            }
+            var query =
+                from roofMaterialType in Context.RoofMaterialTypes
+                where roofMaterialType.IsActive && roofMaterialType.Id == details.IdRoofMaterialType
+                from localization in roofMaterialType.Localizations
+                where localization.LanguageCode == "fr"
+                select new RiskLevelForWeb
+                {
+                    Name = localization.Name
+                };
+            var res = query.SingleOrDefault();
+            return res == null ? "" : res.Name;
+        }
+        
+        private string SetMatricule(Guid id)
+        {
+            var inspection = Context.Inspections
+                .First(u => u.Id == id);
+            var building = Context.Buildings.First(u => u.Id == inspection.IdBuilding);
+            return building.Matricule;
         }
     }
 }

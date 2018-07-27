@@ -1,13 +1,51 @@
 using System;
-using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 
 namespace Survi.Prevention.ServiceLayer 
 {
     public class ReportPlaceholders
-    {
+    {   
+        /*
+         * Inspection
+         */
+        
+        // General Information
+        public string RiskCategory { get; set; }
+        public string Assignment { get; set; }
+        public string Matricule { get; set; }
+        public string Alias { get; set; }
+        public string Lane { get; set; }
+        public string Transversal { get; set; }
+        
+        // Implementation Plan
+        public string ImplementationPlan { get; set; }
+
+        // Course
+        
+        // Water Supply
+        
+        // Survey
+        
+        /*
+         * Building
+         */
+        
+        // Address
         public string Address { get; set; }
         public string ZipCode { get; set; }
+        
+        // Details
+        public string BuildingType { get; set; }
+        public string BuildingGarage { get; set; }
+        public string BuildingHeight { get; set; }
+        public string BuildingEstimatedWaterFlow { get; set; }
+        public string ConstructionType { get; set; }
+        public string ConstructionFireResistance { get; set; }
+        public string ConstructionSiding { get; set; }
+        public string RoofType { get; set; }
+        public string RoofMaterial { get; set; }
+        
         
         public string ReplacePlaceholders(string template)
         {
@@ -29,7 +67,7 @@ namespace Survi.Prevention.ServiceLayer
             }
             catch (NullReferenceException)
             {
-                return m.Groups[1].Value;
+                return "{{" + m.Groups[1].Value + "}} Invalid PLACEHOLDER";
             }
         }
 
