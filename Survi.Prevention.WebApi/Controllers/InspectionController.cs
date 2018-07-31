@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using Microsoft.AspNet.OData;
-using Microsoft.AspNet.OData.Routing;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.InspectionManagement;
@@ -12,27 +7,6 @@ using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
-	[Produces("application/json"), Authorize]
-	public class BuildingForDashboardController : ODataController
-	{
-		protected Guid CurrentUserId => Guid.Parse(User.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.Sid)?.Value);
-		protected string CurrentUserName => User.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.UniqueName)?.Value;
-
-		private readonly InspectionService service;
-
-		public BuildingForDashboardController(InspectionService service)
-		{
-			this.service = service;
-		}
-
-		[EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All), AllowAnonymous]
-		//[ProducesResponseType(typeof(IQueryable<BuildingForDashboard>), 200)]
-		public IQueryable<BuildingForDashboard> Get([FromHeader]string languageCode)
-		{
-			return service.GetBuildingWithoutInspectionQueryable(languageCode);
-		}
-	}
-
 	[Route("api/Inspection")]
 	public class InspectionController : BaseSecuredController
 	{
@@ -72,67 +46,14 @@ namespace Survi.Prevention.WebApi.Controllers
 		public ActionResult GetUserInspections([FromHeader]string languageCode)
 		{
 			return Ok(service.GetGroupedUserInspections(languageCode, CurrentUserId));
-		}
-
-        [HttpGet, Route("ToDoInspection")]
-        [ProducesResponseType(typeof(List<InspectionForDashboard>), 200)]
-        public ActionResult GetToDoInspection([FromHeader]string languageCode, [FromHeader]string queryLoadOptions)
-        {
-            var result = new LimitedItemList<InspectionForDashboard>
-            {
-                Data = service.GetToDoInspection(languageCode, queryLoadOptions),
-                TotalCount = service.GetToDoInspectionTotal()
-            };
-
-            return Ok(result);
-        }
-
-        [HttpGet, Route("ForApprovalInspection")]
-        [ProducesResponseType(typeof(List<InspectionForDashboard>), 200)]
-        public ActionResult GetForApprovalInspection([FromHeader]string languageCode, [FromHeader]string queryLoadOptions)
-        {
-            var result = new LimitedItemList<InspectionForDashboard>
-            {
-                Data = service.GetForApprovalInspection(languageCode, queryLoadOptions),
-                TotalCount = service.GetForApprovalInspectionTotal()
-            };
-
-            return Ok(result);
-        }
-
-        [HttpGet, Route("BuildingWithHistory")]
-        [ProducesResponseType(typeof(List<InspectionForDashboard>), 200)]
-        public ActionResult GetBuildingWithHistory([FromHeader]string languageCode, [FromHeader]string queryLoadOptions)
-        {
-            var result = new LimitedItemList<InspectionForDashboard>
-            {
-                Data = service.GetBuildingWithHistory(languageCode, queryLoadOptions),
-                TotalCount = service.GetBuildingWithHistoryTotal()
-            };
-
-            return Ok(result);
-        }
-
-        [HttpGet, Route("BuildingWithoutInspection")]
-        [ProducesResponseType(typeof(LimitedItemList<InspectionForDashboard>), 200)]
-        public ActionResult GetBuildingWithoutInspection([FromHeader]string languageCode, [FromHeader]string queryLoadOptions)
-        {
-            var result = new LimitedItemList<InspectionForDashboard>
-            {
-                Data = new List<InspectionForDashboard>(), // service.GetBuildingWithoutInspection(languageCode, queryLoadOptions),
-                TotalCount = service.GetBuildingWithoutInspectionTotal()
-            };
-
-            return Ok(result);
-        }
+		}       
 
 		[HttpPost, Route("StartInspection")]
 		public ActionResult StartInspection([FromBody] Guid idInspection)
 		{
 			if(service.StartInspection(idInspection, CurrentUserId))
 				return NoContent();
-			else
-				return BadRequest("Error during the starting process of the inspection");
+			return BadRequest("Error during the starting process of the inspection");
 		}
 
 		[HttpPost, Route("CompleteInspection")]
@@ -140,8 +61,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			if(service.CompleteInspection(idInspection, CurrentUserId))
 				return NoContent();
-			else
-				return BadRequest("Error during the starting process of the inspection");
+			return BadRequest("Error during the starting process of the inspection");
 		}
 
 		[HttpPost, Route("RefuseInspectionVisit")]
@@ -149,8 +69,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			if(service.RefuseInspectionVisit(inspectionVisit, CurrentUserId))
 				return NoContent();
-			else
-				return BadRequest("Error during the starting process of the inspection");
+			return BadRequest("Error during the starting process of the inspection");
 		}
     }
 }
