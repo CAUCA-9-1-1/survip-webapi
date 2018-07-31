@@ -82,9 +82,12 @@ namespace Survi.Prevention.DataLayer
 
         public DbSet<FireSafetyDepartmentRiskLevel> FireSafetyDepartmentRiskLevels { get; set; }
 
-		public DbQuery<BuildingForDashboard> BuildingsWithoutInspection { get; set; }
+		public DbQuery<BuildingWithoutInspection> BuildingsWithoutInspection { get; set; }
+		public DbQuery<InspectionToDo> InspectionsToDo { get; set; }
+		public DbQuery<InspectionForApproval> InspectionsForApproval { get; set; }
+		public DbQuery<InspectionCompleted> InspectionsCompleted { get; set; }
 
-        public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
+		public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
 		{
 		}
 
@@ -99,8 +102,14 @@ namespace Survi.Prevention.DataLayer
 			modelBuilder.HasPostgresExtension("uuid-ossp");
 			modelBuilder.UseAutoSnakeCaseMapping();
 			this.UseAutoDetectedMappings(modelBuilder);
-			modelBuilder.Query<BuildingForDashboard>()
+			modelBuilder.Query<BuildingWithoutInspection>()
 				.ToView("building_with_no_active_inspection");
+			modelBuilder.Query<InspectionToDo>()
+				.ToView("building_with_todo_inspection");
+			modelBuilder.Query<InspectionForApproval>()
+				.ToView("building_with_todo_inspection");
+			modelBuilder.Query<InspectionCompleted>()
+				.ToView("building_with_completed_inspection");
 		}
 	}
 }
