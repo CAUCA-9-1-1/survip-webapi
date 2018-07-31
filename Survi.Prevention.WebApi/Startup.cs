@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
+using Microsoft.OData.Edm;
 using Newtonsoft.Json;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
@@ -116,8 +117,8 @@ namespace Survi.Prevention.WebApi
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
-			var builder = new ODataConventionModelBuilder();
-			builder.EntitySet<BuildingForDashboard>("BuildingForDashboard")
+			/*var builder = new ODataConventionModelBuilder();
+			builder.EntitySet<BuildingWithoutInspection>("BuildingForDashboard")
 				.EntityType
 				.Filter()
 				.Count()
@@ -125,7 +126,7 @@ namespace Survi.Prevention.WebApi
 				.OrderBy()
 				.Page()			
 				.Select();
-		
+		*/
 			
 			if (env.IsDevelopment())
 				app.UseDeveloperExceptionPage();
@@ -139,8 +140,18 @@ namespace Survi.Prevention.WebApi
 			app.UseMvc(routeBuilder =>
 			{
 				routeBuilder.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
-				routeBuilder.MapODataServiceRoute("odataroutes", "api/odata", builder.GetEdmModel());
+				routeBuilder.MapODataServiceRoute("odataroutes", "api/odata", GetEdmModel());
 			});
+		}
+
+		private static IEdmModel GetEdmModel()
+		{
+			var builder = new ODataConventionModelBuilder();
+			builder.EntitySet<BuildingWithoutInspection>("BuildingsWithoutInspection").AllowAllQueryType();
+			builder.EntitySet<InspectionToDo>("InspectionsToDo").AllowAllQueryType();
+			builder.EntitySet<InspectionForApproval>("InspectionsForApproval").AllowAllQueryType();
+			builder.EntitySet<InspectionCompleted>("InspectionsCompleted").AllowAllQueryType();
+			return builder.GetEdmModel();
 		}
 	}
 }

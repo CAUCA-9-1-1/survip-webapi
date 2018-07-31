@@ -2,6 +2,8 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using Microsoft.AspNet.OData;
+using Microsoft.AspNet.OData.Query;
+using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.DataTransfertObjects;
@@ -22,26 +24,25 @@ namespace Survi.Prevention.WebApi.Controllers
 			this.service = service;
 		}
 
-		[ EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All), AllowAnonymous]
+		[ODataRoute("BuildingsWithoutInspection"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All), AllowAnonymous]
 		public IQueryable<BuildingWithoutInspection> GetBuildingWithoutInspection([FromHeader]string languageCode)
 		{
 			return service.GetBuildingWithoutInspectionQueryable(languageCode);
 		}
 
-		[EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All), AllowAnonymous]
+		[ODataRoute("InspectionsToDo"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All), AllowAnonymous]
 		public IQueryable<InspectionToDo> GetInspectionsToDo([FromHeader]string languageCode)
 		{
 			return service.GetToDoInspections(languageCode);
 		}
 
-		[EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All), AllowAnonymous]
+		[ODataRoute("InspectionsForApproval"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All), AllowAnonymous]
 		public IQueryable<InspectionForApproval> GetInspectionsForApproval([FromHeader]string languageCode)
 		{
 			return service.GetInspectionsForApproval(languageCode);
 		}
 
-
-		[EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All), AllowAnonymous]
+		[ODataRoute("InspectionsCompleted"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All), AllowAnonymous]
 		public IQueryable<InspectionCompleted> GetInspectionsCompleted([FromHeader]string languageCode)
 		{
 			return service.GetInspectionsCompleted(languageCode);
