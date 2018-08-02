@@ -13,6 +13,8 @@
     <Compile Remove="Migrations\20180802162650_CreateDatabase.cs" />
     <Compile Remove="Migrations\20180802162854_CreateDatabase.cs" />
     <Compile Remove="Migrations\20180802163018_CreateDatabase.cs" />
+    <Compile Remove="Migrations\20180802163221_CreateDatabase.cs" />
+    <Compile Remove="Migrations\20180802163444_V2.cs" />
   </ItemGroup>
 
   <ItemGroup>
