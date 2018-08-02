@@ -1,50 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Drawing;
+using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models.Buildings;
 
 namespace Survi.Prevention.DataLayer.InitialData
 {
 	internal class InitialRiskLevelGenerator
 	{
-		internal static IEnumerable<RiskLevel> GetInitialData()
+		private static readonly DateTime Now = new DateTime(2018, 6, 1);
+
+		internal static void SeedInitialData(ModelBuilder builder)
 		{
-			yield return new RiskLevel
-			{
-				Code = 1,
-				Color = Color.Green.ToArgb().ToString(),
-				Sequence = 1,
-				Localizations = new List<RiskLevelLocalization> {new RiskLevelLocalization {LanguageCode = "fr", Name = "Faible"}, new RiskLevelLocalization {LanguageCode = "en", Name = "Low"}}
-			};
+			SeedRiskLevel(builder, 1, Color.Green, "Faible", "Low");
+			SeedRiskLevel(builder, 2, Color.Yellow, "Moyen", "Medium");
+			SeedRiskLevel(builder, 3, Color.Orange, "Élevé", "High");
+			SeedRiskLevel(builder, 4, Color.Red, "Très élevé", "Very high");
+			SeedRiskLevel(builder, 0, Color.Black, "Indéterminé", "Unknown");			
+		}
 
-			yield return new RiskLevel
-			{
-				Code = 2,
-				Color = Color.Yellow.ToArgb().ToString(),
-				Sequence = 2,
-				Localizations = new List<RiskLevelLocalization> { new RiskLevelLocalization { LanguageCode = "fr", Name = "Moyen" }, new RiskLevelLocalization { LanguageCode = "en", Name = "Low" } }
-			};
-
-			yield return new RiskLevel
-			{
-				Code = 3,
-				Color = Color.Orange.ToArgb().ToString(),
-				Sequence = 3,
-				Localizations = new List<RiskLevelLocalization> { new RiskLevelLocalization { LanguageCode = "fr", Name = "Élevé" }, new RiskLevelLocalization { LanguageCode = "en", Name = "High" } }
-			};
-			yield return new RiskLevel
-			{
-				Code = 4,
-				Color = Color.Red.ToArgb().ToString(),
-				Sequence = 4,
-				Localizations = new List<RiskLevelLocalization> { new RiskLevelLocalization { LanguageCode = "fr", Name = "Très élevé" }, new RiskLevelLocalization { LanguageCode = "en", Name = "Very high" } }
-			};
-			yield return new RiskLevel
-			{
-				Code = 0,
-				Color = Color.Black.ToArgb().ToString(),
-				Sequence = 0,
-				Localizations = new List<RiskLevelLocalization> { new RiskLevelLocalization { LanguageCode = "fr", Name = "Indéterminé" }, new RiskLevelLocalization { LanguageCode = "en", Name = "Unknown" } }
-			};
+		private static void SeedRiskLevel(ModelBuilder builder, int code, Color color, string french, string english)
+		{
+			var type = new RiskLevel { Id = GuidExtensions.GetGuid(), CreatedOn = Now, Code = code, Sequence = code, Color = color.ToArgb().ToString() };
+			var frenchLocalization = new RiskLevelLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new RiskLevelLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			builder.Entity<RiskLevel>().HasData(type);
+			builder.Entity<RiskLevelLocalization>().HasData(frenchLocalization, englishLocalization);
 		}
 	}
 }

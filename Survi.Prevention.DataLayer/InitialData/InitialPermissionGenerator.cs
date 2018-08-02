@@ -1,39 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models.SecurityManagement;
 
 namespace Survi.Prevention.DataLayer.InitialData
 {
     internal class InitialPermissionGenerator
     {
-	    internal static IEnumerable<PermissionSystem> GetInitialData(Guid adminUserId)
-	    {		    
-			var surveyFeature = new PermissionSystemFeature { Description = "Voir la section questionnaire du site", FeatureName = "RightSectionSurvey" };
-		    var managementFeature = new PermissionSystemFeature { Description = "Voir la section gestion du site", FeatureName = "RightSectionManagement" };
-		    var inspectionFeature = new PermissionSystemFeature { Description = "Voir la section inspection du site", FeatureName = "RightSectionInspection" };
-		    var adminFeature = new PermissionSystemFeature { Description = "Accès en administration", FeatureName = "RightAdmin" };
-		    var tpiFeature = new PermissionSystemFeature { Description = "Accès pour un TPI", FeatureName = "RightTPI" };
+	    private static readonly DateTime Now = new DateTime(2018, 6, 1);
+	    internal static void SeedInitialData(ModelBuilder builder, Guid adminUserId)
+	    {
+		    var permissionSystem = new PermissionSystem {Description = "SURVI-Prevention", Id = GuidExtensions.GetGuid()};
 
-		    var adminObject = new PermissionObject { ObjectTable = "group", GenericId = "", IsGroup = true, GroupName = "Administration" };
-		    var tpiObject = new PermissionObject { ObjectTable = "group", GenericId = "", IsGroup = true, GroupName = "TPI" };
-			var firemanObject = new PermissionObject { ObjectTable = "group", GenericId = "", IsGroup = true, GroupName = "Pompier" };
-			var webuserObject = new PermissionObject { ObjectTable = "webuser", GenericId = adminUserId.ToString(), IsGroup = false, GroupName = "", Parent = adminObject };
+			var surveyFeature = new PermissionSystemFeature { IdPermissionSystem = permissionSystem.Id, Id = GuidExtensions.GetGuid(), Description = "Voir la section questionnaire du site", FeatureName = "RightSectionSurvey" };
+		    var managementFeature = new PermissionSystemFeature { IdPermissionSystem = permissionSystem.Id, Id = GuidExtensions.GetGuid(), Description = "Voir la section gestion du site", FeatureName = "RightSectionManagement" };
+		    var inspectionFeature = new PermissionSystemFeature { IdPermissionSystem = permissionSystem.Id, Id = GuidExtensions.GetGuid(), Description = "Voir la section inspection du site", FeatureName = "RightSectionInspection" };
+		    var adminFeature = new PermissionSystemFeature { IdPermissionSystem = permissionSystem.Id, Id = GuidExtensions.GetGuid(), Description = "Accès en administration", FeatureName = "RightAdmin" };
+		    var tpiFeature = new PermissionSystemFeature { IdPermissionSystem = permissionSystem.Id, Id = GuidExtensions.GetGuid(), Description = "Accès pour un TPI", FeatureName = "RightTPI" };
 
-		    var permission1 = new Permission {PermissionObject = adminObject, Feature = inspectionFeature, Access = true};
-		    var permission2 = new Permission { PermissionObject = adminObject, Feature = surveyFeature, Access = true };
-		    var permission3 = new Permission { PermissionObject = adminObject, Feature = adminFeature, Access = true };
-		    var permission4 = new Permission { PermissionObject = adminObject, Feature = managementFeature, Access = true };
-		    var permission5 = new Permission { PermissionObject = adminObject, Feature = tpiFeature, Access = true };
-		    var permission6 = new Permission { PermissionObject = tpiObject, Feature = inspectionFeature, Access = true };
-		    var permission7 = new Permission { PermissionObject = tpiObject, Feature = surveyFeature, Access = true };
-		    var permission8 = new Permission { PermissionObject = firemanObject, Feature = inspectionFeature, Access = true };
+		    var adminObject = new PermissionObject { IdPermissionSystem = permissionSystem.Id, Id = GuidExtensions.GetGuid(), ObjectTable = "group", GenericId = "", IsGroup = true, GroupName = "Administration" };
+		    var tpiObject = new PermissionObject { IdPermissionSystem = permissionSystem.Id, Id = GuidExtensions.GetGuid(), ObjectTable = "group", GenericId = "", IsGroup = true, GroupName = "TPI" };
+			var firemanObject = new PermissionObject { IdPermissionSystem = permissionSystem.Id, Id = GuidExtensions.GetGuid(), ObjectTable = "group", GenericId = "", IsGroup = true, GroupName = "Pompier" };
+			var webuserObject = new PermissionObject { IdPermissionSystem = permissionSystem.Id, Id = GuidExtensions.GetGuid(), ObjectTable = "webuser", GenericId = adminUserId.ToString(), IsGroup = false, GroupName = "", IdPermissionObjectParent = adminObject.Id };
 
-		    yield return new PermissionSystem {
-			    Description = "SURVI-Prevention",
-				Features = new List<PermissionSystemFeature> { surveyFeature, managementFeature, inspectionFeature, adminFeature, tpiFeature },
-				Objects = new List<PermissionObject> { adminObject, tpiObject, firemanObject, webuserObject },
-				Permissions = new List<Permission> { permission1, permission2, permission3, permission4, permission5, permission6, permission7, permission8 }
-		    };
-		}
+		    var permission1 = new Permission { IdPermissionSystem = permissionSystem.Id, Id = GuidExtensions.GetGuid(), CreatedOn = Now, IdPermissionObject = adminObject.Id, IdPermissionSystemFeature = inspectionFeature.Id, Access = true};
+		    var permission2 = new Permission { IdPermissionSystem = permissionSystem.Id, Id = GuidExtensions.GetGuid(), CreatedOn = Now, IdPermissionObject = adminObject.Id, IdPermissionSystemFeature = surveyFeature.Id, Access = true };
+		    var permission3 = new Permission { IdPermissionSystem = permissionSystem.Id, Id = GuidExtensions.GetGuid(), CreatedOn = Now, IdPermissionObject = adminObject.Id, IdPermissionSystemFeature = adminFeature.Id, Access = true };
+		    var permission4 = new Permission { IdPermissionSystem = permissionSystem.Id, Id = GuidExtensions.GetGuid(), CreatedOn = Now, IdPermissionObject = adminObject.Id, IdPermissionSystemFeature = managementFeature.Id, Access = true };
+		    var permission5 = new Permission { IdPermissionSystem = permissionSystem.Id, Id = GuidExtensions.GetGuid(), CreatedOn = Now, IdPermissionObject = adminObject.Id, IdPermissionSystemFeature = tpiFeature.Id, Access = true };
+		    var permission6 = new Permission { IdPermissionSystem = permissionSystem.Id, Id = GuidExtensions.GetGuid(), CreatedOn = Now, IdPermissionObject = tpiObject.Id, IdPermissionSystemFeature = inspectionFeature.Id, Access = true };
+		    var permission7 = new Permission { IdPermissionSystem = permissionSystem.Id, Id = GuidExtensions.GetGuid(), CreatedOn = Now, IdPermissionObject = tpiObject.Id, IdPermissionSystemFeature = surveyFeature.Id, Access = true };
+		    var permission8 = new Permission { IdPermissionSystem = permissionSystem.Id, Id = GuidExtensions.GetGuid(), CreatedOn = Now, IdPermissionObject = firemanObject.Id, IdPermissionSystemFeature = inspectionFeature.Id, Access = true };
+
+		    builder.Entity<PermissionSystem>().HasData(permissionSystem);
+		    builder.Entity<PermissionSystemFeature>().HasData(surveyFeature, managementFeature, inspectionFeature, adminFeature, tpiFeature);
+		    builder.Entity<PermissionObject>().HasData(adminObject, tpiObject, firemanObject, webuserObject);
+		    builder.Entity<Permission>().HasData(permission1, permission2, permission3, permission4, permission5, permission6, permission7, permission8);
+	    }
     }
 }
