@@ -17,6 +17,7 @@
     <Compile Remove="Migrations\20180802163444_V2.cs" />
     <Compile Remove="Migrations\20180802163718_CreateDatabase.cs" />
     <Compile Remove="Migrations\20180802163821_v2.cs" />
+    <Compile Remove="Migrations\20180802164028_v2.cs" />
   </ItemGroup>
 
   <ItemGroup>
