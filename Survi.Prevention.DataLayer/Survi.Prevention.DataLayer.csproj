@@ -10,6 +10,9 @@
     <Compile Remove="Migrations\20180802122535_CreateDatabase.cs" />
     <Compile Remove="Migrations\20180802122738_CreateDatabase.cs" />
     <Compile Remove="Migrations\20180802123023_CreateDatabase.cs" />
+    <Compile Remove="Migrations\20180802162650_CreateDatabase.cs" />
+    <Compile Remove="Migrations\20180802162854_CreateDatabase.cs" />
+    <Compile Remove="Migrations\20180802163018_CreateDatabase.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,10 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Survi.Prevention.Models\Survi.Prevention.Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

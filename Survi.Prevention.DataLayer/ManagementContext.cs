@@ -113,7 +113,8 @@ namespace Survi.Prevention.DataLayer
 				.ToView("building_with_ready_for_approbation_inspection");
 			modelBuilder.Query<InspectionCompleted>()
 				.ToView("building_with_completed_inspection");
-			modelBuilder.SeedInitialData();			
+			modelBuilder.SeedInitialData();
+			modelBuilder.SeedInitialDataForDevelopment();
 		}
 	}
 }

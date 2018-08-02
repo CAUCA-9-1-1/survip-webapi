@@ -1,111 +1,143 @@
 ﻿using System;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models.FireSafetyDepartments;
 
 namespace Survi.Prevention.DataLayer.InitialData
 {
 	public class InitialDataForCauca
 	{
-		private static readonly Guid CityTypeId = Guid.NewGuid();
-		private static readonly Guid CityStGeorgesId = Guid.Parse("8a4737d2-e3c8-4d1f-b5ad-76a4703568a5");
-		private static readonly Guid StateId = Guid.NewGuid();
+		private static readonly DateTime Now = new DateTime(2018, 06, 01);
 
-		public static IEnumerable<Country> GetInitialGeographicData()
+		private static readonly Guid CityTypeId = GuidExtensions.GetGuid();
+		private static readonly Guid CityStGeorgesId = Guid.Parse("8a4737d2-e3c8-4d1f-b5ad-76a4703568a5");
+		private static readonly Guid StateId = GuidExtensions.GetGuid();
+
+		public static void SeedInitialGeographicData(ModelBuilder builder)
 		{
-			yield return new Country
+			var country = new Country
 			{
+				Id = GuidExtensions.GetGuid(),
 				CodeAlpha2 = "CA",
 				CodeAlpha3 = "CAD",
-				Localizations = GetCountryLocalizations(),
-				States = GetStates()
+				CreatedOn = Now
 			};
+			builder.Entity<Country>().HasData(country);
+			SeedCountryLocalization(builder, country.Id);
+			SeedStates(builder, country.Id);
 		}
 
-		public static IEnumerable<CityType> GetInitialCityTypes()
+		public static void SeedInitialCityTypes(ModelBuilder builder)
 		{
-			yield return new CityType {Id = CityTypeId, Localizations = new List<CityTypeLocalization> {new CityTypeLocalization {LanguageCode = "fr", Name = "Ville"}, new CityTypeLocalization {LanguageCode = "en", Name = "City"}}};
-			yield return new CityType {Localizations = new List<CityTypeLocalization> {new CityTypeLocalization {LanguageCode = "fr", Name = "Municipalité"}, new CityTypeLocalization {LanguageCode = "en", Name = "Municipality"}}};
+			SeedCityType(builder, "Ville", "City");
+			SeedCityType(builder, "Municipalité", "Municipality");
 		}
 
-		private static List<CountryLocalization> GetCountryLocalizations()
+		private static void SeedCityType(ModelBuilder builder, string french, string english)
 		{
-			return new List<CountryLocalization>
+			var type = new CityType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
+			var frenchLocalization = new CityTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new CityTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			builder.Entity<CityType>().HasData(type);
+			builder.Entity<CityTypeLocalization>().HasData(frenchLocalization, englishLocalization);
+		}
+
+		private static void SeedCountryLocalization(ModelBuilder builder, Guid idCountry)
+		{
+			var localizations = new []
 			{
-				new CountryLocalization {LanguageCode = "fr", Name = "Canada"},
-				new CountryLocalization {LanguageCode = "en", Name = "Canada"}
+				new CountryLocalization {LanguageCode = "fr", Name = "Canada", Id = GuidExtensions.GetGuid(), IdParent = idCountry, CreatedOn = Now },
+				new CountryLocalization {LanguageCode = "en", Name = "Canada", Id = GuidExtensions.GetGuid(), IdParent = idCountry, CreatedOn = Now }
 			};
+			builder.Entity<CountryLocalization>().HasData(localizations);
 		}
 
-		private static List<State> GetStates()
+		private static void SeedStates(ModelBuilder builder, Guid idCountry)
 		{
-			return new List<State>
+			var state = new State {Id = StateId, AnsiCode = "QC", IdCountry = idCountry, CreatedOn = Now};
+			builder.Entity<State>().HasData(state);
+
+			SeedStateLocalizations(builder, state.Id);
+			SeedRegions(builder, state.Id);
+		}
+
+		private static void SeedStateLocalizations(ModelBuilder builder, Guid idParent)
+		{
+			var localizations = new []
 			{
-				new State {Id = StateId, AnsiCode = "QC", Localizations = GetStateLocalization(), Regions = GetRegions()}
+				new StateLocalization {Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = "Québec", CreatedOn = Now, IdParent = idParent},
+				new StateLocalization {Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = "Quebec", CreatedOn = Now, IdParent = idParent}
 			};
+			builder.Entity<StateLocalization>().HasData(localizations);
 		}
 
-		private static List<StateLocalization> GetStateLocalization()
+		private static void SeedRegions(ModelBuilder builder, Guid idState)
 		{
-			return new List<StateLocalization>
+			var region = new Region {Code = "12", CreatedOn = Now, Id = GuidExtensions.GetGuid(), IdState = idState};
+			builder.Entity<Region>().HasData(region);
+			SeedRegionLocalizations(builder, region.Id);
+			SeedCounties(builder, region.Id);
+		}
+
+		private static void SeedRegionLocalizations(ModelBuilder builder, Guid idParent)
+		{
+			var localizations = new []
 			{
-				new StateLocalization {LanguageCode = "fr", Name = "Québec"},
-				new StateLocalization {LanguageCode = "en", Name = "Quebec"}
+				new RegionLocalization {Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = "Chaudière-Appalaches", CreatedOn = Now, IdParent = idParent},
+				new RegionLocalization {Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = "Chaudière-Appalaches", CreatedOn = Now, IdParent = idParent }
 			};
+			builder.Entity<RegionLocalization>().HasData(localizations);
 		}
 
-		private static List<Region> GetRegions()
+		private static void SeedCounties(ModelBuilder builder, Guid idRegion)
 		{
-			return new List<Region>
-			{
-				new Region {Code = "12", Localizations = GetRegionLocalizations(), Counties = GetCounties()},
-			};
+			var beauce = new County {Id = GuidExtensions.GetGuid(), CreatedOn = Now, IdState = StateId, IdRegion = idRegion};
+		    var newBeauce = new County { Id = GuidExtensions.GetGuid(), CreatedOn = Now, IdState = StateId, IdRegion = idRegion};
+
+			builder.Entity<County>().HasData(beauce, newBeauce);
+			SeedCities(builder, beauce.Id);
+			SeedNewBeauceLocalizations(builder, newBeauce.Id);
+			SeedBeauceSartiganLocalizations(builder, beauce.Id);
 		}
 
-		private static List<RegionLocalization> GetRegionLocalizations()
+		private static void SeedNewBeauceLocalizations(ModelBuilder builder, Guid idCounty)
 		{
-			return new List<RegionLocalization>
-			{
-				new RegionLocalization {LanguageCode = "fr", Name = "Chaudière-Appalaches"},
-				new RegionLocalization {LanguageCode = "en", Name = "Chaudière-Appalaches"}
-			};
+			var loc = new [] {
+				new CountyLocalization {LanguageCode = "fr", Name = "La Nouvelle-Beauce", IdParent = idCounty, CreatedOn = Now, Id = GuidExtensions.GetGuid()},
+				new CountyLocalization {LanguageCode = "en", Name = "The New-Beauce", IdParent = idCounty, CreatedOn = Now, Id = GuidExtensions.GetGuid()}};
+			builder.Entity<CountyLocalization>().HasData(loc);
 		}
 
-		private static List<County> GetCounties()
+		private static void SeedBeauceSartiganLocalizations(ModelBuilder builder, Guid idCounty)
 		{
-			return new List<County>
-			{
-				new County {Localizations = GetBeauceSartiganLocalizations(), Cities = GetCities(), IdState = StateId},
-				new County {Localizations = GetNewBeauceLocalizations(), IdState = StateId}
-			};
+			var loc = new [] {
+				new CountyLocalization {LanguageCode = "fr", Name = "Beauce-Sartigan", IdParent = idCounty, CreatedOn = Now, Id = GuidExtensions.GetGuid()},
+				new CountyLocalization {LanguageCode = "en", Name = "Beauce-Sartigan", IdParent = idCounty, CreatedOn = Now, Id = GuidExtensions.GetGuid()}};
+			builder.Entity<CountyLocalization>().HasData(loc);
 		}
 
-		private static List<CountyLocalization> GetNewBeauceLocalizations()
+		private static void SeedCities(ModelBuilder builder, Guid idCounty)
 		{
-			return new List<CountyLocalization> {new CountyLocalization {LanguageCode = "fr", Name = "La Nouvelle-Beauce"}, new CountyLocalization {LanguageCode = "en", Name = "The New-Beauce"}};
+			var stMartin = new City {Code = "29045", Code3Letters = "SIN", IdCityType = CityTypeId, IdCounty = idCounty, CreatedOn = Now, Id = GuidExtensions.GetGuid()};
+			var stGeorges = new City {Id = CityStGeorgesId, Code = "29073", Code3Letters = "SGS", IdCityType = CityTypeId};
+
+			SeedStMartinLocalizations(builder, stMartin.Id);
+			SeedStGeorgesLocalizations(builder, stGeorges.Id);
 		}
 
-		private static List<CountyLocalization> GetBeauceSartiganLocalizations()
+		private static void SeedStGeorgesLocalizations(ModelBuilder builder, Guid idCity)
 		{
-			return new List<CountyLocalization> {new CountyLocalization {LanguageCode = "fr", Name = "Beauce-Sartigan"}, new CountyLocalization {LanguageCode = "en", Name = "Beauce-Sartigan"}};
-		}		
-
-		private static List<City> GetCities()
-		{
-			return new List<City>
-			{
-				new City { Code = "29045", Code3Letters = "SIN", IdCityType = CityTypeId, Localizations = GetStMartinLocalizations()},
-				new City { Id = CityStGeorgesId, Code = "29073", Code3Letters = "SGS", IdCityType = CityTypeId, Localizations = GetStGeorgesLocalizations()}
-			};
+			var loc = new[] {
+				new CityLocalization {LanguageCode = "fr", Name = "Caucaville", IdParent = idCity, CreatedOn = Now, Id = GuidExtensions.GetGuid()},
+				new CityLocalization { LanguageCode = "en", Name = "Caucatown", IdParent = idCity, CreatedOn = Now, Id = GuidExtensions.GetGuid() } };
+			builder.Entity<CityLocalization>().HasData(loc);
 		}
 
-		private static List<CityLocalization> GetStGeorgesLocalizations()
+		private static void SeedStMartinLocalizations(ModelBuilder builder, Guid idCity)
 		{
-			return new List<CityLocalization> {new CityLocalization {LanguageCode = "fr", Name = "Caucaville"}, new CityLocalization { LanguageCode = "en", Name = "Caucatown"}};
-		}
-
-		private static List<CityLocalization> GetStMartinLocalizations()
-		{
-			return new List<CityLocalization> {new CityLocalization {LanguageCode = "fr", Name = "Causeville"}, new CityLocalization { LanguageCode = "en", Name = "Causetown"}};
+			var loc = new[] {
+				new CityLocalization {LanguageCode = "fr", Name = "Causeville", IdParent = idCity, CreatedOn = Now, Id = GuidExtensions.GetGuid() },
+				new CityLocalization { LanguageCode = "en", Name = "Causetown", IdParent = idCity, CreatedOn = Now, Id = GuidExtensions.GetGuid() } };
+			builder.Entity<CityLocalization>().HasData(loc);
 		}
 	}
 }

@@ -1,224 +1,329 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.Models.FireSafetyDepartments;
-using Survi.Prevention.Models.SecurityManagement;
 
 namespace Survi.Prevention.DataLayer.InitialData
 {
-    public static class InitialDataForBaseTable
-    {
+	public static class InitialDataForBaseTable
+	{
+		private static readonly DateTime Now = new DateTime(2018, 06, 01);
+		private static readonly Guid IdUser = Guid.NewGuid();
+
 		public static void SeedInitialData(this ModelBuilder builder)
 		{
-			var data = GetInitialConstructionTypes();
-			builder.Entity<ConstructionType>().HasData(data);
-			/*builder.Entity<BuildingType>().HasData(GetInitialBuildingType());
-			builder.Entity<RoofType>().HasData(GetInitialRoofType());
+			SeedInitialConstructionType(builder);
+			SeedInitialFireResistanceType(builder);
+			SeedInitialBuildingType(builder);
+			SeedInitialRoofType(builder);
+			SeedInitialRoofMaterialType(builder);
+			SeedInitialSidingType(builder);
+			SeedInitialSprinklerType(builder);
 
-			builder.Entity<RoofType>().HasData(GetInitialRoofMaterialType());
-			builder.Entity<SidingType>().HasData(GetInitialSidingType());
-			builder.Entity<SprinklerType>().HasData(GetInitialSprinklerType());
-			builder.Entity<AlarmPanelType>().HasData(GetInitialAlarmPanelType());
-			builder.Entity<PersonRequiringAssistanceType>().HasData(GetInitialPersonRequiringAssistanceType());
-			builder.Entity<FireHydrantConnectionType>().HasData(GetInitialFireHydrantConnectionType());
-			builder.Entity<FireHydrantType>().HasData(GetInitialFireHydrantType());
-			builder.Entity<OperatorType>().HasData(GetInitialOperatorTypes());
-			builder.Entity<ConstructionFireResistanceType>().HasData(GetInitialFireResistanceType());
-			builder.Entity<UnitOfMeasure>().HasData(GetInitialDataForMeasuringUnit());
-			builder.Entity<LaneGenericCode>().HasData(InitialLaneGenericCodesGenerator.GetInitialData());
-			builder.Entity<LanePublicCode>().HasData(InitialLanePublicCodesGenerator.GetInitialData());
-			var users = InitialUserGenerator.GetInitialData();
-			builder.Entity<Webuser>().HasData(users);
-			builder.Entity<PermissionSystem>().HasData(InitialPermissionGenerator.GetInitialData(users.First().Id));
-			builder.Entity<RiskLevel>().HasData(InitialRiskLevelGenerator.GetInitialData());	*/
+			SeedInitialSprinklerType(builder);
+			SeedInitialAlarmPanelType(builder);
+			SeedInitialPersonRequiringAssistanceType(builder);
+			SeedInitialFireHydrantConnectionType(builder);
+			SeedInitialFireHydrantType(builder);
+			SeedInitialOperatorTypes(builder);
+			SeedInitialFireResistanceType(builder);
+			SeedInitialDataForMeasuringUnit(builder);
+			builder.Entity<LaneGenericCode>().HasData(InitialLaneGenericCodesGenerator.GetInitialData().ToArray());
+			builder.Entity<LanePublicCode>().HasData(InitialLanePublicCodesGenerator.GetInitialData().ToArray());
+
+			InitialUserGenerator.SeedInitialData(builder, IdUser);
+			InitialPermissionGenerator.SeedInitialData(builder, IdUser);
+			InitialRiskLevelGenerator.SeedInitialData(builder);	
 		}
 
 		public static void SeedInitialDataForDevelopment(this ModelBuilder builder)
 		{
-			/*builder.Entity<Country>().HasData(InitialDataForCauca.GetInitialGeographicData());
-			builder.Entity<CityType>().HasData(InitialDataForCauca.GetInitialCityTypes());*/
+			/*InitialDataForCauca.SeedInitialGeographicData(builder);
+			InitialDataForCauca.SeedInitialCityTypes(builder);*/
 		}
 
-		private static IEnumerable<ConstructionFireResistanceType> GetInitialFireResistanceType()
+		private static void SeedInitialFireResistanceType(ModelBuilder builder)
 		{
-			yield return new ConstructionFireResistanceType { Localizations = new List<ConstructionFireResistanceTypeLocalization> { new ConstructionFireResistanceTypeLocalization { LanguageCode = "fr", Name = "Ordinaire"}, new ConstructionFireResistanceTypeLocalization { LanguageCode = "en", Name = "Regular"} } };
-			yield return new ConstructionFireResistanceType { Localizations = new List<ConstructionFireResistanceTypeLocalization> { new ConstructionFireResistanceTypeLocalization { LanguageCode = "fr", Name = "Combustible" }, new ConstructionFireResistanceTypeLocalization { LanguageCode = "en", Name = "Flammable" } } };
-			yield return new ConstructionFireResistanceType { Localizations = new List<ConstructionFireResistanceTypeLocalization> { new ConstructionFireResistanceTypeLocalization { LanguageCode = "fr", Name = "Incombustible" }, new ConstructionFireResistanceTypeLocalization { LanguageCode = "en", Name = "Nonflammable" } } };
-			yield return new ConstructionFireResistanceType { Localizations = new List<ConstructionFireResistanceTypeLocalization> { new ConstructionFireResistanceTypeLocalization { LanguageCode = "fr", Name = "Résistante au feu" }, new ConstructionFireResistanceTypeLocalization { LanguageCode = "en", Name = "Fire resistant" } } };
-			yield return new ConstructionFireResistanceType { Localizations = new List<ConstructionFireResistanceTypeLocalization> { new ConstructionFireResistanceTypeLocalization { LanguageCode = "fr", Name = "Hybride" }, new ConstructionFireResistanceTypeLocalization { LanguageCode = "en", Name = "Hybrid" } } };
+			SeedFireResistanceType(builder, "Ordinaire", "Regular");
+			SeedFireResistanceType(builder, "Combustible", "Flammable");
+			SeedFireResistanceType(builder, "Incombustible", "Nonflammable");
+			SeedFireResistanceType(builder, "Résistante au feu", "Fire resistant");
+			SeedFireResistanceType(builder, "Hybride", "Hybrid");
+			SeedFireResistanceType(builder, "Test2", "Test2");
 		}
 
-	    private static ConstructionType[] GetInitialConstructionTypes()
-	    {
-		    var types = new[]
-		    {
-			    new ConstructionType {/*Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Ossature de bois avec solives en bois solide"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Wood frame with solid wood joists"}}*/},
-			    /*new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Ossature de bois avec solives préfabriquées"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Wood frame and prefabricated joists"}}},
-			    new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Gros bois d'oeuvre"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Lumber"}}},
-			    new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Mur porteur en maçonnerie avec mur solives en bois solides"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Masonry bearing wall and solid wood joists"}}},
-			    new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Mur porteur en maçonnerie et solives préfabriquées" }, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Masonry bearing wall and prefabricated joists"}}},
-			    new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Mur porteur en maçonnerie et solives en aciers ou dalle de béton" }, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Masonry bearing wall and steel joists or concrete slab"}}},
-			    new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Acier avec solives en acier protégées" }, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Steel with protected steel joists"}}},
-			    new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Acier avec solives en acier non protégées" }, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Steel with unprotected steel joists"}}},
-			    new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Béton"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Concrete"}}},
-			    new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Autre type"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Other"}}},
-			    new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Indéterminé"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Undetermined"}}}*/
-		    };
-
-			/*foreach (var type in types)
-		    foreach (var localization in type.Localizations)
-		    {
-			    localization.Parent = type;
-			    localization.IdParent = type.Id;
-		    }*/
-
-		    return types;
-	    }
-
-	    private static IEnumerable<BuildingType> GetInitialBuildingType()
+		private static void SeedFireResistanceType(ModelBuilder builder, string french, string english)
 		{
-			yield return new BuildingType {Localizations = new List<BuildingTypeLocalization> {new BuildingTypeLocalization { LanguageCode = "fr", Name = "Attaché" }, new BuildingTypeLocalization { LanguageCode = "en", Name = "Attached" }}};
-			yield return new BuildingType { Localizations = new List<BuildingTypeLocalization> { new BuildingTypeLocalization { LanguageCode = "fr", Name = "Détaché" }, new BuildingTypeLocalization { LanguageCode = "en", Name = "Detached" } } };
-			yield return new BuildingType { Localizations = new List<BuildingTypeLocalization> { new BuildingTypeLocalization { LanguageCode = "fr", Name = "Jumelé" }, new BuildingTypeLocalization { LanguageCode = "en", Name = "Semi-detached" } } };
-			yield return new BuildingType { Localizations = new List<BuildingTypeLocalization> { new BuildingTypeLocalization { LanguageCode = "fr", Name = "Autre" }, new BuildingTypeLocalization { LanguageCode = "en", Name = "Other" } } };
+			var type = new ConstructionFireResistanceType {Id = GuidExtensions.GetGuid(), CreatedOn = Now};
+			var frenchLocalization = new ConstructionFireResistanceTypeLocalization {Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now};
+			var englishLocalization = new ConstructionFireResistanceTypeLocalization {Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now};
+			builder.Entity<ConstructionFireResistanceType>().HasData(type);
+			builder.Entity<ConstructionFireResistanceTypeLocalization>().HasData(frenchLocalization, englishLocalization);
 		}
 
-	    private static IEnumerable<RoofType> GetInitialRoofType()
-	    {
-		    yield return new RoofType { Localizations = new List<RoofTypeLocalization> { new RoofTypeLocalization { LanguageCode = "fr", Name = "1 versant" }, new RoofTypeLocalization { LanguageCode = "en", Name = "1 slope" } } };
-		    yield return new RoofType { Localizations = new List<RoofTypeLocalization> { new RoofTypeLocalization { LanguageCode = "fr", Name = "2 versants" }, new RoofTypeLocalization { LanguageCode = "en", Name = "2 slopes" } } };
-		    yield return new RoofType { Localizations = new List<RoofTypeLocalization> { new RoofTypeLocalization { LanguageCode = "fr", Name = "4 versants" }, new RoofTypeLocalization { LanguageCode = "en", Name = "4 slopes" } } };
-		    yield return new RoofType { Localizations = new List<RoofTypeLocalization> { new RoofTypeLocalization { LanguageCode = "fr", Name = "Cône français" }, new RoofTypeLocalization { LanguageCode = "en", Name = "French cone" } } };
-		    yield return new RoofType { Localizations = new List<RoofTypeLocalization> { new RoofTypeLocalization { LanguageCode = "fr", Name = "Diamant" }, new RoofTypeLocalization { LanguageCode = "en", Name = "Diamond" } } };
-		    yield return new RoofType { Localizations = new List<RoofTypeLocalization> { new RoofTypeLocalization { LanguageCode = "fr", Name = "Dôme" }, new RoofTypeLocalization { LanguageCode = "en", Name = "Dome" } } };
-		    yield return new RoofType { Localizations = new List<RoofTypeLocalization> { new RoofTypeLocalization { LanguageCode = "fr", Name = "Mansarde" }, new RoofTypeLocalization { LanguageCode = "en", Name = "Mansard" } } };
-		    yield return new RoofType { Localizations = new List<RoofTypeLocalization> { new RoofTypeLocalization { LanguageCode = "fr", Name = "Pente" }, new RoofTypeLocalization { LanguageCode = "en", Name = "Slope" } } };
-		    yield return new RoofType { Localizations = new List<RoofTypeLocalization> { new RoofTypeLocalization { LanguageCode = "fr", Name = "Plat" }, new RoofTypeLocalization { LanguageCode = "en", Name = "Flat" } } };
-		}
-
-	    private static IEnumerable<RoofMaterialType> GetInitialRoofMaterialType()
-	    {
-		    yield return new RoofMaterialType { Localizations = new List<RoofMaterialTypeLocalization> { new RoofMaterialTypeLocalization { LanguageCode = "fr", Name = "Bardeaux d'asphalte" }, new RoofMaterialTypeLocalization { LanguageCode = "en", Name = "Asphalt shingles" } } };
-		    yield return new RoofMaterialType { Localizations = new List<RoofMaterialTypeLocalization> { new RoofMaterialTypeLocalization { LanguageCode = "fr", Name = "Tôle" }, new RoofMaterialTypeLocalization { LanguageCode = "en", Name = "Sheet metal" } } };
-		    yield return new RoofMaterialType { Localizations = new List<RoofMaterialTypeLocalization> { new RoofMaterialTypeLocalization { LanguageCode = "fr", Name = "Tapis de goudron" }, new RoofMaterialTypeLocalization { LanguageCode = "en", Name = "Tar mat" } } };
-		    yield return new RoofMaterialType { Localizations = new List<RoofMaterialTypeLocalization> { new RoofMaterialTypeLocalization { LanguageCode = "fr", Name = "Puit de lumière" }, new RoofMaterialTypeLocalization { LanguageCode = "en", Name = "Skylight" } } };
-		    yield return new RoofMaterialType { Localizations = new List<RoofMaterialTypeLocalization> { new RoofMaterialTypeLocalization { LanguageCode = "fr", Name = "Bois" }, new RoofMaterialTypeLocalization { LanguageCode = "en", Name = "Wood" } } };
-		}
-
-	    private static IEnumerable<SidingType> GetInitialSidingType()
-	    {
-		    yield return new SidingType { Localizations = new List<SidingTypeLocalization> { new SidingTypeLocalization { LanguageCode = "fr", Name = "Brique" }, new SidingTypeLocalization { LanguageCode = "en", Name = "Brick" } } };
-		    yield return new SidingType { Localizations = new List<SidingTypeLocalization> { new SidingTypeLocalization { LanguageCode = "fr", Name = "Béton" }, new SidingTypeLocalization { LanguageCode = "en", Name = "Concrete" } } };
-		    yield return new SidingType { Localizations = new List<SidingTypeLocalization> { new SidingTypeLocalization { LanguageCode = "fr", Name = "Vinyle" }, new SidingTypeLocalization { LanguageCode = "en", Name = "Vinyl" } } };
-		    yield return new SidingType { Localizations = new List<SidingTypeLocalization> { new SidingTypeLocalization { LanguageCode = "fr", Name = "Bois" }, new SidingTypeLocalization { LanguageCode = "en", Name = "Wood" } } };
-		    yield return new SidingType { Localizations = new List<SidingTypeLocalization> { new SidingTypeLocalization { LanguageCode = "fr", Name = "Canexel" }, new SidingTypeLocalization { LanguageCode = "en", Name = "Canexel" } } };
-		    yield return new SidingType { Localizations = new List<SidingTypeLocalization> { new SidingTypeLocalization { LanguageCode = "fr", Name = "Pierre" }, new SidingTypeLocalization { LanguageCode = "en", Name = "Stone" } } };
-		    yield return new SidingType { Localizations = new List<SidingTypeLocalization> { new SidingTypeLocalization { LanguageCode = "fr", Name = "Stucco" }, new SidingTypeLocalization { LanguageCode = "en", Name = "Stucco" } } };
-		    yield return new SidingType { Localizations = new List<SidingTypeLocalization> { new SidingTypeLocalization { LanguageCode = "fr", Name = "Tôle" }, new SidingTypeLocalization { LanguageCode = "en", Name = "Sheet metal" } } };
-		    yield return new SidingType { Localizations = new List<SidingTypeLocalization> { new SidingTypeLocalization { LanguageCode = "fr", Name = "Bardeaux de cèdre" }, new SidingTypeLocalization { LanguageCode = "en", Name = "Cedar shingles" } } };
-		    yield return new SidingType { Localizations = new List<SidingTypeLocalization> { new SidingTypeLocalization { LanguageCode = "fr", Name = "Masonite" }, new SidingTypeLocalization { LanguageCode = "en", Name = "Masonite" } } };
-		}
-
-	    private static IEnumerable<SprinklerType> GetInitialSprinklerType()
-	    {
-		    yield return new SprinklerType { Localizations = new List<SprinklerTypeLocalization> { new SprinklerTypeLocalization { LanguageCode = "fr", Name = "Système sous eau" }, new SprinklerTypeLocalization { LanguageCode = "en", Name = "Wet pipe" } } };
-		    yield return new SprinklerType { Localizations = new List<SprinklerTypeLocalization> { new SprinklerTypeLocalization { LanguageCode = "fr", Name = "Système sous air" }, new SprinklerTypeLocalization { LanguageCode = "en", Name = "Dry pipe" } } };
-		    yield return new SprinklerType { Localizations = new List<SprinklerTypeLocalization> { new SprinklerTypeLocalization { LanguageCode = "fr", Name = "Pré action" }, new SprinklerTypeLocalization { LanguageCode = "en", Name = "Pre-Action" } } };
-		    yield return new SprinklerType { Localizations = new List<SprinklerTypeLocalization> { new SprinklerTypeLocalization { LanguageCode = "fr", Name = "Déluge" }, new SprinklerTypeLocalization { LanguageCode = "en", Name = "Deluge" } } };
-		    yield return new SprinklerType { Localizations = new List<SprinklerTypeLocalization> { new SprinklerTypeLocalization { LanguageCode = "fr", Name = "Mousse" }, new SprinklerTypeLocalization { LanguageCode = "en", Name = "Foam" } } };
-		    yield return new SprinklerType { Localizations = new List<SprinklerTypeLocalization> { new SprinklerTypeLocalization { LanguageCode = "fr", Name = "FM 200" }, new SprinklerTypeLocalization { LanguageCode = "en", Name = "FM 200" } } };
-		}
-
-	    private static IEnumerable<AlarmPanelType> GetInitialAlarmPanelType()
-	    {
-		    yield return new AlarmPanelType { Localizations = new List<AlarmPanelTypeLocalization> { new AlarmPanelTypeLocalization { LanguageCode = "fr", Name = "Intrusion" }, new AlarmPanelTypeLocalization { LanguageCode = "en", Name = "Intrusion" } } };
-		    yield return new AlarmPanelType { Localizations = new List<AlarmPanelTypeLocalization> { new AlarmPanelTypeLocalization { LanguageCode = "fr", Name = "Non zoné" }, new AlarmPanelTypeLocalization { LanguageCode = "en", Name = "Not zoned" } } };
-		    yield return new AlarmPanelType { Localizations = new List<AlarmPanelTypeLocalization> { new AlarmPanelTypeLocalization { LanguageCode = "fr", Name = "Zoné" }, new AlarmPanelTypeLocalization { LanguageCode = "en", Name = "Zoned" } } };
-		    yield return new AlarmPanelType { Localizations = new List<AlarmPanelTypeLocalization> { new AlarmPanelTypeLocalization { LanguageCode = "fr", Name = "Adressable" }, new AlarmPanelTypeLocalization { LanguageCode = "en", Name = "Adressable" } } };
-	    }
-
-	    private static IEnumerable<PersonRequiringAssistanceType> GetInitialPersonRequiringAssistanceType()
-	    {
-		    yield return new PersonRequiringAssistanceType { Localizations = new List<PersonRequiringAssistanceTypeLocalization> { new PersonRequiringAssistanceTypeLocalization { LanguageCode = "fr", Name = "Camp/Terrain de jeu" }, new PersonRequiringAssistanceTypeLocalization { LanguageCode = "en", Name = "Camp/playground" } } };
-		    yield return new PersonRequiringAssistanceType { Localizations = new List<PersonRequiringAssistanceTypeLocalization> { new PersonRequiringAssistanceTypeLocalization { LanguageCode = "fr", Name = "Personnes handicapées" }, new PersonRequiringAssistanceTypeLocalization { LanguageCode = "en", Name = "Handicapped person" } } };
-		    yield return new PersonRequiringAssistanceType { Localizations = new List<PersonRequiringAssistanceTypeLocalization> { new PersonRequiringAssistanceTypeLocalization { LanguageCode = "fr", Name = "Trouble vision" }, new PersonRequiringAssistanceTypeLocalization { LanguageCode = "en", Name = "Visually impaired" } } };
-		    yield return new PersonRequiringAssistanceType { Localizations = new List<PersonRequiringAssistanceTypeLocalization> { new PersonRequiringAssistanceTypeLocalization { LanguageCode = "fr", Name = "Surdité" }, new PersonRequiringAssistanceTypeLocalization { LanguageCode = "en", Name = "Deafness" } } };
-		    yield return new PersonRequiringAssistanceType { Localizations = new List<PersonRequiringAssistanceTypeLocalization> { new PersonRequiringAssistanceTypeLocalization { LanguageCode = "fr", Name = "Cognitif" }, new PersonRequiringAssistanceTypeLocalization { LanguageCode = "en", Name = "Cognitive" } } };
-		    yield return new PersonRequiringAssistanceType { Localizations = new List<PersonRequiringAssistanceTypeLocalization> { new PersonRequiringAssistanceTypeLocalization { LanguageCode = "fr", Name = "Autre" }, new PersonRequiringAssistanceTypeLocalization { LanguageCode = "en", Name = "Other" } } };
-		    yield return new PersonRequiringAssistanceType { Localizations = new List<PersonRequiringAssistanceTypeLocalization> { new PersonRequiringAssistanceTypeLocalization { LanguageCode = "fr", Name = "Centre médical" }, new PersonRequiringAssistanceTypeLocalization { LanguageCode = "en", Name = "Medical center" } } };
-		    yield return new PersonRequiringAssistanceType { Localizations = new List<PersonRequiringAssistanceTypeLocalization> { new PersonRequiringAssistanceTypeLocalization { LanguageCode = "fr", Name = "Déficients intellectuels" }, new PersonRequiringAssistanceTypeLocalization { LanguageCode = "en", Name = "Intellectual deficient" } } };
-		    yield return new PersonRequiringAssistanceType { Localizations = new List<PersonRequiringAssistanceTypeLocalization> { new PersonRequiringAssistanceTypeLocalization { LanguageCode = "fr", Name = "École" }, new PersonRequiringAssistanceTypeLocalization { LanguageCode = "en", Name = "School" } } };
-		    yield return new PersonRequiringAssistanceType { Localizations = new List<PersonRequiringAssistanceTypeLocalization> { new PersonRequiringAssistanceTypeLocalization { LanguageCode = "fr", Name = "Garderie" }, new PersonRequiringAssistanceTypeLocalization { LanguageCode = "en", Name = "Nursery" } } };
-		    yield return new PersonRequiringAssistanceType { Localizations = new List<PersonRequiringAssistanceTypeLocalization> { new PersonRequiringAssistanceTypeLocalization { LanguageCode = "fr", Name = "Malentendants" }, new PersonRequiringAssistanceTypeLocalization { LanguageCode = "en", Name = "Hard of hearing" } } };
-		    yield return new PersonRequiringAssistanceType { Localizations = new List<PersonRequiringAssistanceTypeLocalization> { new PersonRequiringAssistanceTypeLocalization { LanguageCode = "fr", Name = "Mobilité réduite" }, new PersonRequiringAssistanceTypeLocalization { LanguageCode = "en", Name = "Reduced mobility" } } };
-		    yield return new PersonRequiringAssistanceType { Localizations = new List<PersonRequiringAssistanceTypeLocalization> { new PersonRequiringAssistanceTypeLocalization { LanguageCode = "fr", Name = "Non-voyants" }, new PersonRequiringAssistanceTypeLocalization { LanguageCode = "en", Name = "Blind" } } };
-		    yield return new PersonRequiringAssistanceType { Localizations = new List<PersonRequiringAssistanceTypeLocalization> { new PersonRequiringAssistanceTypeLocalization { LanguageCode = "fr", Name = "Personnes agées" }, new PersonRequiringAssistanceTypeLocalization { LanguageCode = "en", Name = "Elderly" } } };
-		}
-
-	    private static IEnumerable<FireHydrantConnectionType> GetInitialFireHydrantConnectionType()
-	    {
-		    yield return new FireHydrantConnectionType { Localizations = new List<FireHydrantConnectionTypeLocalization> { new FireHydrantConnectionTypeLocalization { LanguageCode = "fr", Name = "Fileté" }, new FireHydrantConnectionTypeLocalization { LanguageCode = "en", Name = "Threaded" } } };
-		    yield return new FireHydrantConnectionType { Localizations = new List<FireHydrantConnectionTypeLocalization> { new FireHydrantConnectionTypeLocalization { LanguageCode = "fr", Name = "Storz" }, new FireHydrantConnectionTypeLocalization { LanguageCode = "en", Name = "Storz" } } };
-	    }
-
-	    private static IEnumerable<FireHydrantType> GetInitialFireHydrantType()
-	    {
-		    yield return new FireHydrantType { Localizations = new List<FireHydrantTypeLocalization> { new FireHydrantTypeLocalization { LanguageCode = "fr", Name = "Sèche" }, new FireHydrantTypeLocalization { LanguageCode = "en", Name = "Dry" } } };
-		    yield return new FireHydrantType { Localizations = new List<FireHydrantTypeLocalization> { new FireHydrantTypeLocalization { LanguageCode = "fr", Name = "Fontaine" }, new FireHydrantTypeLocalization { LanguageCode = "en", Name = "Fountain" } } };
-		    yield return new FireHydrantType { Localizations = new List<FireHydrantTypeLocalization> { new FireHydrantTypeLocalization { LanguageCode = "fr", Name = "Citerne" }, new FireHydrantTypeLocalization { LanguageCode = "en", Name = "Tank" } } };
-		    yield return new FireHydrantType { Localizations = new List<FireHydrantTypeLocalization> { new FireHydrantTypeLocalization { LanguageCode = "fr", Name = "Borne fontaine" }, new FireHydrantTypeLocalization { LanguageCode = "en", Name = "Fire hydrant" } } };
-		    yield return new FireHydrantType { Localizations = new List<FireHydrantTypeLocalization> { new FireHydrantTypeLocalization { LanguageCode = "fr", Name = "Point d'eau" }, new FireHydrantTypeLocalization { LanguageCode = "en", Name = "Water point" } } };
-		    yield return new FireHydrantType { Localizations = new List<FireHydrantTypeLocalization> { new FireHydrantTypeLocalization { LanguageCode = "fr", Name = "Borne sèche" }, new FireHydrantTypeLocalization { LanguageCode = "en", Name = "Dry fire hydrant" } } };
-		    yield return new FireHydrantType { Localizations = new List<FireHydrantTypeLocalization> { new FireHydrantTypeLocalization { LanguageCode = "fr", Name = "Statique" }, new FireHydrantTypeLocalization { LanguageCode = "en", Name = "Static" } } };
-		}
-
-		private static IEnumerable<OperatorType> GetInitialOperatorTypes()
+		private static void SeedInitialConstructionType(ModelBuilder builder)
 		{
-			yield return new OperatorType { Symbol = "=" };
-			yield return new OperatorType { Symbol = ">" };
-			yield return new OperatorType { Symbol = ">=" };
-			yield return new OperatorType { Symbol = "<" };
-			yield return new OperatorType { Symbol = "<=" };
+			SeedConstructionType(builder, "Ossature de bois avec solives préfabriquées", "Wood frame and prefabricated joists");
+			SeedConstructionType(builder, "Gros bois d'oeuvre", "Lumber");
+			SeedConstructionType(builder, "Mur porteur en maçonnerie avec mur solives en bois solides", "Masonry bearing wall and solid wood joists");
+			SeedConstructionType(builder, "Mur porteur en maçonnerie et solives préfabriquées", "Masonry bearing wall and prefabricated joists");
+			SeedConstructionType(builder, "Mur porteur en maçonnerie et solives en aciers ou dalle de béton", "Masonry bearing wall and steel joists or concrete slab");
+			SeedConstructionType(builder, "Acier avec solives en acier protégées", "Steel with protected steel joists");
+			SeedConstructionType(builder, "Acier avec solives en acier non protégées", "Steel with unprotected steel joists");
+			SeedConstructionType(builder, "Béton", "Concrete");
+			SeedConstructionType(builder, "Autre type", "Other");
+			SeedConstructionType(builder, "Indéterminé", "Undetermined");
 		}
 
-	    private static IEnumerable<UnitOfMeasure> GetInitialDataForMeasuringUnit()
-	    {
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Rate, Abbreviation = "GIPM", Localizations = new List<UnitOfMeasureLocalization> {new UnitOfMeasureLocalization {Name = "GIPM", LanguageCode = "fr"}, new UnitOfMeasureLocalization {Name = "GIPM", LanguageCode = "en" } }};
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Rate, Abbreviation = "GPM", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "GPM", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "GPM", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Rate, Abbreviation = "LPM", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "LPM", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "LPM", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Rate, Abbreviation = "GI", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "GI", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "GI", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Rate, Abbreviation = "G", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "G", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "G", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Rate, Abbreviation = "L", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "L", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "L", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Rate, Abbreviation = "", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Indéterminé", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "Unknown", LanguageCode = "en" } } };
-
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Pressure, Abbreviation = "PSI", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "PSI", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "PSI", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Pressure, Abbreviation = "KPA", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "KPA", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "KPA", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Pressure, Abbreviation = "m3/h", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "m3/h", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "m3/h", LanguageCode = "en" } } };
-
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Diameter, Abbreviation = "mm", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Millimètres", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "Millimeters", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Diameter, Abbreviation = "po", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Pouces", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "Inches", LanguageCode = "en" } } };
-
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Dimension, Abbreviation = "m", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Mètres", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "Meters", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Dimension, Abbreviation = "pi", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Pieds", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "Feet", LanguageCode = "en" } } };
-
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Capacity, Abbreviation = "m3", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Mètres cubes", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "Cubic meters", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Capacity, Abbreviation = "po3", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Pouces cubes", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "Cubic inches", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Capacity, Abbreviation = "ml", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Millilitres", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "Millilitre", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Capacity, Abbreviation = "pt", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Pintes", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "Pints", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Capacity, Abbreviation = "t", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Tonnes", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "Tons", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Capacity, Abbreviation = "sh tn", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Tonnes US", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "US tons", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Capacity, Abbreviation = "pi3", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Pieds cubes", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "Cubic feet", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Capacity, Abbreviation = "GI", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Gallons impériaux", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "Imperial gallons", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Capacity, Abbreviation = "", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Aucune", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "None", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Capacity, Abbreviation = "G", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Gallons US", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "US gallons", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Capacity, Abbreviation = "g", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Grammes", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "Grams", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Capacity, Abbreviation = "Kg", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Kilos", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "Kilos", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Capacity, Abbreviation = "L", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Litres", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "Litres", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Capacity, Abbreviation = "lb", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Livres", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "Pounds", LanguageCode = "en" } } };
-		    yield return new UnitOfMeasure { MeasureType = MeasureType.Capacity, Abbreviation = "oz", Localizations = new List<UnitOfMeasureLocalization> { new UnitOfMeasureLocalization { Name = "Onces", LanguageCode = "fr" }, new UnitOfMeasureLocalization { Name = "Onces", LanguageCode = "en" } } };
+		private static void SeedConstructionType(ModelBuilder builder, string french, string english)
+		{
+			var type = new ConstructionType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
+			var frenchLocalization = new ConstructionTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new ConstructionTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			builder.Entity<ConstructionType>().HasData(type);
+			builder.Entity<ConstructionTypeLocalization>().HasData(frenchLocalization, englishLocalization);
 		}
-    }
+
+		private static void SeedInitialBuildingType(ModelBuilder builder)
+		{
+			SeedBuildingType(builder, "Attaché", "Attached");
+			SeedBuildingType(builder, "Détaché", "Detached");
+			SeedBuildingType(builder, "Jumelé", "Semi-detached");
+			SeedBuildingType(builder, "Autre", "Other");
+		}
+
+		private static void SeedBuildingType(ModelBuilder builder, string french, string english)
+		{
+			var type = new BuildingType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
+			var frenchLocalization = new BuildingTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new BuildingTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			builder.Entity<BuildingType>().HasData(type);
+			builder.Entity<BuildingTypeLocalization>().HasData(frenchLocalization, englishLocalization);
+		}
+
+		private static void SeedInitialRoofType(ModelBuilder builder)
+		{
+			SeedRoofType(builder, "1 versant", "1 slope");
+			SeedRoofType(builder, "2 versants", "2 slopes");
+			SeedRoofType(builder, "4 versants", "3 slopes");
+			SeedRoofType(builder, "Cône français", "French cone");
+			SeedRoofType(builder, "Diamant", "Diamond");
+			SeedRoofType(builder, "Dôme", "Dome");
+			SeedRoofType(builder, "Mansarde", "Mansard");
+			SeedRoofType(builder, "Pente", "Slope");
+			SeedRoofType(builder, "Plat", "Flat");
+		}
+
+		private static void SeedRoofType(ModelBuilder builder, string french, string english)
+		{
+			var type = new RoofType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
+			var frenchLocalization = new RoofTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new RoofTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			builder.Entity<RoofType>().HasData(type);
+			builder.Entity<RoofTypeLocalization>().HasData(frenchLocalization, englishLocalization);
+		}
+
+		private static void SeedInitialRoofMaterialType(ModelBuilder builder)
+		{
+			SeedRoofMaterialType(builder, "Bardeaux d'asphalte", "Asphalt shingles");
+			SeedRoofMaterialType(builder, "Tôle", "Sheet metal");
+			SeedRoofMaterialType(builder, "Tapis de goudron", "Tar mat");
+			SeedRoofMaterialType(builder, "Puit de lumière", "Skylight");
+			SeedRoofMaterialType(builder, "Bois", "Wood");
+		}
+
+		private static void SeedRoofMaterialType(ModelBuilder builder, string french, string english)
+		{
+			var type = new RoofMaterialType {Id = GuidExtensions.GetGuid(), CreatedOn = Now};
+			var frenchLocalization = new RoofMaterialTypeLocalization {Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now};
+			var englishLocalization = new RoofMaterialTypeLocalization {Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now};
+			builder.Entity<RoofMaterialType>().HasData(type);
+			builder.Entity<RoofMaterialTypeLocalization>().HasData(frenchLocalization, englishLocalization);
+		}
+
+		private static void SeedInitialSidingType(ModelBuilder builder)
+		{					
+			SeedSidingType(builder,"Brique", "Brick");
+			SeedSidingType(builder,"Béton", "Concrete");
+			SeedSidingType(builder,"Vinyle", "Vinyl");
+			SeedSidingType(builder,"Bois", "Wood");
+			SeedSidingType(builder,"Canexel", "Canexel");
+			SeedSidingType(builder,"Pierre", "Stone");
+			SeedSidingType(builder,"Stucco", "Stucco");
+			SeedSidingType(builder,"Tôle", "Sheet metal");
+			SeedSidingType(builder,"Bardeaux de cèdre", "Cedar shingles");
+			SeedSidingType(builder,"Masonite", "Masonite");
+		}
+
+		private static void SeedSidingType(ModelBuilder builder, string french, string english)
+		{
+			var type = new SidingType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
+			var frenchLocalization = new SidingTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new SidingTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			builder.Entity<SidingType>().HasData(type);
+			builder.Entity<SidingTypeLocalization>().HasData(frenchLocalization, englishLocalization);
+		}
+
+		private static void SeedInitialSprinklerType(ModelBuilder builder)
+		{
+			SeedSprinklerType(builder, "Système sous eau", "Wet pipe");
+			SeedSprinklerType(builder, "Système sous air", "Dry pipe");
+			SeedSprinklerType(builder, "Pré action", "Pre-Action");
+			SeedSprinklerType(builder, "Déluge", "Deluge");
+			SeedSprinklerType(builder, "Mousse", "Foam");
+			SeedSprinklerType(builder, "FM 200", "FM 200");
+		}
+
+		private static void SeedSprinklerType(ModelBuilder builder, string french, string english)
+		{
+			var type = new SprinklerType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
+			var frenchLocalization = new SprinklerTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new SprinklerTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			builder.Entity<SprinklerType>().HasData(type);
+			builder.Entity<SprinklerTypeLocalization>().HasData(frenchLocalization, englishLocalization);
+		}
+
+		private static void SeedInitialAlarmPanelType(ModelBuilder builder)
+		{
+			SeedAlarmPanelType(builder, "Intrusion","Intrusion");
+			SeedAlarmPanelType(builder, "Non zoné", "Not zoned");
+			SeedAlarmPanelType(builder, "Zoné", "Zoned");
+			SeedAlarmPanelType(builder, "Adressable", "Adressable");
+		}
+
+		private static void SeedAlarmPanelType(ModelBuilder builder, string french, string english)
+		{
+			var type = new AlarmPanelType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
+			var frenchLocalization = new AlarmPanelTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new AlarmPanelTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			builder.Entity<AlarmPanelType>().HasData(type);
+			builder.Entity<AlarmPanelTypeLocalization>().HasData(frenchLocalization, englishLocalization);
+		}
+
+		private static void SeedInitialPersonRequiringAssistanceType(ModelBuilder builder)
+		{
+			SeedPersonRequiringAssistanceType(builder, "Camp/Terrain de jeu", "Camp/playground");
+			SeedPersonRequiringAssistanceType(builder,"Personnes handicapées", "Handicapped person");
+			SeedPersonRequiringAssistanceType(builder,"Trouble vision", "Visually impaired");
+			SeedPersonRequiringAssistanceType(builder,"Surdité", "Deafness");
+			SeedPersonRequiringAssistanceType(builder,"Cognitif", "Cognitive");
+			SeedPersonRequiringAssistanceType(builder,"Autre", "Other");
+			SeedPersonRequiringAssistanceType(builder,"Centre médical", "Medical center");
+			SeedPersonRequiringAssistanceType(builder,"Déficients intellectuels", "Intellectual deficient");
+			SeedPersonRequiringAssistanceType(builder,"École", "School");
+			SeedPersonRequiringAssistanceType(builder,"Garderie", "Nursery");
+			SeedPersonRequiringAssistanceType(builder,"Malentendants", "Hard of hearing");
+			SeedPersonRequiringAssistanceType(builder,"Mobilité réduite", "Reduced mobility");
+			SeedPersonRequiringAssistanceType(builder,"Non-voyants", "Blind");
+			SeedPersonRequiringAssistanceType(builder,"Personnes agées", "Elderly");
+		}
+
+		private static void SeedPersonRequiringAssistanceType(ModelBuilder builder, string french, string english)
+		{
+			var type = new PersonRequiringAssistanceType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
+			var frenchLocalization = new PersonRequiringAssistanceTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new PersonRequiringAssistanceTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			builder.Entity<PersonRequiringAssistanceType>().HasData(type);
+			builder.Entity<PersonRequiringAssistanceTypeLocalization>().HasData(frenchLocalization, englishLocalization);
+		}
+
+		private static void SeedInitialFireHydrantConnectionType(ModelBuilder builder)
+		{
+			SeedFireHydrantConnectionType(builder, "Fileté", "Threaded");
+			SeedFireHydrantConnectionType(builder, "Storz", "Storz");
+		}
+
+		private static void SeedFireHydrantConnectionType(ModelBuilder builder, string french, string english)
+		{
+			var type = new FireHydrantConnectionType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
+			var frenchLocalization = new FireHydrantConnectionTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new FireHydrantConnectionTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			builder.Entity<FireHydrantConnectionType>().HasData(type);
+			builder.Entity<FireHydrantConnectionTypeLocalization>().HasData(frenchLocalization, englishLocalization);
+		}
+
+		private static void SeedInitialFireHydrantType(ModelBuilder builder)
+		{
+			SeedFireHydrantType(builder, "Sèche", "Dry");
+			SeedFireHydrantType(builder, "Fontaine", "Fountain");
+			SeedFireHydrantType(builder, "Citerne", "Tank");
+			SeedFireHydrantType(builder, "Borne fontaine", "Fire hydrant");
+			SeedFireHydrantType(builder, "Point d'eau", "Water point");
+			SeedFireHydrantType(builder, "Borne sèche", "Dry fire hydrant");
+			SeedFireHydrantType(builder, "Statique", "Static");
+		}
+
+		private static void SeedFireHydrantType(ModelBuilder builder, string french, string english)
+		{
+			var type = new FireHydrantType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
+			var frenchLocalization = new FireHydrantTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new FireHydrantTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			builder.Entity<FireHydrantType>().HasData(type);
+			builder.Entity<FireHydrantTypeLocalization>().HasData(frenchLocalization, englishLocalization);
+		}
+
+		private static void SeedInitialOperatorTypes(ModelBuilder builder)
+		{
+			SeedOperatorType(builder, "=");
+			SeedOperatorType(builder, ">");
+			SeedOperatorType(builder, ">=");
+			SeedOperatorType(builder, "<");
+			SeedOperatorType(builder, "<=");
+		}
+
+		private static void SeedOperatorType(ModelBuilder builder, string value)
+		{
+			var type = new OperatorType { Id = GuidExtensions.GetGuid(), CreatedOn = Now, Symbol = value };
+			builder.Entity<OperatorType>().HasData(type);
+		}
+
+		private static void SeedInitialDataForMeasuringUnit(ModelBuilder builder)
+		{
+			SeedUnitOfMeasure(builder, "GIPM", "GIPM", "GIPM");
+			SeedUnitOfMeasure(builder, "GPM", "GPM", "GPM");
+			SeedUnitOfMeasure(builder, "LPM", "LPM", "LPM");
+			SeedUnitOfMeasure(builder, "GI", "GI", "GI");
+			SeedUnitOfMeasure(builder, "G", "G", "G");
+			SeedUnitOfMeasure(builder, "L", "L", "L");
+			SeedUnitOfMeasure(builder, "", "Indéterminé", "Unknown");
+
+			SeedUnitOfMeasure(builder, "PSI", "PSI", "PSI");
+			SeedUnitOfMeasure(builder, "KPA", "KPA", "KPA");
+			SeedUnitOfMeasure(builder, "m3/h", "m3/h", "m3/h");
+
+			SeedUnitOfMeasure(builder, "mm", "Millimètres", "Millimeters");
+			SeedUnitOfMeasure(builder, "po", "Pouces", "Inches");
+
+			SeedUnitOfMeasure(builder, "m", "Mètres", "Meters");
+			SeedUnitOfMeasure(builder, "pi", "Pieds", "Feet");
+
+			SeedUnitOfMeasure(builder, "m3", "Mètres cubes", "Cubic meters");
+			SeedUnitOfMeasure(builder, "po3", "Pouces cubes", "Cubic inches");
+			SeedUnitOfMeasure(builder, "ml", "Millilitres", "Millilitre");
+			SeedUnitOfMeasure(builder, "pt", "Pintes", "Pints");
+			SeedUnitOfMeasure(builder, "t", "Tonnes", "Tons");
+			SeedUnitOfMeasure(builder, "sh tn", "Tonnes US", "US tons");
+			SeedUnitOfMeasure(builder, "pi3", "Pieds cubes", "Cubic feet");
+			SeedUnitOfMeasure(builder, "GI", "Gallons impériaux", "Imperial gallons");
+			SeedUnitOfMeasure(builder, "", "Aucune", "None");
+			SeedUnitOfMeasure(builder, "G", "Gallons US", "US gallons");
+			SeedUnitOfMeasure(builder, "g", "Grammes", "Grams");
+			SeedUnitOfMeasure(builder, "Kg", "Kilos", "Kilos");
+			SeedUnitOfMeasure(builder, "L", "Litres", "Litres");
+			SeedUnitOfMeasure(builder, "lb", "Livres", "Pounds");
+			SeedUnitOfMeasure(builder, "oz", "Onces", "Onces");
+		}
+
+		private static void SeedUnitOfMeasure(ModelBuilder builder, string abbreviation, string french, string english)
+		{
+			var type = new UnitOfMeasure { Id = GuidExtensions.GetGuid(), CreatedOn = Now, Abbreviation = abbreviation };
+			var frenchLocalization = new UnitOfMeasureLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new UnitOfMeasureLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			builder.Entity<UnitOfMeasure>().HasData(type);
+			builder.Entity<RoofMaterialTypeLocalization>().HasData(frenchLocalization, englishLocalization);
+		}
+	}
 }
