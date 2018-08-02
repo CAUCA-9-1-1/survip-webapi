@@ -13,7 +13,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 				Id = idUser,
 				Username = "admin",
 				Password = "EDDDFC93F0EBE76F4F79D9C83C298D1126F7F3A01259637AD028607D364FD247",
-				CreatedOn = DateTime.Now,
+				CreatedOn = new DateTime(2018, 6, 1),
 			};
 
 			var attributes = new []
