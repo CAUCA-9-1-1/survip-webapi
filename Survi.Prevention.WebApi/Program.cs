@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Survi.Prevention.DataLayer;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 
@@ -13,19 +11,8 @@ namespace Survi.Prevention.WebApi
         {
 	        var host = CreateWebHostBuilding(args)
 		        .Build();
-
-#if CREATEDB
-			using (var scope = host.Services.CreateScope())
-			{
-				var services = scope.ServiceProvider;
-				var context = services.GetRequiredService<ManagementContext>();
-				ManagementContextInitializer.Initialize(context);
-			}
-#endif
-
 			host.Run();
         }
-
 
 	    public static IWebHostBuilder CreateWebHostBuilding(string[] args)
 	    {

@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Survi.Prevention.ServiceLay
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Survi.Prevention.WebApi", "Survi.Prevention.WebApi\Survi.Prevention.WebApi.csproj", "{B4337F7C-5FEB-4500-AF5D-E0FE559A4DE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Survi.Prevention.ServiceLayer.Tests", "Survi.Prevention.ServiceLayer.Tests\Survi.Prevention.ServiceLayer.Tests.csproj", "{44D59C08-4708-49F3-875C-5C161D4B594A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Survi.Prevention.ServiceLayer.Tests", "Survi.Prevention.ServiceLayer.Tests\Survi.Prevention.ServiceLayer.Tests.csproj", "{44D59C08-4708-49F3-875C-5C161D4B594A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Survi.Prevention.Migrations", "Survi.Prevention.Migrations\Survi.Prevention.Migrations.csproj", "{26BADFF8-8B4B-4987-AE1D-06521C5CE081}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +52,12 @@ Global
 		{44D59C08-4708-49F3-875C-5C161D4B594A}.Initialize|Any CPU.Build.0 = Debug|Any CPU
 		{44D59C08-4708-49F3-875C-5C161D4B594A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44D59C08-4708-49F3-875C-5C161D4B594A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26BADFF8-8B4B-4987-AE1D-06521C5CE081}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26BADFF8-8B4B-4987-AE1D-06521C5CE081}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26BADFF8-8B4B-4987-AE1D-06521C5CE081}.Initialize|Any CPU.ActiveCfg = Debug|Any CPU
+		{26BADFF8-8B4B-4987-AE1D-06521C5CE081}.Initialize|Any CPU.Build.0 = Debug|Any CPU
+		{26BADFF8-8B4B-4987-AE1D-06521C5CE081}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26BADFF8-8B4B-4987-AE1D-06521C5CE081}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

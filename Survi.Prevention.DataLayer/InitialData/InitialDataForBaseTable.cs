@@ -1,27 +1,45 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.FireHydrants;
+using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.Models.SecurityManagement;
 
 namespace Survi.Prevention.DataLayer.InitialData
 {
     public static class InitialDataForBaseTable
     {
-		public static void AddInitialData(this ManagementContext context)
+		public static void SeedInitialData(this ModelBuilder builder)
 		{
-			context.ConstructionTypes.AddRange(GetInitialConstructionTypes());
-			context.BuildingTypes.AddRange(GetInitialBuildingType());
-			context.RoofTypes.AddRange(GetInitialRoofType());
-			context.RoofMaterialTypes.AddRange(GetInitialRoofMaterialType());
-			context.SidingTypes.AddRange(GetInitialSidingType());
-			context.SprinklerTypes.AddRange(GetInitialSprinklerType());
-			context.AlarmPanelTypes.AddRange(GetInitialAlarmPanelType());
-			context.PersonRequiringAssistanceTypes.AddRange(GetInitialPersonRequiringAssistanceType());
-			context.FireHydrantConnectionTypes.AddRange(GetInitialFireHydrantConnectionType());
-			context.FireHydrantTypes.AddRange(GetInitialFireHydrantType());
-			context.OperatorTypes.AddRange(GetInitialOperatorTypes());
-			context.ConstructionFireResistanceTypes.AddRange(GetInitialFireResistanceType());
-			context.UnitOfMeasures.AddRange(GetInitialDataForMeasuringUnit());
+			var data = GetInitialConstructionTypes();
+			builder.Entity<ConstructionType>().HasData(data);
+			/*builder.Entity<BuildingType>().HasData(GetInitialBuildingType());
+			builder.Entity<RoofType>().HasData(GetInitialRoofType());
+
+			builder.Entity<RoofType>().HasData(GetInitialRoofMaterialType());
+			builder.Entity<SidingType>().HasData(GetInitialSidingType());
+			builder.Entity<SprinklerType>().HasData(GetInitialSprinklerType());
+			builder.Entity<AlarmPanelType>().HasData(GetInitialAlarmPanelType());
+			builder.Entity<PersonRequiringAssistanceType>().HasData(GetInitialPersonRequiringAssistanceType());
+			builder.Entity<FireHydrantConnectionType>().HasData(GetInitialFireHydrantConnectionType());
+			builder.Entity<FireHydrantType>().HasData(GetInitialFireHydrantType());
+			builder.Entity<OperatorType>().HasData(GetInitialOperatorTypes());
+			builder.Entity<ConstructionFireResistanceType>().HasData(GetInitialFireResistanceType());
+			builder.Entity<UnitOfMeasure>().HasData(GetInitialDataForMeasuringUnit());
+			builder.Entity<LaneGenericCode>().HasData(InitialLaneGenericCodesGenerator.GetInitialData());
+			builder.Entity<LanePublicCode>().HasData(InitialLanePublicCodesGenerator.GetInitialData());
+			var users = InitialUserGenerator.GetInitialData();
+			builder.Entity<Webuser>().HasData(users);
+			builder.Entity<PermissionSystem>().HasData(InitialPermissionGenerator.GetInitialData(users.First().Id));
+			builder.Entity<RiskLevel>().HasData(InitialRiskLevelGenerator.GetInitialData());	*/
+		}
+
+		public static void SeedInitialDataForDevelopment(this ModelBuilder builder)
+		{
+			/*builder.Entity<Country>().HasData(InitialDataForCauca.GetInitialGeographicData());
+			builder.Entity<CityType>().HasData(InitialDataForCauca.GetInitialCityTypes());*/
 		}
 
 		private static IEnumerable<ConstructionFireResistanceType> GetInitialFireResistanceType()
@@ -33,19 +51,31 @@ namespace Survi.Prevention.DataLayer.InitialData
 			yield return new ConstructionFireResistanceType { Localizations = new List<ConstructionFireResistanceTypeLocalization> { new ConstructionFireResistanceTypeLocalization { LanguageCode = "fr", Name = "Hybride" }, new ConstructionFireResistanceTypeLocalization { LanguageCode = "en", Name = "Hybrid" } } };
 		}
 
-	    private static IEnumerable<ConstructionType> GetInitialConstructionTypes()
+	    private static ConstructionType[] GetInitialConstructionTypes()
 	    {
-		    yield return new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Ossature de bois avec solives en bois solide"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Wood frame with solid wood joists"}}};
-		    yield return new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Ossature de bois avec solives préfabriquées"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Wood frame and prefabricated joists"}}};
-		    yield return new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Gros bois d'oeuvre"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Lumber"}}};
-		    yield return new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Mur porteur en maçonnerie avec mur solives en bois solides"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Masonry bearing wall and solid wood joists"}}};
-		    yield return new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Mur porteur en maçonnerie et solives préfabriquées" }, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Masonry bearing wall and prefabricated joists"}}};
-		    yield return new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Mur porteur en maçonnerie et solives en aciers ou dalle de béton" }, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Masonry bearing wall and steel joists or concrete slab"}}};
-		    yield return new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Acier avec solives en acier protégées" }, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Steel with protected steel joists"}}};
-		    yield return new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Acier avec solives en acier non protégées" }, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Steel with unprotected steel joists"}}};
-		    yield return new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Béton"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Concrete"}}};
-		    yield return new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Autre type"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Other"}}};
-		    yield return new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Indéterminé"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Undetermined"}}};
+		    var types = new[]
+		    {
+			    new ConstructionType {/*Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Ossature de bois avec solives en bois solide"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Wood frame with solid wood joists"}}*/},
+			    /*new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Ossature de bois avec solives préfabriquées"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Wood frame and prefabricated joists"}}},
+			    new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Gros bois d'oeuvre"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Lumber"}}},
+			    new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Mur porteur en maçonnerie avec mur solives en bois solides"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Masonry bearing wall and solid wood joists"}}},
+			    new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Mur porteur en maçonnerie et solives préfabriquées" }, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Masonry bearing wall and prefabricated joists"}}},
+			    new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Mur porteur en maçonnerie et solives en aciers ou dalle de béton" }, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Masonry bearing wall and steel joists or concrete slab"}}},
+			    new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Acier avec solives en acier protégées" }, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Steel with protected steel joists"}}},
+			    new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Acier avec solives en acier non protégées" }, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Steel with unprotected steel joists"}}},
+			    new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Béton"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Concrete"}}},
+			    new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Autre type"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Other"}}},
+			    new ConstructionType {Localizations = new List<ConstructionTypeLocalization> {new ConstructionTypeLocalization {LanguageCode = "fr", Name = "Indéterminé"}, new ConstructionTypeLocalization {LanguageCode = "en", Name = "Undetermined"}}}*/
+		    };
+
+			/*foreach (var type in types)
+		    foreach (var localization in type.Localizations)
+		    {
+			    localization.Parent = type;
+			    localization.IdParent = type.Id;
+		    }*/
+
+		    return types;
 	    }
 
 	    private static IEnumerable<BuildingType> GetInitialBuildingType()

@@ -1,4 +1,6 @@
+using System;
 using Microsoft.EntityFrameworkCore;
+using Survi.Prevention.DataLayer.InitialData;
 using Survi.Prevention.Models;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
@@ -94,12 +96,13 @@ namespace Survi.Prevention.DataLayer
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			base.OnConfiguring(optionsBuilder);
-			optionsBuilder.EnableSensitiveDataLogging();
+			optionsBuilder.EnableSensitiveDataLogging();			
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.HasPostgresExtension("uuid-ossp");
+			modelBuilder.HasPostgresExtension("postgis");
 			modelBuilder.UseAutoSnakeCaseMapping();
 			this.UseAutoDetectedMappings(modelBuilder);
 			modelBuilder.Query<BuildingWithoutInspection>()
@@ -110,6 +113,7 @@ namespace Survi.Prevention.DataLayer
 				.ToView("building_with_ready_for_approbation_inspection");
 			modelBuilder.Query<InspectionCompleted>()
 				.ToView("building_with_completed_inspection");
+			modelBuilder.SeedInitialData();			
 		}
 	}
 }

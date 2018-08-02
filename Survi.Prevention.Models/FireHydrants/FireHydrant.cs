@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using NpgsqlTypes;
 using Survi.Prevention.Models.Base;
 using Survi.Prevention.Models.FireSafetyDepartments;
@@ -17,7 +18,7 @@ namespace Survi.Prevention.Models.FireHydrants
 	public class FireHydrant : BaseModel
 	{
 		public FireHydrantLocationType LocationType { get; set; }
-		public /*PostgisGeometry*/string Coordinates { get; set; }
+		public NetTopologySuite.Geometries.Point Coordinates { get; set; }
 		public decimal Altitude { get; set; }
 		public string Number { get; set; }
 		public string RateFrom { get; set; }

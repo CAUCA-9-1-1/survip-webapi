@@ -86,12 +86,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 				}).ToList();
 		}
 
-		private string GetFireHydrantAddress(FireHydrantLocationType type, Guid? idLane, Guid? idIntersection, string physicalPosition, string coordinate, string languageCode)
+		private string GetFireHydrantAddress(FireHydrantLocationType type, Guid? idLane, Guid? idIntersection, string physicalPosition, NetTopologySuite.Geometries.Point coordinate, string languageCode)
 		{
 			if (type == FireHydrantLocationType.Text)
 				return physicalPosition;
 			if (type == FireHydrantLocationType.Coordinates)
-				return coordinate;
+			{
+				if (!coordinate.IsEmpty && coordinate.IsValid)
+					return $"{coordinate.ToText()}";
+			}
 			if (type == FireHydrantLocationType.LaneAndIntersection)
 			{
 				return new AddressGeneratorWithDb().GenerateAddressFromLanes(Context, idLane, idIntersection, languageCode);
