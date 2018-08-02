@@ -2,10 +2,20 @@
 
 These are two of the ways to correctly run the migration dotnet cli:
 
-Using the Package Manager Console :
-1. Select Survi.Prevention.DataLayer as your Defautl project.
+Using the Package Manager Console (the easiest way) :
+1. Select Survi.Prevention.DataLayer as your Default project.
 2. Go to the Survi.Prevention.DataLayer folder.
-3. You can now run your command (ex: dotnet ef migrations add CreateDatabase)
+3. You can now run your command.
+
+These are some of the available command :
+* Add-Migration <name> --> Add a new migration on top of the previous one (or add the first one).
+* Remove-Migration --> Remove previous migration.
+* Drop-Database --> Delete current database (use cautiously!)
+* Update-Database <version> --> Update the database to the latest version or create it if it doesn't exist.  The version is optional.
+
+*** Note that Update-Database can be use to revert to a previous version.
+
+---------------------------------------------------------------------------------
 
 Using a windows command prompt:
 1. Go to the Survi.Prevention.DataLayer's folder.
