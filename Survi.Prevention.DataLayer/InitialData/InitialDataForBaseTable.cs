@@ -323,7 +323,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 			var frenchLocalization = new UnitOfMeasureLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
 			var englishLocalization = new UnitOfMeasureLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
 			builder.Entity<UnitOfMeasure>().HasData(type);
-			builder.Entity<RoofMaterialTypeLocalization>().HasData(frenchLocalization, englishLocalization);
+			builder.Entity<UnitOfMeasureLocalization>().HasData(frenchLocalization, englishLocalization);
 		}
 	}
 }
