@@ -2314,16 +2314,16 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "created_on", "is_active" },
                 values: new object[,]
                 {
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721781"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72177e"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721787"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721784"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72177e"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72177b"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721781"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721775"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721772"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721778"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72176f"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72176b"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721778"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72176b"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true }
                 });
 
             migrationBuilder.InsertData(
@@ -2340,13 +2340,13 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "created_on", "is_active" },
                 values: new object[,]
                 {
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721862"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72185f"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72185c"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721859"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721856"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721850"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721853"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721850"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721856"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721859"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72185c"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72185f"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721862"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true }
                 });
 
             migrationBuilder.InsertData(
@@ -2354,24 +2354,24 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "add_white_space_after", "code", "description", "is_active" },
                 values: new object[,]
                 {
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218e3"), true, "Q", "LES", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218d3"), false, "A", "", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218d4"), true, "B", "À", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218d5"), false, "C", "À L'", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218d6"), true, "D", "À LA", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218d7"), true, "E", "AU", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218d8"), true, "F", "AUX", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218d9"), true, "G", "CHEZ", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218da"), false, "H", "D'", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218db"), true, "I", "DE", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218dc"), false, "J", "DE L'", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218dd"), true, "K", "DE LA", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218de"), true, "L", "DES", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218df"), true, "M", "DU", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218e0"), false, "N", "L'", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218e1"), true, "O", "LA", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218e2"), true, "P", "LE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218da"), false, "H", "D'", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218d7"), true, "E", "AU", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218e4"), true, "R", "THE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218d5"), false, "C", "À L'", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218d4"), true, "B", "À", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218d3"), false, "A", "", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218e3"), true, "Q", "LES", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218d6"), true, "D", "À LA", true }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218d9"), true, "G", "CHEZ", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218dd"), true, "K", "DE LA", true }
                 });
 
             migrationBuilder.InsertData(
@@ -2379,42 +2379,56 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "abbreviation", "code", "description", "is_active" },
                 values: new object[,]
                 {
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218e5"), "", "01", "", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218e6"), "AL", "02", "ALLÉE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218e7"), "AU", "05", "AUTOROUTE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218e8"), "AV", "08", "AVENUE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218e9"), "BD", "11", "BOULEVARD", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ea"), "CA", "14", "CARRÉ", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ec"), "", "16", "CHAUSSÉE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ed"), "CH", "17", "CHEMIN", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218eb"), "", "15", "CARREFOUR", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721922"), "RL", "83", "RUELLE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721923"), "SN", "85", "SENTIER", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721924"), "", "86", "SQUARE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721925"), "TE", "89", "TERRASSE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721926"), "", "91", "TRAVERSE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), "", "92", "TRAIT-CARRÉ", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721928"), "", "93", "TUNNEL", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721929"), "", "94", "VIADUC", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72192a"), "", "95", "VOIE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ee"), "", "19", "CIRCLE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ef"), "", "20", "CERCLE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218fe"), "", "41", "FIEF", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218fa"), "", "38", "DRIVE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f6"), "CR", "32", "CROISSANT", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f5"), "", "29", "CRESCENT", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f4"), "", "26", "COURT", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f3"), "", "25", "COURS", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f2"), "CT", "23", "COTE", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f1"), "", "22", "CONCESSION", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72190b"), "", "58", "PASSERELLE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f0"), "", "21", "CIRCUIT", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ef"), "", "20", "CERCLE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f7"), "", "34", "DESCENTE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ee"), "", "19", "CIRCLE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ec"), "", "16", "CHAUSSÉE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218eb"), "", "15", "CARREFOUR", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ea"), "CA", "14", "CARRÉ", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218e9"), "BD", "11", "BOULEVARD", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218e8"), "AV", "08", "AVENUE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218e7"), "AU", "05", "AUTOROUTE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218e6"), "AL", "02", "ALLÉE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218e5"), "", "01", "", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ed"), "CH", "17", "CHEMIN", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721910"), "", "63", "PLAGE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f8"), "", "35", "DESSERTE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72190f"), "PL", "62", "PLACE", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72190c"), "", "59", "PARC", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72190b"), "", "58", "PASSERELLE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72190a"), "", "57", "PARK", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), "MT", "56", "MONTÉE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721908"), "", "55", "LIGNE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721907"), "LA", "54", "LAC", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721906"), "", "53", "LANE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721905"), "", "52", "JARDIN", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f9"), "DO", "36", "DOMAINE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), "", "50", "IMPASSE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721902"), "", "47", "ILE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721901"), "", "46", "HILL", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721900"), "", "45", "GARDENS", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ff"), "", "44", "GARDEN", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218fe"), "", "41", "FIEF", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218fd"), "", "40", "ESPLANADE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218fc"), "", "3a", "ALLEY", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218fb"), "", "39", "ÉCHANGEUR", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721903"), "", "4a", "ANSE", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72190d"), "", "60", "PISTE", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72190e"), "", "61", "PASSAGE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72190f"), "PL", "62", "PLACE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721910"), "", "63", "PLAGE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721911"), "", "64", "PLAZA", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721912"), "", "65", "PONT", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721913"), "", "66", "PLATEAU", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721914"), "", "67", "PORTAGE", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721915"), "", "68", "RAMPE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721916"), "PR", "69", "PROMENADE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721917"), "", "70", "QUAI", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721914"), "", "67", "PORTAGE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721913"), "", "66", "PLATEAU", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721918"), "RG", "71", "RANG", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721911"), "", "64", "PLAZA", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721919"), "", "72", "RIDGE", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72191a"), "", "73", "PETIT RANG", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72191b"), "", "74", "ROAD", true },
@@ -2422,35 +2436,21 @@ namespace Survi.Prevention.DataLayer.Migrations
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72191d"), "", "76", "GRAND RANG", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72191e"), "RT", "77", "ROUTE", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72191f"), "", "78", "ROUTE RURALE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72190a"), "", "57", "PARK", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f0"), "", "21", "CIRCUIT", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), "MT", "56", "MONTÉE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721907"), "LA", "54", "LAC", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f2"), "CT", "23", "COTE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f3"), "", "25", "COURS", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f4"), "", "26", "COURT", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f5"), "", "29", "CRESCENT", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f6"), "CR", "32", "CROISSANT", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f7"), "", "34", "DESCENTE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f8"), "", "35", "DESSERTE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218f9"), "DO", "36", "DOMAINE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218fa"), "", "38", "DRIVE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218fb"), "", "39", "ÉCHANGEUR", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218fc"), "", "3a", "ALLEY", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218fd"), "", "40", "ESPLANADE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72192b"), "", "96", "RUISSEAU", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ff"), "", "44", "GARDEN", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721900"), "", "45", "GARDENS", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721901"), "", "46", "HILL", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721902"), "", "47", "ILE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721903"), "", "4a", "ANSE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), "", "50", "IMPASSE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721905"), "", "52", "JARDIN", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721906"), "", "53", "LANE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721908"), "", "55", "LIGNE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721916"), "PR", "69", "PROMENADE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721920"), "", "79", "RIVIÈRE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721917"), "", "70", "QUAI", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721922"), "RL", "83", "RUELLE", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), "", "97", "ÎLOT", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72192b"), "", "96", "RUISSEAU", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72192a"), "", "95", "VOIE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721923"), "SN", "85", "SENTIER", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721924"), "", "86", "SQUARE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721925"), "TE", "89", "TERRASSE", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721926"), "", "91", "TRAVERSE", true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721921"), "RU", "80", "RUE", true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721920"), "", "79", "RIVIÈRE", true }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), "", "92", "TRAIT-CARRÉ", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721928"), "", "93", "TUNNEL", true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721929"), "", "94", "VIADUC", true }
                 });
 
             migrationBuilder.InsertData(
@@ -2458,11 +2458,11 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "created_on", "is_active", "symbol" },
                 values: new object[,]
                 {
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721868"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "<" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721867"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, ">=" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721869"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "<=" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721866"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, ">" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721865"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "=" }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721867"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, ">=" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721865"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "=" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721868"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "<" }
                 });
 
             migrationBuilder.InsertData(
@@ -2475,20 +2475,20 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "created_on", "is_active" },
                 values: new object[,]
                 {
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721838"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72182c"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721820"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721823"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721847"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721844"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721829"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721841"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721826"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721838"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721835"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721832"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72182f"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72183e"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72183b"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72183b"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721820"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721823"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721826"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721829"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721835"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72182f"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721832"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true }
                 });
 
             migrationBuilder.InsertData(
@@ -2497,9 +2497,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                 values: new object[,]
                 {
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721948"), 3, "-23296", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 3 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72194e"), 0, "-16777216", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72194b"), 4, "-65536", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 4 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721942"), 1, "-16744448", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 1 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72194b"), 4, "-65536", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 4 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72194e"), 0, "-16777216", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721945"), 2, "-256", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 2 }
                 });
 
@@ -2508,76 +2508,11 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "created_on", "is_active" },
                 values: new object[,]
                 {
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217cc"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217c9"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217c6"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217c3"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217c6"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217c9"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217cc"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217cf"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true }
-                });
-
-            migrationBuilder.InsertData(
-                table: "roof_material_type_localization",
-                columns: new[] { "id", "created_on", "id_roof_material_type", "is_active", "language_code", "name" },
-                values: new object[,]
-                {
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721892"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721891"), true, "fr", "PSI" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721893"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721891"), true, "fr", "PSI" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721895"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721894"), true, "fr", "KPA" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721899"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721897"), true, "fr", "m3/h" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721898"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721897"), true, "fr", "m3/h" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72189b"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72189a"), true, "fr", "Millimètres" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72189c"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72189a"), true, "fr", "Millimeters" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72189e"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72189d"), true, "fr", "Pouces" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721896"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721894"), true, "fr", "KPA" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721890"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72188e"), true, "fr", "Unknown" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72188c"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72188b"), true, "fr", "L" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72188d"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72188b"), true, "fr", "L" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72188a"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721888"), true, "fr", "G" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721889"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721888"), true, "fr", "G" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721887"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721885"), true, "fr", "GI" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721886"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721885"), true, "fr", "GI" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721884"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721882"), true, "fr", "LPM" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721883"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721882"), true, "fr", "LPM" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721881"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72187f"), true, "fr", "GPM" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721880"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72187f"), true, "fr", "GPM" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72187e"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72187c"), true, "fr", "GIPM" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72187d"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72187c"), true, "fr", "GIPM" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72189f"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72189d"), true, "fr", "Inches" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72188f"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72188e"), true, "fr", "Indéterminé" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a1"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218a0"), true, "fr", "Mètres" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b4"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218b2"), true, "fr", "Tons" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a4"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218a3"), true, "fr", "Pieds" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218d2"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218d0"), true, "fr", "Onces" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218d1"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218d0"), true, "fr", "Onces" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218cf"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218cd"), true, "fr", "Pounds" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ce"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218cd"), true, "fr", "Livres" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218cc"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218ca"), true, "fr", "Litres" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218cb"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218ca"), true, "fr", "Litres" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c9"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218c7"), true, "fr", "Kilos" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c8"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218c7"), true, "fr", "Kilos" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c6"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218c4"), true, "fr", "Grams" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c5"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218c4"), true, "fr", "Grammes" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c3"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218c1"), true, "fr", "US gallons" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c2"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218c1"), true, "fr", "Gallons US" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c0"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218be"), true, "fr", "None" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218bf"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218be"), true, "fr", "Aucune" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218bd"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218bb"), true, "fr", "Imperial gallons" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218bc"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218bb"), true, "fr", "Gallons impériaux" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ba"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218b8"), true, "fr", "Cubic feet" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b9"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218b8"), true, "fr", "Pieds cubes" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b7"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218b5"), true, "fr", "US tons" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b6"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218b5"), true, "fr", "Tonnes US" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b3"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218b2"), true, "fr", "Tonnes" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b1"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218af"), true, "fr", "Pints" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b0"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218af"), true, "fr", "Pintes" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ae"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218ac"), true, "fr", "Millilitre" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ad"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218ac"), true, "fr", "Millilitres" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ab"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218a9"), true, "fr", "Cubic inches" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218aa"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218a9"), true, "fr", "Pouces cubes" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a8"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218a6"), true, "fr", "Cubic meters" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a5"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218a3"), true, "fr", "Feet" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a2"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218a0"), true, "fr", "Meters" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a7"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218a6"), true, "fr", "Mètres cubes" }
                 });
 
             migrationBuilder.InsertData(
@@ -2585,12 +2520,12 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "created_on", "is_active" },
                 values: new object[,]
                 {
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217b7"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217b1"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217b4"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217a8"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ab"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ae"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217b1"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217b4"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217b7"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ba"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217bd"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217c0"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true }
@@ -2601,16 +2536,16 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "created_on", "is_active" },
                 values: new object[,]
                 {
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ea"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ed"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217e1"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217de"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217d2"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217d8"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217d5"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217d8"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217de"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217e1"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217e4"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217e7"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ea"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217db"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217e7"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ed"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true }
                 });
 
             migrationBuilder.InsertData(
@@ -2618,18 +2553,18 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "created_on", "is_active" },
                 values: new object[,]
                 {
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721805"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217f0"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721811"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72180e"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72180b"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721808"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721805"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721802"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ff"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721808"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217fc"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217f9"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217f6"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217f3"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217f0"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721811"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ff"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true }
                 });
 
             migrationBuilder.InsertData(
@@ -2637,24 +2572,25 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "abbreviation", "created_on", "is_active", "measure_type" },
                 values: new object[,]
                 {
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b5"), "sh tn", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a9"), "po3", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ac"), "ml", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218af"), "pt", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b2"), "t", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b5"), "sh tn", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c4"), "g", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218bb"), "GI", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b8"), "pi3", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ca"), "L", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218be"), "", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c1"), "G", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a6"), "m3", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c4"), "g", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c7"), "Kg", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ca"), "L", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b8"), "pi3", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a6"), "m3", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218bb"), "GI", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a3"), "pi", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721894"), "KPA", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218cd"), "lb", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72189d"), "po", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72189a"), "mm", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721897"), "m3/h", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721894"), "KPA", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721891"), "PSI", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72188e"), "", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72188b"), "L", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
@@ -2663,7 +2599,6 @@ namespace Survi.Prevention.DataLayer.Migrations
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721882"), "LPM", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72187f"), "GPM", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72187c"), "GIPM", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218cd"), "lb", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a0"), "m", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7218d0"), "oz", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 }
                 });
@@ -2717,9 +2652,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721874"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721873"), true, "fr", "Résistante au feu" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721872"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721870"), true, "fr", "Nonflammable" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721871"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721870"), true, "fr", "Incombustible" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72186f"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72186d"), true, "fr", "Flammable" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72186b"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72186a"), true, "fr", "Ordinaire" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72186e"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72186d"), true, "fr", "Combustible" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72186b"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72186a"), true, "fr", "Ordinaire" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72186f"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72186d"), true, "fr", "Flammable" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72179a"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721799"), true, "fr", "Test2" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72179b"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721799"), true, "fr", "Test2" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72178b"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72178a"), true, "fr", "Ordinaire" },
@@ -2739,8 +2674,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "created_on", "id_construction_type", "is_active", "language_code", "name" },
                 values: new object[,]
                 {
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72177d"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72177b"), true, "fr", "Steel with protected steel joists" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721789"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721787"), true, "fr", "Undetermined" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72177d"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72177b"), true, "fr", "Steel with protected steel joists" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721788"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721787"), true, "fr", "Indéterminé" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721786"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721784"), true, "fr", "Other" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721785"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721784"), true, "fr", "Autre type" },
@@ -2749,11 +2684,11 @@ namespace Survi.Prevention.DataLayer.Migrations
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721780"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72177e"), true, "fr", "Steel with unprotected steel joists" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72177f"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72177e"), true, "fr", "Acier avec solives en acier non protégées" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72177c"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72177b"), true, "fr", "Acier avec solives en acier protégées" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721773"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721772"), true, "fr", "Mur porteur en maçonnerie avec mur solives en bois solides" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721774"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721772"), true, "fr", "Masonry bearing wall and solid wood joists" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721779"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721778"), true, "fr", "Mur porteur en maçonnerie et solives en aciers ou dalle de béton" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721777"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721775"), true, "fr", "Masonry bearing wall and prefabricated joists" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721776"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721775"), true, "fr", "Mur porteur en maçonnerie et solives préfabriquées" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721774"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721772"), true, "fr", "Masonry bearing wall and solid wood joists" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721773"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721772"), true, "fr", "Mur porteur en maçonnerie avec mur solives en bois solides" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721771"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72176f"), true, "fr", "Lumber" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721770"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72176f"), true, "fr", "Gros bois d'oeuvre" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72176e"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72176b"), true, "fr", "Wood frame and prefabricated joists" },
@@ -2766,10 +2701,10 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "created_on", "id_fire_hydrant_connection_type", "is_active", "language_code", "name" },
                 values: new object[,]
                 {
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72184e"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72184d"), true, "fr", "Storz" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72184f"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72184d"), true, "fr", "Storz" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72184b"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72184a"), true, "fr", "Fileté" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72184c"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72184a"), true, "fr", "Threaded" }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72184e"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72184d"), true, "fr", "Storz" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72184c"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72184a"), true, "fr", "Threaded" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72184b"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72184a"), true, "fr", "Fileté" }
                 });
 
             migrationBuilder.InsertData(
@@ -2782,15 +2717,15 @@ namespace Survi.Prevention.DataLayer.Migrations
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721863"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721862"), true, "fr", "Statique" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721861"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72185f"), true, "fr", "Dry fire hydrant" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721860"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72185f"), true, "fr", "Borne sèche" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72185b"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721859"), true, "fr", "Fire hydrant" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72185a"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721859"), true, "fr", "Borne fontaine" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72185d"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72185c"), true, "fr", "Point d'eau" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721857"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721856"), true, "fr", "Citerne" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72185a"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721859"), true, "fr", "Borne fontaine" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721858"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721856"), true, "fr", "Tank" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72185b"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721859"), true, "fr", "Fire hydrant" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721855"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721853"), true, "fr", "Fountain" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721854"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721853"), true, "fr", "Fontaine" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721852"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721850"), true, "fr", "Dry" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721851"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721850"), true, "fr", "Sèche" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721858"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721856"), true, "fr", "Tank" }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721857"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721856"), true, "fr", "Citerne" }
                 });
 
             migrationBuilder.InsertData(
@@ -2808,11 +2743,11 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "default_value", "description", "feature_name", "id_permission_system" },
                 values: new object[,]
                 {
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721932"), false, "Voir la section gestion du site", "RightSectionManagement", new Guid("f13400a9-70b8-4325-b732-7fe7db721930") },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721935"), false, "Accès pour un TPI", "RightTPI", new Guid("f13400a9-70b8-4325-b732-7fe7db721930") },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721934"), false, "Accès en administration", "RightAdmin", new Guid("f13400a9-70b8-4325-b732-7fe7db721930") },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721931"), false, "Voir la section questionnaire du site", "RightSectionSurvey", new Guid("f13400a9-70b8-4325-b732-7fe7db721930") },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721933"), false, "Voir la section inspection du site", "RightSectionInspection", new Guid("f13400a9-70b8-4325-b732-7fe7db721930") }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721935"), false, "Accès pour un TPI", "RightTPI", new Guid("f13400a9-70b8-4325-b732-7fe7db721930") },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721933"), false, "Voir la section inspection du site", "RightSectionInspection", new Guid("f13400a9-70b8-4325-b732-7fe7db721930") },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721934"), false, "Accès en administration", "RightAdmin", new Guid("f13400a9-70b8-4325-b732-7fe7db721930") },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721932"), false, "Voir la section gestion du site", "RightSectionManagement", new Guid("f13400a9-70b8-4325-b732-7fe7db721930") }
                 });
 
             migrationBuilder.InsertData(
@@ -2820,34 +2755,34 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "created_on", "id_person_requiring_assistance_type", "is_active", "language_code", "name" },
                 values: new object[,]
                 {
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721825"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721823"), true, "fr", "Handicapped person" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721827"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721826"), true, "fr", "Trouble vision" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721821"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721820"), true, "fr", "Camp/Terrain de jeu" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721824"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721823"), true, "fr", "Personnes handicapées" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721822"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721820"), true, "fr", "Camp/playground" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72183d"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72183b"), true, "fr", "Nursery" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721836"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721835"), true, "fr", "Déficients intellectuels" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721825"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721823"), true, "fr", "Handicapped person" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721837"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721835"), true, "fr", "Intellectual deficient" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721839"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721838"), true, "fr", "École" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72183a"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721838"), true, "fr", "School" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721830"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72182f"), true, "fr", "Autre" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72183d"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72183b"), true, "fr", "Nursery" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72183c"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72183b"), true, "fr", "Garderie" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72183a"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721838"), true, "fr", "School" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721839"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721838"), true, "fr", "École" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721824"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721823"), true, "fr", "Personnes handicapées" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721836"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721835"), true, "fr", "Déficients intellectuels" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721849"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721847"), true, "fr", "Elderly" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721834"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721832"), true, "fr", "Medical center" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721833"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721832"), true, "fr", "Centre médical" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721831"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72182f"), true, "fr", "Other" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72183f"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72183e"), true, "fr", "Malentendants" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721840"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72183e"), true, "fr", "Hard of hearing" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72182d"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72182c"), true, "fr", "Cognitif" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72182b"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721829"), true, "fr", "Deafness" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72182a"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721829"), true, "fr", "Surdité" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721828"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721826"), true, "fr", "Visually impaired" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721842"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721841"), true, "fr", "Mobilité réduite" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721843"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721841"), true, "fr", "Reduced mobility" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721845"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721844"), true, "fr", "Non-voyants" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721846"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721844"), true, "fr", "Blind" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721848"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721847"), true, "fr", "Personnes agées" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721849"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721847"), true, "fr", "Elderly" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721830"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72182f"), true, "fr", "Autre" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72182e"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72182c"), true, "fr", "Cognitive" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72182d"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72182c"), true, "fr", "Cognitif" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72182b"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721829"), true, "fr", "Deafness" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72182a"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721829"), true, "fr", "Surdité" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721828"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721826"), true, "fr", "Visually impaired" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721827"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721826"), true, "fr", "Trouble vision" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721834"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721832"), true, "fr", "Medical center" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721833"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721832"), true, "fr", "Centre médical" }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72182e"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72182c"), true, "fr", "Cognitive" }
                 });
 
             migrationBuilder.InsertData(
@@ -2856,15 +2791,15 @@ namespace Survi.Prevention.DataLayer.Migrations
                 values: new object[,]
                 {
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721946"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721945"), true, "fr", "Moyen" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721950"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72194e"), true, "fr", "Unknown" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721947"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721945"), true, "fr", "Medium" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721944"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721942"), true, "fr", "Low" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72194f"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72194e"), true, "fr", "Indéterminé" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72194d"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72194b"), true, "fr", "Very high" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72194c"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72194b"), true, "fr", "Très élevé" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721943"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721942"), true, "fr", "Faible" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72194a"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721948"), true, "fr", "High" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721949"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721948"), true, "fr", "Élevé" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721947"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721945"), true, "fr", "Medium" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721944"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721942"), true, "fr", "Low" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72194a"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721948"), true, "fr", "High" }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721950"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72194e"), true, "fr", "Unknown" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721943"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721942"), true, "fr", "Faible" }
                 });
 
             migrationBuilder.InsertData(
@@ -2872,16 +2807,16 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "created_on", "id_roof_material_type", "is_active", "language_code", "name" },
                 values: new object[,]
                 {
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217c5"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217c3"), true, "fr", "Asphalt shingles" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217c8"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217c6"), true, "fr", "Sheet metal" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217d1"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217cf"), true, "fr", "Wood" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217c4"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217c3"), true, "fr", "Bardeaux d'asphalte" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217c5"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217c3"), true, "fr", "Asphalt shingles" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217c7"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217c6"), true, "fr", "Tôle" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217c8"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217c6"), true, "fr", "Sheet metal" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ca"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217c9"), true, "fr", "Tapis de goudron" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217cb"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217c9"), true, "fr", "Tar mat" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217cd"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217cc"), true, "fr", "Puit de lumière" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ce"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217cc"), true, "fr", "Skylight" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217d0"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217cf"), true, "fr", "Bois" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217d1"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217cf"), true, "fr", "Wood" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217c7"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217c6"), true, "fr", "Tôle" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ca"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217c9"), true, "fr", "Tapis de goudron" }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217d0"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217cf"), true, "fr", "Bois" }
                 });
 
             migrationBuilder.InsertData(
@@ -2889,24 +2824,24 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "created_on", "id_roof_type", "is_active", "language_code", "name" },
                 values: new object[,]
                 {
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217c1"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217c0"), true, "fr", "Plat" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217b0"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ae"), true, "fr", "3 slopes" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217b3"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217b1"), true, "fr", "French cone" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ad"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ab"), true, "fr", "2 slopes" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ac"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ab"), true, "fr", "2 versants" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217aa"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217a8"), true, "fr", "1 slope" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217c2"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217c0"), true, "fr", "Flat" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217a9"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217a8"), true, "fr", "1 versant" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217aa"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217a8"), true, "fr", "1 slope" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217c1"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217c0"), true, "fr", "Plat" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ac"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ab"), true, "fr", "2 versants" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217af"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ae"), true, "fr", "4 versants" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217b0"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ae"), true, "fr", "3 slopes" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217b2"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217b1"), true, "fr", "Cône français" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217b3"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217b1"), true, "fr", "French cone" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217b5"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217b4"), true, "fr", "Diamant" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217b6"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217b4"), true, "fr", "Diamond" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217b8"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217b7"), true, "fr", "Dôme" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217b9"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217b7"), true, "fr", "Dome" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217bb"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ba"), true, "fr", "Mansarde" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217bc"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ba"), true, "fr", "Mansard" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217b2"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217b1"), true, "fr", "Cône français" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217af"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ae"), true, "fr", "4 versants" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217c2"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217c0"), true, "fr", "Flat" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217be"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217bd"), true, "fr", "Pente" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217bf"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217bd"), true, "fr", "Slope" }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217bf"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217bd"), true, "fr", "Slope" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ad"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ab"), true, "fr", "2 slopes" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217bc"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ba"), true, "fr", "Mansard" }
                 });
 
             migrationBuilder.InsertData(
@@ -2914,26 +2849,26 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "created_on", "id_siding_type", "is_active", "language_code", "name" },
                 values: new object[,]
                 {
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217d3"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217d2"), true, "fr", "Brique" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217d4"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217d2"), true, "fr", "Brick" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217d6"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217d5"), true, "fr", "Béton" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217d7"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217d5"), true, "fr", "Concrete" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217d9"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217d8"), true, "fr", "Vinyle" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217da"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217d8"), true, "fr", "Vinyl" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217dc"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217db"), true, "fr", "Bois" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217dd"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217db"), true, "fr", "Wood" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217df"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217de"), true, "fr", "Canexel" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217e0"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217de"), true, "fr", "Canexel" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217e3"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217e1"), true, "fr", "Stone" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217e5"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217e4"), true, "fr", "Stucco" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217e6"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217e4"), true, "fr", "Stucco" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217e8"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217e7"), true, "fr", "Tôle" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217e9"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217e7"), true, "fr", "Sheet metal" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217eb"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ea"), true, "fr", "Bardeaux de cèdre" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ec"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ea"), true, "fr", "Cedar shingles" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ee"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ed"), true, "fr", "Masonite" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ec"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ea"), true, "fr", "Cedar shingles" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217eb"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ea"), true, "fr", "Bardeaux de cèdre" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217e9"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217e7"), true, "fr", "Sheet metal" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217e8"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217e7"), true, "fr", "Tôle" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217e6"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217e4"), true, "fr", "Stucco" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217e5"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217e4"), true, "fr", "Stucco" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217e3"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217e1"), true, "fr", "Stone" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ef"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ed"), true, "fr", "Masonite" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217e2"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217e1"), true, "fr", "Pierre" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217ef"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ed"), true, "fr", "Masonite" }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217df"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217de"), true, "fr", "Canexel" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217dc"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217db"), true, "fr", "Bois" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217da"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217d8"), true, "fr", "Vinyl" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217d9"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217d8"), true, "fr", "Vinyle" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217d7"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217d5"), true, "fr", "Concrete" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217d4"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217d2"), true, "fr", "Brick" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217d3"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217d2"), true, "fr", "Brique" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217e0"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217de"), true, "fr", "Canexel" }
                 });
 
             migrationBuilder.InsertData(
@@ -2941,30 +2876,95 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "created_on", "id_sprinkler_type", "is_active", "language_code", "name" },
                 values: new object[,]
                 {
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721807"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721805"), true, "fr", "Dry pipe" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721812"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721811"), true, "fr", "FM 200" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217f1"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217f0"), true, "fr", "Système sous eau" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217f2"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217f0"), true, "fr", "Wet pipe" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217f4"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217f3"), true, "fr", "Système sous air" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217f5"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217f3"), true, "fr", "Dry pipe" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217f7"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217f6"), true, "fr", "Pré action" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217f8"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217f6"), true, "fr", "Pre-Action" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217fa"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217f9"), true, "fr", "Déluge" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217f1"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217f0"), true, "fr", "Système sous eau" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217fb"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217f9"), true, "fr", "Deluge" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217f4"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217f3"), true, "fr", "Système sous air" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217fd"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217fc"), true, "fr", "Mousse" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721813"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721811"), true, "fr", "FM 200" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217f2"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217f0"), true, "fr", "Wet pipe" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db7217fe"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217fc"), true, "fr", "Foam" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721800"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ff"), true, "fr", "FM 200" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721801"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ff"), true, "fr", "FM 200" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721803"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721802"), true, "fr", "Système sous eau" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721804"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721802"), true, "fr", "Wet pipe" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721806"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721805"), true, "fr", "Système sous air" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721807"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721805"), true, "fr", "Dry pipe" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721809"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721808"), true, "fr", "Pré action" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72180a"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721808"), true, "fr", "Pre-Action" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721803"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721802"), true, "fr", "Système sous eau" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72180c"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72180b"), true, "fr", "Déluge" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72180d"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72180b"), true, "fr", "Deluge" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72180f"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72180e"), true, "fr", "Mousse" },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721810"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72180e"), true, "fr", "Foam" },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721800"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217ff"), true, "fr", "FM 200" }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721812"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721811"), true, "fr", "FM 200" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217f5"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217f3"), true, "fr", "Dry pipe" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721813"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721811"), true, "fr", "FM 200" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217f8"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217f6"), true, "fr", "Pre-Action" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72180a"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721808"), true, "fr", "Pre-Action" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7217f7"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7217f6"), true, "fr", "Pré action" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "unit_of_measure_localization",
+                columns: new[] { "id", "created_on", "id_parent", "is_active", "language_code", "name" },
+                values: new object[,]
+                {
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b7"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218b5"), true, "fr", "US tons" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b6"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218b5"), true, "fr", "Tonnes US" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b4"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218b2"), true, "fr", "Tons" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b3"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218b2"), true, "fr", "Tonnes" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b1"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218af"), true, "fr", "Pints" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ad"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218ac"), true, "fr", "Millilitres" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ae"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218ac"), true, "fr", "Millilitre" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ab"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218a9"), true, "fr", "Cubic inches" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218aa"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218a9"), true, "fr", "Pouces cubes" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b9"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218b8"), true, "fr", "Pieds cubes" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a8"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218a6"), true, "fr", "Cubic meters" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b0"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218af"), true, "fr", "Pintes" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ba"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218b8"), true, "fr", "Cubic feet" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c9"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218c7"), true, "fr", "Kilos" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218bd"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218bb"), true, "fr", "Imperial gallons" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218bf"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218be"), true, "fr", "Aucune" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c0"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218be"), true, "fr", "None" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c2"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218c1"), true, "fr", "Gallons US" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c3"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218c1"), true, "fr", "US gallons" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c5"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218c4"), true, "fr", "Grammes" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c6"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218c4"), true, "fr", "Grams" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c8"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218c7"), true, "fr", "Kilos" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218cb"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218ca"), true, "fr", "Litres" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218cc"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218ca"), true, "fr", "Litres" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ce"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218cd"), true, "fr", "Livres" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218cf"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218cd"), true, "fr", "Pounds" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a7"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218a6"), true, "fr", "Mètres cubes" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218bc"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218bb"), true, "fr", "Gallons impériaux" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a5"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218a3"), true, "fr", "Feet" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721884"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721882"), true, "fr", "LPM" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a2"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218a0"), true, "fr", "Meters" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218d1"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218d0"), true, "fr", "Onces" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72187d"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72187c"), true, "fr", "GIPM" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72187e"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72187c"), true, "fr", "GIPM" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721880"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72187f"), true, "fr", "GPM" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721881"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72187f"), true, "fr", "GPM" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721883"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721882"), true, "fr", "LPM" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721886"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721885"), true, "fr", "GI" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721887"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721885"), true, "fr", "GI" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721889"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721888"), true, "fr", "G" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72188a"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721888"), true, "fr", "G" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a4"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218a3"), true, "fr", "Pieds" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72188d"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72188b"), true, "fr", "L" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72188c"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72188b"), true, "fr", "L" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721890"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72188e"), true, "fr", "Unknown" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a1"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218a0"), true, "fr", "Mètres" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72189f"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72189d"), true, "fr", "Inches" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72189e"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72189d"), true, "fr", "Pouces" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72188f"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72188e"), true, "fr", "Indéterminé" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72189b"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72189a"), true, "fr", "Millimètres" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72189c"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db72189a"), true, "fr", "Millimeters" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721898"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721897"), true, "fr", "m3/h" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721896"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721894"), true, "fr", "KPA" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721895"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721894"), true, "fr", "KPA" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721893"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721891"), true, "fr", "PSI" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721892"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721891"), true, "fr", "PSI" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721899"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db721897"), true, "fr", "m3/h" },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218d2"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("f13400a9-70b8-4325-b732-7fe7db7218d0"), true, "fr", "Onces" }
                 });
 
             migrationBuilder.InsertData(
@@ -2972,9 +2972,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "attribute_name", "attribute_value", "id_webuser" },
                 values: new object[,]
                 {
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72192f"), "first_name", "Admin", new Guid("f13400a9-70b8-4325-b732-7fe7db72176c") },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72192e"), "reset_password", "false", new Guid("f13400a9-70b8-4325-b732-7fe7db72176c") },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72192d"), "last_name", "Cauca", new Guid("f13400a9-70b8-4325-b732-7fe7db72176c") },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72192f"), "first_name", "Admin", new Guid("f13400a9-70b8-4325-b732-7fe7db72176c") }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72192d"), "last_name", "Cauca", new Guid("f13400a9-70b8-4325-b732-7fe7db72176c") }
                 });
 
             migrationBuilder.InsertData(
