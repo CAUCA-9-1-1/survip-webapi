@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CourseLaneDirection_Left" xml:space="preserve">
-    <value>LeftE</value>
+    <value>Left</value>
   </data>
   <data name="CourseLaneDirection_Right" xml:space="preserve">
-    <value>RightE</value>
+    <value>Right</value>
   </data>
   <data name="CourseLaneDirection_StraightAhead" xml:space="preserve">
-    <value>E</value>
+    <value>Straight ahead</value>
   </data>
 </root>

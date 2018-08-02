@@ -79,7 +79,7 @@ namespace Survi.Prevention.ServiceLayer.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Tout droit.
         /// </summary>
         internal static string CourseLaneDirection_StraightAhead {
             get {

@@ -124,6 +124,6 @@
     <value>Droite</value>
   </data>
   <data name="CourseLaneDirection_StraightAhead" xml:space="preserve">
-    <value />
+    <value>Tout droit</value>
   </data>
 </root>
