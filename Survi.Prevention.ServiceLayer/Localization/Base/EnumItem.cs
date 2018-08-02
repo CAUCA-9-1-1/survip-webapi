@@ -23,8 +23,9 @@ namespace Survi.Prevention.ServiceLayer.Localization.Base
 
 		public static string GetDisplayName(this Enum value, string languageCode)
 		{
+			var culture = languageCode != String.Empty ? languageCode : "fr";
 			var keyName = value.GetType().Name + "_" + value;
-			var localizedName = EnumResource.ResourceManager.GetString(keyName, CultureInfo.GetCultureInfo("fr"));
+			var localizedName = EnumResource.ResourceManager.GetString(keyName, CultureInfo.GetCultureInfo(culture));
 			return localizedName;
 		}
 
