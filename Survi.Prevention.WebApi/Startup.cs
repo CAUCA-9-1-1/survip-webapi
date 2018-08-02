@@ -27,8 +27,7 @@ namespace Survi.Prevention.WebApi
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
-		{			
-
+		{
 			RegisterServicesAndContext(services);
             services.AddCors(options => {
                 options.AddPolicy("AllowAllOrigin",
@@ -59,7 +58,10 @@ namespace Survi.Prevention.WebApi
 		private void RegisterServicesAndContext(IServiceCollection services)
 		{
 			var connectionString = Configuration.GetConnectionString("SurviPreventionDatabase");
-			services.AddDbContext<ManagementContext>(options => options.UseNpgsql(connectionString));
+			services.AddDbContext<ManagementContext>(options => options.UseNpgsql(connectionString, npgOptions =>
+			{
+				npgOptions.UseNetTopologySuite();
+			}));
 			services.AddTransient<AuthentificationService>();
             services.AddTransient<WebuserService>();
             services.AddTransient<CountryService>();
@@ -116,18 +118,7 @@ namespace Survi.Prevention.WebApi
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-		{
-			/*var builder = new ODataConventionModelBuilder();
-			builder.EntitySet<BuildingWithoutInspection>("BuildingForDashboard")
-				.EntityType
-				.Filter()
-				.Count()
-				.Expand()
-				.OrderBy()
-				.Page()			
-				.Select();
-		*/
-			
+		{			
 			if (env.IsDevelopment())
 				app.UseDeveloperExceptionPage();
 			else
@@ -142,6 +133,13 @@ namespace Survi.Prevention.WebApi
 				routeBuilder.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
 				routeBuilder.MapODataServiceRoute("odataroutes", "api/odata", GetEdmModel());
 			});
+
+			//using (var service = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+			//{
+			//	//if (service.ServiceProvider.GetService<ManagementContext>().AllMigrationsApplied())
+			//	service.ServiceProvider.GetService<ManagementContext>().Database.Migrate();
+			//	//service.ServiceProvider.GetService<ManagementContext>().EnsureSeeded();
+			//}
 		}
 
 		private static IEdmModel GetEdmModel()

@@ -1,0 +1,27 @@
+﻿About the migrations!!!
+
+These are two of the ways to correctly run the migration dotnet cli:
+
+Using the Package Manager Console :
+1. Select Survi.Prevention.DataLayer as your Defautl project.
+2. Go to the Survi.Prevention.DataLayer folder.
+3. You can now run your command (ex: dotnet ef migrations add CreateDatabase)
+
+Using a windows command prompt:
+1. Go to the Survi.Prevention.DataLayer's folder.
+2. Run your command like this (ex: dotnet ef --startup-project ../Survi.Prevention.Migrations migrations add CreateDatabase)
+*** Note quite sure the --startup-project options is necessary.
+
+* Please note that the migrations will use whatever connection string is set in the ManagementContextInitializer.cs file.
+
+
+To update database to latest version :
+* dotnet ef database update
+Note that this will create the database if it doesn't already exist.
+
+To generate a script :
+* dotnet ef migrations script <from> <to>
+Where <from> is the latest migration ran on the database (0 for the very first one) and <to> is the last script to run.
+* dotnet ef migrations script v1_0_1 v1_0_4
+In this example, we would consider the database to be currently using v1.0.1 and we would want to update it to v1.0.4.
+
