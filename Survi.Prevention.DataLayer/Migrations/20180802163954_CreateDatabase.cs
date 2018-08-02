@@ -2671,7 +2671,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.InsertData(
                 table: "webuser",
                 columns: new[] { "id", "created_on", "is_active", "password", "username" },
-                values: new object[] { new Guid("f13400a9-70b8-4325-b732-7fe7db72176c"), new DateTime(2018, 8, 2, 12, 37, 17, 659, DateTimeKind.Local), true, "EDDDFC93F0EBE76F4F79D9C83C298D1126F7F3A01259637AD028607D364FD247", "admin" });
+                values: new object[] { new Guid("f13400a9-70b8-4325-b732-7fe7db72176c"), new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "EDDDFC93F0EBE76F4F79D9C83C298D1126F7F3A01259637AD028607D364FD247", "admin" });
 
             migrationBuilder.InsertData(
                 table: "alarm_panel_type_localization",

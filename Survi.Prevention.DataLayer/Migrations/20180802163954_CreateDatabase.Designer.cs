@@ -11,7 +11,7 @@ using Survi.Prevention.DataLayer;
 namespace Survi.Prevention.DataLayer.Migrations
 {
     [DbContext(typeof(ManagementContext))]
-    [Migration("20180802163718_CreateDatabase")]
+    [Migration("20180802163954_CreateDatabase")]
     partial class CreateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -3489,7 +3489,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("webuser");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72176c"), CreatedOn = new DateTime(2018, 8, 2, 12, 37, 17, 659, DateTimeKind.Local), IsActive = true, Password = "EDDDFC93F0EBE76F4F79D9C83C298D1126F7F3A01259637AD028607D364FD247", Username = "admin" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72176c"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Password = "EDDDFC93F0EBE76F4F79D9C83C298D1126F7F3A01259637AD028607D364FD247", Username = "admin" }
                     );
                 });
 
