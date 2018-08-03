@@ -2156,6 +2156,11 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.HasIndex("IdCounty");
 
                     b.ToTable("city");
+
+                    b.HasData(
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195e"), Code = "29045", Code3Letters = "SIN", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), EmailAddress = "", IdCityType = new Guid("f13400a9-70b8-4325-b732-7fe7db721952"), IdCounty = new Guid("f13400a9-70b8-4325-b732-7fe7db72195c"), IsActive = true },
+                        new { Id = new Guid("8a4737d2-e3c8-4d1f-b5ad-76a4703568a5"), Code = "29073", Code3Letters = "SGS", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), EmailAddress = "", IdCityType = new Guid("f13400a9-70b8-4325-b732-7fe7db721952"), IdCounty = new Guid("f13400a9-70b8-4325-b732-7fe7db72195c"), IsActive = true }
+                    );
                 });
 
             modelBuilder.Entity("Survi.Prevention.Models.FireSafetyDepartments.CityLocalization", b =>
@@ -2191,10 +2196,10 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("city_localization");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195e"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195d"), IsActive = true, LanguageCode = "fr", Name = "Causeville" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195f"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195d"), IsActive = true, LanguageCode = "en", Name = "Causetown" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721960"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("8a4737d2-e3c8-4d1f-b5ad-76a4703568a5"), IsActive = true, LanguageCode = "fr", Name = "Caucaville" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721961"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("8a4737d2-e3c8-4d1f-b5ad-76a4703568a5"), IsActive = true, LanguageCode = "en", Name = "Caucatown" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195f"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195e"), IsActive = true, LanguageCode = "fr", Name = "Causeville" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721960"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195e"), IsActive = true, LanguageCode = "en", Name = "Causetown" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721961"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("8a4737d2-e3c8-4d1f-b5ad-76a4703568a5"), IsActive = true, LanguageCode = "fr", Name = "Caucaville" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721962"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("8a4737d2-e3c8-4d1f-b5ad-76a4703568a5"), IsActive = true, LanguageCode = "en", Name = "Caucatown" }
                     );
                 });
 
@@ -2216,8 +2221,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("city_type");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721966"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721969"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721952"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196f"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true }
                     );
                 });
 
@@ -2254,10 +2259,10 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("city_type_localization");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721967"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721966"), IsActive = true, LanguageCode = "fr", Name = "Ville" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721968"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721966"), IsActive = true, LanguageCode = "fr", Name = "City" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721969"), IsActive = true, LanguageCode = "fr", Name = "Municipalité" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721969"), IsActive = true, LanguageCode = "fr", Name = "Municipality" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196d"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721952"), IsActive = true, LanguageCode = "fr", Name = "Ville" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196e"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721952"), IsActive = true, LanguageCode = "fr", Name = "City" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721970"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72196f"), IsActive = true, LanguageCode = "fr", Name = "Municipalité" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721971"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72196f"), IsActive = true, LanguageCode = "fr", Name = "Municipality" }
                     );
                 });
 
@@ -2326,8 +2331,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("country_localization");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721954"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721951"), IsActive = true, LanguageCode = "fr", Name = "Canada" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721955"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721951"), IsActive = true, LanguageCode = "en", Name = "Canada" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721955"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721951"), IsActive = true, LanguageCode = "fr", Name = "Canada" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721956"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721951"), IsActive = true, LanguageCode = "en", Name = "Canada" }
                     );
                 });
 
@@ -2359,8 +2364,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("county");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdRegion = new Guid("f13400a9-70b8-4325-b732-7fe7db721958"), IdState = new Guid("f13400a9-70b8-4325-b732-7fe7db721953"), IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195c"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdRegion = new Guid("f13400a9-70b8-4325-b732-7fe7db721958"), IdState = new Guid("f13400a9-70b8-4325-b732-7fe7db721953"), IsActive = true }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195c"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdRegion = new Guid("f13400a9-70b8-4325-b732-7fe7db721959"), IdState = new Guid("f13400a9-70b8-4325-b732-7fe7db721953"), IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195d"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdRegion = new Guid("f13400a9-70b8-4325-b732-7fe7db721959"), IdState = new Guid("f13400a9-70b8-4325-b732-7fe7db721953"), IsActive = true }
                     );
                 });
 
@@ -2397,10 +2402,10 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("county_localization");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721962"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195c"), IsActive = true, LanguageCode = "fr", Name = "La Nouvelle-Beauce" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721963"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195c"), IsActive = true, LanguageCode = "en", Name = "The New-Beauce" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721964"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195b"), IsActive = true, LanguageCode = "fr", Name = "Beauce-Sartigan" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721965"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195b"), IsActive = true, LanguageCode = "en", Name = "Beauce-Sartigan" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721964"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195d"), IsActive = true, LanguageCode = "fr", Name = "La Nouvelle-Beauce" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721965"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195d"), IsActive = true, LanguageCode = "en", Name = "The New-Beauce" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721966"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195c"), IsActive = true, LanguageCode = "fr", Name = "Beauce-Sartigan" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721967"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195c"), IsActive = true, LanguageCode = "en", Name = "Beauce-Sartigan" }
                     );
                 });
 
@@ -2430,6 +2435,10 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.HasIndex("IdCounty");
 
                     b.ToTable("fire_safety_department");
+
+                    b.HasData(
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721954"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdCounty = new Guid("f13400a9-70b8-4325-b732-7fe7db72195c"), IsActive = true, Language = "fr" }
+                    );
                 });
 
             modelBuilder.Entity("Survi.Prevention.Models.FireSafetyDepartments.FireSafetyDepartmentCityServing", b =>
@@ -2458,6 +2467,10 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.HasIndex("IdFireSafetyDepartment");
 
                     b.ToTable("fire_safety_department_city_serving");
+
+                    b.HasData(
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721963"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdCity = new Guid("8a4737d2-e3c8-4d1f-b5ad-76a4703568a5"), IdFireSafetyDepartment = new Guid("f13400a9-70b8-4325-b732-7fe7db721954"), IsActive = true }
+                    );
                 });
 
             modelBuilder.Entity("Survi.Prevention.Models.FireSafetyDepartments.FireSafetyDepartmentLocalization", b =>
@@ -2491,6 +2504,11 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.HasIndex("IdParent");
 
                     b.ToTable("fire_safety_department_localization");
+
+                    b.HasData(
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721968"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721954"), IsActive = true, LanguageCode = "fr", Name = "Cauca SSI" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721969"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721954"), IsActive = true, LanguageCode = "fr", Name = "Cauca SSI" }
+                    );
                 });
 
             modelBuilder.Entity("Survi.Prevention.Models.FireSafetyDepartments.FireSafetyDepartmentRiskLevel", b =>
@@ -2600,6 +2618,12 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.HasIndex("IdFireSafetyDepartment");
 
                     b.ToTable("firestation");
+
+                    b.HasData(
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdFireSafetyDepartment = new Guid("f13400a9-70b8-4325-b732-7fe7db721954"), IsActive = true, Name = "Caserne 1" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdFireSafetyDepartment = new Guid("f13400a9-70b8-4325-b732-7fe7db721954"), IsActive = true, Name = "Caserne 2" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196c"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdFireSafetyDepartment = new Guid("f13400a9-70b8-4325-b732-7fe7db721954"), IsActive = true, Name = "Caserne 3" }
+                    );
                 });
 
             modelBuilder.Entity("Survi.Prevention.Models.FireSafetyDepartments.Lane", b =>
@@ -2853,7 +2877,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("region");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721958"), Code = "12", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdState = new Guid("f13400a9-70b8-4325-b732-7fe7db721953"), IsActive = true }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721959"), Code = "12", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdState = new Guid("f13400a9-70b8-4325-b732-7fe7db721953"), IsActive = true }
                     );
                 });
 
@@ -2890,8 +2914,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("region_localization");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721959"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721958"), IsActive = true, LanguageCode = "fr", Name = "Chaudière-Appalaches" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721958"), IsActive = true, LanguageCode = "en", Name = "Chaudière-Appalaches" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721959"), IsActive = true, LanguageCode = "fr", Name = "Chaudière-Appalaches" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721959"), IsActive = true, LanguageCode = "en", Name = "Chaudière-Appalaches" }
                     );
                 });
 
@@ -2960,8 +2984,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("state_localization");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721956"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721953"), IsActive = true, LanguageCode = "fr", Name = "Québec" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721957"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721953"), IsActive = true, LanguageCode = "en", Name = "Quebec" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721957"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721953"), IsActive = true, LanguageCode = "fr", Name = "Québec" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721958"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721953"), IsActive = true, LanguageCode = "en", Name = "Quebec" }
                     );
                 });
 
