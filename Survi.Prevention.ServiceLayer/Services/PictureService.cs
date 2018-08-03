@@ -89,5 +89,3 @@ namespace Survi.Prevention.ServiceLayer.Services
 		}
 	}
 }
-            picture.SketchJson = data.SketchJson;
-            Context.SaveChanges();

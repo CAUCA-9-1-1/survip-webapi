@@ -42,27 +42,33 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}).ToList();
 		}
 
-		public virtual Guid AddOrUpdatePicture(BuildingChildPictureForWeb entity)
+		public virtual Guid AddPicture(BuildingChildPictureForWeb entity)
 		{
-            var isExistRecord = Context.BuildingAnomalyPictures.Any(c => c.Id == entity.Id);
-
-            var currentRecord = new BuildingAnomalyPicture
+            BuildingAnomalyPicture anomalyPicture = null;
+            Picture picture = null;
+            if (entity.Id != null)
             {
-                Id = entity.Id,
-                IdBuildingAnomaly = entity.IdParent,
-                Picture = new Picture { Id = entity.Id, Data = PictureService.DecodeBase64Picture(entity.PictureData), SketchJson = entity.SketchJson }
-            };
-
-            if (!isExistRecord)
-            {
-                Context.Add(currentRecord);
+                anomalyPicture = Context.BuildingAnomalyPictures.Find(entity.Id);
+                picture = Context.Pictures.Find(entity.Id);
             }
 
+            if (anomalyPicture == null)
+            {
+                anomalyPicture = new BuildingAnomalyPicture {Picture = new Picture { Name = "" } };
+                Context.Add(anomalyPicture);
+            }
+
+            var encodedPicture = PictureService.DecodeBase64Picture(entity.PictureData);
+            anomalyPicture.Id = entity.Id;
+            anomalyPicture.IdBuildingAnomaly = entity.IdParent;
+
+            picture.Id = entity.Id;
+            picture.Data = encodedPicture;
+            picture.SketchJson = entity.SketchJson;
 
             Context.SaveChanges();
-
             return entity.Id;
-		}
+        }
 
 		public virtual bool Remove(Guid id)
 		{
