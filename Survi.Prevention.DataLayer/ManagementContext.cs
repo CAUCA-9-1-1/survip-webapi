@@ -107,7 +107,7 @@ namespace Survi.Prevention.DataLayer
 			modelBuilder.Query<InspectionToDo>()
 				.ToView("building_with_todo_inspection");
 			modelBuilder.Query<InspectionForApproval>()
-				.ToView("building_with_todo_inspection");
+				.ToView("building_with_ready_for_approbation_inspection");
 			modelBuilder.Query<InspectionCompleted>()
 				.ToView("building_with_completed_inspection");
 		}
