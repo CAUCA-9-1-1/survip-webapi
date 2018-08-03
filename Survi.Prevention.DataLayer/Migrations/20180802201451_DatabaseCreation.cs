@@ -3728,10 +3728,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                 name: "IX_webuser_fire_safety_department_id_webuser",
                 table: "webuser_fire_safety_department",
                 column: "id_webuser");
+
+	        migrationBuilder.CreateInitialInspectionViews();
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+	        migrationBuilder.DropInitialInspectionViews();
+
             migrationBuilder.DropTable(
                 name: "access_secret_key");
 
