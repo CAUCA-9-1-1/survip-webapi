@@ -11,6 +11,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 		private static readonly Guid CityTypeId = GuidExtensions.GetGuid();
 		private static readonly Guid CityStGeorgesId = Guid.Parse("8a4737d2-e3c8-4d1f-b5ad-76a4703568a5");
 		private static readonly Guid StateId = GuidExtensions.GetGuid();
+		private static readonly Guid FireSafetyDepartmentId = GuidExtensions.GetGuid();
 
 		public static void SeedInitialGeographicData(ModelBuilder builder)
 		{
@@ -28,13 +29,13 @@ namespace Survi.Prevention.DataLayer.InitialData
 
 		public static void SeedInitialCityTypes(ModelBuilder builder)
 		{
-			SeedCityType(builder, "Ville", "City");
-			SeedCityType(builder, "Municipalité", "Municipality");
+			SeedCityType(builder, CityTypeId, "Ville", "City");
+			SeedCityType(builder, GuidExtensions.GetGuid(), "Municipalité", "Municipality");
 		}
 
-		private static void SeedCityType(ModelBuilder builder, string french, string english)
+		private static void SeedCityType(ModelBuilder builder, Guid id, string french, string english)
 		{
-			var type = new CityType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
+			var type = new CityType { Id = id, CreatedOn = Now };
 			var frenchLocalization = new CityTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
 			var englishLocalization = new CityTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
 			builder.Entity<CityType>().HasData(type);
@@ -97,6 +98,14 @@ namespace Survi.Prevention.DataLayer.InitialData
 			SeedCities(builder, beauce.Id);
 			SeedNewBeauceLocalizations(builder, newBeauce.Id);
 			SeedBeauceSartiganLocalizations(builder, beauce.Id);
+			SeedFireSafetyDepartment(builder, FireSafetyDepartmentId, beauce.Id, "Cauca SSI", "Cauca SSI");
+			var fireStations = new[]
+			{
+				new Firestation{ Id = GuidExtensions.GetGuid(), CreatedOn = Now, Name = "Caserne 1", IdFireSafetyDepartment = FireSafetyDepartmentId },
+				new Firestation{ Id = GuidExtensions.GetGuid(), CreatedOn = Now, Name = "Caserne 2", IdFireSafetyDepartment = FireSafetyDepartmentId },
+				new Firestation{ Id = GuidExtensions.GetGuid(), CreatedOn = Now, Name = "Caserne 3", IdFireSafetyDepartment = FireSafetyDepartmentId }
+			};			
+			builder.Entity<Firestation>().HasData(fireStations);
 		}
 
 		private static void SeedNewBeauceLocalizations(ModelBuilder builder, Guid idCounty)
@@ -117,14 +126,16 @@ namespace Survi.Prevention.DataLayer.InitialData
 
 		private static void SeedCities(ModelBuilder builder, Guid idCounty)
 		{
-			var stMartin = new City {Code = "29045", Code3Letters = "SIN", IdCityType = CityTypeId, IdCounty = idCounty, CreatedOn = Now, Id = GuidExtensions.GetGuid()};
-			var stGeorges = new City {Id = CityStGeorgesId, Code = "29073", Code3Letters = "SGS", IdCityType = CityTypeId};
-
-			SeedStMartinLocalizations(builder, stMartin.Id);
-			SeedStGeorgesLocalizations(builder, stGeorges.Id);
+			var cause = new City {Code = "29045", Code3Letters = "SIN", IdCityType = CityTypeId, IdCounty = idCounty, CreatedOn = Now, Id = GuidExtensions.GetGuid()};
+			var cauca = new City {Id = CityStGeorgesId, Code = "29073", Code3Letters = "SGS", IdCityType = CityTypeId, IdCounty = idCounty, CreatedOn = Now };
+			builder.Entity<City>().HasData(cause, cauca);
+			SeedCauseLocalizations(builder, cause.Id);
+			SeedCaucaLocalizations(builder, cauca.Id);
+			var serving = new FireSafetyDepartmentCityServing { Id = GuidExtensions.GetGuid(), CreatedOn = Now, IdFireSafetyDepartment = FireSafetyDepartmentId, IdCity = cauca.Id };
+			builder.Entity<FireSafetyDepartmentCityServing>().HasData(serving);
 		}
 
-		private static void SeedStGeorgesLocalizations(ModelBuilder builder, Guid idCity)
+		private static void SeedCaucaLocalizations(ModelBuilder builder, Guid idCity)
 		{
 			var loc = new[] {
 				new CityLocalization {LanguageCode = "fr", Name = "Caucaville", IdParent = idCity, CreatedOn = Now, Id = GuidExtensions.GetGuid()},
@@ -132,12 +143,21 @@ namespace Survi.Prevention.DataLayer.InitialData
 			builder.Entity<CityLocalization>().HasData(loc);
 		}
 
-		private static void SeedStMartinLocalizations(ModelBuilder builder, Guid idCity)
+		private static void SeedCauseLocalizations(ModelBuilder builder, Guid idCity)
 		{
 			var loc = new[] {
 				new CityLocalization {LanguageCode = "fr", Name = "Causeville", IdParent = idCity, CreatedOn = Now, Id = GuidExtensions.GetGuid() },
 				new CityLocalization { LanguageCode = "en", Name = "Causetown", IdParent = idCity, CreatedOn = Now, Id = GuidExtensions.GetGuid() } };
 			builder.Entity<CityLocalization>().HasData(loc);
+		}
+
+		private static void SeedFireSafetyDepartment(ModelBuilder builder, Guid id, Guid idCounty, string french, string english)
+		{
+			var type = new FireSafetyDepartment { Id = id, IdCounty = idCounty, CreatedOn = Now, Language = "fr" };
+			var frenchLocalization = new FireSafetyDepartmentLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new FireSafetyDepartmentLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			builder.Entity<FireSafetyDepartment>().HasData(type);
+			builder.Entity<FireSafetyDepartmentLocalization>().HasData(frenchLocalization, englishLocalization);
 		}
 	}
 }
