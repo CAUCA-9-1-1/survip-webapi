@@ -49,12 +49,15 @@ namespace Survi.Prevention.ServiceLayer.Services
             if (entity.Id != null)
             {
                 anomalyPicture = Context.BuildingAnomalyPictures.Find(entity.Id);
-                picture = Context.Pictures.Find(entity.Id);
             }
 
             if (anomalyPicture == null)
             {
-                anomalyPicture = new BuildingAnomalyPicture {Picture = new Picture { Name = "" } };
+                anomalyPicture = new BuildingAnomalyPicture {
+                    Id = entity.Id,
+                    IdBuildingAnomaly = entity.IdParent,
+                    IdPicture = entity.Id,
+                    Picture = new Picture { Id = entity.Id, Name = ""}};
                 Context.Add(anomalyPicture);
             }
 
@@ -62,9 +65,11 @@ namespace Survi.Prevention.ServiceLayer.Services
             anomalyPicture.Id = entity.Id;
             anomalyPicture.IdBuildingAnomaly = entity.IdParent;
 
-            picture.Id = entity.Id;
-            picture.Data = encodedPicture;
-            picture.SketchJson = entity.SketchJson;
+            anomalyPicture.Picture = Context.Pictures.Find(entity.Id);
+
+            anomalyPicture.Picture.Id = entity.Id;
+            anomalyPicture.Picture.Data = encodedPicture;
+            anomalyPicture.Picture.SketchJson = entity.SketchJson;
 
             Context.SaveChanges();
             return entity.Id;
