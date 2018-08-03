@@ -42,16 +42,31 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public virtual Guid AddPicture(BuildingChildPictureForWeb entity)
 		{
-			var currentRecord = new BuildingParticularRiskPicture
-			{
-				Id = entity.Id,
-				IdBuildingParticularRisk = entity.IdParent,
-				Picture = new Picture { Id = entity.Id, Data = PictureService.DecodeBase64Picture(entity.PictureData) }
-			};
-			Context.Add(currentRecord);
-			Context.SaveChanges();
-			return entity.Id;
-		}
+            BuildingParticularRiskPicture particularRiskPicture = null;
+            Picture picture = null;
+            if (entity.Id != null)
+            {
+                particularRiskPicture = Context.BuildingParticularRiskPictures.Find(entity.Id);
+                picture = Context.Pictures.Find(entity.Id);
+            }
+
+            if (particularRiskPicture == null)
+            {
+                particularRiskPicture = new BuildingParticularRiskPicture { Picture = new Picture { Name = "" } };
+                Context.Add(particularRiskPicture);
+            }
+
+            var encodedPicture = PictureService.DecodeBase64Picture(entity.PictureData);
+            particularRiskPicture.Id = entity.Id;
+            particularRiskPicture.IdBuildingParticularRisk = entity.IdParent;
+
+            picture.Id = entity.Id;
+            picture.Data = encodedPicture;
+            picture.SketchJson = entity.SketchJson;
+
+            Context.SaveChanges();
+            return entity.Id;
+        }
 
 		public virtual bool Remove(Guid id)
 		{
