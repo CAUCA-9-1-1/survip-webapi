@@ -43,16 +43,20 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public virtual Guid AddPicture(BuildingChildPictureForWeb entity)
 		{
             BuildingParticularRiskPicture particularRiskPicture = null;
-            Picture picture = null;
             if (entity.Id != null)
             {
                 particularRiskPicture = Context.BuildingParticularRiskPictures.Find(entity.Id);
-                picture = Context.Pictures.Find(entity.Id);
             }
 
             if (particularRiskPicture == null)
             {
-                particularRiskPicture = new BuildingParticularRiskPicture { Picture = new Picture { Name = "" } };
+                particularRiskPicture = new BuildingParticularRiskPicture
+                {
+                    Id = entity.Id,
+                    IdBuildingParticularRisk = entity.IdParent,
+                    IdPicture = entity.Id,
+                    Picture = new Picture { Id = entity.Id, Name = "" }
+                };
                 Context.Add(particularRiskPicture);
             }
 
@@ -60,9 +64,11 @@ namespace Survi.Prevention.ServiceLayer.Services
             particularRiskPicture.Id = entity.Id;
             particularRiskPicture.IdBuildingParticularRisk = entity.IdParent;
 
-            picture.Id = entity.Id;
-            picture.Data = encodedPicture;
-            picture.SketchJson = entity.SketchJson;
+            particularRiskPicture.Picture = Context.Pictures.Find(entity.Id);
+
+            particularRiskPicture.Picture.Id = entity.Id;
+            particularRiskPicture.Picture.Data = encodedPicture;
+            particularRiskPicture.Picture.SketchJson = entity.SketchJson;
 
             Context.SaveChanges();
             return entity.Id;

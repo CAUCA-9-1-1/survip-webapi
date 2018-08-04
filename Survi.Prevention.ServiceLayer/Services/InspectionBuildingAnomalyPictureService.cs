@@ -45,7 +45,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public virtual Guid AddPicture(BuildingChildPictureForWeb entity)
 		{
             BuildingAnomalyPicture anomalyPicture = null;
-            Picture picture = null;
             if (entity.Id != null)
             {
                 anomalyPicture = Context.BuildingAnomalyPictures.Find(entity.Id);
