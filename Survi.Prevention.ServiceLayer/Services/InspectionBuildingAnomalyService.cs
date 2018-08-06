@@ -20,11 +20,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 			    .FirstOrDefault(anomaly => anomaly.Id == id);
 	    }
 
-	    public override List<BuildingAnomaly> GetList()
-	    {
-		    throw new NotImplementedException();
-	    }
-
 	    public List<InspectionBuildingAnomalyThemeForList> GetListForWeb(Guid idBuilding)
 	    {
 		    var query =

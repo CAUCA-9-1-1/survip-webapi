@@ -34,10 +34,5 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return query.ToList();
 		}
-
-		public override List<BuildingContact> GetList()
-		{
-			throw new NotImplementedException();			
-		}
 	}
 }

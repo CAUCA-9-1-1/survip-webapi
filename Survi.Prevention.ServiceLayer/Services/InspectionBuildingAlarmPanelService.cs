@@ -21,11 +21,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return entity;
 		}
 
-		public override List<BuildingAlarmPanel> GetList()
-		{
-			throw new NotImplementedException();
-		}
-
 		public List<BuildingFireProtectionForList> GetListLocalized(string languageCode, Guid idBuilding)
 		{
 			var query =
