@@ -147,6 +147,7 @@ namespace Survi.Prevention.WebApi
 		private static IEdmModel GetEdmModel()
 		{
 			var builder = new ODataConventionModelBuilder();
+			builder.EnableLowerCamelCase();
 			builder.EntitySet<BuildingWithoutInspection>("BuildingsWithoutInspection").AllowAllQueryType();
 			builder.EntitySet<InspectionToDo>("InspectionsToDo").AllowAllQueryType();
 			builder.EntitySet<InspectionForApproval>("InspectionsForApproval").AllowAllQueryType();

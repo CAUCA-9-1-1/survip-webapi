@@ -2,7 +2,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using Microsoft.AspNet.OData;
-using Microsoft.AspNet.OData.Query;
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,25 +23,25 @@ namespace Survi.Prevention.WebApi.Controllers
 			this.service = service;
 		}
 
-		[ODataRoute("BuildingsWithoutInspection"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All), AllowAnonymous]
+		[ODataRoute("BuildingsWithoutInspection"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
 		public IQueryable<BuildingWithoutInspection> GetBuildingWithoutInspection([FromHeader]string languageCode)
 		{
 			return service.GetBuildingWithoutInspectionQueryable(languageCode);
 		}
 
-		[ODataRoute("InspectionsToDo"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All), AllowAnonymous]
+		[ODataRoute("InspectionsToDo"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
 		public IQueryable<InspectionToDo> GetInspectionsToDo([FromHeader]string languageCode)
 		{
 			return service.GetToDoInspections(languageCode);
 		}
 
-		[ODataRoute("InspectionsForApproval"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All), AllowAnonymous]
+		[ODataRoute("InspectionsForApproval"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
 		public IQueryable<InspectionForApproval> GetInspectionsForApproval([FromHeader]string languageCode)
 		{
 			return service.GetInspectionsForApproval(languageCode);
 		}
 
-		[ODataRoute("InspectionsCompleted"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All), AllowAnonymous]
+		[ODataRoute("InspectionsCompleted"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
 		public IQueryable<InspectionCompleted> GetInspectionsCompleted([FromHeader]string languageCode)
 		{
 			return service.GetInspectionsCompleted(languageCode);
