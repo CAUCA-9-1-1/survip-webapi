@@ -2,6 +2,8 @@ using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
@@ -23,9 +25,9 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 
 		[Route("[Action]"), HttpPost]
-		public ActionResult Logon(string user, string password)
+		public ActionResult Logon([FromBody]LoginInformations login)
 		{
-			var result = service.Login(user, password, applicationName, issuer, secretKey);
+			var result = service.Login(login.Username, login.Password, applicationName, issuer, secretKey);
 			if (result.user == null || result.token == null)
 				return Unauthorized();
 
@@ -43,6 +45,26 @@ namespace Survi.Prevention.WebApi.Controllers
 						FirstName = result.user.Attributes.Where(a => a.AttributeName == "first_name").Select(a => a.AttributeValue).FirstOrDefault() ?? "",
 					}
 			});
+		}
+
+		[Route("[Action]"), HttpPost, AllowAnonymous]
+		public ActionResult Refresh([FromBody]TokenRefreshResult tokens)
+		{
+			try
+			{
+				var newAccessToken = service.Refresh(tokens.AccessToken, tokens.RefreshToken, applicationName, issuer, secretKey);
+				return Ok(new { AccessToken = newAccessToken, tokens.RefreshToken });
+			}
+			catch (SecurityTokenExpiredException)
+			{
+				HttpContext.Response.Headers.Add("Refresh-Token-Expired", "true");
+			}
+			catch (SecurityTokenException)
+			{
+				HttpContext.Response.Headers.Add("Token-Invalid", "true");
+			}
+
+			return Unauthorized();
 		}
 
 		[HttpGet, Route("SessionStatus"), Authorize]
