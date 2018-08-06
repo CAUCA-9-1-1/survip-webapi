@@ -19,11 +19,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.FirstOrDefault(contact => contact.Id == id);
 		}
 
-        public override List<BuildingContact> GetList()
-        {
-            throw new NotImplementedException();
-        }
-
         public List<BuildingContact> GetBuildingContactList(Guid idBuilding)
 		{
             var result = Context.BuildingContacts

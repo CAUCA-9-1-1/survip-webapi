@@ -36,7 +36,14 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return true;
 		}
 
-		public abstract T Get(Guid id);
-		public abstract List<T> GetList();
+		public virtual T Get(Guid id)
+		{
+			return Context.Set<T>().Find(id);
+		}
+
+		public virtual List<T> GetList()
+		{
+			return Context.Set<T>().ToList();
+		}
 	}
 }

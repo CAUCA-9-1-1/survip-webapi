@@ -20,11 +20,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return entity;
 		}
 
-		public override List<BuildingPersonRequiringAssistance> GetList()
-		{
-			throw new NotImplementedException();
-		}
-
 		public List<BuildingPersonRequiringAssistance> GetBuildingPnapsList(Guid idBuilding)
 		{
             var result = Context.BuildingPersonsRequiringAssistance

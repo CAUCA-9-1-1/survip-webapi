@@ -21,11 +21,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return entity;
 		}
 
-		public override List<BuildingHazardousMaterial> GetList()
-		{
-			throw new NotImplementedException();
-		}
-
 		public List<BuildingHazardousMaterialForList> GetListLocalized(string languageCode, Guid idBuilding)
 		{
 			var query =

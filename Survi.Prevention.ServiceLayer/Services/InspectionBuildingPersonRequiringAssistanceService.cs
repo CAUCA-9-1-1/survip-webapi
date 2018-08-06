@@ -21,11 +21,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return entity;
 		}
 
-		public override List<BuildingPersonRequiringAssistance> GetList()
-		{
-			throw new NotImplementedException();
-		}
-
 		public List<BuildingPersonRequiringAssistanceForList> GetListLocalized(string languageCode, Guid idBuilding)
 		{
 			var query =

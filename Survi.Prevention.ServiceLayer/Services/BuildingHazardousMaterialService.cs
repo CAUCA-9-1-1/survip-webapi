@@ -19,11 +19,6 @@ namespace Survi.Prevention.ServiceLayer.Services
                 .FirstOrDefault(material => material.Id == id);
 		}
 
-        public override List<BuildingHazardousMaterial> GetList()
-        {
-            throw new NotImplementedException();
-        }
-
         public List<BuildingHazardousMaterial> GetBuildingHazardousMaterialList(Guid idBuilding)
 		{
             var result = Context.BuildingHazardousMaterials
