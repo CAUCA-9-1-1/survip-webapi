@@ -44,7 +44,7 @@ namespace Survi.Prevention.DataLayer
 				  EXISTS(select id from building_anomaly as ba where ba.id_building = b.id and ba.is_active = true) as has_anomaly,
 
 				  laneloc.language_code,
-				  '' as batch_description,
+				  ''::text as batch_description,
 				  false as has_visit_note,
 				  null as id_batch,
 				  b.id as id_building,
@@ -52,7 +52,7 @@ namespace Survi.Prevention.DataLayer
 				  0 as inspection_status,
 				  false as is_ready_for_inspection,
 				  null as should_start_on,
-				  '' as webuser_assigned_to
+				  ''::text as webuser_assigned_to
 
 				FROM building as b
 				INNER JOIN lane as l on b.id_lane = l.id
@@ -104,7 +104,7 @@ namespace Survi.Prevention.DataLayer
 				  i.status as inspection_status,
 				  batch.is_ready_for_inspection,
 				  batch.should_start_on,
-				  '' as webuser_assigned_to,
+				  ''::text as webuser_assigned_to,
 				  COALESCE((CASE WHEN i.id_webuser_assigned_to IS NOT NULL THEN
 					(SELECT
 					  CONCAT(
