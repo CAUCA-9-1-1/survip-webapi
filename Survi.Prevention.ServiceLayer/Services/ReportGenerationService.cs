@@ -6,6 +6,7 @@ using System.Reflection.Metadata;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 using WkWrap;
@@ -37,6 +38,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 where riskLevelLocalization.IsActive && riskLevelLocalization.LanguageCode == languageCode
                 select new 
                 {
+                    idBuilding = building.Id,
                     civicLetter = building.CivicLetter,
                     civicNumber = building.CivicNumber,
                     matricule = building.Matricule,
@@ -50,7 +52,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 
             var results = query.First();
             var result = new
-                {
+                {                    
+                    idBuilding = results.idBuilding,
                     riskCategory = results.riskLevelName,
                     matricule = results.matricule,
                     zipCode = results.postalCode,
@@ -91,7 +94,9 @@ namespace Survi.Prevention.ServiceLayer.Services
                 ConstructionFireResistance = SetConstructionFireResistance(id),
                 ConstructionSiding = SetConstructionSiding(id),
                 RoofType = SetRoofType(id),
-                RoofMaterial = SetRoofMaterial(id)
+                RoofMaterial = SetRoofMaterial(id),
+                //
+                Anomalies = SetAnomalies(result.idBuilding, languageCode)
                 
             };
             return reportPlaceholders;
@@ -518,6 +523,70 @@ namespace Survi.Prevention.ServiceLayer.Services
                 }
                 report += "</tbody>\n";
                 report += "</table>\n";
+            }
+            return report;
+        }
+
+        private string SetAnomalies(Guid idBuilding, string languageCode)
+        {
+            var query =
+                from anomaly in Context.BuildingAnomalies.AsNoTracking()
+                where anomaly.IdBuilding == idBuilding && anomaly.IsActive
+                select new BuildingAnomalyForList
+                {
+                    Id = anomaly.Id,
+                    Theme = anomaly.Theme,
+                    Notes = anomaly.Notes
+                };
+
+            var result = query.ToList();
+
+            var finalResult =
+                from anomaly in result
+                group anomaly by anomaly.Theme
+                into theme
+                select new InspectionBuildingAnomalyThemeForList
+                {
+                    Theme = theme.Key,
+                    Anomalies = theme.ToList()
+                };
+
+            var finalResultList = finalResult.ToList();
+            var report = "";
+            foreach (var theme in finalResultList)
+            {
+                report += "<h3>" + theme.Theme + "</h3>\n";
+                foreach (var anomaly in theme.Anomalies)
+                {
+                    report += "<h4>Notes: " + anomaly.Notes + "</h4>\n";
+                    var queryPictures =
+                        from picture in Context.BuildingAnomalyPictures.AsNoTracking()
+                        let data = picture.Picture
+                        where picture.IdBuildingAnomaly == anomaly.Id && picture.IsActive && data != null &&
+                              data.IsActive
+                        select new
+                        {
+                            picture.Id,
+                            picture.IdBuildingAnomaly,
+                            picture.IdPicture,
+                            PictureData = data.Data
+                        };
+
+                    var resultPictures = queryPictures.ToList();
+
+                    var pictures = resultPictures.Select(pic => new BuildingChildPictureForWeb
+                    {
+                        Id = pic.Id,
+                        IdPicture = pic.IdPicture,
+                        IdParent = pic.IdBuildingAnomaly,
+                        PictureData = Convert.ToBase64String(pic.PictureData)
+                    }).ToList();
+
+                    foreach (var picture in pictures)
+                    {
+                        report += "<img style=\"margin: 20px 20px\" src=\"data:image/png;base64, " + picture.PictureData + "\" height=\"400\" />\n";
+                    }
+                }
             }
             return report;
         }

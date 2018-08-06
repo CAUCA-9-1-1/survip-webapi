@@ -22,11 +22,14 @@ namespace Survi.Prevention.ServiceLayer
         public string ImplementationPlan { get; set; }
 
         // Course
+        public string Course { get; set; }
         
         // Water Supply
+        public string WaterSupply { get; set; }
         
         // Survey
         public string Survey { get; set; }
+        
         /*
          * Building
          */
@@ -46,6 +49,23 @@ namespace Survi.Prevention.ServiceLayer
         public string RoofType { get; set; }
         public string RoofMaterial { get; set; }
         
+        // Contact
+        public string Contact { get; set; }
+        
+        // PNAPS
+        public string PersonRequiringAssistance { get; set; }
+        
+        // Hazardous materials
+        public string HazardousMaterials { get; set; }
+        
+        // Fire Protection
+        public string FireProtection { get; set; }
+        
+        // Particular Risks
+        public string ParticularRisks { get; set; }
+        
+        // Anomalies
+        public string Anomalies { get; set; }
         
         public string ReplacePlaceholders(string template)
         {
