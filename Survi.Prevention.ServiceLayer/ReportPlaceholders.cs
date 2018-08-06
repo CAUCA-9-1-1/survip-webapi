@@ -26,7 +26,7 @@ namespace Survi.Prevention.ServiceLayer
         // Water Supply
         
         // Survey
-        
+        public string Survey { get; set; }
         /*
          * Building
          */

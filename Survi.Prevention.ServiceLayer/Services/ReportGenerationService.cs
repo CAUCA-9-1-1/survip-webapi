@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Reflection.Metadata;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models;
 using System.Text;
@@ -76,6 +78,8 @@ namespace Survi.Prevention.ServiceLayer.Services
                 //
                 ImplementationPlan = SetImplementationPlan(id),
                 //
+                Survey = SetSurveySummary(id, languageCode),
+                //
                 Address = result.address,
                 ZipCode = result.zipCode,
                 //
@@ -88,6 +92,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 ConstructionSiding = SetConstructionSiding(id),
                 RoofType = SetRoofType(id),
                 RoofMaterial = SetRoofMaterial(id)
+                
             };
             return reportPlaceholders;
         }
@@ -447,13 +452,74 @@ namespace Survi.Prevention.ServiceLayer.Services
             var res = query.SingleOrDefault();
             return res == null ? "" : res.Name;
         }
-        
-        private string SetMatricule(Guid id)
+
+        private string SetSurveySummary(Guid idInspection, string languageCode)
         {
-            var inspection = Context.Inspections
-                .First(u => u.Id == id);
-            var building = Context.Buildings.First(u => u.Id == inspection.IdBuilding);
-            return building.Matricule;
+            var answerSummary = (
+                from inspectionQuestion in Context.InspectionQuestions
+                from surveyQuestion in Context.SurveyQuestions.Where(sq => sq.IsActive && sq.Id == inspectionQuestion.IdSurveyQuestion)
+                join surveyQuestionChoice in Context.SurveyQuestionChoices.Where(sqc => sqc.IsActive) on inspectionQuestion.IdSurveyQuestionChoice equals surveyQuestionChoice.Id into aqc
+                from surveyQuestionChoice in aqc.DefaultIfEmpty()
+                where inspectionQuestion.IdInspection == idInspection
+                orderby inspectionQuestion.CreatedOn
+                select new InspectionQuestionForSummary
+                {
+                    Id = inspectionQuestion.Id,
+                    NextQuestionId = surveyQuestion.Id,
+                    QuestionTitle = surveyQuestion.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Title,
+                    QuestionDescription = surveyQuestion.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
+                    Answer = surveyQuestion.QuestionType != 1 ? inspectionQuestion.Answer : surveyQuestionChoice.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
+                    QuestionType = surveyQuestion.QuestionType,
+                    Sequence = surveyQuestion.Sequence,
+                    IsRecursive = surveyQuestion.IsRecursive
+					
+                }).ToList();
+
+            List<InspectionQuestionForSummary> recursiveList = new RecursiveInspectionQuestionProcess().GroupRecursiveQuestion(answerSummary);
+
+            var groupedTitle =
+                from groupedQuestion in recursiveList
+                group groupedQuestion by groupedQuestion.QuestionTitle
+                into gq
+                select new InspectionSummaryCategoryForList
+                {
+                    Title = gq.Key,
+                    AnswerSummary = gq.ToList()
+                };
+
+            var summary = groupedTitle.ToList();
+            var report = "";
+            foreach (var category in summary)
+            {
+                report += "<h3>" + category.Title + "</h3>\n";
+                report += "<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:8.5in\">\n";
+                report += "<tbody>\n";
+                for (var i = 0; i < category.AnswerSummary.Count; i++)
+                {
+                    var recursive = category.AnswerSummary.ElementAt(i);
+                    if (recursive.IsRecursive && recursive.RecursiveAnswer.Count != 0)
+                    {
+                        report += "<h3>" + recursive.QuestionTitle + " #" + (i + 1) + "</h3>\n";
+                        foreach (var question in recursive.RecursiveAnswer)
+                        {
+                            report += "<tr>\n";
+                            report += "<td style=\"width:5.5in\">\t" + question.QuestionDescription + "</td>\n";
+                            report += "<td style=\"width:3.0in\">\t" + question.Answer + "</td>\n";
+                            report += "</tr>\n";
+                        }
+                    }
+                    else
+                    {
+                        report += "<tr>\n";
+                        report += "<td style=\"width:5.5in\">" + recursive.QuestionDescription + "</td>\n";
+                        report += "<td style=\"width:3.0in\">" + recursive.Answer + "</td>\n";
+                        report += "</tr>\n";
+                    }
+                }
+                report += "</tbody>\n";
+                report += "</table>\n";
+            }
+            return report;
         }
     }
 }
