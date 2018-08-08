@@ -37,7 +37,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 		{
 			var type = new CityType { Id = id, CreatedOn = Now };
 			var frenchLocalization = new CityTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
-			var englishLocalization = new CityTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new CityTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = english, IdParent = type.Id, CreatedOn = Now };
 			builder.Entity<CityType>().HasData(type);
 			builder.Entity<CityTypeLocalization>().HasData(frenchLocalization, englishLocalization);
 		}
@@ -155,7 +155,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 		{
 			var type = new FireSafetyDepartment { Id = id, IdCounty = idCounty, CreatedOn = Now, Language = "fr" };
 			var frenchLocalization = new FireSafetyDepartmentLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
-			var englishLocalization = new FireSafetyDepartmentLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new FireSafetyDepartmentLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = english, IdParent = type.Id, CreatedOn = Now };
 			builder.Entity<FireSafetyDepartment>().HasData(type);
 			builder.Entity<FireSafetyDepartmentLocalization>().HasData(frenchLocalization, englishLocalization);
 		}

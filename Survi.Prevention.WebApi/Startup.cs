@@ -133,13 +133,6 @@ namespace Survi.Prevention.WebApi
 				routeBuilder.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
 				routeBuilder.MapODataServiceRoute("odataroutes", "api/odata", GetEdmModel());
 			});
-
-			//using (var service = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-			//{
-			//	//if (service.ServiceProvider.GetService<ManagementContext>().AllMigrationsApplied())
-			//	service.ServiceProvider.GetService<ManagementContext>().Database.Migrate();
-			//	//service.ServiceProvider.GetService<ManagementContext>().EnsureSeeded();
-			//}
 		}
 
 		private static IEdmModel GetEdmModel()

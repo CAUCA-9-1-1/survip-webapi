@@ -52,14 +52,13 @@ namespace Survi.Prevention.DataLayer.InitialData
 			SeedFireResistanceType(builder, "Incombustible", "Nonflammable");
 			SeedFireResistanceType(builder, "Résistante au feu", "Fire resistant");
 			SeedFireResistanceType(builder, "Hybride", "Hybrid");
-			SeedFireResistanceType(builder, "Test2", "Test2");
 		}
 
 		private static void SeedFireResistanceType(ModelBuilder builder, string french, string english)
 		{
 			var type = new ConstructionFireResistanceType {Id = GuidExtensions.GetGuid(), CreatedOn = Now};
 			var frenchLocalization = new ConstructionFireResistanceTypeLocalization {Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now};
-			var englishLocalization = new ConstructionFireResistanceTypeLocalization {Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now};
+			var englishLocalization = new ConstructionFireResistanceTypeLocalization {Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = english, IdParent = type.Id, CreatedOn = Now};
 			builder.Entity<ConstructionFireResistanceType>().HasData(type);
 			builder.Entity<ConstructionFireResistanceTypeLocalization>().HasData(frenchLocalization, englishLocalization);
 		}
@@ -82,7 +81,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 		{
 			var type = new ConstructionType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
 			var frenchLocalization = new ConstructionTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
-			var englishLocalization = new ConstructionTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new ConstructionTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = english, IdParent = type.Id, CreatedOn = Now };
 			builder.Entity<ConstructionType>().HasData(type);
 			builder.Entity<ConstructionTypeLocalization>().HasData(frenchLocalization, englishLocalization);
 		}
@@ -99,7 +98,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 		{
 			var type = new BuildingType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
 			var frenchLocalization = new BuildingTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
-			var englishLocalization = new BuildingTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new BuildingTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = english, IdParent = type.Id, CreatedOn = Now };
 			builder.Entity<BuildingType>().HasData(type);
 			builder.Entity<BuildingTypeLocalization>().HasData(frenchLocalization, englishLocalization);
 		}
@@ -121,7 +120,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 		{
 			var type = new RoofType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
 			var frenchLocalization = new RoofTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
-			var englishLocalization = new RoofTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new RoofTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = english, IdParent = type.Id, CreatedOn = Now };
 			builder.Entity<RoofType>().HasData(type);
 			builder.Entity<RoofTypeLocalization>().HasData(frenchLocalization, englishLocalization);
 		}
@@ -139,7 +138,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 		{
 			var type = new RoofMaterialType {Id = GuidExtensions.GetGuid(), CreatedOn = Now};
 			var frenchLocalization = new RoofMaterialTypeLocalization {Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now};
-			var englishLocalization = new RoofMaterialTypeLocalization {Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now};
+			var englishLocalization = new RoofMaterialTypeLocalization {Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = english, IdParent = type.Id, CreatedOn = Now};
 			builder.Entity<RoofMaterialType>().HasData(type);
 			builder.Entity<RoofMaterialTypeLocalization>().HasData(frenchLocalization, englishLocalization);
 		}
@@ -162,7 +161,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 		{
 			var type = new SidingType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
 			var frenchLocalization = new SidingTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
-			var englishLocalization = new SidingTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new SidingTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = english, IdParent = type.Id, CreatedOn = Now };
 			builder.Entity<SidingType>().HasData(type);
 			builder.Entity<SidingTypeLocalization>().HasData(frenchLocalization, englishLocalization);
 		}
@@ -181,7 +180,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 		{
 			var type = new SprinklerType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
 			var frenchLocalization = new SprinklerTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
-			var englishLocalization = new SprinklerTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new SprinklerTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = english, IdParent = type.Id, CreatedOn = Now };
 			builder.Entity<SprinklerType>().HasData(type);
 			builder.Entity<SprinklerTypeLocalization>().HasData(frenchLocalization, englishLocalization);
 		}
@@ -198,7 +197,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 		{
 			var type = new AlarmPanelType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
 			var frenchLocalization = new AlarmPanelTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
-			var englishLocalization = new AlarmPanelTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new AlarmPanelTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = english, IdParent = type.Id, CreatedOn = Now };
 			builder.Entity<AlarmPanelType>().HasData(type);
 			builder.Entity<AlarmPanelTypeLocalization>().HasData(frenchLocalization, englishLocalization);
 		}
@@ -225,7 +224,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 		{
 			var type = new PersonRequiringAssistanceType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
 			var frenchLocalization = new PersonRequiringAssistanceTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
-			var englishLocalization = new PersonRequiringAssistanceTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new PersonRequiringAssistanceTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = english, IdParent = type.Id, CreatedOn = Now };
 			builder.Entity<PersonRequiringAssistanceType>().HasData(type);
 			builder.Entity<PersonRequiringAssistanceTypeLocalization>().HasData(frenchLocalization, englishLocalization);
 		}
@@ -240,7 +239,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 		{
 			var type = new FireHydrantConnectionType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
 			var frenchLocalization = new FireHydrantConnectionTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
-			var englishLocalization = new FireHydrantConnectionTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new FireHydrantConnectionTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = english, IdParent = type.Id, CreatedOn = Now };
 			builder.Entity<FireHydrantConnectionType>().HasData(type);
 			builder.Entity<FireHydrantConnectionTypeLocalization>().HasData(frenchLocalization, englishLocalization);
 		}
@@ -260,7 +259,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 		{
 			var type = new FireHydrantType { Id = GuidExtensions.GetGuid(), CreatedOn = Now };
 			var frenchLocalization = new FireHydrantTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
-			var englishLocalization = new FireHydrantTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new FireHydrantTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = english, IdParent = type.Id, CreatedOn = Now };
 			builder.Entity<FireHydrantType>().HasData(type);
 			builder.Entity<FireHydrantTypeLocalization>().HasData(frenchLocalization, englishLocalization);
 		}
@@ -321,7 +320,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 		{
 			var type = new UnitOfMeasure { Id = GuidExtensions.GetGuid(), CreatedOn = Now, Abbreviation = abbreviation };
 			var frenchLocalization = new UnitOfMeasureLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
-			var englishLocalization = new UnitOfMeasureLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new UnitOfMeasureLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = english, IdParent = type.Id, CreatedOn = Now };
 			builder.Entity<UnitOfMeasure>().HasData(type);
 			builder.Entity<UnitOfMeasureLocalization>().HasData(frenchLocalization, englishLocalization);
 		}

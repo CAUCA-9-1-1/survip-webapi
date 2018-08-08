@@ -25,6 +25,7 @@
     <Compile Remove="Migrations\20180802183829_DatabaseCreation.cs" />
     <Compile Remove="Migrations\20180802191908_DatabaseCreation.cs" />
     <Compile Remove="Migrations\20180802194839_DatabaseCreation.cs" />
+    <Compile Remove="Migrations\20180802201451_DatabaseCreation.cs" />
   </ItemGroup>
 
   <ItemGroup>

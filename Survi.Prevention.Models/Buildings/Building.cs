@@ -31,7 +31,6 @@ namespace Survi.Prevention.Models.Buildings
 		public string UtilisationDescription { get; set; }
 		public bool ShowInResources { get; set; }
 		public string Matricule { get; set; }
-		//public Point Coordinates { get; set; } = new Point();
 		public NetTopologySuite.Geometries.Point Coordinates { get; set; }
 		public string CoordinatesSource { get; set; }
 		public string Details { get; set; }

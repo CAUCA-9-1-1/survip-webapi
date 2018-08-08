@@ -22,7 +22,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 		{
 			var type = new RiskLevel { Id = GuidExtensions.GetGuid(), CreatedOn = Now, Code = code, Sequence = code, Color = color.ToArgb().ToString() };
 			var frenchLocalization = new RiskLevelLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
-			var englishLocalization = new RiskLevelLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = english, IdParent = type.Id, CreatedOn = Now };
+			var englishLocalization = new RiskLevelLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = english, IdParent = type.Id, CreatedOn = Now };
 			builder.Entity<RiskLevel>().HasData(type);
 			builder.Entity<RiskLevelLocalization>().HasData(frenchLocalization, englishLocalization);
 		}
