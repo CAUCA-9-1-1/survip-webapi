@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireHydrants;
 using Microsoft.EntityFrameworkCore;
+using Survi.Prevention.Models.DataTransfertObjects;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -30,5 +31,20 @@ namespace Survi.Prevention.ServiceLayer.Services
 
             return result;
         }
+
+	    public List<FireHydrantTypeLocalized> GetListLocalized(string languageCode)
+	    {
+		    var query = from hydrantType in Context.FireHydrantTypes.AsNoTracking()
+			    where hydrantType.IsActive
+			    from localization in hydrantType.Localizations.DefaultIfEmpty()
+			    where localization.IsActive && localization.LanguageCode == languageCode
+			    orderby localization.Name
+			    select new FireHydrantTypeLocalized()
+			    {
+				    Id = hydrantType.Id,
+				    Name = localization.Name
+			    };
+		    return query.ToList();
+	    }
     }
 }
