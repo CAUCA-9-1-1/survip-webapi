@@ -96,7 +96,9 @@ namespace Survi.Prevention.ServiceLayer.Services
                 RoofType = SetRoofType(id),
                 RoofMaterial = SetRoofMaterial(id),
                 //
-                Anomalies = SetAnomalies(result.idBuilding, languageCode)
+                Contact = SetContact(result.idBuilding),
+                Anomalies = SetAnomalies(result.idBuilding, languageCode),
+                PersonRequiringAssistance = SetPersonRequiringAssistance(result.idBuilding, languageCode)
                 
             };
             return reportPlaceholders;
@@ -588,6 +590,53 @@ namespace Survi.Prevention.ServiceLayer.Services
                     }
                 }
             }
+            return report;
+        }
+        
+        public string SetContact(Guid idBuilding)
+        {
+            var result = Context.BuildingContacts
+                .Where(c => c.IdBuilding == idBuilding)
+                .ToList();
+
+            var report = "";
+            foreach (var contact in result)
+            {
+                report += "<div>";
+                report += contact.FirstName + " " + contact.LastName;
+                report += "</div>\n";
+            }
+            return report;
+        }
+
+        public string SetPersonRequiringAssistance(Guid idBuilding, string languageCode)
+        {
+            var query =
+                from person in Context.BuildingPersonsRequiringAssistance.AsNoTracking()
+                where person.IdBuilding == idBuilding && person.IsActive
+                let type = person.PersonType
+                from loc in type.Localizations
+                where loc.IsActive && loc.LanguageCode == languageCode
+                select new BuildingPersonRequiringAssistanceForList
+                {
+                    Id = person.Id,
+                    Name = person.PersonName,
+                    TypeDescription = loc.Name
+                };
+
+            var pnaps = query.ToList();
+            var report = "";
+            report += "<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:8.5in\">\n";
+            report += "<tbody>\n";
+            foreach (var pnap in pnaps)
+            {
+                report += "<tr>\n";
+                report += "<td style=\"width:5.5in\">" + pnap.Name + "</td>\n";
+                report += "<td style=\"width:3.0in\">" + pnap.TypeDescription + "</td>\n";
+                report += "</tr>\n";
+            }
+            report += "</tbody>\n";
+            report += "</table>\n";
             return report;
         }
     }
