@@ -79,6 +79,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 
 	public class InspectionForApproval : BaseInspectionForDashboard
 	{
+		public Guid IdInspection { get; set; }
 	}
 
 	public class InspectionCompleted : BaseInspectionForDashboard
