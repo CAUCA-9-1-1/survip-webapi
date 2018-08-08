@@ -59,7 +59,8 @@ namespace Survi.Prevention.ServiceLayer
         public string HazardousMaterials { get; set; }
         
         // Fire Protection
-        public string FireProtection { get; set; }
+        public string FireProtectionAlarmPanels { get; set; }
+        public string FireProtectionSprinklers { get; set; }
         
         // Particular Risks
         public string ParticularRisks { get; set; }

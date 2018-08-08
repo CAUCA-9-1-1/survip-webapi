@@ -99,7 +99,9 @@ namespace Survi.Prevention.ServiceLayer.Services
                 Contact = SetContact(result.idBuilding),
                 Anomalies = SetAnomalies(result.idBuilding, languageCode),
                 PersonRequiringAssistance = SetPersonRequiringAssistance(result.idBuilding, languageCode),
-                HazardousMaterials = SetHazardousMaterials(result.idBuilding, languageCode)
+                HazardousMaterials = SetHazardousMaterials(result.idBuilding, languageCode),
+                FireProtectionAlarmPanels = SetFireProtectionAlarmPanels(result.idBuilding, languageCode),
+                FireProtectionSprinklers = SetFireProtectionSprinklers(result.idBuilding, languageCode)
                 
             };
             return reportPlaceholders;
@@ -704,6 +706,114 @@ namespace Survi.Prevention.ServiceLayer.Services
             }
 
             return quantityDescription;
+        }
+
+        private string SetFireProtectionAlarmPanels(Guid idBuilding, string languageCode)
+        {
+            var query =
+                from panel in Context.BuildingAlarmPanels.AsNoTracking()
+                where panel.IdBuilding == idBuilding && panel.IsActive
+                let type = panel.AlarmPanelType
+                from loc in type.Localizations
+                where loc.IsActive && loc.LanguageCode == languageCode
+                select new
+                {
+                    panel.Id,
+                    loc.Name,
+                    panel.Floor,
+                    panel.Sector,
+                    panel.Wall
+                };
+
+            var result =
+                from panel in query.ToList()
+                select new BuildingFireProtectionForList
+                {
+                    Id = panel.Id,
+                    TypeDescription = panel.Name,
+                    LocationDescription = GetPanelLocationDescription(panel.Floor, panel.Sector, panel.Wall)
+                };
+            
+            var alarmPanels = result.ToList();
+            var report = "";
+            foreach (var alarmPanel in alarmPanels)
+            {
+                report += "<tr>\n";
+                report += "<td style=\"width:3.0in\">" + alarmPanel.LocationDescription + "</td>\n";
+                report += "<td style=\"width:5.5in\">" + alarmPanel.TypeDescription + "</td>\n";
+                report += "</tr>\n";
+            }
+
+            return report;
+        }
+
+        private string SetFireProtectionSprinklers(Guid idBuilding, string languageCode)
+        {
+            var querySprinklers =
+                from sprinkler in Context.BuildingSprinklers.AsNoTracking()
+                where sprinkler.IdBuilding == idBuilding && sprinkler.IsActive
+                let type = sprinkler.SprinklerType
+                from loc in type.Localizations
+                where loc.IsActive && loc.LanguageCode == languageCode
+                select new 
+                {
+                    sprinkler.Id,
+                    loc.Name,
+                    sprinkler.Floor,
+                    sprinkler.Sector,
+                    sprinkler.Wall
+                };
+
+            var resultSprinklers =
+                from sprinkler in querySprinklers.ToList()
+                select new BuildingFireProtectionForList
+                {
+                    Id = sprinkler.Id,
+                    TypeDescription = sprinkler.Name,
+                    LocationDescription = GetSprinklerLocationDescription(sprinkler.Floor, sprinkler.Sector, sprinkler.Wall)
+                };
+            
+            var sprinklers = resultSprinklers.ToList();
+            var report = "";
+            foreach (var sprinkler in sprinklers)
+            {
+                report += "<tr>\n";
+                report += "<td style=\"width:3.0in\">" + sprinkler.LocationDescription + "</td>\n";
+                report += "<td style=\"width:5.5in\">" + sprinkler.TypeDescription + "</td>\n";
+                report += "</tr>\n";
+            }
+
+            return report;
+        }
+        
+        private string GetSprinklerLocationDescription(string floor, string sector, string wall)
+        {
+            var wallDescription = "";
+            if (!string.IsNullOrWhiteSpace(wall))
+                wallDescription = $"Mur: {wall}.";
+            var sectorDescription = "";
+            if (!string.IsNullOrWhiteSpace(sector))
+                sectorDescription = $"Secteur: {sector}.";
+            var floorDescription = "";
+            if (!string.IsNullOrWhiteSpace(floor))
+                floorDescription = $"Étage: {floor}.";
+
+            return string.Join(" ", sectorDescription, floorDescription, wallDescription);
+        }
+        
+        private string GetPanelLocationDescription(string floor, string sector, string wall)
+        {
+            var wallDescription = "";
+            if (!string.IsNullOrWhiteSpace(wall))
+                wallDescription = $"Mur: {wall}.";
+            var sectorDescription = "";
+            if (!string.IsNullOrWhiteSpace(sector))
+                sectorDescription = $"Secteur: {sector}.";
+            var floorDescription = "";
+            if (!string.IsNullOrWhiteSpace(floor))
+                floorDescription = $"Étage: {floor}.";
+
+            return string.Join(" ", sectorDescription, floorDescription, wallDescription);
         }
     }
 }
