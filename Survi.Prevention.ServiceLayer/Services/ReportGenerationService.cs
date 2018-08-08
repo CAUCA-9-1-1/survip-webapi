@@ -98,7 +98,8 @@ namespace Survi.Prevention.ServiceLayer.Services
                 //
                 Contact = SetContact(result.idBuilding),
                 Anomalies = SetAnomalies(result.idBuilding, languageCode),
-                PersonRequiringAssistance = SetPersonRequiringAssistance(result.idBuilding, languageCode)
+                PersonRequiringAssistance = SetPersonRequiringAssistance(result.idBuilding, languageCode),
+                HazardousMaterials = SetHazardousMaterials(result.idBuilding, languageCode)
                 
             };
             return reportPlaceholders;
@@ -593,7 +594,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             return report;
         }
         
-        public string SetContact(Guid idBuilding)
+        private string SetContact(Guid idBuilding)
         {
             var result = Context.BuildingContacts
                 .Where(c => c.IdBuilding == idBuilding)
@@ -609,7 +610,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             return report;
         }
 
-        public string SetPersonRequiringAssistance(Guid idBuilding, string languageCode)
+        private string SetPersonRequiringAssistance(Guid idBuilding, string languageCode)
         {
             var query =
                 from person in Context.BuildingPersonsRequiringAssistance.AsNoTracking()
@@ -631,13 +632,78 @@ namespace Survi.Prevention.ServiceLayer.Services
             foreach (var pnap in pnaps)
             {
                 report += "<tr>\n";
-                report += "<td style=\"width:5.5in\">" + pnap.Name + "</td>\n";
-                report += "<td style=\"width:3.0in\">" + pnap.TypeDescription + "</td>\n";
+                report += "<td style=\"width:3.0in\">" + pnap.Name + "</td>\n";
+                report += "<td style=\"width:5.5in\">" + pnap.TypeDescription + "</td>\n";
                 report += "</tr>\n";
             }
             report += "</tbody>\n";
             report += "</table>\n";
             return report;
+        }
+
+        private string SetHazardousMaterials(Guid idBuilding, string languageCode)
+        {
+            var query =
+                from matBuilding in Context.BuildingHazardousMaterials.AsNoTracking()
+                where matBuilding.IdBuilding == idBuilding && matBuilding.IsActive
+                let mat = matBuilding.Material
+                from loc in mat.Localizations
+                where loc.IsActive && loc.LanguageCode == languageCode
+                select new
+                {
+                    matBuilding.Id,
+                    loc.Name,
+                    matNumber = mat.Number,
+                    matBuilding.Quantity,
+                    matBuilding.CapacityContainer,
+                    abbreviation = matBuilding.Unit == null ? null : matBuilding.Unit.Abbreviation,
+                    unitName = matBuilding.Unit == null ? "" :
+                        matBuilding.Unit.Localizations
+                            .Where(locUnit => locUnit.IsActive && locUnit.LanguageCode == languageCode)
+                            .Select(locUnit => locUnit.Name)
+                            .FirstOrDefault()
+                };
+
+            var result = query
+                .ToList()
+                .Select(mat => new BuildingHazardousMaterialForList
+                {
+                    Id = mat.Id,
+                    HazardousMaterialNumber = mat.matNumber,
+                    HazardousMaterialName = mat.Name,
+                    QuantityDescription = GetQuantityDescription(mat.Quantity, mat.CapacityContainer, mat.abbreviation??mat.unitName)
+                });
+
+            var materials = result.ToList();
+            var report = "";
+            report += "<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:8.5in\">\n";
+            report += "<tbody>\n";
+            foreach (var material in materials)
+            {
+                report += "<tr>\n";
+                report += "<td style=\"width:3.0in\">" + material.HazardousMaterialName + "</td>\n";
+                report += "<td style=\"width:5.5in\">" + material.QuantityDescription + "</td>\n";
+                report += "</tr>\n";
+            }
+            report += "</tbody>\n";
+            report += "</table>\n";
+            return report;
+        }
+
+        private static string GetQuantityDescription(int quantity, decimal capacityContainer, string abbreviation)
+        {
+            var quantityDescription = "";
+            if (capacityContainer > 0)
+            {
+                quantityDescription = capacityContainer.ToString("G26");
+                if (!string.IsNullOrWhiteSpace(abbreviation))
+                    quantityDescription += " " + abbreviation;
+
+                if (quantity > 0)
+                    quantityDescription = $"{quantity} x {quantityDescription}";
+            }
+
+            return quantityDescription;
         }
     }
 }
