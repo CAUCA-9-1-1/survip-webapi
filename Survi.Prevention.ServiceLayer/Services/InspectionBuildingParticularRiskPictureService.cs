@@ -26,7 +26,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 					picture.Id,
 					picture.IdBuildingParticularRisk,
 					picture.IdPicture,
-					PictureData = data.Data
+					PictureData = data.Data,
+                    data.SketchJson
 				};
 
 			var result = query.ToList();
@@ -36,8 +37,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 				Id = pic.Id,
 				IdPicture = pic.IdPicture,
 				IdParent = pic.IdBuildingParticularRisk,
-				PictureData = Convert.ToBase64String(pic.PictureData)
-			}).ToList();
+				PictureData = Convert.ToBase64String(pic.PictureData),
+                SketchJson = pic.SketchJson
+            }).ToList();
 		}
 
 		public virtual Guid AddPicture(BuildingChildPictureForWeb entity)
