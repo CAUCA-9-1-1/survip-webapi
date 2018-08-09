@@ -14,21 +14,6 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
 		}
 
-        public override FireHydrant Get(Guid id)
-        {
-            var result = Context.FireHydrants
-                        .First(s => s.Id == id);
-
-            return result;
-        }
-
-        public override List<FireHydrant> GetList()
-        {
-            var result = Context.FireHydrants
-                        .ToList();
-
-            return result;
-        }
 		public List<FireHydrantForList> GetListForCity(Guid idCity, string languageCode)
 		{
 			var results = (
