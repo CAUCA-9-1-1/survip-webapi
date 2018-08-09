@@ -97,11 +97,15 @@ namespace Survi.Prevention.ServiceLayer.Services
                 RoofMaterial = SetRoofMaterial(id),
                 //
                 Contact = SetContact(result.idBuilding),
-                Anomalies = SetAnomalies(result.idBuilding, languageCode),
                 PersonRequiringAssistance = SetPersonRequiringAssistance(result.idBuilding, languageCode),
                 HazardousMaterials = SetHazardousMaterials(result.idBuilding, languageCode),
                 FireProtectionAlarmPanels = SetFireProtectionAlarmPanels(result.idBuilding, languageCode),
-                FireProtectionSprinklers = SetFireProtectionSprinklers(result.idBuilding, languageCode)
+                FireProtectionSprinklers = SetFireProtectionSprinklers(result.idBuilding, languageCode),
+                ParticularFoundationRisks = SetParticularFoundationRisks(result.idBuilding, languageCode),
+                ParticularFloorRisks = SetParticularFloorRisks(result.idBuilding, languageCode),
+                ParticularWallRisks = SetParticularWallRisks(result.idBuilding, languageCode),
+                ParticularRoofRisks = SetParticularRoofRisks(result.idBuilding, languageCode),
+                Anomalies = SetAnomalies(result.idBuilding, languageCode)
                 
             };
             return reportPlaceholders;
@@ -731,7 +735,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 {
                     Id = panel.Id,
                     TypeDescription = panel.Name,
-                    LocationDescription = GetPanelLocationDescription(panel.Floor, panel.Sector, panel.Wall)
+                    LocationDescription = GetLocationDescription(panel.Floor, panel.Sector, panel.Wall)
                 };
             
             var alarmPanels = result.ToList();
@@ -770,7 +774,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 {
                     Id = sprinkler.Id,
                     TypeDescription = sprinkler.Name,
-                    LocationDescription = GetSprinklerLocationDescription(sprinkler.Floor, sprinkler.Sector, sprinkler.Wall)
+                    LocationDescription = GetLocationDescription(sprinkler.Floor, sprinkler.Sector, sprinkler.Wall)
                 };
             
             var sprinklers = resultSprinklers.ToList();
@@ -786,7 +790,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             return report;
         }
         
-        private string GetSprinklerLocationDescription(string floor, string sector, string wall)
+        private string GetLocationDescription(string floor, string sector, string wall)
         {
             var wallDescription = "";
             if (!string.IsNullOrWhiteSpace(wall))
@@ -801,19 +805,65 @@ namespace Survi.Prevention.ServiceLayer.Services
             return string.Join(" ", sectorDescription, floorDescription, wallDescription);
         }
         
-        private string GetPanelLocationDescription(string floor, string sector, string wall)
-        {
-            var wallDescription = "";
-            if (!string.IsNullOrWhiteSpace(wall))
-                wallDescription = $"Mur: {wall}.";
-            var sectorDescription = "";
-            if (!string.IsNullOrWhiteSpace(sector))
-                sectorDescription = $"Secteur: {sector}.";
-            var floorDescription = "";
-            if (!string.IsNullOrWhiteSpace(floor))
-                floorDescription = $"Étage: {floor}.";
 
-            return string.Join(" ", sectorDescription, floorDescription, wallDescription);
+        private string SetParticularRisks(BuildingParticularRisk risk, string languageCode)
+        {
+            var query =
+                from picture in Context.BuildingParticularRiskPictures.AsNoTracking()
+                let data = picture.Picture
+                where picture.IdBuildingParticularRisk == risk.Id && picture.IsActive && data != null && data.IsActive
+                select new
+                {
+                    picture.Id,
+                    picture.IdBuildingParticularRisk,
+                    picture.IdPicture,
+                    PictureData = data.Data
+                };
+
+            var result = query.ToList();
+
+//            return result.Select(pic => new BuildingChildPictureForWeb
+//            {
+//                Id = pic.Id,
+//                IdPicture = pic.IdPicture,
+//                IdParent = pic.IdBuildingParticularRisk,
+//                PictureData = Convert.ToBase64String(pic.PictureData)
+//            }).ToList();
+
+            var report = "";
+            return report;
+        }
+
+        private string SetParticularFoundationRisks(Guid idBuilding, string languageCode)
+        {
+            var risk = GetParticularRisk<FoundationParticularRisk>(idBuilding);
+            return SetParticularRisks(risk, languageCode);
+        }
+        
+        private string SetParticularFloorRisks(Guid idBuilding, string languageCode)
+        {
+            var risk = GetParticularRisk<FloorParticularRisk>(idBuilding);
+            return SetParticularRisks(risk, languageCode);
+        }
+        
+        private string SetParticularWallRisks(Guid idBuilding, string languageCode)
+        {
+            var risk = GetParticularRisk<WallParticularRisk>(idBuilding);
+            return SetParticularRisks(risk, languageCode);
+        }
+        
+        private string SetParticularRoofRisks(Guid idBuilding, string languageCode)
+        {
+            var risk = GetParticularRisk<RoofParticularRisk>(idBuilding);
+            return SetParticularRisks(risk, languageCode);
+        }
+
+        private BuildingParticularRisk GetParticularRisk<T>(Guid idBuilding) where T: BuildingParticularRisk, new()
+        {
+            var entity = Context.BuildingParticularRisks.AsNoTracking()
+                             .OfType<T>()
+                             .FirstOrDefault(risk => risk.IdBuilding == idBuilding && risk.IsActive);
+            return entity;
         }
     }
 }

@@ -63,7 +63,10 @@ namespace Survi.Prevention.ServiceLayer
         public string FireProtectionSprinklers { get; set; }
         
         // Particular Risks
-        public string ParticularRisks { get; set; }
+        public string ParticularFoundationRisks { get; set; }
+        public string ParticularFloorRisks { get; set; }
+        public string ParticularWallRisks { get; set; }
+        public string ParticularRoofRisks { get; set; }
         
         // Anomalies
         public string Anomalies { get; set; }
