@@ -15,7 +15,7 @@ namespace Survi.Prevention.WebApi.Controllers
             Service = service;
         }
 
-        [HttpGet("generate/{id:guid}")]
+        [HttpGet("inspection/{id:guid}")]
         public ActionResult Generate(Guid id, [FromHeader]string languageCode)
         {
             var fileStream = Service.Generate(id, languageCode);
