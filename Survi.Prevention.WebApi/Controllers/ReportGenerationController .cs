@@ -15,11 +15,11 @@ namespace Survi.Prevention.WebApi.Controllers
             Service = service;
         }
 
-        [HttpGet("inspection/{id:guid}")]
-        public ActionResult Generate(Guid id, [FromHeader]string languageCode)
+        [HttpGet("building/{buildindId:guid}/template/{templateId:guid}")]
+        public ActionResult Generate(Guid buildindId, Guid templateId, [FromHeader]string languageCode)
         {
-            var fileStream = Service.Generate(id, languageCode);
-            var fileName = id + ".pdf";
+            var fileStream = Service.Generate(buildindId, templateId, languageCode);
+            var fileName = buildindId + ".pdf";
             Response.Headers.Add("Content-Disposition", "inline; filename=" + fileName);
             return File(fileStream, "application/pdf", fileName);
         }

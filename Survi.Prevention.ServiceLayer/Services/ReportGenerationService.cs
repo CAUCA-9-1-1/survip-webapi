@@ -16,17 +16,16 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
         }
         
-        private ReportConfigurationTemplate GetTemplate()
+        private ReportConfigurationTemplate GetTemplate(Guid id)
         {
-            // TODO For now there is only one available Report Template
-            return Context.ReportConfigurationTemplate.FirstOrDefault(t => t.Name == "Rapport Cauca");
+            return Context.ReportConfigurationTemplate.FirstOrDefault(t => t.Id == id);
         }
 
-        private ReportPlaceholders SetPlaceholders(Guid id, string languageCode)
+        private ReportPlaceholders SetPlaceholders(Guid buildingId, string languageCode)
         {
             var query =
                 from inspection in Context.Inspections
-                where inspection.Id == id
+                where inspection.IdBuilding == buildingId
                 let building = inspection.MainBuilding
                 from laneLocalization in building.Lane.Localizations
                 where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
@@ -65,16 +64,16 @@ namespace Survi.Prevention.ServiceLayer.Services
             return reportPlaceholders;
         }
 
-        public MemoryStream Generate(Guid id, string languageCode)
+        public MemoryStream Generate(Guid buildingId, Guid templateId, string languageCode)
         {
             var inputStream = new MemoryStream();
             var streamWriter = new StreamWriter(inputStream, new UnicodeEncoding());
 
-            var template = GetTemplate();
+            var template = GetTemplate(templateId);
             var inspectionTextReport = "";
             if (template != null)
             {
-                var reportPlaceholders = SetPlaceholders(id, languageCode);
+                var reportPlaceholders = SetPlaceholders(buildingId, languageCode);
                 inspectionTextReport = reportPlaceholders.ReplacePlaceholders(template.Data);
             }
 
