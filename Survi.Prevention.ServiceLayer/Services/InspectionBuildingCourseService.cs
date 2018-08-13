@@ -16,6 +16,57 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
+		public List<BuildingCourse> GetCompleteCourses(Guid inspectionId)
+		{
+			var result = Context.BuildingCourses
+				.Where(c => c.IdBuilding == Context.Inspections.First(i => i.Id == inspectionId).IdBuilding && c.IsActive)
+				.Include(c => c.Lanes)
+				.ToList();
+
+			return result;
+		}
+		
+		public Guid SaveCompleteCourses(BuildingCourse course)
+		{
+			var courseLanes = new List<BuildingCourseLane>();
+			var dbCourseLanes = new List<BuildingCourseLane>();
+
+			if (course.Lanes != null)
+				courseLanes = course.Lanes.Where(l => l.IdBuildingCourse == course.Id).ToList();
+			if (Context.BuildingCourseLanes.AsNoTracking().Any(l => l.IdBuildingCourse == course.Id))
+				dbCourseLanes = Context.BuildingCourseLanes.AsNoTracking().Where(l => l.IdBuildingCourse == course.Id).ToList();
+
+			dbCourseLanes.ForEach(child =>
+			{
+				if (!courseLanes.Any(c => c.Id == child.Id))
+				{
+					Context.BuildingCourseLanes.Remove(child);
+				}
+			});
+			courseLanes.ForEach(child =>
+			{
+				var isChildExistRecord = Context.BuildingCourseLanes.Any(c => c.Id == child.Id);
+
+				if (!isChildExistRecord)
+				{
+					Context.BuildingCourseLanes.Add(child);
+				}
+			});
+
+			Context.SaveChanges();
+
+			var isExistRecord = Context.BuildingCourses.Any(c => c.Id == course.Id);
+
+			if (isExistRecord)
+				Context.BuildingCourses.Update(course);
+			else
+				Context.BuildingCourses.Add(course);
+
+			Context.SaveChanges();
+			
+			return course.Id;
+		}
+
 		public List<InspectionBuildingCourseForList> GetCourses(Guid inspectionid)
 		{
 			var query =
@@ -78,7 +129,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.AsNoTracking()
 				.SingleOrDefault(course => course.Id == idCourse);
 		}
-
+		
 		public object GetCourseLane(Guid idCourseLane)
 		{
 			return Context.BuildingCourseLanes

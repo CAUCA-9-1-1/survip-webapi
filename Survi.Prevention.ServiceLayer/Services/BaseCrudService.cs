@@ -30,9 +30,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public virtual bool Remove(Guid id)
 		{
 			var entity = Context.Set<T>().Find(id);
+
+			if (entity == null)
+			{
+				return false;
+			}
+
 			entity.IsActive = false;
 			Context.SaveChanges();
-
+			
 			return true;
 		}
 		
