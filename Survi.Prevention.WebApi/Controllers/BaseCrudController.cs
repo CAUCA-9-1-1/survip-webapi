@@ -14,7 +14,7 @@ namespace Survi.Prevention.WebApi.Controllers
 
 		protected BaseCrudController(TService service)
 		{
-			this.Service = service;
+			Service = service;
 		}
 
 		[HttpGet]
