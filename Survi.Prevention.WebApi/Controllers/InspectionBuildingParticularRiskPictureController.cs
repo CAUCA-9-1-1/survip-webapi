@@ -26,7 +26,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public virtual ActionResult Post([FromBody] BuildingChildPictureForWeb entity)
 		{
-			if (Service.AddPicture(entity) != Guid.Empty)
+			if (Service.AddOrUpdatePicture(entity) != Guid.Empty)
 				return Ok(new { id = entity.Id });
 
 			return BadRequest();
