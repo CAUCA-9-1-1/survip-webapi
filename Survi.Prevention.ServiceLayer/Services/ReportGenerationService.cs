@@ -25,7 +25,7 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
             var query =
                 from inspection in Context.Inspections
-                where inspection.IdBuilding == buildingId
+                where inspection.IdBuilding == buildingId && inspection.IsActive
                 let building = inspection.MainBuilding
                 from laneLocalization in building.Lane.Localizations
                 where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
@@ -40,7 +40,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     building.Lane.LaneGenericCode.AddWhiteSpaceAfter
                 };
 
-            var results = query.Single();
+            var results = query.First();
             var result = new
                 {
                     ZipCode = results.PostalCode,
