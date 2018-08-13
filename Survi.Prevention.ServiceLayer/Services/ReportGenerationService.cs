@@ -64,6 +64,26 @@ namespace Survi.Prevention.ServiceLayer.Services
             return reportPlaceholders;
         }
 
+        private string GetWkhtmltopdfPath()
+        {
+            var os = Environment.OSVersion;
+            var pid = os.Platform;
+            switch (pid) 
+            {
+                case PlatformID.Win32NT:
+                case PlatformID.Win32S:
+                case PlatformID.Win32Windows:
+                case PlatformID.WinCE:
+                    return @"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe";
+                case PlatformID.Unix:
+                    return @"/usr/bin/wkhtmltopdf";
+                case PlatformID.MacOSX:
+                    return @"/usr/local/bin/wkhtmltopdf";
+                default:
+                    return "";
+            }
+        }
+
         public MemoryStream Generate(Guid buildingId, Guid templateId, string languageCode)
         {
             var inputStream = new MemoryStream();
@@ -94,7 +114,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     Right = KMarginInMm
                 }
             };
-            var wkhtmltopdf = new FileInfo(@"/usr/bin/wkhtmltopdf");
+            var wkhtmltopdf = new FileInfo(GetWkhtmltopdfPath());
             var converter = new HtmlToPdfConverter(wkhtmltopdf);
             
             var outputStream = new MemoryStream();
