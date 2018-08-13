@@ -42,7 +42,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}).ToList();
 		}
 
-		public virtual Guid AddPicture(BuildingChildPictureForWeb entity)
+		public virtual Guid AddOrUpdatePicture(BuildingChildPictureForWeb entity)
 		{
             BuildingAnomalyPicture anomalyPicture = null;
             if (entity.Id != null)
@@ -52,23 +52,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 
             if (anomalyPicture == null)
             {
-                anomalyPicture = new BuildingAnomalyPicture {
-                    Id = entity.Id,
-                    IdBuildingAnomaly = entity.IdParent,
-                    IdPicture = entity.Id,
-                    Picture = new Picture { Id = entity.Id, Name = ""}};
+                anomalyPicture = GenerateNewPicture(entity);
                 Context.Add(anomalyPicture);
             }
 
-            var encodedPicture = PictureService.DecodeBase64Picture(entity.PictureData);
-            anomalyPicture.Id = entity.Id;
-            anomalyPicture.IdBuildingAnomaly = entity.IdParent;
-
-            anomalyPicture.Picture = Context.Pictures.Find(entity.Id);
-
-            anomalyPicture.Picture.Id = entity.Id;
-            anomalyPicture.Picture.Data = encodedPicture;
-            anomalyPicture.Picture.SketchJson = entity.SketchJson;
+            TransferDTOToModel(entity, anomalyPicture);
 
             Context.SaveChanges();
             return entity.Id;
@@ -88,5 +76,29 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 			return true;
 		}
-	}
+
+        private BuildingAnomalyPicture GenerateNewPicture(BuildingChildPictureForWeb entity)
+        {
+            return new BuildingAnomalyPicture
+            {
+                Id = entity.Id,
+                IdBuildingAnomaly = entity.IdParent,
+                IdPicture = entity.Id,
+                Picture = new Picture { Id = entity.Id, Name = "" }
+            };
+        }
+
+        private void TransferDTOToModel(BuildingChildPictureForWeb entity, BuildingAnomalyPicture anomalyPicture)
+        {
+            var encodedPicture = PictureService.DecodeBase64Picture(entity.PictureData);
+            anomalyPicture.Id = entity.Id;
+            anomalyPicture.IdBuildingAnomaly = entity.IdParent;
+
+            anomalyPicture.Picture = Context.Pictures.Find(entity.Id);
+
+            anomalyPicture.Picture.Id = entity.Id;
+            anomalyPicture.Picture.Data = encodedPicture;
+            anomalyPicture.Picture.SketchJson = entity.SketchJson;
+        }
+    }
 }

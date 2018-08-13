@@ -42,7 +42,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             }).ToList();
 		}
 
-		public virtual Guid AddPicture(BuildingChildPictureForWeb entity)
+		public virtual Guid AddOrUpdatePicture(BuildingChildPictureForWeb entity)
 		{
             BuildingParticularRiskPicture particularRiskPicture = null;
             if (entity.Id != null)
@@ -52,25 +52,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 
             if (particularRiskPicture == null)
             {
-                particularRiskPicture = new BuildingParticularRiskPicture
-                {
-                    Id = entity.Id,
-                    IdBuildingParticularRisk = entity.IdParent,
-                    IdPicture = entity.Id,
-                    Picture = new Picture { Id = entity.Id, Name = "" }
-                };
+                particularRiskPicture = GenerateNewPicture(entity);
                 Context.Add(particularRiskPicture);
             }
 
-            var encodedPicture = PictureService.DecodeBase64Picture(entity.PictureData);
-            particularRiskPicture.Id = entity.Id;
-            particularRiskPicture.IdBuildingParticularRisk = entity.IdParent;
-
-            particularRiskPicture.Picture = Context.Pictures.Find(entity.Id);
-
-            particularRiskPicture.Picture.Id = entity.Id;
-            particularRiskPicture.Picture.Data = encodedPicture;
-            particularRiskPicture.Picture.SketchJson = entity.SketchJson;
+            TransferDTOToModel(entity, particularRiskPicture);
 
             Context.SaveChanges();
             return entity.Id;
@@ -85,5 +71,29 @@ namespace Survi.Prevention.ServiceLayer.Services
 			Context.SaveChanges();
 			return true;
 		}
-	}
+
+        private BuildingParticularRiskPicture GenerateNewPicture(BuildingChildPictureForWeb entity)
+        {
+            return new BuildingParticularRiskPicture
+            {
+                Id = entity.Id,
+                IdBuildingParticularRisk = entity.IdParent,
+                IdPicture = entity.Id,
+                Picture = new Picture { Id = entity.Id, Name = "" }
+            };
+        }
+
+        private void TransferDTOToModel(BuildingChildPictureForWeb entity, BuildingParticularRiskPicture particularRiskPicture)
+        {
+            var encodedPicture = PictureService.DecodeBase64Picture(entity.PictureData);
+            particularRiskPicture.Id = entity.Id;
+            particularRiskPicture.IdBuildingParticularRisk = entity.IdParent;
+
+            particularRiskPicture.Picture = Context.Pictures.Find(entity.Id);
+
+            particularRiskPicture.Picture.Id = entity.Id;
+            particularRiskPicture.Picture.Data = encodedPicture;
+            particularRiskPicture.Picture.SketchJson = entity.SketchJson;
+        }
+    }
 }
