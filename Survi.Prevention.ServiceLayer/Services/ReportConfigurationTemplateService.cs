@@ -22,10 +22,16 @@ namespace Survi.Prevention.ServiceLayer.Services
 
         public override List<ReportConfigurationTemplate> GetList()
         {
-            var result = Context.ReportConfigurationTemplate
-                .ToList();
+            var query =
+                from template in Context.ReportConfigurationTemplate
+                where template.IsActive
+                select new ReportConfigurationTemplate
+                {
+                    Id = template.Id,
+                    Name = template.Name
+                };
 
-            return result;
+            return query.ToList();
         }
     }
 }
