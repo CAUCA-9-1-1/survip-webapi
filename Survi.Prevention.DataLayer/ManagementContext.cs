@@ -1,4 +1,3 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer.InitialData;
 using Survi.Prevention.Models;
