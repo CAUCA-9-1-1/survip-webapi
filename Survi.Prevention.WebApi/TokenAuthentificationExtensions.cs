@@ -1,6 +1,7 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,9 +28,33 @@ namespace Survi.Prevention.WebApi
 			{
 				config.RequireHttpsMetadata = false;
 				config.SaveToken = true;
-				config.TokenValidationParameters = GetAuthentificationParameters(secretKey, issuer, appName);				
+				config.TokenValidationParameters = GetAuthentificationParameters(secretKey, issuer, appName);
+				config.Events = new JwtBearerEvents {OnAuthenticationFailed = AddTokenExpiredHeaderForTokenException};
 			});
+			ChangeRedirectionForUnauthorized(services);
 			return services;
+		}
+
+		private static Task AddTokenExpiredHeaderForTokenException(AuthenticationFailedContext context)
+		{
+			context.Response.StatusCode = 401;
+			if (context.Exception.GetType() == typeof(SecurityTokenException))
+				context.Response.Headers.Add("Token-Expired", "true");
+			else if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+				context.Response.Headers.Add("Token-Expired", "true");
+			return Task.CompletedTask;
+		}
+
+		private static void ChangeRedirectionForUnauthorized(IServiceCollection services)
+		{
+			services.ConfigureApplicationCookie(options =>
+			{
+				options.Events.OnRedirectToLogin = context =>
+				{
+					context.Response.StatusCode = 401;
+					return Task.CompletedTask;
+				};
+			});
 		}
 
 		private static TokenValidationParameters GetAuthentificationParameters(string secretKey, string issuer, string appName)
