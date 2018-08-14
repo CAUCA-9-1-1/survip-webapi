@@ -36,21 +36,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 
         public Guid AddOrUpdate(Webuser user, string applicationName)
         {
-            updateUserDepartment(user);
-            updateUserAttribute(user);
+            UpdateUserDepartment(user);
+            UpdateUserAttribute(user);
 
-            if (user.Password == "")
-            {
-                user.Password = Context.Webusers.AsNoTracking().First(u => u.Id == user.Id).Password;
-            } else
-            {
-                user.Password = new PasswordGenerator().EncodePassword(user.Password, applicationName);
-            }
+            user.Password = user.Password == "" ? 
+	            Context.Webusers.AsNoTracking().First(u => u.Id == user.Id).Password : 
+	            new PasswordGenerator().EncodePassword(user.Password, applicationName);
 
             return base.AddOrUpdate(user);
         }
 
-        private void updateUserAttribute(Webuser user)
+        private void UpdateUserAttribute(Webuser user)
         {
             var webuserAttributes = new List<WebuserAttributes>();
             var dbWebuserAttributes = new List<WebuserAttributes>();
@@ -62,7 +58,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
             dbWebuserAttributes.ForEach(child =>
             {
-                if (!webuserAttributes.Any(a => a.Id == child.Id))
+                if (webuserAttributes.All(a => a.Id != child.Id))
                 {
                     Context.WebuserAttributes.Remove(child);
                 }
@@ -80,7 +76,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             Context.SaveChanges();
         }
 
-        private void updateUserDepartment(Webuser user)
+        private void UpdateUserDepartment(Webuser user)
         {
             var fireSafetyDepartments = new List<WebuserFireSafetyDepartment>();
             var dbFireSafetyDepartments = new List<WebuserFireSafetyDepartment>();
@@ -92,7 +88,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
             dbFireSafetyDepartments.ForEach(child =>
             {
-                if (!fireSafetyDepartments.Any(i => i.Id == child.Id))
+                if (fireSafetyDepartments.All(i => i.Id != child.Id))
                 {
                     Context.WebuserFireSafetyDepartments.Remove(child);
                 }
@@ -115,23 +111,33 @@ namespace Survi.Prevention.ServiceLayer.Services
             var query =
                 from users in Context.Webusers
                 where users.IsActive
-                let firstname = users.Attributes.First(a => a.AttributeName == "first_name")
-                let lastname = users.Attributes.First(a => a.AttributeName == "last_name")
+                let firstname = users.Attributes.FirstOrDefault(a => a.AttributeName == "first_name")
+                let lastname = users.Attributes.FirstOrDefault(a => a.AttributeName == "last_name")
                 select new {
                     users.Id,
-                    firstname = firstname.AttributeValue,
-                    lastname =  lastname.AttributeValue
+                    firstname,
+                    lastname
                 };
 
             var result = query.ToList()
                 .Select(user => new WebuserForWeb
                 {
                     Id = user.Id,
-                    Name = user.firstname + " " + user.lastname
+                    Name = (user.firstname?.AttributeValue??"") + " " + (user.lastname?.AttributeValue ?? "")
                 })
                 .ToList();
 
             return result;
         }
+
+		public List<Guid> GetUserFireSafetyDepartments(Guid idWebuser)
+		{
+			var query =
+				from department in Context.WebuserFireSafetyDepartments
+				where department.IdWebuser == idWebuser && department.IsActive
+				select department.IdFireSafetyDepartment;
+
+			return query.ToList();
+		}
     }
 }
