@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using Microsoft.AspNet.OData;
@@ -17,34 +18,44 @@ namespace Survi.Prevention.WebApi.Controllers
 		protected string CurrentUserName => User.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.UniqueName)?.Value;
 
 		private readonly InspectionService service;
+		private readonly WebuserService userService;
+		private readonly CityService cityService; 
 
-		public BuildingForDashboardController(InspectionService service)
+		private List<Guid> GetUserCityIds()
+		{
+			var departmentIds = userService.GetUserFireSafetyDepartments(CurrentUserId);
+			return cityService.GetCityIdsByFireSafetyDepartments(departmentIds);
+		}
+
+		public BuildingForDashboardController(InspectionService service, WebuserService userService, CityService cityService)
 		{
 			this.service = service;
+			this.cityService = cityService;
+			this.userService = userService;
 		}
 
 		[ODataRoute("BuildingsWithoutInspection"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
 		public IQueryable<BuildingWithoutInspection> GetBuildingWithoutInspection([FromHeader]string languageCode)
 		{
-			return service.GetBuildingWithoutInspectionQueryable(languageCode);
+			return service.GetBuildingWithoutInspectionQueryable(languageCode, GetUserCityIds());
 		}
 
 		[ODataRoute("InspectionsToDo"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
 		public IQueryable<InspectionToDo> GetInspectionsToDo([FromHeader]string languageCode)
 		{
-			return service.GetToDoInspections(languageCode);
+			return service.GetToDoInspections(languageCode, GetUserCityIds());
 		}
 
 		[ODataRoute("InspectionsForApproval"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
 		public IQueryable<InspectionForApproval> GetInspectionsForApproval([FromHeader]string languageCode)
 		{
-			return service.GetInspectionsForApproval(languageCode);
+			return service.GetInspectionsForApproval(languageCode, GetUserCityIds());
 		}
 
 		[ODataRoute("InspectionsCompleted"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
 		public IQueryable<InspectionCompleted> GetInspectionsCompleted([FromHeader]string languageCode)
 		{
-			return service.GetInspectionsCompleted(languageCode);
+			return service.GetInspectionsCompleted(languageCode, GetUserCityIds());
 		}
 	}
 }

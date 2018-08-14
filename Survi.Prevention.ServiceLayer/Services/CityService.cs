@@ -32,6 +32,18 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
+		public List<Guid> GetCityIdsByFireSafetyDepartments(List<Guid> fireSafetyDepartmentIds)
+		{
+			var query =
+				from department in Context.FireSafetyDepartments.AsNoTracking()
+				where fireSafetyDepartmentIds.Contains(department.Id) && department.IsActive
+				from serving in department.FireSafetyDepartmentServing
+				where serving.IsActive
+				select serving.IdCity;
+
+			return query.Distinct().ToList();
+		}
+
         public List<CityLocalized> GetListLocalized(string languageCode)
         {
             var query =

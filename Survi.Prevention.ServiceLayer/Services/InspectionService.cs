@@ -86,37 +86,37 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.ToList();
 		}
 
-        public IQueryable<InspectionToDo> GetToDoInspections(string languageCode)
+        public IQueryable<InspectionToDo> GetToDoInspections(string languageCode, List<Guid> cityIds)
         {
 			var query =
 				from inspection in Context.InspectionsToDo
-				where inspection.LanguageCode == languageCode
+				where inspection.LanguageCode == languageCode && cityIds.Contains(inspection.IdCity)
 				select inspection;
 			return query;
         }
 
-        public IQueryable<InspectionForApproval> GetInspectionsForApproval(string languageCode)
+        public IQueryable<InspectionForApproval> GetInspectionsForApproval(string languageCode, List<Guid> cityIds)
         {
 	        var query =
 		        from inspection in Context.InspectionsForApproval
-		        where inspection.LanguageCode == languageCode
-		        select inspection;
+		        where inspection.LanguageCode == languageCode && cityIds.Contains(inspection.IdCity)
+				select inspection;
 	        return query;		
         }
 
-        public IQueryable<InspectionCompleted> GetInspectionsCompleted(string languageCode)
+        public IQueryable<InspectionCompleted> GetInspectionsCompleted(string languageCode, List<Guid> cityIds)
         {
 	        var query =
 		        from inspection in Context.InspectionsCompleted
-		        where inspection.LanguageCode == languageCode
-		        select inspection;
+		        where inspection.LanguageCode == languageCode && cityIds.Contains(inspection.IdCity)
+				select inspection;
 	        return query;			
         }
 
-		public IQueryable<BuildingWithoutInspection> GetBuildingWithoutInspectionQueryable(string languageCode)
+		public IQueryable<BuildingWithoutInspection> GetBuildingWithoutInspectionQueryable(string languageCode, List<Guid> cityIds)
 		{
 			var query = Context.BuildingsWithoutInspection
-				.Where(b => b.LanguageCode == languageCode);
+				.Where(b => b.LanguageCode == languageCode && cityIds.Contains(b.IdCity));
 
 			return query;
         }       
