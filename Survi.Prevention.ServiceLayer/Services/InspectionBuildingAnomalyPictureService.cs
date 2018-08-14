@@ -44,19 +44,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public virtual Guid AddOrUpdatePicture(BuildingChildPictureForWeb entity)
 		{
-            BuildingAnomalyPicture anomalyPicture = null;
-            if (entity.Id != null)
-            {
-                anomalyPicture = Context.BuildingAnomalyPictures.Find(entity.Id);
-            }
+            var anomalyPicture = Context.BuildingAnomalyPictures.Find(entity.Id) 
+				?? GenerateNewPicture(entity);
 
-            if (anomalyPicture == null)
-            {
-                anomalyPicture = GenerateNewPicture(entity);
-                Context.Add(anomalyPicture);
-            }
-
-            TransferDTOToModel(entity, anomalyPicture);
+			TransferDtoToModel(entity, anomalyPicture);
 
             Context.SaveChanges();
             return entity.Id;
@@ -79,16 +70,18 @@ namespace Survi.Prevention.ServiceLayer.Services
 
         private BuildingAnomalyPicture GenerateNewPicture(BuildingChildPictureForWeb entity)
         {
-            return new BuildingAnomalyPicture
+            var picture = new BuildingAnomalyPicture
             {
                 Id = entity.Id,
                 IdBuildingAnomaly = entity.IdParent,
                 IdPicture = entity.Id,
                 Picture = new Picture { Id = entity.Id, Name = "" }
             };
-        }
+	        Context.Add(picture);
+			return picture;
+		}
 
-        private void TransferDTOToModel(BuildingChildPictureForWeb entity, BuildingAnomalyPicture anomalyPicture)
+        private void TransferDtoToModel(BuildingChildPictureForWeb entity, BuildingAnomalyPicture anomalyPicture)
         {
             var encodedPicture = PictureService.DecodeBase64Picture(entity.PictureData);
             anomalyPicture.Id = entity.Id;
