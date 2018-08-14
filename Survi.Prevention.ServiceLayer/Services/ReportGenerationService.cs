@@ -38,6 +38,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 where riskLevelLocalization.IsActive && riskLevelLocalization.LanguageCode == languageCode
                 select new 
                 {
+                    idInspection = inspection.Id,
                     idBuilding = building.Id,
                     civicLetter = building.CivicLetter,
                     civicNumber = building.CivicNumber,
@@ -52,7 +53,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 
             var results = query.First();
             var result = new
-                {                    
+                {
+                    idInspection = results.idInspection,
                     idBuilding = results.idBuilding,
                     riskCategory = results.riskLevelName,
                     matricule = results.matricule,
@@ -73,28 +75,28 @@ namespace Survi.Prevention.ServiceLayer.Services
             {
                 //
                 RiskCategory = result.riskCategory,
-                Assignment = SetAssignment(id),
+                Assignment = SetAssignment(result.idInspection),
                 Matricule = result.matricule,
-                Alias = SetAlias(id),
-                Lane = SetLane(id),
-                Transversal = SetTransversal(id),
+                Alias = SetAlias(result.idInspection),
+                Lane = SetLane(result.idInspection),
+                Transversal = SetTransversal(result.idInspection),
                 //
-                ImplementationPlan = SetImplementationPlan(id),
+                ImplementationPlan = SetImplementationPlan(result.idInspection),
                 //
-                Survey = SetSurveySummary(id, languageCode),
+                Survey = SetSurveySummary(result.idInspection, languageCode),
                 //
                 Address = result.address,
                 ZipCode = result.zipCode,
                 //
-                BuildingType = SetBuildingType(id),
-                BuildingGarage = SetBuildingGarage(id),
-                BuildingHeight = SetBuildingHeight(id),
-                BuildingEstimatedWaterFlow = SetBuildingWaterFlow(id),
-                ConstructionType = SetConstructionType(id),
-                ConstructionFireResistance = SetConstructionFireResistance(id),
-                ConstructionSiding = SetConstructionSiding(id),
-                RoofType = SetRoofType(id),
-                RoofMaterial = SetRoofMaterial(id),
+                BuildingType = SetBuildingType(result.idInspection),
+                BuildingGarage = SetBuildingGarage(result.idInspection),
+                BuildingHeight = SetBuildingHeight(result.idInspection),
+                BuildingEstimatedWaterFlow = SetBuildingWaterFlow(result.idInspection),
+                ConstructionType = SetConstructionType(result.idInspection),
+                ConstructionFireResistance = SetConstructionFireResistance(result.idInspection),
+                ConstructionSiding = SetConstructionSiding(result.idInspection),
+                RoofType = SetRoofType(result.idInspection),
+                RoofMaterial = SetRoofMaterial(result.idInspection),
                 //
                 Contact = SetContact(result.idBuilding),
                 PersonRequiringAssistance = SetPersonRequiringAssistance(result.idBuilding, languageCode),
@@ -806,12 +808,15 @@ namespace Survi.Prevention.ServiceLayer.Services
         }
         
 
-        private string SetParticularRisks(BuildingParticularRisk risk, string languageCode)
+        private string SetParticularRisks(BuildingParticularRisk risk)
         {
-            var query =
+            if (risk == null)
+                return "";
+            var queryPictures =
                 from picture in Context.BuildingParticularRiskPictures.AsNoTracking()
                 let data = picture.Picture
-                where picture.IdBuildingParticularRisk == risk.Id && picture.IsActive && data != null && data.IsActive
+                where picture.IdBuildingParticularRisk == risk.Id && picture.IsActive && data != null &&
+                      data.IsActive
                 select new
                 {
                     picture.Id,
@@ -820,42 +825,47 @@ namespace Survi.Prevention.ServiceLayer.Services
                     PictureData = data.Data
                 };
 
-            var result = query.ToList();
+            var resultPictures = queryPictures.ToList();
 
-//            return result.Select(pic => new BuildingChildPictureForWeb
-//            {
-//                Id = pic.Id,
-//                IdPicture = pic.IdPicture,
-//                IdParent = pic.IdBuildingParticularRisk,
-//                PictureData = Convert.ToBase64String(pic.PictureData)
-//            }).ToList();
+            var pictures = resultPictures.Select(pic => new BuildingChildPictureForWeb
+            {
+                Id = pic.Id,
+                IdPicture = pic.IdPicture,
+                IdParent = pic.IdBuildingParticularRisk,
+                PictureData = Convert.ToBase64String(pic.PictureData)
+            }).ToList();
 
             var report = "";
+            foreach (var picture in pictures)
+            {
+                report += "<img style=\"margin: 20px 20px\" src=\"data:image/png;base64, " + picture.PictureData + "\" height=\"400\" />\n";
+            }
+
             return report;
         }
 
         private string SetParticularFoundationRisks(Guid idBuilding, string languageCode)
         {
             var risk = GetParticularRisk<FoundationParticularRisk>(idBuilding);
-            return SetParticularRisks(risk, languageCode);
+            return SetParticularRisks(risk);
         }
         
         private string SetParticularFloorRisks(Guid idBuilding, string languageCode)
         {
             var risk = GetParticularRisk<FloorParticularRisk>(idBuilding);
-            return SetParticularRisks(risk, languageCode);
+            return SetParticularRisks(risk);
         }
         
         private string SetParticularWallRisks(Guid idBuilding, string languageCode)
         {
             var risk = GetParticularRisk<WallParticularRisk>(idBuilding);
-            return SetParticularRisks(risk, languageCode);
+            return SetParticularRisks(risk);
         }
         
         private string SetParticularRoofRisks(Guid idBuilding, string languageCode)
         {
             var risk = GetParticularRisk<RoofParticularRisk>(idBuilding);
-            return SetParticularRisks(risk, languageCode);
+            return SetParticularRisks(risk);
         }
 
         private BuildingParticularRisk GetParticularRisk<T>(Guid idBuilding) where T: BuildingParticularRisk, new()
