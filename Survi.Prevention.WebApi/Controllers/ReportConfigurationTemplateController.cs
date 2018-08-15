@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -10,6 +9,12 @@ namespace Survi.Prevention.WebApi.Controllers
     {             
         public ReportConfigurationTemplateController(ReportConfigurationTemplateService service) : base(service)
         {
+        }
+        
+        [HttpGet("placeholders")]
+        public ActionResult GetAvailablePlaceholders()
+        {
+            return Ok(Service.GetAvailablePlaceholders());
         }
     }
 }

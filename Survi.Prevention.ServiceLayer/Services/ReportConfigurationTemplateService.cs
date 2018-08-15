@@ -33,5 +33,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 
             return query.ToList();
         }
+        
+        public List<string> GetAvailablePlaceholders()
+        {
+            return new ReportPlaceholders().GetAvailablePlaceholders();
+        }
     }
 }
