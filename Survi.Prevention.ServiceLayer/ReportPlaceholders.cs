@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Survi.Prevention.ServiceLayer 
@@ -30,6 +31,16 @@ namespace Survi.Prevention.ServiceLayer
             {
                 return m.Groups[1].Value;
             }
+        }
+
+        public List<string> GetAvailablePlaceholders()
+        {
+            var placeholders = new List<string>();
+            foreach (var property in GetType().GetProperties())
+            {
+                placeholders.Add(property.Name);     
+            }
+            return placeholders;
         }
     }
 }

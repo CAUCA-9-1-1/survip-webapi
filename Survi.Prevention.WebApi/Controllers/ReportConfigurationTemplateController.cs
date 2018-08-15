@@ -11,5 +11,11 @@ namespace Survi.Prevention.WebApi.Controllers
         public ReportConfigurationTemplateController(ReportConfigurationTemplateService service) : base(service)
         {
         }
+        
+        [HttpGet("placeholders")]
+        public ActionResult GetAvailablePlaceholders()
+        {
+            return Ok(Service.GetAvailablePlaceholders());
+        }
     }
 }
