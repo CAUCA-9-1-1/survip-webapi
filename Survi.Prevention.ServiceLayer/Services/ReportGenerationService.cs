@@ -9,6 +9,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.FireHydrants;
 using WkWrap;
 
 namespace Survi.Prevention.ServiceLayer.Services
@@ -70,6 +71,11 @@ namespace Survi.Prevention.ServiceLayer.Services
                             )
                 };
 
+            var foundationRisks = GetParticularRisks<FoundationParticularRisk>(buildingId);
+            var floorRisks = GetParticularRisks<FloorParticularRisk>(buildingId);
+            var wallRisks = GetParticularRisks<WallParticularRisk>(buildingId);
+            var roofdRisks = GetParticularRisks<RoofParticularRisk>(buildingId);
+
             
             var reportPlaceholders = new ReportPlaceholders
             {
@@ -82,6 +88,10 @@ namespace Survi.Prevention.ServiceLayer.Services
                 Transversal = SetTransversal(result.idInspection),
                 //
                 ImplementationPlan = SetImplementationPlan(result.idInspection),
+                //
+                Course = SetCourse(result.idInspection),
+                //
+                WaterSupply = SetWaterSupply(result.idInspection, languageCode),
                 //
                 Survey = SetSurveySummary(result.idInspection, languageCode),
                 //
@@ -103,10 +113,38 @@ namespace Survi.Prevention.ServiceLayer.Services
                 HazardousMaterials = SetHazardousMaterials(result.idBuilding, languageCode),
                 FireProtectionAlarmPanels = SetFireProtectionAlarmPanels(result.idBuilding, languageCode),
                 FireProtectionSprinklers = SetFireProtectionSprinklers(result.idBuilding, languageCode),
-                ParticularFoundationRisks = SetParticularFoundationRisks(result.idBuilding, languageCode),
-                ParticularFloorRisks = SetParticularFloorRisks(result.idBuilding, languageCode),
-                ParticularWallRisks = SetParticularWallRisks(result.idBuilding, languageCode),
-                ParticularRoofRisks = SetParticularRoofRisks(result.idBuilding, languageCode),
+                //
+                ParticularRisksFoundationIsWeakened = foundationRisks.IsWeakened ? "yes" : "no",
+                ParticularRisksFoundationHasOpening = foundationRisks.HasOpening ? "yes" : "no",
+                ParticularRisksFoundationDimension = foundationRisks.Dimension,
+                ParticularRisksFoundationWall = foundationRisks.Wall,
+                ParticularRisksFoundationSector = foundationRisks.Sector,
+                ParticularRisksFoundationComments = foundationRisks.Comments,
+                ParticularRisksFoundationPictures = SetParticularRisksImages(foundationRisks),
+                //
+                ParticularRisksFloorIsWeakened = floorRisks.IsWeakened ? "yes" : "no",
+                ParticularRisksFloorHasOpening = floorRisks.HasOpening ? "yes" : "no",
+                ParticularRisksFloorDimension = floorRisks.Dimension,
+                ParticularRisksFloorWall = floorRisks.Wall,
+                ParticularRisksFloorSector = floorRisks.Sector,
+                ParticularRisksFloorComments = floorRisks.Comments,
+                ParticularRisksFloorPictures = SetParticularRisksImages(floorRisks),
+                //
+                ParticularRisksWallIsWeakened = wallRisks.IsWeakened ? "yes" : "no",
+                ParticularRisksWallHasOpening = wallRisks.HasOpening ? "yes" : "no",
+                ParticularRisksWallDimension = wallRisks.Dimension,
+                ParticularRisksWallWall = wallRisks.Wall,
+                ParticularRisksWallSector = wallRisks.Sector,
+                ParticularRisksWallComments = wallRisks.Comments,
+                ParticularRisksWallPictures = SetParticularRisksImages(wallRisks),
+                //
+                ParticularRisksRoofIsWeakened = roofdRisks.IsWeakened ? "yes" : "no",
+                ParticularRisksRoofHasOpening = roofdRisks.HasOpening ? "yes" : "no",
+                ParticularRisksRoofDimension = roofdRisks.Dimension,
+                ParticularRisksRoofWall = roofdRisks.Wall,
+                ParticularRisksRoofSector = roofdRisks.Sector,
+                ParticularRisksRoofComments = roofdRisks.Comments,
+                ParticularRisksRoofPictures = SetParticularRisksImages(roofdRisks),
                 Anomalies = SetAnomalies(result.idBuilding, languageCode)
                 
             };
@@ -279,6 +317,91 @@ namespace Survi.Prevention.ServiceLayer.Services
             }
             var base64String = "<img src=\"data:image/png;base64, " + Convert.ToBase64String(photo.Data) + "\" height=\"400\" />";
             return base64String;
+        }
+
+        private string SetCourse(Guid inspectionId)
+        {
+            return "";
+        }
+        
+        private string GenerateWaterSupplyAddress(FireHydrantLocationType type, Guid? idLane, Guid? idIntersection, string physicalPosition, NetTopologySuite.Geometries.Point coordinate, string languageCode)
+        {
+            if (type == FireHydrantLocationType.Text)
+                return physicalPosition;
+            if (type == FireHydrantLocationType.Coordinates)
+            {
+                if (!coordinate.IsEmpty && coordinate.IsValid)
+                    return $"{coordinate.ToText()}";
+            }
+
+            if (type == FireHydrantLocationType.LaneAndIntersection)			
+                return GenerateAddressFromLanes(idLane, idIntersection, languageCode);
+			
+            return "";
+        }
+        
+        private string GetLaneName(Guid idLane, string languageCode)
+        {
+            var laneFound = (
+                    from lane in Context.Lanes.AsNoTracking()
+                    where lane.Id == idLane
+                    from loc in lane.Localizations
+                    where loc.IsActive && loc.LanguageCode == languageCode
+                    let gen = lane.LaneGenericCode
+                    let pub = lane.PublicCode
+                    select new {loc.Name, genDescription = gen.Description, pubDescription = pub.Description, gen.AddWhiteSpaceAfter})
+                .SingleOrDefault();
+            if (laneFound != null)
+                return new LocalizedLaneNameGenerator().GenerateLaneName(laneFound.Name, laneFound.genDescription, laneFound.pubDescription, laneFound.AddWhiteSpaceAfter);
+            return "";
+        }
+        
+        private string GenerateAddressFromLanes(Guid? idLane, Guid? idIntersection, string languageCode)
+        {
+            var laneName = idLane.HasValue ? GetLaneName(idLane.Value, languageCode) : "?";
+            var interName = idIntersection.HasValue ? GetLaneName(idIntersection.Value, languageCode) : "?";
+
+            return $"{laneName} / {interName}";
+        }
+
+        private string SetWaterSupply(Guid inspectionId, string languageCode)
+        {
+            var results = (
+                from inspection in Context.Inspections.AsNoTracking()
+                where inspection.Id == inspectionId
+                from formHydrant in inspection.MainBuilding.FireHydrants
+                where formHydrant.IsActive
+                let hydrant = formHydrant.Hydrant
+                select new
+                {
+                    formHydrant.Id,
+                    hydrant.Color,
+                    hydrant.Number,
+                    hydrant.IdLane,
+                    hydrant.IdIntersection,
+                    hydrant.PhysicalPosition,
+                    hydrant.LocationType,
+                    hydrant.Coordinates
+                }).ToList();
+
+            var watterSupplies = results
+                .Select(hydrant => new InspectionBuildingFireHydrantForList
+                {
+                    Id = hydrant.Id,
+                    Color = hydrant.Color,
+                    IdInspection = inspectionId,
+                    Number = hydrant.Number,
+                    Address = GenerateWaterSupplyAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition, hydrant.Coordinates, languageCode)
+                }).ToList();
+            var report = "";
+
+            foreach (var watterSupply in watterSupplies)
+            {
+                report += watterSupply.Number + "\t";
+                report += watterSupply.Address + "\n"; 
+            }
+
+            return report;
         }
                 
         private string SetBuildingType(Guid id)
@@ -806,9 +929,25 @@ namespace Survi.Prevention.ServiceLayer.Services
 
             return string.Join(" ", sectorDescription, floorDescription, wallDescription);
         }
-        
 
-        private string SetParticularRisks(BuildingParticularRisk risk)
+        private BuildingParticularRisk GetParticularRisks<T>(Guid idBuilding) where T: BuildingParticularRisk, new()
+        {
+            var entity = Context.BuildingParticularRisks.AsNoTracking()
+                             .OfType<T>()
+                             .FirstOrDefault(risk => risk.IdBuilding == idBuilding && risk.IsActive)
+                         ?? CreateMissingParticularRisk<T>(idBuilding);
+            return entity;
+        }
+
+        private T CreateMissingParticularRisk<T>(Guid idBuilding) where T : BuildingParticularRisk, new()
+        {
+            var entity = new T {IdBuilding = idBuilding};
+            Context.Add(entity);
+            Context.SaveChanges();
+            return entity;
+        }
+        
+        private string SetParticularRisksImages(BuildingParticularRisk risk)
         {
             if (risk == null)
                 return "";
@@ -842,38 +981,6 @@ namespace Survi.Prevention.ServiceLayer.Services
             }
 
             return report;
-        }
-
-        private string SetParticularFoundationRisks(Guid idBuilding, string languageCode)
-        {
-            var risk = GetParticularRisk<FoundationParticularRisk>(idBuilding);
-            return SetParticularRisks(risk);
-        }
-        
-        private string SetParticularFloorRisks(Guid idBuilding, string languageCode)
-        {
-            var risk = GetParticularRisk<FloorParticularRisk>(idBuilding);
-            return SetParticularRisks(risk);
-        }
-        
-        private string SetParticularWallRisks(Guid idBuilding, string languageCode)
-        {
-            var risk = GetParticularRisk<WallParticularRisk>(idBuilding);
-            return SetParticularRisks(risk);
-        }
-        
-        private string SetParticularRoofRisks(Guid idBuilding, string languageCode)
-        {
-            var risk = GetParticularRisk<RoofParticularRisk>(idBuilding);
-            return SetParticularRisks(risk);
-        }
-
-        private BuildingParticularRisk GetParticularRisk<T>(Guid idBuilding) where T: BuildingParticularRisk, new()
-        {
-            var entity = Context.BuildingParticularRisks.AsNoTracking()
-                             .OfType<T>()
-                             .FirstOrDefault(risk => risk.IdBuilding == idBuilding && risk.IsActive);
-            return entity;
         }
     }
 }
