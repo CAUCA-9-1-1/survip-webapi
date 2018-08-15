@@ -86,5 +86,95 @@ namespace Survi.Prevention.ServiceLayer.Localization {
                 return ResourceManager.GetString("CourseLaneDirection_StraightAhead", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Au dessus du.
+        /// </summary>
+        internal static string FireHydrantAddressLocationType_Above {
+            get {
+                return ResourceManager.GetString("FireHydrantAddressLocationType_Above", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Au coin du.
+        /// </summary>
+        internal static string FireHydrantAddressLocationType_AtCorner {
+            get {
+                return ResourceManager.GetString("FireHydrantAddressLocationType_AtCorner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Au bout du.
+        /// </summary>
+        internal static string FireHydrantAddressLocationType_AtEnd {
+            get {
+                return ResourceManager.GetString("FireHydrantAddressLocationType_AtEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to À l&apos;adresse.
+        /// </summary>
+        internal static string FireHydrantAddressLocationType_AtTheAddress {
+            get {
+                return ResourceManager.GetString("FireHydrantAddressLocationType_AtTheAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to À l&apos;arrière du.
+        /// </summary>
+        internal static string FireHydrantAddressLocationType_BackWard {
+            get {
+                return ResourceManager.GetString("FireHydrantAddressLocationType_BackWard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to En face du.
+        /// </summary>
+        internal static string FireHydrantAddressLocationType_InFront {
+            get {
+                return ResourceManager.GetString("FireHydrantAddressLocationType_InFront", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Près du.
+        /// </summary>
+        internal static string FireHydrantAddressLocationType_Near {
+            get {
+                return ResourceManager.GetString("FireHydrantAddressLocationType_Near", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to À Côté du.
+        /// </summary>
+        internal static string FireHydrantAddressLocationType_NextTo {
+            get {
+                return ResourceManager.GetString("FireHydrantAddressLocationType_NextTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to En dessous du.
+        /// </summary>
+        internal static string FireHydrantAddressLocationType_Under {
+            get {
+                return ResourceManager.GetString("FireHydrantAddressLocationType_Under", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visible du.
+        /// </summary>
+        internal static string FireHydrantAddressLocationType_VisibleFrom {
+            get {
+                return ResourceManager.GetString("FireHydrantAddressLocationType_VisibleFrom", resourceCulture);
+            }
+        }
     }
 }

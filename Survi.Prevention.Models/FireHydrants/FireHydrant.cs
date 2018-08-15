@@ -8,7 +8,7 @@ namespace Survi.Prevention.Models.FireHydrants
 {
 	public enum FireHydrantLocationType
 	{
-		None,
+		Address,
 		LaneAndIntersection,
 		Coordinates,
 		Text

@@ -126,4 +126,34 @@
   <data name="CourseLaneDirection_StraightAhead" xml:space="preserve">
     <value>Tout droit</value>
   </data>
+  <data name="FireHydrantAddressLocationType_Above" xml:space="preserve">
+    <value>Au dessus du</value>
+  </data>
+  <data name="FireHydrantAddressLocationType_AtCorner" xml:space="preserve">
+    <value>Au coin du</value>
+  </data>
+  <data name="FireHydrantAddressLocationType_AtEnd" xml:space="preserve">
+    <value>Au bout du</value>
+  </data>
+  <data name="FireHydrantAddressLocationType_AtTheAddress" xml:space="preserve">
+    <value>À l'adresse</value>
+  </data>
+  <data name="FireHydrantAddressLocationType_BackWard" xml:space="preserve">
+    <value>À l'arrière du</value>
+  </data>
+  <data name="FireHydrantAddressLocationType_InFront" xml:space="preserve">
+    <value>En face du</value>
+  </data>
+  <data name="FireHydrantAddressLocationType_Near" xml:space="preserve">
+    <value>Près du</value>
+  </data>
+  <data name="FireHydrantAddressLocationType_NextTo" xml:space="preserve">
+    <value>À Côté du</value>
+  </data>
+  <data name="FireHydrantAddressLocationType_Under" xml:space="preserve">
+    <value>En dessous du</value>
+  </data>
+  <data name="FireHydrantAddressLocationType_VisibleFrom" xml:space="preserve">
+    <value>Visible du</value>
+  </data>
 </root>

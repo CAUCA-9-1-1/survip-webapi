@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireHydrants;
 using Microsoft.EntityFrameworkCore;
@@ -19,16 +20,18 @@ namespace Survi.Prevention.ServiceLayer.Services
 			var results = (
 				from hydrant in Context.FireHydrants.AsNoTracking()
 				where hydrant.IsActive && hydrant.IdCity == idCity
-				select new
+				select new FireHydrant
 				{
-					hydrant.Id,
-					hydrant.Number,
-					hydrant.IdLane,
-					hydrant.IdIntersection,
-					hydrant.PhysicalPosition,
-					hydrant.LocationType,
-					hydrant.Coordinates,
-					hydrant.Color
+					Id = hydrant.Id,
+					Number = hydrant.Number,
+					IdLane = hydrant.IdLane,
+					IdIntersection = hydrant.IdIntersection,
+					PhysicalPosition = hydrant.PhysicalPosition,
+					LocationType = hydrant.LocationType,
+					Coordinates = hydrant.Coordinates,
+					Color = hydrant.Color,
+					CivicNumber = hydrant.CivicNumber,
+					AddressLocationType = hydrant.AddressLocationType
 				}).ToList();
 
 			return results
@@ -37,7 +40,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Id = hydrant.Id,
 					Color = hydrant.Color,
 					Number = hydrant.Number,
-					Address = GetFireHydrantAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition, hydrant.Coordinates, languageCode)
+					Address = GetFireHydrantAddress(hydrant, languageCode)
 
 				}).ToList();
 		}
@@ -48,16 +51,18 @@ namespace Survi.Prevention.ServiceLayer.Services
 				from hydrant in Context.FireHydrants.AsNoTracking()
 				where hydrant.IsActive && hydrant.IdCity == idCity
 				&& !Context.BuildingFireHydrants.Any(bf => bf.IdBuilding == idBuilding && bf.IdFireHydrant == hydrant.Id && bf.IsActive)
-				select new
+				select new FireHydrant
 				{
-					hydrant.Id,
-					hydrant.Number,
-					hydrant.IdLane,
-					hydrant.IdIntersection,
-					hydrant.PhysicalPosition,
-					hydrant.LocationType,
-					hydrant.Coordinates,
-					hydrant.Color
+					Id = hydrant.Id,
+					Number = hydrant.Number,
+					IdLane = hydrant.IdLane,
+					IdIntersection = hydrant.IdIntersection,
+					PhysicalPosition = hydrant.PhysicalPosition,
+					LocationType = hydrant.LocationType,
+					Coordinates = hydrant.Coordinates,
+					Color = hydrant.Color,
+					CivicNumber = hydrant.CivicNumber,
+					AddressLocationType = hydrant.AddressLocationType
 				}).ToList();
 
 			return results
@@ -66,25 +71,30 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Id = hydrant.Id,
 					Color = hydrant.Color,
 					Number = hydrant.Number,
-					Address = GetFireHydrantAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition, hydrant.Coordinates, languageCode)
+					Address = GetFireHydrantAddress(hydrant, languageCode)
 
 				}).ToList();
 		}
 
-		private string GetFireHydrantAddress(FireHydrantLocationType type, Guid? idLane, Guid? idIntersection, string physicalPosition, NetTopologySuite.Geometries.Point coordinate, string languageCode)
-		{
-			if (type == FireHydrantLocationType.Text)
-				return physicalPosition;
-			if (type == FireHydrantLocationType.Coordinates)
-			{
-				if (!coordinate.IsEmpty && coordinate.IsValid)
-					return $"{coordinate.ToText()}";
-			}
-			if (type == FireHydrantLocationType.LaneAndIntersection)
-			{
-				return new AddressGeneratorWithDb().GenerateAddressFromLanes(Context, idLane, idIntersection, languageCode);
-			}
-			return "";
-		}
+
+	    private string GetFireHydrantAddress(FireHydrant hydrant, string languageCode)
+	    {
+		    if (hydrant.LocationType == FireHydrantLocationType.Address)
+		    {
+			    return new AddressGeneratorWithDb().GenerateAddressFromAddressLocationType(Context, hydrant.IdLane, hydrant.CivicNumber, hydrant.AddressLocationType, languageCode);
+		    }
+		    if (hydrant.LocationType == FireHydrantLocationType.Text)
+			    return hydrant.PhysicalPosition;
+		    if (hydrant.LocationType == FireHydrantLocationType.Coordinates)
+		    {
+			    if (!hydrant.Coordinates.IsEmpty && hydrant.Coordinates.IsValid)
+				    return $"{hydrant.Coordinates.ToText()}";
+		    }
+		    if (hydrant.LocationType == FireHydrantLocationType.LaneAndIntersection)
+		    {
+			    return new AddressGeneratorWithDb().GenerateAddressFromLanes(Context, hydrant.IdLane, hydrant.IdIntersection, languageCode);
+		    }
+		    return "";
+	    }
 	}
 }
