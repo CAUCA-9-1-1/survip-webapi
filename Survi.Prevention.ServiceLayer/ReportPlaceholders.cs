@@ -1,5 +1,5 @@
 using System;
-using System.Runtime.Serialization;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Survi.Prevention.ServiceLayer 
@@ -62,11 +62,39 @@ namespace Survi.Prevention.ServiceLayer
         public string FireProtectionAlarmPanels { get; set; }
         public string FireProtectionSprinklers { get; set; }
         
-        // Particular Risks
-        public string ParticularFoundationRisks { get; set; }
-        public string ParticularFloorRisks { get; set; }
-        public string ParticularWallRisks { get; set; }
-        public string ParticularRoofRisks { get; set; }
+        // Particular Risks Foundation
+        public string ParticularRisksFoundationIsWeakened { get; set; }
+        public string ParticularRisksFoundationHasOpening { get; set; }
+        public string ParticularRisksFoundationDimension { get; set; }
+        public string ParticularRisksFoundationWall { get; set; }
+        public string ParticularRisksFoundationSector { get; set; }
+        public string ParticularRisksFoundationComments { get; set; }
+        public string ParticularRisksFoundationPictures { get; set; }
+        
+        public string ParticularRisksFloorIsWeakened { get; set; }
+        public string ParticularRisksFloorHasOpening { get; set; }
+        public string ParticularRisksFloorDimension { get; set; }
+        public string ParticularRisksFloorWall { get; set; }
+        public string ParticularRisksFloorSector { get; set; }
+        public string ParticularRisksFloorComments { get; set; }
+        public string ParticularRisksFloorPictures { get; set; }
+        
+        public string ParticularRisksWallIsWeakened { get; set; }
+        public string ParticularRisksWallHasOpening { get; set; }
+        public string ParticularRisksWallDimension { get; set; }
+        public string ParticularRisksWallWall { get; set; }
+        public string ParticularRisksWallSector { get; set; }
+        public string ParticularRisksWallComments { get; set; }
+        public string ParticularRisksWallPictures { get; set; }
+        
+        public string ParticularRisksRoofIsWeakened { get; set; }
+        public string ParticularRisksRoofHasOpening { get; set; }
+        public string ParticularRisksRoofDimension { get; set; }
+        public string ParticularRisksRoofWall { get; set; }
+        public string ParticularRisksRoofSector { get; set; }
+        public string ParticularRisksRoofComments { get; set; }
+        public string ParticularRisksRoofPictures { get; set; }
+
         
         // Anomalies
         public string Anomalies { get; set; }
