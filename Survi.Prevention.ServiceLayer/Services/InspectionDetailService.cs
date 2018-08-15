@@ -51,7 +51,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 					inspection.IdSurvey,
 					inspection.IsSurveyCompleted,
 					inspection.Status,
-					ApprobationRefusal = GetApprobationRefusalReason(inspection)
+					ApprobationRefusal = GetApprobationRefusalReason(inspection),
+					building.Coordinates
 				};
 
 			var result = query.SingleOrDefault();
@@ -78,7 +79,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 				IdSurvey = result.IdSurvey,
 				IsSurveyCompleted = result.IsSurveyCompleted,
 				Status = result.Status,
-				ApprobationRefusalReason = result.Status == InspectionStatus.Refused ? result.ApprobationRefusal : ""
+				ApprobationRefusalReason = result.Status == InspectionStatus.Refused ? result.ApprobationRefusal : "",
+				Coordinates = result.Coordinates
 			};
 		}
 

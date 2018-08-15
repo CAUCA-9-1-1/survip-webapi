@@ -54,10 +54,28 @@ namespace Survi.Prevention.ServiceLayer.Services
                 orderby localization.Name
                 select new CityLocalized {
                     Id = city.Id,
-                    Name = localization.Name
+                    Name = localization.Name,
+					RegionName = "",
+					CountyName = ""
                 };
 
             return query.ToList();
         }
+
+		public IQueryable<CityLocalized> GetCityWithRegionLocalized(Guid idCity, string languageCode)
+		{
+			var query = (
+				from city in Context.Cities.AsNoTracking()
+				let county = city.County
+				let region = city.County.Region
+				where city.IsActive && city.Id == idCity
+				select new CityLocalized {
+					Id = city.Id,
+					Name = city.Localizations.FirstOrDefault(ccl => ccl.LanguageCode == languageCode).Name,
+					RegionName = city.County.Region.Localizations.FirstOrDefault(ccl => ccl.LanguageCode == languageCode).Name,
+					CountyName = city.County.Localizations.FirstOrDefault(ccl => ccl.LanguageCode == languageCode).Name
+				});
+			return query;
+		}
     }
 }
