@@ -13,6 +13,7 @@ using Microsoft.OData.Edm;
 using NetTopologySuite.Geometries;
 using Newtonsoft.Json;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -151,6 +152,8 @@ namespace Survi.Prevention.WebApi
 			builder.EntitySet<InspectionToDo>("InspectionsToDo").AllowAllQueryType();
 			builder.EntitySet<InspectionForApproval>("InspectionsForApproval").AllowAllQueryType();
 			builder.EntitySet<InspectionCompleted>("InspectionsCompleted").AllowAllQueryType();
+			builder.EntitySet<Building>("Building").AllowAllQueryType();
+			
 			return builder.GetEdmModel();
 		}
 	}

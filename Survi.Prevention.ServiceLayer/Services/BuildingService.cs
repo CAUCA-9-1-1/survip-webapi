@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Expressions;
+using NpgsqlTypes;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.Buildings;
@@ -24,17 +26,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-		public override List<Building> GetList()
+		public IQueryable<Building> GetList(List<Guid> idCities)
 		{
-			var result = Context.Buildings
-                .Where(b => b.ChildType == BuildingChildType.None)
-                .Include(b => b.Localizations)
-                .ToList();
+			var query = Context.Buildings
+                .Where(b => b.ChildType == BuildingChildType.None && idCities.Contains(b.IdCity));
 
-			return result;
+			return query;
 		}
 
-        public List<Building> GetChildList(Guid idParentBuilding, string languageCode)
+        public List<Building> GetChildList(Guid idParentBuilding)
         {
             var result = Context.Buildings
                 .Where(b => b.ChildType == BuildingChildType.Child && b.IdParentBuilding == idParentBuilding)
@@ -44,11 +44,11 @@ namespace Survi.Prevention.ServiceLayer.Services
             return result;
         }
 
-        public List<BuildingForWeb> GetListActive(string languageCode)
+        public List<BuildingForWeb> GetListActive(string languageCode, List<Guid> idCities)
         {
             var query =
                 from building in Context.Buildings
-                where building.IsActive
+                where building.IsActive && idCities.Contains(building.IdCity)
                 let laneName = building.Lane.Localizations
                 let cityName = building.Lane.City.Localizations
                 let riskLevel = building.RiskLevel.Localizations
