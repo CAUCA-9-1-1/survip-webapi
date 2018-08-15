@@ -23,10 +23,19 @@ namespace Survi.Prevention.WebApi
 
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
 		{
-			var value = reader.Value as string;
-			var r = new NetTopologySuite.IO.WKTReader {DefaultSRID = 4326, HandleOrdinates = GeoAPI.Geometries.Ordinates.XY};
-			var vr = r.Read(value) as Point;
-			return vr;
+			try
+			{
+				var value = reader.Value as string;
+				var r = new NetTopologySuite.IO.WKTReader {DefaultSRID = 4326, HandleOrdinates = GeoAPI.Geometries.Ordinates.XY};
+				var vr = r.Read(value) as Point;
+				return vr;
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
+			
 		}
 
 		public override bool CanConvert(Type objectType)
