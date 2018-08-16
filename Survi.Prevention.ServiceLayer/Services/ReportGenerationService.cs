@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
-using System.Reflection.Metadata;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models;
 using System.Text;
@@ -177,6 +176,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             var streamWriter = new StreamWriter(inputStream, new UnicodeEncoding());
 
             var template = GetTemplate(templateId);
+            template.Data = "<style type=\"text/css\">h3, tr { page-break-inside: avoid; }<\\style>" + template.Data;
             var inspectionTextReport = "";
             if (template != null)
             {
@@ -324,20 +324,9 @@ namespace Survi.Prevention.ServiceLayer.Services
             return "";
         }
         
-        private string GenerateWaterSupplyAddress(FireHydrantLocationType type, Guid? idLane, Guid? idIntersection, string physicalPosition, NetTopologySuite.Geometries.Point coordinate, string languageCode)
+        private string GenerateWaterSupplyAddress(Guid? idLane, Guid? idIntersection, string languageCode)
         {
-            if (type == FireHydrantLocationType.Text)
-                return physicalPosition;
-            if (type == FireHydrantLocationType.Coordinates)
-            {
-                if (!coordinate.IsEmpty && coordinate.IsValid)
-                    return $"{coordinate.ToText()}";
-            }
-
-            if (type == FireHydrantLocationType.LaneAndIntersection)			
-                return GenerateAddressFromLanes(idLane, idIntersection, languageCode);
-			
-            return "";
+            return GenerateAddressFromLanes(idLane, idIntersection, languageCode);
         }
         
         private string GetLaneName(Guid idLane, string languageCode)
@@ -391,16 +380,16 @@ namespace Survi.Prevention.ServiceLayer.Services
                     Color = hydrant.Color,
                     IdInspection = inspectionId,
                     Number = hydrant.Number,
-                    Address = GenerateWaterSupplyAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition, hydrant.Coordinates, languageCode)
+                    Address = GenerateWaterSupplyAddress(hydrant.IdLane, hydrant.IdIntersection, languageCode)
                 }).ToList();
             var report = "";
-
             foreach (var watterSupply in watterSupplies)
             {
-                report += watterSupply.Number + "\t";
-                report += watterSupply.Address + "\n"; 
+                report += "<tr>\n";
+                report += "<td>" + watterSupply.Number+ "</td>\n";
+                report += "<td>" + watterSupply.Address+ "</td>\n";
+                report += "</tr>\n";
             }
-
             return report;
         }
                 
