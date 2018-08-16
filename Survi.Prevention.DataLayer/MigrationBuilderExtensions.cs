@@ -193,7 +193,7 @@ namespace Survi.Prevention.DataLayer
 				INNER JOIN lane_generic_code as lgc ON lgc.id = l.id_lane_generic_code
 				INNER JOIN lane_localization as laneloc ON l.id = laneloc.id_lane
 
-				WHERE i.is_active = true and i.status = 4;
+				WHERE i.is_active = true and i.status = 2;
 				");
 
 			migrationBuilder.Sql(@"
