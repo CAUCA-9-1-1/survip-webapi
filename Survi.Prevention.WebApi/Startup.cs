@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi
@@ -155,6 +156,9 @@ namespace Survi.Prevention.WebApi
 			builder.EntitySet<InspectionCompleted>("InspectionsCompleted").AllowAllQueryType();
 			builder.EntitySet<Building>("Building").AllowAllQueryType();
 			builder.EntityType<Building>().Ignore(t => t.PointCoordinates);
+			builder.EntitySet<FireHydrant>("FireHydrant").AllowAllQueryType();
+			builder.EntityType<FireHydrant>().Ignore(t => t.PointCoordinates);
+			
 			return builder.GetEdmModel();
 		}
 	}

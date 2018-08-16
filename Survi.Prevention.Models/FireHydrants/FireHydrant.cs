@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using NetTopologySuite.Geometries;
 using Survi.Prevention.Models.Base;
 using Survi.Prevention.Models.FireSafetyDepartments;
@@ -30,9 +31,13 @@ namespace Survi.Prevention.Models.FireHydrants
 
 	public class FireHydrant : BaseModel
 	{
+		private NetTopologySuitePointWrapper wrapper;
+		
 		public FireHydrantLocationType LocationType { get; set; }
 		
-		public Point Coordinates { get; set; }
+		[JsonIgnore]
+		public Point PointCoordinates { get => wrapper; set => wrapper = value; }
+		public string Coordinates { get => wrapper; set => wrapper = value; }
 
 		public decimal Altitude { get; set; }
 		public string Number { get; set; }

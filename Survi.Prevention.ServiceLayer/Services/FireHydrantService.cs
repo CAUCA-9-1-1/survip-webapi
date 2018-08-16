@@ -15,6 +15,14 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
 		}
 
+	    public IQueryable<FireHydrant> GetList(List<Guid> idCities)
+	    {
+		    var query = Context.FireHydrants
+			    .Where(b => idCities.Contains(b.IdCity));
+
+		    return query;
+	    }
+	    
 		public List<FireHydrantForList> GetListForCity(Guid idCity, string languageCode)
 		{
 			var results = (
@@ -59,7 +67,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					IdIntersection = hydrant.IdIntersection,
 					PhysicalPosition = hydrant.PhysicalPosition,
 					LocationType = hydrant.LocationType,
-					Coordinates = hydrant.Coordinates,
+					PointCoordinates = hydrant.PointCoordinates,
 					Color = hydrant.Color,
 					CivicNumber = hydrant.CivicNumber,
 					AddressLocationType = hydrant.AddressLocationType
@@ -89,8 +97,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 		    {
 			    if (hydrant.PhysicalPosition != String.Empty)
 				    return hydrant.PhysicalPosition;
-			    if (!hydrant.Coordinates.IsEmpty && hydrant.Coordinates.IsValid)
-				    return $"{hydrant.Coordinates.ToText()}";
+			    if (!hydrant.PointCoordinates.IsEmpty && hydrant.PointCoordinates.IsValid)
+				    return $"{hydrant.PointCoordinates.ToText()}";
 		    }
 		    if (hydrant.LocationType == FireHydrantLocationType.LaneAndIntersection)
 		    {
