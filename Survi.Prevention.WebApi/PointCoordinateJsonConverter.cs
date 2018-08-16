@@ -40,7 +40,7 @@ namespace Survi.Prevention.WebApi
 
 		public override bool CanConvert(Type objectType)
 		{
-			return objectType == typeof(NetTopologySuite.Geometries.Point);
+			return objectType == typeof(Point);
 		}		
 	}
 }

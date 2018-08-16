@@ -23,6 +23,6 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 	    public bool IsSurveyCompleted { get; set; }
 	    public InspectionStatus Status { get; set; }
 	    public string ApprobationRefusalReason { get; set; } = "";
-	    public NetTopologySuite.Geometries.Point Coordinates { get; set; }
+	    public string Coordinates { get; set; }
     }
 }

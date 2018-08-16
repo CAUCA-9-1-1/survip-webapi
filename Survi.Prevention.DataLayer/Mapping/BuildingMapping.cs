@@ -21,7 +21,8 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.Property(m => m.Source).HasMaxLength(25).IsRequired();
 			b.Property(m => m.UtilisationDescription).HasMaxLength(255).IsRequired();
 			b.Property(m => m.Matricule).HasMaxLength(18).IsRequired();
-			b.Property(m => m.Coordinates).HasColumnType("geometry");
+			b.Property(m => m.PointCoordinates).HasColumnType("geometry").HasColumnName("coordinates");
+			b.Ignore(m => m.Coordinates);
 			b.Property(m => m.CoordinatesSource).HasMaxLength(50).IsRequired();
 			b.Property(m => m.Details).IsRequired();
 
