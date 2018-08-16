@@ -32,7 +32,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 					hydrant.PhysicalPosition,
 					hydrant.LocationType,
 					hydrant.Coordinates,
-					formHydrant.IdFireHydrant
+					formHydrant.IdFireHydrant,
+					hydrant.CivicNumber,
+					hydrant.AddressLocationType
 				}).ToList();
 
 			return results
@@ -42,13 +44,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Color = hydrant.Color,
 					IdInspection = inspectionId,
 					Number = hydrant.Number,
-					Address = GenerateAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition, hydrant.Coordinates, languageCode),
+					Address = GenerateAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition, hydrant.Coordinates, hydrant.CivicNumber, hydrant.AddressLocationType, languageCode),
 					IdFireHydrant = hydrant.IdFireHydrant
 				}).ToList();
 		}
 
-		private string GenerateAddress(FireHydrantLocationType type, Guid? idLane, Guid? idIntersection, string physicalPosition, NetTopologySuite.Geometries.Point coordinate, string languageCode)
+		private string GenerateAddress(FireHydrantLocationType type, Guid? idLane, Guid? idIntersection, string physicalPosition, NetTopologySuite.Geometries.Point coordinate, string civicNumber, FireHydrantAddressLocationType addressLocationType, string languageCode)
 		{
+			if (type == FireHydrantLocationType.Address)
+			{
+				return new AddressGeneratorWithDb().GenerateAddressFromAddressLocationType(Context, idLane, civicNumber, addressLocationType, languageCode);
+			}
 			if (type == FireHydrantLocationType.Text)
 				return physicalPosition;
 			if (type == FireHydrantLocationType.Coordinates)
@@ -58,32 +64,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 
 			if (type == FireHydrantLocationType.LaneAndIntersection)			
-				return GenerateAddressFromLanes(idLane, idIntersection, languageCode);
+				return new AddressGeneratorWithDb().GenerateAddressFromLanes(Context, idLane, idIntersection, languageCode);
 			
-			return "";
-		}
-
-		private string GenerateAddressFromLanes(Guid? idLane, Guid? idIntersection, string languageCode)
-		{
-			var laneName = idLane.HasValue ? GetLaneName(idLane.Value, languageCode) : "?";
-			var interName = idIntersection.HasValue ? GetLaneName(idIntersection.Value, languageCode) : "?";
-
-			return $"{laneName} / {interName}";
-		}
-
-		private string GetLaneName(Guid idLane, string languageCode)
-		{
-			var laneFound = (
-					from lane in Context.Lanes.AsNoTracking()
-					where lane.Id == idLane
-					from loc in lane.Localizations
-					where loc.IsActive && loc.LanguageCode == languageCode
-					let gen = lane.LaneGenericCode
-					let pub = lane.PublicCode
-					select new {loc.Name, genDescription = gen.Description, pubDescription = pub.Description, gen.AddWhiteSpaceAfter})
-				.SingleOrDefault();
-			if (laneFound != null)
-				return new LocalizedLaneNameGenerator().GenerateLaneName(laneFound.Name, laneFound.genDescription, laneFound.pubDescription, laneFound.AddWhiteSpaceAfter);
 			return "";
 		}
 
