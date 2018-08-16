@@ -23,13 +23,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-		public override List<Lane> GetList()
+		public IQueryable<Lane> GetList(List<Guid> idCities)
 		{
-			var result = Context.Lanes
-				.Include(s => s.Localizations)
-				.ToList();
+			var query = Context.Lanes
+				.Where(l => idCities.Contains(l.IdCity));
 
-			return result;
+			return query;
 		}
 
         public List<LaneLocalized> GetListLocalized(string languageCode)

@@ -16,6 +16,7 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.FireHydrants;
+using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi
@@ -158,6 +159,7 @@ namespace Survi.Prevention.WebApi
 			builder.EntityType<Building>().Ignore(t => t.PointCoordinates);
 			builder.EntitySet<FireHydrant>("FireHydrant").AllowAllQueryType();
 			builder.EntityType<FireHydrant>().Ignore(t => t.PointCoordinates);
+			builder.EntitySet<Lane>("Lane").AllowAllQueryType();
 			
 			return builder.GetEdmModel();
 		}

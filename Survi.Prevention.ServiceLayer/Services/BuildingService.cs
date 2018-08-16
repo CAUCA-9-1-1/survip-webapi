@@ -29,8 +29,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public IQueryable<Building> GetList(List<Guid> idCities)
 		{
 			var query = Context.Buildings
-                .Where(b => b.ChildType == BuildingChildType.None && idCities.Contains(b.IdCity))
-		        .Include(b => b.Localizations);
+                .Where(b => b.ChildType == BuildingChildType.None && idCities.Contains(b.IdCity));
 
 			return query;
 		}
