@@ -8,7 +8,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
-using Survi.Prevention.Models.FireHydrants;
+using Survi.Prevention.ServiceLayer.Localization.Base;
 using WkWrap;
 
 namespace Survi.Prevention.ServiceLayer.Services
@@ -88,7 +88,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 //
                 ImplementationPlan = SetImplementationPlan(result.idInspection),
                 //
-                Course = SetCourse(result.idInspection),
+                Course = SetCourse(result.idInspection, languageCode),
                 //
                 WaterSupply = SetWaterSupply(result.idInspection, languageCode),
                 //
@@ -318,10 +318,85 @@ namespace Survi.Prevention.ServiceLayer.Services
             var base64String = "<img src=\"data:image/png;base64, " + Convert.ToBase64String(photo.Data) + "\" height=\"400\" />";
             return base64String;
         }
-
-        private string SetCourse(Guid inspectionId)
+        
+        public List<InspectionBuildingCourseForList> GetCourses(Guid inspectionid)
         {
-            return "";
+            var query =
+                from inspection in Context.Inspections.AsNoTracking()
+                where inspection.Id == inspectionid
+                from course in inspection.MainBuilding.Courses
+                where course.IsActive && course.Firestation.IsActive
+                let firestation = course.Firestation
+                select new InspectionBuildingCourseForList
+                {
+                    Id = course.Id,
+                    Description = firestation.Name
+                };
+
+            return query.ToList();
+        }
+        
+        private static string GenerateLaneName(CourseLaneDirection direction, string name, string genericDescription, string publicDescription, bool addWhiteSpaceAfter, string languageCode)
+        {
+            var laneName = new LocalizedLaneNameGenerator().GenerateLaneName(name, genericDescription, publicDescription, addWhiteSpaceAfter);
+            if (direction != CourseLaneDirection.StraightAhead)
+                laneName += $" ({direction.GetDisplayName(languageCode)})";
+            return laneName;
+        }
+        
+        private ICollection<InspectionBuildingCourseLaneForList> GetCourseLanesList(Guid idCourse, string languageCode)
+        {
+            var query =
+                from courseLane in Context.BuildingCourseLanes.AsNoTracking()
+                where courseLane.IdBuildingCourse == idCourse && courseLane.IsActive
+                let lane = courseLane.Lane
+                from loc in lane.Localizations
+                where loc.IsActive && loc.LanguageCode == languageCode
+                let genericCode = lane.LaneGenericCode
+                let publicCode = lane.PublicCode
+                select new { courseLane.Id, loc.Name, genericDescription = genericCode.Description, genericCode.AddWhiteSpaceAfter, publicDescription = publicCode.Description, courseLane.Direction, courseLane.Sequence };
+
+            var result = query.ToList()
+                .Select(lane => new InspectionBuildingCourseLaneForList {
+                    Id = lane.Id,
+                    Sequence = lane.Sequence,
+                    Description = GenerateLaneName(lane.Direction, lane.Name, lane.genericDescription, lane.publicDescription, lane.AddWhiteSpaceAfter, languageCode) })
+                .ToList();
+
+            return result;
+        }
+        private BuildingCourse GetCourse(Guid idCourse)
+        {
+            return Context.BuildingCourses
+                .AsNoTracking()
+                .SingleOrDefault(course => course.Id == idCourse);
+        }
+        
+        public InspectionBuildingCourseWithLanes GetCourse(Guid idCourse, string languageCode)
+        {
+            return new InspectionBuildingCourseWithLanes
+            {
+                Course = GetCourse(idCourse),
+                Lanes = GetCourseLanesList(idCourse, languageCode)
+            };
+        }
+
+        private string SetCourse(Guid inspectionId, string languageCode)
+        {
+            var courses = GetCourses(inspectionId);
+            var report = "";
+            foreach (var course in courses)
+            {
+                var lanes = GetCourse(course.Id, languageCode).Lanes;
+                var orderedLanes = lanes.OrderByDescending(lane => lane.Sequence);
+                report += "<h3>" + course.Description + "</h3>\n";
+                foreach (var lane in orderedLanes)
+                {
+                    report += "<div>" + lane.Description + "</div>\n";
+                }
+            }
+            courses.Sort();
+            return report;
         }
         
         private string GenerateWaterSupplyAddress(Guid? idLane, Guid? idIntersection, string languageCode)
