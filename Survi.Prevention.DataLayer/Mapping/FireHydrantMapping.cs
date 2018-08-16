@@ -17,7 +17,8 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.Property(m => m.PressureTo).IsRequired().HasMaxLength(5);
 			b.Property(m => m.Color).IsRequired().HasMaxLength(50);
 			b.Property(m => m.PhysicalPosition).HasMaxLength(200);
-			b.Property(m => m.Coordinates).HasColumnType("geometry");
+			b.Property(m => m.PointCoordinates).HasColumnType("geometry").HasColumnName("coordinates");
+			b.Ignore(m => m.Coordinates);
 
 			b.HasMany(m => m.Connections).WithOne(m => m.Hydrant).HasForeignKey(m => m.IdFireHydrant);
 			b.HasOne(m => m.Lane).WithMany().HasForeignKey(m => m.IdLane);
