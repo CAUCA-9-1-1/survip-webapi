@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using Survi.Prevention.Models.Base;
 using Survi.Prevention.Models.FireSafetyDepartments;
 
@@ -13,6 +14,8 @@ namespace Survi.Prevention.Models.Buildings
 
 	public class Building : BaseModel
 	{
+		private NetTopologySuitePointWrapper wrapper;
+
 		public string CivicNumber { get; set; }
 		public string CivicLetter { get; set; }
 		public string CivicSupp { get; set; }
@@ -31,7 +34,11 @@ namespace Survi.Prevention.Models.Buildings
 		public string UtilisationDescription { get; set; }
 		public bool ShowInResources { get; set; }
 		public string Matricule { get; set; }
-		public NetTopologySuite.Geometries.Point Coordinates { get; set; }
+
+		[JsonIgnore]
+		public NetTopologySuite.Geometries.Point PointCoordinates { get => wrapper; set => wrapper = value; }
+		public string Coordinates { get => wrapper; set => wrapper = value; }
+
 		public string CoordinatesSource { get; set; }
 		public string Details { get; set; }
 		public BuildingChildType ChildType { get; set; }

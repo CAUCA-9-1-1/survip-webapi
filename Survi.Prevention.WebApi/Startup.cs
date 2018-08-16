@@ -147,13 +147,14 @@ namespace Survi.Prevention.WebApi
 		private static IEdmModel GetEdmModel()
 		{
 			var builder = new ODataConventionModelBuilder();
+			
 			builder.EnableLowerCamelCase();
 			builder.EntitySet<BuildingWithoutInspection>("BuildingsWithoutInspection").AllowAllQueryType();
 			builder.EntitySet<InspectionToDo>("InspectionsToDo").AllowAllQueryType();
 			builder.EntitySet<InspectionForApproval>("InspectionsForApproval").AllowAllQueryType();
 			builder.EntitySet<InspectionCompleted>("InspectionsCompleted").AllowAllQueryType();
 			builder.EntitySet<Building>("Building").AllowAllQueryType();
-			
+			builder.EntityType<Building>().Ignore(t => t.PointCoordinates);
 			return builder.GetEdmModel();
 		}
 	}
