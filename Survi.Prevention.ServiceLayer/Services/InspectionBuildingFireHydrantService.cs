@@ -25,6 +25,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				select new
 				{
 					formHydrant.Id,
+					IdFireHdydrant = hydrant.Id,
 					hydrant.Color,
 					hydrant.Number,
 					hydrant.IdLane,
