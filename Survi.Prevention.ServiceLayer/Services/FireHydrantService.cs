@@ -87,6 +87,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 			    return hydrant.PhysicalPosition;
 		    if (hydrant.LocationType == FireHydrantLocationType.Coordinates)
 		    {
+			    if (hydrant.PhysicalPosition != String.Empty)
+				    return hydrant.PhysicalPosition;
 			    if (!hydrant.Coordinates.IsEmpty && hydrant.Coordinates.IsValid)
 				    return $"{hydrant.Coordinates.ToText()}";
 		    }
