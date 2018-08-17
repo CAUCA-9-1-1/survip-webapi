@@ -20,6 +20,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.FirstOrDefault(contact => contact.Id == id);
 		}
 
+		public List<BuildingContact> GetList(Guid idBuilding)
+		{
+			return Context.BuildingContacts.AsNoTracking()
+				.Where(c => c.IdBuilding == idBuilding)
+				.ToList();
+		}
+		
 		public List<BuildingContactForList> GetListLocalized(Guid idBuilding, string languageCode)
 		{
 			var query =
