@@ -28,12 +28,19 @@ namespace Survi.Prevention.Models
 
 		public static implicit operator Point(NetTopologySuitePointWrapper wrapper)
 		{
-			if (wrapper?.point == null)
-				return null;
+			try
+			{
+				if (wrapper?.point == null)
+					return null;
 
-			var r = new NetTopologySuite.IO.WKTReader { DefaultSRID = 4326, HandleOrdinates = GeoAPI.Geometries.Ordinates.XY };
-			var vr = r.Read(wrapper.point) as Point;
-			return vr;
+				var r = new NetTopologySuite.IO.WKTReader {DefaultSRID = 4326, HandleOrdinates = GeoAPI.Geometries.Ordinates.XY};
+				var vr = r.Read(wrapper.point) as Point;
+				return vr;
+			}
+			catch
+			{
+				return null;
+			}
 		}
 
 		private NetTopologySuitePointWrapper(string dbg)
