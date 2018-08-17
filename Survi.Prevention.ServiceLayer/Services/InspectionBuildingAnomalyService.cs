@@ -88,11 +88,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 		    var anomalyPictures = Context.BuildingAnomalyPictures
 									.Where(bap => bap.IdBuildingAnomaly == idBuildingAnomaly)
 									.ToList();
-		    anomalyPictures.ForEach(pic => {
+		    anomalyPictures.ForEach(pic =>
+		    {
+			    pic.IsActive = false;
 			    var picture = Context.Pictures.Find(pic.IdPicture);
-			    Context.Remove(picture);
+			    picture.IsActive = false;
 		    });
-			Context.RemoveRange(anomalyPictures);
 	    }
 	}
 }
