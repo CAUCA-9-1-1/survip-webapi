@@ -75,7 +75,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		    var entity = Context.BuildingAnomalies.Find(id);
 		    if(entity != null){
 				DeleteAnomalyPictures(entity.Id);
-			    Context.Remove(entity);
+			    Remove(id);
 			    Context.SaveChanges();
 			    return true;
 		    }
