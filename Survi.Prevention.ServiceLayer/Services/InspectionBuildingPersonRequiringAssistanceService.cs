@@ -21,6 +21,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return entity;
 		}
 
+		public List<BuildingPersonRequiringAssistance> GetList(Guid idBuilding)
+		{
+			return Context.BuildingPersonsRequiringAssistance.AsNoTracking()
+				.Where(p => p.IdBuilding == idBuilding)
+				.ToList();
+		}
+		
 		public List<BuildingPersonRequiringAssistanceForList> GetListLocalized(string languageCode, Guid idBuilding)
 		{
 			var query =

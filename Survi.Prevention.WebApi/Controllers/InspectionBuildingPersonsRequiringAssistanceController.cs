@@ -12,6 +12,12 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 		}
 
+		[Route("/api/inspection/building/{idBuilding:Guid}/pnapslist"), HttpGet]
+		public ActionResult GetList(Guid idBuilding, [FromHeader] string languageCode)
+		{
+			return Ok(Service.GetList(idBuilding));
+		}
+		
 		[Route("/api/inspection/building/{idBuilding:Guid}/pnaps"), HttpGet]
 		public ActionResult GetListForDisplay(Guid idBuilding, [FromHeader] string languageCode)
 		{
