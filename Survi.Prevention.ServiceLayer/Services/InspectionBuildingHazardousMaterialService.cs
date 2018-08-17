@@ -20,6 +20,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.SingleOrDefault(mat => mat.Id == id);
 			return entity;
 		}
+		
+		public List<BuildingHazardousMaterial> GetList(Guid idBuilding)
+		{
+			return Context.BuildingHazardousMaterials.AsNoTracking()
+				.Where(mat => mat.IdBuilding == idBuilding)
+				.ToList();
+		}
 
 		public List<BuildingHazardousMaterialForList> GetListLocalized(string languageCode, Guid idBuilding)
 		{
