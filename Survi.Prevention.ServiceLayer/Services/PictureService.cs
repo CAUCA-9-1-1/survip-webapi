@@ -47,6 +47,10 @@ namespace Survi.Prevention.ServiceLayer.Services
             {
                 Context.Add(picture);
             }
+            else
+            {
+	            Context.Update(picture);
+            }
 
             Context.SaveChanges();
             return picture.Id;
