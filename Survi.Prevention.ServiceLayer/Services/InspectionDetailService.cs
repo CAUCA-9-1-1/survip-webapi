@@ -80,41 +80,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 				IsSurveyCompleted = result.IsSurveyCompleted,
 				Status = result.Status,
 				ApprobationRefusalReason = result.Status == InspectionStatus.Refused ? result.ApprobationRefusal : "",
-				Coordinates = result.Coordinates,
-				Configuration = GetInspectionConfigurationForCityAndRisk(result.IdCity, result.MainBuildingIdRiskLevel)
+				Coordinates = result.Coordinates				
 			};
-		}
-
-		private InspectionConfiguration GetInspectionConfigurationForCityAndRisk(Guid cityId, Guid riskLevelId)
-		{
-			var departmentId = (
-				from city in Context.Cities.AsNoTracking()
-				where city.Id == cityId
-				from serving in city.ServedByFireSafetyDepartments
-				where serving.IsActive
-				select serving.IdFireSafetyDepartment
-			).First();
-
-			var query =
-				from risk in Context.FireSafetyDepartmentRiskLevels.AsNoTracking()
-				where risk.IsActive && risk.IdFireSafetyDepartment == departmentId && risk.IdRiskLevel == riskLevelId
-				select new InspectionConfiguration
-				{
-					HasBuildingAnomalies = risk.HasBuildingAnomalies,
-					HasBuildingContacts = risk.HasBuildingContacts,
-					HasBuildingDetails = risk.HasBuildingDetails,
-					HasBuildingFireProtection = risk.HasBuildingFireProtection,
-					HasBuildingHazardousMaterials = risk.HasBuildingHazardousMaterials,
-					HasBuildingParticularRisks = risk.HasBuildingParticularRisks,
-					HasBuildingPnaps = risk.HasBuildingPNAPS,
-					HasCourse = risk.HasCourse,
-					HasGeneralInformation = risk.HasGeneralInformation,
-					HasImplantationPlan = risk.HasImplantationPlan,
-					HasWaterSupply = risk.HasWaterSupply
-				};
-
-			return query.FirstOrDefault() ?? new InspectionConfiguration();
-		}
+		}		
 
 		private void CreateDetailForMainBuildingWhenMissing(Guid inspectionId)
 		{

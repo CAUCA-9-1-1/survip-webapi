@@ -41,6 +41,15 @@ namespace Survi.Prevention.WebApi.Controllers
             return Ok(true);
         }
 
+		[HttpGet, Route("{id:Guid}/configuration")]
+		public ActionResult GetInspectionConfiguration(Guid id)
+		{
+			var configuration = service.GetInspectionConfiguration(id);
+			if (configuration == null)
+				return NotFound($"This inspection does not exist : {id})");
+			return Ok(configuration);
+		}
+
         [HttpGet]
 		[ProducesResponseType(typeof(List<BatchForList>), 200)]
 		public ActionResult GetUserInspections([FromHeader]string languageCode)
