@@ -18,6 +18,12 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(Service.GetListForWeb(idBuilding));
 		}
 
+		[Route("/api/inspection/building/{idBuilding:Guid}/anomalylist"), HttpGet]
+		public ActionResult GetList(Guid idBuilding)
+		{
+			return Ok(Service.GetList(idBuilding));
+		}
+
 		[Route("/api/inspection/anomalythemes"), HttpGet]
 		public ActionResult GetThemeList()
 		{

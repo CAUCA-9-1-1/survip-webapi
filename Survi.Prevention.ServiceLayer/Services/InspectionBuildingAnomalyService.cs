@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Remotion.Linq.Clauses;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
@@ -20,6 +21,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 			    .FirstOrDefault(anomaly => anomaly.Id == id);
 	    }
 
+	    public List<BuildingAnomaly> GetList(Guid idBuilding)
+	    {
+		    return Context.BuildingAnomalies
+			    .Where(a => a.IsActive && a.IdBuilding == idBuilding)
+			    .Include(a => a.Pictures)
+			    .ThenInclude(p => p.Picture)
+			    .ToList();
+	    }
+	    
 	    public List<InspectionBuildingAnomalyThemeForList> GetListForWeb(Guid idBuilding)
 	    {
 		    var query =
