@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
@@ -40,19 +41,19 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 
 		[HttpPost, Route("courselane")]
-		public ActionResult SaveCourseLane([FromBody] BuildingCourseLane courseLane)
+		public ActionResult SaveCourseLane([FromBody] InspectionBuildingCourseLane courseLane)
 		{
 			return Ok(service.AddOrUpdate(courseLane));
 		}
 
 		[HttpPost, Route("course")]
-		public ActionResult SaveCourse([FromBody]BuildingCourse course)
+		public ActionResult SaveCourse([FromBody]InspectionBuildingCourse course)
 		{
 			return Ok(service.AddOrUpdate(course));
 		}
 		
 		[HttpPost, Route("listcourse")]
-		public ActionResult SaveCompleteCourses([FromBody]BuildingCourse course)
+		public ActionResult SaveCompleteCourses([FromBody]InspectionBuildingCourse course)
 		{
 			return Ok(service.SaveCompleteCourses(course));
 		}
