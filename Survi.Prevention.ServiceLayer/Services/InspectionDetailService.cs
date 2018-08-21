@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
@@ -22,6 +23,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				from inspection in Context.Inspections.AsNoTracking()
 				where inspection.Id == inspectionId
 				let building = inspection.MainBuilding
+				let visits = inspection.Visits
 				let lane = building.Lane
 				from loc in building.Localizations
 				where loc.IsActive && loc.LanguageCode == languageCode
@@ -51,7 +53,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					inspection.IdSurvey,
 					inspection.IsSurveyCompleted,
 					inspection.Status,
-					ApprobationRefusal = GetApprobationRefusalReason(inspection),
+					ApprobationRefusal = GetApprobationRefusalReason(visits),
 					building.Coordinates
 				};
 
@@ -124,10 +126,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return false;
 		}
 
-		private string GetApprobationRefusalReason(Inspection inspection)
+		private string GetApprobationRefusalReason(ICollection<InspectionVisit> visits)
 		{
-			if(inspection.Visits != null)
-				return inspection.Visits.Last(iv => iv.IsActive && iv.Status == InspectionVisitStatus.Completed)
+			if(visits.Any())
+				return visits.LastOrDefault(iv => iv.IsActive && iv.Status == InspectionVisitStatus.Completed)
 					.ReasonForApprobationRefusal;
 
 			return "";
