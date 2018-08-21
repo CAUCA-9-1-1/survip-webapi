@@ -23,7 +23,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public List<BuildingContact> GetList(Guid idBuilding)
 		{
 			return Context.BuildingContacts.AsNoTracking()
-				.Where(c => c.IdBuilding == idBuilding)
+				.Where(c => c.IsActive && c.IdBuilding == idBuilding)
 				.ToList();
 		}
 		
