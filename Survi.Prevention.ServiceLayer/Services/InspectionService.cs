@@ -36,6 +36,17 @@ namespace Survi.Prevention.ServiceLayer.Services
             return true;
         }
 
+		public bool SetReasonForApprobationRefusal(Guid id, string reason)
+		{
+			var inspection = Context.Inspections.Single(i => i.Id == id);
+			var currentVisit = inspection.Visits.Last(v => v.IsActive && v.Status == InspectionVisitStatus.Completed);
+
+			currentVisit.ReasonForApprobationRefusal = reason;
+			Context.SaveChanges();
+			
+			return true;
+		}
+
         public List<BatchForList> GetGroupedUserInspections(string languageCode, Guid userId)
 		{
 			var query =
