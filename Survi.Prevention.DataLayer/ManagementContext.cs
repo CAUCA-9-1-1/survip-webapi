@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer.InitialData;
 using Survi.Prevention.Models;
 using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.Buildings.Base;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.Models.FireSafetyDepartments;

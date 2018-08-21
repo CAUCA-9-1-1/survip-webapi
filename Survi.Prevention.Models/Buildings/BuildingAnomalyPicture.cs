@@ -1,14 +1,9 @@
-using System;
-using Survi.Prevention.Models.Base;
+using Survi.Prevention.Models.Buildings.Base;
 
 namespace Survi.Prevention.Models.Buildings
 {
-	public class BuildingAnomalyPicture : BaseModel
+	public class BuildingAnomalyPicture : BaseBuildingAnomalyPicture
 	{
-		public Guid IdPicture { get; set; }
-		public Picture Picture { get; set; }
-
-		public Guid IdBuildingAnomaly { get; set; }
 		public BuildingAnomaly Anomaly { get; set; }
 	}
 }
