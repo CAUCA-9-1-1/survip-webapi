@@ -32,6 +32,17 @@ namespace Survi.Prevention.WebApi.Controllers
 			return BadRequest();
 		}
 
+		[HttpPost, Route("/api/inspection/building/anomaly/pictures")]
+		[ProducesResponseType(401)]
+		[ProducesResponseType(200)]
+		public virtual ActionResult Post([FromBody] BuildingChildPictureForWeb[] entities)
+		{
+			if (Service.AddUpdatePictures(entities))
+				return Ok(new { result =  true});
+
+			return BadRequest();
+		}
+
 		[HttpDelete]
 		[Route("{id:Guid}")]
 		[ProducesResponseType(401)]
