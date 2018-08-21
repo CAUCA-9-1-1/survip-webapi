@@ -24,7 +24,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public List<BuildingHazardousMaterial> GetList(Guid idBuilding)
 		{
 			return Context.BuildingHazardousMaterials.AsNoTracking()
-				.Where(mat => mat.IdBuilding == idBuilding)
+				.Where(mat => mat.IsActive && mat.IdBuilding == idBuilding)
 				.ToList();
 		}
 

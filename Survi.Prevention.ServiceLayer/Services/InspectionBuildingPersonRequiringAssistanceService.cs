@@ -24,7 +24,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public List<BuildingPersonRequiringAssistance> GetList(Guid idBuilding)
 		{
 			return Context.BuildingPersonsRequiringAssistance.AsNoTracking()
-				.Where(p => p.IdBuilding == idBuilding)
+				.Where(p => p.IsActive && p.IdBuilding == idBuilding)
 				.ToList();
 		}
 		
