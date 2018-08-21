@@ -7,6 +7,7 @@ using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.Models.InspectionManagement;
+using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 using Survi.Prevention.Models.SecurityManagement;
 using Survi.Prevention.Models.SurveyManagement;
 
@@ -25,6 +26,20 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<Batch> Batches { get; set; }
         public DbSet<BatchUser> BatchUsers { get; set; }
 		public DbSet<Inspection> Inspections { get; set; }
+		public DbSet<InspectionBuildingParticularRisk> InspectionBuildingParticularRisks { get; set; }
+		public DbSet<InspectionBuildingContact> InspectionBuildingContacts { get; set; }
+		public DbSet<InspectionBuilding> InspectionBuildings { get; set; }
+		public DbSet<InspectionBuildingCourse> InspectionBuildingCourses { get; set; }
+		public DbSet<InspectionBuildingCourseLane> InspectionBuildingCourseLanes { get; set; }
+		public DbSet<InspectionBuildingDetail> InspectionBuildingDetails { get; set; }
+		public DbSet<InspectionBuildingHazardousMaterial> InspectionBuildingHazardousMaterials { get; set; }
+		public DbSet<InspectionBuildingPersonRequiringAssistance> InspectionBuildingPersonsRequiringAssistance { get; set; }
+		public DbSet<InspectionBuildingSprinkler> InspectionBuildingSprinklers { get; set; }
+		public DbSet<InspectionBuildingAlarmPanel> InspectionBuildingAlarmPanels { get; set; }
+		public DbSet<InspectionBuildingAnomaly> InspectionBuildingAnomalies { get; set; }
+		public DbSet<InspectionBuildingAnomalyPicture> InspectionBuildingAnomalyPictures { get; set; }
+		public DbSet<InspectionBuildingParticularRiskPicture> InspectionBuildingParticularRiskPictures { get; set; }
+		public DbSet<InspectionBuildingFireHydrant> InspectionBuildingFireHydrants { get; set; }
 
 		public DbSet<Building> Buildings { get; set; }		
 		public DbSet<BuildingCourse> BuildingCourses { get; set; }
@@ -39,6 +54,7 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<BuildingAnomalyPicture> BuildingAnomalyPictures { get; set; }
 		public DbSet<BuildingParticularRisk> BuildingParticularRisks { get; set; }
 		public DbSet<BuildingParticularRiskPicture> BuildingParticularRiskPictures { get; set; }
+		public DbSet<BuildingFireHydrant> BuildingFireHydrants { get; set; }
 
 		public DbSet<Country> Countries { get; set; }
 		public DbSet<RiskLevel> RiskLevels { get; set; }
@@ -75,8 +91,7 @@ namespace Survi.Prevention.DataLayer
 
 		public DbSet<HazardousMaterial> HazardousMaterials { get; set; }
 
-        public DbSet<FireHydrant> FireHydrants { get; set; }
-		public DbSet<BuildingFireHydrant> BuildingFireHydrants { get; set; }
+        public DbSet<FireHydrant> FireHydrants { get; set; }		
 		public DbSet<Survey> Surveys { get; set; }
 		public DbSet<SurveyQuestion> SurveyQuestions { get; set; }
 		public DbSet<SurveyQuestionChoice> SurveyQuestionChoices { get; set; }

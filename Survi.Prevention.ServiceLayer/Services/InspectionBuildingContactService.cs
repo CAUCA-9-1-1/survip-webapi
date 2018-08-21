@@ -5,24 +5,25 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class InspectionBuildingContactService : BaseCrudService<BuildingContact>
+	public class InspectionBuildingContactService : BaseCrudService<InspectionBuildingContact>
 	{
 		public InspectionBuildingContactService(ManagementContext context) : base(context)
 		{
 		}
 
-		public override BuildingContact Get(Guid id)
+		public override InspectionBuildingContact Get(Guid id)
 		{
-			return Context.BuildingContacts.AsNoTracking()
+			return Context.InspectionBuildingContacts.AsNoTracking()
 				.FirstOrDefault(contact => contact.Id == id);
 		}
 
-		public List<BuildingContact> GetList(Guid idBuilding)
+		public List<InspectionBuildingContact> GetList(Guid idBuilding)
 		{
-			return Context.BuildingContacts.AsNoTracking()
+			return Context.InspectionBuildingContacts.AsNoTracking()
 				.Where(c => c.IsActive && c.IdBuilding == idBuilding)
 				.ToList();
 		}

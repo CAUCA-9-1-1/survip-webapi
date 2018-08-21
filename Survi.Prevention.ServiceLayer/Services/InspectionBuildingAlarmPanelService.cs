@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
-using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class InspectionBuildingAlarmPanelService : BaseCrudService<BuildingAlarmPanel>
+	public class InspectionBuildingAlarmPanelService : BaseCrudService<InspectionBuildingAlarmPanel>
 	{
 		public InspectionBuildingAlarmPanelService(ManagementContext context) : base(context)
 		{
 		}
 
-		public override BuildingAlarmPanel Get(Guid id)
+		public override InspectionBuildingAlarmPanel Get(Guid id)
 		{
-			var entity = Context.BuildingAlarmPanels.AsNoTracking()
+			var entity = Context.InspectionBuildingAlarmPanels.AsNoTracking()
 				.SingleOrDefault(mat => mat.Id == id);
 			return entity;
 		}
@@ -31,7 +31,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public List<BuildingFireProtectionForList> GetListLocalized(string languageCode, Guid idBuilding)
 		{
 			var query =
-				from panel in Context.BuildingAlarmPanels.AsNoTracking()
+				from panel in Context.InspectionBuildingAlarmPanels.AsNoTracking()
 				where panel.IdBuilding == idBuilding && panel.IsActive
 				let type = panel.AlarmPanelType
 				from loc in type.Localizations

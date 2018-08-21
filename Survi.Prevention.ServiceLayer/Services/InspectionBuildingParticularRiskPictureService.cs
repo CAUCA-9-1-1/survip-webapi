@@ -4,8 +4,8 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models;
-using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -18,7 +18,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public List<BuildingChildPictureForWeb> GetAnomalyPictures(Guid idBuildingParticularRisk)
 		{
 			var query =
-				from picture in Context.BuildingParticularRiskPictures.AsNoTracking()
+				from picture in Context.InspectionBuildingParticularRiskPictures.AsNoTracking()
 				let data = picture.Picture
 				where picture.IdBuildingParticularRisk == idBuildingParticularRisk && picture.IsActive && data != null && data.IsActive
 				select new
@@ -47,7 +47,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public virtual Guid AddOrUpdatePicture(BuildingChildPictureForWeb entity)
 		{
-            var particularRiskPicture = Context.BuildingParticularRiskPictures.Find(entity.Id) 
+            var particularRiskPicture = Context.InspectionBuildingParticularRiskPictures.Find(entity.Id) 
 				?? GenerateNewPicture(entity);
 
 			TransferDtoToModel(entity, particularRiskPicture);
@@ -77,10 +77,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return true;
 		}
 
-        private BuildingParticularRiskPicture GenerateNewPicture(BuildingChildPictureForWeb entity)
+        private InspectionBuildingParticularRiskPicture GenerateNewPicture(BuildingChildPictureForWeb entity)
         {
-            var picture =  new BuildingParticularRiskPicture
-            {
+            var picture =  new InspectionBuildingParticularRiskPicture
+			{
                 Id = entity.Id,
                 IdBuildingParticularRisk = entity.IdParent,
                 IdPicture = entity.Id,
@@ -90,7 +90,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return picture;
 		}
 
-        private void TransferDtoToModel(BuildingChildPictureForWeb entity, BuildingParticularRiskPicture particularRiskPicture)
+        private void TransferDtoToModel(BuildingChildPictureForWeb entity, InspectionBuildingParticularRiskPicture particularRiskPicture)
         {
             particularRiskPicture.Id = entity.Id;
             particularRiskPicture.IdBuildingParticularRisk = entity.IdParent;

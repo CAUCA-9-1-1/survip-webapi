@@ -3,35 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
-using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class InspectionBuildingPersonRequiringAssistanceService : BaseCrudService<BuildingPersonRequiringAssistance>
+	public class InspectionBuildingPersonRequiringAssistanceService : BaseCrudService<InspectionBuildingPersonRequiringAssistance>
 	{
 		public InspectionBuildingPersonRequiringAssistanceService(ManagementContext context) : base(context)
 		{
 		}
 
-		public override BuildingPersonRequiringAssistance Get(Guid id)
+		public override InspectionBuildingPersonRequiringAssistance Get(Guid id)
 		{
-			var entity = Context.BuildingPersonsRequiringAssistance.AsNoTracking()
+			var entity = Context.InspectionBuildingPersonsRequiringAssistance.AsNoTracking()
 				.SingleOrDefault(mat => mat.Id == id);
 			return entity;
 		}
 
-		public List<BuildingPersonRequiringAssistance> GetList(Guid idBuilding)
+		public List<InspectionBuildingPersonRequiringAssistance> GetList(Guid idBuilding)
 		{
-			return Context.BuildingPersonsRequiringAssistance.AsNoTracking()
-				.Where(p => p.IsActive && p.IdBuilding == idBuilding)
+			return Context.InspectionBuildingPersonsRequiringAssistance.AsNoTracking()
+				.Where(p => p.IdBuilding == idBuilding)
 				.ToList();
 		}
 		
 		public List<BuildingPersonRequiringAssistanceForList> GetListLocalized(string languageCode, Guid idBuilding)
 		{
 			var query =
-				from person in Context.BuildingPersonsRequiringAssistance.AsNoTracking()
+				from person in Context.InspectionBuildingPersonsRequiringAssistance.AsNoTracking()
 				where person.IdBuilding == idBuilding && person.IsActive
 				let type = person.PersonType
 				from loc in type.Localizations

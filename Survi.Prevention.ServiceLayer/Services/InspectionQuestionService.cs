@@ -34,24 +34,24 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public List<InspectionQuestionForList> GetAnswerListLocalized(Guid idInspection, string languageCode)
 		{
 			var inspectionQuestionQuery =
-				from inspection in Context.Inspections.Where(i=> i.Id == idInspection && i.IsActive)
-				 from surveyquestion in Context.SurveyQuestions.Where(sq => sq.IdSurvey == inspection.IdSurvey && sq.IsActive)
-				 from questionanswser in Context.InspectionQuestions.Where(iq => iq.IsActive && iq.IdSurveyQuestion == surveyquestion.Id && iq.IdInspection == inspection.Id)
-				 select new
-				 {
-					 questionanswser.Id,
-					 IdSurveyQuestion = surveyquestion.Id,
-					 questionanswser.IdSurveyQuestionChoice,
-					 questionanswser.Answer,
-					 surveyquestion.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Title,
-					 Description = surveyquestion.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
-					 ChoicesList = surveyquestion.Choices,
-					 surveyquestion.Sequence,
-					 surveyquestion.QuestionType,
-					 idInspection = inspection.Id,
-					 surveyquestion.IdSurveyQuestionNext,
-					 created_on = questionanswser.CreatedOn
-				 };
+				from inspection in Context.Inspections.Where(i => i.Id == idInspection && i.IsActive)
+				from surveyquestion in Context.SurveyQuestions.Where(sq => sq.IdSurvey == inspection.IdSurvey && sq.IsActive)
+				from questionanswser in Context.InspectionQuestions.Where(iq => iq.IsActive && iq.IdSurveyQuestion == surveyquestion.Id && iq.IdInspection == inspection.Id)
+				select new
+				{
+					questionanswser.Id,
+					IdSurveyQuestion = surveyquestion.Id,
+					questionanswser.IdSurveyQuestionChoice,
+					questionanswser.Answer,
+					surveyquestion.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Title,
+					Description = surveyquestion.Localizations.SingleOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
+					ChoicesList = surveyquestion.Choices,
+					surveyquestion.Sequence,
+					surveyquestion.QuestionType,
+					idInspection = inspection.Id,
+					surveyquestion.IdSurveyQuestionNext,
+					created_on = questionanswser.CreatedOn
+				};
 
 			var inspectionQuestionWithChoice =
 				from question in inspectionQuestionQuery
@@ -90,7 +90,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public List<InspectionQuestionForList> GetSurveyQuestionListLocalized(Guid idInspection, string languageCode)
 		{
 			var surveyQuestionQuery =
-				(from inspection in Context.Inspections
+				from inspection in Context.Inspections
 				 from surveyquestion in Context.SurveyQuestions.Where(sq => sq.IdSurvey == inspection.IdSurvey && sq.IsActive)
 				 where inspection.IsActive && inspection.Id == idInspection
 				 orderby surveyquestion.Sequence
@@ -120,7 +120,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					 QuestionType = surveyquestion.QuestionType,
 					 IdInspection = inspection.Id,
 					 IdSurveyQuestionNext = surveyquestion.IdSurveyQuestionNext
-				 });
+				 };
 
 			return surveyQuestionQuery.ToList();
 		}
@@ -206,5 +206,4 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return groupedTitle.ToList();
 		}
 	}
-
 }

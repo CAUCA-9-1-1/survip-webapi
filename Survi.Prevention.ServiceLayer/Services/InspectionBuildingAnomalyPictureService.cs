@@ -4,8 +4,8 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models;
-using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -18,7 +18,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public List<BuildingChildPictureForWeb> GetAnomalyPictures(Guid idBuildingAnomaly)
 		{
             var query =
-                from picture in Context.BuildingAnomalyPictures.AsNoTracking()
+                from picture in Context.InspectionBuildingAnomalyPictures.AsNoTracking()
                 let data = picture.Picture
                 where picture.IdBuildingAnomaly == idBuildingAnomaly && picture.IsActive && data != null && data.IsActive
                 select new
@@ -47,7 +47,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public virtual Guid AddOrUpdatePicture(BuildingChildPictureForWeb entity)
 		{
-            var anomalyPicture = Context.BuildingAnomalyPictures.Find(entity.Id) 
+            var anomalyPicture = Context.InspectionBuildingAnomalyPictures.Find(entity.Id) 
 				?? GenerateNewPicture(entity);
 
 			TransferDtoToModel(entity, anomalyPicture);
@@ -69,7 +69,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public virtual bool Remove(Guid id)
 		{
-			var entity = Context.BuildingAnomalyPictures.Find(id);
+			var entity = Context.InspectionBuildingAnomalyPictures.Find(id);
 			if (entity != null)
 			{
 				var picture = Context.Pictures.Find(entity.IdPicture);
@@ -82,10 +82,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return true;
 		}
 
-        private BuildingAnomalyPicture GenerateNewPicture(BuildingChildPictureForWeb entity)
+        private InspectionBuildingAnomalyPicture GenerateNewPicture(BuildingChildPictureForWeb entity)
         {
-            var picture = new BuildingAnomalyPicture
-            {
+            var picture = new InspectionBuildingAnomalyPicture
+			{
                 Id = entity.Id,
                 IdBuildingAnomaly = entity.IdParent,
                 IdPicture = entity.Id,
@@ -95,7 +95,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return picture;
 		}
 
-        private void TransferDtoToModel(BuildingChildPictureForWeb entity, BuildingAnomalyPicture anomalyPicture)
+        private void TransferDtoToModel(BuildingChildPictureForWeb entity, InspectionBuildingAnomalyPicture anomalyPicture)
         {
             anomalyPicture.Id = entity.Id;
             anomalyPicture.IdBuildingAnomaly = entity.IdParent;

@@ -22,7 +22,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 			var query =
 				from inspection in Context.Inspections.AsNoTracking()
 				where inspection.Id == inspectionId
-				let building = inspection.MainBuilding
+				from building in inspection.Buildings
+				where building.ChildType == BuildingChildType.None
 				let visits = inspection.Visits
 				let lane = building.Lane
 				from loc in building.Localizations
@@ -88,10 +89,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		private void CreateDetailForMainBuildingWhenMissing(Guid inspectionId)
 		{
-			var idBuilding = Context.Inspections.AsNoTracking()
-				.Where(i => i.Id == inspectionId)
-				.Select(i => i.IdBuilding)
-				.FirstOrDefault();
+			var idBuilding = (
+				from inspection in Context.Inspections.AsNoTracking()
+				where inspection.Id == inspectionId
+				from building in inspection.Buildings
+				where building.ChildType == BuildingChildType.None
+				select building.Id
+				).FirstOrDefault();
 
 			if (idBuilding != Guid.Empty && !Context.BuildingDetails.Any(d => d.IdBuilding == idBuilding && d.IsActive))
 			{

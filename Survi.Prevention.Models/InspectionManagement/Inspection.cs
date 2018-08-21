@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Survi.Prevention.Models.Base;
 using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 using Survi.Prevention.Models.SecurityManagement;
 using Survi.Prevention.Models.SurveyManagement;
 
@@ -33,5 +34,7 @@ namespace Survi.Prevention.Models.InspectionManagement
 
 		public ICollection<InspectionVisit> Visits { get; set; }
 		public ICollection<InspectionQuestion> SurveyAnswers { get; set; }
+
+		public ICollection<InspectionBuilding> Buildings { get; set; }
 	}
 }

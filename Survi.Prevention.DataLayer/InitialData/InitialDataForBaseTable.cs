@@ -281,44 +281,44 @@ namespace Survi.Prevention.DataLayer.InitialData
 
 		private static void SeedInitialDataForMeasuringUnit(ModelBuilder builder)
 		{
-			SeedUnitOfMeasure(builder, "GIPM", "GIPM", "GIPM");
-			SeedUnitOfMeasure(builder, "GPM", "GPM", "GPM");
-			SeedUnitOfMeasure(builder, "LPM", "LPM", "LPM");
-			SeedUnitOfMeasure(builder, "GI", "GI", "GI");
-			SeedUnitOfMeasure(builder, "G", "G", "G");
-			SeedUnitOfMeasure(builder, "L", "L", "L");
-			SeedUnitOfMeasure(builder, "", "Indéterminé", "Unknown");
+			SeedUnitOfMeasure(builder, MeasureType.Rate, "GIPM", "GIPM", "GIPM");
+			SeedUnitOfMeasure(builder, MeasureType.Rate, "GPM", "GPM", "GPM");
+			SeedUnitOfMeasure(builder, MeasureType.Rate, "LPM", "LPM", "LPM");
+			SeedUnitOfMeasure(builder, MeasureType.Rate, "GI", "GI", "GI");
+			SeedUnitOfMeasure(builder, MeasureType.Rate, "G", "G", "G");
+			SeedUnitOfMeasure(builder, MeasureType.Rate, "L", "L", "L");
+			SeedUnitOfMeasure(builder, MeasureType.Rate, "", "Indéterminé", "Unknown");
 
-			SeedUnitOfMeasure(builder, "PSI", "PSI", "PSI");
-			SeedUnitOfMeasure(builder, "KPA", "KPA", "KPA");
-			SeedUnitOfMeasure(builder, "m3/h", "m3/h", "m3/h");
+			SeedUnitOfMeasure(builder, MeasureType.Pressure, "PSI", "PSI", "PSI");
+			SeedUnitOfMeasure(builder, MeasureType.Pressure, "KPA", "KPA", "KPA");
+			SeedUnitOfMeasure(builder, MeasureType.Pressure, "m3/h", "m3/h", "m3/h");
 
-			SeedUnitOfMeasure(builder, "mm", "Millimètres", "Millimeters");
-			SeedUnitOfMeasure(builder, "po", "Pouces", "Inches");
+			SeedUnitOfMeasure(builder, MeasureType.Diameter, "mm", "Millimètres", "Millimeters");
+			SeedUnitOfMeasure(builder, MeasureType.Diameter, "po", "Pouces", "Inches");
 
-			SeedUnitOfMeasure(builder, "m", "Mètres", "Meters");
-			SeedUnitOfMeasure(builder, "pi", "Pieds", "Feet");
+			SeedUnitOfMeasure(builder, MeasureType.Dimension, "m", "Mètres", "Meters");
+			SeedUnitOfMeasure(builder, MeasureType.Dimension, "pi", "Pieds", "Feet");
 
-			SeedUnitOfMeasure(builder, "m3", "Mètres cubes", "Cubic meters");
-			SeedUnitOfMeasure(builder, "po3", "Pouces cubes", "Cubic inches");
-			SeedUnitOfMeasure(builder, "ml", "Millilitres", "Millilitre");
-			SeedUnitOfMeasure(builder, "pt", "Pintes", "Pints");
-			SeedUnitOfMeasure(builder, "t", "Tonnes", "Tons");
-			SeedUnitOfMeasure(builder, "sh tn", "Tonnes US", "US tons");
-			SeedUnitOfMeasure(builder, "pi3", "Pieds cubes", "Cubic feet");
-			SeedUnitOfMeasure(builder, "GI", "Gallons impériaux", "Imperial gallons");
-			SeedUnitOfMeasure(builder, "", "Aucune", "None");
-			SeedUnitOfMeasure(builder, "G", "Gallons US", "US gallons");
-			SeedUnitOfMeasure(builder, "g", "Grammes", "Grams");
-			SeedUnitOfMeasure(builder, "Kg", "Kilos", "Kilos");
-			SeedUnitOfMeasure(builder, "L", "Litres", "Litres");
-			SeedUnitOfMeasure(builder, "lb", "Livres", "Pounds");
-			SeedUnitOfMeasure(builder, "oz", "Onces", "Onces");
+			SeedUnitOfMeasure(builder, MeasureType.Capacity, "m3", "Mètres cubes", "Cubic meters");
+			SeedUnitOfMeasure(builder, MeasureType.Capacity, "po3", "Pouces cubes", "Cubic inches");
+			SeedUnitOfMeasure(builder, MeasureType.Capacity, "ml", "Millilitres", "Millilitre");
+			SeedUnitOfMeasure(builder, MeasureType.Capacity, "pt", "Pintes", "Pints");
+			SeedUnitOfMeasure(builder, MeasureType.Capacity, "t", "Tonnes", "Tons");
+			SeedUnitOfMeasure(builder, MeasureType.Capacity, "sh tn", "Tonnes US", "US tons");
+			SeedUnitOfMeasure(builder, MeasureType.Capacity, "pi3", "Pieds cubes", "Cubic feet");
+			SeedUnitOfMeasure(builder, MeasureType.Capacity, "GI", "Gallons impériaux", "Imperial gallons");
+			SeedUnitOfMeasure(builder, MeasureType.Capacity, "", "Aucune", "None");
+			SeedUnitOfMeasure(builder, MeasureType.Capacity, "G", "Gallons US", "US gallons");
+			SeedUnitOfMeasure(builder, MeasureType.Capacity, "g", "Grammes", "Grams");
+			SeedUnitOfMeasure(builder, MeasureType.Capacity, "Kg", "Kilos", "Kilos");
+			SeedUnitOfMeasure(builder, MeasureType.Capacity, "L", "Litres", "Litres");
+			SeedUnitOfMeasure(builder, MeasureType.Capacity, "lb", "Livres", "Pounds");
+			SeedUnitOfMeasure(builder, MeasureType.Capacity, "oz", "Onces", "Onces");
 		}
 
-		private static void SeedUnitOfMeasure(ModelBuilder builder, string abbreviation, string french, string english)
+		private static void SeedUnitOfMeasure(ModelBuilder builder, MeasureType measureType, string abbreviation, string french, string english)
 		{
-			var type = new UnitOfMeasure { Id = GuidExtensions.GetGuid(), CreatedOn = Now, Abbreviation = abbreviation };
+			var type = new UnitOfMeasure { Id = GuidExtensions.GetGuid(), MeasureType = measureType, CreatedOn = Now, Abbreviation = abbreviation };
 			var frenchLocalization = new UnitOfMeasureLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "fr", Name = french, IdParent = type.Id, CreatedOn = Now };
 			var englishLocalization = new UnitOfMeasureLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = english, IdParent = type.Id, CreatedOn = Now };
 			builder.Entity<UnitOfMeasure>().HasData(type);
