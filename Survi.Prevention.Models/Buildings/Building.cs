@@ -12,6 +12,7 @@ namespace Survi.Prevention.Models.Buildings
 	public class Building : BaseBuilding
 	{		
 		public BuildingDetail Detail { get; set; }
+		public Building Parent { get; set; }
 
 		public ICollection<BuildingContact> Contacts { get; set; }
 		public ICollection<BuildingHazardousMaterial> HazardousMaterials { get; set; }

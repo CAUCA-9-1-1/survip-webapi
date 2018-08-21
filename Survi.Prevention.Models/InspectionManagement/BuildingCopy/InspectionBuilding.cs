@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
-using Survi.Prevention.Models.Buildings;
+﻿using System;
+using System.Collections.Generic;
 using Survi.Prevention.Models.Buildings.Base;
 
 namespace Survi.Prevention.Models.InspectionManagement.BuildingCopy
 {
 	public class InspectionBuilding : BaseBuilding
 	{
+		public Guid IdInspection;
+
+		public Inspection Inspection { get; set; }
 		public InspectionBuildingDetail Detail { get; set; }
+		public InspectionBuilding Parent { get; set; }
 
 		public ICollection<InspectionBuildingContact> Contacts { get; set; }
 		public ICollection<InspectionBuildingHazardousMaterial> HazardousMaterials { get; set; }

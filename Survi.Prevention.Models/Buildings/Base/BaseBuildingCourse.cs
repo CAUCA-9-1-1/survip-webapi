@@ -9,8 +9,7 @@ namespace Survi.Prevention.Models.Buildings.Base
 	{
 		public Guid IdBuilding { get; set; }
 		public Guid IdFirestation { get; set; }
-
-		public Building Building { get; set; }
+		
 		public Firestation Firestation { get; set; }
 
 		public virtual ICollection<TCourseLane> Lanes { get; set; }
