@@ -53,6 +53,17 @@ namespace Survi.Prevention.ServiceLayer.Services
             return entity.Id;
         }
 
+		public bool AddUpdatePictures(BuildingChildPictureForWeb[] entity)
+		{
+			bool retValue = false;
+			foreach (var pic in entity)
+			{
+				if (this.AddOrUpdatePicture(pic) != Guid.Empty)
+					retValue = true;
+			}
+			return retValue;
+		}
+
 		public virtual bool Remove(Guid id)
 		{
 			var entity = Context.BuildingAnomalyPictures.Find(id);
