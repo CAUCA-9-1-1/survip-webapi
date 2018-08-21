@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Survi.Prevention.DataLayer.Mapping.Base;
-using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 
 namespace Survi.Prevention.DataLayer.Mapping
 {
-	public class BuildingHazardousMaterialMapping : EntityMappingConfiguration<BuildingHazardousMaterial>
+	public class InspectionBuildingHazardousMaterialMapping : EntityMappingConfiguration<InspectionBuildingHazardousMaterial>
 	{
-		public override void Map(EntityTypeBuilder<BuildingHazardousMaterial> b)
+		public override void Map(EntityTypeBuilder<InspectionBuildingHazardousMaterial> b)
 		{
 			b.HasKey(m => m.Id);
 

@@ -2,12 +2,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Survi.Prevention.DataLayer.Mapping.Base;
 using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 
 namespace Survi.Prevention.DataLayer.Mapping
 {
-	public class BuildingMapping : EntityMappingConfiguration<Building>
+	public class InspectionBuildingMapping : EntityMappingConfiguration<InspectionBuilding>
 	{
-		public override void Map(EntityTypeBuilder<Building> b)
+		public override void Map(EntityTypeBuilder<InspectionBuilding> b)
 		{
 			b.HasKey(m => m.Id);
 
@@ -32,8 +33,8 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasOne(m => m.RiskLevel).WithMany().HasForeignKey(m => m.IdRiskLevel);
 			b.HasOne(m => m.UtilisationCode).WithMany().HasForeignKey(m => m.IdUtilisationCode);
 			b.HasOne(m => m.Lane).WithMany().HasForeignKey(m => m.IdLane);
-            b.HasOne(m => m.City).WithMany().HasForeignKey(m => m.IdCity);
-            b.HasOne(m => m.Transversal).WithMany().HasForeignKey(m => m.IdLaneTransversal);
+			b.HasOne(m => m.City).WithMany().HasForeignKey(m => m.IdCity);
+			b.HasOne(m => m.Transversal).WithMany().HasForeignKey(m => m.IdLaneTransversal);
 			b.HasOne(m => m.Picture).WithMany().HasForeignKey(m => m.IdPicture);
 			b.HasOne(m => m.Detail).WithOne(m => m.Building).HasForeignKey<BuildingDetail>(m => m.IdBuilding);
 
