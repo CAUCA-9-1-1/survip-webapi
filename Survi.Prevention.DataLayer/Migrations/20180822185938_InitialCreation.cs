@@ -152,6 +152,23 @@ namespace Survi.Prevention.DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "inspection_picture",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(nullable: false),
+                    created_on = table.Column<DateTime>(nullable: false),
+                    is_active = table.Column<bool>(nullable: false),
+                    name = table.Column<string>(maxLength: 100, nullable: false),
+                    mime_type = table.Column<string>(nullable: true),
+                    data = table.Column<byte[]>(nullable: false),
+                    sketch_json = table.Column<string>(type: "json", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inspection_picture", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "lane_generic_code",
                 columns: table => new
                 {
@@ -1093,8 +1110,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     id = table.Column<Guid>(nullable: false),
                     created_on = table.Column<DateTime>(nullable: false),
                     is_active = table.Column<bool>(nullable: false),
-                    language_code = table.Column<string>(maxLength: 2, nullable: false),
                     id_survey_question = table.Column<Guid>(nullable: false),
+                    language_code = table.Column<string>(maxLength: 2, nullable: false),
                     title = table.Column<string>(maxLength: 100, nullable: false),
                     name = table.Column<string>(maxLength: 100, nullable: false)
                 },
@@ -1190,8 +1207,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     id = table.Column<Guid>(nullable: false),
                     created_on = table.Column<DateTime>(nullable: false),
                     is_active = table.Column<bool>(nullable: false),
-                    language_code = table.Column<string>(maxLength: 2, nullable: false),
                     id_survey_question_choice = table.Column<Guid>(nullable: false),
+                    language_code = table.Column<string>(maxLength: 2, nullable: false),
                     name = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
@@ -1392,18 +1409,17 @@ namespace Survi.Prevention.DataLayer.Migrations
                     created_on = table.Column<DateTime>(nullable: false),
                     is_active = table.Column<bool>(nullable: false),
                     id_webuser = table.Column<Guid>(nullable: false),
-                    id_fire_safety_department = table.Column<Guid>(nullable: false),
-                    fire_safety_department_id = table.Column<Guid>(nullable: true)
+                    id_fire_safety_department = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_webuser_fire_safety_department", x => x.id);
                     table.ForeignKey(
                         name: "fk_webuser_fire_safety_department_fire_safety_department_fire_~",
-                        column: x => x.fire_safety_department_id,
+                        column: x => x.id_fire_safety_department,
                         principalTable: "fire_safety_department",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_webuser_fire_safety_department_webuser_user_id",
                         column: x => x.id_webuser,
@@ -2240,9 +2256,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "fk_inspection_building_pictures_picture_id",
+                        name: "fk_inspection_building_inspection_pictures_picture_id",
                         column: x => x.id_picture,
-                        principalTable: "picture",
+                        principalTable: "inspection_picture",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -2478,23 +2494,23 @@ namespace Survi.Prevention.DataLayer.Migrations
                     id = table.Column<Guid>(nullable: false),
                     created_on = table.Column<DateTime>(nullable: false),
                     is_active = table.Column<bool>(nullable: false),
-                    additional_information = table.Column<string>(nullable: false),
-                    height = table.Column<decimal>(nullable: false),
-                    estimated_water_flow = table.Column<int>(nullable: false),
-                    garage_type = table.Column<int>(nullable: false),
-                    revised_on = table.Column<DateTime>(nullable: true),
                     approved_on = table.Column<DateTime>(nullable: true),
+                    estimated_water_flow = table.Column<int>(nullable: false),
+                    fire_resistance_type_id = table.Column<Guid>(nullable: true),
+                    garage_type = table.Column<int>(nullable: false),
+                    height = table.Column<decimal>(nullable: false),
                     id_building = table.Column<Guid>(nullable: false),
-                    id_unit_of_measure_height = table.Column<Guid>(nullable: true),
-                    id_unit_of_measure_estimated_water_flow = table.Column<Guid>(nullable: true),
-                    id_construction_type = table.Column<Guid>(nullable: true),
-                    id_construction_fire_resistance_type = table.Column<Guid>(nullable: true),
-                    id_picture_plan = table.Column<Guid>(nullable: true),
-                    id_roof_type = table.Column<Guid>(nullable: true),
-                    id_roof_material_type = table.Column<Guid>(nullable: true),
-                    id_building_type = table.Column<Guid>(nullable: true),
                     id_building_siding_type = table.Column<Guid>(nullable: true),
-                    fire_resistance_type_id = table.Column<Guid>(nullable: true)
+                    id_building_type = table.Column<Guid>(nullable: true),
+                    id_construction_fire_resistance_type = table.Column<Guid>(nullable: true),
+                    id_construction_type = table.Column<Guid>(nullable: true),
+                    id_picture_plan = table.Column<Guid>(nullable: true),
+                    id_roof_material_type = table.Column<Guid>(nullable: true),
+                    id_roof_type = table.Column<Guid>(nullable: true),
+                    id_unit_of_measure_estimated_water_flow = table.Column<Guid>(nullable: true),
+                    id_unit_of_measure_height = table.Column<Guid>(nullable: true),
+                    revised_on = table.Column<DateTime>(nullable: true),
+                    additional_information = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -2775,9 +2791,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "fk_inspection_building_anomaly_picture_pictures_picture_id",
+                        name: "fk_inspection_building_anomaly_picture_inspection_pictures_pict~",
                         column: x => x.id_picture,
-                        principalTable: "picture",
+                        principalTable: "inspection_picture",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -2831,9 +2847,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "fk_inspection_building_particular_risk_picture_pictures_pictur~",
+                        name: "fk_inspection_building_particular_risk_picture_inspection_pictu~",
                         column: x => x.id_picture,
-                        principalTable: "picture",
+                        principalTable: "inspection_picture",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -4490,9 +4506,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                 column: "id_webuser");
 
             migrationBuilder.CreateIndex(
-                name: "ix_webuser_fire_safety_department_fire_safety_department_id",
+                name: "IX_webuser_fire_safety_department_id_fire_safety_department",
                 table: "webuser_fire_safety_department",
-                column: "fire_safety_department_id");
+                column: "id_fire_safety_department");
 
             migrationBuilder.CreateIndex(
                 name: "IX_webuser_fire_safety_department_id_webuser",
@@ -4505,6 +4521,7 @@ namespace Survi.Prevention.DataLayer.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
 	        migrationBuilder.DropInitialInspectionViews();
+
             migrationBuilder.DropTable(
                 name: "access_secret_key");
 
@@ -4774,6 +4791,9 @@ namespace Survi.Prevention.DataLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "inspection");
+
+            migrationBuilder.DropTable(
+                name: "inspection_picture");
 
             migrationBuilder.DropTable(
                 name: "batch");

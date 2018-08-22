@@ -11,7 +11,7 @@ using Survi.Prevention.DataLayer;
 namespace Survi.Prevention.DataLayer.Migrations
 {
     [DbContext(typeof(ManagementContext))]
-    [Migration("20180821195708_InitialCreation")]
+    [Migration("20180822185938_InitialCreation")]
     partial class InitialCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -3869,6 +3869,40 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("inspection_building_sprinkler");
                 });
 
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionPicture", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<byte[]>("Data")
+                        .IsRequired()
+                        .HasColumnName("data");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("MimeType")
+                        .HasColumnName("mime_type");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnName("name")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("SketchJson")
+                        .HasColumnName("sketch_json")
+                        .HasColumnType("json");
+
+                    b.HasKey("Id")
+                        .HasName("pk_inspection_picture");
+
+                    b.ToTable("inspection_picture");
+                });
+
             modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.Inspection", b =>
                 {
                     b.Property<Guid>("Id")
@@ -4381,9 +4415,6 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<Guid?>("FireSafetyDepartmentId")
-                        .HasColumnName("fire_safety_department_id");
-
                     b.Property<Guid>("IdFireSafetyDepartment")
                         .HasColumnName("id_fire_safety_department");
 
@@ -4396,8 +4427,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.HasKey("Id")
                         .HasName("pk_webuser_fire_safety_department");
 
-                    b.HasIndex("FireSafetyDepartmentId")
-                        .HasName("ix_webuser_fire_safety_department_fire_safety_department_id");
+                    b.HasIndex("IdFireSafetyDepartment");
 
                     b.HasIndex("IdWebuser");
 
@@ -5540,10 +5570,10 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasForeignKey("IdParentBuilding")
                         .HasConstraintName("fk_inspection_building_inspection_building_parent_id");
 
-                    b.HasOne("Survi.Prevention.Models.Picture", "Picture")
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionPicture", "Picture")
                         .WithMany()
                         .HasForeignKey("IdPicture")
-                        .HasConstraintName("fk_inspection_building_pictures_picture_id");
+                        .HasConstraintName("fk_inspection_building_inspection_pictures_picture_id");
 
                     b.HasOne("Survi.Prevention.Models.Buildings.RiskLevel", "RiskLevel")
                         .WithMany()
@@ -5588,10 +5618,10 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasConstraintName("fk_inspection_building_anomaly_picture_inspection_building_ano~")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Survi.Prevention.Models.Picture", "Picture")
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionPicture", "Picture")
                         .WithMany()
                         .HasForeignKey("IdPicture")
-                        .HasConstraintName("fk_inspection_building_anomaly_picture_pictures_picture_id")
+                        .HasConstraintName("fk_inspection_building_anomaly_picture_inspection_pictures_pict~")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -5749,10 +5779,10 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasConstraintName("fk_inspection_building_particular_risk_picture_inspection_buil~")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Survi.Prevention.Models.Picture", "Picture")
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionPicture", "Picture")
                         .WithMany()
                         .HasForeignKey("IdPicture")
-                        .HasConstraintName("fk_inspection_building_particular_risk_picture_pictures_pictur~")
+                        .HasConstraintName("fk_inspection_building_particular_risk_picture_inspection_pictu~")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -5917,8 +5947,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                 {
                     b.HasOne("Survi.Prevention.Models.FireSafetyDepartments.FireSafetyDepartment", "FireSafetyDepartment")
                         .WithMany()
-                        .HasForeignKey("FireSafetyDepartmentId")
-                        .HasConstraintName("fk_webuser_fire_safety_department_fire_safety_department_fire_~");
+                        .HasForeignKey("IdFireSafetyDepartment")
+                        .HasConstraintName("fk_webuser_fire_safety_department_fire_safety_department_fire_~")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Survi.Prevention.Models.SecurityManagement.Webuser", "User")
                         .WithMany("FireSafetyDepartments")
