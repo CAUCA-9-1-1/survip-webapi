@@ -26,12 +26,6 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(data);
 		}
 
-		[HttpPost]
-		public ActionResult PostPicture([FromBody]PictureForWeb picture)
-		{
-			return Ok(service.UploadFileBase64(picture));
-		}
-
         [HttpPut]
         public ActionResult PostPictureFile([FromBody]Picture picture)
         {
