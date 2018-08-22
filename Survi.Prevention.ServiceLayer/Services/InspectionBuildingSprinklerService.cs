@@ -20,6 +20,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.SingleOrDefault(mat => mat.Id == id);
 			return entity;
 		}
+		
+		public List<BuildingSprinkler> GetList(Guid idBuilding)
+		{
+			return Context.BuildingSprinklers
+				.Where(s => s.IsActive && s.IdBuilding == idBuilding)
+				.ToList();
+		}
 
 		public List<BuildingFireProtectionForList> GetListLocalized(string languageCode, Guid idBuilding)
 		{

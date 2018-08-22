@@ -22,6 +22,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.SingleOrDefault(mat => mat.Id == id);
 			return entity;
 		}
+		
+		public List<BuildingAlarmPanel> GetList(Guid idBuilding)
+		{
+			return Context.BuildingAlarmPanels
+				.Where(p => p.IsActive && p.IdBuilding == idBuilding)
+				.ToList();
+		}
 
 		public List<BuildingFireProtectionForList> GetListLocalized(string languageCode, Guid idBuilding)
 		{
