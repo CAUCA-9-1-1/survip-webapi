@@ -24,6 +24,5 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 	    public InspectionStatus Status { get; set; }
 	    public string ApprobationRefusalReason { get; set; } = "";
 	    public string Coordinates { get; set; }
-		public InspectionConfiguration Configuration { get; set; }
     }
 }

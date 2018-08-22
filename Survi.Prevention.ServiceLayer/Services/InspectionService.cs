@@ -219,6 +219,49 @@ namespace Survi.Prevention.ServiceLayer.Services
 					currentVisit.RequestedDateOfVisit = refusedInspectionVisit.RequestedDateOfVisit;
 				}
 			}
-		}		
+		}
+
+		public InspectionConfiguration GetInspectionConfiguration(Guid inspectionId)
+		{
+			var currentInspection = (
+				from inspection in Context.Inspections.AsNoTracking()
+				where inspection.Id == inspectionId
+				select new
+				{
+					inspection.MainBuilding.IdCity,
+					inspection.MainBuilding.IdRiskLevel
+				}).FirstOrDefault();
+
+			if (currentInspection == null)
+				return null;
+
+			var departmentId = (
+				from city in Context.Cities.AsNoTracking()
+				where city.Id == currentInspection.IdCity
+				from serving in city.ServedByFireSafetyDepartments
+				where serving.IsActive
+				select serving.IdFireSafetyDepartment
+			).First();
+
+			var query =
+				from risk in Context.FireSafetyDepartmentRiskLevels.AsNoTracking()
+				where risk.IsActive && risk.IdFireSafetyDepartment == departmentId && risk.IdRiskLevel == currentInspection.IdRiskLevel
+				select new InspectionConfiguration
+				{
+					HasBuildingAnomalies = risk.HasBuildingAnomalies,
+					HasBuildingContacts = risk.HasBuildingContacts,
+					HasBuildingDetails = risk.HasBuildingDetails,
+					HasBuildingFireProtection = risk.HasBuildingFireProtection,
+					HasBuildingHazardousMaterials = risk.HasBuildingHazardousMaterials,
+					HasBuildingParticularRisks = risk.HasBuildingParticularRisks,
+					HasBuildingPnaps = risk.HasBuildingPNAPS,
+					HasCourse = risk.HasCourse,
+					HasGeneralInformation = risk.HasGeneralInformation,
+					HasImplantationPlan = risk.HasImplantationPlan,
+					HasWaterSupply = risk.HasWaterSupply
+				};
+
+			return query.FirstOrDefault() ?? new InspectionConfiguration();
+		}
 	}
 }
