@@ -26,7 +26,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 					picture.Id,
 					picture.IdBuildingParticularRisk,
 					picture.IdPicture,
-					PictureData = data.Data,
+					PictureData = string.Format(
+						"data:{0};base64,{1}",
+						data.MimeType == "" || data.MimeType == null ? "image/jpeg" : data.MimeType,
+						Convert.ToBase64String(data.Data)),
                     data.SketchJson
 				};
 
@@ -37,7 +40,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				Id = pic.Id,
 				IdPicture = pic.IdPicture,
 				IdParent = pic.IdBuildingParticularRisk,
-				PictureData = Convert.ToBase64String(pic.PictureData),
+				PictureData = pic.PictureData,
                 SketchJson = pic.SketchJson
             }).ToList();
 		}
@@ -89,14 +92,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 
         private void TransferDtoToModel(BuildingChildPictureForWeb entity, BuildingParticularRiskPicture particularRiskPicture)
         {
-            var encodedPicture = PictureService.DecodeBase64Picture(entity.PictureData);
             particularRiskPicture.Id = entity.Id;
             particularRiskPicture.IdBuildingParticularRisk = entity.IdParent;
 
             particularRiskPicture.Picture = Context.Pictures.Find(entity.Id);
 
             particularRiskPicture.Picture.Id = entity.Id;
-            particularRiskPicture.Picture.Data = encodedPicture;
+            particularRiskPicture.Picture.DataUri = entity.PictureData;
             particularRiskPicture.Picture.SketchJson = entity.SketchJson;
         }
     }
