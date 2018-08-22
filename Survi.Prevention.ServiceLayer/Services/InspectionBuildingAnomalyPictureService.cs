@@ -26,7 +26,10 @@ namespace Survi.Prevention.ServiceLayer.Services
                     picture.Id,
                     picture.IdBuildingAnomaly,
                     picture.IdPicture,
-                    PictureData = data.Data,
+                    PictureData = string.Format(
+	                    "data:{0};base64,{1}",
+	                    data.MimeType == "" || data.MimeType == null ? "image/jpeg" : data.MimeType,
+	                    Convert.ToBase64String(data.Data)),
                     data.SketchJson
 				};
 
@@ -37,7 +40,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				Id = pic.Id,
 				IdPicture = pic.IdPicture,
 				IdParent = pic.IdBuildingAnomaly,
-				PictureData = Convert.ToBase64String(pic.PictureData),
+				PictureData = pic.PictureData,
                 SketchJson = pic.SketchJson
 			}).ToList();
 		}
@@ -94,14 +97,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 
         private void TransferDtoToModel(BuildingChildPictureForWeb entity, BuildingAnomalyPicture anomalyPicture)
         {
-            var encodedPicture = PictureService.DecodeBase64Picture(entity.PictureData);
             anomalyPicture.Id = entity.Id;
             anomalyPicture.IdBuildingAnomaly = entity.IdParent;
 
             anomalyPicture.Picture = Context.Pictures.Find(entity.Id);
 
             anomalyPicture.Picture.Id = entity.Id;
-            anomalyPicture.Picture.Data = encodedPicture;
+            anomalyPicture.Picture.DataUri = entity.PictureData;
             anomalyPicture.Picture.SketchJson = entity.SketchJson;
         }
     }
