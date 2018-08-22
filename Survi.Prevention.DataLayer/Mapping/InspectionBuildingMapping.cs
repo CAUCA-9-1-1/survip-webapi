@@ -36,7 +36,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasOne(m => m.City).WithMany().HasForeignKey(m => m.IdCity);
 			b.HasOne(m => m.Transversal).WithMany().HasForeignKey(m => m.IdLaneTransversal);
 			b.HasOne(m => m.Picture).WithMany().HasForeignKey(m => m.IdPicture);
-			b.HasOne(m => m.Detail).WithOne(m => m.Building).HasForeignKey<BuildingDetail>(m => m.IdBuilding);
+			b.HasOne(m => m.Detail).WithOne(m => m.Building).HasForeignKey<InspectionBuildingDetail>(m => m.IdBuilding);
 
 			b.HasMany(m => m.Contacts).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
 			b.HasMany(m => m.HazardousMaterials).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);

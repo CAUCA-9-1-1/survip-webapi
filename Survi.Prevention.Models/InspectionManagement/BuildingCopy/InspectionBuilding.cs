@@ -6,7 +6,7 @@ namespace Survi.Prevention.Models.InspectionManagement.BuildingCopy
 {
 	public class InspectionBuilding : BaseBuilding
 	{
-		public Guid IdInspection;
+		public Guid IdInspection { get; set; }
 
 		public Inspection Inspection { get; set; }
 		public InspectionBuildingDetail Detail { get; set; }
