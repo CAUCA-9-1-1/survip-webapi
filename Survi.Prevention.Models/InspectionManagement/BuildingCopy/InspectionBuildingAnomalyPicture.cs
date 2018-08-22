@@ -1,9 +1,8 @@
-﻿using Survi.Prevention.Models.Buildings;
-using Survi.Prevention.Models.Buildings.Base;
+﻿using Survi.Prevention.Models.Buildings.Base;
 
 namespace Survi.Prevention.Models.InspectionManagement.BuildingCopy
 {
-	public class InspectionBuildingAnomalyPicture : BaseBuildingAnomalyPicture
+	public class InspectionBuildingAnomalyPicture : BaseBuildingAnomalyPicture<InspectionPicture>
 	{
 		public InspectionBuildingAnomaly Anomaly { get; set; }
 	}

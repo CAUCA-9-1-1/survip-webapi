@@ -11,6 +11,7 @@ namespace Survi.Prevention.Models.InspectionManagement.BuildingCopy
 		public Inspection Inspection { get; set; }
 		public InspectionBuildingDetail Detail { get; set; }
 		public InspectionBuilding Parent { get; set; }
+		public InspectionPicture Picture { get; set; }
 
 		public ICollection<InspectionBuildingContact> Contacts { get; set; }
 		public ICollection<InspectionBuildingHazardousMaterial> HazardousMaterials { get; set; }

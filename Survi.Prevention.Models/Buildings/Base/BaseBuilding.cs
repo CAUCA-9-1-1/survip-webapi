@@ -49,7 +49,6 @@ namespace Survi.Prevention.Models.Buildings.Base
 		public UtilisationCode UtilisationCode { get; set; }
 		public City City { get; set; }
 		public Lane Lane { get; set; }
-		public Lane Transversal { get; set; }		
-		public Picture Picture { get; set; }
+		public Lane Transversal { get; set; }				
 	}
 }

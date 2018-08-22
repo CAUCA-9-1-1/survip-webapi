@@ -86,7 +86,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					var fireSafetyDepartmentId = Context.FireSafetyDepartments
 						.Single(d => d.FireSafetyDepartmentServing.Any(c => c.IdCity == building.Lane.IdCity)).Id;
 
-					child.IdSurvey = Context.FireSafetyDepartmentRiskLevels.Single(c => c.IdRiskLevel == building.IdRiskLevel && c.IdFireSafetyDepartment == fireSafetyDepartmentId).IdSurvey;
+					child.IdSurvey = Context.FireSafetyDepartmentRiskLevels.SingleOrDefault(c => c.IdRiskLevel == building.IdRiskLevel && c.IdFireSafetyDepartment == fireSafetyDepartmentId)?.IdSurvey;
 				}
 
 				if (!isExistRecord)

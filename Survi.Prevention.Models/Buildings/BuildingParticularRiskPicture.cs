@@ -2,7 +2,7 @@
 
 namespace Survi.Prevention.Models.Buildings
 {
-	public class BuildingParticularRiskPicture : BaseBuildingParticularRiskPicture
+	public class BuildingParticularRiskPicture : BaseBuildingParticularRiskPicture<Picture>
 	{
 		public BuildingParticularRisk Risk { get; set; }		
 	}

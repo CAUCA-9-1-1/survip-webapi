@@ -4,9 +4,10 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings.Base
 {
-    public abstract class BaseBuildingParticularRisk<TBuilding, TPicture> : BaseModel
+    public abstract class BaseBuildingParticularRisk<TBuilding, TRiskPicture, TPicture> : BaseModel
 	    where TBuilding : BaseBuilding
-	    where TPicture : BaseBuildingParticularRiskPicture
+	    where TPicture : BasePicture
+		where TRiskPicture : BaseBuildingParticularRiskPicture<TPicture>
 	{
 		public Guid IdBuilding { get; set; }
 	    public bool IsWeakened { get; set; }
@@ -17,6 +18,6 @@ namespace Survi.Prevention.Models.Buildings.Base
 	    public string Dimension { get; set; } = "";
 
 		public TBuilding Building { get; set; }
-		public ICollection<TPicture> Pictures { get; set; }
+		public ICollection<TRiskPicture> Pictures { get; set; }
     }
 }

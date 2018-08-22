@@ -138,13 +138,14 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			if (idInspection != Guid.Empty)
 			{
+				using (var casd = new InspectionBuildingDataCopyManager(Context, idInspection))
+					casd.DuplicateData();
+
 				var targetInspection = Context.Inspections.Where(i => i.Id == idInspection && i.IsActive)
 					.Include(i => i.Visits)
 					.Single();
-				if (!targetInspection.Visits.Any(iv => iv.IsActive && iv.Status != InspectionVisitStatus.Completed))
-				{		
-					targetInspection.Visits.Add(new InspectionVisit{Status = InspectionVisitStatus.Started, CreatedOn = DateTime.Now, IdWebuserVisitedBy = idUser});
-				}
+
+				AddNewInspectionWhenMissing(idUser, targetInspection);
 
 				targetInspection.Status = InspectionStatus.Started;
 				targetInspection.StartedOn = DateTime.Now;
@@ -155,6 +156,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 
 			return false;
+		}
+
+		private static void AddNewInspectionWhenMissing(Guid idUser, Inspection targetInspection)
+		{
+			if (!targetInspection.Visits.Any(iv => iv.IsActive && iv.Status != InspectionVisitStatus.Completed))
+			{
+				targetInspection.Visits.Add(new InspectionVisit {
+					Status = InspectionVisitStatus.Started,
+					CreatedOn = DateTime.Now,
+					IdWebuserVisitedBy = idUser});
+			}
 		}
 
 		public bool CompleteInspection(Guid idInspection, Guid idUser)

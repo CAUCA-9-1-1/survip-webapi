@@ -26,6 +26,7 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<Batch> Batches { get; set; }
         public DbSet<BatchUser> BatchUsers { get; set; }
 		public DbSet<Inspection> Inspections { get; set; }
+		public DbSet<InspectionPicture> InspectionPictures { get; set; }
 		public DbSet<InspectionBuildingParticularRisk> InspectionBuildingParticularRisks { get; set; }
 		public DbSet<InspectionBuildingContact> InspectionBuildingContacts { get; set; }
 		public DbSet<InspectionBuilding> InspectionBuildings { get; set; }

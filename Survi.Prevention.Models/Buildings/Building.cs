@@ -13,6 +13,7 @@ namespace Survi.Prevention.Models.Buildings
 	{		
 		public BuildingDetail Detail { get; set; }
 		public Building Parent { get; set; }
+		public Picture Picture { get; set; }
 
 		public ICollection<BuildingContact> Contacts { get; set; }
 		public ICollection<BuildingHazardousMaterial> HazardousMaterials { get; set; }

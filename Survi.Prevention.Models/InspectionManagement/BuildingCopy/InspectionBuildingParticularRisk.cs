@@ -3,7 +3,7 @@
 namespace Survi.Prevention.Models.InspectionManagement.BuildingCopy
 {
 	public abstract class InspectionBuildingParticularRisk: 
-		BaseBuildingParticularRisk<InspectionBuilding, InspectionBuildingParticularRiskPicture>
+		BaseBuildingParticularRisk<InspectionBuilding, InspectionBuildingParticularRiskPicture, InspectionPicture>
 	{
 	}
 }

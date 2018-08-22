@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
-using Survi.Prevention.Models;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 
@@ -72,7 +71,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			var entity = Context.InspectionBuildingAnomalyPictures.Find(id);
 			if (entity != null)
 			{
-				var picture = Context.Pictures.Find(entity.IdPicture);
+				var picture = Context.InspectionPictures.Find(entity.IdPicture);
 				if(picture != null)
 				Context.Remove(picture);
 
@@ -89,7 +88,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 Id = entity.Id,
                 IdBuildingAnomaly = entity.IdParent,
                 IdPicture = entity.Id,
-                Picture = new Picture { Id = entity.Id, Name = "" }
+                Picture = new InspectionPicture { Id = entity.Id, Name = "" }
             };
 	        Context.Add(picture);
 			return picture;
@@ -100,7 +99,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             anomalyPicture.Id = entity.Id;
             anomalyPicture.IdBuildingAnomaly = entity.IdParent;
 
-            anomalyPicture.Picture = Context.Pictures.Find(entity.Id);
+            anomalyPicture.Picture = Context.InspectionPictures.Find(entity.Id);
 
             anomalyPicture.Picture.Id = entity.Id;
             anomalyPicture.Picture.DataUri = entity.PictureData;

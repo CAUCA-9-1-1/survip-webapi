@@ -3,11 +3,12 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings.Base
 {
-	public class BaseBuildingParticularRiskPicture : BaseModel
+	public class BaseBuildingParticularRiskPicture<T> : BaseModel
+		where T : BasePicture
 	{
 		public Guid IdBuildingParticularRisk { get; set; }
 		public Guid IdPicture { get; set; }
 
-		public Picture Picture { get; set; }
+		public T Picture { get; set; }
 	}
 }
