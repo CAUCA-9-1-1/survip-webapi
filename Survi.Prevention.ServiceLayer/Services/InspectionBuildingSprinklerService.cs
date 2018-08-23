@@ -44,25 +44,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 				{
 					Id = sprinkler.Id,
 					TypeDescription = sprinkler.Name,
-					LocationDescription = GetSprinklerLocationDescription(sprinkler.Floor, sprinkler.Sector, sprinkler.Wall)
+					LocationDescription = new LocalizedResourceGenerator().GetFireProtectionLocationDescription(sprinkler.Floor, sprinkler.Sector, sprinkler.Wall,languageCode)
 				};
 
 			return result.ToList();
-		}
-
-		private string GetSprinklerLocationDescription(string floor, string sector, string wall)
-		{
-			var wallDescription = "";
-			if (!string.IsNullOrWhiteSpace(wall))
-				wallDescription = $"Mur: {wall}.";
-			var sectorDescription = "";
-			if (!string.IsNullOrWhiteSpace(sector))
-				sectorDescription = $"Secteur: {sector}.";
-			var floorDescription = "";
-			if (!string.IsNullOrWhiteSpace(floor))
-				floorDescription = $"Étage: {floor}.";
-
-			return string.Join(" ", sectorDescription, floorDescription, wallDescription);
 		}
 	}
 }

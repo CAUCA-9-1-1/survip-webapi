@@ -176,5 +176,32 @@ namespace Survi.Prevention.ServiceLayer.Localization {
                 return ResourceManager.GetString("FireHydrantAddressLocationType_VisibleFrom", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Étage.
+        /// </summary>
+        internal static string floor {
+            get {
+                return ResourceManager.GetString("floor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secteur.
+        /// </summary>
+        internal static string sector {
+            get {
+                return ResourceManager.GetString("sector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mur.
+        /// </summary>
+        internal static string wall {
+            get {
+                return ResourceManager.GetString("wall", resourceCulture);
+            }
+        }
     }
 }
