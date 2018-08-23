@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
@@ -44,25 +46,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 				{
 					Id = panel.Id,
 					TypeDescription = panel.Name,
-					LocationDescription = GetPanelLocationDescription(panel.Floor, panel.Sector, panel.Wall)
+					LocationDescription = new LocalizedResourceGenerator().GetFireProtectionLocationDescription(panel.Floor, panel.Sector, panel.Wall,languageCode)
 				};
 
 			return result.ToList();
 		}
 
-		private string GetPanelLocationDescription(string floor, string sector, string wall)
-		{
-			var wallDescription = "";
-			if (!string.IsNullOrWhiteSpace(wall))
-				wallDescription = $"Mur: {wall}.";
-			var sectorDescription = "";
-			if (!string.IsNullOrWhiteSpace(sector))
-				sectorDescription = $"Secteur: {sector}.";
-			var floorDescription = "";
-			if (!string.IsNullOrWhiteSpace(floor))
-				floorDescription = $"Étage: {floor}.";
-
-			return string.Join(" ", sectorDescription, floorDescription, wallDescription);
-		}
+		
 	}
 }

@@ -156,4 +156,13 @@
   <data name="FireHydrantAddressLocationType_VisibleFrom" xml:space="preserve">
     <value>Visible from the</value>
   </data>
+  <data name="floor" xml:space="preserve">
+    <value>Floor</value>
+  </data>
+  <data name="sector" xml:space="preserve">
+    <value>Sector</value>
+  </data>
+  <data name="wall" xml:space="preserve">
+    <value>Wall</value>
+  </data>
 </root>
