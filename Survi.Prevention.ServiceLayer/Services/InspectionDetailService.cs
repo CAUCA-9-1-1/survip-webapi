@@ -129,8 +129,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 		private string GetApprobationRefusalReason(ICollection<InspectionVisit> visits)
 		{
 			if(visits.Any())
-				return visits.LastOrDefault(iv => iv.IsActive && iv.Status == InspectionVisitStatus.Completed)
-					.ReasonForApprobationRefusal;
+				return visits.OrderBy(v => v.EndedOn)
+						   .LastOrDefault(iv => iv.IsActive && iv.Status == InspectionVisitStatus.Completed)?
+					.ReasonForApprobationRefusal ?? "";
 
 			return "";
 		}
