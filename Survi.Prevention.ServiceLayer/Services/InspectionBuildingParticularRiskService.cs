@@ -31,7 +31,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public virtual Guid AddOrUpdate<T>(T entity) where T: InspectionBuildingParticularRisk
 		{
-			var isExistRecord = Context.BuildingParticularRisks.Any(c => c.Id == entity.Id);
+			var isExistRecord = Context.InspectionBuildingParticularRisks.Any(c => c.Id == entity.Id);
 
 			if (isExistRecord)
 				Context.InspectionBuildingParticularRisks.Update(entity);

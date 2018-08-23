@@ -31,7 +31,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public List<BuildingContactForList> GetListLocalized(Guid idBuilding, string languageCode)
 		{
 			var query =
-				from contact in Context.BuildingContacts.AsNoTracking()
+				from contact in Context.InspectionBuildingContacts.AsNoTracking()
 				where contact.IsActive && contact.IdBuilding == idBuilding
 				select new BuildingContactForList
 				{

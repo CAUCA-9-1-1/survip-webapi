@@ -68,7 +68,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public virtual bool Remove(Guid id)
 		{
-			var entity = Context.BuildingParticularRiskPictures.Find(id);
+			var entity = Context.InspectionBuildingParticularRiskPictures.Find(id);
 			entity.IsActive = false;
 			var picture = Context.InspectionPictures.Find(entity.IdPicture);
 			Context.Remove(picture);

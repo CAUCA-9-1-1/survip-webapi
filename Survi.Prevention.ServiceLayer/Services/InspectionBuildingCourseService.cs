@@ -34,7 +34,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			if (course.Lanes != null)
 				courseLanes = course.Lanes.Where(l => l.IdBuildingCourse == course.Id).ToList();
-			if (Context.BuildingCourseLanes.AsNoTracking().Any(l => l.IdBuildingCourse == course.Id))
+			if (Context.InspectionBuildingCourseLanes.AsNoTracking().Any(l => l.IdBuildingCourse == course.Id))
 				dbCourseLanes = Context.InspectionBuildingCourseLanes.AsNoTracking().Where(l => l.IdBuildingCourse == course.Id).ToList();
 
 			dbCourseLanes.ForEach(child =>
