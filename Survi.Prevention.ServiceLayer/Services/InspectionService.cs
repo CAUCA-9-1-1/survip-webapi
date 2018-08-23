@@ -24,32 +24,31 @@ namespace Survi.Prevention.ServiceLayer.Services
             return true;
         }
 
-        public bool SetStatus(InspectionStatus status, Guid id)
+        public bool SetStatus(InspectionStatus status, Guid id, string refusalReason = null)
         {
-            var entity = Context.Inspections
+            var inspection = Context.Inspections
                 .Where(i => i.Id == id)
                 .Include(i => i.Visits)
                 .Single();
 
-            entity.Status = status;
-            Context.SaveChanges();
+	        inspection.Status = status;
+	        AssignRefusalReasonToLastVisit(refusalReason, inspection);
 
+			Context.SaveChanges();
             return true;
         }
 
-		public bool SetReasonForApprobationRefusal(Guid id, string reason)
+		private static void AssignRefusalReasonToLastVisit(string refusalReason, Inspection inspection)
 		{
-			var inspection = Context.Inspections.Single(i => i.Id == id);
-			var currentVisit = inspection.Visits.OrderBy(v => v.EndedOn)
-				.Last(v => v.IsActive && v.Status == InspectionVisitStatus.Completed);
-
-			currentVisit.ReasonForApprobationRefusal = reason;
-			Context.SaveChanges();
-			
-			return true;
+			if (!string.IsNullOrWhiteSpace(refusalReason))
+			{
+				var currentVisit = inspection.Visits.OrderBy(v => v.EndedOn)
+					.Last(v => v.IsActive && v.Status == InspectionVisitStatus.Completed);
+				currentVisit.ReasonForApprobationRefusal = refusalReason;
+			}
 		}
 
-        public List<BatchForList> GetGroupedUserInspections(string languageCode, Guid userId)
+		public List<BatchForList> GetGroupedUserInspections(string languageCode, Guid userId)
 		{
 			var query =
 				from batch in Context.Batches

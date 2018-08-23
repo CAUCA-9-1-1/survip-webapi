@@ -24,16 +24,14 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(service.SetStatus(InspectionStatus.Approved, id));
 		}
 
-		[HttpPost, Route("{id:Guid}/refuse")]
-		[ProducesResponseType(typeof(bool), 200)]
-		public ActionResult RefusedInspection(Guid id, [FromBody] string reason)
-		{
-			service.SetStatus(InspectionStatus.Refused, id);
-
-			if (reason != "")
-			{
-				service.SetReasonForApprobationRefusal(id, reason);
-			}
+        [HttpPost, Route("{id:Guid}/refuse")]
+        [ProducesResponseType(typeof(bool), 200)]
+        public ActionResult RefusedInspection(Guid id, [FromBody] string reason)
+        {
+	        service.SetStatus(InspectionStatus.Refused, id, reason);
+	        
+            return Ok(true);
+        }
 
 			return Ok(true);
 		}
