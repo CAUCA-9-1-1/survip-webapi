@@ -39,7 +39,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public bool SetReasonForApprobationRefusal(Guid id, string reason)
 		{
 			var inspection = Context.Inspections.Single(i => i.Id == id);
-			var currentVisit = inspection.Visits.Last(v => v.IsActive && v.Status == InspectionVisitStatus.Completed);
+			var currentVisit = inspection.Visits.OrderBy(v => v.EndedOn)
+				.Last(v => v.IsActive && v.Status == InspectionVisitStatus.Completed);
 
 			currentVisit.ReasonForApprobationRefusal = reason;
 			Context.SaveChanges();
