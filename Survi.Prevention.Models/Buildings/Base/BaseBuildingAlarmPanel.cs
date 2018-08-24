@@ -3,7 +3,19 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings.Base
 {
-	public abstract class BaseBuildingAlarmPanel<T> : BaseModel
+	public interface IBaseBuildingAlarmPanel : IBaseModel
+	{
+		string Floor { get; set; }
+		string Wall { get; set; }
+		string Sector { get; set; }
+
+		Guid? IdAlarmPanelType { get; set; }
+		Guid IdBuilding { get; set; }
+
+		AlarmPanelType AlarmPanelType { get; set; }
+	}
+
+	public abstract class BaseBuildingAlarmPanel<T> : BaseModel, IBaseBuildingAlarmPanel
 		where T: BaseBuilding
 	{
 		public string Floor { get; set; }

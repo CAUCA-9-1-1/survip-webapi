@@ -4,7 +4,7 @@ using Survi.Prevention.Models.FireHydrants;
 
 namespace Survi.Prevention.Models.Buildings.Base
 {
-	public abstract class BaseBuildingFireHydrant : BaseModel
+	public abstract class BaseBuildingFireHydrant : BaseModel, IBaseBuildingFireHydrant
 	{
 		public DateTime? DeletedOn { get; set; }
 

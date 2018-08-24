@@ -9,7 +9,7 @@ namespace Survi.Prevention.Models.Buildings
 		Detached
 	}
 
-	public class BuildingDetail : BaseBuildingDetail<Building>
+	public class BuildingDetail : BaseBuildingDetail<Building, Picture>
 	{
 	}
 }

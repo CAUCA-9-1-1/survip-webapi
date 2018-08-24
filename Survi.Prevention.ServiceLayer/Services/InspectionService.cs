@@ -6,6 +6,7 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.InspectionManagement;
+using Survi.Prevention.ServiceLayer.DataCopy;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -137,8 +138,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			if (idInspection != Guid.Empty)
 			{
-				using (var casd = new InspectionBuildingDataCopyManager(Context, idInspection))
-					casd.DuplicateData();
+				using (var manager = new InspectionBuildingDataCopyManager(Context, idInspection))
+					manager.CreateCopy();
 
 				var targetInspection = Context.Inspections.Where(i => i.Id == idInspection && i.IsActive)
 					.Include(i => i.Visits)
@@ -196,6 +197,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 					inspection.Visits.Single(v => v.IsActive && v.Status != InspectionVisitStatus.Completed);
 				currentVisit.EndedOn = DateTime.Now;
 				currentVisit.Status = InspectionVisitStatus.Completed;
+				using (var manager = new InspectionBuildingDataCopyManager(Context, inspection.Id))
+					manager.ReplaceOriginalWithCopy();
 
 				return true;
 			}

@@ -2,7 +2,7 @@
 
 namespace Survi.Prevention.Models.InspectionManagement.BuildingCopy
 {
-	public class InspectionBuildingDetail : BaseBuildingDetail<InspectionBuilding>
+	public class InspectionBuildingDetail : BaseBuildingDetail<InspectionBuilding, InspectionPicture>
 	{
 	}
 }

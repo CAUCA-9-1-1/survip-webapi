@@ -3,7 +3,9 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings.Base
 {
-	public abstract class BaseBuildingDetail<T> : BaseModel where T : BaseBuilding
+	public abstract class BaseBuildingDetail<TBuilding, TPicture> : BaseModel 
+		where TBuilding : BaseBuilding
+		where TPicture : BasePicture
 	{
 		public string AdditionalInformation { get; set; } = "";
 		public decimal Height { get; set; }
@@ -32,8 +34,8 @@ namespace Survi.Prevention.Models.Buildings.Base
 		public RoofMaterialType RoofMaterialType { get; set; }
 		public SidingType SidingType { get; set; }
 		public BuildingType BuildingType { get; set; }
-		public T Building { get; set; }
+		public TBuilding Building { get; set; }
 
-		public Picture PlanPicture { get; set; }
+		public TPicture PlanPicture { get; set; }
 	}
 }

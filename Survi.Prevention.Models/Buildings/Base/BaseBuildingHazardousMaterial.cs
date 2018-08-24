@@ -3,8 +3,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings.Base
 {
-	public abstract class BaseBuildingHazardousMaterial<T> : BaseModel 
-		where T : BaseBuilding
+	public abstract class BaseBuildingHazardousMaterial<T> : BaseModel, IBaseBuildingHazardousMaterial where T : BaseBuilding
 	{
 		public int Quantity { get; set; }
 		public string Container { get; set; }

@@ -3,8 +3,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings.Base
 {
-	public abstract class BaseBuildingSprinkler<T> : BaseModel
-		where T: BaseBuilding
+	public abstract class BaseBuildingSprinkler<T> : BaseModel, IBaseBuildingSprinkler where T: BaseBuilding
 	{
 		public string Floor { get; set; }
 		public string Wall { get; set; }

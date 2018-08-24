@@ -3,7 +3,8 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings.Base
 {
-	public abstract class BaseBuildingContact<T> : BaseModel where T : BaseBuilding
+	public abstract class BaseBuildingContact<T> : BaseModel, IBaseBuildingContact 
+		where T : BaseBuilding
 	{
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
