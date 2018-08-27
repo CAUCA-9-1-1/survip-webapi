@@ -4,10 +4,10 @@ namespace Survi.Prevention.Models.SecurityManagement
 {
 	public class Permission
 	{
-		public Guid Id { get; set; } = Guid.NewGuid();
+		public Guid Id { get; set; }
 
 		public string Comments { get; set; }
-		public bool Access { get; set; }
+		public bool? Access { get; set; }
 		public DateTime CreatedOn { get; set; } = DateTime.Now;
 
 		public Guid IdPermissionObject { get; set; }

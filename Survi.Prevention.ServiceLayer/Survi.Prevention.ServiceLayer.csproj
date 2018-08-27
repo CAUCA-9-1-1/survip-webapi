@@ -6,7 +6,6 @@
   <ItemGroup>
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.8.12" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Survi.Prevention.DataLayer\Survi.Prevention.DataLayer.csproj" />
     <ProjectReference Include="..\Survi.Prevention.Models\Survi.Prevention.Models.csproj" />
@@ -16,7 +15,6 @@
       <HintPath>..\..\..\Users\frederic.catellier\.nuget\packages\microsoft.aspnetcore.authorization\2.1.1\lib\netstandard2.0\Microsoft.AspNetCore.Authorization.dll</HintPath>
     </Reference>
   </ItemGroup>
-
   <ItemGroup>
     <Compile Update="Localization\EnumResource.Designer.cs">
       <DependentUpon>EnumResource.resx</DependentUpon>

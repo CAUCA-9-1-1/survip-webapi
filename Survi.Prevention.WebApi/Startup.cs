@@ -74,6 +74,8 @@ namespace Survi.Prevention.WebApi
 			}));
 			services.AddTransient<AuthentificationService>();
             services.AddTransient<WebuserService>();
+			services.AddTransient<PermissionService>();
+			services.AddTransient<PermissionObjectService>();
             services.AddTransient<CountryService>();
             services.AddTransient<StateService>();
             services.AddTransient<RegionService>();
