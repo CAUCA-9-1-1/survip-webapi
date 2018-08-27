@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Resources;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
@@ -21,6 +19,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 			var entity = Context.BuildingAlarmPanels.AsNoTracking()
 				.SingleOrDefault(mat => mat.Id == id);
 			return entity;
+		}
+		
+		public List<BuildingAlarmPanel> GetList(Guid idBuilding)
+		{
+			return Context.BuildingAlarmPanels
+				.Where(p => p.IsActive && p.IdBuilding == idBuilding)
+				.ToList();
 		}
 
 		public List<BuildingFireProtectionForList> GetListLocalized(string languageCode, Guid idBuilding)
