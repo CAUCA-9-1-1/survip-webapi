@@ -275,5 +275,20 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return query.FirstOrDefault() ?? new InspectionConfiguration();
 		}
+
+		public bool CanUserAccessInspection(Guid idInspection, Guid idUser)
+		{
+			var retValue = false;
+
+			var targetInspection = Context.Inspections.Where(i => i.Id == idInspection && i.IsActive)
+				.Include(i => i.Visits)
+				.Single();
+
+			var visit = targetInspection.Visits.SingleOrDefault(iv =>iv.IsActive && iv.Status != InspectionVisitStatus.Completed);
+			if (visit == null || visit.IdWebuserVisitedBy == idUser)
+				retValue = true;
+
+			return retValue;
+		}
 	}
 }
