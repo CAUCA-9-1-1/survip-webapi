@@ -67,9 +67,14 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPost, Route("StartInspection")]
 		public ActionResult StartInspection([FromBody] Guid idInspection)
 		{
-			if(service.StartInspection(idInspection, CurrentUserId))
-				return NoContent();
-			return BadRequest("Error during the starting process of the inspection");
+			if (service.CanUserAccessInspection(idInspection, CurrentUserId))
+			{
+				if (service.StartInspection(idInspection, CurrentUserId))
+					return NoContent();
+				return BadRequest("Error during the starting process of the inspection");
+			}
+			else
+				return BadRequest("otherUserInspection");
 		}
 
 		[HttpPost, Route("CompleteInspection")]
@@ -86,6 +91,15 @@ namespace Survi.Prevention.WebApi.Controllers
 			if(service.RefuseInspectionVisit(inspectionVisit, CurrentUserId))
 				return NoContent();
 			return BadRequest("Error during the starting process of the inspection");
+		}
+
+		[HttpGet, Route("{id:Guid}/UserAllowed")]
+		public ActionResult CanUserAccessInspection(Guid id)
+		{
+			if(service.CanUserAccessInspection(id, CurrentUserId))
+			return Ok(true);
+
+			return BadRequest(false);
 		}
     }
 }
