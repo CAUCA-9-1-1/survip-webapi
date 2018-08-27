@@ -9,7 +9,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 		public override void Map(EntityTypeBuilder<InspectionBuildingCourseLane> b)
 		{
 			b.HasKey(m => m.Id);
-			b.HasOne(m => m.Lane).WithMany().HasForeignKey(m => m.IdLane);
+			//b.HasOne(m => m.Lane).WithMany().HasForeignKey(m => m.IdLane);
 		}
 	}
 }

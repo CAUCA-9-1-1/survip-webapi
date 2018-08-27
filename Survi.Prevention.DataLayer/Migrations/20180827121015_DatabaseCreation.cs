@@ -4,7 +4,7 @@ using NetTopologySuite.Geometries;
 
 namespace Survi.Prevention.DataLayer.Migrations
 {
-    public partial class InitialCreation : Migration
+    public partial class DatabaseCreation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -2254,7 +2254,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                         column: x => x.id_parent_building,
                         principalTable: "inspection_building",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_inspection_building_inspection_pictures_picture_id",
                         column: x => x.id_picture,
@@ -2546,9 +2546,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "fk_inspection_building_detail_pictures_plan_picture_id",
+                        name: "fk_inspection_building_detail_inspection_pictures_plan_picture_~",
                         column: x => x.id_picture_plan,
-                        principalTable: "picture",
+                        principalTable: "inspection_picture",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -2808,6 +2808,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     direction = table.Column<int>(nullable: false),
                     id_building_course = table.Column<Guid>(nullable: false),
                     id_lane = table.Column<Guid>(nullable: false),
+                    lane_id = table.Column<Guid>(nullable: true),
                     sequence = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -2821,10 +2822,10 @@ namespace Survi.Prevention.DataLayer.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_inspection_building_course_lane_lane_lane_id",
-                        column: x => x.id_lane,
+                        column: x => x.lane_id,
                         principalTable: "lane",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -4210,9 +4211,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                 column: "id_building_course");
 
             migrationBuilder.CreateIndex(
-                name: "IX_inspection_building_course_lane_id_lane",
+                name: "ix_inspection_building_course_lane_lane_id",
                 table: "inspection_building_course_lane",
-                column: "id_lane");
+                column: "lane_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_inspection_building_detail_fire_resistance_type_id",

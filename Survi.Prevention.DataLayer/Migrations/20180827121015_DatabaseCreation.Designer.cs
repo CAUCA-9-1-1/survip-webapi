@@ -11,8 +11,8 @@ using Survi.Prevention.DataLayer;
 namespace Survi.Prevention.DataLayer.Migrations
 {
     [DbContext(typeof(ManagementContext))]
-    [Migration("20180822185938_InitialCreation")]
-    partial class InitialCreation
+    [Migration("20180827121015_DatabaseCreation")]
+    partial class DatabaseCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -3418,6 +3418,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
 
+                    b.Property<Guid?>("LaneId")
+                        .HasColumnName("lane_id");
+
                     b.Property<int>("Sequence")
                         .HasColumnName("sequence");
 
@@ -3426,7 +3429,8 @@ namespace Survi.Prevention.DataLayer.Migrations
 
                     b.HasIndex("IdBuildingCourse");
 
-                    b.HasIndex("IdLane");
+                    b.HasIndex("LaneId")
+                        .HasName("ix_inspection_building_course_lane_lane_id");
 
                     b.ToTable("inspection_building_course_lane");
                 });
@@ -5568,7 +5572,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuilding", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("IdParentBuilding")
-                        .HasConstraintName("fk_inspection_building_inspection_building_parent_id");
+                        .HasConstraintName("fk_inspection_building_inspection_building_parent_id")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionPicture", "Picture")
                         .WithMany()
@@ -5659,9 +5664,8 @@ namespace Survi.Prevention.DataLayer.Migrations
 
                     b.HasOne("Survi.Prevention.Models.FireSafetyDepartments.Lane", "Lane")
                         .WithMany()
-                        .HasForeignKey("IdLane")
-                        .HasConstraintName("fk_inspection_building_course_lane_lane_lane_id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("LaneId")
+                        .HasConstraintName("fk_inspection_building_course_lane_lane_lane_id");
                 });
 
             modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingDetail", b =>
@@ -5692,10 +5696,10 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasForeignKey("IdConstructionType")
                         .HasConstraintName("fk_construction_type");
 
-                    b.HasOne("Survi.Prevention.Models.Picture", "PlanPicture")
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionPicture", "PlanPicture")
                         .WithMany()
                         .HasForeignKey("IdPicturePlan")
-                        .HasConstraintName("fk_inspection_building_detail_pictures_plan_picture_id");
+                        .HasConstraintName("fk_inspection_building_detail_inspection_pictures_plan_picture_~");
 
                     b.HasOne("Survi.Prevention.Models.Buildings.RoofMaterialType", "RoofMaterialType")
                         .WithMany()

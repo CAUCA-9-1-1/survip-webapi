@@ -9,7 +9,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 		public override void Map(EntityTypeBuilder<InspectionBuildingParticularRiskPicture> b)
 		{
 			b.HasKey(m => m.Id);
-			b.HasOne(m => m.Picture).WithMany().HasForeignKey(m => m.IdPicture);
+			b.HasOne(m => m.Picture).WithMany().HasForeignKey(m => m.IdPicture).OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Cascade);
 		}
 	}
 }

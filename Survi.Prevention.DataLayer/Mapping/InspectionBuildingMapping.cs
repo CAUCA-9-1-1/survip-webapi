@@ -38,17 +38,17 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasOne(m => m.Picture).WithMany().HasForeignKey(m => m.IdPicture);
 			b.HasOne(m => m.Detail).WithOne(m => m.Building).HasForeignKey<InspectionBuildingDetail>(m => m.IdBuilding);
 
-			b.HasMany(m => m.Contacts).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
-			b.HasMany(m => m.HazardousMaterials).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
-			b.HasMany(m => m.PersonsRequiringAssistance).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
-			b.HasMany(m => m.Localizations).WithOne(m => m.Parent).HasForeignKey(m => m.IdParent);
-			b.HasMany(m => m.AlarmPanels).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
-			b.HasMany(m => m.FireHydrants).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
-			b.HasMany(m => m.Sprinklers).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
-			b.HasMany(m => m.Courses).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
-			b.HasMany(m => m.Children).WithOne(m => m.Parent).HasForeignKey(m => m.IdParentBuilding);
-			b.HasMany(m => m.Anomalies).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
-			b.HasMany(m => m.ParticularRisks).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
+			b.HasMany(m => m.Contacts).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding).OnDelete(DeleteBehavior.Cascade);
+			b.HasMany(m => m.HazardousMaterials).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding).OnDelete(DeleteBehavior.Cascade);
+			b.HasMany(m => m.PersonsRequiringAssistance).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding).OnDelete(DeleteBehavior.Cascade);
+			b.HasMany(m => m.Localizations).WithOne(m => m.Parent).HasForeignKey(m => m.IdParent).OnDelete(DeleteBehavior.Cascade);
+			b.HasMany(m => m.AlarmPanels).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding).OnDelete(DeleteBehavior.Cascade);
+			b.HasMany(m => m.FireHydrants).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding).OnDelete(DeleteBehavior.Cascade);
+			b.HasMany(m => m.Sprinklers).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding).OnDelete(DeleteBehavior.Cascade);
+			b.HasMany(m => m.Courses).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding).OnDelete(DeleteBehavior.Cascade);
+			b.HasMany(m => m.Children).WithOne(m => m.Parent).HasForeignKey(m => m.IdParentBuilding).OnDelete(DeleteBehavior.Cascade);
+			b.HasMany(m => m.Anomalies).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding).OnDelete(DeleteBehavior.Cascade);
+			b.HasMany(m => m.ParticularRisks).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding).OnDelete(DeleteBehavior.Cascade);
 		}
 	}
 }

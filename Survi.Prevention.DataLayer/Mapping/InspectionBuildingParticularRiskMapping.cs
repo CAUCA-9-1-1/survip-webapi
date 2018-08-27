@@ -14,7 +14,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.Property(m => m.Sector).HasMaxLength(15);
 			b.Property(m => m.Dimension).HasMaxLength(100);
 
-			b.HasMany(m => m.Pictures).WithOne(m => m.Risk).HasForeignKey(m => m.IdBuildingParticularRisk);
+			b.HasMany(m => m.Pictures).WithOne(m => m.Risk).HasForeignKey(m => m.IdBuildingParticularRisk).OnDelete(DeleteBehavior.Cascade);
 
 			b.HasDiscriminator<int>("risk_type")
 				.HasValue<InspectionBuildingFoundationParticularRisk>(0)
