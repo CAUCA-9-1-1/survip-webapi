@@ -35,6 +35,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 	        inspection.Status = status;
 	        AssignRefusalReasonToLastVisit(refusalReason, inspection);
 
+			if (status == InspectionStatus.Approved)
+			{
+				using (var manager = new InspectionBuildingDataCopyManager(Context, inspection.Id))
+					manager.ReplaceOriginalWithCopy();
+			}
+
 			Context.SaveChanges();
             return true;
         }
@@ -60,8 +66,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				where inspection.IsActive
 					  && (inspection.Status == InspectionStatus.Todo || inspection.Status == InspectionStatus.Started || inspection.Status == InspectionStatus.Refused)
 				      && (inspection.IdWebuserAssignedTo == null || inspection.IdWebuserAssignedTo == userId)
-				from building in inspection.Buildings
-				where building.ChildType == BuildingChildType.None && building.IsActive
+				let building = inspection.MainBuilding
 				from laneLocalization in building.Lane.Localizations
 				where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
 				select new 
@@ -197,8 +202,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 					inspection.Visits.Single(v => v.IsActive && v.Status != InspectionVisitStatus.Completed);
 				currentVisit.EndedOn = DateTime.Now;
 				currentVisit.Status = InspectionVisitStatus.Completed;
-				using (var manager = new InspectionBuildingDataCopyManager(Context, inspection.Id))
-					manager.ReplaceOriginalWithCopy();
 
 				return true;
 			}

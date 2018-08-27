@@ -98,6 +98,8 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 				.Include(building => building.Localizations)
 				.Include(building => building.PersonsRequiringAssistance)
 				.Include(building => building.Sprinklers)
+				.Include(building => building.Courses)
+				.ThenInclude(course => course.Lanes)
 				.Include(building => building.Anomalies)
 				.ThenInclude(anomaly => anomaly.Pictures)
 				.ThenInclude(pic => pic.Picture)

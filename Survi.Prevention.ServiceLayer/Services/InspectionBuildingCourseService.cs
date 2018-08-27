@@ -99,7 +99,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		private ICollection<InspectionBuildingCourseLaneForList> GetCourseLanesList(Guid idCourse, string languageCode)
 		{
 			var query =
-				from courseLane in Context.BuildingCourseLanes.AsNoTracking()
+				from courseLane in Context.InspectionBuildingCourseLanes.AsNoTracking()
 				where courseLane.IdBuildingCourse == idCourse && courseLane.IsActive
 				let lane = courseLane.Lane
 				from loc in lane.Localizations

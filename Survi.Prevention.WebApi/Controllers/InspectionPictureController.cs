@@ -2,16 +2,17 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models;
+using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
-	[Route("api/Picture")]
-	public class PictureController : BaseSecuredController
+	[Route("api/InspectionPicture")]
+	public class InspectionPictureController : BaseSecuredController
 	{
-		private readonly PictureService service;
+		private readonly InspectionPictureService service;
 
-		public PictureController(PictureService service)
+		public InspectionPictureController(InspectionPictureService service)
 		{
 			this.service = service;
 		}
@@ -25,10 +26,10 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(data);
 		}
 
-        [HttpPut]
-        public ActionResult PostPictureFile([FromBody]Picture picture)
-        {
-            return Ok(service.UploadFile(picture));
-        }
-    }
+		[HttpPut]
+		public ActionResult PostPictureFile([FromBody]InspectionPicture picture)
+		{
+			return Ok(service.UploadFile(picture));
+		}
+	}
 }

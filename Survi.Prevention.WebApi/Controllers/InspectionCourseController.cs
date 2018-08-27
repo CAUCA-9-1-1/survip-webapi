@@ -61,7 +61,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpDelete, Route("course/{idCourse:Guid}")]
 		public ActionResult DeleteCoures(Guid idCourse)
 		{
-			return Ok(service.Delete<BuildingCourse>(idCourse));
+			return Ok(service.Delete<InspectionBuildingCourse>(idCourse));
 		}
 
 		[HttpPost, Route("courselane/{idCourseLane:Guid}/sequence/{sequence}")]
@@ -73,7 +73,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpDelete, Route("courselane/{idCourseLane:Guid}")]
 		public ActionResult DeleteCourseLane(Guid idCourseLane)
 		{
-			return Ok(service.Delete<BuildingCourseLane>(idCourseLane));
+			return Ok(service.Delete<InspectionBuildingCourseLane>(idCourseLane));
 		}
 	}
 }
