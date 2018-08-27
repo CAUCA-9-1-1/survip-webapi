@@ -21,6 +21,8 @@ namespace Survi.Prevention.DataLayer
         public DbSet<WebuserAttributes> WebuserAttributes { get; set; }
 
 		public DbSet<Permission> Permissions { get; set; }
+		public DbSet<PermissionObject> PermissionObjects { get; set; }
+		public DbSet<PermissionSystemFeature> PermissionSystemFeatures { get; set; }
 		public DbSet<PermissionSystem> PermissionSystems { get; set; }
 
 		public DbSet<Batch> Batches { get; set; }
