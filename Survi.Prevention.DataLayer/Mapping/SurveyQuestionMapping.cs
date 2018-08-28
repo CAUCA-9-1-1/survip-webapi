@@ -20,7 +20,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 				.WithOne(m => m.Parent)
 				.HasForeignKey(m => m.IdParent);
 			b.Property(m => m.IsRecursive);
-			b.Property(m => m.idSurveyQuestionParent);
+			b.Property(m => m.IdSurveyQuestionParent);
 		}
 	}
 }
