@@ -36,13 +36,13 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 
 		public void CreateCopy()
 		{
-			if (!DataHaveAlreadyBeenDuplicated())
+			if (!DataHasAlreadyBeenDuplicated())
 				CopyInspectionBuildings();
 		}
 
 		public void ReplaceOriginalWithCopy()
 		{
-			if (DataHaveAlreadyBeenDuplicated())
+			if (DataHasAlreadyBeenDuplicated())
 				ReplaceBuildingWithCopy();
 		}
 
@@ -51,12 +51,25 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 			var buildings = GetInspectionBuildings();
 			new OriginalBuildingReplacer(context)
 				.ReplaceOriginalDataWithCopy(buildings);
-			context.SaveChanges();
-			context.RemoveRange(buildings);
+			DeleteCopy(buildings);
 			context.SaveChanges();
 		}
 
-		private bool DataHaveAlreadyBeenDuplicated()
+		private void DeleteCopy(List<InspectionBuilding> buildings)
+		{
+			foreach (var picture in buildings.SelectMany(p => p.ParticularRisks.SelectMany(r => r.Pictures.Select(rp => rp.Picture))))
+				context.Remove(picture);
+			foreach (var picture in buildings.SelectMany(p => p.Anomalies.SelectMany(r => r.Pictures.Select(rp => rp.Picture))))
+				context.Remove(picture);
+			foreach (var picture in buildings.Select(p => p.Picture).Where(p => p != null))
+				context.Remove(picture);
+			foreach (var picture in buildings.Select(p => p.Detail.PlanPicture).Where(p => p != null))
+				context.Remove(picture);
+
+			context.RemoveRange(buildings);
+		}
+
+		private bool DataHasAlreadyBeenDuplicated()
 		{
 			return context.InspectionBuildings.AsNoTracking()
 				.Any(building => building.IdInspection == inspectionId);
