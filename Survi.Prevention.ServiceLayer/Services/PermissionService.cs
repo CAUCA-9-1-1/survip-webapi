@@ -13,7 +13,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public List<Permission> GetListOfPermissionObject(Guid id)
+		public List<Permission> GetFeatureListOfPermissionObject(Guid id)
 		{
 			var activePermission = Context.Permissions
 				.Where(p => p.IdPermissionObject == id)
@@ -43,6 +43,38 @@ namespace Survi.Prevention.ServiceLayer.Services
 			});
 
 			return activePermission;
+		}
+
+		public List<Permission> GetListOfUserPermission(Guid id)
+		{
+			var idPermisionObject = Context.PermissionObjects.First(p => p.GenericId == id.ToString()).Id;
+			var permissions = GetFeatureListOfPermissionObject(idPermisionObject);
+			
+			permissions.ForEach(permission =>
+			{
+				if (permission.Access is null)
+				{
+					var permissionObjectParent = Context.PermissionObjects
+						.First(p => p.Id == permission.IdPermissionObject).IdPermissionObjectParent;
+					var permissionParent = Context.Permissions.FirstOrDefault(p => p.IdPermissionObject == permissionObjectParent);
+
+					if (permissionParent != null)
+					{
+						permission.Access = permissionParent.Access;
+
+						if (permissionParent.Access is null)
+						{
+							permission.Access = permissionParent.Feature.DefaultValue;
+						}
+					}
+					else
+					{
+						permission.Access = permission.Feature.DefaultValue;
+					}
+				}
+			});
+
+			return permissions;
 		}
 		
 		public Guid Save(Permission permission)

@@ -21,7 +21,17 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public virtual ActionResult Get(Guid id)
 		{
-			var entity = Service.GetListOfPermissionObject(id);
+			var entity = Service.GetFeatureListOfPermissionObject(id);
+			return Ok(entity);
+		}
+		
+		[HttpGet]
+		[Route("webuser/{id:Guid}")]
+		[ProducesResponseType(401)]
+		[ProducesResponseType(200)]
+		public virtual ActionResult GetUserPermission(Guid id)
+		{
+			var entity = Service.GetListOfUserPermission(id);
 			return Ok(entity);
 		}
 		
