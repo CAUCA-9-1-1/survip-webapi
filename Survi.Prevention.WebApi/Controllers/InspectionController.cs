@@ -33,9 +33,6 @@ namespace Survi.Prevention.WebApi.Controllers
             return Ok(true);
         }
 
-			return Ok(true);
-		}
-
 		[HttpPost, Route("{id:Guid}/cancel")]
 		[ProducesResponseType(typeof(bool), 200)]
 		public ActionResult CancelInspection(Guid id)
