@@ -21,9 +21,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return entity;
 		}
 		
-		public List<BuildingAlarmPanel> GetList(Guid idBuilding)
+		public List<InspectionBuildingAlarmPanel> GetList(Guid idBuilding)
 		{
-			return Context.BuildingAlarmPanels
+			return Context.InspectionBuildingAlarmPanels
 				.Where(p => p.IsActive && p.IdBuilding == idBuilding)
 				.ToList();
 		}

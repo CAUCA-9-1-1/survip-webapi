@@ -21,9 +21,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return entity;
 		}
 		
-		public List<BuildingSprinkler> GetList(Guid idBuilding)
+		public List<InspectionBuildingSprinkler> GetList(Guid idBuilding)
 		{
-			return Context.BuildingSprinklers
+			return Context.InspectionBuildingSprinklers
 				.Where(s => s.IsActive && s.IdBuilding == idBuilding)
 				.ToList();
 		}

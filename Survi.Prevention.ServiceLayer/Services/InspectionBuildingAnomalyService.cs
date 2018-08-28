@@ -22,11 +22,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 	    public List<InspectionBuildingAnomaly> GetList(Guid idBuilding)
 	    {
-		    return Context.InspectionBuildingAnomalies
+		    var value =  Context.InspectionBuildingAnomalies
 				.Where(a => a.IsActive && a.IdBuilding == idBuilding)
 			    .Include(a => a.Pictures)
 			    .ThenInclude(p => p.Picture)
 			    .ToList();
+
+			return value;
 	    }
 	    
 	    public List<InspectionBuildingAnomalyThemeForList> GetListForWeb(Guid idBuilding)

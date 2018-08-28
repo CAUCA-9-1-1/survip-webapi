@@ -57,7 +57,7 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 				var original = building.Anomalies.FirstOrDefault(p => p.Id == anomaly.Id);
 				if (original == null)
 				{
-					original = new BuildingAnomaly();
+					original = new BuildingAnomaly { Pictures = new List<BuildingAnomalyPicture>() };
 					building.Anomalies.Add(original);
 				}
 
@@ -125,7 +125,7 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 				var original = building.Courses.FirstOrDefault(p => p.Id == course.Id);
 				if (original == null)
 				{
-					original = new BuildingCourse();
+					original = new BuildingCourse { Lanes = new List<BuildingCourseLane>() };
 					building.Courses.Add(original);
 				}
 
@@ -213,12 +213,12 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 		private BuildingParticularRisk CreateNewRisk(InspectionBuildingParticularRisk copy)
 		{
 			if (copy is InspectionBuildingWallParticularRisk)
-				return new BuildingWallParticularRisk();
+				return new BuildingWallParticularRisk { Pictures = new List<BuildingParticularRiskPicture>() };
 			if (copy is InspectionBuildingFloorParticularRisk)
-				return new BuildingFloorParticularRisk();
+				return new BuildingFloorParticularRisk { Pictures = new List<BuildingParticularRiskPicture>() };
 			if (copy is InspectionBuildingFoundationParticularRisk)
-				return new BuildingFoundationParticularRisk();
-			return new BuildingRoofParticularRisk();
+				return new BuildingFoundationParticularRisk { Pictures = new List<BuildingParticularRiskPicture>() };
+			return new BuildingRoofParticularRisk { Pictures = new List<BuildingParticularRiskPicture>() };
 		}
 
 		private void ReplaceLocalizations(InspectionBuilding copy, Building building)
@@ -301,6 +301,8 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 			return context.Buildings
 				.Where(building => building.IsActive && building.Id == buildingId)
 				.Include(building => building.AlarmPanels)
+				.Include(building => building.Courses)
+				.ThenInclude(course => course.Lanes)
 				.Include(building => building.Contacts)
 				.Include(building => building.Detail)
 				.ThenInclude(detail => detail.PlanPicture)
