@@ -4,7 +4,7 @@ using Survi.Prevention.Models.SurveyManagement;
 
 namespace Survi.Prevention.Models.InspectionManagement
 {
-	public class InspectionQuestion : BaseModel
+	public class QuestionAnswer : BaseModel
 	{
 		public Guid IdInspection { get; set; }
 		public Guid IdSurveyQuestion { get; set; }
