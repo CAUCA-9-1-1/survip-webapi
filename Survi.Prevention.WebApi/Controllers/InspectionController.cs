@@ -93,8 +93,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			if (service.CanUserAccessInspection(id, CurrentUserId))
 				return Ok(true);
-
-			return BadRequest(false);
+			return BadRequest("UserNotAllowedInspection");
 		}
 	}
 }
