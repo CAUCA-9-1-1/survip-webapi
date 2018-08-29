@@ -283,10 +283,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 			var targetInspection = Context.Inspections.Where(i => i.Id == idInspection && i.IsActive)
 				.Include(i => i.Visits)
 				.Single();
-
-			var visit = targetInspection.Visits.SingleOrDefault(iv =>iv.IsActive && iv.Status != InspectionVisitStatus.Completed);
-			if (visit == null || visit.IdWebuserVisitedBy == idUser)
-				retValue = true;
+			if (targetInspection != null)
+			{
+				var visit = targetInspection.Visits.SingleOrDefault(iv =>
+					iv.IsActive && iv.Status != InspectionVisitStatus.Completed);
+				if (visit == null || visit.IdWebuserVisitedBy == idUser)
+					retValue = true;
+			}
 
 			return retValue;
 		}
