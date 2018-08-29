@@ -76,6 +76,7 @@ namespace Survi.Prevention.ServiceLayer
         public string ParticularRisksRoofSector { get; set; }
         public string ParticularRisksRoofComments { get; set; }
         public string ParticularRisksRoofPictures { get; set; }
+
         public string Anomalies { get; set; }
         
         /*
@@ -135,7 +136,7 @@ namespace Survi.Prevention.ServiceLayer
         {
             BuildingType = details.BuildingType;
             BuildingGarage = details.GarageTypeLocalized;
-            BuildingHeight = details.BuildingHeight.ToString();
+            BuildingHeight = $"{details.BuildingHeight: f2}";
             BuildingEstimatedWaterFlow = details.EstimatedWaterFlow.ToString();
             ConstructionType = details.ConstructionTypeLocalized;
             ConstructionFireResistance = details.ConstructionFireResistanceLocalized;
