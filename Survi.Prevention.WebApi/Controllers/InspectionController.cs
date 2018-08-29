@@ -91,9 +91,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpGet, Route("{id:Guid}/UserAllowed")]
 		public ActionResult CanUserAccessInspection(Guid id)
 		{
-			if (service.CanUserAccessInspection(id, CurrentUserId))
-				return Ok(true);
-			return BadRequest("UserNotAllowedInspection");
+			return Ok(service.CanUserAccessInspection(id, CurrentUserId));
 		}
 	}
 }
