@@ -35,13 +35,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 	        inspection.Status = status;
 	        AssignRefusalReasonToLastVisit(refusalReason, inspection);
 
-			if (status == InspectionStatus.Approved)
-			{
-				using (var manager = new InspectionBuildingDataCopyManager(Context, inspection.Id))
+	        using (var manager = new InspectionBuildingDataCopyManager(Context, inspection.Id))
+	        {
+		        if (status == InspectionStatus.Approved)
 					manager.ReplaceOriginalWithCopy();
-			}
+		        else if (status == InspectionStatus.Canceled)
+			        manager.DeleteCopy();
+	        }
 
-			Context.SaveChanges();
+	        Context.SaveChanges();
             return true;
         }
 

@@ -55,7 +55,14 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 			context.SaveChanges();
 		}
 
-		private void DeleteCopy(List<InspectionBuilding> buildings)
+		public void DeleteCopy()
+		{
+			var buildings = GetInspectionBuildings();
+			DeleteCopy(buildings);
+			context.SaveChanges();
+		}
+
+		public void DeleteCopy(List<InspectionBuilding> buildings)
 		{
 			foreach (var picture in buildings.SelectMany(p => p.ParticularRisks.SelectMany(r => r.Pictures.Select(rp => rp.Picture))))
 				context.Remove(picture);
