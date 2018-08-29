@@ -19,8 +19,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public List<InspectionBuildingCourse> GetCompleteCourses(Guid inspectionId)
 		{
-			var result = Context.InspectionBuildingCourses
-				.Where(c => c.IdBuilding == Context.Inspections.First(i => i.Id == inspectionId).IdBuilding && c.IsActive)
+			var query =
+				from building in Context.InspectionBuildings.AsNoTracking()
+				where building.IsActive && building.ChildType == BuildingChildType.None && building.IdInspection == inspectionId
+				from course in building.Courses
+				select course;
+
+			var result = query
 				.Include(c => c.Lanes)
 				.ToList();
 
