@@ -34,13 +34,41 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
+		public override Guid AddOrUpdate(SurveyQuestion entity)
+		{
+			UpdateSequenceOnAddingChild(entity);
+
+			return base.AddOrUpdate(entity);
+		}
+
+		private void UpdateSequenceOnAddingChild(SurveyQuestion questionChild)
+		{
+			if (!Context.SurveyQuestions.Any(sq => sq.Id == questionChild.Id))
+			{
+				if (questionChild.IdSurveyQuestionParent != null && questionChild.IdSurveyQuestionParent != Guid.Empty)
+				{
+					var lastParentSequence = Context.SurveyQuestions
+						.Where(sq => sq.IdSurveyQuestionParent == questionChild.IdSurveyQuestionParent)
+						.Max(sq => sq.Sequence);
+
+					foreach (var surveyQuestion in Context.SurveyQuestions.Where(sql =>
+						sql.Sequence > lastParentSequence))
+					{
+						surveyQuestion.Sequence += 1;
+					}
+
+					questionChild.Sequence = lastParentSequence + 1;
+				}
+			}
+		}
+
 		public override bool Remove(Guid idSurveyQuestion)
 		{
 			if (idSurveyQuestion != Guid.Empty)
 			{
-				deleteQuestion(idSurveyQuestion);
+				DeleteQuestion(idSurveyQuestion);
 
-				deleteQuestionChoices(idSurveyQuestion);
+				DeleteQuestionChoices(idSurveyQuestion);
 
 				Context.SaveChanges();
 
@@ -49,7 +77,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return false;
 		}
 
-		private void deleteQuestion(Guid idSurveyQuestion)
+		private void DeleteQuestion(Guid idSurveyQuestion)
 		{
 			var question = Context.SurveyQuestions.Include(sqc => sqc.Localizations).Single(sq => sq.Id == idSurveyQuestion);
 			question.IsActive = false;
@@ -61,7 +89,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 		}
 
-		private void deleteQuestionChoices(Guid idSurveyQuestion)
+		private void DeleteQuestionChoices(Guid idSurveyQuestion)
 		{
 			var questionChoices = Context.SurveyQuestionChoices
 					.Include(sqc => sqc.Localizations)
