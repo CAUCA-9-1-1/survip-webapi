@@ -28,7 +28,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPost]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(200)]
-		public virtual ActionResult Post([FromBody] PermissionObject entity)
+		public ActionResult Post([FromBody] PermissionObject entity)
 		{
 			if (Service.AddOrUpdate(entity)!= Guid.Empty)
 				return Ok(new{id = entity.Id});
@@ -40,7 +40,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[Route("{id:Guid}")]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(200)]
-		public virtual ActionResult Delete(Guid id)
+		public ActionResult Delete(Guid id)
 		{
 			if (Service.Remove(id))
 				return NoContent();

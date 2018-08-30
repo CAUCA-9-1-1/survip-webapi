@@ -19,7 +19,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[Route("{id:Guid}")]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(200)]
-		public virtual ActionResult Get(Guid id)
+		public ActionResult Get(Guid id)
 		{
 			var entity = Service.GetFeatureListOfPermissionObject(id);
 			return Ok(entity);
@@ -29,7 +29,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[Route("webuser/{id:Guid}")]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(200)]
-		public virtual ActionResult GetUserPermission(Guid id)
+		public ActionResult GetUserPermission(Guid id)
 		{
 			var entity = Service.GetListOfUserPermission(id);
 			return Ok(entity);
@@ -38,7 +38,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPost]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(200)]
-		public virtual ActionResult Post([FromBody] Permission entity)
+		public ActionResult Post([FromBody] Permission entity)
 		{
 			if (Service.Save(entity)!= Guid.Empty)			
 				return Ok(new{id = entity.Id});

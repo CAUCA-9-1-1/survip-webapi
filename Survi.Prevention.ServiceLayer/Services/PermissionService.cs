@@ -56,7 +56,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 				{
 					var permissionObjectParent = Context.PermissionObjects
 						.First(p => p.Id == permission.IdPermissionObject).IdPermissionObjectParent;
-					var permissionParent = Context.Permissions.FirstOrDefault(p => p.IdPermissionObject == permissionObjectParent);
+					var permissionParent = Context.Permissions.FirstOrDefault(p => 
+						p.IdPermissionObject == permissionObjectParent &&
+					    p.IdPermissionSystemFeature == permission.IdPermissionSystemFeature &&
+						p.IdPermissionSystem == permission.IdPermissionSystem
+					);
 
 					if (permissionParent != null)
 					{
