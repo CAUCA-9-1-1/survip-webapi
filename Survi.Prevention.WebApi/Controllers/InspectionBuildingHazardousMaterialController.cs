@@ -22,7 +22,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[Route("/api/inspection/building/{idBuilding:Guid}/hazardousmaterial"), HttpGet]
 		public ActionResult GetListForDisplay(Guid idBuilding, [FromHeader] string languageCode)
 		{
-			return Ok(Service.GetListLocalized(languageCode, idBuilding));
+			return Ok(Service.GetListLocalized(idBuilding, languageCode));
 		}
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace Survi.Prevention.Models.DataTransfertObjects
 {
-    public class BuildingAnomalyForList
+    public class BuildingAnomalyForList : IDataTransferObjectWithId
     {
 		public Guid Id { get; set; }
 		public string Theme { get; set; }

@@ -19,6 +19,56 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public (AccessToken token, Webuser user) Login(string username, string password, string applicationName, string issuer, string secretKey)
 		{
+
+
+
+			var inspectionId = Guid.Parse("18b4a850-25e2-41f2-93cd-087bb2951f63");
+			var report = new ReportDataLoaderService(Context);
+			var template = @"
+[Building]
+Contacts:
+	[Contact]
+		Nom: {{FirstName}} {{LastName}}.  Proprio? {{IsOwner}}
+	[/Contact]
+Sprinklers:
+	[Sprinkler]
+		Type: {{TypeName}}.  Étage: {{Floor}}.  Mur: {{Wall}} etc.
+	[/Sprinkler]
+Panneaux d'alarme:
+	[AlarmPanel]
+		Type: {{TypeName}}.  Étage: {{Floor}}.  Mur: {{Wall}} etc.
+	[/AlarmPanel]
+PNAPs:
+	[PersonRequiringAssistance]
+		Type: {{TypeName}}.
+	[/PersonRequiringAssistance]
+Bornes:
+	[FireHydrant]
+		{{Number}} : {{Address}}
+	[/FireHydrant]
+	[Course]
+		Caserne: {{Description}}
+		[CourseLane]
+			{{Description}}
+		[/CourseLane]
+	[/Course]
+	[HazardousMaterial]
+		{{HazardousMaterialNumber}} - {{HazardousMaterialName}}
+		{{QuantityDescription}}
+	[/HazardousMaterial]
+	[Anomaly]
+		Theme: {{Theme}}
+		Notes: {{Notes}}
+		[AnomalyPicture]
+			Photo: {{PictureData}}
+		[/AnomalyPicture]
+	[/Anomaly]
+[/Building]";
+			var filledTemplate = report.FillTemplate(template, inspectionId, "fr");
+
+
+
+
 			var encodedPassword = new PasswordGenerator().EncodePassword(password, applicationName);
 			var userFound = Context.Webusers
 				.Include(user => user.Attributes)

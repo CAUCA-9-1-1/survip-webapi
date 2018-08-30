@@ -4,35 +4,22 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
-using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 
-namespace Survi.Prevention.ServiceLayer.Services
+namespace Survi.Prevention.ServiceLayer.Reporting
 {
-	public class InspectionBuildingHazardousMaterialService : BaseCrudService<InspectionBuildingHazardousMaterial>
+	public class ReportBuildingHazardousMaterialGroupHandler : BaseReportGroupHandler<BuildingHazardousMaterialForList>
 	{
-		public InspectionBuildingHazardousMaterialService(ManagementContext context) : base(context)
+		protected override ReportBuildingGroup Group => ReportBuildingGroup.HazardousMaterial;
+
+		public ReportBuildingHazardousMaterialGroupHandler(ManagementContext context) : base(context)
 		{
 		}
 
-		public override InspectionBuildingHazardousMaterial Get(Guid id)
-		{
-			var entity = Context.InspectionBuildingHazardousMaterials.AsNoTracking()
-				.SingleOrDefault(mat => mat.Id == id);
-			return entity;
-		}
-		
-		public List<InspectionBuildingHazardousMaterial> GetList(Guid idBuilding)
-		{
-			return Context.InspectionBuildingHazardousMaterials.AsNoTracking()
-				.Where(mat => mat.IdBuilding == idBuilding)
-				.ToList();
-		}
-
-		public List<BuildingHazardousMaterialForList> GetListLocalized(Guid buildingId, string languageCode)
+		protected override List<BuildingHazardousMaterialForList> GetData(Guid idParent, string languageCode)
 		{
 			var query =
-				from matBuilding in Context.InspectionBuildingHazardousMaterials.AsNoTracking()
-				where matBuilding.IdBuilding == idBuilding && matBuilding.IsActive
+				from matBuilding in Context.BuildingHazardousMaterials.AsNoTracking()
+				where matBuilding.IdBuilding == idParent && matBuilding.IsActive
 				let mat = matBuilding.Material
 				from loc in mat.Localizations
 				where loc.IsActive && loc.LanguageCode == languageCode

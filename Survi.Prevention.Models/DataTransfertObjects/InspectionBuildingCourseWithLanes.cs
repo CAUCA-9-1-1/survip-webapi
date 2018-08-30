@@ -5,7 +5,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 {
 	public class InspectionBuildingCourseWithLanes
 	{
-		public InspectionBuildingCourse Course { get; set; }
-		public ICollection<InspectionBuildingCourseLaneForList> Lanes { get; set; }
+		public BuildingCourse Course { get; set; }
+		public ICollection<BuildingCourseLaneForList> Lanes { get; set; }
 	}
 }

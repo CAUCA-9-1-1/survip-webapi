@@ -349,7 +349,7 @@ namespace Survi.Prevention.ServiceLayer
             FireProtectionSprinklers = sprinklerToString;
         }
 
-        public void SetCourses(List<InspectionBuildingCourseForList> courses, Dictionary<Guid, InspectionBuildingCourseWithLanes> lanesDictionary)
+        public void SetCourses(List<BuildingCourseForList> courses, Dictionary<Guid, InspectionBuildingCourseWithLanes> lanesDictionary)
         {
             var coursesToString = "";
             foreach (var course in courses)
