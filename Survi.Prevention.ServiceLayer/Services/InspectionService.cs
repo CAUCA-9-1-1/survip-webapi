@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.InspectionManagement;
+using Survi.Prevention.ServiceLayer.DataCopy;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -23,32 +25,39 @@ namespace Survi.Prevention.ServiceLayer.Services
             return true;
         }
 
-        public bool SetStatus(InspectionStatus status, Guid id)
+        public bool SetStatus(InspectionStatus status, Guid id, string refusalReason = null)
         {
-            var entity = Context.Inspections
+            var inspection = Context.Inspections
                 .Where(i => i.Id == id)
                 .Include(i => i.Visits)
                 .Single();
 
-            entity.Status = status;
-            Context.SaveChanges();
+	        inspection.Status = status;
+	        AssignRefusalReasonToLastVisit(refusalReason, inspection);
 
+	        using (var manager = new InspectionBuildingDataCopyManager(Context, inspection.Id))
+	        {
+		        if (status == InspectionStatus.Approved)
+					manager.ReplaceOriginalWithCopy();
+		        else if (status == InspectionStatus.Canceled)
+			        manager.DeleteCopy();
+	        }
+
+	        Context.SaveChanges();
             return true;
         }
 
-		public bool SetReasonForApprobationRefusal(Guid id, string reason)
+		private static void AssignRefusalReasonToLastVisit(string refusalReason, Inspection inspection)
 		{
-			var inspection = Context.Inspections.Single(i => i.Id == id);
-			var currentVisit = inspection.Visits.OrderBy(v => v.EndedOn)
-				.Last(v => v.IsActive && v.Status == InspectionVisitStatus.Completed);
-
-			currentVisit.ReasonForApprobationRefusal = reason;
-			Context.SaveChanges();
-			
-			return true;
+			if (!string.IsNullOrWhiteSpace(refusalReason))
+			{
+				var currentVisit = inspection.Visits.OrderBy(v => v.EndedOn)
+					.Last(v => v.IsActive && v.Status == InspectionVisitStatus.Completed);
+				currentVisit.ReasonForApprobationRefusal = refusalReason;
+			}
 		}
 
-        public List<BatchForList> GetGroupedUserInspections(string languageCode, Guid userId)
+		public List<BatchForList> GetGroupedUserInspections(string languageCode, Guid userId)
 		{
 			var query =
 				from batch in Context.Batches
@@ -59,7 +68,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 				where inspection.IsActive
 					  && (inspection.Status == InspectionStatus.Todo || inspection.Status == InspectionStatus.Started || inspection.Status == InspectionStatus.Refused)
 				      && (inspection.IdWebuserAssignedTo == null || inspection.IdWebuserAssignedTo == userId)
-				      && inspection.MainBuilding.IsActive
 				let building = inspection.MainBuilding
 				from laneLocalization in building.Lane.Localizations
 				where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
@@ -137,13 +145,14 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			if (idInspection != Guid.Empty)
 			{
+				using (var manager = new InspectionBuildingDataCopyManager(Context, idInspection))
+					manager.CreateCopy();
+
 				var targetInspection = Context.Inspections.Where(i => i.Id == idInspection && i.IsActive)
-										.Include(i => i.Visits)
-										.Single();
-				if (!targetInspection.Visits.Any(iv => iv.IsActive && iv.Status != InspectionVisitStatus.Completed))
-				{		
-					targetInspection.Visits.Add(new InspectionVisit(){Status = InspectionVisitStatus.Started, CreatedOn = DateTime.Now, IdWebuserVisitedBy = idUser});
-				}
+					.Include(i => i.Visits)
+					.Single();
+
+				AddNewInspectionWhenMissing(idUser, targetInspection);
 
 				targetInspection.Status = InspectionStatus.Started;
 				targetInspection.StartedOn = DateTime.Now;
@@ -154,6 +163,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 
 			return false;
+		}
+
+		private static void AddNewInspectionWhenMissing(Guid idUser, Inspection targetInspection)
+		{
+			if (!targetInspection.Visits.Any(iv => iv.IsActive && iv.Status != InspectionVisitStatus.Completed))
+			{
+				targetInspection.Visits.Add(new InspectionVisit {
+					Status = InspectionVisitStatus.Started,
+					CreatedOn = DateTime.Now,
+					IdWebuserVisitedBy = idUser});
+			}
 		}
 
 		public bool CompleteInspection(Guid idInspection, Guid idUser)
@@ -200,7 +220,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 			RefuseCurrentInspectionVisit(targetInspection, inspectionVisit, idUser);
 			if (inspectionVisit.RequestedDateOfVisit != null)
 			{
-				targetInspection.Visits.Add(new InspectionVisit(){Status = InspectionVisitStatus.Todo, CreatedOn = DateTime.Now, IdWebuserVisitedBy = idUser, RequestedDateOfVisit = inspectionVisit.RequestedDateOfVisit});
+				targetInspection.Visits.Add(new InspectionVisit()
+				{
+					Status = InspectionVisitStatus.Todo,
+					CreatedOn = DateTime.Now,
+					IdWebuserVisitedBy = idUser,
+					RequestedDateOfVisit = inspectionVisit.RequestedDateOfVisit
+				});
 			}
 
 			targetInspection.Status = InspectionStatus.Todo;
@@ -220,7 +246,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			{
 				if (inspection.Visits.Any(v => v.IsActive && v.Status != InspectionVisitStatus.Completed))
 				{
-					InspectionVisit currentVisit =
+					var currentVisit =
 						inspection.Visits.Last(v => v.IsActive && v.Status != InspectionVisitStatus.Completed);
 					currentVisit.Status = refusedInspectionVisit.Status;
 					currentVisit.ReasonForInspectionRefusal = refusedInspectionVisit.ReasonForInspectionRefusal;

@@ -8,6 +8,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 	{
 		public override void Map(EntityTypeBuilder<BuildingAnomalyPicture> b)
 		{
+			b.HasQueryFilter(m => m.IsActive);
 			b.HasKey(m => m.Id);
 			b.HasOne(m => m.Picture).WithMany().HasForeignKey(m => m.IdPicture);
 		}

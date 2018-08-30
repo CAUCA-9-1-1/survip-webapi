@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
 	[Route("api/inspection/building/sprinkler")]
-	public class InspectionBuildingSprinklerController : BaseCrudController<InspectionBuildingSprinklerService, BuildingSprinkler>
+	public class InspectionBuildingSprinklerController : BaseCrudController<InspectionBuildingSprinklerService, InspectionBuildingSprinkler>
 	{
 		public InspectionBuildingSprinklerController(InspectionBuildingSprinklerService service) : base(service)
 		{

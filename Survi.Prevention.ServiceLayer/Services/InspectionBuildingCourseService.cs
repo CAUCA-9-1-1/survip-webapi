@@ -6,6 +6,7 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Base;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 using Survi.Prevention.ServiceLayer.Localization.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
@@ -16,51 +17,56 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public List<BuildingCourse> GetCompleteCourses(Guid inspectionId)
+		public List<InspectionBuildingCourse> GetCompleteCourses(Guid inspectionId)
 		{
-			var result = Context.BuildingCourses
-				.Where(c => c.IdBuilding == Context.Inspections.First(i => i.Id == inspectionId).IdBuilding && c.IsActive)
+			var query =
+				from building in Context.InspectionBuildings.AsNoTracking()
+				where building.IsActive && building.ChildType == BuildingChildType.None && building.IdInspection == inspectionId
+				from course in building.Courses
+				select course;
+
+			var result = query
 				.Include(c => c.Lanes)
 				.ToList();
 
 			return result;
 		}
 		
-		public Guid SaveCompleteCourses(BuildingCourse course)
+		public Guid SaveCompleteCourses(InspectionBuildingCourse course)
 		{
-			var courseLanes = new List<BuildingCourseLane>();
-			var dbCourseLanes = new List<BuildingCourseLane>();
+			var courseLanes = new List<InspectionBuildingCourseLane>();
+			var dbCourseLanes = new List<InspectionBuildingCourseLane>();
 
 			if (course.Lanes != null)
 				courseLanes = course.Lanes.Where(l => l.IdBuildingCourse == course.Id).ToList();
-			if (Context.BuildingCourseLanes.AsNoTracking().Any(l => l.IdBuildingCourse == course.Id))
-				dbCourseLanes = Context.BuildingCourseLanes.AsNoTracking().Where(l => l.IdBuildingCourse == course.Id).ToList();
+			if (Context.InspectionBuildingCourseLanes.AsNoTracking().Any(l => l.IdBuildingCourse == course.Id))
+				dbCourseLanes = Context.InspectionBuildingCourseLanes.AsNoTracking().Where(l => l.IdBuildingCourse == course.Id).ToList();
 
 			dbCourseLanes.ForEach(child =>
 			{
-				if (!courseLanes.Any(c => c.Id == child.Id))
+				if (courseLanes.All(c => c.Id != child.Id))
 				{
-					Context.BuildingCourseLanes.Remove(child);
+					Context.InspectionBuildingCourseLanes.Remove(child);
 				}
 			});
 			courseLanes.ForEach(child =>
 			{
-				var isChildExistRecord = Context.BuildingCourseLanes.Any(c => c.Id == child.Id);
+				var isChildExistRecord = Context.InspectionBuildingCourseLanes.Any(c => c.Id == child.Id);
 
 				if (!isChildExistRecord)
 				{
-					Context.BuildingCourseLanes.Add(child);
+					Context.InspectionBuildingCourseLanes.Add(child);
 				}
 			});
 
 			Context.SaveChanges();
 
-			var isExistRecord = Context.BuildingCourses.Any(c => c.Id == course.Id);
+			var isExistRecord = Context.InspectionBuildingCourses.Any(c => c.Id == course.Id);
 
 			if (isExistRecord)
-				Context.BuildingCourses.Update(course);
+				Context.InspectionBuildingCourses.Update(course);
 			else
-				Context.BuildingCourses.Add(course);
+				Context.InspectionBuildingCourses.Add(course);
 
 			Context.SaveChanges();
 			
@@ -72,7 +78,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 			var query =
 				from inspection in Context.Inspections.AsNoTracking()
 				where inspection.Id == inspectionid
-				from course in inspection.MainBuilding.Courses
+				from building in inspection.Buildings
+				where building.ChildType == BuildingChildType.None
+				from course in building.Courses
 				where course.IsActive && course.Firestation.IsActive
 				let firestation = course.Firestation
 				select new InspectionBuildingCourseForList
@@ -96,7 +104,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		private ICollection<InspectionBuildingCourseLaneForList> GetCourseLanesList(Guid idCourse, string languageCode)
 		{
 			var query =
-				from courseLane in Context.BuildingCourseLanes.AsNoTracking()
+				from courseLane in Context.InspectionBuildingCourseLanes.AsNoTracking()
 				where courseLane.IdBuildingCourse == idCourse && courseLane.IsActive
 				let lane = courseLane.Lane
 				from loc in lane.Localizations
@@ -123,16 +131,16 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return laneName;
 		}
 
-		private BuildingCourse GetCourse(Guid idCourse)
+		private InspectionBuildingCourse GetCourse(Guid idCourse)
 		{
-			return Context.BuildingCourses
+			return Context.InspectionBuildingCourses
 				.AsNoTracking()
 				.SingleOrDefault(course => course.Id == idCourse);
 		}
 		
 		public object GetCourseLane(Guid idCourseLane)
 		{
-			return Context.BuildingCourseLanes
+			return Context.InspectionBuildingCourseLanes
 				.AsNoTracking()
 				.SingleOrDefault(lane => lane.Id == idCourseLane);
 		}
@@ -163,7 +171,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public bool UpdateCourseLaneSequence(Guid idCourseLane, int sequence)
 		{
-			var entity = Context.Set<BuildingCourseLane>().Find(idCourseLane);
+			var entity = Context.Set<InspectionBuildingCourseLane>().Find(idCourseLane);
 			if (entity != null)
 			{
 				entity.Sequence = sequence;

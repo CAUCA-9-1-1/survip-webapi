@@ -11,7 +11,7 @@ using Survi.Prevention.DataLayer;
 namespace Survi.Prevention.DataLayer.Migrations
 {
     [DbContext(typeof(ManagementContext))]
-    [Migration("20180808124147_DatabaseCreation")]
+    [Migration("20180827121015_DatabaseCreation")]
     partial class DatabaseCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,6 +93,54 @@ namespace Survi.Prevention.DataLayer.Migrations
                     );
                 });
 
+            modelBuilder.Entity("Survi.Prevention.Models.Buildings.Base.BuildingParticularRisk", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<string>("Comments")
+                        .HasColumnName("comments");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<string>("Dimension")
+                        .HasColumnName("dimension")
+                        .HasMaxLength(100);
+
+                    b.Property<bool>("HasOpening")
+                        .HasColumnName("has_opening");
+
+                    b.Property<Guid>("IdBuilding")
+                        .HasColumnName("id_building");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.Property<bool>("IsWeakened")
+                        .HasColumnName("is_weakened");
+
+                    b.Property<string>("Sector")
+                        .HasColumnName("sector")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("Wall")
+                        .HasColumnName("wall")
+                        .HasMaxLength(15);
+
+                    b.Property<int>("risk_type");
+
+                    b.HasKey("Id")
+                        .HasName("pk_building_particular_risk");
+
+                    b.HasIndex("IdBuilding");
+
+                    b.ToTable("building_particular_risk");
+
+                    b.HasDiscriminator<int>("risk_type");
+                });
+
             modelBuilder.Entity("Survi.Prevention.Models.Buildings.Building", b =>
                 {
                     b.Property<Guid>("Id")
@@ -129,10 +177,6 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .IsRequired()
                         .HasColumnName("civic_supp")
                         .HasMaxLength(10);
-
-                    b.Property<Point>("Coordinates")
-                        .HasColumnName("coordinates")
-                        .HasColumnType("geography");
 
                     b.Property<string>("CoordinatesSource")
                         .IsRequired()
@@ -188,6 +232,10 @@ namespace Survi.Prevention.DataLayer.Migrations
 
                     b.Property<int>("NumberOfFloor")
                         .HasColumnName("number_of_floor");
+
+                    b.Property<Point>("PointCoordinates")
+                        .HasColumnName("coordinates")
+                        .HasColumnType("geometry");
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
@@ -710,54 +758,6 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.HasIndex("IdParent");
 
                     b.ToTable("building_localization");
-                });
-
-            modelBuilder.Entity("Survi.Prevention.Models.Buildings.BuildingParticularRisk", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id");
-
-                    b.Property<string>("Comments")
-                        .HasColumnName("comments");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnName("created_on");
-
-                    b.Property<string>("Dimension")
-                        .HasColumnName("dimension")
-                        .HasMaxLength(100);
-
-                    b.Property<bool>("HasOpening")
-                        .HasColumnName("has_opening");
-
-                    b.Property<Guid>("IdBuilding")
-                        .HasColumnName("id_building");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnName("is_active");
-
-                    b.Property<bool>("IsWeakened")
-                        .HasColumnName("is_weakened");
-
-                    b.Property<string>("Sector")
-                        .HasColumnName("sector")
-                        .HasMaxLength(15);
-
-                    b.Property<string>("Wall")
-                        .HasColumnName("wall")
-                        .HasMaxLength(15);
-
-                    b.Property<int>("risk_type");
-
-                    b.HasKey("Id")
-                        .HasName("pk_building_particular_risk");
-
-                    b.HasIndex("IdBuilding");
-
-                    b.ToTable("building_particular_risk");
-
-                    b.HasDiscriminator<int>("risk_type");
                 });
 
             modelBuilder.Entity("Survi.Prevention.Models.Buildings.BuildingParticularRiskPicture", b =>
@@ -1804,8 +1804,15 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("id");
 
+                    b.Property<int>("AddressLocationType")
+                        .HasColumnName("address_location_type");
+
                     b.Property<decimal>("Altitude")
                         .HasColumnName("altitude");
+
+                    b.Property<string>("CivicNumber")
+                        .HasColumnName("civic_number")
+                        .HasMaxLength(5);
 
                     b.Property<string>("Color")
                         .IsRequired()
@@ -1814,10 +1821,6 @@ namespace Survi.Prevention.DataLayer.Migrations
 
                     b.Property<string>("Comments")
                         .HasColumnName("comments");
-
-                    b.Property<Point>("Coordinates")
-                        .HasColumnName("coordinates")
-                        .HasColumnType("geography");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
@@ -1859,7 +1862,11 @@ namespace Survi.Prevention.DataLayer.Migrations
 
                     b.Property<string>("PhysicalPosition")
                         .HasColumnName("physical_position")
-                        .HasMaxLength(50);
+                        .HasMaxLength(200);
+
+                    b.Property<Point>("PointCoordinates")
+                        .HasColumnName("coordinates")
+                        .HasColumnType("geometry");
 
                     b.Property<string>("PressureFrom")
                         .IsRequired()
@@ -3041,6 +3048,865 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("batch_user");
                 });
 
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuilding", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<string>("AppartmentNumber")
+                        .IsRequired()
+                        .HasColumnName("appartment_number")
+                        .HasMaxLength(10);
+
+                    b.Property<decimal>("BuildingValue")
+                        .HasColumnName("building_value");
+
+                    b.Property<int>("ChildType")
+                        .HasColumnName("child_type");
+
+                    b.Property<string>("CivicLetter")
+                        .IsRequired()
+                        .HasColumnName("civic_letter")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("CivicLetterSupp")
+                        .IsRequired()
+                        .HasColumnName("civic_letter_supp")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("CivicNumber")
+                        .IsRequired()
+                        .HasColumnName("civic_number")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("CivicSupp")
+                        .IsRequired()
+                        .HasColumnName("civic_supp")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("CoordinatesSource")
+                        .IsRequired()
+                        .HasColumnName("coordinates_source")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<string>("Details")
+                        .IsRequired()
+                        .HasColumnName("details");
+
+                    b.Property<string>("Floor")
+                        .IsRequired()
+                        .HasColumnName("floor")
+                        .HasMaxLength(10);
+
+                    b.Property<Guid>("IdCity")
+                        .HasColumnName("id_city");
+
+                    b.Property<Guid>("IdInspection")
+                        .HasColumnName("id_inspection");
+
+                    b.Property<Guid>("IdLane")
+                        .HasColumnName("id_lane");
+
+                    b.Property<Guid?>("IdLaneTransversal")
+                        .HasColumnName("id_lane_transversal");
+
+                    b.Property<Guid?>("IdParentBuilding")
+                        .HasColumnName("id_parent_building");
+
+                    b.Property<Guid?>("IdPicture")
+                        .HasColumnName("id_picture");
+
+                    b.Property<Guid>("IdRiskLevel")
+                        .HasColumnName("id_risk_level");
+
+                    b.Property<Guid?>("IdUtilisationCode")
+                        .HasColumnName("id_utilisation_code");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("Matricule")
+                        .IsRequired()
+                        .HasColumnName("matricule")
+                        .HasMaxLength(18);
+
+                    b.Property<int>("NumberOfAppartment")
+                        .HasColumnName("number_of_appartment");
+
+                    b.Property<int>("NumberOfBuilding")
+                        .HasColumnName("number_of_building");
+
+                    b.Property<int>("NumberOfFloor")
+                        .HasColumnName("number_of_floor");
+
+                    b.Property<Point>("PointCoordinates")
+                        .HasColumnName("coordinates")
+                        .HasColumnType("geometry");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnName("postal_code")
+                        .HasMaxLength(6);
+
+                    b.Property<bool>("ShowInResources")
+                        .HasColumnName("show_in_resources");
+
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .HasColumnName("source")
+                        .HasMaxLength(25);
+
+                    b.Property<int>("Suite")
+                        .HasColumnName("suite");
+
+                    b.Property<string>("UtilisationDescription")
+                        .IsRequired()
+                        .HasColumnName("utilisation_description")
+                        .HasMaxLength(255);
+
+                    b.Property<bool>("VacantLand")
+                        .HasColumnName("vacant_land");
+
+                    b.Property<int>("YearOfConstruction")
+                        .HasColumnName("year_of_construction");
+
+                    b.HasKey("Id")
+                        .HasName("pk_inspection_building");
+
+                    b.HasIndex("IdCity");
+
+                    b.HasIndex("IdInspection");
+
+                    b.HasIndex("IdLane");
+
+                    b.HasIndex("IdLaneTransversal");
+
+                    b.HasIndex("IdParentBuilding");
+
+                    b.HasIndex("IdPicture");
+
+                    b.HasIndex("IdRiskLevel");
+
+                    b.HasIndex("IdUtilisationCode");
+
+                    b.ToTable("inspection_building");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingAlarmPanel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<string>("Floor")
+                        .HasColumnName("floor")
+                        .HasMaxLength(100);
+
+                    b.Property<Guid?>("IdAlarmPanelType")
+                        .HasColumnName("id_alarm_panel_type");
+
+                    b.Property<Guid>("IdBuilding")
+                        .HasColumnName("id_building");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("Sector")
+                        .HasColumnName("sector")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Wall")
+                        .HasColumnName("wall")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id")
+                        .HasName("pk_inspection_building_alarm_panel");
+
+                    b.HasIndex("IdAlarmPanelType");
+
+                    b.HasIndex("IdBuilding");
+
+                    b.ToTable("inspection_building_alarm_panel");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingAnomaly", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<Guid>("IdBuilding")
+                        .HasColumnName("id_building");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("Notes")
+                        .HasColumnName("notes");
+
+                    b.Property<string>("Theme")
+                        .IsRequired()
+                        .HasColumnName("theme")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id")
+                        .HasName("pk_inspection_building_anomaly");
+
+                    b.HasIndex("IdBuilding");
+
+                    b.ToTable("inspection_building_anomaly");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingAnomalyPicture", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<Guid>("IdBuildingAnomaly")
+                        .HasColumnName("id_building_anomaly");
+
+                    b.Property<Guid>("IdPicture")
+                        .HasColumnName("id_picture");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.HasKey("Id")
+                        .HasName("pk_inspection_building_anomaly_picture");
+
+                    b.HasIndex("IdBuildingAnomaly");
+
+                    b.HasIndex("IdPicture");
+
+                    b.ToTable("inspection_building_anomaly_picture");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingContact", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<int>("CallPriority")
+                        .HasColumnName("call_priority");
+
+                    b.Property<string>("CellphoneNumber")
+                        .IsRequired()
+                        .HasColumnName("cellphone_number")
+                        .HasMaxLength(10);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnName("first_name")
+                        .HasMaxLength(30);
+
+                    b.Property<Guid>("IdBuilding")
+                        .HasColumnName("id_building");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.Property<bool>("IsOwner")
+                        .HasColumnName("is_owner");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnName("last_name")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("OtherNumber")
+                        .IsRequired()
+                        .HasColumnName("other_number")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("OtherNumberExtension")
+                        .IsRequired()
+                        .HasColumnName("other_number_extension")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("PagerCode")
+                        .IsRequired()
+                        .HasColumnName("pager_code")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("PagerNumber")
+                        .IsRequired()
+                        .HasColumnName("pager_number")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnName("phone_number")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("PhoneNumberExtension")
+                        .IsRequired()
+                        .HasColumnName("phone_number_extension")
+                        .HasMaxLength(10);
+
+                    b.HasKey("Id")
+                        .HasName("pk_inspection_building_contact");
+
+                    b.HasIndex("IdBuilding");
+
+                    b.ToTable("inspection_building_contact");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingCourse", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<Guid>("IdBuilding")
+                        .HasColumnName("id_building");
+
+                    b.Property<Guid>("IdFirestation")
+                        .HasColumnName("id_firestation");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.HasKey("Id")
+                        .HasName("pk_inspection_building_course");
+
+                    b.HasIndex("IdBuilding");
+
+                    b.HasIndex("IdFirestation");
+
+                    b.ToTable("inspection_building_course");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingCourseLane", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<int>("Direction")
+                        .HasColumnName("direction");
+
+                    b.Property<Guid>("IdBuildingCourse")
+                        .HasColumnName("id_building_course");
+
+                    b.Property<Guid>("IdLane")
+                        .HasColumnName("id_lane");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.Property<Guid?>("LaneId")
+                        .HasColumnName("lane_id");
+
+                    b.Property<int>("Sequence")
+                        .HasColumnName("sequence");
+
+                    b.HasKey("Id")
+                        .HasName("pk_inspection_building_course_lane");
+
+                    b.HasIndex("IdBuildingCourse");
+
+                    b.HasIndex("LaneId")
+                        .HasName("ix_inspection_building_course_lane_lane_id");
+
+                    b.ToTable("inspection_building_course_lane");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingDetail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<string>("AdditionalInformation")
+                        .IsRequired()
+                        .HasColumnName("additional_information");
+
+                    b.Property<DateTime?>("ApprovedOn")
+                        .HasColumnName("approved_on");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<int>("EstimatedWaterFlow")
+                        .HasColumnName("estimated_water_flow");
+
+                    b.Property<Guid?>("FireResistanceTypeId")
+                        .HasColumnName("fire_resistance_type_id");
+
+                    b.Property<int>("GarageType")
+                        .HasColumnName("garage_type");
+
+                    b.Property<decimal>("Height")
+                        .HasColumnName("height");
+
+                    b.Property<Guid>("IdBuilding")
+                        .HasColumnName("id_building");
+
+                    b.Property<Guid?>("IdBuildingSidingType")
+                        .HasColumnName("id_building_siding_type");
+
+                    b.Property<Guid?>("IdBuildingType")
+                        .HasColumnName("id_building_type");
+
+                    b.Property<Guid?>("IdConstructionFireResistanceType")
+                        .HasColumnName("id_construction_fire_resistance_type");
+
+                    b.Property<Guid?>("IdConstructionType")
+                        .HasColumnName("id_construction_type");
+
+                    b.Property<Guid?>("IdPicturePlan")
+                        .HasColumnName("id_picture_plan");
+
+                    b.Property<Guid?>("IdRoofMaterialType")
+                        .HasColumnName("id_roof_material_type");
+
+                    b.Property<Guid?>("IdRoofType")
+                        .HasColumnName("id_roof_type");
+
+                    b.Property<Guid?>("IdUnitOfMeasureEstimatedWaterFlow")
+                        .HasColumnName("id_unit_of_measure_estimated_water_flow");
+
+                    b.Property<Guid?>("IdUnitOfMeasureHeight")
+                        .HasColumnName("id_unit_of_measure_height");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.Property<DateTime?>("RevisedOn")
+                        .HasColumnName("revised_on");
+
+                    b.HasKey("Id")
+                        .HasName("pk_inspection_building_detail");
+
+                    b.HasIndex("FireResistanceTypeId")
+                        .HasName("ix_inspection_building_detail_fire_resistance_type_id");
+
+                    b.HasIndex("IdBuilding")
+                        .IsUnique();
+
+                    b.HasIndex("IdBuildingSidingType");
+
+                    b.HasIndex("IdBuildingType");
+
+                    b.HasIndex("IdConstructionType");
+
+                    b.HasIndex("IdPicturePlan");
+
+                    b.HasIndex("IdRoofMaterialType");
+
+                    b.HasIndex("IdRoofType");
+
+                    b.HasIndex("IdUnitOfMeasureEstimatedWaterFlow");
+
+                    b.HasIndex("IdUnitOfMeasureHeight");
+
+                    b.ToTable("inspection_building_detail");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingFireHydrant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnName("deleted_on");
+
+                    b.Property<Guid>("IdBuilding")
+                        .HasColumnName("id_building");
+
+                    b.Property<Guid>("IdFireHydrant")
+                        .HasColumnName("id_fire_hydrant");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.HasKey("Id")
+                        .HasName("pk_inspection_building_fire_hydrant");
+
+                    b.HasIndex("IdBuilding");
+
+                    b.HasIndex("IdFireHydrant");
+
+                    b.ToTable("inspection_building_fire_hydrant");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingHazardousMaterial", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<decimal>("CapacityContainer")
+                        .HasColumnName("capacity_container");
+
+                    b.Property<string>("Container")
+                        .IsRequired()
+                        .HasColumnName("container")
+                        .HasMaxLength(100);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<string>("Floor")
+                        .IsRequired()
+                        .HasColumnName("floor")
+                        .HasMaxLength(4);
+
+                    b.Property<string>("GasInlet")
+                        .IsRequired()
+                        .HasColumnName("gas_inlet")
+                        .HasMaxLength(100);
+
+                    b.Property<Guid>("IdBuilding")
+                        .HasColumnName("id_building");
+
+                    b.Property<Guid>("IdHazardousMaterial")
+                        .HasColumnName("id_hazardous_material");
+
+                    b.Property<Guid?>("IdUnitOfMeasure")
+                        .HasColumnName("id_unit_of_measure");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("OtherInformation")
+                        .IsRequired()
+                        .HasColumnName("other_information");
+
+                    b.Property<string>("Place")
+                        .IsRequired()
+                        .HasColumnName("place")
+                        .HasMaxLength(150);
+
+                    b.Property<int>("Quantity")
+                        .HasColumnName("quantity");
+
+                    b.Property<string>("Sector")
+                        .IsRequired()
+                        .HasColumnName("sector")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("SecurityPerimeter")
+                        .IsRequired()
+                        .HasColumnName("security_perimeter");
+
+                    b.Property<string>("SupplyLine")
+                        .IsRequired()
+                        .HasColumnName("supply_line")
+                        .HasMaxLength(50);
+
+                    b.Property<int>("TankType")
+                        .HasColumnName("tank_type");
+
+                    b.Property<string>("Wall")
+                        .IsRequired()
+                        .HasColumnName("wall")
+                        .HasMaxLength(15);
+
+                    b.HasKey("Id")
+                        .HasName("pk_inspection_building_hazardous_material");
+
+                    b.HasIndex("IdBuilding");
+
+                    b.HasIndex("IdHazardousMaterial");
+
+                    b.HasIndex("IdUnitOfMeasure");
+
+                    b.ToTable("inspection_building_hazardous_material");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingLocalization", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<Guid>("IdParent")
+                        .HasColumnName("id_building");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("LanguageCode")
+                        .IsRequired()
+                        .HasColumnName("language_code")
+                        .HasMaxLength(2);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnName("name")
+                        .HasMaxLength(250);
+
+                    b.HasKey("Id")
+                        .HasName("pk_inspection_building_localization");
+
+                    b.HasIndex("IdParent");
+
+                    b.ToTable("inspection_building_localization");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingParticularRisk", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<string>("Comments")
+                        .HasColumnName("comments");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<string>("Dimension")
+                        .HasColumnName("dimension")
+                        .HasMaxLength(100);
+
+                    b.Property<bool>("HasOpening")
+                        .HasColumnName("has_opening");
+
+                    b.Property<Guid>("IdBuilding")
+                        .HasColumnName("id_building");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.Property<bool>("IsWeakened")
+                        .HasColumnName("is_weakened");
+
+                    b.Property<string>("Sector")
+                        .HasColumnName("sector")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("Wall")
+                        .HasColumnName("wall")
+                        .HasMaxLength(15);
+
+                    b.Property<int>("risk_type");
+
+                    b.HasKey("Id")
+                        .HasName("pk_inspection_building_particular_risk");
+
+                    b.HasIndex("IdBuilding");
+
+                    b.ToTable("inspection_building_particular_risk");
+
+                    b.HasDiscriminator<int>("risk_type");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingParticularRiskPicture", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<Guid>("IdBuildingParticularRisk")
+                        .HasColumnName("id_building_particular_risk");
+
+                    b.Property<Guid>("IdPicture")
+                        .HasColumnName("id_picture");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.HasKey("Id")
+                        .HasName("pk_inspection_building_particular_risk_picture");
+
+                    b.HasIndex("IdBuildingParticularRisk");
+
+                    b.HasIndex("IdPicture");
+
+                    b.ToTable("inspection_building_particular_risk_picture");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingPersonRequiringAssistance", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<string>("ContactName")
+                        .IsRequired()
+                        .HasColumnName("contact_name")
+                        .HasMaxLength(60);
+
+                    b.Property<string>("ContactPhoneNumber")
+                        .IsRequired()
+                        .HasColumnName("contact_phone_number")
+                        .HasMaxLength(10);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<bool>("DayIsApproximate")
+                        .HasColumnName("day_is_approximate");
+
+                    b.Property<int>("DayResidentCount")
+                        .HasColumnName("day_resident_count");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnName("description");
+
+                    b.Property<bool>("EveningIsApproximate")
+                        .HasColumnName("evening_is_approximate");
+
+                    b.Property<int>("EveningResidentCount")
+                        .HasColumnName("evening_resident_count");
+
+                    b.Property<string>("Floor")
+                        .IsRequired()
+                        .HasColumnName("floor")
+                        .HasMaxLength(3);
+
+                    b.Property<Guid>("IdBuilding")
+                        .HasColumnName("id_building");
+
+                    b.Property<Guid>("IdPersonRequiringAssistanceType")
+                        .HasColumnName("id_person_requiring_assistance_type");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("Local")
+                        .IsRequired()
+                        .HasColumnName("local")
+                        .HasMaxLength(10);
+
+                    b.Property<bool>("NightIsApproximate")
+                        .HasColumnName("night_is_approximate");
+
+                    b.Property<int>("NightResidentCount")
+                        .HasColumnName("night_resident_count");
+
+                    b.Property<string>("PersonName")
+                        .IsRequired()
+                        .HasColumnName("person_name")
+                        .HasMaxLength(60);
+
+                    b.HasKey("Id")
+                        .HasName("pk_inspection_building_person_requiring_assistance");
+
+                    b.HasIndex("IdBuilding");
+
+                    b.HasIndex("IdPersonRequiringAssistanceType");
+
+                    b.ToTable("inspection_building_person_requiring_assistance");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingSprinkler", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<string>("CollectorLocation")
+                        .HasColumnName("collector_location");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<string>("Floor")
+                        .HasColumnName("floor")
+                        .HasMaxLength(100);
+
+                    b.Property<Guid>("IdBuilding")
+                        .HasColumnName("id_building");
+
+                    b.Property<Guid>("IdSprinklerType")
+                        .HasColumnName("id_sprinkler_type");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("PipeLocation")
+                        .HasColumnName("pipe_location");
+
+                    b.Property<string>("Sector")
+                        .HasColumnName("sector")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Wall")
+                        .HasColumnName("wall")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id")
+                        .HasName("pk_inspection_building_sprinkler");
+
+                    b.HasIndex("IdBuilding");
+
+                    b.HasIndex("IdSprinklerType");
+
+                    b.ToTable("inspection_building_sprinkler");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionPicture", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<byte[]>("Data")
+                        .IsRequired()
+                        .HasColumnName("data");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("MimeType")
+                        .HasColumnName("mime_type");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnName("name")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("SketchJson")
+                        .HasColumnName("sketch_json")
+                        .HasColumnType("json");
+
+                    b.HasKey("Id")
+                        .HasName("pk_inspection_picture");
+
+                    b.ToTable("inspection_picture");
+                });
+
             modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.Inspection", b =>
                 {
                     b.Property<Guid>("Id")
@@ -3553,9 +4419,6 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<Guid?>("FireSafetyDepartmentId")
-                        .HasColumnName("fire_safety_department_id");
-
                     b.Property<Guid>("IdFireSafetyDepartment")
                         .HasColumnName("id_fire_safety_department");
 
@@ -3568,8 +4431,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.HasKey("Id")
                         .HasName("pk_webuser_fire_safety_department");
 
-                    b.HasIndex("FireSafetyDepartmentId")
-                        .HasName("ix_webuser_fire_safety_department_fire_safety_department_id");
+                    b.HasIndex("IdFireSafetyDepartment");
 
                     b.HasIndex("IdWebuser");
 
@@ -3802,28 +4664,28 @@ namespace Survi.Prevention.DataLayer.Migrations
                         new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721882"), Abbreviation = "G", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
                         new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721885"), Abbreviation = "L", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
                         new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721888"), Abbreviation = "", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72188b"), Abbreviation = "PSI", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72188e"), Abbreviation = "KPA", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721891"), Abbreviation = "m3/h", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721894"), Abbreviation = "mm", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721897"), Abbreviation = "po", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72189a"), Abbreviation = "m", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72189d"), Abbreviation = "pi", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a0"), Abbreviation = "m3", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a3"), Abbreviation = "po3", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a6"), Abbreviation = "ml", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a9"), Abbreviation = "pt", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ac"), Abbreviation = "t", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218af"), Abbreviation = "sh tn", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b2"), Abbreviation = "pi3", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b5"), Abbreviation = "GI", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b8"), Abbreviation = "", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218bb"), Abbreviation = "G", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218be"), Abbreviation = "g", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c1"), Abbreviation = "Kg", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c4"), Abbreviation = "L", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c7"), Abbreviation = "lb", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ca"), Abbreviation = "oz", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72188b"), Abbreviation = "PSI", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 1 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72188e"), Abbreviation = "KPA", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 1 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721891"), Abbreviation = "m3/h", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 1 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721894"), Abbreviation = "mm", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 2 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721897"), Abbreviation = "po", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 2 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72189a"), Abbreviation = "m", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 4 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72189d"), Abbreviation = "pi", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 4 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a0"), Abbreviation = "m3", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a3"), Abbreviation = "po3", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a6"), Abbreviation = "ml", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a9"), Abbreviation = "pt", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ac"), Abbreviation = "t", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218af"), Abbreviation = "sh tn", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b2"), Abbreviation = "pi3", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b5"), Abbreviation = "GI", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b8"), Abbreviation = "", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218bb"), Abbreviation = "G", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218be"), Abbreviation = "g", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c1"), Abbreviation = "Kg", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c4"), Abbreviation = "L", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c7"), Abbreviation = "lb", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ca"), Abbreviation = "oz", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 }
                     );
                 });
 
@@ -3921,42 +4783,82 @@ namespace Survi.Prevention.DataLayer.Migrations
                     );
                 });
 
-            modelBuilder.Entity("Survi.Prevention.Models.Buildings.FloorParticularRisk", b =>
+            modelBuilder.Entity("Survi.Prevention.Models.Buildings.BuildingFloorParticularRisk", b =>
                 {
-                    b.HasBaseType("Survi.Prevention.Models.Buildings.BuildingParticularRisk");
+                    b.HasBaseType("Survi.Prevention.Models.Buildings.Base.BuildingParticularRisk");
 
 
-                    b.ToTable("FloorParticularRisk");
+                    b.ToTable("BuildingFloorParticularRisk");
 
                     b.HasDiscriminator().HasValue(1);
                 });
 
-            modelBuilder.Entity("Survi.Prevention.Models.Buildings.FoundationParticularRisk", b =>
+            modelBuilder.Entity("Survi.Prevention.Models.Buildings.BuildingFoundationParticularRisk", b =>
                 {
-                    b.HasBaseType("Survi.Prevention.Models.Buildings.BuildingParticularRisk");
+                    b.HasBaseType("Survi.Prevention.Models.Buildings.Base.BuildingParticularRisk");
 
 
-                    b.ToTable("FoundationParticularRisk");
+                    b.ToTable("BuildingFoundationParticularRisk");
 
                     b.HasDiscriminator().HasValue(0);
                 });
 
-            modelBuilder.Entity("Survi.Prevention.Models.Buildings.RoofParticularRisk", b =>
+            modelBuilder.Entity("Survi.Prevention.Models.Buildings.BuildingRoofParticularRisk", b =>
                 {
-                    b.HasBaseType("Survi.Prevention.Models.Buildings.BuildingParticularRisk");
+                    b.HasBaseType("Survi.Prevention.Models.Buildings.Base.BuildingParticularRisk");
 
 
-                    b.ToTable("RoofParticularRisk");
+                    b.ToTable("BuildingRoofParticularRisk");
 
                     b.HasDiscriminator().HasValue(3);
                 });
 
-            modelBuilder.Entity("Survi.Prevention.Models.Buildings.WallParticularRisk", b =>
+            modelBuilder.Entity("Survi.Prevention.Models.Buildings.BuildingWallParticularRisk", b =>
                 {
-                    b.HasBaseType("Survi.Prevention.Models.Buildings.BuildingParticularRisk");
+                    b.HasBaseType("Survi.Prevention.Models.Buildings.Base.BuildingParticularRisk");
 
 
-                    b.ToTable("WallParticularRisk");
+                    b.ToTable("BuildingWallParticularRisk");
+
+                    b.HasDiscriminator().HasValue(2);
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingFloorParticularRisk", b =>
+                {
+                    b.HasBaseType("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingParticularRisk");
+
+
+                    b.ToTable("InspectionBuildingFloorParticularRisk");
+
+                    b.HasDiscriminator().HasValue(1);
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingFoundationParticularRisk", b =>
+                {
+                    b.HasBaseType("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingParticularRisk");
+
+
+                    b.ToTable("InspectionBuildingFoundationParticularRisk");
+
+                    b.HasDiscriminator().HasValue(0);
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingRoofParticularRisk", b =>
+                {
+                    b.HasBaseType("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingParticularRisk");
+
+
+                    b.ToTable("InspectionBuildingRoofParticularRisk");
+
+                    b.HasDiscriminator().HasValue(3);
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingWallParticularRisk", b =>
+                {
+                    b.HasBaseType("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingParticularRisk");
+
+
+                    b.ToTable("InspectionBuildingWallParticularRisk");
 
                     b.HasDiscriminator().HasValue(2);
                 });
@@ -3967,6 +4869,15 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .WithMany("Localizations")
                         .HasForeignKey("IdParent")
                         .HasConstraintName("fk_alarm_panel_type_localization_alarm_panel_type_parent_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.Buildings.Base.BuildingParticularRisk", b =>
+                {
+                    b.HasOne("Survi.Prevention.Models.Buildings.Building", "Building")
+                        .WithMany("ParticularRisks")
+                        .HasForeignKey("IdBuilding")
+                        .HasConstraintName("fk_building_particular_risk_buildings_building_id")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -4186,18 +5097,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Survi.Prevention.Models.Buildings.BuildingParticularRisk", b =>
-                {
-                    b.HasOne("Survi.Prevention.Models.Buildings.Building", "Building")
-                        .WithMany("ParticularRisks")
-                        .HasForeignKey("IdBuilding")
-                        .HasConstraintName("fk_building_particular_risk_building_building_id")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Survi.Prevention.Models.Buildings.BuildingParticularRiskPicture", b =>
                 {
-                    b.HasOne("Survi.Prevention.Models.Buildings.BuildingParticularRisk", "Risk")
+                    b.HasOne("Survi.Prevention.Models.Buildings.Base.BuildingParticularRisk", "Risk")
                         .WithMany("Pictures")
                         .HasForeignKey("IdBuildingParticularRisk")
                         .HasConstraintName("fk_building_particular_risk_picture_building_particular_risk_r~")
@@ -4642,6 +5544,282 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuilding", b =>
+                {
+                    b.HasOne("Survi.Prevention.Models.FireSafetyDepartments.City", "City")
+                        .WithMany()
+                        .HasForeignKey("IdCity")
+                        .HasConstraintName("fk_inspection_building_city_city_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.Inspection", "Inspection")
+                        .WithMany("Buildings")
+                        .HasForeignKey("IdInspection")
+                        .HasConstraintName("fk_inspection_building_inspections_inspection_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Survi.Prevention.Models.FireSafetyDepartments.Lane", "Lane")
+                        .WithMany()
+                        .HasForeignKey("IdLane")
+                        .HasConstraintName("fk_inspection_building_lane_lane_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Survi.Prevention.Models.FireSafetyDepartments.Lane", "Transversal")
+                        .WithMany()
+                        .HasForeignKey("IdLaneTransversal")
+                        .HasConstraintName("fk_inspection_building_lane_transversal_id");
+
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuilding", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("IdParentBuilding")
+                        .HasConstraintName("fk_inspection_building_inspection_building_parent_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionPicture", "Picture")
+                        .WithMany()
+                        .HasForeignKey("IdPicture")
+                        .HasConstraintName("fk_inspection_building_inspection_pictures_picture_id");
+
+                    b.HasOne("Survi.Prevention.Models.Buildings.RiskLevel", "RiskLevel")
+                        .WithMany()
+                        .HasForeignKey("IdRiskLevel")
+                        .HasConstraintName("fk_inspection_building_risk_level_risk_level_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Survi.Prevention.Models.Buildings.UtilisationCode", "UtilisationCode")
+                        .WithMany()
+                        .HasForeignKey("IdUtilisationCode")
+                        .HasConstraintName("fk_inspection_building_utilisation_code_utilisation_code_id");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingAlarmPanel", b =>
+                {
+                    b.HasOne("Survi.Prevention.Models.Buildings.AlarmPanelType", "AlarmPanelType")
+                        .WithMany()
+                        .HasForeignKey("IdAlarmPanelType")
+                        .HasConstraintName("fk_inspection_building_alarm_panel_alarm_panel_type_alarm_pane~");
+
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuilding", "Building")
+                        .WithMany("AlarmPanels")
+                        .HasForeignKey("IdBuilding")
+                        .HasConstraintName("fk_inspection_building_alarm_panel_inspection_building_buildin~")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingAnomaly", b =>
+                {
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuilding", "Building")
+                        .WithMany("Anomalies")
+                        .HasForeignKey("IdBuilding")
+                        .HasConstraintName("fk_inspection_building_anomaly_inspection_building_building_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingAnomalyPicture", b =>
+                {
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingAnomaly", "Anomaly")
+                        .WithMany("Pictures")
+                        .HasForeignKey("IdBuildingAnomaly")
+                        .HasConstraintName("fk_inspection_building_anomaly_picture_inspection_building_ano~")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionPicture", "Picture")
+                        .WithMany()
+                        .HasForeignKey("IdPicture")
+                        .HasConstraintName("fk_inspection_building_anomaly_picture_inspection_pictures_pict~")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingContact", b =>
+                {
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuilding", "Building")
+                        .WithMany("Contacts")
+                        .HasForeignKey("IdBuilding")
+                        .HasConstraintName("fk_inspection_building_contact_inspection_building_building_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingCourse", b =>
+                {
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuilding", "Building")
+                        .WithMany("Courses")
+                        .HasForeignKey("IdBuilding")
+                        .HasConstraintName("fk_inspection_building_course_inspection_building_building_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Survi.Prevention.Models.FireSafetyDepartments.Firestation", "Firestation")
+                        .WithMany()
+                        .HasForeignKey("IdFirestation")
+                        .HasConstraintName("fk_inspection_building_course_firestation_firestation_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingCourseLane", b =>
+                {
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingCourse", "Course")
+                        .WithMany("Lanes")
+                        .HasForeignKey("IdBuildingCourse")
+                        .HasConstraintName("fk_inspection_building_course_lane_inspection_building_course_~")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Survi.Prevention.Models.FireSafetyDepartments.Lane", "Lane")
+                        .WithMany()
+                        .HasForeignKey("LaneId")
+                        .HasConstraintName("fk_inspection_building_course_lane_lane_lane_id");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingDetail", b =>
+                {
+                    b.HasOne("Survi.Prevention.Models.Buildings.ConstructionFireResistanceType", "FireResistanceType")
+                        .WithMany()
+                        .HasForeignKey("FireResistanceTypeId")
+                        .HasConstraintName("fk_inspection_building_detail_construction_fire_resistance_typ~");
+
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuilding", "Building")
+                        .WithOne("Detail")
+                        .HasForeignKey("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingDetail", "IdBuilding")
+                        .HasConstraintName("fk_inspection_building_inspection_building_details_detail_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Survi.Prevention.Models.Buildings.SidingType", "SidingType")
+                        .WithMany()
+                        .HasForeignKey("IdBuildingSidingType")
+                        .HasConstraintName("fk_inspection_building_detail_siding_type_siding_type_id");
+
+                    b.HasOne("Survi.Prevention.Models.Buildings.BuildingType", "BuildingType")
+                        .WithMany()
+                        .HasForeignKey("IdBuildingType")
+                        .HasConstraintName("fk_inspection_building_detail_building_type_building_type_id");
+
+                    b.HasOne("Survi.Prevention.Models.Buildings.ConstructionType", "ConstructionType")
+                        .WithMany()
+                        .HasForeignKey("IdConstructionType")
+                        .HasConstraintName("fk_construction_type");
+
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionPicture", "PlanPicture")
+                        .WithMany()
+                        .HasForeignKey("IdPicturePlan")
+                        .HasConstraintName("fk_inspection_building_detail_inspection_pictures_plan_picture_~");
+
+                    b.HasOne("Survi.Prevention.Models.Buildings.RoofMaterialType", "RoofMaterialType")
+                        .WithMany()
+                        .HasForeignKey("IdRoofMaterialType")
+                        .HasConstraintName("fk_inspection_building_detail_roof_material_type_roof_material~");
+
+                    b.HasOne("Survi.Prevention.Models.Buildings.RoofType", "RoofType")
+                        .WithMany()
+                        .HasForeignKey("IdRoofType")
+                        .HasConstraintName("fk_inspection_building_detail_roof_type_roof_type_id");
+
+                    b.HasOne("Survi.Prevention.Models.UnitOfMeasure", "EstimatedWaterFlowUnitOfMeasure")
+                        .WithMany()
+                        .HasForeignKey("IdUnitOfMeasureEstimatedWaterFlow")
+                        .HasConstraintName("fk_unit_of_measure_ewf");
+
+                    b.HasOne("Survi.Prevention.Models.UnitOfMeasure", "HeightUnitOfMeasure")
+                        .WithMany()
+                        .HasForeignKey("IdUnitOfMeasureHeight")
+                        .HasConstraintName("fk_unit_of_measure_height");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingFireHydrant", b =>
+                {
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuilding", "Building")
+                        .WithMany("FireHydrants")
+                        .HasForeignKey("IdBuilding")
+                        .HasConstraintName("fk_inspection_building_fire_hydrant_inspection_building_buildi~")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Survi.Prevention.Models.FireHydrants.FireHydrant", "Hydrant")
+                        .WithMany()
+                        .HasForeignKey("IdFireHydrant")
+                        .HasConstraintName("fk_inspection_building_fire_hydrant_fire_hydrant_hydrant_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingHazardousMaterial", b =>
+                {
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuilding", "Building")
+                        .WithMany("HazardousMaterials")
+                        .HasForeignKey("IdBuilding")
+                        .HasConstraintName("fk_inspection_building_hazardous_material_inspection_building_~")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Survi.Prevention.Models.Buildings.HazardousMaterial", "Material")
+                        .WithMany()
+                        .HasForeignKey("IdHazardousMaterial")
+                        .HasConstraintName("fk_inspection_building_hazardous_material_hazardous_material_m~")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Survi.Prevention.Models.UnitOfMeasure", "Unit")
+                        .WithMany()
+                        .HasForeignKey("IdUnitOfMeasure")
+                        .HasConstraintName("fk_inspection_building_hazardous_material_unit_of_measures_unit_~");
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingLocalization", b =>
+                {
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuilding", "Parent")
+                        .WithMany("Localizations")
+                        .HasForeignKey("IdParent")
+                        .HasConstraintName("fk_inspection_building_localization_inspection_building_parent~")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingParticularRisk", b =>
+                {
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuilding", "Building")
+                        .WithMany("ParticularRisks")
+                        .HasForeignKey("IdBuilding")
+                        .HasConstraintName("fk_inspection_building_particular_risk_inspection_building_bui~")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingParticularRiskPicture", b =>
+                {
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingParticularRisk", "Risk")
+                        .WithMany("Pictures")
+                        .HasForeignKey("IdBuildingParticularRisk")
+                        .HasConstraintName("fk_inspection_building_particular_risk_picture_inspection_buil~")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionPicture", "Picture")
+                        .WithMany()
+                        .HasForeignKey("IdPicture")
+                        .HasConstraintName("fk_inspection_building_particular_risk_picture_inspection_pictu~")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingPersonRequiringAssistance", b =>
+                {
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuilding", "Building")
+                        .WithMany("PersonsRequiringAssistance")
+                        .HasForeignKey("IdBuilding")
+                        .HasConstraintName("fk_inspection_building_person_requiring_assistance_inspection_~")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Survi.Prevention.Models.Buildings.PersonRequiringAssistanceType", "PersonType")
+                        .WithMany()
+                        .HasForeignKey("IdPersonRequiringAssistanceType")
+                        .HasConstraintName("fk_inspection_building_person_requiring_assistance_person_requ~")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingSprinkler", b =>
+                {
+                    b.HasOne("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuilding", "Building")
+                        .WithMany("Sprinklers")
+                        .HasForeignKey("IdBuilding")
+                        .HasConstraintName("fk_inspection_building_sprinkler_inspection_building_building_~")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Survi.Prevention.Models.Buildings.SprinklerType", "SprinklerType")
+                        .WithMany()
+                        .HasForeignKey("IdSprinklerType")
+                        .HasConstraintName("fk_inspection_building_sprinkler_sprinkler_type_sprinkler_type~")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.Inspection", b =>
                 {
                     b.HasOne("Survi.Prevention.Models.InspectionManagement.Batch", "Batch")
@@ -4773,8 +5951,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                 {
                     b.HasOne("Survi.Prevention.Models.FireSafetyDepartments.FireSafetyDepartment", "FireSafetyDepartment")
                         .WithMany()
-                        .HasForeignKey("FireSafetyDepartmentId")
-                        .HasConstraintName("fk_webuser_fire_safety_department_fire_safety_department_fire_~");
+                        .HasForeignKey("IdFireSafetyDepartment")
+                        .HasConstraintName("fk_webuser_fire_safety_department_fire_safety_department_fire_~")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Survi.Prevention.Models.SecurityManagement.Webuser", "User")
                         .WithMany("FireSafetyDepartments")

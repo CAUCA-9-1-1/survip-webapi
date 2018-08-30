@@ -1,5 +1,4 @@
-using System;
-using Survi.Prevention.Models.Base;
+using Survi.Prevention.Models.Buildings.Base;
 
 namespace Survi.Prevention.Models.Buildings
 {
@@ -8,29 +7,9 @@ namespace Survi.Prevention.Models.Buildings
 		Unknown,
 		Underground,
 		Aboveground
-	} 
-	
-	public class BuildingHazardousMaterial : BaseModel
+	}
+
+	public class BuildingHazardousMaterial : BaseBuildingHazardousMaterial<Building>
 	{
-		public int Quantity { get; set; }
-		public string Container { get; set; }
-		public decimal CapacityContainer { get; set; }
-		public string Place { get; set; }
-		public string Wall { get; set; }
-		public string Sector { get; set; }
-		public string Floor { get; set; }
-		public string GasInlet { get; set; }
-		public string SecurityPerimeter { get; set; }
-		public string OtherInformation { get; set; }
-		public StorageTankType TankType { get; set; }
-		public string SupplyLine { get; set; }
-
-		public Guid IdBuilding { get; set; }
-		public Guid IdHazardousMaterial { get; set; }
-		public Guid? IdUnitOfMeasure { get; set; }
-
-		public Building Building { get; set; }
-		public HazardousMaterial Material { get; set; }
-		public UnitOfMeasure Unit { get; set; }
 	}
 }

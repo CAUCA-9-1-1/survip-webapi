@@ -1,14 +1,9 @@
-﻿using System;
-using Survi.Prevention.Models.Base;
+﻿using Survi.Prevention.Models.Buildings.Base;
 
 namespace Survi.Prevention.Models.Buildings
 {
-	public class BuildingParticularRiskPicture : BaseModel
+	public class BuildingParticularRiskPicture : BaseBuildingParticularRiskPicture<Picture>
 	{
-		public Guid IdBuildingParticularRisk { get; set; }
-		public Guid IdPicture { get; set; }
-
 		public BuildingParticularRisk Risk { get; set; }		
-		public Picture Picture { get; set; }
 	}
 }

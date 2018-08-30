@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
@@ -40,19 +41,19 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 
 		[HttpPost, Route("courselane")]
-		public ActionResult SaveCourseLane([FromBody] BuildingCourseLane courseLane)
+		public ActionResult SaveCourseLane([FromBody] InspectionBuildingCourseLane courseLane)
 		{
 			return Ok(service.AddOrUpdate(courseLane));
 		}
 
 		[HttpPost, Route("course")]
-		public ActionResult SaveCourse([FromBody]BuildingCourse course)
+		public ActionResult SaveCourse([FromBody]InspectionBuildingCourse course)
 		{
 			return Ok(service.AddOrUpdate(course));
 		}
 		
 		[HttpPost, Route("listcourse")]
-		public ActionResult SaveCompleteCourses([FromBody]BuildingCourse course)
+		public ActionResult SaveCompleteCourses([FromBody]InspectionBuildingCourse course)
 		{
 			return Ok(service.SaveCompleteCourses(course));
 		}
@@ -60,7 +61,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpDelete, Route("course/{idCourse:Guid}")]
 		public ActionResult DeleteCoures(Guid idCourse)
 		{
-			return Ok(service.Delete<BuildingCourse>(idCourse));
+			return Ok(service.Delete<InspectionBuildingCourse>(idCourse));
 		}
 
 		[HttpPost, Route("courselane/{idCourseLane:Guid}/sequence/{sequence}")]
@@ -72,7 +73,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpDelete, Route("courselane/{idCourseLane:Guid}")]
 		public ActionResult DeleteCourseLane(Guid idCourseLane)
 		{
-			return Ok(service.Delete<BuildingCourseLane>(idCourseLane));
+			return Ok(service.Delete<InspectionBuildingCourseLane>(idCourseLane));
 		}
 	}
 }

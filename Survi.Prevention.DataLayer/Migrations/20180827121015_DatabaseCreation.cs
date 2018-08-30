@@ -152,6 +152,23 @@ namespace Survi.Prevention.DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "inspection_picture",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(nullable: false),
+                    created_on = table.Column<DateTime>(nullable: false),
+                    is_active = table.Column<bool>(nullable: false),
+                    name = table.Column<string>(maxLength: 100, nullable: false),
+                    mime_type = table.Column<string>(nullable: true),
+                    data = table.Column<byte[]>(nullable: false),
+                    sketch_json = table.Column<string>(type: "json", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inspection_picture", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "lane_generic_code",
                 columns: table => new
                 {
@@ -1392,18 +1409,17 @@ namespace Survi.Prevention.DataLayer.Migrations
                     created_on = table.Column<DateTime>(nullable: false),
                     is_active = table.Column<bool>(nullable: false),
                     id_webuser = table.Column<Guid>(nullable: false),
-                    id_fire_safety_department = table.Column<Guid>(nullable: false),
-                    fire_safety_department_id = table.Column<Guid>(nullable: true)
+                    id_fire_safety_department = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_webuser_fire_safety_department", x => x.id);
                     table.ForeignKey(
                         name: "fk_webuser_fire_safety_department_fire_safety_department_fire_~",
-                        column: x => x.fire_safety_department_id,
+                        column: x => x.id_fire_safety_department,
                         principalTable: "fire_safety_department",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_webuser_fire_safety_department_webuser_user_id",
                         column: x => x.id_webuser,
@@ -1419,35 +1435,35 @@ namespace Survi.Prevention.DataLayer.Migrations
                     id = table.Column<Guid>(nullable: false),
                     created_on = table.Column<DateTime>(nullable: false),
                     is_active = table.Column<bool>(nullable: false),
+                    building_value = table.Column<decimal>(nullable: false),
+                    child_type = table.Column<int>(nullable: false),
+                    id_city = table.Column<Guid>(nullable: false),
+                    id_lane = table.Column<Guid>(nullable: false),
+                    id_lane_transversal = table.Column<Guid>(nullable: true),
+                    id_parent_building = table.Column<Guid>(nullable: true),
+                    id_picture = table.Column<Guid>(nullable: true),
+                    id_risk_level = table.Column<Guid>(nullable: false),
+                    id_utilisation_code = table.Column<Guid>(nullable: true),
+                    number_of_appartment = table.Column<int>(nullable: false),
+                    number_of_building = table.Column<int>(nullable: false),
+                    number_of_floor = table.Column<int>(nullable: false),
+                    coordinates = table.Column<Point>(type: "geometry", nullable: true),
+                    show_in_resources = table.Column<bool>(nullable: false),
+                    suite = table.Column<int>(nullable: false),
+                    vacant_land = table.Column<bool>(nullable: false),
+                    year_of_construction = table.Column<int>(nullable: false),
                     civic_number = table.Column<string>(maxLength: 15, nullable: false),
                     civic_letter = table.Column<string>(maxLength: 10, nullable: false),
                     civic_supp = table.Column<string>(maxLength: 10, nullable: false),
                     civic_letter_supp = table.Column<string>(maxLength: 10, nullable: false),
                     appartment_number = table.Column<string>(maxLength: 10, nullable: false),
                     floor = table.Column<string>(maxLength: 10, nullable: false),
-                    number_of_floor = table.Column<int>(nullable: false),
-                    number_of_appartment = table.Column<int>(nullable: false),
-                    number_of_building = table.Column<int>(nullable: false),
-                    vacant_land = table.Column<bool>(nullable: false),
-                    year_of_construction = table.Column<int>(nullable: false),
-                    building_value = table.Column<decimal>(nullable: false),
                     postal_code = table.Column<string>(maxLength: 6, nullable: false),
-                    suite = table.Column<int>(nullable: false),
                     source = table.Column<string>(maxLength: 25, nullable: false),
                     utilisation_description = table.Column<string>(maxLength: 255, nullable: false),
-                    show_in_resources = table.Column<bool>(nullable: false),
                     matricule = table.Column<string>(maxLength: 18, nullable: false),
-                    coordinates = table.Column<Point>(type: "geography", nullable: true),
                     coordinates_source = table.Column<string>(maxLength: 50, nullable: false),
-                    details = table.Column<string>(nullable: false),
-                    child_type = table.Column<int>(nullable: false),
-                    id_city = table.Column<Guid>(nullable: false),
-                    id_lane = table.Column<Guid>(nullable: false),
-                    id_lane_transversal = table.Column<Guid>(nullable: true),
-                    id_utilisation_code = table.Column<Guid>(nullable: true),
-                    id_risk_level = table.Column<Guid>(nullable: false),
-                    id_parent_building = table.Column<Guid>(nullable: true),
-                    id_picture = table.Column<Guid>(nullable: true)
+                    details = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1504,7 +1520,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     created_on = table.Column<DateTime>(nullable: false),
                     is_active = table.Column<bool>(nullable: false),
                     location_type = table.Column<int>(nullable: false),
-                    coordinates = table.Column<Point>(type: "geography", nullable: true),
+                    coordinates = table.Column<Point>(type: "geometry", nullable: true),
                     altitude = table.Column<decimal>(nullable: false),
                     number = table.Column<string>(maxLength: 10, nullable: false),
                     rate_from = table.Column<string>(maxLength: 5, nullable: false),
@@ -1513,7 +1529,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                     pressure_to = table.Column<string>(maxLength: 5, nullable: false),
                     color = table.Column<string>(maxLength: 50, nullable: false),
                     comments = table.Column<string>(nullable: true),
-                    physical_position = table.Column<string>(maxLength: 50, nullable: true),
+                    physical_position = table.Column<string>(maxLength: 200, nullable: true),
+                    civic_number = table.Column<string>(maxLength: 5, nullable: true),
+                    address_location_type = table.Column<int>(nullable: false),
                     id_city = table.Column<Guid>(nullable: false),
                     id_lane = table.Column<Guid>(nullable: true),
                     id_intersection = table.Column<Guid>(nullable: true),
@@ -1605,11 +1623,11 @@ namespace Survi.Prevention.DataLayer.Migrations
                     id = table.Column<Guid>(nullable: false),
                     created_on = table.Column<DateTime>(nullable: false),
                     is_active = table.Column<bool>(nullable: false),
+                    id_alarm_panel_type = table.Column<Guid>(nullable: true),
+                    id_building = table.Column<Guid>(nullable: false),
                     floor = table.Column<string>(maxLength: 100, nullable: true),
                     wall = table.Column<string>(maxLength: 100, nullable: true),
-                    sector = table.Column<string>(maxLength: 100, nullable: true),
-                    id_alarm_panel_type = table.Column<Guid>(nullable: true),
-                    id_building = table.Column<Guid>(nullable: false)
+                    sector = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1635,9 +1653,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                     id = table.Column<Guid>(nullable: false),
                     created_on = table.Column<DateTime>(nullable: false),
                     is_active = table.Column<bool>(nullable: false),
+                    id_building = table.Column<Guid>(nullable: false),
                     theme = table.Column<string>(maxLength: 50, nullable: false),
-                    notes = table.Column<string>(nullable: true),
-                    id_building = table.Column<Guid>(nullable: false)
+                    notes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1657,18 +1675,18 @@ namespace Survi.Prevention.DataLayer.Migrations
                     id = table.Column<Guid>(nullable: false),
                     created_on = table.Column<DateTime>(nullable: false),
                     is_active = table.Column<bool>(nullable: false),
+                    call_priority = table.Column<int>(nullable: false),
+                    id_building = table.Column<Guid>(nullable: false),
+                    is_owner = table.Column<bool>(nullable: false),
                     first_name = table.Column<string>(maxLength: 30, nullable: false),
                     last_name = table.Column<string>(maxLength: 30, nullable: false),
-                    call_priority = table.Column<int>(nullable: false),
                     phone_number = table.Column<string>(maxLength: 10, nullable: false),
                     phone_number_extension = table.Column<string>(maxLength: 10, nullable: false),
                     pager_number = table.Column<string>(maxLength: 10, nullable: false),
                     pager_code = table.Column<string>(maxLength: 10, nullable: false),
                     cellphone_number = table.Column<string>(maxLength: 10, nullable: false),
                     other_number = table.Column<string>(maxLength: 10, nullable: false),
-                    other_number_extension = table.Column<string>(maxLength: 10, nullable: false),
-                    is_owner = table.Column<bool>(nullable: false),
-                    id_building = table.Column<Guid>(nullable: false)
+                    other_number_extension = table.Column<string>(maxLength: 10, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1688,23 +1706,23 @@ namespace Survi.Prevention.DataLayer.Migrations
                     id = table.Column<Guid>(nullable: false),
                     created_on = table.Column<DateTime>(nullable: false),
                     is_active = table.Column<bool>(nullable: false),
-                    additional_information = table.Column<string>(nullable: false),
-                    height = table.Column<decimal>(nullable: false),
-                    estimated_water_flow = table.Column<int>(nullable: false),
-                    garage_type = table.Column<int>(nullable: false),
-                    revised_on = table.Column<DateTime>(nullable: true),
                     approved_on = table.Column<DateTime>(nullable: true),
+                    estimated_water_flow = table.Column<int>(nullable: false),
+                    fire_resistance_type_id = table.Column<Guid>(nullable: true),
+                    garage_type = table.Column<int>(nullable: false),
+                    height = table.Column<decimal>(nullable: false),
                     id_building = table.Column<Guid>(nullable: false),
-                    id_unit_of_measure_height = table.Column<Guid>(nullable: true),
-                    id_unit_of_measure_estimated_water_flow = table.Column<Guid>(nullable: true),
-                    id_construction_type = table.Column<Guid>(nullable: true),
-                    id_construction_fire_resistance_type = table.Column<Guid>(nullable: true),
-                    id_picture_plan = table.Column<Guid>(nullable: true),
-                    id_roof_type = table.Column<Guid>(nullable: true),
-                    id_roof_material_type = table.Column<Guid>(nullable: true),
-                    id_building_type = table.Column<Guid>(nullable: true),
                     id_building_siding_type = table.Column<Guid>(nullable: true),
-                    fire_resistance_type_id = table.Column<Guid>(nullable: true)
+                    id_building_type = table.Column<Guid>(nullable: true),
+                    id_construction_fire_resistance_type = table.Column<Guid>(nullable: true),
+                    id_construction_type = table.Column<Guid>(nullable: true),
+                    id_picture_plan = table.Column<Guid>(nullable: true),
+                    id_roof_material_type = table.Column<Guid>(nullable: true),
+                    id_roof_type = table.Column<Guid>(nullable: true),
+                    id_unit_of_measure_estimated_water_flow = table.Column<Guid>(nullable: true),
+                    id_unit_of_measure_height = table.Column<Guid>(nullable: true),
+                    revised_on = table.Column<DateTime>(nullable: true),
+                    additional_information = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1778,9 +1796,13 @@ namespace Survi.Prevention.DataLayer.Migrations
                     id = table.Column<Guid>(nullable: false),
                     created_on = table.Column<DateTime>(nullable: false),
                     is_active = table.Column<bool>(nullable: false),
-                    quantity = table.Column<int>(nullable: false),
-                    container = table.Column<string>(maxLength: 100, nullable: false),
                     capacity_container = table.Column<decimal>(nullable: false),
+                    id_building = table.Column<Guid>(nullable: false),
+                    id_hazardous_material = table.Column<Guid>(nullable: false),
+                    id_unit_of_measure = table.Column<Guid>(nullable: true),
+                    quantity = table.Column<int>(nullable: false),
+                    tank_type = table.Column<int>(nullable: false),
+                    container = table.Column<string>(maxLength: 100, nullable: false),
                     place = table.Column<string>(maxLength: 150, nullable: false),
                     wall = table.Column<string>(maxLength: 15, nullable: false),
                     sector = table.Column<string>(maxLength: 15, nullable: false),
@@ -1788,11 +1810,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     gas_inlet = table.Column<string>(maxLength: 100, nullable: false),
                     security_perimeter = table.Column<string>(nullable: false),
                     other_information = table.Column<string>(nullable: false),
-                    tank_type = table.Column<int>(nullable: false),
-                    supply_line = table.Column<string>(maxLength: 50, nullable: false),
-                    id_building = table.Column<Guid>(nullable: false),
-                    id_hazardous_material = table.Column<Guid>(nullable: false),
-                    id_unit_of_measure = table.Column<Guid>(nullable: true)
+                    supply_line = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1846,9 +1864,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                     id = table.Column<Guid>(nullable: false),
                     created_on = table.Column<DateTime>(nullable: false),
                     is_active = table.Column<bool>(nullable: false),
+                    has_opening = table.Column<bool>(nullable: false),
                     id_building = table.Column<Guid>(nullable: false),
                     is_weakened = table.Column<bool>(nullable: false),
-                    has_opening = table.Column<bool>(nullable: false),
                     comments = table.Column<string>(nullable: true),
                     wall = table.Column<string>(maxLength: 15, nullable: true),
                     sector = table.Column<string>(maxLength: 15, nullable: true),
@@ -1859,7 +1877,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                 {
                     table.PrimaryKey("pk_building_particular_risk", x => x.id);
                     table.ForeignKey(
-                        name: "fk_building_particular_risk_building_building_id",
+                        name: "fk_building_particular_risk_buildings_building_id",
                         column: x => x.id_building,
                         principalTable: "building",
                         principalColumn: "id",
@@ -1873,20 +1891,20 @@ namespace Survi.Prevention.DataLayer.Migrations
                     id = table.Column<Guid>(nullable: false),
                     created_on = table.Column<DateTime>(nullable: false),
                     is_active = table.Column<bool>(nullable: false),
-                    day_resident_count = table.Column<int>(nullable: false),
-                    evening_resident_count = table.Column<int>(nullable: false),
-                    night_resident_count = table.Column<int>(nullable: false),
                     day_is_approximate = table.Column<bool>(nullable: false),
+                    day_resident_count = table.Column<int>(nullable: false),
                     evening_is_approximate = table.Column<bool>(nullable: false),
+                    evening_resident_count = table.Column<int>(nullable: false),
+                    id_building = table.Column<Guid>(nullable: false),
+                    id_person_requiring_assistance_type = table.Column<Guid>(nullable: false),
                     night_is_approximate = table.Column<bool>(nullable: false),
+                    night_resident_count = table.Column<int>(nullable: false),
                     description = table.Column<string>(nullable: false),
                     person_name = table.Column<string>(maxLength: 60, nullable: false),
                     floor = table.Column<string>(maxLength: 3, nullable: false),
                     local = table.Column<string>(maxLength: 10, nullable: false),
                     contact_name = table.Column<string>(maxLength: 60, nullable: false),
-                    contact_phone_number = table.Column<string>(maxLength: 10, nullable: false),
-                    id_building = table.Column<Guid>(nullable: false),
-                    id_person_requiring_assistance_type = table.Column<Guid>(nullable: false)
+                    contact_phone_number = table.Column<string>(maxLength: 10, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1912,13 +1930,13 @@ namespace Survi.Prevention.DataLayer.Migrations
                     id = table.Column<Guid>(nullable: false),
                     created_on = table.Column<DateTime>(nullable: false),
                     is_active = table.Column<bool>(nullable: false),
+                    id_building = table.Column<Guid>(nullable: false),
+                    id_sprinkler_type = table.Column<Guid>(nullable: false),
                     floor = table.Column<string>(maxLength: 100, nullable: true),
                     wall = table.Column<string>(maxLength: 100, nullable: true),
                     sector = table.Column<string>(maxLength: 100, nullable: true),
                     pipe_location = table.Column<string>(nullable: true),
-                    collector_location = table.Column<string>(nullable: true),
-                    id_building = table.Column<Guid>(nullable: false),
-                    id_sprinkler_type = table.Column<Guid>(nullable: false)
+                    collector_location = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2092,8 +2110,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     id = table.Column<Guid>(nullable: false),
                     created_on = table.Column<DateTime>(nullable: false),
                     is_active = table.Column<bool>(nullable: false),
-                    id_picture = table.Column<Guid>(nullable: false),
-                    id_building_anomaly = table.Column<Guid>(nullable: false)
+                    id_building_anomaly = table.Column<Guid>(nullable: false),
+                    id_picture = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -2164,6 +2182,97 @@ namespace Survi.Prevention.DataLayer.Migrations
                         principalTable: "firestation",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "inspection_building",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(nullable: false),
+                    created_on = table.Column<DateTime>(nullable: false),
+                    is_active = table.Column<bool>(nullable: false),
+                    building_value = table.Column<decimal>(nullable: false),
+                    child_type = table.Column<int>(nullable: false),
+                    id_city = table.Column<Guid>(nullable: false),
+                    id_lane = table.Column<Guid>(nullable: false),
+                    id_lane_transversal = table.Column<Guid>(nullable: true),
+                    id_parent_building = table.Column<Guid>(nullable: true),
+                    id_picture = table.Column<Guid>(nullable: true),
+                    id_risk_level = table.Column<Guid>(nullable: false),
+                    id_utilisation_code = table.Column<Guid>(nullable: true),
+                    number_of_appartment = table.Column<int>(nullable: false),
+                    number_of_building = table.Column<int>(nullable: false),
+                    number_of_floor = table.Column<int>(nullable: false),
+                    coordinates = table.Column<Point>(type: "geometry", nullable: true),
+                    show_in_resources = table.Column<bool>(nullable: false),
+                    suite = table.Column<int>(nullable: false),
+                    vacant_land = table.Column<bool>(nullable: false),
+                    year_of_construction = table.Column<int>(nullable: false),
+                    civic_number = table.Column<string>(maxLength: 15, nullable: false),
+                    civic_letter = table.Column<string>(maxLength: 10, nullable: false),
+                    civic_supp = table.Column<string>(maxLength: 10, nullable: false),
+                    civic_letter_supp = table.Column<string>(maxLength: 10, nullable: false),
+                    appartment_number = table.Column<string>(maxLength: 10, nullable: false),
+                    floor = table.Column<string>(maxLength: 10, nullable: false),
+                    postal_code = table.Column<string>(maxLength: 6, nullable: false),
+                    source = table.Column<string>(maxLength: 25, nullable: false),
+                    utilisation_description = table.Column<string>(maxLength: 255, nullable: false),
+                    matricule = table.Column<string>(maxLength: 18, nullable: false),
+                    coordinates_source = table.Column<string>(maxLength: 50, nullable: false),
+                    details = table.Column<string>(nullable: false),
+                    id_inspection = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inspection_building", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_city_city_id",
+                        column: x => x.id_city,
+                        principalTable: "city",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_inspections_inspection_id",
+                        column: x => x.id_inspection,
+                        principalTable: "inspection",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_lane_lane_id",
+                        column: x => x.id_lane,
+                        principalTable: "lane",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_lane_transversal_id",
+                        column: x => x.id_lane_transversal,
+                        principalTable: "lane",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_inspection_building_parent_id",
+                        column: x => x.id_parent_building,
+                        principalTable: "inspection_building",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_inspection_pictures_picture_id",
+                        column: x => x.id_picture,
+                        principalTable: "inspection_picture",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_risk_level_risk_level_id",
+                        column: x => x.id_risk_level,
+                        principalTable: "risk_level",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_utilisation_code_utilisation_code_id",
+                        column: x => x.id_utilisation_code,
+                        principalTable: "utilisation_code",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -2246,9 +2355,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                     id = table.Column<Guid>(nullable: false),
                     created_on = table.Column<DateTime>(nullable: false),
                     is_active = table.Column<bool>(nullable: false),
-                    id_lane = table.Column<Guid>(nullable: false),
-                    id_building_course = table.Column<Guid>(nullable: false),
                     direction = table.Column<int>(nullable: false),
+                    id_building_course = table.Column<Guid>(nullable: false),
+                    id_lane = table.Column<Guid>(nullable: false),
                     sequence = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -2264,6 +2373,484 @@ namespace Survi.Prevention.DataLayer.Migrations
                         name: "fk_building_course_lane_lanes_lane_id",
                         column: x => x.id_lane,
                         principalTable: "lane",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "inspection_building_alarm_panel",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(nullable: false),
+                    created_on = table.Column<DateTime>(nullable: false),
+                    is_active = table.Column<bool>(nullable: false),
+                    id_alarm_panel_type = table.Column<Guid>(nullable: true),
+                    id_building = table.Column<Guid>(nullable: false),
+                    floor = table.Column<string>(maxLength: 100, nullable: true),
+                    wall = table.Column<string>(maxLength: 100, nullable: true),
+                    sector = table.Column<string>(maxLength: 100, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inspection_building_alarm_panel", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_alarm_panel_alarm_panel_type_alarm_pane~",
+                        column: x => x.id_alarm_panel_type,
+                        principalTable: "alarm_panel_type",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_alarm_panel_inspection_building_buildin~",
+                        column: x => x.id_building,
+                        principalTable: "inspection_building",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "inspection_building_anomaly",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(nullable: false),
+                    created_on = table.Column<DateTime>(nullable: false),
+                    is_active = table.Column<bool>(nullable: false),
+                    id_building = table.Column<Guid>(nullable: false),
+                    theme = table.Column<string>(maxLength: 50, nullable: false),
+                    notes = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inspection_building_anomaly", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_anomaly_inspection_building_building_id",
+                        column: x => x.id_building,
+                        principalTable: "inspection_building",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "inspection_building_contact",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(nullable: false),
+                    created_on = table.Column<DateTime>(nullable: false),
+                    is_active = table.Column<bool>(nullable: false),
+                    call_priority = table.Column<int>(nullable: false),
+                    id_building = table.Column<Guid>(nullable: false),
+                    is_owner = table.Column<bool>(nullable: false),
+                    first_name = table.Column<string>(maxLength: 30, nullable: false),
+                    last_name = table.Column<string>(maxLength: 30, nullable: false),
+                    phone_number = table.Column<string>(maxLength: 10, nullable: false),
+                    phone_number_extension = table.Column<string>(maxLength: 10, nullable: false),
+                    pager_number = table.Column<string>(maxLength: 10, nullable: false),
+                    pager_code = table.Column<string>(maxLength: 10, nullable: false),
+                    cellphone_number = table.Column<string>(maxLength: 10, nullable: false),
+                    other_number = table.Column<string>(maxLength: 10, nullable: false),
+                    other_number_extension = table.Column<string>(maxLength: 10, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inspection_building_contact", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_contact_inspection_building_building_id",
+                        column: x => x.id_building,
+                        principalTable: "inspection_building",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "inspection_building_course",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(nullable: false),
+                    created_on = table.Column<DateTime>(nullable: false),
+                    is_active = table.Column<bool>(nullable: false),
+                    id_building = table.Column<Guid>(nullable: false),
+                    id_firestation = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inspection_building_course", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_course_inspection_building_building_id",
+                        column: x => x.id_building,
+                        principalTable: "inspection_building",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_course_firestation_firestation_id",
+                        column: x => x.id_firestation,
+                        principalTable: "firestation",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "inspection_building_detail",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(nullable: false),
+                    created_on = table.Column<DateTime>(nullable: false),
+                    is_active = table.Column<bool>(nullable: false),
+                    approved_on = table.Column<DateTime>(nullable: true),
+                    estimated_water_flow = table.Column<int>(nullable: false),
+                    fire_resistance_type_id = table.Column<Guid>(nullable: true),
+                    garage_type = table.Column<int>(nullable: false),
+                    height = table.Column<decimal>(nullable: false),
+                    id_building = table.Column<Guid>(nullable: false),
+                    id_building_siding_type = table.Column<Guid>(nullable: true),
+                    id_building_type = table.Column<Guid>(nullable: true),
+                    id_construction_fire_resistance_type = table.Column<Guid>(nullable: true),
+                    id_construction_type = table.Column<Guid>(nullable: true),
+                    id_picture_plan = table.Column<Guid>(nullable: true),
+                    id_roof_material_type = table.Column<Guid>(nullable: true),
+                    id_roof_type = table.Column<Guid>(nullable: true),
+                    id_unit_of_measure_estimated_water_flow = table.Column<Guid>(nullable: true),
+                    id_unit_of_measure_height = table.Column<Guid>(nullable: true),
+                    revised_on = table.Column<DateTime>(nullable: true),
+                    additional_information = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inspection_building_detail", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_detail_construction_fire_resistance_typ~",
+                        column: x => x.fire_resistance_type_id,
+                        principalTable: "construction_fire_resistance_type",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_inspection_building_details_detail_id",
+                        column: x => x.id_building,
+                        principalTable: "inspection_building",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_detail_siding_type_siding_type_id",
+                        column: x => x.id_building_siding_type,
+                        principalTable: "siding_type",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_detail_building_type_building_type_id",
+                        column: x => x.id_building_type,
+                        principalTable: "building_type",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_construction_type",
+                        column: x => x.id_construction_type,
+                        principalTable: "construction_type",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_detail_inspection_pictures_plan_picture_~",
+                        column: x => x.id_picture_plan,
+                        principalTable: "inspection_picture",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_detail_roof_material_type_roof_material~",
+                        column: x => x.id_roof_material_type,
+                        principalTable: "roof_material_type",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_detail_roof_type_roof_type_id",
+                        column: x => x.id_roof_type,
+                        principalTable: "roof_type",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_unit_of_measure_ewf",
+                        column: x => x.id_unit_of_measure_estimated_water_flow,
+                        principalTable: "unit_of_measure",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_unit_of_measure_height",
+                        column: x => x.id_unit_of_measure_height,
+                        principalTable: "unit_of_measure",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "inspection_building_fire_hydrant",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(nullable: false),
+                    created_on = table.Column<DateTime>(nullable: false),
+                    is_active = table.Column<bool>(nullable: false),
+                    deleted_on = table.Column<DateTime>(nullable: true),
+                    id_building = table.Column<Guid>(nullable: false),
+                    id_fire_hydrant = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inspection_building_fire_hydrant", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_fire_hydrant_inspection_building_buildi~",
+                        column: x => x.id_building,
+                        principalTable: "inspection_building",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_fire_hydrant_fire_hydrant_hydrant_id",
+                        column: x => x.id_fire_hydrant,
+                        principalTable: "fire_hydrant",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "inspection_building_hazardous_material",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(nullable: false),
+                    created_on = table.Column<DateTime>(nullable: false),
+                    is_active = table.Column<bool>(nullable: false),
+                    capacity_container = table.Column<decimal>(nullable: false),
+                    id_building = table.Column<Guid>(nullable: false),
+                    id_hazardous_material = table.Column<Guid>(nullable: false),
+                    id_unit_of_measure = table.Column<Guid>(nullable: true),
+                    quantity = table.Column<int>(nullable: false),
+                    tank_type = table.Column<int>(nullable: false),
+                    container = table.Column<string>(maxLength: 100, nullable: false),
+                    place = table.Column<string>(maxLength: 150, nullable: false),
+                    wall = table.Column<string>(maxLength: 15, nullable: false),
+                    sector = table.Column<string>(maxLength: 15, nullable: false),
+                    floor = table.Column<string>(maxLength: 4, nullable: false),
+                    gas_inlet = table.Column<string>(maxLength: 100, nullable: false),
+                    security_perimeter = table.Column<string>(nullable: false),
+                    other_information = table.Column<string>(nullable: false),
+                    supply_line = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inspection_building_hazardous_material", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_hazardous_material_inspection_building_~",
+                        column: x => x.id_building,
+                        principalTable: "inspection_building",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_hazardous_material_hazardous_material_m~",
+                        column: x => x.id_hazardous_material,
+                        principalTable: "hazardous_material",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_hazardous_material_unit_of_measures_unit_~",
+                        column: x => x.id_unit_of_measure,
+                        principalTable: "unit_of_measure",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "inspection_building_localization",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(nullable: false),
+                    created_on = table.Column<DateTime>(nullable: false),
+                    is_active = table.Column<bool>(nullable: false),
+                    id_building = table.Column<Guid>(nullable: false),
+                    language_code = table.Column<string>(maxLength: 2, nullable: false),
+                    name = table.Column<string>(maxLength: 250, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inspection_building_localization", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_localization_inspection_building_parent~",
+                        column: x => x.id_building,
+                        principalTable: "inspection_building",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "inspection_building_particular_risk",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(nullable: false),
+                    created_on = table.Column<DateTime>(nullable: false),
+                    is_active = table.Column<bool>(nullable: false),
+                    has_opening = table.Column<bool>(nullable: false),
+                    id_building = table.Column<Guid>(nullable: false),
+                    is_weakened = table.Column<bool>(nullable: false),
+                    comments = table.Column<string>(nullable: true),
+                    wall = table.Column<string>(maxLength: 15, nullable: true),
+                    sector = table.Column<string>(maxLength: 15, nullable: true),
+                    dimension = table.Column<string>(maxLength: 100, nullable: true),
+                    risk_type = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inspection_building_particular_risk", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_particular_risk_inspection_building_bui~",
+                        column: x => x.id_building,
+                        principalTable: "inspection_building",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "inspection_building_person_requiring_assistance",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(nullable: false),
+                    created_on = table.Column<DateTime>(nullable: false),
+                    is_active = table.Column<bool>(nullable: false),
+                    day_is_approximate = table.Column<bool>(nullable: false),
+                    day_resident_count = table.Column<int>(nullable: false),
+                    evening_is_approximate = table.Column<bool>(nullable: false),
+                    evening_resident_count = table.Column<int>(nullable: false),
+                    id_building = table.Column<Guid>(nullable: false),
+                    id_person_requiring_assistance_type = table.Column<Guid>(nullable: false),
+                    night_is_approximate = table.Column<bool>(nullable: false),
+                    night_resident_count = table.Column<int>(nullable: false),
+                    description = table.Column<string>(nullable: false),
+                    person_name = table.Column<string>(maxLength: 60, nullable: false),
+                    floor = table.Column<string>(maxLength: 3, nullable: false),
+                    local = table.Column<string>(maxLength: 10, nullable: false),
+                    contact_name = table.Column<string>(maxLength: 60, nullable: false),
+                    contact_phone_number = table.Column<string>(maxLength: 10, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inspection_building_person_requiring_assistance", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_person_requiring_assistance_inspection_~",
+                        column: x => x.id_building,
+                        principalTable: "inspection_building",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_person_requiring_assistance_person_requ~",
+                        column: x => x.id_person_requiring_assistance_type,
+                        principalTable: "person_requiring_assistance_type",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "inspection_building_sprinkler",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(nullable: false),
+                    created_on = table.Column<DateTime>(nullable: false),
+                    is_active = table.Column<bool>(nullable: false),
+                    id_building = table.Column<Guid>(nullable: false),
+                    id_sprinkler_type = table.Column<Guid>(nullable: false),
+                    floor = table.Column<string>(maxLength: 100, nullable: true),
+                    wall = table.Column<string>(maxLength: 100, nullable: true),
+                    sector = table.Column<string>(maxLength: 100, nullable: true),
+                    pipe_location = table.Column<string>(nullable: true),
+                    collector_location = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inspection_building_sprinkler", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_sprinkler_inspection_building_building_~",
+                        column: x => x.id_building,
+                        principalTable: "inspection_building",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_sprinkler_sprinkler_type_sprinkler_type~",
+                        column: x => x.id_sprinkler_type,
+                        principalTable: "sprinkler_type",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "inspection_building_anomaly_picture",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(nullable: false),
+                    created_on = table.Column<DateTime>(nullable: false),
+                    is_active = table.Column<bool>(nullable: false),
+                    id_building_anomaly = table.Column<Guid>(nullable: false),
+                    id_picture = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inspection_building_anomaly_picture", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_anomaly_picture_inspection_building_ano~",
+                        column: x => x.id_building_anomaly,
+                        principalTable: "inspection_building_anomaly",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_anomaly_picture_inspection_pictures_pict~",
+                        column: x => x.id_picture,
+                        principalTable: "inspection_picture",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "inspection_building_course_lane",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(nullable: false),
+                    created_on = table.Column<DateTime>(nullable: false),
+                    is_active = table.Column<bool>(nullable: false),
+                    direction = table.Column<int>(nullable: false),
+                    id_building_course = table.Column<Guid>(nullable: false),
+                    id_lane = table.Column<Guid>(nullable: false),
+                    lane_id = table.Column<Guid>(nullable: true),
+                    sequence = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inspection_building_course_lane", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_course_lane_inspection_building_course_~",
+                        column: x => x.id_building_course,
+                        principalTable: "inspection_building_course",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_course_lane_lane_lane_id",
+                        column: x => x.lane_id,
+                        principalTable: "lane",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "inspection_building_particular_risk_picture",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(nullable: false),
+                    created_on = table.Column<DateTime>(nullable: false),
+                    is_active = table.Column<bool>(nullable: false),
+                    id_building_particular_risk = table.Column<Guid>(nullable: false),
+                    id_picture = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inspection_building_particular_risk_picture", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_particular_risk_picture_inspection_buil~",
+                        column: x => x.id_building_particular_risk,
+                        principalTable: "inspection_building_particular_risk",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_inspection_building_particular_risk_picture_inspection_pictu~",
+                        column: x => x.id_picture,
+                        principalTable: "inspection_picture",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -2584,26 +3171,26 @@ namespace Survi.Prevention.DataLayer.Migrations
                 columns: new[] { "id", "abbreviation", "created_on", "is_active", "measure_type" },
                 values: new object[,]
                 {
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218af"), "sh tn", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a3"), "po3", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a6"), "ml", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a9"), "pt", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ac"), "t", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b2"), "pi3", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c4"), "L", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b8"), "", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218bb"), "G", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218be"), "g", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c1"), "Kg", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a0"), "m3", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b5"), "GI", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72189d"), "pi", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c7"), "lb", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721897"), "po", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721894"), "mm", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721891"), "m3/h", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72188e"), "KPA", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72188b"), "PSI", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218af"), "sh tn", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 3 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a3"), "po3", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 3 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a6"), "ml", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 3 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a9"), "pt", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 3 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ac"), "t", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 3 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b2"), "pi3", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 3 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c4"), "L", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 3 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b8"), "", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 3 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218bb"), "G", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 3 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218be"), "g", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 3 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c1"), "Kg", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 3 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218a0"), "m3", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 3 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218b5"), "GI", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 3 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72189d"), "pi", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 4 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218c7"), "lb", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 3 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721897"), "po", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 2 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721894"), "mm", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 2 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db721891"), "m3/h", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 1 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72188e"), "KPA", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 1 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72188b"), "PSI", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 1 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721888"), "", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721885"), "L", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721882"), "G", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
@@ -2611,8 +3198,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db72187c"), "LPM", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721879"), "GPM", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
                     { new Guid("f13400a9-70b8-4325-b732-7fe7db721876"), "GIPM", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72189a"), "m", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 },
-                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ca"), "oz", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 0 }
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db72189a"), "m", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 4 },
+                    { new Guid("f13400a9-70b8-4325-b732-7fe7db7218ca"), "oz", new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -3539,6 +4126,212 @@ namespace Survi.Prevention.DataLayer.Migrations
                 column: "id_webuser_created_by");
 
             migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_id_city",
+                table: "inspection_building",
+                column: "id_city");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_id_inspection",
+                table: "inspection_building",
+                column: "id_inspection");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_id_lane",
+                table: "inspection_building",
+                column: "id_lane");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_id_lane_transversal",
+                table: "inspection_building",
+                column: "id_lane_transversal");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_id_parent_building",
+                table: "inspection_building",
+                column: "id_parent_building");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_id_picture",
+                table: "inspection_building",
+                column: "id_picture");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_id_risk_level",
+                table: "inspection_building",
+                column: "id_risk_level");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_id_utilisation_code",
+                table: "inspection_building",
+                column: "id_utilisation_code");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_alarm_panel_id_alarm_panel_type",
+                table: "inspection_building_alarm_panel",
+                column: "id_alarm_panel_type");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_alarm_panel_id_building",
+                table: "inspection_building_alarm_panel",
+                column: "id_building");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_anomaly_id_building",
+                table: "inspection_building_anomaly",
+                column: "id_building");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_anomaly_picture_id_building_anomaly",
+                table: "inspection_building_anomaly_picture",
+                column: "id_building_anomaly");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_anomaly_picture_id_picture",
+                table: "inspection_building_anomaly_picture",
+                column: "id_picture");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_contact_id_building",
+                table: "inspection_building_contact",
+                column: "id_building");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_course_id_building",
+                table: "inspection_building_course",
+                column: "id_building");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_course_id_firestation",
+                table: "inspection_building_course",
+                column: "id_firestation");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_course_lane_id_building_course",
+                table: "inspection_building_course_lane",
+                column: "id_building_course");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_inspection_building_course_lane_lane_id",
+                table: "inspection_building_course_lane",
+                column: "lane_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_inspection_building_detail_fire_resistance_type_id",
+                table: "inspection_building_detail",
+                column: "fire_resistance_type_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_detail_id_building",
+                table: "inspection_building_detail",
+                column: "id_building",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_detail_id_building_siding_type",
+                table: "inspection_building_detail",
+                column: "id_building_siding_type");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_detail_id_building_type",
+                table: "inspection_building_detail",
+                column: "id_building_type");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_detail_id_construction_type",
+                table: "inspection_building_detail",
+                column: "id_construction_type");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_detail_id_picture_plan",
+                table: "inspection_building_detail",
+                column: "id_picture_plan");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_detail_id_roof_material_type",
+                table: "inspection_building_detail",
+                column: "id_roof_material_type");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_detail_id_roof_type",
+                table: "inspection_building_detail",
+                column: "id_roof_type");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_detail_id_unit_of_measure_estimated_wat~",
+                table: "inspection_building_detail",
+                column: "id_unit_of_measure_estimated_water_flow");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_detail_id_unit_of_measure_height",
+                table: "inspection_building_detail",
+                column: "id_unit_of_measure_height");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_fire_hydrant_id_building",
+                table: "inspection_building_fire_hydrant",
+                column: "id_building");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_fire_hydrant_id_fire_hydrant",
+                table: "inspection_building_fire_hydrant",
+                column: "id_fire_hydrant");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_hazardous_material_id_building",
+                table: "inspection_building_hazardous_material",
+                column: "id_building");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_hazardous_material_id_hazardous_material",
+                table: "inspection_building_hazardous_material",
+                column: "id_hazardous_material");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_hazardous_material_id_unit_of_measure",
+                table: "inspection_building_hazardous_material",
+                column: "id_unit_of_measure");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_localization_id_building",
+                table: "inspection_building_localization",
+                column: "id_building");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_particular_risk_id_building",
+                table: "inspection_building_particular_risk",
+                column: "id_building");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_particular_risk_picture_id_building_par~",
+                table: "inspection_building_particular_risk_picture",
+                column: "id_building_particular_risk");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_particular_risk_picture_id_picture",
+                table: "inspection_building_particular_risk_picture",
+                column: "id_picture");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_person_requiring_assistance_id_building",
+                table: "inspection_building_person_requiring_assistance",
+                column: "id_building");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_person_requiring_assistance_id_person_r~",
+                table: "inspection_building_person_requiring_assistance",
+                column: "id_person_requiring_assistance_type");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_sprinkler_id_building",
+                table: "inspection_building_sprinkler",
+                column: "id_building");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inspection_building_sprinkler_id_sprinkler_type",
+                table: "inspection_building_sprinkler",
+                column: "id_sprinkler_type");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_inspection_question_id_inspection",
                 table: "inspection_question",
                 column: "id_inspection");
@@ -3714,9 +4507,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                 column: "id_webuser");
 
             migrationBuilder.CreateIndex(
-                name: "ix_webuser_fire_safety_department_fire_safety_department_id",
+                name: "IX_webuser_fire_safety_department_id_fire_safety_department",
                 table: "webuser_fire_safety_department",
-                column: "fire_safety_department_id");
+                column: "id_fire_safety_department");
 
             migrationBuilder.CreateIndex(
                 name: "IX_webuser_fire_safety_department_id_webuser",
@@ -3818,6 +4611,39 @@ namespace Survi.Prevention.DataLayer.Migrations
                 name: "hazardous_material_localization");
 
             migrationBuilder.DropTable(
+                name: "inspection_building_alarm_panel");
+
+            migrationBuilder.DropTable(
+                name: "inspection_building_anomaly_picture");
+
+            migrationBuilder.DropTable(
+                name: "inspection_building_contact");
+
+            migrationBuilder.DropTable(
+                name: "inspection_building_course_lane");
+
+            migrationBuilder.DropTable(
+                name: "inspection_building_detail");
+
+            migrationBuilder.DropTable(
+                name: "inspection_building_fire_hydrant");
+
+            migrationBuilder.DropTable(
+                name: "inspection_building_hazardous_material");
+
+            migrationBuilder.DropTable(
+                name: "inspection_building_localization");
+
+            migrationBuilder.DropTable(
+                name: "inspection_building_particular_risk_picture");
+
+            migrationBuilder.DropTable(
+                name: "inspection_building_person_requiring_assistance");
+
+            migrationBuilder.DropTable(
+                name: "inspection_building_sprinkler");
+
+            migrationBuilder.DropTable(
                 name: "inspection_question");
 
             migrationBuilder.DropTable(
@@ -3878,9 +4704,6 @@ namespace Survi.Prevention.DataLayer.Migrations
                 name: "webuser_fire_safety_department");
 
             migrationBuilder.DropTable(
-                name: "alarm_panel_type");
-
-            migrationBuilder.DropTable(
                 name: "building_anomaly");
 
             migrationBuilder.DropTable(
@@ -3890,10 +4713,22 @@ namespace Survi.Prevention.DataLayer.Migrations
                 name: "building_particular_risk");
 
             migrationBuilder.DropTable(
-                name: "building_type");
+                name: "fire_hydrant_connection_type");
+
+            migrationBuilder.DropTable(
+                name: "alarm_panel_type");
+
+            migrationBuilder.DropTable(
+                name: "inspection_building_anomaly");
+
+            migrationBuilder.DropTable(
+                name: "inspection_building_course");
 
             migrationBuilder.DropTable(
                 name: "construction_fire_resistance_type");
+
+            migrationBuilder.DropTable(
+                name: "building_type");
 
             migrationBuilder.DropTable(
                 name: "construction_type");
@@ -3902,13 +4737,10 @@ namespace Survi.Prevention.DataLayer.Migrations
                 name: "fire_hydrant");
 
             migrationBuilder.DropTable(
-                name: "fire_hydrant_connection_type");
-
-            migrationBuilder.DropTable(
                 name: "hazardous_material");
 
             migrationBuilder.DropTable(
-                name: "inspection");
+                name: "inspection_building_particular_risk");
 
             migrationBuilder.DropTable(
                 name: "permission_object");
@@ -3947,7 +4779,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                 name: "unit_of_measure");
 
             migrationBuilder.DropTable(
-                name: "batch");
+                name: "inspection_building");
 
             migrationBuilder.DropTable(
                 name: "permission_system");
@@ -3956,16 +4788,25 @@ namespace Survi.Prevention.DataLayer.Migrations
                 name: "survey_question");
 
             migrationBuilder.DropTable(
-                name: "building");
-
-            migrationBuilder.DropTable(
                 name: "fire_safety_department");
 
             migrationBuilder.DropTable(
-                name: "webuser");
+                name: "inspection");
+
+            migrationBuilder.DropTable(
+                name: "inspection_picture");
+
+            migrationBuilder.DropTable(
+                name: "batch");
+
+            migrationBuilder.DropTable(
+                name: "building");
 
             migrationBuilder.DropTable(
                 name: "survey");
+
+            migrationBuilder.DropTable(
+                name: "webuser");
 
             migrationBuilder.DropTable(
                 name: "lane");

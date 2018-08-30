@@ -104,7 +104,6 @@ namespace Survi.Prevention.DataLayer
 				  i.status as inspection_status,
 				  batch.is_ready_for_inspection,
 				  batch.should_start_on,
-				  ''::text as webuser_assigned_to,
 				  COALESCE((CASE WHEN i.id_webuser_assigned_to IS NOT NULL THEN
 					(SELECT
 					  CONCAT(
@@ -118,7 +117,7 @@ namespace Survi.Prevention.DataLayer
 					  FROM batch_user as bu
 						INNER JOIN webuser as wu ON bu.id_webuser = wu.id
 					  where bu.id_batch = batch.id)
-				  END), '')
+				  END), '') as webuser_assigned_to
 
 				FROM inspection as i
 				INNER JOIN batch on batch.id = i.id_batch

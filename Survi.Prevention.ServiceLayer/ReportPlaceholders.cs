@@ -27,7 +27,7 @@ namespace Survi.Prevention.ServiceLayer
                     .GetValue(this)
                     .ToString();
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException)
             {
                 return m.Groups[1].Value;
             }

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Survi.Prevention.DataLayer.Mapping.Base;
 using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.Buildings.Base;
 
 namespace Survi.Prevention.DataLayer.Mapping
 {
@@ -9,6 +10,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 	{
 		public override void Map(EntityTypeBuilder<BuildingParticularRisk> b)
 		{
+			b.HasQueryFilter(m => m.IsActive);
 			b.HasKey(m => m.Id);
 			b.Property(m => m.Wall).HasMaxLength(15);
 			b.Property(m => m.Sector).HasMaxLength(15);
@@ -17,10 +19,10 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasMany(m => m.Pictures).WithOne(m => m.Risk).HasForeignKey(m => m.IdBuildingParticularRisk);
 
 			b.HasDiscriminator<int>("risk_type")
-				.HasValue<FoundationParticularRisk>(0)
-				.HasValue<FloorParticularRisk>(1)
-				.HasValue<WallParticularRisk>(2)
-				.HasValue<RoofParticularRisk>(3);
+				.HasValue<BuildingFoundationParticularRisk>(0)
+				.HasValue<BuildingFloorParticularRisk>(1)
+				.HasValue<BuildingWallParticularRisk>(2)
+				.HasValue<BuildingRoofParticularRisk>(3);
 		}
 	}
 }

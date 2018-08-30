@@ -11,7 +11,6 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasKey(m => m.Id);
 			b.Property(m => m.Name).IsRequired().HasMaxLength(100);
 			b.Property(m => m.Data).IsRequired();
-            b.Property(m => m.SketchJson);
         }
 	}
 }

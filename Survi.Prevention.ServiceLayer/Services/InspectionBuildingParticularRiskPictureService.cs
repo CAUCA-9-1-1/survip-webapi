@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
-using Survi.Prevention.Models;
-using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -18,7 +17,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public List<BuildingChildPictureForWeb> GetAnomalyPictures(Guid idBuildingParticularRisk)
 		{
 			var query =
-				from picture in Context.BuildingParticularRiskPictures.AsNoTracking()
+				from picture in Context.InspectionBuildingParticularRiskPictures.AsNoTracking()
 				let data = picture.Picture
 				where picture.IdBuildingParticularRisk == idBuildingParticularRisk && picture.IsActive && data != null && data.IsActive
 				select new
@@ -47,7 +46,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public virtual Guid AddOrUpdatePicture(BuildingChildPictureForWeb entity)
 		{
-            var particularRiskPicture = Context.BuildingParticularRiskPictures.Find(entity.Id) 
+            var particularRiskPicture = Context.InspectionBuildingParticularRiskPictures.Find(entity.Id) 
 				?? GenerateNewPicture(entity);
 
 			TransferDtoToModel(entity, particularRiskPicture);
@@ -69,33 +68,33 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public virtual bool Remove(Guid id)
 		{
-			var entity = Context.BuildingParticularRiskPictures.Find(id);
+			var entity = Context.InspectionBuildingParticularRiskPictures.Find(id);
 			entity.IsActive = false;
-			var picture = Context.Pictures.Find(entity.IdPicture);
+			var picture = Context.InspectionPictures.Find(entity.IdPicture);
 			Context.Remove(picture);
 			Context.SaveChanges();
 			return true;
 		}
 
-        private BuildingParticularRiskPicture GenerateNewPicture(BuildingChildPictureForWeb entity)
+        private InspectionBuildingParticularRiskPicture GenerateNewPicture(BuildingChildPictureForWeb entity)
         {
-            var picture =  new BuildingParticularRiskPicture
-            {
+            var picture =  new InspectionBuildingParticularRiskPicture
+			{
                 Id = entity.Id,
                 IdBuildingParticularRisk = entity.IdParent,
                 IdPicture = entity.Id,
-                Picture = new Picture { Id = entity.Id, Name = "" }
+                Picture = new InspectionPicture { Id = entity.Id, Name = "" }
             };
 	        Context.Add(picture);
 			return picture;
 		}
 
-        private void TransferDtoToModel(BuildingChildPictureForWeb entity, BuildingParticularRiskPicture particularRiskPicture)
+        private void TransferDtoToModel(BuildingChildPictureForWeb entity, InspectionBuildingParticularRiskPicture particularRiskPicture)
         {
             particularRiskPicture.Id = entity.Id;
             particularRiskPicture.IdBuildingParticularRisk = entity.IdParent;
 
-            particularRiskPicture.Picture = Context.Pictures.Find(entity.Id);
+            particularRiskPicture.Picture = Context.InspectionPictures.Find(entity.Id);
 
             particularRiskPicture.Picture.Id = entity.Id;
             particularRiskPicture.Picture.DataUri = entity.PictureData;

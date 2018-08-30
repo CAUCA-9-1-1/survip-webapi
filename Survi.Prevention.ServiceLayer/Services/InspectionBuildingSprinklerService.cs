@@ -3,27 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
-using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class InspectionBuildingSprinklerService: BaseCrudService<BuildingSprinkler>
+	public class InspectionBuildingSprinklerService: BaseCrudService<InspectionBuildingSprinkler>
 	{
 		public InspectionBuildingSprinklerService(ManagementContext context) : base(context)
 		{
 		}
 
-		public override BuildingSprinkler Get(Guid id)
+		public override InspectionBuildingSprinkler Get(Guid id)
 		{
-			var entity = Context.BuildingSprinklers.AsNoTracking()
+			var entity = Context.InspectionBuildingSprinklers.AsNoTracking()
 				.SingleOrDefault(mat => mat.Id == id);
 			return entity;
 		}
 		
-		public List<BuildingSprinkler> GetList(Guid idBuilding)
+		public List<InspectionBuildingSprinkler> GetList(Guid idBuilding)
 		{
-			return Context.BuildingSprinklers
+			return Context.InspectionBuildingSprinklers
 				.Where(s => s.IsActive && s.IdBuilding == idBuilding)
 				.ToList();
 		}
@@ -31,7 +31,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public List<BuildingFireProtectionForList> GetListLocalized(string languageCode, Guid idBuilding)
 		{
 			var query =
-				from sprinkler in Context.BuildingSprinklers.AsNoTracking()
+				from sprinkler in Context.InspectionBuildingSprinklers.AsNoTracking()
 				where sprinkler.IdBuilding == idBuilding && sprinkler.IsActive
 				let type = sprinkler.SprinklerType
 				from loc in type.Localizations

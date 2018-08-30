@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Survi.Prevention.WebApi", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Survi.Prevention.ServiceLayer.Tests", "Survi.Prevention.ServiceLayer.Tests\Survi.Prevention.ServiceLayer.Tests.csproj", "{44D59C08-4708-49F3-875C-5C161D4B594A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Survi.Prevention.Migrations", "Survi.Prevention.Migrations\Survi.Prevention.Migrations.csproj", "{26BADFF8-8B4B-4987-AE1D-06521C5CE081}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Survi.Prevention.Migrations", "Survi.Prevention.Migrations\Survi.Prevention.Migrations.csproj", "{26BADFF8-8B4B-4987-AE1D-06521C5CE081}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

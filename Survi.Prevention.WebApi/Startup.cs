@@ -125,6 +125,8 @@ namespace Survi.Prevention.WebApi
             services.AddTransient<FireSafetyDepartmentRiskLevelService>();
 			services.AddTransient<ReportConfigurationTemplateService>();
 			services.AddTransient<ReportGenerationService>();
+			services.AddTransient<InspectionBuildingDetailService>();
+			services.AddTransient<InspectionPictureService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.FireHydrants;
+using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -19,7 +20,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 			var results = (
 				from inspection in Context.Inspections.AsNoTracking()
 				where inspection.Id == inspectionId
-				from formHydrant in inspection.MainBuilding.FireHydrants
+				from building in inspection.Buildings
+				where building.ChildType == Models.Buildings.BuildingChildType.None
+				from formHydrant in building.FireHydrants
 				where formHydrant.IsActive
 				let hydrant = formHydrant.Hydrant
 				select new
@@ -45,12 +48,14 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Color = hydrant.Color,
 					IdInspection = inspectionId,
 					Number = hydrant.Number,
-					Address = GenerateAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition, hydrant.PointCoordinates, hydrant.CivicNumber, hydrant.AddressLocationType, languageCode),
+					Address = GenerateAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition, 
+						hydrant.PointCoordinates, hydrant.CivicNumber, hydrant.AddressLocationType, languageCode),
 					IdFireHydrant = hydrant.IdFireHydrant
 				}).ToList();
 		}
 
-		private string GenerateAddress(FireHydrantLocationType type, Guid? idLane, Guid? idIntersection, string physicalPosition, NetTopologySuite.Geometries.Point coordinate, string civicNumber, FireHydrantAddressLocationType addressLocationType, string languageCode)
+		private string GenerateAddress(FireHydrantLocationType type, Guid? idLane, Guid? idIntersection, string physicalPosition, 
+			NetTopologySuite.Geometries.Point coordinate, string civicNumber, FireHydrantAddressLocationType addressLocationType, string languageCode)
 		{
 			if (type == FireHydrantLocationType.Address)
 			{
@@ -74,7 +79,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public bool DeleteBuildingFireHydrant(Guid idBuildingFireHydrant)
 		{
-			var buildingfirehydrant = Context.BuildingFireHydrants.Find(idBuildingFireHydrant);
+			var buildingfirehydrant = Context.InspectionBuildingFireHydrants.Find(idBuildingFireHydrant);
 			if(buildingfirehydrant != null)
 			{
 				buildingfirehydrant.IsActive = false;
@@ -86,13 +91,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public bool AddBuildingFireHydrant(Guid idBuilding, Guid idFireHydrant)
 		{
-			if((idBuilding != Guid.Empty) && (idFireHydrant != Guid.Empty))
+			if(idBuilding != Guid.Empty && idFireHydrant != Guid.Empty)
 			{
-				Models.Buildings.BuildingFireHydrant newbf = new Models.Buildings.BuildingFireHydrant();
-				newbf.IdFireHydrant = idFireHydrant;
-				newbf.IdBuilding = idBuilding;
-				newbf.IsActive = true;
-				Context.BuildingFireHydrants.Add(newbf);
+				var fireHydrant = new InspectionBuildingFireHydrant
+				{
+					IdFireHydrant = idFireHydrant,
+					IdBuilding = idBuilding,
+					IsActive = true
+				};
+				Context.InspectionBuildingFireHydrants.Add(fireHydrant);
 
 				Context.SaveChanges();
 				return true;

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
-using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
-using Remotion.Linq.Parsing.Structure;
 
 namespace Survi.Prevention.DataLayer
 {
@@ -13,36 +10,20 @@ namespace Survi.Prevention.DataLayer
 	{
 		private static readonly TypeInfo QueryCompilerTypeInfo = typeof(QueryCompiler).GetTypeInfo();
 
-		private static readonly FieldInfo QueryCompilerField = typeof(EntityQueryProvider).GetTypeInfo().DeclaredFields
-			.First(x => x.Name == "_queryCompiler");
+		private static readonly FieldInfo QueryCompilerField = typeof(EntityQueryProvider).GetTypeInfo().DeclaredFields.First(x => x.Name == "_queryCompiler");
+		private static readonly FieldInfo QueryModelGeneratorField = typeof(QueryCompiler).GetTypeInfo().DeclaredFields.First(x => x.Name == "_queryModelGenerator");
+		private static readonly FieldInfo DataBaseField = QueryCompilerTypeInfo.DeclaredFields.Single(x => x.Name == "_database");
+		private static readonly PropertyInfo DatabaseDependenciesField = typeof(Database).GetTypeInfo().DeclaredProperties.Single(x => x.Name == "Dependencies");
 
-		private static readonly PropertyInfo NodeTypeProviderField =
-			QueryCompilerTypeInfo.DeclaredProperties.Single(x => x.Name == "NodeTypeProvider");
-
-		private static readonly MethodInfo CreateQueryParserMethod =
-			QueryCompilerTypeInfo.DeclaredMethods.First(x => x.Name == "CreateQueryParser");
-
-		private static readonly FieldInfo DataBaseField =
-			QueryCompilerTypeInfo.DeclaredFields.Single(x => x.Name == "_database");
-
-		private static readonly PropertyInfo DatabaseDependenciesField =
-			typeof(Database).GetTypeInfo().DeclaredProperties.Single(x => x.Name == "Dependencies");
-
-		public static string ToSql<TEntity>(this IQueryable<TEntity> query) where TEntity : class
+		public static string ToSql<TEntity>(this IQueryable<TEntity> query)
 		{
-			if (!(query is EntityQueryable<TEntity>) && !(query is InternalDbSet<TEntity>))
-			{
-				throw new ArgumentException("Invalid query");
-			}
-
-			var queryCompiler = (QueryCompiler) QueryCompilerField.GetValue(query.Provider);
-			var nodeTypeProvider = (INodeTypeProvider) NodeTypeProviderField.GetValue(queryCompiler);
-			var parser = (IQueryParser) CreateQueryParserMethod.Invoke(queryCompiler, new object[] {nodeTypeProvider});
-			var queryModel = parser.GetParsedQuery(query.Expression);
+			var queryCompiler = (QueryCompiler)QueryCompilerField.GetValue(query.Provider);
+			var queryModelGenerator = (QueryModelGenerator)QueryModelGeneratorField.GetValue(queryCompiler);
+			var queryModel = queryModelGenerator.ParseQuery(query.Expression);
 			var database = DataBaseField.GetValue(queryCompiler);
-			var databaseDependencies = (DatabaseDependencies) DatabaseDependenciesField.GetValue(database);
+			var databaseDependencies = (DatabaseDependencies)DatabaseDependenciesField.GetValue(database);
 			var queryCompilationContext = databaseDependencies.QueryCompilationContextFactory.Create(false);
-			var modelVisitor = (RelationalQueryModelVisitor) queryCompilationContext.CreateQueryModelVisitor();
+			var modelVisitor = (RelationalQueryModelVisitor)queryCompilationContext.CreateQueryModelVisitor();
 			modelVisitor.CreateQueryExecutor<TEntity>(queryModel);
 			var sql = modelVisitor.Queries.First().ToString();
 

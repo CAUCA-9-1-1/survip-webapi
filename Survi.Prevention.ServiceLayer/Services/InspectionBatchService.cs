@@ -50,13 +50,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 
         public override Guid AddOrUpdate(Batch batch)
         {
-            updateBatchUser(batch);
-            updateInspection(batch);
+            UpdateBatchUser(batch);
+            UpdateInspection(batch);
 
             return base.AddOrUpdate(batch);
         }
 
-        private void updateInspection(Batch batch)
+        private void UpdateInspection(Batch batch)
         {
             var inspections = new List<Inspection>();
             var dbInspections = new List<Inspection>();
@@ -66,39 +66,46 @@ namespace Survi.Prevention.ServiceLayer.Services
             if (Context.Inspections.AsNoTracking().Any(u => u.IdBatch == batch.Id))
                 dbInspections = Context.Inspections.AsNoTracking().Where(i => i.IdBatch == batch.Id).ToList();
 
-            dbInspections.ForEach(child =>
-            {
-                if (!inspections.Any(i => i.Id == child.Id))
-                {
-                    Context.Inspections.Remove(child);
-                }
-            });
-            inspections.ForEach(child =>
-            {
-                var isExistRecord = Context.Inspections.Any(c => c.Id == child.Id);
-
-                if (child.IdSurvey is null)
-                {
-                    var building = Context.Buildings
-                        .Include(b => b.Lane)
-                        .Single(b => b.Id == child.IdBuilding && b.IsActive);
-                    var idSSI = Context.FireSafetyDepartments
-                        .Single(d => d.FireSafetyDepartmentServing.Any(c => c.IdCity == building.Lane.IdCity)).Id;
-
-                    child.IdSurvey = Context.FireSafetyDepartmentRiskLevels.Where(c => c.IdRiskLevel == building.IdRiskLevel && c.IdFireSafetyDepartment == idSSI).Single().IdSurvey;
-                }
-
-                if (!isExistRecord)
-                {
-                    Context.Inspections.Add(child);
-                }
-            });
+            RemoveDeleteChildren(dbInspections, inspections);
+            AddOrUpdateChildren(inspections);
 
             Context.SaveChanges();
         }
 
+		private void AddOrUpdateChildren(List<Inspection> inspections)
+		{
+			inspections.ForEach(child =>
+			{
+				var isExistRecord = Context.Inspections.Any(c => c.Id == child.Id);
 
-        private void updateBatchUser(Batch batch)
+				if (child.IdSurvey is null)
+				{
+					var building = Context.Buildings
+						.Include(b => b.Lane)
+						.Single(b => b.Id == child.IdBuilding && b.IsActive);
+					var fireSafetyDepartmentId = Context.FireSafetyDepartments
+						.Single(d => d.FireSafetyDepartmentServing.Any(c => c.IdCity == building.Lane.IdCity)).Id;
+
+					child.IdSurvey = Context.FireSafetyDepartmentRiskLevels.SingleOrDefault(c => c.IdRiskLevel == building.IdRiskLevel && c.IdFireSafetyDepartment == fireSafetyDepartmentId)?.IdSurvey;
+				}
+
+				if (!isExistRecord)
+				{
+					Context.Inspections.Add(child);
+				}
+			});
+		}
+
+		private void RemoveDeleteChildren(List<Inspection> dbInspections, List<Inspection> inspections)
+		{
+			dbInspections.ForEach(child =>
+			{
+				if (inspections.All(i => i.Id != child.Id))
+					Context.Inspections.Remove(child);
+			});
+		}
+
+		private void UpdateBatchUser(Batch batch)
         {
             var users = new List<BatchUser>();
             var dbUsers = new List<BatchUser>();
@@ -108,24 +115,28 @@ namespace Survi.Prevention.ServiceLayer.Services
             if (Context.BatchUsers.AsNoTracking().Any(u => u.IdBatch == batch.Id))
                 dbUsers = Context.BatchUsers.AsNoTracking().Where(u => u.IdBatch == batch.Id).ToList();
 
-            dbUsers.ForEach(child =>
-            {
-                if (!users.Any(u => u.Id == child.Id))
-                {
-                    Context.BatchUsers.Remove(child);
-                }
-            });
-            users.ForEach(child =>
-            {
-                var isExistRecord = Context.BatchUsers.Any(c => c.Id == child.Id);
-
-                if (!isExistRecord)
-                {
-                    Context.BatchUsers.Add(child);
-                }
-            });
+            RemoveDeletedBatchUsers(dbUsers, users);
+            UpdateBatchUsers(users);
 
             Context.SaveChanges();
         }
+
+		private void UpdateBatchUsers(List<BatchUser> users)
+		{
+			users.ForEach(child =>
+			{
+				if (!Context.BatchUsers.Any(c => c.Id == child.Id))
+					Context.BatchUsers.Add(child);
+			});
+		}
+
+		private void RemoveDeletedBatchUsers(List<BatchUser> dbUsers, List<BatchUser> users)
+		{
+			dbUsers.ForEach(child =>
+			{
+				if (users.All(u => u.Id != child.Id))
+					Context.BatchUsers.Remove(child);
+			});
+		}
 	}
 }
