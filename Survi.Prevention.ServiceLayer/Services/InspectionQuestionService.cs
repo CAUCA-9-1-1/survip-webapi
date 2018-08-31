@@ -8,14 +8,14 @@ using Survi.Prevention.Models.DataTransfertObjects;
 namespace Survi.Prevention.ServiceLayer.Services
 {
 
-	public class InspectionQuestionService : BaseCrudService<QuestionAnswer>
+	public class InspectionQuestionService : BaseCrudService<InspectionSurveyAnswer>
 	{
 
 		public InspectionQuestionService(ManagementContext context) : base(context)
 		{
 		}
 
-		public override QuestionAnswer Get(Guid id)
+		public override InspectionSurveyAnswer Get(Guid id)
 		{
 			var result = Context.InspectionQuestions
 				.SingleOrDefault(s => s.Id == id);
@@ -23,7 +23,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-		public override List<QuestionAnswer> GetList()
+		public override List<InspectionSurveyAnswer> GetList()
 		{
 			var result = Context.InspectionQuestions
 						.ToList();
@@ -135,7 +135,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		private Guid AddQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
 		{
-			var questionAnswer = new QuestionAnswer
+			var questionAnswer = new InspectionSurveyAnswer
 			{
 				Answer = inspectionQuestionAnswer.Answer,
 				IdSurveyQuestion = inspectionQuestionAnswer.IdSurveyQuestion,
