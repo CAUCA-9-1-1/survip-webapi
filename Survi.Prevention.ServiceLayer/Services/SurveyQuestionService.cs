@@ -43,22 +43,38 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		private void UpdateSequenceOnAddingChild(SurveyQuestion questionChild)
 		{
-			if (!Context.SurveyQuestions.Any(sq => sq.Id == questionChild.Id))
-			{
-				if (questionChild.IdSurveyQuestionParent != null && questionChild.IdSurveyQuestionParent != Guid.Empty)
+			if (questionChild.IdSurveyQuestionParent != null && questionChild.IdSurveyQuestionParent != Guid.Empty)
+				if (!Context.SurveyQuestions.Any(sq => sq.Id == questionChild.Id))
 				{
-					var lastParentSequence = Context.SurveyQuestions
-						.Where(sq => sq.IdSurveyQuestionParent == questionChild.IdSurveyQuestionParent)
-						.Max(sq => sq.Sequence);
-
-					foreach (var surveyQuestion in Context.SurveyQuestions.Where(sql =>
-						sql.Sequence > lastParentSequence))
-					{
-						surveyQuestion.Sequence += 1;
-					}
-
+					var lastParentSequence = GetQuestionMaxSequence(questionChild.IdSurveyQuestionParent);
+					UpdateQuestionSequence(lastParentSequence);
 					questionChild.Sequence = lastParentSequence + 1;
 				}
+		}
+
+		private int GetQuestionMaxSequence(Guid? idSurveyQuestionParent)
+		{
+			var retValue = 0;
+			var childQuestions = Context.SurveyQuestions
+						.Where(sq => sq.IdSurveyQuestionParent == idSurveyQuestionParent && sq.IsActive).ToList();
+			if (childQuestions.Any())
+				retValue = childQuestions.Max(sq => sq.Sequence);
+			else
+			{
+				var inspection = Context.SurveyQuestions.FirstOrDefault(sq => sq.Id == idSurveyQuestionParent && sq.IsActive);
+				if (inspection != null)
+					retValue = inspection.Sequence;
+			}
+
+			return retValue;
+		}
+
+		private void UpdateQuestionSequence(int sequenceStart)
+		{
+			foreach (var surveyQuestion in Context.SurveyQuestions
+											.Where(sql =>sql.Sequence > sequenceStart))
+			{
+				surveyQuestion.Sequence += 1;
 			}
 		}
 
@@ -109,23 +125,20 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			if (idSurveyQuestion != Guid.Empty && sequence > 0)
 			{
-				var Question = Context.SurveyQuestions.Single(sq => sq.Id == idSurveyQuestion);
-				if (Question.Sequence != sequence)
+				var question = Context.SurveyQuestions.Single(sq => sq.Id == idSurveyQuestion);
+				if (question.Sequence != sequence)
 				{
-					var QuestionDest = Context.SurveyQuestions.Single(sqd => sqd.Sequence == sequence && sqd.Id != idSurveyQuestion && sqd.IdSurvey == Question.IdSurvey && sqd.IsActive);
+					var questionDest = Context.SurveyQuestions.Single(sqd => sqd.Sequence == sequence && sqd.Id != idSurveyQuestion && sqd.IdSurvey == question.IdSurvey && sqd.IsActive);
 
-					int OldSequence = Question.Sequence;
-					QuestionDest.Sequence = OldSequence;
+					int oldSequence = question.Sequence;
+					questionDest.Sequence = oldSequence;
 				}
 
-				Question.Sequence = sequence;
+				question.Sequence = sequence;
 				Context.SaveChanges();
 				return true;
 			}
-			else
-			{
-				return false;
-			}
+			return false;
 		}
 
 		public List<SurveyQuestion> GetListLocalized(Guid idSurvey, string languageCode)
