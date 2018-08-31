@@ -104,6 +104,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 				var filledGroup = new ReportBuildingAnomalyGroupHandler(context).FillGroup(group, idBuilding, languageCode);
 				filledTemplate = filledTemplate.Replace(group, filledGroup);
 			}
+			if (ReportingTemplateVariableListExtractor.HasGroup(ReportBuildingGroup.ParticularRisk, template))
+			{
+				var group = ReportingTemplateVariableListExtractor.GetGroupContent(ReportBuildingGroup.ParticularRisk, template);
+				var filledGroup = new ReportBuildingParticularRiskGroupHandler(context).FillGroup(group, idBuilding, languageCode);
+				filledTemplate = filledTemplate.Replace(group, filledGroup);
+			}
 
 			return filledTemplate;
 		}

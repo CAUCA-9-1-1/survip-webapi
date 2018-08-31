@@ -63,6 +63,15 @@ Bornes:
 			Photo: {{PictureData}}
 		[/AnomalyPicture]
 	[/Anomaly]
+	[ParticularRisk]
+		Type: {{TypeName}}
+		Ouverture: {{HasOpening}}
+		Affaibli: {{IsWeakened}}
+		Commentaire: {{Comments}}
+		[ParticularRiskPicture]
+			Photo: {{PictureData}}
+		[/ParticularRiskPicture]
+	[/ParticularRisk]
 [/Building]";
 			var filledTemplate = report.FillTemplate(template, inspectionId, "fr");
 
