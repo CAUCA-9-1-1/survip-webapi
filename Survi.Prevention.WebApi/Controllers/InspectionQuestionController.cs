@@ -8,7 +8,7 @@ using System;
 namespace Survi.Prevention.WebApi.Controllers
 {
 	[Route("api/InspectionQuestion")]
-	public class InspectionQuestionController : BaseCrudController<InspectionQuestionService, QuestionAnswer>
+	public class InspectionQuestionController : BaseCrudController<InspectionQuestionService, InspectionSurveyAnswer>
 	{
 		public InspectionQuestionController(InspectionQuestionService service) : base(service)
 		{

@@ -4,9 +4,9 @@ using Survi.Prevention.Models.InspectionManagement;
 
 namespace Survi.Prevention.DataLayer.Mapping
 {
-	public class QuestionAnswerMappping : EntityMappingConfiguration<QuestionAnswer>
+	public class QuestionAnswerMappping : EntityMappingConfiguration<InspectionSurveyAnswer>
 	{
-		public override void Map(EntityTypeBuilder<QuestionAnswer> b)
+		public override void Map(EntityTypeBuilder<InspectionSurveyAnswer> b)
 		{
 			b.HasKey(m => m.Id);
 			b.Property(m => m.Answer).HasMaxLength(200).IsRequired();

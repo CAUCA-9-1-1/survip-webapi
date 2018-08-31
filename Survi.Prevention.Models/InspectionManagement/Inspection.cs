@@ -33,7 +33,7 @@ namespace Survi.Prevention.Models.InspectionManagement
 		public Building MainBuilding { get; set; }
 
 		public ICollection<InspectionVisit> Visits { get; set; }
-		public ICollection<QuestionAnswer> SurveyAnswers { get; set; }
+		public ICollection<InspectionSurveyAnswer> SurveyAnswers { get; set; }
 
 		public ICollection<InspectionBuilding> Buildings { get; set; }
 	}
