@@ -8,13 +8,17 @@ using Microsoft.IdentityModel.Tokens;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.SecurityManagement;
 using Microsoft.EntityFrameworkCore;
+using Survi.Prevention.ServiceLayer.Reporting;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class AuthentificationService : BaseService
 	{
-		public AuthentificationService(ManagementContext context) : base(context)
+		private ReportBuildingGroupHandler handler;
+
+		public AuthentificationService(ManagementContext context, ReportBuildingGroupHandler handler) : base(context)
 		{
+			this.handler = handler;
 		}
 
 		public (AccessToken token, Webuser user) Login(string username, string password, string applicationName, string issuer, string secretKey)
@@ -22,8 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 
 
-			var inspectionId = Guid.Parse("18b4a850-25e2-41f2-93cd-087bb2951f63");
-			var report = new ReportDataLoaderService(Context);
+			var buildingId = Guid.Parse("629cdc81-9aba-462b-b34b-5702ce02c88f");			
 			var template = @"
 [Building]
 Contacts:
@@ -73,7 +76,7 @@ Bornes:
 		[/ParticularRiskPicture]
 	[/ParticularRisk]
 [/Building]";
-			var filledTemplate = report.FillTemplate(template, inspectionId, "fr");
+			var filledTemplate = handler.FillGroup(template, buildingId, "fr");
 
 
 

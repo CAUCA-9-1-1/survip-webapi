@@ -32,7 +32,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			var query =
 				from matBuilding in Context.InspectionBuildingHazardousMaterials.AsNoTracking()
-				where matBuilding.IdBuilding == idBuilding && matBuilding.IsActive
+				where matBuilding.IdBuilding == buildingId && matBuilding.IsActive
 				let mat = matBuilding.Material
 				from loc in mat.Localizations
 				where loc.IsActive && loc.LanguageCode == languageCode

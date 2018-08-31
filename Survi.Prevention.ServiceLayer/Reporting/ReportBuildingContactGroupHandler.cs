@@ -1,29 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.ServiceLayer.Reporting
 {
 	public class ReportBuildingContactGroupHandler : BaseReportGroupHandler<BuildingContact>
 	{
+		private readonly BuildingContactService service;
+
 		protected override ReportBuildingGroup Group => ReportBuildingGroup.Contact;
 
-		public ReportBuildingContactGroupHandler(ManagementContext context) 
-			: base(context)
+		public ReportBuildingContactGroupHandler(BuildingContactService service)
 		{
+			this.service = service;
 		}
 		
 		protected override List<BuildingContact> GetData(Guid idParent, string languageCode)
 		{
-			var query =
-				from contact in Context.BuildingContacts.AsNoTracking()
-				where contact.IsActive && contact.IdBuilding == idParent
-				select contact;
-
-			return query.ToList();
+			return service.GetBuildingContactList(idParent);
 		}
 	}
 }

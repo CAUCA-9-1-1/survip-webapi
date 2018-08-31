@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Survi.Prevention.Models;
-using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.Buildings.Base;
 using Survi.Prevention.Models.DataTransfertObjects;
 
 namespace Survi.Prevention.ServiceLayer 

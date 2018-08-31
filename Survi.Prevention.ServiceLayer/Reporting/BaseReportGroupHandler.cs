@@ -1,22 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Survi.Prevention.DataLayer;
-using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.ServiceLayer.Reporting
 {
-	public abstract class BaseReportGroupHandler<T>
+	public abstract class BaseReportGroupHandler<T> : IBaseReportGroupHandler
 		where T : class
 	{
-		protected readonly ManagementContext Context;
 		protected abstract ReportBuildingGroup Group { get; }
-
-		protected BaseReportGroupHandler(ManagementContext context)
-		{
-			Context = context;
-		}
 
 		public string FillGroup(string template, Guid idParent, string languageCode)
 		{
@@ -50,26 +41,5 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		}
 
 		protected abstract List<T> GetData(Guid idParent, string languageCode);		
-	}
-
-	public abstract class BaseReportGroupHandlerWithChild<T> : BaseReportGroupHandler<T>
-		where T : class, IDataTransferObjectWithId
-	{
-		protected BaseReportGroupHandlerWithChild(ManagementContext context) : base(context)
-		{
-		}
-
-		protected override string GetFilledTemplate(string groupTemplate, T entity, string languageCode)
-		{
-			foreach (var property in entity.GetPublicProperties())
-			{
-				groupTemplate = FillChildren(groupTemplate, entity.Id, languageCode);
-				groupTemplate = ReplacePropertiesPlaceholder(groupTemplate, property);
-			}
-
-			return groupTemplate;
-		}		
-
-		protected abstract string FillChildren(string template, Guid idParent, string languageCode);
 	}
 }

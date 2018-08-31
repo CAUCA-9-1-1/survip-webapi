@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.DataTransfertObjects.Reporting;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -27,6 +28,31 @@ namespace Survi.Prevention.ServiceLayer.Services
                 .ToList();
 
 			return result;
+		}
+
+		public List<PersonRequiringAssistanceForReport> GetPersonsForReport(Guid idBuilding, string languageCode)
+		{
+			var query =
+				from person in Context.BuildingPersonsRequiringAssistance.AsNoTracking()
+				where person.IsActive && person.IdBuilding == idBuilding
+				from localization in person.PersonType.Localizations.Where(loc => loc.IsActive && loc.LanguageCode == languageCode).DefaultIfEmpty()
+				select new PersonRequiringAssistanceForReport
+				{
+					DayResidentCount = person.DayResidentCount,
+					ContactName = person.ContactName,
+					ContactPhoneNumber = person.ContactPhoneNumber,
+					DayIsApproximate = person.DayIsApproximate,
+					Description = person.Description,
+					EveningIsApproximate = person.EveningIsApproximate,
+					EveningResidentCount = person.EveningResidentCount,
+					NightIsApproximate = person.NightIsApproximate,
+					NightResidentCount = person.NightResidentCount,
+					Local = person.Local,
+					PersonName = person.PersonName,
+					TypeName = localization.Name
+				};
+
+			return query.ToList();
 		}
 	}
 }

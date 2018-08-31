@@ -1,6 +1,6 @@
 ﻿namespace Survi.Prevention.Models.DataTransfertObjects.Reporting
 {
-    public class ContactForReport
+    public class PersonRequiringAssistanceForReport
     {
 	    public int DayResidentCount { get; set; }
 	    public int EveningResidentCount { get; set; }

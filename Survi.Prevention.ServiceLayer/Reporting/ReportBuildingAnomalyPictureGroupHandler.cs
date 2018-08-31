@@ -1,38 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.ServiceLayer.Reporting
 {
 	public class ReportBuildingAnomalyPictureGroupHandler : BaseReportGroupHandler<BuildingChildPictureForWeb>
 	{
+		private readonly BuildingAnomalyService service;
+
 		protected override ReportBuildingGroup Group => ReportBuildingGroup.AnomalyPicture;
 
-		public ReportBuildingAnomalyPictureGroupHandler(ManagementContext context) : base(context)
+		public ReportBuildingAnomalyPictureGroupHandler(BuildingAnomalyService service)
 		{
+			this.service = service;
 		}
 
 		protected override List<BuildingChildPictureForWeb> GetData(Guid idParent, string languageCode)
 		{
-			var query =
-				from picAnomaly in Context.BuildingAnomalyPictures.AsNoTracking()
-				where picAnomaly.IdBuildingAnomaly == idParent && picAnomaly.IsActive
-				let pic = picAnomaly.Picture
-				select new BuildingChildPictureForWeb
-				{
-					Id = pic.Id,
-					IdPicture = pic.Id,
-					PictureData = string.Format(
-						"data:{0};base64,{1}",
-						pic.MimeType == "" || pic.MimeType == null ? "image/jpeg" : pic.MimeType,
-						Convert.ToBase64String(pic.Data)),
-					SketchJson = pic.SketchJson
-				};
-
-			return query.ToList();
+			return service.GetAnomalyPictures(idParent, languageCode);
 		}
 
 		protected override string FormatPropertyValue((string name, string value) property)

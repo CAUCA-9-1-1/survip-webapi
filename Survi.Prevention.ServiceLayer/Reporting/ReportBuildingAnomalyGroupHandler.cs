@@ -1,44 +1,31 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.ServiceLayer.Reporting
 {
 	public class ReportBuildingAnomalyGroupHandler : BaseReportGroupHandlerWithChild<BuildingAnomalyForList>
 	{
+		private readonly BuildingAnomalyService service;
+		private readonly ReportBuildingAnomalyPictureGroupHandler pictureHandler;
+
 		protected override ReportBuildingGroup Group => ReportBuildingGroup.Anomaly;
 
-		public ReportBuildingAnomalyGroupHandler(ManagementContext context) : base(context)
+		public ReportBuildingAnomalyGroupHandler(BuildingAnomalyService service, ReportBuildingAnomalyPictureGroupHandler pictureHandler)
 		{
+			this.service = service;
+			this.pictureHandler = pictureHandler;
 		}
 
-		protected override List<BuildingAnomalyForList> GetData(Guid idParent, string languageCode)
+		protected override List<BuildingAnomalyForList> GetData(Guid idBuilding, string languageCode)
 		{
-			var query =
-				from anomaly in Context.BuildingAnomalies.AsNoTracking()
-				where anomaly.IdBuilding == idParent && anomaly.IsActive
-				select new BuildingAnomalyForList
-				{
-					Id = anomaly.Id,
-					Theme = anomaly.Theme,
-					Notes = anomaly.Notes
-				};
-
-			return query.ToList();
+			return service.GetAnomalyForReport(idBuilding, languageCode);
 		}
 
 		protected override string FillChildren(string template, Guid idParent, string languageCode)
 		{
-			if (ReportingTemplateVariableListExtractor.HasGroup(ReportBuildingGroup.AnomalyPicture, template))
-			{
-				var group = ReportingTemplateVariableListExtractor.GetGroupContent(ReportBuildingGroup.AnomalyPicture, template);
-				var filledGroup = new ReportBuildingAnomalyPictureGroupHandler(Context).FillGroup(group, idParent, languageCode);
-				template = template.Replace(group, filledGroup);
-			}
-
+			template = FillSubGroup(template, idParent, languageCode, ReportBuildingGroup.AnomalyPicture, pictureHandler);
 			return template;
 		}
 	}

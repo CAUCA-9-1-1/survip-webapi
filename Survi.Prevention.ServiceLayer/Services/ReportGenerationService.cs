@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using Survi.Prevention.DataLayer;
@@ -7,6 +6,7 @@ using Survi.Prevention.Models;
 using System.Text;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.Reporting;
 using WkWrap;
 
 namespace Survi.Prevention.ServiceLayer.Services
@@ -15,34 +15,13 @@ namespace Survi.Prevention.ServiceLayer.Services
     {
         private const double MarginInMm = 19.05;
 
-        private readonly BuildingPersonRequiringAssistanceService pnapService;
-        private readonly BuildingHazardousMaterialService hazardousMaterialService;
-        /*private readonly BuildingAlarmPanelService alarmPanelService;
-        private readonly BuildingParticularRiskService particularRiskService;
-        private readonly BuildingParticularRiskPictureService particularRiskPictureService;
-        private readonly BuildingSprinklerService sprinklerService;*/
-        private readonly BuildingContactService contactService;
-	    private readonly InspectionQuestionService questionService;
-		/*private readonly BuildingFireHydrantService fireHydrantService;        
-        private readonly BuildingCourseService courseService;
-        private readonly BuildingAnomalyService anomalyService;
-        private readonly BuildingAnomalyPictureService anomalyPictureService;*/
+		private readonly ReportBuildingGroupHandler buildingHandler;
 
-		public ReportGenerationService(ManagementContext context) : base(context)
-        {
-            pnapService                  = new BuildingPersonRequiringAssistanceService(context);
-            hazardousMaterialService     = new BuildingHazardousMaterialService(context);
-            /*alarmPanelService            = new BuildingAlarmPanelService(context);
-            particularRiskService        = new BuildingParticularRiskService(context);
-            particularRiskPictureService = new nBuildingParticularRiskPictureService(context);
-            sprinklerService             = new BuildingSprinklerService(context);*/
-            contactService               = new BuildingContactService(context);
-            //fireHydrantService           = new BuildingFireHydrantService(context);
-            questionService              = new InspectionQuestionService(context);
-            /*courseService                = new BuildingCourseService(context);
-            anomalyService               = new BuildingAnomalyService(context);
-            anomalyPictureService        = new BuildingAnomalyPictureService(context);*/
-        }
+		public ReportGenerationService(ManagementContext context, ReportBuildingGroupHandler buildingHandler) 
+			: base(context)
+		{
+			this.buildingHandler = buildingHandler;
+		}
         
         private ReportConfigurationTemplate GetTemplate(Guid id)
         {
@@ -69,93 +48,54 @@ namespace Survi.Prevention.ServiceLayer.Services
             }
         }
 
-        public MemoryStream Generate(Guid buildingId, Guid templateId, string languageCode)
+        public MemoryStream Generate(Guid inspectionId, Guid templateId, string languageCode)
         {
-            var inputStream = new MemoryStream();
-            var streamWriter = new StreamWriter(inputStream, new UnicodeEncoding());
+	        var filledTemplate = GetFilledTemplate(inspectionId, templateId, languageCode);
 
-            var template = GetTemplate(templateId);
-            
-            // Avoids splitting tables
-            template.Data = "<style type=\"text/css\">h3, tr { page-break-inside: avoid; }<\\style>" + template.Data;
-            
-            var reportPlaceholders = SetPlaceholders(buildingId, languageCode);
-            string inspectionTextReport = reportPlaceholders.ReplacePlaceholders(template.Data);
+			using (var inputStream = new MemoryStream())
+			using (var streamWriter = new StreamWriter(inputStream, new UnicodeEncoding()))
+			{
+				streamWriter.Write(filledTemplate);
+				streamWriter.Flush();
+				inputStream.Seek(0, SeekOrigin.Begin);
 
-            streamWriter.Write(inspectionTextReport);
-            
-            // Prevents getting an empty stream
-            streamWriter.Flush(); 
-            inputStream.Seek(0, SeekOrigin.Begin);
+				var settings = GetConversionSettings();
 
-            var settings = new ConversionSettings
-            {
-                PageSize = PageSize.Letter,
-                Margins = new PageMargins
-                {
-                    Bottom = MarginInMm,
-                    Top = MarginInMm,
-                    Left = MarginInMm,
-                    Right = MarginInMm
-                }
-            };
-            var wkhtmltopdf = new FileInfo(GetWkhtmltopdfPath());
-            var converter = new HtmlToPdfConverter(wkhtmltopdf);
-            
-            var outputStream = new MemoryStream();
-            converter.ConvertToPdf(inputStream, outputStream, settings);
-            outputStream.Seek(0, SeekOrigin.Begin);
-            streamWriter.Dispose();
-            
-            return outputStream;
+				var wkhtmltopdf = new FileInfo(GetWkhtmltopdfPath());
+				var converter = new HtmlToPdfConverter(wkhtmltopdf);
+
+				var outputStream = new MemoryStream();
+				converter.ConvertToPdf(inputStream, outputStream, settings);
+				outputStream.Seek(0, SeekOrigin.Begin);				
+				return outputStream;
+			}
         }
-        
-        private ReportPlaceholders SetPlaceholders(Guid buildingId, string languageCode)
-        {
-            var reportPlaceholders = new ReportPlaceholders();
-            var inspectionId = GetCurrentInspectionId(buildingId);
-            var detail = GetBuildingDetail(inspectionId, languageCode);
-            
-            reportPlaceholders.SetBuildingDetails(detail);
-            reportPlaceholders.SetGeneralInformation(GetGeneralInformation(buildingId, languageCode));
-            /*reportPlaceholders.SetWaterSupply(fireHydrantService.GetFormFireHydrants(inspectionId, languageCode));
-            reportPlaceholders.SetPersonRequiringAssistance(pnapService.GetListLocalized(languageCode, buildingId));
-            reportPlaceholders.SetHazardousMaterials(hazardousMaterialService.GetListLocalized(languageCode, buildingId));
-            reportPlaceholders.SetFireProtectionAlarmPanels(alarmPanelService.GetListLocalized(languageCode, buildingId));
-            reportPlaceholders.SetContact(contactService.GetListLocalized(buildingId, languageCode));
 
-            var courses = courseService.GetCourses(inspectionId);
-            reportPlaceholders.SetCourses(courses, GetCourseLanes(courses, languageCode));
-            
-            var sprinklers = sprinklerService.GetListLocalized(languageCode, buildingId);
-            reportPlaceholders.SetFireProtectionSprinklers(sprinklers);*/
+	    private static ConversionSettings GetConversionSettings()
+	    {
+		    var settings = new ConversionSettings
+		    {
+			    PageSize = PageSize.Letter,
+			    Margins = new PageMargins
+			    {
+				    Bottom = MarginInMm,
+				    Top = MarginInMm,
+				    Left = MarginInMm,
+				    Right = MarginInMm
+			    }
+		    };
+		    return settings;
+	    }
 
-            var surveySummary = questionService.GetInspectionQuestionSummaryListLocalized(inspectionId, languageCode);
-            reportPlaceholders.SetSurvey(surveySummary);
-            
-            // Particular risks
-            /*var foundationRisks = particularRiskService.Get<FoundationParticularRisk>(buildingId);
-            var floorRisks = particularRiskService.Get<FloorParticularRisk>(buildingId);
-            var wallRisks = particularRiskService.Get<WallParticularRisk>(buildingId);
-            var roofRisks = particularRiskService.Get<RoofParticularRisk>(buildingId);
+	    private string GetFilledTemplate(Guid inspectionId, Guid templateId, string languageCode)
+	    {
+		    var template = GetTemplate(templateId);
+		    template.Data = "<style type=\"text/css\">h3, tr { page-break-inside: avoid; }<\\style>" + template.Data;
+		    var filledTemplate = buildingHandler.FillGroup(template.Data, inspectionId, languageCode);
+		    return filledTemplate;
+	    }
 
-            reportPlaceholders.SetParticulerRiskFoundationProperties(foundationRisks, 
-                particularRiskPictureService.GetAnomalyPictures(foundationRisks.Id));
-            reportPlaceholders.SetParticulerRiskFloorProperties(floorRisks, 
-                particularRiskPictureService.GetAnomalyPictures(floorRisks.Id));
-            reportPlaceholders.SetParticulerRiskWallProperties(wallRisks, 
-                particularRiskPictureService.GetAnomalyPictures(wallRisks.Id));
-            reportPlaceholders.SetParticulerRiskRoofProperties(roofRisks, 
-                particularRiskPictureService.GetAnomalyPictures(roofRisks.Id));*/
-
-            // Direct assignation
-            reportPlaceholders.Transversal = GetTransversal(inspectionId, languageCode);
-            //reportPlaceholders.Anomalies = SetAnomalies(buildingId);
-            
-            return reportPlaceholders;
-        }
-        
-        private Guid GetCurrentInspectionId(Guid buildingId)
+	    private Guid GetCurrentInspectionId(Guid buildingId)
         {
             var query =
                 from inspection in Context.Inspections
@@ -337,42 +277,5 @@ namespace Survi.Prevention.ServiceLayer.Services
 
             return result;
         }
-
-        /*private Dictionary<Guid, InspectionBuildingCourseWithLanes> GetCourseLanes(List<InspectionBuildingCourseForList> courses, string languageCode)
-        {
-            var lanesDictionary = new Dictionary<Guid, InspectionBuildingCourseWithLanes>();
-            foreach (var course in courses)
-            {
-                lanesDictionary.Add(course.Id, courseService.GetCourse(course.Id, languageCode));
-            }
-
-            return lanesDictionary;
-        }*/
-        
-        /*
-         * Because of the data structure, it is simpler to generate the string for Anomalies here instead of in
-         * ReportPlaceholers.cs
-         */
-        /*private string SetAnomalies(Guid idBuilding)
-        {
-            var anomalies = anomalyService.GetListForWeb(idBuilding);
-            var report = "";
-            foreach (var theme in anomalies)
-            {
-                report += "<h3>" + theme.Theme + "</h3>\n";
-                foreach (var anomaly in theme.Anomalies)
-                {
-                    report += "<h4>Notes: " + anomaly.Notes + "</h4>\n";
-                    var pictures = anomalyPictureService.GetAnomalyPictures(anomaly.Id);
-                    foreach (var picture in pictures)
-                    {
-                        report += "<img style=\"margin: 20px 20px\" src=\"data:image/png;base64, " + 
-                                  picture.PictureData + 
-                                  "\" height=\"400\" />\n";
-                    }
-                }
-            }
-            return report;
-        }*/
     }
 }
