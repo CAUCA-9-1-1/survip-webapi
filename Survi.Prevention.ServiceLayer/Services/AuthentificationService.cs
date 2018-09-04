@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class AuthentificationService : BaseService
-	{
+	{	
 		public AuthentificationService(ManagementContext context) : base(context)
 		{
 		}

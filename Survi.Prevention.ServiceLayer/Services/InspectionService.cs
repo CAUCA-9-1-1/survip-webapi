@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
-using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.DataTransfertObjects.Reporting;
 using Survi.Prevention.Models.InspectionManagement;
 using Survi.Prevention.ServiceLayer.DataCopy;
 
@@ -16,36 +16,36 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-        public bool Remove(Guid id)
-        {
-            var entity = Context.Inspections.Find(id);
-            entity.IsActive = false;
-            Context.SaveChanges();
+		public bool Remove(Guid id)
+		{
+			var entity = Context.Inspections.Find(id);
+			entity.IsActive = false;
+			Context.SaveChanges();
 
-            return true;
-        }
+			return true;
+		}
 
-        public bool SetStatus(InspectionStatus status, Guid id, string refusalReason = null)
-        {
-            var inspection = Context.Inspections
-                .Where(i => i.Id == id)
-                .Include(i => i.Visits)
-                .Single();
+		public bool SetStatus(InspectionStatus status, Guid id, string refusalReason = null)
+		{
+			var inspection = Context.Inspections
+				.Where(i => i.Id == id)
+				.Include(i => i.Visits)
+				.Single();
 
-	        inspection.Status = status;
-	        AssignRefusalReasonToLastVisit(refusalReason, inspection);
+			inspection.Status = status;
+			AssignRefusalReasonToLastVisit(refusalReason, inspection);
 
-	        using (var manager = new InspectionBuildingDataCopyManager(Context, inspection.Id))
-	        {
-		        if (status == InspectionStatus.Approved)
+			using (var manager = new InspectionBuildingDataCopyManager(Context, inspection.Id))
+			{
+				if (status == InspectionStatus.Approved)
 					manager.ReplaceOriginalWithCopy();
-		        else if (status == InspectionStatus.Canceled)
-			        manager.DeleteCopy();
-	        }
+				else if (status == InspectionStatus.Canceled)
+					manager.DeleteCopy();
+			}
 
-	        Context.SaveChanges();
-            return true;
-        }
+			Context.SaveChanges();
+			return true;
+		}
 
 		private static void AssignRefusalReasonToLastVisit(string refusalReason, Inspection inspection)
 		{
@@ -66,12 +66,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 				      && batch.Users.Any(user => user.IdWebuser == userId)
 				from inspection in batch.Inspections
 				where inspection.IsActive
-					  && (inspection.Status == InspectionStatus.Todo || inspection.Status == InspectionStatus.Started || inspection.Status == InspectionStatus.Refused)
+				      && (inspection.Status == InspectionStatus.Todo || inspection.Status == InspectionStatus.Started || inspection.Status == InspectionStatus.Refused)
 				      && (inspection.IdWebuserAssignedTo == null || inspection.IdWebuserAssignedTo == userId)
 				let building = inspection.MainBuilding
 				from laneLocalization in building.Lane.Localizations
 				where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
-				select new 
+				select new
 				{
 					inspection.Id,
 					IdBatch = batch.Id,
@@ -102,36 +102,36 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return results
 				.GroupBy(data => new {data.IdBatch, data.BatchDescription})
-				.Select(group => new BatchForList { Id = group.Key.IdBatch, Description = group.Key.BatchDescription, Inspections = group.ToList() })
+				.Select(group => new BatchForList {Id = group.Key.IdBatch, Description = group.Key.BatchDescription, Inspections = group.ToList()})
 				.ToList();
 		}
 
-        public IQueryable<InspectionToDo> GetToDoInspections(string languageCode, List<Guid> cityIds)
-        {
+		public IQueryable<InspectionToDo> GetToDoInspections(string languageCode, List<Guid> cityIds)
+		{
 			var query =
 				from inspection in Context.InspectionsToDo
 				where inspection.LanguageCode == languageCode && cityIds.Contains(inspection.IdCity)
 				select inspection;
 			return query;
-        }
+		}
 
-        public IQueryable<InspectionForApproval> GetInspectionsForApproval(string languageCode, List<Guid> cityIds)
-        {
-	        var query =
-		        from inspection in Context.InspectionsForApproval
-		        where inspection.LanguageCode == languageCode && cityIds.Contains(inspection.IdCity)
+		public IQueryable<InspectionForApproval> GetInspectionsForApproval(string languageCode, List<Guid> cityIds)
+		{
+			var query =
+				from inspection in Context.InspectionsForApproval
+				where inspection.LanguageCode == languageCode && cityIds.Contains(inspection.IdCity)
 				select inspection;
-	        return query;		
-        }
+			return query;
+		}
 
-        public IQueryable<InspectionCompleted> GetInspectionsCompleted(string languageCode, List<Guid> cityIds)
-        {
-	        var query =
-		        from inspection in Context.InspectionsCompleted
-		        where inspection.LanguageCode == languageCode && cityIds.Contains(inspection.IdCity)
+		public IQueryable<InspectionCompleted> GetInspectionsCompleted(string languageCode, List<Guid> cityIds)
+		{
+			var query =
+				from inspection in Context.InspectionsCompleted
+				where inspection.LanguageCode == languageCode && cityIds.Contains(inspection.IdCity)
 				select inspection;
-	        return query;			
-        }
+			return query;
+		}
 
 		public IQueryable<BuildingWithoutInspection> GetBuildingWithoutInspectionQueryable(string languageCode, List<Guid> cityIds)
 		{
@@ -139,7 +139,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.Where(b => b.LanguageCode == languageCode && cityIds.Contains(b.IdCity));
 
 			return query;
-        }       
+		}
 
 		public bool StartInspection(Guid idInspection, Guid idUser)
 		{
@@ -156,7 +156,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 				targetInspection.Status = InspectionStatus.Started;
 				targetInspection.StartedOn = DateTime.Now;
-				
+
 				Context.SaveChanges();
 
 				return true;
@@ -169,10 +169,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			if (!targetInspection.Visits.Any(iv => iv.IsActive && iv.Status != InspectionVisitStatus.Completed))
 			{
-				targetInspection.Visits.Add(new InspectionVisit {
+				targetInspection.Visits.Add(new InspectionVisit
+				{
 					Status = InspectionVisitStatus.Started,
 					CreatedOn = DateTime.Now,
-					IdWebuserVisitedBy = idUser});
+					IdWebuserVisitedBy = idUser
+				});
 			}
 		}
 
@@ -191,8 +193,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Context.SaveChanges();
 
 					return true;
-				}				
+				}
 			}
+
 			return false;
 		}
 
@@ -214,8 +217,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public bool RefuseInspectionVisit(InspectionVisit inspectionVisit, Guid idUser)
 		{
 			var targetInspection = Context.Inspections.Where(i => i.Id == inspectionVisit.IdInspection && i.IsActive)
-									.Include(i => i.Visits)
-									.Single();
+				.Include(i => i.Visits)
+				.Single();
 
 			RefuseCurrentInspectionVisit(targetInspection, inspectionVisit, idUser);
 			if (inspectionVisit.RequestedDateOfVisit != null)
@@ -318,6 +321,41 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 
 			return retValue;
+		}
+
+		public InspectionForReport GetBuildingLastCompletedInspection(Guid idBuilding)
+		{
+			var lastInspectionId = Context.Inspections.AsNoTracking()
+				.Where(inspection => inspection.IdBuilding == idBuilding && inspection.Status == InspectionStatus.Approved)
+				.OrderByDescending(inspection => inspection.CompletedOn)
+				.Select(inspection => inspection.Id)
+				.FirstOrDefault();
+
+			if (lastInspectionId == Guid.Empty)
+				return null;
+
+			var lastVisit =
+				(from visit in Context.InspectionVisits.AsNoTracking()
+					where visit.IdInspection == lastInspectionId
+					orderby visit.EndedOn descending
+					select visit)
+				.Include(visit => visit.VisitedBy)
+				.ThenInclude(user => user.Attributes)
+				.FirstOrDefault();
+
+			if (lastVisit == null)
+				return null;
+
+			var firstName = lastVisit.VisitedBy.Attributes.FirstOrDefault(a => a.AttributeName == "first_name");
+			var lastName = lastVisit.VisitedBy.Attributes.FirstOrDefault(a => a.AttributeName == "last_name");
+
+			return new InspectionForReport
+			{
+				Id = lastInspectionId,
+				StartedOn = lastVisit.StartedOn,
+				EndedOn = lastVisit.EndedOn,
+				InspectorName = (firstName?.AttributeValue ?? "") + " " + (lastName?.AttributeValue ?? "")
+			};
 		}
 	}
 }

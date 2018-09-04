@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Services;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
 
@@ -37,7 +38,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			if (picture == null)
 				filledTemplate = filledTemplate.Replace(sitePlanPlaceholder, "");
 			else
-				filledTemplate = filledTemplate.Replace(sitePlanPlaceholder, FormatPicture(picture.PictureData));
+				filledTemplate = filledTemplate.Replace("{{" + sitePlanPlaceholder + "}}", FormatPicture(picture.PictureData));
 			return filledTemplate;
 		}
 
@@ -45,6 +46,29 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		{
 			return "<img style=\"margin: 20px 20px\" src=\"data:image/png;base64, " + picture +
 			       "\" height=\"400\" />";
+		}
+
+		protected override string FormatPropertyValue((string name, object value) property, string languageCode)
+		{
+			if (property.value is GarageType type)
+				return GetBuildingGarageLocalized(type, languageCode);		
+			return base.FormatPropertyValue(property, languageCode);
+		}
+
+		private string GetBuildingGarageLocalized(GarageType garageType, string languageCode)
+		{
+			var val = languageCode == "en" ? "No" : "Non";
+			switch (garageType)
+			{
+				case GarageType.Detached:
+					val = languageCode == "en" ? "Detached" : "Détaché";
+					break;
+				case GarageType.Yes:
+					val = languageCode == "en" ? "Yes" : "Oui";
+					break;
+			}
+
+			return val;
 		}
 	}
 }

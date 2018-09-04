@@ -23,7 +23,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			foreach (var property in entity.GetPublicProperties())
 			{
 				groupTemplate = FillChildren(groupTemplate, entity.Id, languageCode);
-				groupTemplate = ReplacePropertiesPlaceholder(groupTemplate, property);
+				groupTemplate = ReplacePropertiesPlaceholder(groupTemplate, languageCode, property);
 			}
 
 			return groupTemplate;

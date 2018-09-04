@@ -2,6 +2,7 @@
 {
 	public enum ReportBuildingGroup
 	{
+		Inspection,
 		Building,
 		BuildingPicture,
 		AlarmPanel,

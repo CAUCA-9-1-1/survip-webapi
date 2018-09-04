@@ -24,20 +24,30 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		protected virtual string GetFilledTemplate(string groupTemplate, T entity, string languageCode)
 		{
 			foreach (var property in entity.GetPublicProperties())
-				groupTemplate = ReplacePropertiesPlaceholder(groupTemplate, property);
+				groupTemplate = ReplacePropertiesPlaceholder(groupTemplate, languageCode, property);
 
 			return groupTemplate;
 		}
 
-		protected string ReplacePropertiesPlaceholder(string groupTemplate, (string name, string value) property)
+		protected string ReplacePropertiesPlaceholder(string groupTemplate, string languageCode, (string name, object value) property)
 		{
-			groupTemplate = groupTemplate.Replace("{{" + property.name + "}}", FormatPropertyValue(property));
+			groupTemplate = groupTemplate.Replace("{{" + property.name + "}}", FormatPropertyValue(property, languageCode));
 			return groupTemplate;
 		}
 
-		protected virtual string FormatPropertyValue((string name, string value) property)
+		protected virtual string FormatPropertyValue((string name, object value) property, string languageCode)
 		{
-			return property.value;
+			if (property.value is bool value)
+			{
+				if (value)
+					return languageCode == "fr" ? "Oui" : "Yes";
+				return languageCode == "fr" ? "Non" : "No";
+			}
+
+			if (property.value is decimal valueDecimal)
+				return $"{valueDecimal:f2}";
+
+			return (property.value ?? "").ToString();
 		}
 
 		protected abstract List<T> GetData(Guid idParent, string languageCode);		

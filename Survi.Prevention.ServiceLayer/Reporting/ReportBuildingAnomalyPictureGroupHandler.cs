@@ -21,7 +21,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			return service.GetAnomalyPictures(idParent, languageCode);
 		}
 
-		protected override string FormatPropertyValue((string name, string value) property)
+		protected override string FormatPropertyValue((string name, object value) property, string languageCode)
 		{
 			if (property.name == "PictureData")
 			{
@@ -29,7 +29,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 				       property.value +
 				       "\" height=\"400\" />";
 			}
-			return base.FormatPropertyValue(property);
+			return base.FormatPropertyValue(property, languageCode);
 		}
 	}
 }
