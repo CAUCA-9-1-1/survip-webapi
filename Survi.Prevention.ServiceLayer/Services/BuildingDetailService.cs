@@ -52,9 +52,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public BuildingChildPictureForWeb GetSitePlan(Guid detailId)
 		{
 			var query =
-				from detail in Context.BuildingDetails.AsNoTracking()
-				where detail.Id == detailId
+				from detail in Context.BuildingDetails.AsNoTracking()				
 				let pic = detail.PlanPicture
+				where detail.Id == detailId && detail.IdPicturePlan != null
 				select new BuildingChildPictureForWeb
 				{
 					Id = pic.Id,
