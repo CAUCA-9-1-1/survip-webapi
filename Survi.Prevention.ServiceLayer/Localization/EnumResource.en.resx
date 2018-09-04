@@ -159,10 +159,25 @@
   <data name="floor" xml:space="preserve">
     <value>Floor</value>
   </data>
+  <data name="GarageType_Detached" xml:space="preserve">
+    <value>Detached</value>
+  </data>
+  <data name="GarageType_No" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="GarageType_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
   <data name="sector" xml:space="preserve">
     <value>Sector</value>
   </data>
   <data name="wall" xml:space="preserve">
     <value>Wall</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

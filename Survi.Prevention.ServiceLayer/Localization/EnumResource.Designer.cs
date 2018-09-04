@@ -187,6 +187,42 @@ namespace Survi.Prevention.ServiceLayer.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Détaché.
+        /// </summary>
+        internal static string GarageType_Detached {
+            get {
+                return ResourceManager.GetString("GarageType_Detached", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Non.
+        /// </summary>
+        internal static string GarageType_No {
+            get {
+                return ResourceManager.GetString("GarageType_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oui.
+        /// </summary>
+        internal static string GarageType_Yes {
+            get {
+                return ResourceManager.GetString("GarageType_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Non.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Secteur.
         /// </summary>
         internal static string sector {
@@ -201,6 +237,15 @@ namespace Survi.Prevention.ServiceLayer.Localization {
         internal static string wall {
             get {
                 return ResourceManager.GetString("wall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oui.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

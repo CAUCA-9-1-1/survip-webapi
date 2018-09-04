@@ -38,11 +38,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		protected virtual string FormatPropertyValue((string name, object value) property, string languageCode)
 		{
 			if (property.value is bool value)
-			{
-				if (value)
-					return languageCode == "fr" ? "Oui" : "Yes";
-				return languageCode == "fr" ? "Non" : "No";
-			}
+				return Localization.EnumResource.ResourceManager.GetString(value ? "Yes" : "No", System.Globalization.CultureInfo.GetCultureInfo(languageCode));
 
 			if (property.value is decimal valueDecimal)
 				return $"{valueDecimal:f2}";

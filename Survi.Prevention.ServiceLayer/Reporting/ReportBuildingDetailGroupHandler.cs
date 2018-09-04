@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Services;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
+using Survi.Prevention.ServiceLayer.Localization.Base;	
 
 namespace Survi.Prevention.ServiceLayer.Reporting
 {
@@ -57,7 +58,10 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 		private string GetBuildingGarageLocalized(GarageType garageType, string languageCode)
 		{
-			var val = languageCode == "en" ? "No" : "Non";
+			var value = garageType.GetDisplayName(languageCode);
+			return value;
+
+			/*var val = languageCode == "en" ? "No" : "Non";
 			switch (garageType)
 			{
 				case GarageType.Detached:
@@ -68,7 +72,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 					break;
 			}
 
-			return val;
+			return val;*/
 		}
 	}
 }
