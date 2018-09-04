@@ -8,88 +8,17 @@ using Microsoft.IdentityModel.Tokens;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.SecurityManagement;
 using Microsoft.EntityFrameworkCore;
-using Survi.Prevention.ServiceLayer.Reporting;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class AuthentificationService : BaseService
 	{
-		private ReportBuildingGroupHandler handler;
-
-		public AuthentificationService(ManagementContext context, ReportBuildingGroupHandler handler) : base(context)
+		public AuthentificationService(ManagementContext context) : base(context)
 		{
-			this.handler = handler;
 		}
 
 		public (AccessToken token, Webuser user) Login(string username, string password, string applicationName, string issuer, string secretKey)
 		{
-
-
-
-			var buildingId = Guid.Parse("629cdc81-9aba-462b-b34b-5702ce02c88f");			
-			var template = @"
-[Building]
-	Propriétaire: {{OwnerName}}.
-	Adresse: {{CivicNumber}}{{CivicLetter}}, {{FullLaneName}}
-	Matricule: {{Matricule}}
-[Detail]
-	Flow: {{EstimatedWaterFlow}} {{EstimatedWaterFlowUnit}}.
-	Type: {{BuildingType}}.
-	Construction: {{ConstructionType}}.
-	Résistance: {{ConstructionFireResistanceType}}.
-[/Detail]
-Contacts:
-	[Contact]
-		Nom: {{FirstName}} {{LastName}}.  Proprio? {{IsOwner}}
-	[/Contact]
-Sprinklers:
-	[Sprinkler]
-		Type: {{TypeName}}.  Étage: {{Floor}}.  Mur: {{Wall}} etc.
-	[/Sprinkler]
-Panneaux d'alarme:
-	[AlarmPanel]
-		Type: {{TypeName}}.  Étage: {{Floor}}.  Mur: {{Wall}} etc.
-	[/AlarmPanel]
-PNAPs:
-	[PersonRequiringAssistance]
-		Type: {{TypeName}}.
-	[/PersonRequiringAssistance]
-Bornes:
-	[FireHydrant]
-		{{Number}} : {{Address}}
-	[/FireHydrant]
-	[Course]
-		Caserne: {{Description}}
-		[CourseLane]
-			{{Description}}
-		[/CourseLane]
-	[/Course]
-	[HazardousMaterial]
-		{{HazardousMaterialNumber}} - {{HazardousMaterialName}}
-		{{QuantityDescription}}
-	[/HazardousMaterial]
-	[Anomaly]
-		Theme: {{Theme}}
-		Notes: {{Notes}}
-		[AnomalyPicture]
-			Photo: {{PictureData}}
-		[/AnomalyPicture]
-	[/Anomaly]
-	[ParticularRisk]
-		Type: {{TypeName}}
-		Ouverture: {{HasOpening}}
-		Affaibli: {{IsWeakened}}
-		Commentaire: {{Comments}}
-		[ParticularRiskPicture]
-			Photo: {{PictureData}}
-		[/ParticularRiskPicture]
-	[/ParticularRisk]
-[/Building]";
-			var filledTemplate = handler.FillGroup(template, buildingId, "fr");
-
-
-
-
 			var encodedPassword = new PasswordGenerator().EncodePassword(password, applicationName);
 			var userFound = Context.Webusers
 				.Include(user => user.Attributes)
