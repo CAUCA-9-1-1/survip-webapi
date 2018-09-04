@@ -29,6 +29,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 			var buildingId = Guid.Parse("629cdc81-9aba-462b-b34b-5702ce02c88f");			
 			var template = @"
 [Building]
+	Propriétaire: {{OwnerName}}.
+	Adresse: {{CivicNumber}}{{CivicLetter}}, {{FullLaneName}}
+	Matricule: {{Matricule}}
+[Detail]
+	Flow: {{EstimatedWaterFlow}} {{EstimatedWaterFlowUnit}}.
+	Type: {{BuildingType}}.
+	Construction: {{ConstructionType}}.
+	Résistance: {{ConstructionFireResistanceType}}.
+[/Detail]
 Contacts:
 	[Contact]
 		Nom: {{FirstName}} {{LastName}}.  Proprio? {{IsOwner}}

@@ -4,6 +4,8 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.DataTransfertObjects.Reporting;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -38,6 +40,33 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public override List<BuildingDetail> GetList()
 		{
 			return Enumerable.Empty<BuildingDetail>().ToList();
+		}
+
+		public BuildingDetailForReport GetDetailForReport(Guid buildingId, string languageCode)
+		{
+			return Context.BuildingDetailsForReport
+				.SingleOrDefault(detail => detail.IdBuilding == buildingId && detail.LanguageCode == languageCode);
+		}
+
+
+		public BuildingChildPictureForWeb GetSitePlan(Guid detailId)
+		{
+			var query =
+				from detail in Context.BuildingDetails.AsNoTracking()
+				where detail.Id == detailId
+				let pic = detail.PlanPicture
+				select new BuildingChildPictureForWeb
+				{
+					Id = pic.Id,
+					IdPicture = pic.Id,
+					PictureData = string.Format(
+						"data:{0};base64,{1}",
+						pic.MimeType == "" || pic.MimeType == null ? "image/jpeg" : pic.MimeType,
+						Convert.ToBase64String(pic.Data)),
+					SketchJson = pic.SketchJson
+				};
+
+			return query.SingleOrDefault();
 		}
 	}
 }

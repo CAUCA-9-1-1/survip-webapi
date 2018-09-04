@@ -109,7 +109,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             return result.idInspection;
         }
         
-        private BuildingGeneralInformationForReport GetGeneralInformation(Guid buildingId, string languageCode)
+        /*private BuildingGeneralInformationForReport GetGeneralInformation(Guid buildingId, string languageCode)
         {
             var query =
             from inspection in Context.Inspections
@@ -165,7 +165,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     ),
                     Assignment = results.assignment
             };
-        }
+        }*/
 
         private string GetTransversal(Guid id, string languageCode)
         {
@@ -206,7 +206,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             return val;
         }
         
-        private BuildingDetailForReport GetBuildingDetail(Guid id, string languageCode)
+        /*private BuildingDetailForReport GetBuildingDetail(Guid id, string languageCode)
         {
             var inspection = Context.Inspections
                 .First(u => u.Id == id);
@@ -276,6 +276,6 @@ namespace Survi.Prevention.ServiceLayer.Services
             };
 
             return result;
-        }
+        }*/
     }
 }

@@ -20,6 +20,7 @@ namespace Survi.Prevention.WebApi
 			services.AddTransient<ReportBuildingPersonRequiringAssistanceGroupHandler>();
 			services.AddTransient<ReportBuildingSprinklerGroupHandler>();
 			services.AddTransient<ReportBuildingGroupHandler>();
+			services.AddTransient<ReportBuildingDetailGroupHandler>();
 			return services;
 		}
 	}

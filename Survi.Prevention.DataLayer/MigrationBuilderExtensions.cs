@@ -259,6 +259,105 @@ namespace Survi.Prevention.DataLayer
 
 				WHERE i.is_active = true and i.status = 3;
 				");
+
+			migrationBuilder.Sql(@"
+				CREATE OR REPLACE VIEW building_for_report
+				AS
+				SELECT
+				  b.id,
+                      b.id_parent_building,
+                      b.child_type,
+
+				  b.civic_number,
+				  b.civic_letter,
+				  b.civic_supp,
+				  b.civic_letter_supp,
+				  b.appartment_number,
+
+				  b.postal_code,
+				  b.building_value,
+				  b.matricule,
+				  b.year_of_construction,
+				  b.details,
+
+				  bloc.name,
+
+				  ucloc.description as utilisation_code,
+				  riskloc.name as risk_level,
+
+				  (CASE WHEN lpc.description != '' or lgc.description != ''
+					THEN concat(laneloc.name, ' (', lpc.description, CASE WHEN lgc.description != '' THEN lgc.description ELSE ''END, ')' )
+					ELSE laneloc.name END) as full_lane_name,
+
+				  (CASE WHEN lpct.description != '' or lgct.description != ''
+					THEN concat(laneloct.name, ' (', lpct.description, CASE WHEN lgct.description != '' THEN lgct.description ELSE ''END, ')' )
+					ELSE laneloct.name END) as full_transversal_lane_name,
+
+				  (select concat(bc.first_name, ' ', bc.last_name)
+				   from building_contact as bc
+				   where bc.id_building = b.id and bc.is_owner = true and bc.is_active = true limit 1) as owner_name,
+
+				  laneloc.language_code
+
+				FROM building as b
+				INNER JOIN building_detail as bd ON b.id = bd.id_building
+				INNER JOIN lane as l on b.id_lane = l.id
+				INNER JOIN lane_public_code as lpc ON lpc.id = l.id_public_code
+				INNER JOIN lane_generic_code as lgc ON lgc.id = l.id_lane_generic_code
+				INNER JOIN lane_localization as laneloc ON l.id = laneloc.id_lane
+
+				INNER JOIN building_localization as bloc on b.id = bloc.id_building and bloc.language_code = laneloc.language_code
+
+				LEFT JOIN lane as lt on b.id_lane_transversal = lt.id
+				LEFT JOIN lane_public_code as lpct ON lpct.id = lt.id_public_code
+				LEFT JOIN lane_generic_code as lgct ON lgct.id = lt.id_lane_generic_code
+				LEFT JOIN lane_localization as laneloct ON lt.id = laneloct.id_lane and laneloct.language_code = laneloc.language_code
+
+				LEFT JOIN utilisation_code as uc on b.id_utilisation_code = uc.id
+				LEFT JOIN utilisation_code_localization as ucloc on uc.id = ucloc.id_utilisation_code and ucloc.language_code = laneloc.language_code
+
+				LEFT JOIN risk_level as risk on b.id_risk_level = risk.id
+				LEFT JOIN risk_level_localization as riskloc on riskloc.id_risk_level = risk.id and riskloc.language_code = laneloc.language_code
+
+				WHERE b.is_active = true;
+				");
+
+			migrationBuilder.Sql(@"
+				CREATE OR REPLACE VIEW building_detail_for_report
+					AS
+				SELECT
+					bd.id,
+					b.id as id_building,
+					bd.height,
+					bd.garage_type,
+					bd.estimated_water_flow,
+
+					btype.name as building_type,
+					stype.name as siding_type,
+					ctype.name as construction_type,
+					cfrtype.name as construction_fire_resistance_type,
+					rmtype.name as roof_material_type,
+					rtype.name as roof_type,
+
+					ewfunit.abbreviation as estimated_water_flow_unit,
+					heightunit.abbreviation as height_unit,
+
+					lang.code as language_code
+
+				FROM building as b
+				INNER JOIN building_detail as bd ON b.id = bd.id_building
+				CROSS JOIN (select 'fr' as code union select 'en' as code) as lang
+				LEFT JOIN building_type_localization as btype on btype.id_building_type = bd.id_building_type and btype.language_code = lang.code
+				LEFT JOIN siding_type_localization as stype on stype.id_siding_type = bd.id_building_siding_type and stype.language_code = lang.code
+					LEFT JOIN construction_type_localization as ctype on ctype.id_construction_type = bd.id_construction_type and ctype.language_code = lang.code
+					LEFT JOIN construction_fire_resistance_type_localization as cfrtype on cfrtype.id_parent = bd.id_construction_fire_resistance_type and cfrtype.language_code = lang.code
+					LEFT JOIN roof_material_type_localization as rmtype on rmtype.id_roof_material_type = bd.id_roof_material_type and rmtype.language_code = lang.code
+					LEFT JOIN roof_type_localization as rtype on rtype.id_roof_type = bd.id_roof_type and rtype.language_code = lang.code
+					LEFT JOIN unit_of_measure as ewfunit on ewfunit.id = bd.id_unit_of_measure_estimated_water_flow --and ewfunit.language_code = lang.code
+					LEFT JOIN unit_of_measure as heightunit on heightunit.id = bd.id_unit_of_measure_height --and heightunit.language_code = lang.code
+
+				WHERE b.is_active = true;
+				");
 		}
 	}
 }

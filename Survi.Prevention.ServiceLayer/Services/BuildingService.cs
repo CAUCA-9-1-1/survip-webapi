@@ -103,13 +103,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public List<BuildingForReport> GetBuildingsForReport(Guid mainBuildingId, string languageCode)
 		{
 			var query =
-				from building in Context.Buildings.AsNoTracking()
-				where building.IsActive && (building.Id == mainBuildingId || building.IdParentBuilding == mainBuildingId)
+				from building in Context.BuildingsForReport
+				where (building.Id == mainBuildingId || building.IdParentBuilding == mainBuildingId) && building.LanguageCode == languageCode
 				orderby building.ChildType
-				select new BuildingForReport
-				{
-					Id = building.Id
-				};
+				select building;
 
 			return query.ToList();
 		}

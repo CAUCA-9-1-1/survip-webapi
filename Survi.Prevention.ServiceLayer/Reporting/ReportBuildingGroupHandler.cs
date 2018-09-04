@@ -18,12 +18,13 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		private ReportBuildingHazardousMaterialGroupHandler materialHandler;
 		private ReportBuildingAnomalyGroupHandler anomalyHandler;
 		private ReportBuildingParticularRiskGroupHandler riskHandler;
+		private ReportBuildingDetailGroupHandler detailHandler;
 		private BuildingService service;
 
 		public ReportBuildingGroupHandler(BuildingService service, ReportBuildingAlarmPanelGroupHandler alarmHandler, ReportBuildingSprinklerGroupHandler sprinklerHandler, 
 			ReportBuildingContactGroupHandler contactHandler, ReportBuildingPersonRequiringAssistanceGroupHandler personHandler, ReportBuildingFireHydrantGroupHandler hydrantHandler,
 			ReportBuildingCourseGroupHandler courseHandler, ReportBuildingHazardousMaterialGroupHandler materialHandler, ReportBuildingAnomalyGroupHandler anomalyHandler,
-			ReportBuildingParticularRiskGroupHandler riskHandler) 
+			ReportBuildingParticularRiskGroupHandler riskHandler, ReportBuildingDetailGroupHandler detailHandler) 
 		{
 			this.service = service;
 			this.alarmHandler = alarmHandler;
@@ -35,6 +36,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			this.materialHandler = materialHandler;
 			this.anomalyHandler = anomalyHandler;
 			this.riskHandler = riskHandler;
+			this.detailHandler = detailHandler;
 		}
 
 		protected override List<BuildingForReport> GetData(Guid mainBuildingId, string languageCode)
@@ -44,6 +46,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 		protected override string FillChildren(string template, Guid idBuilding, string languageCode)
 		{
+			template = FillSubGroup(template, idBuilding, languageCode, ReportBuildingGroup.Detail, detailHandler);
 			template = FillSubGroup(template, idBuilding, languageCode, ReportBuildingGroup.AlarmPanel, alarmHandler);
 			template = FillSubGroup(template, idBuilding, languageCode, ReportBuildingGroup.Sprinkler, sprinklerHandler);
 			template = FillSubGroup(template, idBuilding, languageCode, ReportBuildingGroup.Contact, contactHandler);

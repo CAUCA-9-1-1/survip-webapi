@@ -4,6 +4,7 @@ using Survi.Prevention.Models;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.Buildings.Base;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.DataTransfertObjects.Reporting;
 using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.Models.InspectionManagement;
@@ -106,6 +107,8 @@ namespace Survi.Prevention.DataLayer
 		public DbQuery<InspectionToDo> InspectionsToDo { get; set; }
 		public DbQuery<InspectionForApproval> InspectionsForApproval { get; set; }
 		public DbQuery<InspectionCompleted> InspectionsCompleted { get; set; }
+		public DbQuery<BuildingForReport> BuildingsForReport { get; set; }
+		public DbQuery<BuildingDetailForReport> BuildingDetailsForReport { get; set; }
 
 		public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
 		{
@@ -131,6 +134,10 @@ namespace Survi.Prevention.DataLayer
 				.ToView("building_with_ready_for_approbation_inspection");
 			modelBuilder.Query<InspectionCompleted>()
 				.ToView("building_with_completed_inspection");
+			modelBuilder.Query<BuildingForReport>()
+				.ToView("building_for_report");
+			modelBuilder.Query<BuildingDetailForReport>()
+				.ToView("building_detail_for_report");
 			modelBuilder.SeedInitialData();
 			modelBuilder.SeedInitialDataForDevelopment();
 		}
