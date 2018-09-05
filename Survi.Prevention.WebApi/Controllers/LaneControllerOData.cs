@@ -6,10 +6,6 @@ using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Serialization;
-using Survi.Prevention.Models.Buildings;
-using Survi.Prevention.Models.DataTransfertObjects;
-using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -50,7 +46,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			if (lane is null)
 			{
-				return BadRequest("canAddLane");
+				return BadRequest("cantAddLane");
 			}
 
 			service.AddOrUpdate(lane);
@@ -68,6 +64,18 @@ namespace Survi.Prevention.WebApi.Controllers
 			service.AddOrUpdate(t);
 
 			return Ok();
+		}
+		
+		[HttpDelete]
+		[ODataRoute("Lane({id})"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
+		public IActionResult Delete([FromODataUri] Guid id)
+		{
+			if (service.Remove(id))
+			{
+				return Ok();
+			}
+
+			return BadRequest("cantRemoveLane");
 		}
 	}
 }

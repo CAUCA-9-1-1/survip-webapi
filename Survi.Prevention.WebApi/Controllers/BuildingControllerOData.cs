@@ -52,7 +52,7 @@ namespace Survi.Prevention.WebApi.Controllers
 
 			if (building is null)
 			{
-				return BadRequest("canAddBuilding");
+				return BadRequest("cantAddBuilding");
 			}
 
 			service.AddOrUpdate(building);
@@ -70,6 +70,18 @@ namespace Survi.Prevention.WebApi.Controllers
 			service.AddOrUpdate(t);
 
 			return Ok();
+		}
+
+		[HttpDelete]
+		[ODataRoute("Building({id})"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
+		public IActionResult Delete([FromODataUri] Guid id)
+		{
+			if (service.Remove(id))
+			{
+				return Ok();
+			}
+
+			return BadRequest("cantRemoveBuilding");
 		}
 	}
 }
