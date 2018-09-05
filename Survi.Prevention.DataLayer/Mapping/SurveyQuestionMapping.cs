@@ -19,10 +19,6 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasMany(m => m.Localizations)
 				.WithOne(m => m.Parent)
 				.HasForeignKey(m => m.IdParent);
-			b.Property(m => m.IsRecursive);
-			b.Property(m => m.IdSurveyQuestionParent);
-			b.Property(m => m.MaxOccurrence);
-			b.Property(m => m.MinOccurrence);
 		}
 	}
 }

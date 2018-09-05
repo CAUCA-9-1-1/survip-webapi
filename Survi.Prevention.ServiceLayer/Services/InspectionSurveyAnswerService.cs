@@ -8,10 +8,10 @@ using Survi.Prevention.Models.DataTransfertObjects;
 namespace Survi.Prevention.ServiceLayer.Services
 {
 
-	public class InspectionQuestionService : BaseCrudService<InspectionSurveyAnswer>
+	public class InspectionSurveyAnswerService : BaseCrudService<InspectionSurveyAnswer>
 	{
 
-		public InspectionQuestionService(ManagementContext context) : base(context)
+		public InspectionSurveyAnswerService(ManagementContext context) : base(context)
 		{
 		}
 

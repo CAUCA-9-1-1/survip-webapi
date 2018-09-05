@@ -7,10 +7,10 @@ using System;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
-	[Route("api/InspectionQuestion")]
-	public class InspectionQuestionController : BaseCrudController<InspectionQuestionService, InspectionSurveyAnswer>
+	[Route("api/InspectionSurveyAnswer")]
+	public class InspectionSurveyAnswerController : BaseCrudController<InspectionSurveyAnswerService, InspectionSurveyAnswer>
 	{
-		public InspectionQuestionController(InspectionQuestionService service) : base(service)
+		public InspectionSurveyAnswerController(InspectionSurveyAnswerService service) : base(service)
 		{
 		}
 		[HttpGet, Route("Inspection/{idInspection:Guid}/Answer"), AllowAnonymous]
