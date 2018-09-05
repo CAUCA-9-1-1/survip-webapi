@@ -44,29 +44,31 @@ namespace Survi.Prevention.ServiceLayer.Services
 		private void UpdateSequenceOnAddingChild(SurveyQuestion questionChild)
 		{
 			if (questionChild.IdSurveyQuestionParent != null && questionChild.IdSurveyQuestionParent != Guid.Empty)
+			{
 				if (!Context.SurveyQuestions.Any(sq => sq.Id == questionChild.Id))
 				{
 					var lastParentSequence = GetQuestionMaxSequence(questionChild.IdSurveyQuestionParent);
 					UpdateQuestionSequence(lastParentSequence);
 					questionChild.Sequence = lastParentSequence + 1;
 				}
+			}
 		}
 
 		private int GetQuestionMaxSequence(Guid? idSurveyQuestionParent)
 		{
-			var retValue = 0;
 			var childQuestions = Context.SurveyQuestions
 						.Where(sq => sq.IdSurveyQuestionParent == idSurveyQuestionParent && sq.IsActive).ToList();
 			if (childQuestions.Any())
-				retValue = childQuestions.Max(sq => sq.Sequence);
-			else
-			{
-				var inspection = Context.SurveyQuestions.FirstOrDefault(sq => sq.Id == idSurveyQuestionParent && sq.IsActive);
-				if (inspection != null)
-					retValue = inspection.Sequence;
-			}
+				return childQuestions.Max(sq => sq.Sequence);
+			return GetParentQuestionSequence(idSurveyQuestionParent);
+		}
 
-			return retValue;
+		private int GetParentQuestionSequence(Guid? idSurveyQuestionParent)
+		{
+			var inspection = Context.SurveyQuestions.FirstOrDefault(sq => sq.Id == idSurveyQuestionParent && sq.IsActive);
+			if (inspection != null)
+				return inspection.Sequence;
+			return 0;
 		}
 
 		private void UpdateQuestionSequence(int sequenceStart)

@@ -8,8 +8,8 @@ namespace Survi.Prevention.Models.SurveyManagement
 	{
 		public int Sequence { get; set; }
 		public int QuestionType { get; set; }
-		public int MaxOccurrence { get; set; } = 0;
-		public int MinOccurrence { get; set; } = 0;
+		public int MaxOccurrence { get; set; }
+		public int MinOccurrence { get; set; }
 
 		public Guid IdSurvey { get; set; }
 		public Guid? IdSurveyQuestionNext { get; set; }

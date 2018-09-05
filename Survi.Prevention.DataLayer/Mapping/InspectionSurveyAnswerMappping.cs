@@ -4,7 +4,7 @@ using Survi.Prevention.Models.InspectionManagement;
 
 namespace Survi.Prevention.DataLayer.Mapping
 {
-	public class QuestionAnswerMappping : EntityMappingConfiguration<InspectionSurveyAnswer>
+	public class InspectionSurveyAnswerMappping : EntityMappingConfiguration<InspectionSurveyAnswer>
 	{
 		public override void Map(EntityTypeBuilder<InspectionSurveyAnswer> b)
 		{

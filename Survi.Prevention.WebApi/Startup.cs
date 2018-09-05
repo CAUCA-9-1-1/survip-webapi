@@ -119,7 +119,7 @@ namespace Survi.Prevention.WebApi
 			services.AddTransient<SurveyQuestionChoiceService>();
 			services.AddTransient<ConstructionService>();
 			services.AddTransient<BuildingDetailService>();
-			services.AddTransient<InspectionQuestionService>();
+			services.AddTransient<InspectionSurveyAnswerService>();
 			services.AddTransient<InspectionBuildingHazardousMaterialService>();
 			services.AddTransient<HazardousMaterialService>();
 			services.AddTransient<PersonRequiringAssistanceTypeService>();
