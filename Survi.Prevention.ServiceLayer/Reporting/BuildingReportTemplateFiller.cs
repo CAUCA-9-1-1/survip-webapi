@@ -18,7 +18,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			var buildingPart = ReportingTemplateVariableListExtractor.GetGroupContent(ReportBuildingGroup.Building, template);
 			var filledTemplate = template.Replace(buildingPart, handler.FillGroup(buildingPart, buildingId, languageCode));
 			var inspectionPart = ReportingTemplateVariableListExtractor.GetGroupContent(ReportBuildingGroup.Inspection, template);
-			filledTemplate = filledTemplate.Replace(inspectionPart, inspectionHandler.FillGroup(filledTemplate, buildingId, languageCode));
+			filledTemplate = filledTemplate.Replace(inspectionPart, inspectionHandler.FillGroup(inspectionPart, buildingId, languageCode));
 			return filledTemplate;
 		}
     }
