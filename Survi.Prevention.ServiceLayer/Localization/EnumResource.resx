@@ -180,4 +180,16 @@
   <data name="Yes" xml:space="preserve">
     <value>Oui</value>
   </data>
+  <data name="ParticularRisk_Floor" xml:space="preserve">
+    <value>Plancher</value>
+  </data>
+  <data name="ParticularRisk_Foundation" xml:space="preserve">
+    <value>Fondation</value>
+  </data>
+  <data name="ParticularRisk_Roof" xml:space="preserve">
+    <value>Toit</value>
+  </data>
+  <data name="ParticularRisk_Wall" xml:space="preserve">
+    <value>Mur</value>
+  </data>
 </root>

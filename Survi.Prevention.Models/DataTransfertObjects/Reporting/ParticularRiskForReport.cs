@@ -1,4 +1,5 @@
 ﻿using System;
+using Survi.Prevention.Models.Buildings.Base;
 
 namespace Survi.Prevention.Models.DataTransfertObjects.Reporting
 {
@@ -10,7 +11,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects.Reporting
 	    public string Comments { get; set; } = "";
 	    public string Wall { get; set; }
 	    public string Sector { get; set; }
-	    public string Dimension { get; set; } = "";
-	    public string TypeName { get; set; }
+	    public string Dimension { get; set; } = "";		
+	    public ParticularRiskType RiskType { get; set; }
     }
 }

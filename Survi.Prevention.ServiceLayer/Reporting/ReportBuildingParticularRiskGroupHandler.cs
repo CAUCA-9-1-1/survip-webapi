@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Survi.Prevention.Models.Buildings.Base;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
+using Survi.Prevention.ServiceLayer.Localization.Base;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.ServiceLayer.Reporting
@@ -28,6 +30,13 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		{
 			template = FillSubGroup(template, idParent, languageCode, ReportBuildingGroup.ParticularRiskPicture, pictureHandler);
 			return template;
+		}
+
+		protected override string FormatPropertyValue((string name, object value) property, string languageCode)
+		{
+			if (property.value is ParticularRiskType riskType)
+				return riskType.GetDisplayName(languageCode);
+			return base.FormatPropertyValue(property, languageCode);
 		}
 	}
 }

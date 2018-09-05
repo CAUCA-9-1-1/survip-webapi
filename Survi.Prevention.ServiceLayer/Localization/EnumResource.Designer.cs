@@ -223,6 +223,42 @@ namespace Survi.Prevention.ServiceLayer.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Plancher.
+        /// </summary>
+        internal static string ParticularRisk_Floor {
+            get {
+                return ResourceManager.GetString("ParticularRisk_Floor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fondation.
+        /// </summary>
+        internal static string ParticularRisk_Foundation {
+            get {
+                return ResourceManager.GetString("ParticularRisk_Foundation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toit.
+        /// </summary>
+        internal static string ParticularRisk_Roof {
+            get {
+                return ResourceManager.GetString("ParticularRisk_Roof", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mur.
+        /// </summary>
+        internal static string ParticularRisk_Wall {
+            get {
+                return ResourceManager.GetString("ParticularRisk_Wall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Secteur.
         /// </summary>
         internal static string sector {

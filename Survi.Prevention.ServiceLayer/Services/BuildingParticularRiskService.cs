@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.Buildings.Base;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
 
@@ -16,7 +17,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		}
 
 		public List<ParticularRiskForReport> GetListForReport(Guid idBuilding)
-		{
+		{BuildingParticularRisk
 			var query =
 				from risk in Context.BuildingParticularRisks.AsNoTracking()
 				where risk.IdBuilding == idBuilding && risk.IsActive
@@ -28,7 +29,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					IsWeakened = risk.IsWeakened,
 					Sector = risk.Sector,
 					Wall = risk.Wall,
-					TypeName = risk is BuildingWallParticularRisk ? "Mur" :
+					TypeName = risk is BuildingWallParticularRisk ? "Risk_Wall" :
 						risk is BuildingRoofParticularRisk ? "Toit" :
 						risk is BuildingFloorParticularRisk ? "Plancher" :
 						"Fondation"

@@ -58,21 +58,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 		private string GetBuildingGarageLocalized(GarageType garageType, string languageCode)
 		{
-			var value = garageType.GetDisplayName(languageCode);
-			return value;
-
-			/*var val = languageCode == "en" ? "No" : "Non";
-			switch (garageType)
-			{
-				case GarageType.Detached:
-					val = languageCode == "en" ? "Detached" : "Détaché";
-					break;
-				case GarageType.Yes:
-					val = languageCode == "en" ? "Yes" : "Oui";
-					break;
-			}
-
-			return val;*/
+			return garageType.GetDisplayName(languageCode);
 		}
 	}
 }

@@ -4,6 +4,14 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings.Base
 {
+	public enum ParticularRiskType
+	{
+		Foundation,
+		Floor,
+		Wall,
+		Roof
+	}
+
     public abstract class BaseBuildingParticularRisk<TBuilding, TRiskPicture, TPicture> : BaseModel
 	    where TBuilding : BaseBuilding
 	    where TPicture : BasePicture
