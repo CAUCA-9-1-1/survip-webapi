@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Converters;
 using Survi.Prevention.Models.DataTransfertObjects;
 
 namespace Survi.Prevention.ServiceLayer.Services
@@ -13,7 +14,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public CityService(ManagementContext context) : base(context)
 		{
 		}
-
+		
 		public override City Get(Guid id)
 		{
 			var result = Context.Cities
@@ -44,13 +45,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return query.Distinct().ToList();
 		}
 
-        public List<CityLocalized> GetListLocalized(string languageCode)
+        public List<CityLocalized> GetListLocalized(string languageCode, List<Guid> idCities)
         {
             var query =
                 from city in Context.Cities.AsNoTracking()
                 where city.IsActive
                 from localization in city.Localizations.DefaultIfEmpty()
-                where localization.IsActive && localization.LanguageCode == languageCode
+                where localization.IsActive && localization.LanguageCode == languageCode && idCities.Contains(city.Id)
                 orderby localization.Name
                 select new CityLocalized {
                     Id = city.Id,

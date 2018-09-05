@@ -6,6 +6,10 @@ using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Serialization;
+using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -38,6 +42,32 @@ namespace Survi.Prevention.WebApi.Controllers
 		public IQueryable<Lane> GetList()
 		{
 			return service.GetList(GetUserCityIds());
+		}
+		
+		[HttpPost]
+		[ODataRoute("Lane"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
+		public IActionResult Post([FromBody]Lane lane)
+		{
+			if (lane is null)
+			{
+				return BadRequest("canAddLane");
+			}
+
+			service.AddOrUpdate(lane);
+			return Ok();
+		}
+		
+		[HttpPatch]
+		[ODataRoute("Lane({id})"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
+		public IActionResult Patch([FromODataUri]Guid id, [FromBody]Delta<Lane> value)
+		{
+			var t = service.Get(id);
+			if (t == null) return NotFound();
+ 
+			value.Patch(t);
+			service.AddOrUpdate(t);
+
+			return Ok();
 		}
 	}
 }
