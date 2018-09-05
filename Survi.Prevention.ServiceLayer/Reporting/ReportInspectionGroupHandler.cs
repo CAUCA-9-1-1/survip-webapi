@@ -10,12 +10,12 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 	public class ReportInspectionGroupHandler : BaseReportGroupHandler<InspectionForReport>
 	{
 		private readonly InspectionService service;
-		private readonly InspectionQuestionService answerService;
+		private readonly InspectionSurveyAnswerService answerService;
 		private readonly string surveyPlaceholder = "SurveyAnswers";
 
 		protected override ReportBuildingGroup Group => ReportBuildingGroup.Inspection;
 
-		public ReportInspectionGroupHandler(InspectionService service, InspectionQuestionService answerService)
+		public ReportInspectionGroupHandler(InspectionService service, InspectionSurveyAnswerService answerService)
 		{
 			this.service = service;
 			this.answerService = answerService;

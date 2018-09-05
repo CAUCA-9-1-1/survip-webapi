@@ -17,7 +17,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		}
 
 		public List<ParticularRiskForReport> GetListForReport(Guid idBuilding)
-		{BuildingParticularRisk
+		{
 			var query =
 				from risk in Context.BuildingParticularRisks.AsNoTracking()
 				where risk.IdBuilding == idBuilding && risk.IsActive
@@ -29,10 +29,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 					IsWeakened = risk.IsWeakened,
 					Sector = risk.Sector,
 					Wall = risk.Wall,
-					TypeName = risk is BuildingWallParticularRisk ? "Risk_Wall" :
-						risk is BuildingRoofParticularRisk ? "Toit" :
-						risk is BuildingFloorParticularRisk ? "Plancher" :
-						"Fondation"
+					RiskType = risk is BuildingWallParticularRisk ? ParticularRiskType.Wall :
+						risk is BuildingRoofParticularRisk ? ParticularRiskType.Roof :
+						risk is BuildingFloorParticularRisk ? ParticularRiskType.Floor :
+						ParticularRiskType.Foundation
 				};
 
 			return query.ToList();
