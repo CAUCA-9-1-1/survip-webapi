@@ -22,5 +22,8 @@
     <Compile Update="DataTransfertObjects\FireHydrantTypeLocalized.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="DataTransfertObjects\Reporting\BuildingForReport.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

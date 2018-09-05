@@ -21,7 +21,6 @@ namespace Survi.Prevention.DataLayer.InitialData
 			SeedInitialRoofType(builder);
 			SeedInitialRoofMaterialType(builder);
 			SeedInitialSidingType(builder);
-			SeedInitialSprinklerType(builder);
 
 			SeedInitialSprinklerType(builder);
 			SeedInitialAlarmPanelType(builder);
@@ -29,7 +28,6 @@ namespace Survi.Prevention.DataLayer.InitialData
 			SeedInitialFireHydrantConnectionType(builder);
 			SeedInitialFireHydrantType(builder);
 			SeedInitialOperatorTypes(builder);
-			SeedInitialFireResistanceType(builder);
 			SeedInitialDataForMeasuringUnit(builder);
 			builder.Entity<LaneGenericCode>().HasData(InitialLaneGenericCodesGenerator.GetInitialData().ToArray());
 			builder.Entity<LanePublicCode>().HasData(InitialLanePublicCodesGenerator.GetInitialData().ToArray());

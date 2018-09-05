@@ -19,10 +19,10 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasMany(m => m.Pictures).WithOne(m => m.Risk).HasForeignKey(m => m.IdBuildingParticularRisk);
 
 			b.HasDiscriminator<int>("risk_type")
-				.HasValue<BuildingFoundationParticularRisk>(0)
-				.HasValue<BuildingFloorParticularRisk>(1)
-				.HasValue<BuildingWallParticularRisk>(2)
-				.HasValue<BuildingRoofParticularRisk>(3);
+				.HasValue<BuildingFoundationParticularRisk>((int)ParticularRiskType.Foundation)
+				.HasValue<BuildingFloorParticularRisk>((int)ParticularRiskType.Floor)
+				.HasValue<BuildingWallParticularRisk>((int)ParticularRiskType.Wall)
+				.HasValue<BuildingRoofParticularRisk>((int)ParticularRiskType.Roof);
 		}
 	}
 }

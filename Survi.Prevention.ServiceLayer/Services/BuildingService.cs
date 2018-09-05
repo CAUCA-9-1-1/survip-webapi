@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.Expressions;
-using NpgsqlTypes;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models;
+using Survi.Prevention.Models.DataTransfertObjects.Reporting;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -56,7 +55,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 {
                     building.Id,
                     building.CivicNumber,
-                    Name = building.Localizations.FirstOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
+                    building.Localizations.FirstOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
                     Lane = laneName.FirstOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
                     City = cityName.FirstOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
                     RiskLevel = riskLevel.FirstOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
@@ -81,13 +80,13 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
             if (building.Picture is Picture)
             {
-                building.IdPicture = updatePicture(building);
+                building.IdPicture = UpdatePicture(building);
             }
 
             return base.AddOrUpdate(building);
         }
 
-        private Guid updatePicture(Building building)
+        private Guid UpdatePicture(Building building)
         {
             var isExistRecord = Context.Pictures.Any(p => p.Id == building.Picture.Id);
 
@@ -100,5 +99,16 @@ namespace Survi.Prevention.ServiceLayer.Services
 
             return building.Picture.Id;
         }
-    }
+
+		public List<BuildingForReport> GetBuildingsForReport(Guid mainBuildingId, string languageCode)
+		{
+			var query =
+				from building in Context.BuildingsForReport
+				where (building.Id == mainBuildingId || building.IdParentBuilding == mainBuildingId) && building.LanguageCode == languageCode
+				orderby building.ChildType
+				select building;
+
+			return query.ToList();
+		}
+	}
 }

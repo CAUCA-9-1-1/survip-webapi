@@ -28,11 +28,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.ToList();
 		}
 
-		public List<BuildingHazardousMaterialForList> GetListLocalized(string languageCode, Guid idBuilding)
+		public List<BuildingHazardousMaterialForList> GetListLocalized(Guid buildingId, string languageCode)
 		{
 			var query =
 				from matBuilding in Context.InspectionBuildingHazardousMaterials.AsNoTracking()
-				where matBuilding.IdBuilding == idBuilding && matBuilding.IsActive
+				where matBuilding.IdBuilding == buildingId && matBuilding.IsActive
 				let mat = matBuilding.Material
 				from loc in mat.Localizations
 				where loc.IsActive && loc.LanguageCode == languageCode
@@ -58,7 +58,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Id = mat.Id,
 					HazardousMaterialNumber = mat.matNumber,
 					HazardousMaterialName = mat.Name,
-					QuantityDescription = GetQuantityDescription(mat.Quantity, mat.CapacityContainer, mat.abbreviation??mat.unitName)
+					QuantityDescription = GetQuantityDescription(mat.Quantity, mat.CapacityContainer, mat.abbreviation ?? mat.unitName)
 				});
 
 			return result.ToList();

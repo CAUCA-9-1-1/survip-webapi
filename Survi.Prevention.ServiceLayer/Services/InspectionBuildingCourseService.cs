@@ -73,7 +73,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return course.Id;
 		}
 
-		public List<InspectionBuildingCourseForList> GetCourses(Guid inspectionid)
+		public List<BuildingCourseForList> GetCourses(Guid inspectionid)
 		{
 			var query =
 				from inspection in Context.Inspections.AsNoTracking()
@@ -83,7 +83,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				from course in building.Courses
 				where course.IsActive && course.Firestation.IsActive
 				let firestation = course.Firestation
-				select new InspectionBuildingCourseForList
+				select new BuildingCourseForList
 				{
 					Id = course.Id,
 					Description = firestation.Name
@@ -101,7 +101,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			};
 		}
 
-		private ICollection<InspectionBuildingCourseLaneForList> GetCourseLanesList(Guid idCourse, string languageCode)
+		private ICollection<BuildingCourseLaneForList> GetCourseLanesList(Guid idCourse, string languageCode)
 		{
 			var query =
 				from courseLane in Context.InspectionBuildingCourseLanes.AsNoTracking()
@@ -114,7 +114,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				select new { courseLane.Id, loc.Name, genericDescription = genericCode.Description, genericCode.AddWhiteSpaceAfter, publicDescription = publicCode.Description, courseLane.Direction, courseLane.Sequence };
 
 			var result = query.ToList()
-				.Select(lane => new InspectionBuildingCourseLaneForList {
+				.Select(lane => new BuildingCourseLaneForList {
 					Id = lane.Id,
 					Sequence = lane.Sequence,
 					Description = GenerateLaneName(lane.Direction, lane.Name, lane.genericDescription, lane.publicDescription, lane.AddWhiteSpaceAfter, languageCode) })

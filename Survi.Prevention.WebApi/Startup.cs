@@ -17,7 +17,6 @@ using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.Models.FireSafetyDepartments;
-using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi
 {
@@ -72,64 +71,8 @@ namespace Survi.Prevention.WebApi
 			{
 				npgOptions.UseNetTopologySuite();
 			}));
-			services.AddTransient<AuthentificationService>();
-            services.AddTransient<WebuserService>();
-			services.AddTransient<PermissionService>();
-			services.AddTransient<PermissionObjectService>();
-			services.AddTransient<PermissionSystemFeatureService>();
-            services.AddTransient<CountryService>();
-            services.AddTransient<StateService>();
-            services.AddTransient<RegionService>();
-            services.AddTransient<CountyService>();
-            services.AddTransient<CityTypeService>();
-            services.AddTransient<CityService>();
-            services.AddTransient<RiskLevelService>();
-			services.AddTransient<InspectionService>();
-            services.AddTransient<InspectionBatchService>();
-			services.AddTransient<InspectionBuildingService>();
-			services.AddTransient<InspectionDetailService>();
-			services.AddTransient<InspectionBuildingCourseService>();
-			services.AddTransient<InspectionBuildingFireHydrantService>();
-			services.AddTransient<InspectionBuildingContactService>();
-			services.AddTransient<InspectionBuildingPersonRequiringAssistanceService>();
-			services.AddTransient<InspectionBuildingAlarmPanelService>();
-			services.AddTransient<InspectionBuildingSprinklerService>();
-			services.AddTransient<InspectionBuildingAnomalyService>();
-			services.AddTransient<InspectionBuildingAnomalyPictureService>();
-			services.AddTransient<AlarmPanelTypeService>();
-			services.AddTransient<SprinklerTypeService>();
-			services.AddTransient<PictureService>();
-			services.AddTransient<LaneService>();
-            services.AddTransient<LaneGenericCodeService>();
-            services.AddTransient<LanePublicCodeService>();
-            services.AddTransient<FireSafetyDepartmentService>();
-            services.AddTransient<FirestationService>();
-			services.AddTransient<UtilisationCodeService>();
-            services.AddTransient<BuildingService>();
-            services.AddTransient<BuildingContactService>();
-            services.AddTransient<BuildingHazardousMaterialService>();
-            services.AddTransient<BuildingPersonRequiringAssistanceService>();
-            services.AddTransient<FireHydrantService>();
-            services.AddTransient<FireHydrantTypeService>();
-            services.AddTransient<FireHydrantConnectionTypeService>();
-            services.AddTransient<OperatorTypeService>();
-            services.AddTransient<UnitOfMeasureService>();
-			services.AddTransient<SurveyService>();
-			services.AddTransient<SurveyQuestionService>();
-			services.AddTransient<SurveyQuestionChoiceService>();
-			services.AddTransient<ConstructionService>();
-			services.AddTransient<BuildingDetailService>();
-			services.AddTransient<InspectionSurveyAnswerService>();
-			services.AddTransient<InspectionBuildingHazardousMaterialService>();
-			services.AddTransient<HazardousMaterialService>();
-			services.AddTransient<PersonRequiringAssistanceTypeService>();
-			services.AddTransient<InspectionBuildingParticularRiskService>();
-			services.AddTransient<InspectionBuildingParticularRiskPictureService>();
-            services.AddTransient<FireSafetyDepartmentRiskLevelService>();
-			services.AddTransient<ReportConfigurationTemplateService>();
-			services.AddTransient<ReportGenerationService>();
-			services.AddTransient<InspectionBuildingDetailService>();
-			services.AddTransient<InspectionPictureService>();
+			services.InjectDataServices();
+			services.InjectReportHandlers();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

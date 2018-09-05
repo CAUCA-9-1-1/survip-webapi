@@ -159,10 +159,37 @@
   <data name="floor" xml:space="preserve">
     <value>Étage</value>
   </data>
+  <data name="GarageType_Detached" xml:space="preserve">
+    <value>Détaché</value>
+  </data>
+  <data name="GarageType_No" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="GarageType_Yes" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Non</value>
+  </data>
   <data name="sector" xml:space="preserve">
     <value>Secteur</value>
   </data>
   <data name="wall" xml:space="preserve">
+    <value>Mur</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+  <data name="ParticularRiskType_Floor" xml:space="preserve">
+    <value>Plancher</value>
+  </data>
+  <data name="ParticularRiskType_Foundation" xml:space="preserve">
+    <value>Fondation</value>
+  </data>
+  <data name="ParticularRiskType_Roof" xml:space="preserve">
+    <value>Toit</value>
+  </data>
+  <data name="ParticularRiskType_Wall" xml:space="preserve">
     <value>Mur</value>
   </data>
 </root>

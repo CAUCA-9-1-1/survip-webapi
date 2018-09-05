@@ -2,7 +2,7 @@
 
 namespace Survi.Prevention.Models.DataTransfertObjects
 {
-	public class InspectionBuildingCourseLaneForList
+	public class BuildingCourseLaneForList
 	{
 		public Guid Id { get; set; }
 		public string Description { get; set; }
