@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 using Survi.Prevention.ServiceLayer.Services;
 

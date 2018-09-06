@@ -36,10 +36,9 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		private string ReplaceSitePlanPlaceholderByPicture(BuildingDetailForReport entity, string filledTemplate)
 		{
 			var picture = service.GetSitePlan(entity.Id);
-			if (picture == null)
-				filledTemplate = filledTemplate.Replace(sitePlanPlaceholder, "");
-			else
-				filledTemplate = filledTemplate.Replace("{{" + sitePlanPlaceholder + "}}", FormatPicture(picture.PictureData));
+			filledTemplate = picture == null 
+				? filledTemplate.Replace(sitePlanPlaceholder, "") 
+				: filledTemplate.Replace("{{" + sitePlanPlaceholder + "}}", FormatPicture(picture.PictureData));
 			return filledTemplate;
 		}
 

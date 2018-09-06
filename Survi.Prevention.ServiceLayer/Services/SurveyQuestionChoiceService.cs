@@ -47,12 +47,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			if (idSurveyQuestion != Guid.Empty)
 			{
-				var QuestionChoices = Context.SurveyQuestionChoices
+				var questionChoices = Context.SurveyQuestionChoices
 					.Include(sqcl => sqcl.Localizations)
 					.Where(sqc => sqc.IdSurveyQuestion == idSurveyQuestion && sqc.IsActive)
 					.ToList();
 
-				QuestionChoices.ForEach(qc =>
+				questionChoices.ForEach(qc =>
 				{
 					qc.IsActive = false;
 					List<SurveyQuestionChoiceLocalization> choices = new List<SurveyQuestionChoiceLocalization>();

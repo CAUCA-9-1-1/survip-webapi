@@ -9,17 +9,17 @@ namespace Survi.Prevention.Models.FireSafetyDepartments
 	{
         public Guid IdFireSafetyDepartment { get; set; }
 
-        public Boolean HasGeneralInformation { get; set; }
-        public Boolean HasImplantationPlan { get; set; }
-        public Boolean HasCourse { get; set; }
-		public Boolean HasWaterSupply { get; set; }
-        public Boolean HasBuildingDetails { get; set; }
-        public Boolean HasBuildingContacts { get; set; }
-        public Boolean HasBuildingPNAPS { get; set; }
-        public Boolean HasBuildingFireProtection { get; set; }
-        public Boolean HasBuildingHazardousMaterials { get; set; }
-        public Boolean HasBuildingParticularRisks { get; set; }
-        public Boolean HasBuildingAnomalies { get; set; }
+        public bool HasGeneralInformation { get; set; }
+        public bool HasImplantationPlan { get; set; }
+        public bool HasCourse { get; set; }
+		public bool HasWaterSupply { get; set; }
+        public bool HasBuildingDetails { get; set; }
+        public bool HasBuildingContacts { get; set; }
+        public bool HasBuildingPNAPS { get; set; }
+        public bool HasBuildingFireProtection { get; set; }
+        public bool HasBuildingHazardousMaterials { get; set; }
+        public bool HasBuildingParticularRisks { get; set; }
+        public bool HasBuildingAnomalies { get; set; }
 
         public Guid IdRiskLevel { get; set; }
         public Guid? IdSurvey { get; set; }

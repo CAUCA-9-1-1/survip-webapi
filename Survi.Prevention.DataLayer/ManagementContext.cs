@@ -100,7 +100,7 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<Survey> Surveys { get; set; }
 		public DbSet<SurveyQuestion> SurveyQuestions { get; set; }
 		public DbSet<SurveyQuestionChoice> SurveyQuestionChoices { get; set; }
-		public DbSet<InspectionSurveyAnswer> InspectionQuestions { get; set; }
+		public DbSet<InspectionSurveyAnswer> InspectionSurveyAnswers { get; set; }
 
         public DbSet<FireSafetyDepartmentRiskLevel> FireSafetyDepartmentRiskLevels { get; set; }
 

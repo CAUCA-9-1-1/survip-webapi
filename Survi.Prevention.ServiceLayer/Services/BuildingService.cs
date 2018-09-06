@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.Buildings;
-using Survi.Prevention.Models;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
 
 namespace Survi.Prevention.ServiceLayer.Services
@@ -78,7 +77,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
         public override Guid AddOrUpdate(Building building)
         {
-            if (building.Picture is Picture)
+            if (building.Picture != null)
             {
                 building.IdPicture = UpdatePicture(building);
             }

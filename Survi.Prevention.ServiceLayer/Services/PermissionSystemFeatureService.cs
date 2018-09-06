@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.SecurityManagement;
 

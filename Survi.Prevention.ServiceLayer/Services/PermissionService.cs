@@ -32,12 +32,14 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			unusedPermission.ForEach(feature =>
 			{
-				var permission = new Permission();
-				permission.Access = null;
-				permission.IdPermissionSystemFeature = feature.Id;
-				permission.IdPermissionObject = id;
-				permission.IdPermissionSystem = feature.IdPermissionSystem;
-				permission.Feature = feature;
+				var permission = new Permission
+				{
+					Access = null,
+					IdPermissionSystemFeature = feature.Id,
+					IdPermissionObject = id,
+					IdPermissionSystem = feature.IdPermissionSystem,
+					Feature = feature
+				};
 
 				activePermission.Add(permission);
 			});

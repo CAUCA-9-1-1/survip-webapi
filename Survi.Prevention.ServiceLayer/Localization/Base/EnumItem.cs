@@ -37,7 +37,7 @@ namespace Survi.Prevention.ServiceLayer.Localization.Base
 		public static List<EnumItem> ToList(this Type enumType)
 		{
 			if (!typeof(Enum).IsAssignableFrom(enumType))
-				throw new ArgumentException("enumType must a enum!", "enumType");
+				throw new ArgumentException("enumType must a enum!", nameof(enumType));
 			else
 			{
 				return Enum.GetValues(enumType)
@@ -51,7 +51,7 @@ namespace Survi.Prevention.ServiceLayer.Localization.Base
 		public static List<EnumItem> ToList(this Type enumType, string languageCode)
 		{
 			if (!typeof(Enum).IsAssignableFrom(enumType))
-				throw new ArgumentException("enumType must a enum!", "enumType");
+				throw new ArgumentException("enumType must a enum!", nameof(enumType));
 			else
 			{
 				return Enum.GetValues(enumType)

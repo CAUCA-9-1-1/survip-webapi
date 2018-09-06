@@ -27,7 +27,7 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 				      && (targetProperty.GetSetMethod(true) != null && !targetProperty.GetSetMethod(true).IsPrivate)
 				      && (targetProperty.GetSetMethod().Attributes & MethodAttributes.Static) == 0
 				      && targetProperty.PropertyType.IsAssignableFrom(srcProp.PropertyType)
-				select new { sourceProperty = srcProp, targetProperty = targetProperty };
+				select new { sourceProperty = srcProp, targetProperty };
 			//map the properties
 			foreach (var props in results)
 			{

@@ -6,8 +6,6 @@ using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Survi.Prevention.Models.Buildings;
-using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.ServiceLayer.Services;
 
