@@ -4,7 +4,6 @@ using System.IO;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models;
 using System.Text;
-using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Reporting;
 using WkWrap;
 

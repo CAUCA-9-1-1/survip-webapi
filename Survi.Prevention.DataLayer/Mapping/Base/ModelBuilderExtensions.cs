@@ -11,7 +11,7 @@ namespace Survi.Prevention.DataLayer.Mapping.Base
     private static IEnumerable<Type> GetMappingTypes(this Assembly assembly, Type mappingInterface)
     {
       return assembly.GetTypes()
-        .Where(x => !x.IsAbstract && x.GetInterfaces().Any(y => IntrospectionExtensions.GetTypeInfo(y).IsGenericType && y.GetGenericTypeDefinition() == mappingInterface));
+        .Where(x => !x.IsAbstract && x.GetInterfaces().Any(y => y.GetTypeInfo().IsGenericType && y.GetGenericTypeDefinition() == mappingInterface));
     }
 
     public static void AddEntityConfigurationsFromAssembly(this ModelBuilder modelBuilder, Assembly assembly)

@@ -8,11 +8,11 @@ namespace Survi.Prevention.WebApi.Controllers
 	[Route("api/PermissionObject")]
 	public class PermissionObjectController : BaseSecuredController
 	{	
-		private readonly PermissionObjectService Service;
+		private readonly PermissionObjectService service;
 
 		public PermissionObjectController(PermissionObjectService service)
 		{
-			Service = service;
+			this.service = service;
 		}
 
 		[HttpGet]
@@ -20,7 +20,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public ActionResult Get()
 		{
-			var result = Service.GetList();
+			var result = service.GetList();
 
 			return Ok(result);
 		}
@@ -30,7 +30,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public ActionResult Post([FromBody] PermissionObject entity)
 		{
-			if (Service.AddOrUpdate(entity)!= Guid.Empty)
+			if (service.AddOrUpdate(entity)!= Guid.Empty)
 				return Ok(new{id = entity.Id});
 
 			return BadRequest();
@@ -42,7 +42,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public ActionResult Delete(Guid id)
 		{
-			if (Service.Remove(id))
+			if (service.Remove(id))
 				return NoContent();
 
 			return BadRequest();

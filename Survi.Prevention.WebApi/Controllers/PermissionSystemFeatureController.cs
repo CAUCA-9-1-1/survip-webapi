@@ -8,11 +8,11 @@ namespace Survi.Prevention.WebApi.Controllers
 	[Route("api/PermissionSystemFeature")]
 	public class PermissionSystemFeatureController : BaseSecuredController
 	{	
-		private readonly PermissionSystemFeatureService Service;
+		private readonly PermissionSystemFeatureService service;
 
 		public PermissionSystemFeatureController(PermissionSystemFeatureService service)
 		{
-			Service = service;
+			this.service = service;
 		}
 
 		[HttpPost]
@@ -20,7 +20,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public ActionResult Post([FromBody] PermissionSystemFeature entity)
 		{
-			if (Service.AddOrUpdate(entity)!= Guid.Empty)
+			if (service.AddOrUpdate(entity)!= Guid.Empty)
 				return Ok(new{id = entity.Id});
 
 			return BadRequest();

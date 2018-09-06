@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.ServiceLayer.Services;
 

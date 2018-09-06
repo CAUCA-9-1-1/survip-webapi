@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireHydrants;
 using Microsoft.EntityFrameworkCore;

@@ -9,17 +9,17 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 	{
 		protected override ReportBuildingGroup Group => ReportBuildingGroup.Building;
 
-		private ReportBuildingAlarmPanelGroupHandler alarmHandler;
-		private ReportBuildingSprinklerGroupHandler sprinklerHandler;
-		private ReportBuildingContactGroupHandler contactHandler;
-		private ReportBuildingPersonRequiringAssistanceGroupHandler personHandler;
-		private ReportBuildingFireHydrantGroupHandler hydrantHandler;
-		private ReportBuildingCourseGroupHandler courseHandler;
-		private ReportBuildingHazardousMaterialGroupHandler materialHandler;
-		private ReportBuildingAnomalyGroupHandler anomalyHandler;
-		private ReportBuildingParticularRiskGroupHandler riskHandler;
-		private ReportBuildingDetailGroupHandler detailHandler;
-		private BuildingService service;
+		private readonly ReportBuildingAlarmPanelGroupHandler alarmHandler;
+		private readonly ReportBuildingSprinklerGroupHandler sprinklerHandler;
+		private readonly ReportBuildingContactGroupHandler contactHandler;
+		private readonly ReportBuildingPersonRequiringAssistanceGroupHandler personHandler;
+		private readonly ReportBuildingFireHydrantGroupHandler hydrantHandler;
+		private readonly ReportBuildingCourseGroupHandler courseHandler;
+		private readonly ReportBuildingHazardousMaterialGroupHandler materialHandler;
+		private readonly ReportBuildingAnomalyGroupHandler anomalyHandler;
+		private readonly ReportBuildingParticularRiskGroupHandler riskHandler;
+		private readonly ReportBuildingDetailGroupHandler detailHandler;
+		private readonly BuildingService service;
 
 		public ReportBuildingGroupHandler(BuildingService service, ReportBuildingAlarmPanelGroupHandler alarmHandler, ReportBuildingSprinklerGroupHandler sprinklerHandler, 
 			ReportBuildingContactGroupHandler contactHandler, ReportBuildingPersonRequiringAssistanceGroupHandler personHandler, ReportBuildingFireHydrantGroupHandler hydrantHandler,

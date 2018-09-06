@@ -8,11 +8,11 @@ namespace Survi.Prevention.WebApi.Controllers
 	[Route("api/Permission")]
 	public class PermissionController : BaseSecuredController
 	{	
-		private readonly PermissionService Service;
+		private readonly PermissionService service;
 
 		public PermissionController(PermissionService service)
 		{
-			this.Service = service;
+			this.service = service;
 		}
 
 		[HttpGet]
@@ -21,7 +21,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public ActionResult Get(Guid id)
 		{
-			var entity = Service.GetFeatureListOfPermissionObject(id);
+			var entity = service.GetFeatureListOfPermissionObject(id);
 			return Ok(entity);
 		}
 		
@@ -31,7 +31,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public ActionResult GetUserPermission(Guid id)
 		{
-			var entity = Service.GetListOfUserPermission(id);
+			var entity = service.GetListOfUserPermission(id);
 			return Ok(entity);
 		}
 		
@@ -40,7 +40,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public ActionResult Post([FromBody] Permission entity)
 		{
-			if (Service.Save(entity)!= Guid.Empty)			
+			if (service.Save(entity)!= Guid.Empty)			
 				return Ok(new{id = entity.Id});
 
 			return BadRequest();
