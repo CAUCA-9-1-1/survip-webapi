@@ -86,7 +86,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			{
 				DeleteQuestion(idSurveyQuestion);
 
-				DeleteQuestionChoices(idSurveyQuestion);
+				DeleteChildQuestion(idSurveyQuestion);
 
 				Context.SaveChanges();
 
@@ -105,6 +105,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 				questionLocalization.AddRange(question.Localizations);
 				questionLocalization.ForEach(sql => sql.IsActive = false);
 			}
+			
+			DeleteQuestionChoices(idSurveyQuestion);
+		}
+
+		private void DeleteChildQuestion(Guid idSurveyQuestion)
+		{
+			var childQuestions = Context.SurveyQuestions.Include(sqc => sqc.Localizations).Where(sq => sq.IdSurveyQuestionParent == idSurveyQuestion).ToList();
+			childQuestions.ForEach(cq =>
+			{
+				DeleteQuestion(cq.Id);
+			});
 		}
 
 		private void DeleteQuestionChoices(Guid idSurveyQuestion)
