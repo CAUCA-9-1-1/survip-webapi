@@ -9,6 +9,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 	{
 		public override void Map(EntityTypeBuilder<InspectionBuilding> b)
 		{
+			b.HasQueryFilter(m => m.IsActive);
 			b.HasKey(m => m.Id);
 
 			b.Property(m => m.CivicNumber).HasMaxLength(15).IsRequired();

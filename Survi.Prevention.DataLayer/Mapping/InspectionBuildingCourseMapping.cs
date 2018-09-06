@@ -9,6 +9,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 	{
 		public override void Map(EntityTypeBuilder<InspectionBuildingCourse> b)
 		{
+			b.HasQueryFilter(m => m.IsActive);
 			b.HasKey(m => m.Id);
 			b.HasOne(m => m.Firestation).WithMany().HasForeignKey(m => m.IdFirestation);
 			b.HasMany(m => m.Lanes).WithOne(m => m.Course).HasForeignKey(m => m.IdBuildingCourse).OnDelete(DeleteBehavior.Cascade);
