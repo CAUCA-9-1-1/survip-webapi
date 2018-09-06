@@ -111,7 +111,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		private void DeleteChildQuestion(Guid idSurveyQuestion)
 		{
-			var childQuestions = Context.SurveyQuestions.Include(sqc => sqc.Localizations).Where(sq => sq.IdSurveyQuestionParent == idSurveyQuestion).ToList();
+			var childQuestions = Context.SurveyQuestions.Include(sqc => sqc.Localizations).Where(sq => sq.IdSurveyQuestionParent == idSurveyQuestion && sq.IsActive).ToList();
 			childQuestions.ForEach(cq =>
 			{
 				DeleteQuestion(cq.Id);
