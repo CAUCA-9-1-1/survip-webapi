@@ -33,22 +33,41 @@ namespace Survi.Prevention.ServiceLayer.Services
 		}
 		
 		public Guid SaveCompleteCourses(InspectionBuildingCourse course)
+		{						
+			UpdateCourse(course);		
+			UpdateCourseLanes(course);
+			Context.SaveChanges();
+			
+			return course.Id;
+		}
+
+		private void UpdateCourse(InspectionBuildingCourse course)
+		{
+			var isExistRecord = Context.InspectionBuildingCourses.Any(c => c.Id == course.Id);
+
+			if (isExistRecord)
+				Context.InspectionBuildingCourses.Update(course);
+			else
+				Context.InspectionBuildingCourses.Add(course);
+		}
+
+		private void UpdateCourseLanes(InspectionBuildingCourse course)
 		{
 			var courseLanes = new List<InspectionBuildingCourseLane>();
 			var dbCourseLanes = new List<InspectionBuildingCourseLane>();
 
 			if (course.Lanes != null)
 				courseLanes = course.Lanes.Where(l => l.IdBuildingCourse == course.Id).ToList();
-			if (Context.InspectionBuildingCourseLanes.AsNoTracking().Any(l => l.IdBuildingCourse == course.Id))
-				dbCourseLanes = Context.InspectionBuildingCourseLanes.AsNoTracking().Where(l => l.IdBuildingCourse == course.Id).ToList();
 
-			dbCourseLanes.ForEach(child =>
-			{
-				if (courseLanes.All(c => c.Id != child.Id))
-				{
-					child.IsActive = false;
-				}
-			});
+			if (Context.InspectionBuildingCourseLanes.AsNoTracking().Any(l => l.IdBuildingCourse == course.Id))
+				dbCourseLanes = Context.InspectionBuildingCourseLanes.Where(l => l.IdBuildingCourse == course.Id).ToList();
+
+			RemoveDeletedLanes(dbCourseLanes, courseLanes);
+			AddNewLanes(courseLanes);
+		}
+
+		private void AddNewLanes(List<InspectionBuildingCourseLane> courseLanes)
+		{
 			courseLanes.ForEach(child =>
 			{
 				var isChildExistRecord = Context.InspectionBuildingCourseLanes.Any(c => c.Id == child.Id);
@@ -57,19 +76,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Context.InspectionBuildingCourseLanes.Add(child);
 				}
 			});
+		}
 
-			Context.SaveChanges();
-
-			var isExistRecord = Context.InspectionBuildingCourses.Any(c => c.Id == course.Id);
-
-			if (isExistRecord)
-				Context.InspectionBuildingCourses.Update(course);
-			else
-				Context.InspectionBuildingCourses.Add(course);
-
-			Context.SaveChanges();
-			
-			return course.Id;
+		private static void RemoveDeletedLanes(List<InspectionBuildingCourseLane> dbCourseLanes, List<InspectionBuildingCourseLane> courseLanes)
+		{
+			dbCourseLanes.ForEach(child =>
+			{
+				if (courseLanes.All(c => c.Id != child.Id))
+				{
+					child.IsActive = false;
+				}
+			});
 		}
 
 		public List<BuildingCourseForList> GetCourses(Guid inspectionid)
