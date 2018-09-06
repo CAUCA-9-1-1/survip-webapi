@@ -69,6 +69,8 @@ namespace Survi.Prevention.WebApi
 			services.AddTransient<InspectionBuildingDetailService>();
 			services.AddTransient<InspectionPictureService>();
 			services.AddTransient<PermissionService>();
+			services.AddTransient<PermissionObjectService>();
+			services.AddTransient<PermissionSystemFeatureService>();
 			return services;
 		}
 	}
