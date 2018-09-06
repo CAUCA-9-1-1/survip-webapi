@@ -46,13 +46,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 			{
 				if (courseLanes.All(c => c.Id != child.Id))
 				{
-					Context.InspectionBuildingCourseLanes.Remove(child);
+					child.IsActive = false;
 				}
 			});
 			courseLanes.ForEach(child =>
 			{
 				var isChildExistRecord = Context.InspectionBuildingCourseLanes.Any(c => c.Id == child.Id);
-
 				if (!isChildExistRecord)
 				{
 					Context.InspectionBuildingCourseLanes.Add(child);
