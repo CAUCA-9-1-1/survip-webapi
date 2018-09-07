@@ -14,6 +14,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 		public string Title { get; set; }
 		public string Description { get; set; }
 		public Guid? IdSurveyQuestionNext { get; set; }
+	    public Guid? IdSurveyQuestionParent { get; set; }
 		public int Sequence { get; set; }
 
 		public List<SurveyQuestionChoiceForList> ChoicesList { get; set; }
