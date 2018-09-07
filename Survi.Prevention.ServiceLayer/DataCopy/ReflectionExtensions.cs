@@ -11,7 +11,7 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 		/// </summary>
 		/// <param name="source">The source.</param>
 		/// <param name="destination">The destination.</param>
-		public static void CopyProperties(this object source, object destination)
+		public static void CopyProperties(this object source, object destination, params string[] ignoredProperties)
 		{
 			// If any this null throw an exception
 			if (source == null || destination == null)
@@ -21,6 +21,7 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 			Type typeSrc = source.GetType();
 			// Collect all the valid properties to map
 			var results = from srcProp in typeSrc.GetProperties()
+				where ignoredProperties.All(propertyName => propertyName != srcProp.Name)
 				let targetProperty = typeDest.GetProperty(srcProp.Name)
 				where srcProp.CanRead
 				      && targetProperty != null

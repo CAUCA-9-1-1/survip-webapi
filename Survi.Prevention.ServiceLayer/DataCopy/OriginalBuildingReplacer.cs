@@ -46,8 +46,15 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 
 		private void ReplaceDetail(InspectionBuilding copy, Building building)
 		{
-			copy.Detail.CopyProperties(building.Detail);
+			AddBuildingDetailWhenMissing(building);
+			copy.Detail.CopyProperties(building.Detail, nameof(copy.Detail.Id));
 			building.Detail.PlanPicture = ReplacePicture(copy.Detail.PlanPicture, building.Detail.PlanPicture);
+		}
+
+		private static void AddBuildingDetailWhenMissing(Building building)
+		{
+			if (building.Detail == null)
+				building.Detail = new BuildingDetail();
 		}
 
 		private void ReplaceAnomalies(InspectionBuilding copy, Building building)
