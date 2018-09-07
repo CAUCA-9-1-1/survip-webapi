@@ -52,7 +52,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 					surveyquestion.QuestionType,
 					idInspection = inspection.Id,
 					surveyquestion.IdSurveyQuestionNext,
-					created_on = questionanswser.CreatedOn
+					created_on = questionanswser.CreatedOn,
+					idInspectionSurveyQuestionParent = surveyquestion.IdSurveyQuestionParent
 				};
 
 			var inspectionQuestionWithChoice =
@@ -70,6 +71,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					QuestionType = question.QuestionType,
 					IdInspection = question.idInspection,
 					IdSurveyQuestionNext = question.IdSurveyQuestionNext,
+					IdSurveyQuestionParent = question.idInspectionSurveyQuestionParent,
 					ChoicesList = (
 						from choice in question.ChoicesList
 						where choice.IsActive
@@ -123,7 +125,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 					 Sequence = surveyquestion.Sequence,
 					 QuestionType = surveyquestion.QuestionType,
 					 IdInspection = inspection.Id,
-					 IdSurveyQuestionNext = surveyquestion.IdSurveyQuestionNext
+					 IdSurveyQuestionNext = surveyquestion.IdSurveyQuestionNext,
+					 IdSurveyQuestionParent = surveyquestion.IdSurveyQuestionParent
 				 };
 
 			return surveyQuestionQuery.ToList();
