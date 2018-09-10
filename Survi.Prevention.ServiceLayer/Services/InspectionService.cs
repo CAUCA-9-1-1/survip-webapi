@@ -269,6 +269,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				where inspection.Id == inspectionId
 				select new
 				{
+					inspection.IdSurvey,
 					inspection.MainBuilding.IdCity,
 					inspection.MainBuilding.IdRiskLevel
 				}).FirstOrDefault();
@@ -299,7 +300,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 					HasCourse = risk.HasCourse,
 					HasGeneralInformation = risk.HasGeneralInformation,
 					HasImplantationPlan = risk.HasImplantationPlan,
-					HasWaterSupply = risk.HasWaterSupply
+					HasWaterSupply = risk.HasWaterSupply,
+					HasSurvey = currentInspection.IdSurvey != null && currentInspection.IdSurvey != Guid.Empty
 				};
 
 			return query.FirstOrDefault() ?? new InspectionConfiguration();
