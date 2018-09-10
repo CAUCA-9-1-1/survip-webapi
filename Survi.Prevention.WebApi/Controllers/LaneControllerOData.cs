@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -55,14 +57,27 @@ namespace Survi.Prevention.WebApi.Controllers
 		
 		[HttpPatch]
 		[ODataRoute("Lane({id})"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
-		public IActionResult Patch([FromODataUri]Guid id, [FromBody]Delta<Lane> value)
+		public IActionResult Patch([FromODataUri]Guid id)
 		{
-			var t = service.Get(id);
-			if (t == null) return NotFound();
- 
-			value.Patch(t);
-			service.AddOrUpdate(t);
+			var body = new StreamReader(Request.Body).ReadToEnd();
+			var json = JObject.Parse(body);
+			var lane = json.ToObject<Lane>();
+			var entity = service.Get(id);
 
+			if (entity == null)
+			{
+				return NotFound();
+			}
+
+			foreach (var item in json)
+			{
+				var propertyName = item.Key.First().ToString().ToUpper() + String.Join("", item.Key.Skip(1));
+				var propertyValue = lane.GetType().GetProperty(propertyName).GetValue(lane, null);
+
+				entity.GetType().GetProperty(propertyName).SetValue(entity, propertyValue, null);
+			}
+			
+			service.AddOrUpdate(entity);
 			return Ok();
 		}
 		
