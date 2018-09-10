@@ -9,6 +9,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 	{
 		public override void Map(EntityTypeBuilder<InspectionBuildingDetail> b)
 		{
+			b.HasQueryFilter(m => m.IsActive);
 			b.HasKey(m => m.Id);
 
 			b.Property(m => m.AdditionalInformation).IsRequired();
