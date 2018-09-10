@@ -17,7 +17,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public override Building Get(Guid id)
 		{
-			var result = Context.Buildings
+			var result = Context.Buildings.AsNoTracking()
                 .Include(b => b.Localizations)
 				.First(b => b.Id == id);
 

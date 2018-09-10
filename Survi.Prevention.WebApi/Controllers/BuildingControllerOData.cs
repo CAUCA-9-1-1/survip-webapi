@@ -61,14 +61,27 @@ namespace Survi.Prevention.WebApi.Controllers
 
 		[HttpPatch]
 		[ODataRoute("Building({id})"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
-		public IActionResult Patch([FromODataUri]Guid id, [FromBody]Delta<Building> value)
+		public IActionResult Patch([FromODataUri]Guid id)
 		{
-			var t = service.Get(id);
-			if (t == null) return NotFound();
- 
-			value.Patch(t);
-			service.AddOrUpdate(t);
+			var body = new StreamReader(Request.Body).ReadToEnd();
+			var json = JObject.Parse(body);
+			var building = json.ToObject<Building>();
+			var entity = service.Get(id);
 
+			if (entity == null)
+			{
+				return NotFound();
+			}
+
+			foreach (var item in json)
+			{
+				var propertyName = item.Key.First().ToString().ToUpper() + String.Join("", item.Key.Skip(1));
+				var propertyValue = building.GetType().GetProperty(propertyName).GetValue(building, null);
+
+				entity.GetType().GetProperty(propertyName).SetValue(entity, propertyValue, null);
+			}
+			
+			service.AddOrUpdate(entity);
 			return Ok();
 		}
 

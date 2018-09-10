@@ -16,7 +16,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public override Lane Get(Guid id)
 		{
-			var result = Context.Lanes
+			var result = Context.Lanes.AsNoTracking()
 				.Include(s => s.Localizations)
 				.First(s => s.Id == id);
 

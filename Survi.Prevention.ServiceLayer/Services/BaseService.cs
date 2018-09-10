@@ -1,3 +1,4 @@
+using NetTopologySuite.Index.Bintree;
 using Survi.Prevention.DataLayer;
 
 namespace Survi.Prevention.ServiceLayer.Services
