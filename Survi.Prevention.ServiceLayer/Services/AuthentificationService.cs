@@ -39,8 +39,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public string Refresh(string token, string refreshToken, string applicationName, string issuer, string secretKey)
 		{
 			var webuserId = GetCallDispatcherIdFromExpiredToken(token, issuer, applicationName, secretKey);
-			var webuserToken = Context.AccessTokens.Include(t => t.User)
-				.FirstOrDefault(t => t.IdWebuser == webuserId && t.RefreshToken == refreshToken);
+			var webuserToken = GetAccessTokenFromRefreshToken(refreshToken, webuserId);
 
 			if (webuserToken == null)
 				throw new SecurityTokenException("Invalid token.");
@@ -56,6 +55,20 @@ namespace Survi.Prevention.ServiceLayer.Services
 			Context.SaveChanges();
 
 			return newAccessToken;
+		}
+
+		public AccessToken GetAccessTokenFromRefreshToken(string refreshToken, Guid webuserId)
+		{
+			var webuserToken = Context.AccessTokens.Include(t => t.User)
+				.FirstOrDefault(t => t.IdWebuser == webuserId && t.RefreshToken == refreshToken);
+			return webuserToken;
+		}
+
+		public AccessToken GetAccessTokenFromAccessToken(string accessToken, Guid webuserId)
+		{
+			var webuserToken = Context.AccessTokens.Include(t => t.User)
+				.FirstOrDefault(t => t.IdWebuser == webuserId && t.TokenForAccess == accessToken);
+			return webuserToken;
 		}
 
 		private Guid GetCallDispatcherIdFromExpiredToken(string token, string issuer, string appName, string secretKey)
