@@ -14,19 +14,19 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 		}
 		[HttpGet, Route("Inspection/{idInspection:Guid}/Answer"), AllowAnonymous]
-		public ActionResult GetAnswerListLocalized(Guid idInspection, [FromHeader]string languageCode)
+		public ActionResult GetAnswerListLocalized(Guid idInspection, [FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return Ok(Service.GetAnswerListLocalized(idInspection, languageCode));
 		}
 
 		[HttpGet, Route("Inspection/{idInspection:Guid}/Question"), AllowAnonymous]
-		public ActionResult GetSurveyQuestionListLocalized(Guid idInspection, [FromHeader]string languageCode)
+		public ActionResult GetSurveyQuestionListLocalized(Guid idInspection, [FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return Ok(Service.GetSurveyQuestionListLocalized(idInspection, languageCode));
 		}
 
 		[HttpGet, Route("Inspection/{idInspection:Guid}/Summary"), AllowAnonymous]
-		public ActionResult GetInspectionQuestionSummaryListLocalized(Guid idInspection, [FromHeader]string languageCode)
+		public ActionResult GetInspectionQuestionSummaryListLocalized(Guid idInspection, [FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return Ok(Service.GetInspectionQuestionSummaryListLocalized(idInspection, languageCode));
 		}

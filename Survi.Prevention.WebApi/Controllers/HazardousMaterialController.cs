@@ -16,19 +16,19 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 
 		[HttpGet, Route("search/{searchTerm?}")]
-		public ActionResult GetList([FromHeader] string languageCode, string searchTerm)
+		public ActionResult GetList([FromHeader(Name = "Language-Code")] string languageCode, string searchTerm)
 		{
 			return Ok(service.GetList(languageCode, searchTerm));
 		}
 
         [HttpGet, Route("localized")]
-        public ActionResult GetListForDisplay([FromHeader]string languageCode)
+        public ActionResult GetListForDisplay([FromHeader(Name = "Language-Code")]string languageCode)
         {
             return Ok(service.GetListForDisplay(languageCode));
         }
 
         [HttpGet, Route("{id:Guid}/name")]
-		public ActionResult GetList(Guid id, [FromHeader] string languageCode)
+		public ActionResult GetList(Guid id, [FromHeader(Name = "Language-Code")] string languageCode)
 		{
 			return Ok(service.Get(languageCode, id));
 		}

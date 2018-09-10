@@ -15,7 +15,7 @@ namespace Survi.Prevention.WebApi.Controllers
         }
 
         [HttpGet("building/{buildindId:guid}/template/{templateId:guid}")]
-        public ActionResult Generate(Guid buildindId, Guid templateId, [FromHeader]string languageCode)
+        public ActionResult Generate(Guid buildindId, Guid templateId, [FromHeader(Name = "Language-Code")]string languageCode)
         {
             var fileStream = service.Generate(buildindId, templateId, languageCode);
             var fileName = buildindId + ".pdf";

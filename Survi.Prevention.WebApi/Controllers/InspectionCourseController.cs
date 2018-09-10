@@ -28,7 +28,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 
 		[HttpGet, Route("course/{idCourse:Guid}")]
-		public ActionResult GetCourse(Guid idCourse, [FromHeader] string languageCode)
+		public ActionResult GetCourse(Guid idCourse, [FromHeader(Name = "Language-Code")] string languageCode)
 		{
 			return Ok(service.GetCourse(idCourse, languageCode));
 		}

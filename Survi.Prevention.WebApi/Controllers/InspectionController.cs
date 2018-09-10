@@ -54,7 +54,7 @@ namespace Survi.Prevention.WebApi.Controllers
 
 		[HttpGet]
 		[ProducesResponseType(typeof(List<BatchForList>), 200)]
-		public ActionResult GetUserInspections([FromHeader]string languageCode)
+		public ActionResult GetUserInspections([FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return Ok(service.GetGroupedUserInspections(languageCode, CurrentUserId));
 		}

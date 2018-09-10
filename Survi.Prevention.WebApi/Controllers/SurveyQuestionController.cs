@@ -12,7 +12,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 		}
 		[HttpGet, Route("Survey/{idSurvey:Guid}")]
-		public ActionResult GetListLocalized(Guid idSurvey, [FromHeader]string languageCode)
+		public ActionResult GetListLocalized(Guid idSurvey, [FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return Ok(Service.GetListLocalized(idSurvey, languageCode));
 		}

@@ -25,7 +25,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 		
 		[HttpGet, Route("Active")]
-		public ActionResult GetListActive([FromHeader] string languageCode)
+		public ActionResult GetListActive([FromHeader(Name = "Language-Code")] string languageCode)
 		{
 			return Ok(Service.GetListActive(languageCode, GetUserCityIds()));
 		}

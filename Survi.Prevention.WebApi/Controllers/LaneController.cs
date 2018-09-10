@@ -13,25 +13,25 @@ namespace Survi.Prevention.WebApi.Controllers
 	    }
 
 		[HttpGet, Route("city/{cityId:Guid}")]
-		public ActionResult GetListByCityLocalized(Guid cityId, [FromHeader]string languageCode)
+		public ActionResult GetListByCityLocalized(Guid cityId, [FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return Ok(Service.GetListByCityLocalized(cityId, languageCode));
 		}
 
 	    [HttpGet, Route("city/{cityId:Guid}/Search/{searchTerm?}")]
-	    public ActionResult GetFilteredLanesLocalized(Guid cityId, [FromHeader]string languageCode, string searchTerm)
+	    public ActionResult GetFilteredLanesLocalized(Guid cityId, [FromHeader(Name = "Language-Code")]string languageCode, string searchTerm)
 	    {
 		    return Ok(Service.GetFilteredLanesLocalized(cityId, languageCode, searchTerm));
 	    }
 
         [HttpGet, Route("localized")]
-        public ActionResult GetListLocalized([FromHeader] string languageCode)
+        public ActionResult GetListLocalized([FromHeader(Name = "Language-Code")] string languageCode)
         {
             return Ok(Service.GetListLocalized(languageCode));
         }
 
         [HttpGet, Route("localized/{laneId:Guid}")]
-		public ActionResult GetLocalizedLane(Guid laneId, [FromHeader] string languageCode)
+		public ActionResult GetLocalizedLane(Guid laneId, [FromHeader(Name = "Language-Code")] string languageCode)
 		{
 			var lane = Service.GetLaneLocalizedName(laneId, languageCode);
 			if (lane == null)

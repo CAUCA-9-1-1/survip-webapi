@@ -13,13 +13,13 @@ namespace Survi.Prevention.WebApi.Controllers
 	    }
 
 		[HttpGet, Route("city/{idCity:Guid}")]
-		public ActionResult GetListLocalized(Guid idCity, [FromHeader]string languageCode)
+		public ActionResult GetListLocalized(Guid idCity, [FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return Ok(Service.GetListForCity(idCity, languageCode));
 		}
 
 		[HttpGet, Route("city/{idCity:Guid}/building/{idBuilding:Guid}")]
-		public ActionResult GetCityListLocalizedForBuilding(Guid idCity, Guid idBuilding, [FromHeader]string languageCode)
+		public ActionResult GetCityListLocalizedForBuilding(Guid idCity, Guid idBuilding, [FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return Ok(Service.GetCityListForBuilding(idCity, idBuilding, languageCode));
 		}

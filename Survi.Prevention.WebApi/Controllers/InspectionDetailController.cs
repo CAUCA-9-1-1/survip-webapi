@@ -15,7 +15,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 
 		[HttpGet, Route("{idInspection:Guid}/detail")]
-		public ActionResult GetDetailForWeb(Guid idInspection, [FromHeader]string languageCode)
+		public ActionResult GetDetailForWeb(Guid idInspection, [FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			var form = service.GetDetailForWeb(idInspection, languageCode);
 			if (form == null)

@@ -15,7 +15,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 
 		[HttpGet, Route("{idInspection:Guid}/firehydrant")]
-		public ActionResult GetList(Guid idInspection, [FromHeader]string languageCode)
+		public ActionResult GetList(Guid idInspection, [FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return Ok(service.GetFormFireHydrants(idInspection, languageCode));
 		}
