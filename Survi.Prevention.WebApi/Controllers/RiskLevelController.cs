@@ -21,7 +21,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(401)]
 		[ProducesResponseType(404)]
 		[ProducesResponseType(typeof(RiskLevelForWeb), 200)]
-		public ActionResult GetRiskLevelForWeb([FromHeader]string languageCode, Guid id)
+		public ActionResult GetRiskLevelForWeb([FromHeader(Name = "Language-Code")]string languageCode, Guid id)
 		{
 			var riskLevel = service.GetRiskLevelForWeb(id, languageCode);
 			if (riskLevel == null)
@@ -32,7 +32,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpGet, Route("localized")]
         [ProducesResponseType(401)]
 		[ProducesResponseType(typeof(List<RiskLevelForWeb>), 200)]
-		public ActionResult GetRiskLevelsForWeb([FromHeader]string languageCode)
+		public ActionResult GetRiskLevelsForWeb([FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return Ok(service.GetRiskLevelsForWeb(languageCode));
 		}

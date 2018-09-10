@@ -14,43 +14,43 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 
 		[HttpGet, Route("SidingTypes")]
-		public ActionResult GetBuildingSidingTypes([FromHeader] string languageCode)
+		public ActionResult GetBuildingSidingTypes([FromHeader(Name = "Language-Code")] string languageCode)
 		{
 			return Ok(service.GetBuildingSidingTypes(languageCode));
 		}
 
 		[HttpGet, Route("BuildingTypes")]
-		public ActionResult GetBuildingTypes([FromHeader] string languageCode)
+		public ActionResult GetBuildingTypes([FromHeader(Name = "Language-Code")] string languageCode)
 		{
 			return Ok(service.GetBuildingTypes(languageCode));
 		}
 
 		[HttpGet, Route("FireResistanceTypes")]
-		public ActionResult GetConstructionFireResistanceTypes([FromHeader] string languageCode)
+		public ActionResult GetConstructionFireResistanceTypes([FromHeader(Name = "Language-Code")] string languageCode)
 		{
 			return Ok(service.GetConstructionFireResistanceTypes(languageCode));
 		}
 
 		[HttpGet, Route("ConstructionTypes")]
-		public ActionResult GetConstructionTypes([FromHeader] string languageCode)
+		public ActionResult GetConstructionTypes([FromHeader(Name = "Language-Code")] string languageCode)
 		{
 			return Ok(service.GetConstructionTypes(languageCode));
 		}
 
 		[HttpGet, Route("RoofMaterialTypes")]
-		public ActionResult GetRoofMaterialTypes([FromHeader] string languageCode)
+		public ActionResult GetRoofMaterialTypes([FromHeader(Name = "Language-Code")] string languageCode)
 		{
 			return Ok(service.GetRoofMaterialTypes(languageCode));
 		}
 
 		[HttpGet, Route("RoofTypes")]
-		public ActionResult GetRoofTypes([FromHeader] string languageCode)
+		public ActionResult GetRoofTypes([FromHeader(Name = "Language-Code")] string languageCode)
 		{
 			return Ok(service.GetRoofTypes(languageCode));
 		}
 
 		[HttpGet, Route("All")]
-		public ActionResult GetAllTypes([FromHeader]string languageCode)
+		public ActionResult GetAllTypes([FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return Ok(service.GetAllTypes(languageCode));
 		}

@@ -8,7 +8,7 @@ namespace Survi.Prevention.WebApi.Controllers
 	public class RouteDirectionController : Controller
 	{
 		[HttpGet]
-		public ActionResult GetList([FromHeader]string languageCode)
+		public ActionResult GetList([FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return Ok(typeof(CourseLaneDirection).ToList(languageCode));
 		}

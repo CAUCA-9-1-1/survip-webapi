@@ -16,7 +16,7 @@ namespace Survi.Prevention.WebApi.Controllers
 
 		[HttpGet]
         [HttpGet, Route("localized")]
-        public ActionResult GetListForDisplay([FromHeader]string languageCode)
+        public ActionResult GetListForDisplay([FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return Ok(service.GetListForDisplay(languageCode));
 		}

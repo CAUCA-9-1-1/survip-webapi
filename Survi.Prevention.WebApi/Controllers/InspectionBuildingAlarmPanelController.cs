@@ -19,7 +19,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 		
 		[Route("/api/inspection/building/{idBuilding:Guid}/alarmpanel"), HttpGet]
-		public ActionResult GetListForDisplay(Guid idBuilding, [FromHeader] string languageCode)
+		public ActionResult GetListForDisplay(Guid idBuilding, [FromHeader(Name = "Language-Code")] string languageCode)
 		{
 			return Ok(Service.GetListLocalized(languageCode, idBuilding));
 		}

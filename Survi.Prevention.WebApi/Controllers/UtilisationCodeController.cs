@@ -20,7 +20,7 @@ namespace Survi.Prevention.WebApi.Controllers
         [HttpGet, Route("localized")]
         [ProducesResponseType(401)]
         [ProducesResponseType(typeof(List<UtilisationCodeForWeb>), 200)]
-        public ActionResult GetListLocalized([FromHeader]string languageCode)
+        public ActionResult GetListLocalized([FromHeader(Name = "Language-Code")]string languageCode)
         {
             return Ok(service.GetListLocalized(languageCode));
         }
@@ -29,7 +29,7 @@ namespace Survi.Prevention.WebApi.Controllers
         [ProducesResponseType(401)]
         [ProducesResponseType(404)]
         [ProducesResponseType(typeof(UtilisationCodeForWeb), 200)]
-        public ActionResult GetUtilisationCodeForWeb([FromHeader]string languageCode, Guid id)
+        public ActionResult GetUtilisationCodeForWeb([FromHeader(Name = "Language-Code")]string languageCode, Guid id)
         {
             var riskLevel = service.GetUtilisationCodeForWeb(id, languageCode);
             if (riskLevel == null)

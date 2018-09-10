@@ -35,25 +35,25 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 
 		[ODataRoute("BuildingsWithoutInspection"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
-		public IQueryable<BuildingWithoutInspection> GetBuildingWithoutInspection([FromHeader]string languageCode)
+		public IQueryable<BuildingWithoutInspection> GetBuildingWithoutInspection([FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return service.GetBuildingWithoutInspectionQueryable(languageCode, GetUserCityIds());
 		}
 
 		[ODataRoute("InspectionsToDo"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
-		public IQueryable<InspectionToDo> GetInspectionsToDo([FromHeader]string languageCode)
+		public IQueryable<InspectionToDo> GetInspectionsToDo([FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return service.GetToDoInspections(languageCode, GetUserCityIds());
 		}
 
 		[ODataRoute("InspectionsForApproval"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
-		public IQueryable<InspectionForApproval> GetInspectionsForApproval([FromHeader]string languageCode)
+		public IQueryable<InspectionForApproval> GetInspectionsForApproval([FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return service.GetInspectionsForApproval(languageCode, GetUserCityIds());
 		}
 
 		[ODataRoute("InspectionsCompleted"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
-		public IQueryable<InspectionCompleted> GetInspectionsCompleted([FromHeader]string languageCode)
+		public IQueryable<InspectionCompleted> GetInspectionsCompleted([FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return service.GetInspectionsCompleted(languageCode, GetUserCityIds());
 		}
