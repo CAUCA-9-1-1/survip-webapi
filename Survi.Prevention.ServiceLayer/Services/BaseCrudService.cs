@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Base;
 
@@ -50,6 +51,27 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public virtual List<T> GetList()
 		{
 			return Context.Set<T>().ToList();
+		}
+
+		public T PartialCopyTo(Guid originalId, JObject json)
+		{
+			var replaceEntity = json.ToObject<T>();
+			var originalEntity = Get(originalId);
+
+			if (originalEntity == null)
+			{
+				return null;
+			}
+
+			foreach (var item in json)
+			{
+				var propertyName = item.Key.First().ToString().ToUpper() + String.Join("", item.Key.Skip(1));
+				var propertyValue = replaceEntity.GetType().GetProperty(propertyName).GetValue(replaceEntity, null);
+
+				originalEntity.GetType().GetProperty(propertyName).SetValue(originalEntity, propertyValue, null);
+			}
+			
+			return originalEntity;
 		}
 	}
 }
