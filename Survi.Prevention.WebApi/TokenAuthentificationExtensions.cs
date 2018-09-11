@@ -1,11 +1,13 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi
 {
@@ -29,10 +31,25 @@ namespace Survi.Prevention.WebApi
 				config.RequireHttpsMetadata = false;
 				config.SaveToken = true;
 				config.TokenValidationParameters = GetAuthentificationParameters(secretKey, issuer, appName);
-				config.Events = new JwtBearerEvents {OnAuthenticationFailed = AddTokenExpiredHeaderForTokenException};
+				config.Events = new JwtBearerEvents {OnAuthenticationFailed = AddTokenExpiredHeaderForTokenException, OnTokenValidated = OnValidateTokenInDatabase};
 			});
 			ChangeRedirectionForUnauthorized(services);
 			return services;
+		}
+
+		private static Task OnValidateTokenInDatabase(TokenValidatedContext context)
+		{
+			if (Guid.TryParse(context.Principal.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.Sid)?.Value, out Guid userId))
+			{
+				var currentToken = context.Request.Headers["Authorization"].FirstOrDefault()?.Replace("Bearer ", "");
+
+				var authService = context.HttpContext.RequestServices.GetRequiredService<AuthentificationService>();
+				var token = authService.GetAccessTokenFromAccessToken(currentToken, userId);
+				if (token == null || token.CreatedOn.AddSeconds(token.ExpiresIn) < DateTime.Now)
+					context.Fail("Unauthorized");
+			}
+
+			return Task.CompletedTask;
 		}
 
 		private static Task AddTokenExpiredHeaderForTokenException(AuthenticationFailedContext context)
