@@ -88,7 +88,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 					).ToList()
 				};
 
-			return inspectionQuestionWithChoice.ToList();
+			var formatedList =  new InspectionSurveyTreeGenerator().GetSurveyAnswerTreeList(inspectionQuestionWithChoice.ToList());
+			return formatedList;
 		}
 
 		public List<InspectionQuestionForList> GetSurveyQuestionListLocalized(Guid idInspection, string languageCode)
@@ -129,7 +130,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 					 IdSurveyQuestionParent = surveyquestion.IdSurveyQuestionParent
 				 };
 
-			return surveyQuestionQuery.ToList();
+			var formatedList = new InspectionSurveyTreeGenerator().GetSurveyQuestionTreeList(surveyQuestionQuery.ToList());
+			return formatedList;
 		}
 
 		public Guid SaveQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
