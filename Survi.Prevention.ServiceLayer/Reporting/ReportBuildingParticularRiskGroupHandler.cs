@@ -12,7 +12,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		private readonly BuildingParticularRiskService service;
 		private readonly ReportBuildingParticularRiskPictureGroupHandler pictureHandler;
 
-		protected override ReportBuildingGroup Group => ReportBuildingGroup.ParticularRisk;
+		protected override ReportBuildingGroup Group => ReportBuildingGroup.BuildingParticularRisk;
 
 		public ReportBuildingParticularRiskGroupHandler(BuildingParticularRiskService service, 
 			ReportBuildingParticularRiskPictureGroupHandler pictureHandler)
@@ -28,7 +28,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 		protected override string FillChildren(string template, Guid idParent, string languageCode)
 		{
-			template = FillSubGroup(template, idParent, languageCode, ReportBuildingGroup.ParticularRiskPicture, pictureHandler);
+			template = FillSubGroup(template, idParent, languageCode, ReportBuildingGroup.BuildingParticularRiskPicture, pictureHandler);
 			return template;
 		}
 
@@ -37,6 +37,12 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			if (property.value is ParticularRiskType riskType)
 				return riskType.GetDisplayName(languageCode);
 			return base.FormatPropertyValue(property, languageCode);
+		}
+
+		public static (string Group, List<string> Placeholders) GetPlaceholders()
+		{
+			var placeholders = GetPlaceholderList();
+			return (ReportBuildingGroup.BuildingParticularRisk.ToString(), placeholders);
 		}
 	}
 }

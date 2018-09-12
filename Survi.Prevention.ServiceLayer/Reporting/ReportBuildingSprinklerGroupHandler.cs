@@ -8,7 +8,10 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 	public class ReportBuildingSprinklerGroupHandler : BaseReportGroupHandler<FireProtectionForReport>
 	{
 		private readonly BuildingSprinklerService service;
-		protected override ReportBuildingGroup Group => ReportBuildingGroup.Sprinkler;
+		protected override ReportBuildingGroup Group => ReportBuildingGroup.MainBuildingSprinkler;
+
+		public ReportBuildingSprinklerGroupHandler()
+		{ }
 
 		public ReportBuildingSprinklerGroupHandler(BuildingSprinklerService service)
 		{
@@ -18,6 +21,12 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		protected override List<FireProtectionForReport> GetData(Guid idParent, string languageCode)
 		{
 			return service.GetSprinklersForReport(idParent, languageCode);
+		}
+
+		public static (string Group, List<string> Placeholders) GetPlaceholders()
+		{
+			var placeholders = GetPlaceholderList();
+			return (ReportBuildingGroup.MainBuildingSprinkler.ToString(), placeholders);
 		}
 	}
 }

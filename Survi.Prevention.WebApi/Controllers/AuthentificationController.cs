@@ -27,8 +27,8 @@ namespace Survi.Prevention.WebApi.Controllers
 		[Route("[Action]"), HttpPost]
 		public ActionResult Logon([FromBody]LoginInformations login)
 		{
-			var result = service.Login(login.Username, login.Password, applicationName, issuer, secretKey);
-			if (result.user == null || result.token == null)
+			var (token, user) = service.Login(login.Username, login.Password, applicationName, issuer, secretKey);
+			if (user == null || token == null)
 				return Unauthorized();
 
 			return Ok(new
@@ -37,12 +37,12 @@ namespace Survi.Prevention.WebApi.Controllers
 					new
 					{
 						AuthorizationType = "Token",
-						result.token.ExpiresIn,
-						AccessToken = result.token.TokenForAccess,
-						result.token.RefreshToken,
-						IdWebuser = result.user.Id,
-						LastName = result.user.Attributes.Where(a => a.AttributeName=="last_name").Select(a => a.AttributeValue).FirstOrDefault() ?? "",
-						FirstName = result.user.Attributes.Where(a => a.AttributeName == "first_name").Select(a => a.AttributeValue).FirstOrDefault() ?? "",
+						token.ExpiresIn,
+						AccessToken = token.TokenForAccess,
+						token.RefreshToken,
+						IdWebuser = user.Id,
+						LastName = user.Attributes.Where(a => a.AttributeName=="last_name").Select(a => a.AttributeValue).FirstOrDefault() ?? "",
+						FirstName = user.Attributes.Where(a => a.AttributeName == "first_name").Select(a => a.AttributeValue).FirstOrDefault() ?? "",
 					}
 			});
 		}

@@ -9,10 +9,10 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 {
 	public class ReportBuildingDetailGroupHandler : BaseReportGroupHandler<BuildingDetailForReport>
 	{
-		protected override ReportBuildingGroup Group => ReportBuildingGroup.Detail;
+		protected override ReportBuildingGroup Group => ReportBuildingGroup.BuildingDetail;
 
 		private readonly BuildingDetailService service;
-		private readonly string sitePlanPlaceholder = "{{SitePlan}}";
+		private static readonly string sitePlanPlaceholder = "SitePlan";
 
 		public ReportBuildingDetailGroupHandler(BuildingDetailService service)
 		{
@@ -38,7 +38,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			var picture = service.GetSitePlan(entity.Id);
 			filledTemplate = picture == null 
 				? filledTemplate.Replace(sitePlanPlaceholder, "") 
-				: filledTemplate.Replace("{{" + sitePlanPlaceholder + "}}", FormatPicture(picture.PictureData));
+				: filledTemplate.Replace($"@{Group.ToString()}.{sitePlanPlaceholder}@", FormatPicture(picture.PictureData));
 			return filledTemplate;
 		}
 
@@ -58,6 +58,13 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		private string GetBuildingGarageLocalized(GarageType garageType, string languageCode)
 		{
 			return garageType.GetDisplayName(languageCode);
+		}
+
+		public static (string Group, List<string> Placeholders) GetPlaceholders()
+		{
+			var placeholders = GetPlaceholderList();
+			placeholders.Add(sitePlanPlaceholder);
+			return (ReportBuildingGroup.BuildingDetail.ToString(), placeholders);
 		}
 	}
 }

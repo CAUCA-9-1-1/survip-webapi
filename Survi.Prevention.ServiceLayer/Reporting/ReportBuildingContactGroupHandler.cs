@@ -9,7 +9,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 	{
 		private readonly BuildingContactService service;
 
-		protected override ReportBuildingGroup Group => ReportBuildingGroup.Contact;
+		protected override ReportBuildingGroup Group => ReportBuildingGroup.BuildingContact;
 
 		public ReportBuildingContactGroupHandler(BuildingContactService service)
 		{
@@ -19,6 +19,12 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		protected override List<BuildingContact> GetData(Guid idParent, string languageCode)
 		{
 			return service.GetBuildingContactList(idParent);
+		}
+
+		public static (string Group, List<string> Placeholders) GetPlaceholders()
+		{
+			var placeholders = GetPlaceholderList();
+			return (ReportBuildingGroup.BuildingContact.ToString(), placeholders);
 		}
 	}
 }

@@ -12,7 +12,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Reporting
 		{
 			var template = "<bold>[BuildingSprinkler]{bla}[/Sprinkler][Detail][/Detail][/Building]</bold>";
 			var result = new ReportingTemplateVariableListExtractor(template).GetGroups();
-			Assert.Empty(result.Except(new List<ReportBuildingGroup> {ReportBuildingGroup.Building, ReportBuildingGroup.Detail, ReportBuildingGroup.Sprinkler}));
+			Assert.Empty(result.Except(new List<ReportBuildingGroup> {ReportBuildingGroup.Building, ReportBuildingGroup.BuildingDetail, ReportBuildingGroup.MainBuildingSprinkler}));
 		}
 
 	    [Fact]
@@ -20,7 +20,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Reporting
 	    {
 		    var template = "<bold>[BuildingSprinkler]{bla}[/Sprinkler][Detail][/Building]</bold>";
 		    var result = new ReportingTemplateVariableListExtractor(template).GetGroups();
-		    Assert.Empty(result.Except(new List<ReportBuildingGroup> { ReportBuildingGroup.Building, ReportBuildingGroup.Sprinkler }));
+		    Assert.Empty(result.Except(new List<ReportBuildingGroup> { ReportBuildingGroup.Building, ReportBuildingGroup.MainBuildingSprinkler }));
 	    }
 	}
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.ServiceLayer.Reporting
@@ -21,6 +23,16 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			return filledGroup;
 		}
 
+		protected static List<string> GetPlaceholderList()
+		{
+			var placeholders = (
+				from prop in typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+				where prop.CanRead
+				select prop.Name
+			).ToList();
+			return placeholders;
+		}
+
 		protected virtual string GetFilledTemplate(string groupTemplate, T entity, string languageCode)
 		{
 			foreach (var property in entity.GetPublicProperties())
@@ -31,7 +43,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 		protected string ReplacePropertiesPlaceholder(string groupTemplate, string languageCode, (string name, object value) property)
 		{
-			groupTemplate = groupTemplate.Replace("{{" + property.name + "}}", FormatPropertyValue(property, languageCode));
+			groupTemplate = groupTemplate.Replace($"@{Group.ToString()}.{property.name}@", FormatPropertyValue(property, languageCode));
 			return groupTemplate;
 		}
 

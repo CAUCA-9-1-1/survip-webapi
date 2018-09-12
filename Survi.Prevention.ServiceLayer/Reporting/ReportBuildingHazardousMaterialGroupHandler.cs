@@ -8,7 +8,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 	public class ReportBuildingHazardousMaterialGroupHandler : BaseReportGroupHandler<BuildingHazardousMaterialForList>
 	{
 		private readonly BuildingHazardousMaterialService service;
-		protected override ReportBuildingGroup Group => ReportBuildingGroup.HazardousMaterial;
+		protected override ReportBuildingGroup Group => ReportBuildingGroup.BuildingHazardousMaterial;
 
 		public ReportBuildingHazardousMaterialGroupHandler(BuildingHazardousMaterialService service)
 		{
@@ -18,6 +18,12 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		protected override List<BuildingHazardousMaterialForList> GetData(Guid idParent, string languageCode)
 		{
 			return service.GetMaterialsForList(idParent, languageCode);
+		}
+
+		public static (string Group, List<string> Placeholders) GetPlaceholders()
+		{
+			var placeholders = GetPlaceholderList();
+			return (ReportBuildingGroup.BuildingHazardousMaterial.ToString(), placeholders);
 		}
 	}
 }
