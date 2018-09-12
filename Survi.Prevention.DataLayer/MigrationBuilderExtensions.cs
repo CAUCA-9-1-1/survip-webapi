@@ -10,6 +10,8 @@ namespace Survi.Prevention.DataLayer
 			migrationBuilder.Sql("DROP VIEW building_with_todo_inspection;");
 			migrationBuilder.Sql("DROP VIEW building_with_ready_for_approbation_inspection;");
 			migrationBuilder.Sql("DROP VIEW building_with_completed_inspection;");
+			migrationBuilder.Sql("DROP VIEW building_for_report");
+			migrationBuilder.Sql("DROP VIEW building_detail_for_report");
 		}
 
 		public static void CreateInitialInspectionViews(this MigrationBuilder migrationBuilder)
@@ -262,11 +264,11 @@ namespace Survi.Prevention.DataLayer
 
 			migrationBuilder.Sql(@"
 				CREATE OR REPLACE VIEW building_for_report
-				AS
+				  AS
 				SELECT
 				  b.id,
-                      b.id_parent_building,
-                      b.child_type,
+				  b.id_parent_building,
+				  b.child_type,
 
 				  b.civic_number,
 				  b.civic_letter,
@@ -282,44 +284,63 @@ namespace Survi.Prevention.DataLayer
 
 				  bloc.name,
 
-				  ucloc.description as utilisation_code,
-				  riskloc.name as risk_level,
+				  ucloc.description        AS utilisation_code,
+				  riskloc.name             AS risk_level,
 
-				  (CASE WHEN lpc.description != '' or lgc.description != ''
-					THEN concat(laneloc.name, ' (', lpc.description, CASE WHEN lgc.description != '' THEN lgc.description ELSE ''END, ')' )
-					ELSE laneloc.name END) as full_lane_name,
+				  (CASE WHEN lpc.description != '' OR lgc.description != ''
+					THEN concat(laneloc.name, ' (', lpc.description, CASE WHEN lgc.description != ''
+					 THEN lgc.description
+															ELSE '' END, ') ')
+				   ELSE laneloc.name END)  AS full_lane_name,
 
-				  (CASE WHEN lpct.description != '' or lgct.description != ''
-					THEN concat(laneloct.name, ' (', lpct.description, CASE WHEN lgct.description != '' THEN lgct.description ELSE ''END, ')' )
-					ELSE laneloct.name END) as full_transversal_lane_name,
+				  (CASE WHEN lpct.description != '' OR lgct.description != ''
+					THEN concat(laneloct.name, ' (', lpct.description, CASE WHEN lgct.description != ''
+					 THEN lgct.description
+															  ELSE '' END, ') ')
+				   ELSE laneloct.name END) AS full_transversal_lane_name,
 
-				  (select concat(bc.first_name, ' ', bc.last_name)
-				   from building_contact as bc
-				   where bc.id_building = b.id and bc.is_owner = true and bc.is_active = true limit 1) as owner_name,
+				  (SELECT concat(bc.first_name, ' ', bc.last_name)
+				   FROM building_contact AS bc
+				   WHERE bc.id_building = b.id AND bc.is_owner = TRUE AND bc.is_active = TRUE
+				   LIMIT 1)                AS owner_name,
+
+				  cl.name as city_name,
+				  countyloc.name as county_name,
+				  state.ansi_code as state_code,
+				  countryloc.name as country_name,
 
 				  laneloc.language_code
 
-				FROM building as b
-				INNER JOIN building_detail as bd ON b.id = bd.id_building
-				INNER JOIN lane as l on b.id_lane = l.id
-				INNER JOIN lane_public_code as lpc ON lpc.id = l.id_public_code
-				INNER JOIN lane_generic_code as lgc ON lgc.id = l.id_lane_generic_code
-				INNER JOIN lane_localization as laneloc ON l.id = laneloc.id_lane
+				FROM building AS b
+				  INNER JOIN building_detail AS bd ON b.id = bd.id_building
+				  INNER JOIN lane AS l ON b.id_lane = l.id
+				  INNER JOIN lane_public_code AS lpc ON lpc.id = l.id_public_code
+				  INNER JOIN lane_generic_code AS lgc ON lgc.id = l.id_lane_generic_code
+				  INNER JOIN lane_localization AS laneloc ON l.id = laneloc.id_lane
 
-				INNER JOIN building_localization as bloc on b.id = bloc.id_building and bloc.language_code = laneloc.language_code
+				  INNER JOIN building_localization AS bloc ON b.id = bloc.id_building AND bloc.language_code = laneloc.language_code
 
-				LEFT JOIN lane as lt on b.id_lane_transversal = lt.id
-				LEFT JOIN lane_public_code as lpct ON lpct.id = lt.id_public_code
-				LEFT JOIN lane_generic_code as lgct ON lgct.id = lt.id_lane_generic_code
-				LEFT JOIN lane_localization as laneloct ON lt.id = laneloct.id_lane and laneloct.language_code = laneloc.language_code
+				  INNER JOIN city ON l.id_city = city.id
+				  INNER JOIN city_localization as cl on city.id = cl.id_city and cl.language_code = laneloc.language_code
+				  INNER JOIN county_localization as countyloc on city.id_county = countyloc.id_county and countyloc.language_code = laneloc.language_code
+				  INNER JOIN county on countyloc.id_county = county.id
+				  INNER JOIN state on county.id_state = state.id
+				  INNER JOIN country_localization as countryloc ON state.id_country = countryloc.id_country and countryloc.language_code = laneloc.language_code
 
-				LEFT JOIN utilisation_code as uc on b.id_utilisation_code = uc.id
-				LEFT JOIN utilisation_code_localization as ucloc on uc.id = ucloc.id_utilisation_code and ucloc.language_code = laneloc.language_code
+				  LEFT JOIN lane AS lt ON b.id_lane_transversal = lt.id
+				  LEFT JOIN lane_public_code AS lpct ON lpct.id = lt.id_public_code
+				  LEFT JOIN lane_generic_code AS lgct ON lgct.id = lt.id_lane_generic_code
+				  LEFT JOIN lane_localization AS laneloct ON lt.id = laneloct.id_lane AND laneloct.language_code = laneloc.language_code
 
-				LEFT JOIN risk_level as risk on b.id_risk_level = risk.id
-				LEFT JOIN risk_level_localization as riskloc on riskloc.id_risk_level = risk.id and riskloc.language_code = laneloc.language_code
+				  LEFT JOIN utilisation_code AS uc ON b.id_utilisation_code = uc.id
+				  LEFT JOIN utilisation_code_localization AS ucloc
+					ON uc.id = ucloc.id_utilisation_code AND ucloc.language_code = laneloc.language_code
 
-				WHERE b.is_active = true;
+				  LEFT JOIN risk_level AS risk ON b.id_risk_level = risk.id
+				  LEFT JOIN risk_level_localization AS riskloc
+					ON riskloc.id_risk_level = risk.id AND riskloc.language_code = laneloc.language_code
+
+				WHERE b.is_active = TRUE;
 				");
 
 			migrationBuilder.Sql(@"
