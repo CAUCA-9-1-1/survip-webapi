@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		private readonly BuildingAnomalyService service;
 		private readonly ReportBuildingAnomalyPictureGroupHandler pictureHandler;
 
-		protected override ReportBuildingGroup Group => ReportBuildingGroup.Anomaly;
+		protected override ReportBuildingGroup Group => ReportBuildingGroup.BuildingAnomaly;
 
 		public ReportBuildingAnomalyGroupHandler(BuildingAnomalyService service, ReportBuildingAnomalyPictureGroupHandler pictureHandler)
 		{
@@ -25,8 +25,14 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 		protected override string FillChildren(string template, Guid idParent, string languageCode)
 		{
-			template = FillSubGroup(template, idParent, languageCode, ReportBuildingGroup.AnomalyPicture, pictureHandler);
+			template = FillSubGroup(template, idParent, languageCode, ReportBuildingGroup.BuildingAnomalyPicture, pictureHandler);
 			return template;
+		}
+
+		public static (string Group, List<string> Placeholders) GetPlaceholders()
+		{
+			var placeholders = GetPlaceholderList();
+			return (ReportBuildingGroup.BuildingAnomaly.ToString(), placeholders);
 		}
 	}
 }

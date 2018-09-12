@@ -9,7 +9,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 	{
 		private readonly BuildingFireHydrantService service;
 
-		protected override ReportBuildingGroup Group => ReportBuildingGroup.FireHydrant;
+		protected override ReportBuildingGroup Group => ReportBuildingGroup.MainBuildingFireHydrant;
 
 		public ReportBuildingFireHydrantGroupHandler(BuildingFireHydrantService service)
 		{
@@ -19,6 +19,12 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		protected override List<FireHydrantForList> GetData(Guid idParent, string languageCode)
 		{
 			return service.GetFireHydrants(idParent, languageCode);
+		}
+
+		public static (string Group, List<string> Placeholders) GetPlaceholders()
+		{
+			var placeholders = GetPlaceholderList();
+			return (ReportBuildingGroup.MainBuildingFireHydrant.ToString(), placeholders);
 		}
 	}
 }

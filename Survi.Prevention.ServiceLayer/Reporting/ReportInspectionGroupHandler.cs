@@ -11,7 +11,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 	{
 		private readonly InspectionService service;
 		private readonly InspectionSurveyAnswerService answerService;
-		private readonly string surveyPlaceholder = "SurveyAnswers";
+		private static readonly string surveyPlaceholder = "SurveyAnswers";
 
 		protected override ReportBuildingGroup Group => ReportBuildingGroup.Inspection;
 
@@ -38,7 +38,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		private string AddSurveyAnswers(InspectionForReport entity, string filledTemplate, string languageCode)
 		{
 			var answers = answerService.GetInspectionQuestionSummaryListLocalized(entity.Id, languageCode);
-			return filledTemplate.Replace("{{" + surveyPlaceholder + "}}", GetSurveyText(answers));
+			return filledTemplate.Replace($"@{Group.ToString()}.{surveyPlaceholder}@", GetSurveyText(answers));
 		}
 
 		private string GetSurveyText(List<InspectionSummaryCategoryForList> answers)
@@ -83,6 +83,13 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			answerText += "<td style=\"width:3.0in\">" + answer.Answer + "</td>\n";
 			answerText += "</tr>\n";
 			return answerText;
+		}
+
+		public static (string Group, List<string> Placeholders) GetPlaceholders()
+		{
+			var placeholders = GetPlaceholderList();
+			placeholders.Add(surveyPlaceholder);
+			return (ReportBuildingGroup.Inspection.ToString(), placeholders);
 		}
 	}
 }

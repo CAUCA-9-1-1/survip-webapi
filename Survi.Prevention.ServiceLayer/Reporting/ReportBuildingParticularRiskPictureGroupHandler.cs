@@ -8,7 +8,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 	public class ReportBuildingParticularRiskPictureGroupHandler : BaseReportGroupHandler<BuildingChildPictureForWeb>
 	{
 		private readonly BuildingParticularRiskService service;
-		protected override ReportBuildingGroup Group => ReportBuildingGroup.ParticularRiskPicture;
+		protected override ReportBuildingGroup Group => ReportBuildingGroup.BuildingParticularRiskPicture;
 
 		public ReportBuildingParticularRiskPictureGroupHandler(BuildingParticularRiskService service)
 		{
@@ -29,6 +29,12 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 				       "\" height=\"400\" />";
 			}
 			return base.FormatPropertyValue(property, languageCode);
+		}
+
+		public static (string Group, List<string> Placeholders) GetPlaceholders()
+		{
+			var placeholders = GetPlaceholderList();
+			return (ReportBuildingGroup.BuildingParticularRiskPicture.ToString(), placeholders);
 		}
 	}
 }

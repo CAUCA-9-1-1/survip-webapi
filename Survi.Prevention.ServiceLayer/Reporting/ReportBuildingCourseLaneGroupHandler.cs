@@ -9,7 +9,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 	{
 		private readonly BuildingCourseService service;
 
-		protected override ReportBuildingGroup Group => ReportBuildingGroup.CourseLane;
+		protected override ReportBuildingGroup Group => ReportBuildingGroup.MainBuildingCourseLane;
 
 		public ReportBuildingCourseLaneGroupHandler(BuildingCourseService service)
 		{
@@ -19,6 +19,12 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		protected override List<BuildingCourseLaneForList> GetData(Guid idParent, string languageCode)
 		{
 			return service.GetCourseLanes(idParent, languageCode);
+		}
+
+		public static (string Group, List<string> Placeholders) GetPlaceholders()
+		{
+			var placeholders = GetPlaceholderList();
+			return (ReportBuildingGroup.MainBuildingCourseLane.ToString(), placeholders);
 		}
 	}
 }

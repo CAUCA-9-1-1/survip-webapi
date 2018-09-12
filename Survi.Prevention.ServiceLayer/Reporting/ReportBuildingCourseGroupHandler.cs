@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		private readonly BuildingCourseService service;
 		private readonly ReportBuildingCourseLaneGroupHandler laneHandler;
 
-		protected override ReportBuildingGroup Group => ReportBuildingGroup.Course;
+		protected override ReportBuildingGroup Group => ReportBuildingGroup.MainBuildingCourse;
 
 		public ReportBuildingCourseGroupHandler(BuildingCourseService service, ReportBuildingCourseLaneGroupHandler laneHandler)
 		{
@@ -25,8 +25,14 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 		protected override string FillChildren(string template, Guid idParent, string languageCode)
 		{
-			template = FillSubGroup(template, idParent, languageCode, ReportBuildingGroup.CourseLane, laneHandler);
+			template = FillSubGroup(template, idParent, languageCode, ReportBuildingGroup.MainBuildingCourseLane, laneHandler);
 			return template;
+		}
+
+		public static (string Group, List<string> Placeholders) GetPlaceholders()
+		{
+			var placeholders = GetPlaceholderList();
+			return (ReportBuildingGroup.MainBuildingCourse.ToString(), placeholders);
 		}
 	}
 }

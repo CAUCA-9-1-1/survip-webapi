@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -9,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 	{
 		private readonly BuildingAlarmPanelService service;
 
-		protected override ReportBuildingGroup Group => ReportBuildingGroup.AlarmPanel;
+		protected override ReportBuildingGroup Group => ReportBuildingGroup.BuildingAlarmPanel;
 
 		public ReportBuildingAlarmPanelGroupHandler(BuildingAlarmPanelService service)
 		{
@@ -19,6 +20,12 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		protected override List<FireProtectionForReport> GetData(Guid idParent, string languageCode)
 		{
 			return service.GetPanelsForReport(idParent, languageCode);
+		}
+
+		public static (string Group, List<string> Placeholders) GetPlaceholders()
+		{
+			var placeholders = GetPlaceholderList();
+			return (ReportBuildingGroup.BuildingAlarmPanel.ToString(), placeholders);
 		}
 	}
 }

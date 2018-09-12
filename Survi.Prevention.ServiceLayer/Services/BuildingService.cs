@@ -99,13 +99,26 @@ namespace Survi.Prevention.ServiceLayer.Services
             return building.Picture.Id;
         }
 
-		public List<BuildingForReport> GetBuildingsForReport(Guid mainBuildingId, string languageCode)
+		public List<BuildingForReport> GetBuildingsForReport(Guid mainBuildingId, string languageCode, bool loadMainBuildingOnly)
 		{
-			var query =
-				from building in Context.BuildingsForReport
-				where (building.Id == mainBuildingId || building.IdParentBuilding == mainBuildingId) && building.LanguageCode == languageCode
-				orderby building.ChildType
-				select building;
+			IQueryable<BuildingForReport> query;
+
+			if (loadMainBuildingOnly)
+			{
+				query =
+					from building in Context.BuildingsForReport
+					where building.LanguageCode == languageCode && building.Id == mainBuildingId
+					orderby building.ChildType
+					select building;
+			}
+			else
+			{
+				query =
+					from building in Context.BuildingsForReport
+					where (building.Id == mainBuildingId || building.IdParentBuilding == mainBuildingId) && building.LanguageCode == languageCode
+					orderby building.ChildType
+					select building;
+			}
 
 			return query.ToList();
 		}

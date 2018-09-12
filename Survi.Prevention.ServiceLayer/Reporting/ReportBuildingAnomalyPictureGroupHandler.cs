@@ -9,7 +9,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 	{
 		private readonly BuildingAnomalyService service;
 
-		protected override ReportBuildingGroup Group => ReportBuildingGroup.AnomalyPicture;
+		protected override ReportBuildingGroup Group => ReportBuildingGroup.BuildingAnomalyPicture;
 
 		public ReportBuildingAnomalyPictureGroupHandler(BuildingAnomalyService service)
 		{
@@ -30,6 +30,12 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 				       "\" height=\"400\" />";
 			}
 			return base.FormatPropertyValue(property, languageCode);
+		}
+
+		public static (string Group, List<string> Placeholders) GetPlaceholders()
+		{
+			var placeholders = GetPlaceholderList();
+			return (ReportBuildingGroup.BuildingAnomalyPicture.ToString(), placeholders);
 		}
 	}
 }

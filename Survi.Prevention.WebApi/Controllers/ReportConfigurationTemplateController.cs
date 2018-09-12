@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models;
+using Survi.Prevention.ServiceLayer.Reporting;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
@@ -12,11 +14,12 @@ namespace Survi.Prevention.WebApi.Controllers
         {
         }
         
-        [HttpGet("placeholders")]
+        [HttpGet("placeholders"), AllowAnonymous]
         public ActionResult GetAvailablePlaceholders()
         {
-            //return Ok(Service.GetAvailablePlaceholders());
-	        return Ok(new List<string>());
+	        var groups = BuildingReportTemplateFiller.GetPlaceholderGroups();
+			//return Ok(Service.GetAvailablePlaceholders());
+			return Ok(groups);
         }
     }
 }
