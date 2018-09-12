@@ -25,27 +25,12 @@ namespace Survi.Prevention.Models.DataTransfertObjects.Reporting
 		public string Matricule { get; set; }
 		public string Name { get; set; }
 
+		public string CityName { get; set; }
+		public string CountyName { get; set; }
+		public string StateCode { get; set; }
+		public string CountryName { get; set; }
+
 		public string LanguageCode { get; set; }
 		public BuildingChildType ChildType { get; set; }
-	}
-
-	public class BuildingDetailForReport : IDataTransferObjectWithId
-	{
-		public Guid Id { get; set; }
-		public Guid IdBuilding { get; set; }
-
-		public decimal Height { get; set; }
-		public GarageType GarageType { get; set; }
-		public decimal EstimatedWaterFlow { get; set; }
-		public string BuildingType { get; set; }				
-		public string ConstructionType { get; set; }
-		public string ConstructionFireResistanceType { get; set; }
-		public string SidingType { get; set; }
-		public string RoofType { get; set; }
-		public string RoofMaterialType { get; set; }
-		public string EstimatedWaterFlowUnit { get; set; }
-		public string HeightUnit { get; set; }
-
-		public string LanguageCode { get; set; }
 	}
 }
