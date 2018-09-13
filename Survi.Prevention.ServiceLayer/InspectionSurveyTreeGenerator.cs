@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Survi.Prevention.Models.DataTransfertObjects;
 
@@ -9,10 +10,10 @@ namespace Survi.Prevention.ServiceLayer
 	    public List<InspectionQuestionForList> GetSurveyQuestionTreeList(List<InspectionQuestionForList> surveyQuestion)
 	    {
 		    List<InspectionQuestionForList> questionTreetList = new List<InspectionQuestionForList>();
-		    questionTreetList.AddRange(surveyQuestion.Where(sq=>sq.IdSurveyQuestionParent == null));
+		    questionTreetList.AddRange(surveyQuestion.Where(sq=>sq.IdParent == null));
 		    questionTreetList.ForEach(parentQuestion =>
 			{
-				var children = surveyQuestion.Where(sq => sq.IdSurveyQuestionParent == parentQuestion.IdSurveyQuestion).ToList();
+				var children = surveyQuestion.Where(sq => sq.IdParent == parentQuestion.IdSurveyQuestion).OrderBy(sq=>sq.Sequence).ToList();
 				if (children.Any())
 				{
 					parentQuestion.ChildSurveyAnswerList = new List<InspectionQuestionForList>();
@@ -25,10 +26,10 @@ namespace Survi.Prevention.ServiceLayer
 	    public List<InspectionQuestionForList> GetSurveyAnswerTreeList(List<InspectionQuestionForList> surveyAnswer)
 	    {
 		    List<InspectionQuestionForList> answerTreeList = new List<InspectionQuestionForList>();
-		    answerTreeList.AddRange(surveyAnswer.Where(sq=>sq.IdSurveyQuestionParent == null));
+		    answerTreeList.AddRange(surveyAnswer.Where(sq=>sq.IdParent == null));
 		    answerTreeList.ForEach(parentAnswer =>
 		    {
-			    var children = surveyAnswer.Where(sq => sq.IdSurveyQuestionParent == parentAnswer.IdSurveyQuestion).ToList();
+			    var children = surveyAnswer.Where(sq => string.Equals(sq.IdParent.ToString(), parentAnswer.Id.ToString(), StringComparison.CurrentCultureIgnoreCase)).OrderBy(sq=>sq.Sequence).ToList();
 			    if (children.Any())
 			    {
 				    parentAnswer.ChildSurveyAnswerList = new List<InspectionQuestionForList>();

@@ -13,6 +13,7 @@ namespace Survi.Prevention.Models.InspectionManagement
 
 		public Inspection Inspection { get; set; }
 		public SurveyQuestion Question { get; set; }
-		public SurveyQuestionChoice Choice { get; set; }		
+		public SurveyQuestionChoice Choice { get; set; }	
+		public Guid? IdSurveyAnswerParent { get; set; }
 	}
 }
