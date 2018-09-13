@@ -7,7 +7,7 @@ namespace Survi.Prevention.WebApi.Controllers
 {
 	[Produces("application/json")]
 	public abstract class BaseCrudController<TService, TModel> : BaseSecuredController
-		where TModel : BaseModel
+		where TModel : BaseModel, new()
 		where TService : BaseCrudService<TModel>
 	{
 		protected readonly TService Service;

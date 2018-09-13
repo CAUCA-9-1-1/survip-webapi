@@ -8,7 +8,7 @@ using Survi.Prevention.Models.Base;
 namespace Survi.Prevention.ServiceLayer.Services
 {
 	public abstract class BaseCrudService<T> : BaseService
-		where T : BaseModel
+		where T : BaseModel, new()
 	{
 		protected BaseCrudService(ManagementContext context) 
 			: base(context)
@@ -40,6 +40,18 @@ namespace Survi.Prevention.ServiceLayer.Services
 			entity.IsActive = false;
 			Context.SaveChanges();
 			
+			return true;
+		}
+
+		public virtual bool RemoveRange(List<Guid> ids)
+		{
+			ids.ForEach(id =>
+			{
+				var entity = new T {Id = id};
+				Context.Set<T>().Attach(entity);
+				entity.IsActive = false;
+			});
+			Context.SaveChanges();
 			return true;
 		}
 		
