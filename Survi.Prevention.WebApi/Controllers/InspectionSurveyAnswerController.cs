@@ -4,6 +4,8 @@ using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.InspectionManagement;
 using Survi.Prevention.ServiceLayer.Services;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
@@ -36,8 +38,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			if (Service.SaveQuestionAnswer(inspectionQuestionAnswer) != Guid.Empty)
 				return Ok(new { id = inspectionQuestionAnswer.Id });
-			else
-				return BadRequest("Error on question answer saving process");
+			return BadRequest("Error on question answer saving process");
 		}
 
 		[HttpPost, Route("CompleteSurvey")]
@@ -47,6 +48,14 @@ namespace Survi.Prevention.WebApi.Controllers
 				return NoContent();
 			else
 				return BadRequest("Error on updating the inspection survey completed status");
+		}
+
+		[HttpPut, Route("Inspection/DeleteAnswers")]
+		public ActionResult DeleteSurveyAnswers([FromBody] List<Guid> answerIds)
+		{
+			if (Service.RemoveRange(answerIds))
+				return Ok();
+			return BadRequest("Error on deleteing answer group");
 		}
 	}
 }

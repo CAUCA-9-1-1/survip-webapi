@@ -56,7 +56,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		private int GetQuestionMaxSequence(Guid? idSurveyQuestionParent)
 		{
-			var childQuestions = Context.SurveyQuestions
+			var childQuestions = Context.SurveyQuestions.AsNoTracking()
 						.Where(sq => sq.IdSurveyQuestionParent == idSurveyQuestionParent && sq.IsActive).ToList();
 			if (childQuestions.Any())
 				return childQuestions.Max(sq => sq.Sequence);
@@ -65,7 +65,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		private int GetParentQuestionSequence(Guid? idSurveyQuestionParent)
 		{
-			var inspection = Context.SurveyQuestions.FirstOrDefault(sq => sq.Id == idSurveyQuestionParent && sq.IsActive);
+			var inspection = Context.SurveyQuestions.AsNoTracking().FirstOrDefault(sq => sq.Id == idSurveyQuestionParent && sq.IsActive);
 			if (inspection != null)
 				return inspection.Sequence;
 			return 0;

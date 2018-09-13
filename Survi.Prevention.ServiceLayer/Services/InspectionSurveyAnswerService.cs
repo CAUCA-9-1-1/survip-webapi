@@ -53,7 +53,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 					idInspection = inspection.Id,
 					surveyquestion.IdSurveyQuestionNext,
 					created_on = questionanswser.CreatedOn,
-					idInspectionSurveyQuestionParent = surveyquestion.IdSurveyQuestionParent
+					idParent = questionanswser.IdSurveyAnswerParent,
+					surveyquestion.MinOccurrence,
+					surveyquestion.MaxOccurrence
 				};
 
 			var inspectionQuestionWithChoice =
@@ -71,7 +73,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 					QuestionType = question.QuestionType,
 					IdInspection = question.idInspection,
 					IdSurveyQuestionNext = question.IdSurveyQuestionNext,
-					IdSurveyQuestionParent = question.idInspectionSurveyQuestionParent,
+					IdParent = question.idParent,
+					MinOccurrence = question.MinOccurrence,
+					MaxOccurrence = question.MaxOccurrence,
 					ChoicesList = (
 						from choice in question.ChoicesList
 						where choice.IsActive
@@ -127,7 +131,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 					 QuestionType = surveyquestion.QuestionType,
 					 IdInspection = inspection.Id,
 					 IdSurveyQuestionNext = surveyquestion.IdSurveyQuestionNext,
-					 IdSurveyQuestionParent = surveyquestion.IdSurveyQuestionParent
+					 IdParent = surveyquestion.IdSurveyQuestionParent,
+					 MinOccurrence = surveyquestion.MinOccurrence,
+					 MaxOccurrence = surveyquestion.MaxOccurrence
 				 };
 
 			var formatedList = new InspectionSurveyTreeGenerator().GetSurveyQuestionTreeList(surveyQuestionQuery.ToList());
@@ -149,10 +155,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 				Answer = inspectionQuestionAnswer.Answer,
 				IdSurveyQuestion = inspectionQuestionAnswer.IdSurveyQuestion,
 				IdInspection = inspectionQuestionAnswer.IdInspection,
-				IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice
+				IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice,
+				IdSurveyAnswerParent = inspectionQuestionAnswer.IdParent
 			};
 			Context.InspectionSurveyAnswers.Add(questionAnswer);
 			Context.SaveChanges();
+
+			inspectionQuestionAnswer.Id = questionAnswer.Id;
 
 			return questionAnswer.Id;
 		}
