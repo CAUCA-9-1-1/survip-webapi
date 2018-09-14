@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using Survi.Prevention.Models.DataTransfertObjects;
@@ -21,16 +22,49 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 		public string FillTemplate(Guid buildingId, string template, string languageCode)
 		{
-			var mainBuildingPart = ReportingTemplateVariableListExtractor.GetGroupContent(ReportBuildingGroup.MainBuilding, template);
-			var filledTemplate = template.Replace(mainBuildingPart, handler.FillGroup(mainBuildingPart, buildingId, languageCode));
-			var buildingPart = ReportingTemplateVariableListExtractor.GetGroupContent(ReportBuildingGroup.Building, template);
-			filledTemplate = filledTemplate.Replace(buildingPart, buildingHandler.FillGroup(buildingPart, buildingId, languageCode));
-			var inspectionPart = ReportingTemplateVariableListExtractor.GetGroupContent(ReportBuildingGroup.Inspection, template);
-			filledTemplate = filledTemplate.Replace(inspectionPart, inspectionHandler.FillGroup(inspectionPart, buildingId, languageCode));
+			var filledTemplate = template;
+
+			filledTemplate = FillMainBuildingPart(buildingId, template, languageCode, filledTemplate);
+			filledTemplate = FillBuildingsPart(buildingId, template, languageCode, filledTemplate);
+			filledTemplate = FillInspectionPart(buildingId, template, languageCode, filledTemplate);
+
 			return filledTemplate;
 		}
 
-		public static List<PlaceholderGroup> GetPlaceholderGroups()
+	    private string FillInspectionPart(Guid buildingId, string template, string languageCode, string filledTemplate)
+	    {
+		    if (ReportingTemplateVariableListExtractor.HasGroup(ReportBuildingGroup.Inspection, template))
+		    {
+			    var inspectionPart = ReportingTemplateVariableListExtractor.GetGroupContent(ReportBuildingGroup.Inspection, template);
+			    filledTemplate = filledTemplate.Replace(inspectionPart, inspectionHandler.FillGroup(inspectionPart, buildingId, languageCode));
+		    }
+
+		    return filledTemplate;
+	    }
+
+	    private string FillBuildingsPart(Guid buildingId, string template, string languageCode, string filledTemplate)
+	    {
+		    if (ReportingTemplateVariableListExtractor.HasGroup(ReportBuildingGroup.Building, template))
+		    {
+			    var buildingPart = ReportingTemplateVariableListExtractor.GetGroupContent(ReportBuildingGroup.Building, template);
+			    filledTemplate = filledTemplate.Replace(buildingPart, buildingHandler.FillGroup(buildingPart, buildingId, languageCode));
+		    }
+
+		    return filledTemplate;
+	    }
+
+	    private string FillMainBuildingPart(Guid buildingId, string template, string languageCode, string filledTemplate)
+	    {
+		    if (ReportingTemplateVariableListExtractor.HasGroup(ReportBuildingGroup.MainBuilding, template))
+		    {
+			    var mainBuildingPart = ReportingTemplateVariableListExtractor.GetGroupContent(ReportBuildingGroup.MainBuilding, template);
+			    filledTemplate = filledTemplate.Replace(mainBuildingPart, handler.FillGroup(mainBuildingPart, buildingId, languageCode));
+		    }
+
+		    return filledTemplate;
+	    }
+
+	    public static List<PlaceholderGroup> GetPlaceholderGroups()
 		{
 			var list = new List<PlaceholderGroup>();
 
@@ -42,14 +76,17 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 					if (ti.IsAssignableFrom(t) && !t.IsAbstract)
 					{
 						var result = ((string Group, List<string> Placeholders))t.GetMethod("GetPlaceholders", BindingFlags.Public | BindingFlags.Static)?.Invoke(null, null);
-						for(int i = 0; i < result.Placeholders.Count; i++)
-							result.Placeholders[i] = $"@{result.Group}.{result.Placeholders[i]}@";
-						list.Add(new PlaceholderGroup{ Name = PascalCaseToSentence(result.Group), Tag = result.Group, Placeholders = result.Placeholders});
+						var group = new PlaceholderGroup { Name = PascalCaseToSentence(result.Group), Tag = result.Group };
+						for (int i = 0; i < result.Placeholders.Count; i++)
+							group.Placeholders.Add(new Placeholder { Name = result.Placeholders[i], Tag = $"@{result.Group}.{result.Placeholders[i]}@" });
+
+						list.Add(group);
 					}
 				}
 			}
 
-			return list;
+			return list.OrderBy(item => (ReportBuildingGroup)Enum.Parse(typeof(ReportBuildingGroup), item.Tag))
+				.ToList();
 		}
 
 		private static string PascalCaseToSentence(string input)

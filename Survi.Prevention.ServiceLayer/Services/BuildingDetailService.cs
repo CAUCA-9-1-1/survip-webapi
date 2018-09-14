@@ -23,6 +23,14 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return detail;
 		}
 
+		public Guid? GetIdByIdBuilding(Guid idBuilding)
+		{
+			var detailId = Context.BuildingDetails.AsNoTracking()
+				.SingleOrDefault(d => d.IdBuilding == idBuilding)?.Id;
+
+			return detailId;
+		}
+
 		private BuildingDetail GenerateNewDetail(Guid idBuilding)
 		{
 			var detail = new BuildingDetail { IdBuilding = idBuilding };

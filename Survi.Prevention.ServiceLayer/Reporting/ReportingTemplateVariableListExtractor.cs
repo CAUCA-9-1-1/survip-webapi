@@ -40,6 +40,10 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 			var start = template.IndexOf(opening, StringComparison.Ordinal);
 			var end = template.IndexOf(closure, StringComparison.Ordinal);
+
+			if (start == -1 || end == -1)
+				return "";
+
 			var length = end - start + closure.Length;
 			var content = template.Substring(start, length);
 			return content;
