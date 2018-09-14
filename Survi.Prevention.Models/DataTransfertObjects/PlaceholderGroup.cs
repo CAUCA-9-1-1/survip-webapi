@@ -6,6 +6,12 @@ namespace Survi.Prevention.Models.DataTransfertObjects
     {
 		public string Name { get; set; }
 		public string Tag { get; set; }
-		public List<string> Placeholders { get; set; }
+	    public List<Placeholder> Placeholders { get; set; } = new List<Placeholder>();
     }
+
+	public class Placeholder
+	{
+		public string Tag { get; set; }
+		public string Name { get; set; }
+	}
 }

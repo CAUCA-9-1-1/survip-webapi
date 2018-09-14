@@ -44,7 +44,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		{
 			template = FillSubGroup(template, idBuilding, languageCode, ReportBuildingGroup.BuildingDetail, detailHandler);
 			template = FillSubGroup(template, idBuilding, languageCode, ReportBuildingGroup.BuildingAlarmPanel, alarmHandler);
-			template = FillSubGroup(template, idBuilding, languageCode, ReportBuildingGroup.MainBuildingSprinkler, sprinklerHandler);
+			template = FillSubGroup(template, idBuilding, languageCode, ReportBuildingGroup.BuildingSprinkler, sprinklerHandler);
 			template = FillSubGroup(template, idBuilding, languageCode, ReportBuildingGroup.BuildingContact, contactHandler);
 			template = FillSubGroup(template, idBuilding, languageCode, ReportBuildingGroup.BuildingPersonRequiringAssistance, personHandler);
 			template = FillSubGroup(template, idBuilding, languageCode, ReportBuildingGroup.BuildingHazardousMaterial, materialHandler);
