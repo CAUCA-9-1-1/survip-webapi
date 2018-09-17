@@ -156,13 +156,23 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public List<SurveyQuestion> GetListLocalized(Guid idSurvey, string languageCode)
 		{
-			var result = Context.SurveyQuestions
-						.Include(sql => sql.Localizations)
-						.Where(sq => sq.IdSurvey == idSurvey && sq.IsActive)
-						.OrderBy(sq => sq.Sequence)
-						.ToList();
+			var query = Context.SurveyQuestions.AsNoTracking()
+				.Include(sql => sql.Localizations)
+				.Where(sq => sq.IdSurvey == idSurvey && sq.IsActive)
+				.OrderBy(sq => sq.Sequence);
+
+			var result = query.ToList();
+
+			RemoveNextQuestionNavigationPropertyValue(result);
 
 			return result;
+		}
+
+		private static void RemoveNextQuestionNavigationPropertyValue(List<SurveyQuestion> result)
+		{
+			// This is because EFCore does automatically load self referencing navigation property
+			// and we don't want them in angular/ionic.
+			result.ForEach(question => question.NextQuestion = null);
 		}
 	}
 
