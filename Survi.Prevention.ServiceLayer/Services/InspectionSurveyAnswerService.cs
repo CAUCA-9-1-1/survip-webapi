@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.InspectionManagement;
 using Survi.Prevention.Models.DataTransfertObjects;
@@ -142,28 +143,32 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public Guid SaveQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
 		{
+			var existingAnswer = false;
 			if (inspectionQuestionAnswer.Id != null && inspectionQuestionAnswer.Id != Guid.Empty)
-				return UpdateQuestionAnswer(inspectionQuestionAnswer);
+				existingAnswer = Context.InspectionSurveyAnswers.AsNoTracking().Any(ea => ea.Id == inspectionQuestionAnswer.Id);
 
+			if(existingAnswer)
+				return UpdateQuestionAnswer(inspectionQuestionAnswer);
 			return AddQuestionAnswer(inspectionQuestionAnswer);
 		}
 
 		private Guid AddQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
 		{
-			var questionAnswer = new InspectionSurveyAnswer
-			{
-				Answer = inspectionQuestionAnswer.Answer,
-				IdSurveyQuestion = inspectionQuestionAnswer.IdSurveyQuestion,
-				IdInspection = inspectionQuestionAnswer.IdInspection,
-				IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice,
-				IdSurveyAnswerParent = inspectionQuestionAnswer.IdParent
-			};
-			Context.InspectionSurveyAnswers.Add(questionAnswer);
-			Context.SaveChanges();
+				var questionAnswer = new InspectionSurveyAnswer
+				{
+					Id = inspectionQuestionAnswer.Id ?? Guid.NewGuid() ,
+					Answer = inspectionQuestionAnswer.Answer,
+					IdSurveyQuestion = inspectionQuestionAnswer.IdSurveyQuestion,
+					IdInspection = inspectionQuestionAnswer.IdInspection,
+					IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice,
+					IdSurveyAnswerParent = inspectionQuestionAnswer.IdParent
+				};
+				Context.InspectionSurveyAnswers.Add(questionAnswer);
+				Context.SaveChanges();
 
-			inspectionQuestionAnswer.Id = questionAnswer.Id;
+				inspectionQuestionAnswer.Id = questionAnswer.Id;
 
-			return questionAnswer.Id;
+				return questionAnswer.Id;
 		}
 		private Guid UpdateQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
 		{
