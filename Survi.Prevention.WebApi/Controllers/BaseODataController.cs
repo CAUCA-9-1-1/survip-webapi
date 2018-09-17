@@ -11,7 +11,7 @@ namespace Survi.Prevention.WebApi.Controllers
 {
 	[Produces("application/json")]
 	public abstract class BaseODataController<TService, TModel> : ODataController
-		where TModel : BaseModel
+		where TModel : BaseModel, new()
 		where TService : BaseCrudService<TModel>
 	{
 		protected readonly TService Service;
