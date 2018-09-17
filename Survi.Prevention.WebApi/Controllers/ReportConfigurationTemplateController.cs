@@ -14,7 +14,7 @@ namespace Survi.Prevention.WebApi.Controllers
         {
         }
         
-        [HttpGet("placeholders"), AllowAnonymous]
+        [HttpGet("placeholders")]
         public ActionResult GetAvailablePlaceholders()
         {
 	        var groups = BuildingReportTemplateFiller.GetPlaceholderGroups();

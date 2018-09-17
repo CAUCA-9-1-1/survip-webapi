@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
 using Survi.Prevention.ServiceLayer.Services;
 
