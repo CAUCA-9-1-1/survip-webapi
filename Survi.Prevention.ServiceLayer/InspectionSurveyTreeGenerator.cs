@@ -38,5 +38,33 @@ namespace Survi.Prevention.ServiceLayer
 		    });
 		    return answerTreeList;
 	    }
+
+	    public List<InspectionQuestionForSummary> GetSurveySummaryTreeList(List<InspectionQuestionForSummary> surveyAnswer)
+	    {
+		    List<Guid> idsToRemove = new List<Guid>();
+		    List<InspectionQuestionForSummary> answerTreeList = new List<InspectionQuestionForSummary>();
+		    answerTreeList.AddRange(surveyAnswer.Where(sq=>sq.IdParent == null));
+		    answerTreeList.ForEach(parentAnswer =>
+		    {
+			    var children = surveyAnswer.Where(sq => string.Equals(sq.IdParent.ToString(), parentAnswer.Id.ToString(), StringComparison.CurrentCultureIgnoreCase)).OrderBy(sq=>sq.Sequence).ToList();
+			    if (children.Any())
+			    {
+				    parentAnswer.ChildSurveyAnswerList = new List<InspectionQuestionForSummary>();
+				    parentAnswer.ChildSurveyAnswerList.AddRange(children);
+			    }
+			    else
+			    {
+				    idsToRemove.Add(parentAnswer.Id);
+			    }
+		    });
+
+
+			idsToRemove.ForEach(id =>
+			{
+				if (answerTreeList.Find(atl => atl.Id == id) != null)
+					answerTreeList.Remove(answerTreeList.Find(atl => atl.Id == id));
+			});
+		    return answerTreeList;
+	    }
     }
 }
