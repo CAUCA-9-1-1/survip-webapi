@@ -13,7 +13,8 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 		public int QuestionType { get; set; }
 		public int Sequence { get; set; }
 		public bool IsRecursive { get; set; }
+		public Guid? IdParent { get; set; }
 
-		public List<InspectionQuestionForSummary> RecursiveAnswer { get; set; }
+		public List<InspectionQuestionForSummary> ChildSurveyAnswerList { get; set; }
 	}
 }

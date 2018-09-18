@@ -170,6 +170,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 				return questionAnswer.Id;
 		}
+
 		private Guid UpdateQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
 		{
 			var existingAnswer = Context.InspectionSurveyAnswers.Single(ea => ea.Id == inspectionQuestionAnswer.Id);
@@ -194,33 +195,32 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public List<InspectionSummaryCategoryForList> GetInspectionQuestionSummaryListLocalized(Guid idInspection, string languageCode)
 		{
-			var answerSummary = (
-				from inspectionQuestion in Context.InspectionSurveyAnswers
-				from surveyQuestion in Context.SurveyQuestions.Where(sq => sq.IsActive && sq.Id == inspectionQuestion.IdSurveyQuestion)
-				join surveyQuestionChoice in Context.SurveyQuestionChoices.Where(sqc => sqc.IsActive) on inspectionQuestion.IdSurveyQuestionChoice equals surveyQuestionChoice.Id into aqc
+			var answerSummary = 
+				from surveyAnswerQuestion in Context.InspectionSurveyAnswers
+				from surveyQuestion in Context.SurveyQuestions.Where(sq => sq.IsActive && sq.Id == surveyAnswerQuestion.IdSurveyQuestion)
+				join surveyQuestionChoice in Context.SurveyQuestionChoices.Where(sqc => sqc.IsActive) on surveyAnswerQuestion.IdSurveyQuestionChoice equals surveyQuestionChoice.Id into aqc
 				from surveyQuestionChoice in aqc.DefaultIfEmpty()
-				where inspectionQuestion.IdInspection == idInspection
+				where surveyAnswerQuestion.IdInspection == idInspection && surveyAnswerQuestion.IsActive
+				let choiceName = surveyQuestionChoice.Localizations.FirstOrDefault(sql=> sql.LanguageCode == languageCode)
 				from questionLocalization in surveyQuestion.Localizations
 				where questionLocalization.IsActive && questionLocalization.LanguageCode == languageCode
-				orderby inspectionQuestion.CreatedOn
+				orderby surveyAnswerQuestion.CreatedOn
 				select new InspectionQuestionForSummary
 				{
-					Id = inspectionQuestion.Id,
+					Id = surveyAnswerQuestion.Id,
 					NextQuestionId = surveyQuestion.Id,
 					QuestionTitle = questionLocalization.Title,
 					QuestionDescription = questionLocalization.Name,
-					Answer = surveyQuestion.QuestionType != 1 ? inspectionQuestion.Answer : questionLocalization.Name,
+					Answer = surveyQuestion.QuestionType == 1 ? choiceName.Name :surveyAnswerQuestion.Answer,
 					QuestionType = surveyQuestion.QuestionType,
 					Sequence = surveyQuestion.Sequence,
-					IsRecursive = surveyQuestion.IsRecursive
-					
-				}).ToList();
+					IdParent = surveyAnswerQuestion.IdSurveyAnswerParent
+					};
 
-			List<InspectionQuestionForSummary> recursiveList = new RecursiveInspectionQuestionProcess().GroupRecursiveQuestion(answerSummary);
+			var formatedList =  new InspectionSurveyTreeGenerator().GetSurveySummaryTreeList(answerSummary.ToList());
 
-			var groupedTitle =
-				from groupedQuestion in recursiveList
-				group groupedQuestion by groupedQuestion.QuestionTitle
+			var categoryGroupedAnswerList = from groupedAnswers in formatedList
+				group groupedAnswers by groupedAnswers.QuestionTitle
 				into gq
 				select new InspectionSummaryCategoryForList
 				{
@@ -228,7 +228,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 					AnswerSummary = gq.ToList()
 				};
 
-			return groupedTitle.ToList();
+			return categoryGroupedAnswerList.ToList();
+
 		}
 	}
 }

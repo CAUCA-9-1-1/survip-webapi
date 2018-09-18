@@ -62,15 +62,15 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 		private static string AddAnswer(InspectionSummaryCategoryForList category, int i, string surveyToText)
 		{
-			var recursive = category.AnswerSummary.ElementAt(i);
-			if (recursive.IsRecursive && recursive.RecursiveAnswer.Count != 0)
+			var answer = category.AnswerSummary.ElementAt(i);
+			if (answer.QuestionType == 4 && answer.ChildSurveyAnswerList.Count != 0)
 			{
-				surveyToText += "<h3>" + recursive.QuestionTitle + " #" + (i + 1) + "</h3>\n";
-				foreach (var answer in recursive.RecursiveAnswer)
-					surveyToText += AddAnswer(answer);
+				surveyToText += "<h3>" + answer.QuestionTitle + " #" + (i + 1) + "</h3>\n";
+				foreach (var answerChild in answer.ChildSurveyAnswerList)
+					surveyToText += AddAnswer(answerChild);
 			}
 			else
-				surveyToText = AddAnswer(recursive);
+				surveyToText = AddAnswer(answer);
 
 			return surveyToText;
 		}
