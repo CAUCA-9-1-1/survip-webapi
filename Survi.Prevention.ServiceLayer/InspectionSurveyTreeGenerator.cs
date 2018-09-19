@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer
 	    public List<InspectionQuestionForList> GetSurveyQuestionTreeList(List<InspectionQuestionForList> surveyQuestion)
 	    {
 		    List<InspectionQuestionForList> questionTreetList = new List<InspectionQuestionForList>();
-		    questionTreetList.AddRange(surveyQuestion.Where(sq=>sq.IdParent == null));
+		    questionTreetList.AddRange(surveyQuestion.Where(sq=>sq.IdParent == null).OrderBy(sq=>sq.Sequence));
 		    questionTreetList.ForEach(parentQuestion =>
 			{
 				var children = surveyQuestion.Where(sq => sq.IdParent == parentQuestion.IdSurveyQuestion).OrderBy(sq=>sq.Sequence).ToList();
@@ -43,7 +43,7 @@ namespace Survi.Prevention.ServiceLayer
 	    {
 		    List<Guid> idsToRemove = new List<Guid>();
 		    List<InspectionQuestionForSummary> answerTreeList = new List<InspectionQuestionForSummary>();
-		    answerTreeList.AddRange(surveyAnswer.Where(sq=>sq.IdParent == null));
+		    answerTreeList.AddRange(surveyAnswer.Where(sq=>sq.IdParent == null).OrderBy(sq=>sq.Sequence));
 		    answerTreeList.ForEach(parentAnswer =>
 		    {
 			    var children = surveyAnswer.Where(sq => string.Equals(sq.IdParent.ToString(), parentAnswer.Id.ToString(), StringComparison.CurrentCultureIgnoreCase)).OrderBy(sq=>sq.Sequence).ToList();
@@ -54,7 +54,8 @@ namespace Survi.Prevention.ServiceLayer
 			    }
 			    else
 			    {
-				    idsToRemove.Add(parentAnswer.Id);
+					if(parentAnswer.QuestionType == 4)
+						idsToRemove.Add(parentAnswer.Id);
 			    }
 		    });
 
