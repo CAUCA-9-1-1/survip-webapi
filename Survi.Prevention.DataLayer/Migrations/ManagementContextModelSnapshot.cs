@@ -1330,11 +1330,11 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("risk_level");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72194d"), Code = 1, Color = "-16744448", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 1 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721950"), Code = 2, Color = "-256", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 2 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721953"), Code = 3, Color = "-23296", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 3 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721956"), Code = 4, Color = "-65536", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 4 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721959"), Code = 0, Color = "-16777216", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 0 }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721948"), Code = 1, Color = "-16744448", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 1 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72194b"), Code = 2, Color = "-256", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 2 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72194e"), Code = 3, Color = "-23296", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721951"), Code = 4, Color = "-65536", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 4 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721954"), Code = 0, Color = "-16777216", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 0 }
                     );
                 });
 
@@ -1371,16 +1371,16 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("risk_level_localization");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72194e"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72194d"), IsActive = true, LanguageCode = "fr", Name = "Faible" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72194f"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72194d"), IsActive = true, LanguageCode = "en", Name = "Low" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721951"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721950"), IsActive = true, LanguageCode = "fr", Name = "Moyen" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721952"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721950"), IsActive = true, LanguageCode = "en", Name = "Medium" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721954"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721953"), IsActive = true, LanguageCode = "fr", Name = "Élevé" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721955"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721953"), IsActive = true, LanguageCode = "en", Name = "High" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721957"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721956"), IsActive = true, LanguageCode = "fr", Name = "Très élevé" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721958"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721956"), IsActive = true, LanguageCode = "en", Name = "Very high" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721959"), IsActive = true, LanguageCode = "fr", Name = "Indéterminé" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721959"), IsActive = true, LanguageCode = "en", Name = "Unknown" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721949"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721948"), IsActive = true, LanguageCode = "fr", Name = "Faible" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72194a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721948"), IsActive = true, LanguageCode = "en", Name = "Low" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72194c"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72194b"), IsActive = true, LanguageCode = "fr", Name = "Moyen" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72194d"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72194b"), IsActive = true, LanguageCode = "en", Name = "Medium" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72194f"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72194e"), IsActive = true, LanguageCode = "fr", Name = "Élevé" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721950"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72194e"), IsActive = true, LanguageCode = "en", Name = "High" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721952"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721951"), IsActive = true, LanguageCode = "fr", Name = "Très élevé" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721953"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721951"), IsActive = true, LanguageCode = "en", Name = "Very high" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721955"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721954"), IsActive = true, LanguageCode = "fr", Name = "Indéterminé" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721956"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721954"), IsActive = true, LanguageCode = "en", Name = "Unknown" }
                     );
                 });
 
@@ -1802,16 +1802,10 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<Guid?>("IdLane")
                         .HasColumnName("id_lane");
 
-                    b.Property<Guid>("IdOperatorTypePressure")
-                        .HasColumnName("id_operator_type_pressure");
-
-                    b.Property<Guid>("IdOperatorTypeRate")
-                        .HasColumnName("id_operator_type_rate");
-
-                    b.Property<Guid>("IdUnitOfMeasurePressure")
+                    b.Property<Guid?>("IdUnitOfMeasurePressure")
                         .HasColumnName("id_unit_of_measure_pressure");
 
-                    b.Property<Guid>("IdUnitOfMeasureRate")
+                    b.Property<Guid?>("IdUnitOfMeasureRate")
                         .HasColumnName("id_unit_of_measure_rate");
 
                     b.Property<bool>("IsActive")
@@ -1833,23 +1827,25 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("coordinates")
                         .HasColumnType("geometry");
 
-                    b.Property<string>("PressureFrom")
-                        .IsRequired()
+                    b.Property<decimal?>("PressureFrom")
                         .HasColumnName("pressure_from")
                         .HasMaxLength(5);
 
-                    b.Property<string>("PressureTo")
-                        .IsRequired()
+                    b.Property<int>("PressureOperatorType")
+                        .HasColumnName("pressure_operator_type");
+
+                    b.Property<decimal?>("PressureTo")
                         .HasColumnName("pressure_to")
                         .HasMaxLength(5);
 
-                    b.Property<string>("RateFrom")
-                        .IsRequired()
+                    b.Property<decimal?>("RateFrom")
                         .HasColumnName("rate_from")
                         .HasMaxLength(5);
 
-                    b.Property<string>("RateTo")
-                        .IsRequired()
+                    b.Property<int>("RateOperatorType")
+                        .HasColumnName("rate_operator_type");
+
+                    b.Property<decimal?>("RateTo")
                         .HasColumnName("rate_to")
                         .HasMaxLength(5);
 
@@ -1863,10 +1859,6 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.HasIndex("IdIntersection");
 
                     b.HasIndex("IdLane");
-
-                    b.HasIndex("IdOperatorTypePressure");
-
-                    b.HasIndex("IdOperatorTypeRate");
 
                     b.HasIndex("IdUnitOfMeasurePressure");
 
@@ -2052,37 +2044,6 @@ namespace Survi.Prevention.DataLayer.Migrations
                     );
                 });
 
-            modelBuilder.Entity("Survi.Prevention.Models.FireHydrants.OperatorType", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnName("created_on");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnName("is_active");
-
-                    b.Property<string>("Symbol")
-                        .IsRequired()
-                        .HasColumnName("symbol")
-                        .HasMaxLength(3);
-
-                    b.HasKey("Id")
-                        .HasName("pk_operator_type");
-
-                    b.ToTable("operator_type");
-
-                    b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721850"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Symbol = "=" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721851"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Symbol = ">" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721852"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Symbol = ">=" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721853"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Symbol = "<" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721854"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Symbol = "<=" }
-                    );
-                });
-
             modelBuilder.Entity("Survi.Prevention.Models.FireSafetyDepartments.City", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2126,8 +2087,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("city");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721969"), Code = "29045", Code3Letters = "SIN", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), EmailAddress = "", IdCityType = new Guid("f13400a9-70b8-4325-b732-7fe7db72195d"), IdCounty = new Guid("f13400a9-70b8-4325-b732-7fe7db721967"), IsActive = true },
-                        new { Id = new Guid("8a4737d2-e3c8-4d1f-b5ad-76a4703568a5"), Code = "29073", Code3Letters = "SGS", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), EmailAddress = "", IdCityType = new Guid("f13400a9-70b8-4325-b732-7fe7db72195d"), IdCounty = new Guid("f13400a9-70b8-4325-b732-7fe7db721967"), IsActive = true }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721964"), Code = "29045", Code3Letters = "SIN", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), EmailAddress = "", IdCityType = new Guid("f13400a9-70b8-4325-b732-7fe7db721958"), IdCounty = new Guid("f13400a9-70b8-4325-b732-7fe7db721962"), IsActive = true },
+                        new { Id = new Guid("8a4737d2-e3c8-4d1f-b5ad-76a4703568a5"), Code = "29073", Code3Letters = "SGS", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), EmailAddress = "", IdCityType = new Guid("f13400a9-70b8-4325-b732-7fe7db721958"), IdCounty = new Guid("f13400a9-70b8-4325-b732-7fe7db721962"), IsActive = true }
                     );
                 });
 
@@ -2164,10 +2125,10 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("city_localization");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721969"), IsActive = true, LanguageCode = "fr", Name = "Causeville" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721969"), IsActive = true, LanguageCode = "en", Name = "Causetown" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196c"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("8a4737d2-e3c8-4d1f-b5ad-76a4703568a5"), IsActive = true, LanguageCode = "fr", Name = "Caucaville" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196d"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("8a4737d2-e3c8-4d1f-b5ad-76a4703568a5"), IsActive = true, LanguageCode = "en", Name = "Caucatown" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721965"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721964"), IsActive = true, LanguageCode = "fr", Name = "Causeville" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721966"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721964"), IsActive = true, LanguageCode = "en", Name = "Causetown" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721967"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("8a4737d2-e3c8-4d1f-b5ad-76a4703568a5"), IsActive = true, LanguageCode = "fr", Name = "Caucaville" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721968"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("8a4737d2-e3c8-4d1f-b5ad-76a4703568a5"), IsActive = true, LanguageCode = "en", Name = "Caucatown" }
                     );
                 });
 
@@ -2189,8 +2150,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("city_type");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195d"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72197a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721958"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721975"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true }
                     );
                 });
 
@@ -2227,10 +2188,10 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("city_type_localization");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721978"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195d"), IsActive = true, LanguageCode = "fr", Name = "Ville" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721979"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195d"), IsActive = true, LanguageCode = "en", Name = "City" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72197b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72197a"), IsActive = true, LanguageCode = "fr", Name = "Municipalité" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72197c"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72197a"), IsActive = true, LanguageCode = "en", Name = "Municipality" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721973"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721958"), IsActive = true, LanguageCode = "fr", Name = "Ville" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721974"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721958"), IsActive = true, LanguageCode = "en", Name = "City" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721976"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721975"), IsActive = true, LanguageCode = "fr", Name = "Municipalité" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721977"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721975"), IsActive = true, LanguageCode = "en", Name = "Municipality" }
                     );
                 });
 
@@ -2262,7 +2223,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("country");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195c"), CodeAlpha2 = "CA", CodeAlpha3 = "CAD", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721957"), CodeAlpha2 = "CA", CodeAlpha3 = "CAD", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true }
                     );
                 });
 
@@ -2299,8 +2260,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("country_localization");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721960"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195c"), IsActive = true, LanguageCode = "fr", Name = "Canada" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721961"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195c"), IsActive = true, LanguageCode = "en", Name = "Canada" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721957"), IsActive = true, LanguageCode = "fr", Name = "Canada" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195c"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721957"), IsActive = true, LanguageCode = "en", Name = "Canada" }
                     );
                 });
 
@@ -2332,8 +2293,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("county");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721967"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdRegion = new Guid("f13400a9-70b8-4325-b732-7fe7db721964"), IdState = new Guid("f13400a9-70b8-4325-b732-7fe7db72195e"), IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721968"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdRegion = new Guid("f13400a9-70b8-4325-b732-7fe7db721964"), IdState = new Guid("f13400a9-70b8-4325-b732-7fe7db72195e"), IsActive = true }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721962"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdRegion = new Guid("f13400a9-70b8-4325-b732-7fe7db72195f"), IdState = new Guid("f13400a9-70b8-4325-b732-7fe7db721959"), IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721963"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdRegion = new Guid("f13400a9-70b8-4325-b732-7fe7db72195f"), IdState = new Guid("f13400a9-70b8-4325-b732-7fe7db721959"), IsActive = true }
                     );
                 });
 
@@ -2370,10 +2331,10 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("county_localization");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196f"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721968"), IsActive = true, LanguageCode = "fr", Name = "La Nouvelle-Beauce" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721970"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721968"), IsActive = true, LanguageCode = "en", Name = "The New-Beauce" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721971"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721967"), IsActive = true, LanguageCode = "fr", Name = "Beauce-Sartigan" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721972"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721967"), IsActive = true, LanguageCode = "en", Name = "Beauce-Sartigan" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721963"), IsActive = true, LanguageCode = "fr", Name = "La Nouvelle-Beauce" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721963"), IsActive = true, LanguageCode = "en", Name = "The New-Beauce" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196c"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721962"), IsActive = true, LanguageCode = "fr", Name = "Beauce-Sartigan" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196d"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721962"), IsActive = true, LanguageCode = "en", Name = "Beauce-Sartigan" }
                     );
                 });
 
@@ -2405,7 +2366,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("fire_safety_department");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195f"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdCounty = new Guid("f13400a9-70b8-4325-b732-7fe7db721967"), IsActive = true, Language = "fr" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdCounty = new Guid("f13400a9-70b8-4325-b732-7fe7db721962"), IsActive = true, Language = "fr" }
                     );
                 });
 
@@ -2437,7 +2398,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("fire_safety_department_city_serving");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196e"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdCity = new Guid("8a4737d2-e3c8-4d1f-b5ad-76a4703568a5"), IdFireSafetyDepartment = new Guid("f13400a9-70b8-4325-b732-7fe7db72195f"), IsActive = true }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721969"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdCity = new Guid("8a4737d2-e3c8-4d1f-b5ad-76a4703568a5"), IdFireSafetyDepartment = new Guid("f13400a9-70b8-4325-b732-7fe7db72195a"), IsActive = true }
                     );
                 });
 
@@ -2474,8 +2435,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("fire_safety_department_localization");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721973"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195f"), IsActive = true, LanguageCode = "fr", Name = "Cauca SSI" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721974"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195f"), IsActive = true, LanguageCode = "en", Name = "Cauca SSI" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196e"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195a"), IsActive = true, LanguageCode = "fr", Name = "Cauca SSI" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72196f"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195a"), IsActive = true, LanguageCode = "en", Name = "Cauca SSI" }
                     );
                 });
 
@@ -2588,9 +2549,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("firestation");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721975"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdFireSafetyDepartment = new Guid("f13400a9-70b8-4325-b732-7fe7db72195f"), IsActive = true, Name = "Caserne 1" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721976"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdFireSafetyDepartment = new Guid("f13400a9-70b8-4325-b732-7fe7db72195f"), IsActive = true, Name = "Caserne 2" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721977"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdFireSafetyDepartment = new Guid("f13400a9-70b8-4325-b732-7fe7db72195f"), IsActive = true, Name = "Caserne 3" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721970"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdFireSafetyDepartment = new Guid("f13400a9-70b8-4325-b732-7fe7db72195a"), IsActive = true, Name = "Caserne 1" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721971"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdFireSafetyDepartment = new Guid("f13400a9-70b8-4325-b732-7fe7db72195a"), IsActive = true, Name = "Caserne 2" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721972"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdFireSafetyDepartment = new Guid("f13400a9-70b8-4325-b732-7fe7db72195a"), IsActive = true, Name = "Caserne 3" }
                     );
                 });
 
@@ -2658,24 +2619,24 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("lane_generic_code");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ac"), AddWhiteSpaceAfter = false, Code = "A", Description = "", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ad"), AddWhiteSpaceAfter = true, Code = "B", Description = "À", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ae"), AddWhiteSpaceAfter = false, Code = "C", Description = "À L'", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218af"), AddWhiteSpaceAfter = true, Code = "D", Description = "À LA", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b0"), AddWhiteSpaceAfter = true, Code = "E", Description = "AU", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b1"), AddWhiteSpaceAfter = true, Code = "F", Description = "AUX", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b2"), AddWhiteSpaceAfter = true, Code = "G", Description = "CHEZ", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b3"), AddWhiteSpaceAfter = false, Code = "H", Description = "D'", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b4"), AddWhiteSpaceAfter = true, Code = "I", Description = "DE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b5"), AddWhiteSpaceAfter = false, Code = "J", Description = "DE L'", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b6"), AddWhiteSpaceAfter = true, Code = "K", Description = "DE LA", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b7"), AddWhiteSpaceAfter = true, Code = "L", Description = "DES", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b8"), AddWhiteSpaceAfter = true, Code = "M", Description = "DU", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b9"), AddWhiteSpaceAfter = false, Code = "N", Description = "L'", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ba"), AddWhiteSpaceAfter = true, Code = "O", Description = "LA", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218bb"), AddWhiteSpaceAfter = true, Code = "P", Description = "LE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218bc"), AddWhiteSpaceAfter = true, Code = "Q", Description = "LES", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218bd"), AddWhiteSpaceAfter = true, Code = "R", Description = "THE", IsActive = true }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a7"), AddWhiteSpaceAfter = false, Code = "A", Description = "", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a8"), AddWhiteSpaceAfter = true, Code = "B", Description = "À", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a9"), AddWhiteSpaceAfter = false, Code = "C", Description = "À L'", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218aa"), AddWhiteSpaceAfter = true, Code = "D", Description = "À LA", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ab"), AddWhiteSpaceAfter = true, Code = "E", Description = "AU", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ac"), AddWhiteSpaceAfter = true, Code = "F", Description = "AUX", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ad"), AddWhiteSpaceAfter = true, Code = "G", Description = "CHEZ", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ae"), AddWhiteSpaceAfter = false, Code = "H", Description = "D'", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218af"), AddWhiteSpaceAfter = true, Code = "I", Description = "DE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b0"), AddWhiteSpaceAfter = false, Code = "J", Description = "DE L'", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b1"), AddWhiteSpaceAfter = true, Code = "K", Description = "DE LA", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b2"), AddWhiteSpaceAfter = true, Code = "L", Description = "DES", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b3"), AddWhiteSpaceAfter = true, Code = "M", Description = "DU", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b4"), AddWhiteSpaceAfter = false, Code = "N", Description = "L'", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b5"), AddWhiteSpaceAfter = true, Code = "O", Description = "LA", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b6"), AddWhiteSpaceAfter = true, Code = "P", Description = "LE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b7"), AddWhiteSpaceAfter = true, Code = "Q", Description = "LES", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b8"), AddWhiteSpaceAfter = true, Code = "R", Description = "THE", IsActive = true }
                     );
                 });
 
@@ -2742,78 +2703,78 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("lane_public_code");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218be"), Abbreviation = "", Code = "01", Description = "", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218bf"), Abbreviation = "AL", Code = "02", Description = "ALLÉE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c0"), Abbreviation = "AU", Code = "05", Description = "AUTOROUTE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c1"), Abbreviation = "AV", Code = "08", Description = "AVENUE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c2"), Abbreviation = "BD", Code = "11", Description = "BOULEVARD", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c3"), Abbreviation = "CA", Code = "14", Description = "CARRÉ", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c4"), Abbreviation = "", Code = "15", Description = "CARREFOUR", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c5"), Abbreviation = "", Code = "16", Description = "CHAUSSÉE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c6"), Abbreviation = "CH", Code = "17", Description = "CHEMIN", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c7"), Abbreviation = "", Code = "19", Description = "CIRCLE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c8"), Abbreviation = "", Code = "20", Description = "CERCLE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c9"), Abbreviation = "", Code = "21", Description = "CIRCUIT", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ca"), Abbreviation = "", Code = "22", Description = "CONCESSION", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218cb"), Abbreviation = "CT", Code = "23", Description = "COTE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218cc"), Abbreviation = "", Code = "25", Description = "COURS", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218cd"), Abbreviation = "", Code = "26", Description = "COURT", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ce"), Abbreviation = "", Code = "29", Description = "CRESCENT", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218cf"), Abbreviation = "CR", Code = "32", Description = "CROISSANT", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d0"), Abbreviation = "", Code = "34", Description = "DESCENTE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d1"), Abbreviation = "", Code = "35", Description = "DESSERTE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d2"), Abbreviation = "DO", Code = "36", Description = "DOMAINE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d3"), Abbreviation = "", Code = "38", Description = "DRIVE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d4"), Abbreviation = "", Code = "39", Description = "ÉCHANGEUR", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d5"), Abbreviation = "", Code = "3a", Description = "ALLEY", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d6"), Abbreviation = "", Code = "40", Description = "ESPLANADE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d7"), Abbreviation = "", Code = "41", Description = "FIEF", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d8"), Abbreviation = "", Code = "44", Description = "GARDEN", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d9"), Abbreviation = "", Code = "45", Description = "GARDENS", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218da"), Abbreviation = "", Code = "46", Description = "HILL", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218db"), Abbreviation = "", Code = "47", Description = "ILE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218dc"), Abbreviation = "", Code = "4a", Description = "ANSE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218dd"), Abbreviation = "", Code = "50", Description = "IMPASSE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218de"), Abbreviation = "", Code = "52", Description = "JARDIN", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218df"), Abbreviation = "", Code = "53", Description = "LANE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e0"), Abbreviation = "LA", Code = "54", Description = "LAC", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e1"), Abbreviation = "", Code = "55", Description = "LIGNE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e2"), Abbreviation = "MT", Code = "56", Description = "MONTÉE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e3"), Abbreviation = "", Code = "57", Description = "PARK", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e4"), Abbreviation = "", Code = "58", Description = "PASSERELLE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e5"), Abbreviation = "", Code = "59", Description = "PARC", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e6"), Abbreviation = "", Code = "60", Description = "PISTE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e7"), Abbreviation = "", Code = "61", Description = "PASSAGE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e8"), Abbreviation = "PL", Code = "62", Description = "PLACE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e9"), Abbreviation = "", Code = "63", Description = "PLAGE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ea"), Abbreviation = "", Code = "64", Description = "PLAZA", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218eb"), Abbreviation = "", Code = "65", Description = "PONT", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ec"), Abbreviation = "", Code = "66", Description = "PLATEAU", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ed"), Abbreviation = "", Code = "67", Description = "PORTAGE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ee"), Abbreviation = "", Code = "68", Description = "RAMPE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ef"), Abbreviation = "PR", Code = "69", Description = "PROMENADE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f0"), Abbreviation = "", Code = "70", Description = "QUAI", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f1"), Abbreviation = "RG", Code = "71", Description = "RANG", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f2"), Abbreviation = "", Code = "72", Description = "RIDGE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f3"), Abbreviation = "", Code = "73", Description = "PETIT RANG", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f4"), Abbreviation = "", Code = "74", Description = "ROAD", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f5"), Abbreviation = "", Code = "75", Description = "ROND-POINT", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f6"), Abbreviation = "", Code = "76", Description = "GRAND RANG", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f7"), Abbreviation = "RT", Code = "77", Description = "ROUTE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f8"), Abbreviation = "", Code = "78", Description = "ROUTE RURALE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f9"), Abbreviation = "", Code = "79", Description = "RIVIÈRE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218fa"), Abbreviation = "RU", Code = "80", Description = "RUE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218fb"), Abbreviation = "RL", Code = "83", Description = "RUELLE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218fc"), Abbreviation = "SN", Code = "85", Description = "SENTIER", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218fd"), Abbreviation = "", Code = "86", Description = "SQUARE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218fe"), Abbreviation = "TE", Code = "89", Description = "TERRASSE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ff"), Abbreviation = "", Code = "91", Description = "TRAVERSE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721900"), Abbreviation = "", Code = "92", Description = "TRAIT-CARRÉ", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721901"), Abbreviation = "", Code = "93", Description = "TUNNEL", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721902"), Abbreviation = "", Code = "94", Description = "VIADUC", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721903"), Abbreviation = "", Code = "95", Description = "VOIE", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), Abbreviation = "", Code = "96", Description = "RUISSEAU", IsActive = true },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721905"), Abbreviation = "", Code = "97", Description = "ÎLOT", IsActive = true }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218b9"), Abbreviation = "", Code = "01", Description = "", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ba"), Abbreviation = "AL", Code = "02", Description = "ALLÉE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218bb"), Abbreviation = "AU", Code = "05", Description = "AUTOROUTE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218bc"), Abbreviation = "AV", Code = "08", Description = "AVENUE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218bd"), Abbreviation = "BD", Code = "11", Description = "BOULEVARD", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218be"), Abbreviation = "CA", Code = "14", Description = "CARRÉ", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218bf"), Abbreviation = "", Code = "15", Description = "CARREFOUR", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c0"), Abbreviation = "", Code = "16", Description = "CHAUSSÉE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c1"), Abbreviation = "CH", Code = "17", Description = "CHEMIN", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c2"), Abbreviation = "", Code = "19", Description = "CIRCLE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c3"), Abbreviation = "", Code = "20", Description = "CERCLE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c4"), Abbreviation = "", Code = "21", Description = "CIRCUIT", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c5"), Abbreviation = "", Code = "22", Description = "CONCESSION", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c6"), Abbreviation = "CT", Code = "23", Description = "COTE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c7"), Abbreviation = "", Code = "25", Description = "COURS", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c8"), Abbreviation = "", Code = "26", Description = "COURT", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218c9"), Abbreviation = "", Code = "29", Description = "CRESCENT", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ca"), Abbreviation = "CR", Code = "32", Description = "CROISSANT", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218cb"), Abbreviation = "", Code = "34", Description = "DESCENTE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218cc"), Abbreviation = "", Code = "35", Description = "DESSERTE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218cd"), Abbreviation = "DO", Code = "36", Description = "DOMAINE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ce"), Abbreviation = "", Code = "38", Description = "DRIVE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218cf"), Abbreviation = "", Code = "39", Description = "ÉCHANGEUR", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d0"), Abbreviation = "", Code = "3a", Description = "ALLEY", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d1"), Abbreviation = "", Code = "40", Description = "ESPLANADE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d2"), Abbreviation = "", Code = "41", Description = "FIEF", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d3"), Abbreviation = "", Code = "44", Description = "GARDEN", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d4"), Abbreviation = "", Code = "45", Description = "GARDENS", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d5"), Abbreviation = "", Code = "46", Description = "HILL", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d6"), Abbreviation = "", Code = "47", Description = "ILE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d7"), Abbreviation = "", Code = "4a", Description = "ANSE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d8"), Abbreviation = "", Code = "50", Description = "IMPASSE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218d9"), Abbreviation = "", Code = "52", Description = "JARDIN", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218da"), Abbreviation = "", Code = "53", Description = "LANE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218db"), Abbreviation = "LA", Code = "54", Description = "LAC", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218dc"), Abbreviation = "", Code = "55", Description = "LIGNE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218dd"), Abbreviation = "MT", Code = "56", Description = "MONTÉE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218de"), Abbreviation = "", Code = "57", Description = "PARK", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218df"), Abbreviation = "", Code = "58", Description = "PASSERELLE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e0"), Abbreviation = "", Code = "59", Description = "PARC", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e1"), Abbreviation = "", Code = "60", Description = "PISTE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e2"), Abbreviation = "", Code = "61", Description = "PASSAGE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e3"), Abbreviation = "PL", Code = "62", Description = "PLACE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e4"), Abbreviation = "", Code = "63", Description = "PLAGE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e5"), Abbreviation = "", Code = "64", Description = "PLAZA", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e6"), Abbreviation = "", Code = "65", Description = "PONT", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e7"), Abbreviation = "", Code = "66", Description = "PLATEAU", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e8"), Abbreviation = "", Code = "67", Description = "PORTAGE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218e9"), Abbreviation = "", Code = "68", Description = "RAMPE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ea"), Abbreviation = "PR", Code = "69", Description = "PROMENADE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218eb"), Abbreviation = "", Code = "70", Description = "QUAI", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ec"), Abbreviation = "RG", Code = "71", Description = "RANG", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ed"), Abbreviation = "", Code = "72", Description = "RIDGE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ee"), Abbreviation = "", Code = "73", Description = "PETIT RANG", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ef"), Abbreviation = "", Code = "74", Description = "ROAD", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f0"), Abbreviation = "", Code = "75", Description = "ROND-POINT", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f1"), Abbreviation = "", Code = "76", Description = "GRAND RANG", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f2"), Abbreviation = "RT", Code = "77", Description = "ROUTE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f3"), Abbreviation = "", Code = "78", Description = "ROUTE RURALE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f4"), Abbreviation = "", Code = "79", Description = "RIVIÈRE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f5"), Abbreviation = "RU", Code = "80", Description = "RUE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f6"), Abbreviation = "RL", Code = "83", Description = "RUELLE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f7"), Abbreviation = "SN", Code = "85", Description = "SENTIER", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f8"), Abbreviation = "", Code = "86", Description = "SQUARE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218f9"), Abbreviation = "TE", Code = "89", Description = "TERRASSE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218fa"), Abbreviation = "", Code = "91", Description = "TRAVERSE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218fb"), Abbreviation = "", Code = "92", Description = "TRAIT-CARRÉ", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218fc"), Abbreviation = "", Code = "93", Description = "TUNNEL", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218fd"), Abbreviation = "", Code = "94", Description = "VIADUC", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218fe"), Abbreviation = "", Code = "95", Description = "VOIE", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ff"), Abbreviation = "", Code = "96", Description = "RUISSEAU", IsActive = true },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721900"), Abbreviation = "", Code = "97", Description = "ÎLOT", IsActive = true }
                     );
                 });
 
@@ -2845,7 +2806,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("region");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721964"), Code = "12", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdState = new Guid("f13400a9-70b8-4325-b732-7fe7db72195e"), IsActive = true }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195f"), Code = "12", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdState = new Guid("f13400a9-70b8-4325-b732-7fe7db721959"), IsActive = true }
                     );
                 });
 
@@ -2882,8 +2843,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("region_localization");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721965"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721964"), IsActive = true, LanguageCode = "fr", Name = "Chaudière-Appalaches" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721966"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721964"), IsActive = true, LanguageCode = "en", Name = "Chaudière-Appalaches" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721960"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195f"), IsActive = true, LanguageCode = "fr", Name = "Chaudière-Appalaches" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721961"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195f"), IsActive = true, LanguageCode = "en", Name = "Chaudière-Appalaches" }
                     );
                 });
 
@@ -2915,7 +2876,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("state");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195e"), AnsiCode = "QC", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdCountry = new Guid("f13400a9-70b8-4325-b732-7fe7db72195c"), IsActive = true }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721959"), AnsiCode = "QC", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdCountry = new Guid("f13400a9-70b8-4325-b732-7fe7db721957"), IsActive = true }
                     );
                 });
 
@@ -2952,8 +2913,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("state_localization");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721962"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195e"), IsActive = true, LanguageCode = "fr", Name = "Québec" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721963"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72195e"), IsActive = true, LanguageCode = "en", Name = "Quebec" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195d"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721959"), IsActive = true, LanguageCode = "fr", Name = "Québec" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72195e"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721959"), IsActive = true, LanguageCode = "en", Name = "Quebec" }
                     );
                 });
 
@@ -3946,6 +3907,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<Guid>("IdInspection")
                         .HasColumnName("id_inspection");
 
+                    b.Property<Guid?>("IdSurveyAnswerParent")
+                        .HasColumnName("id_survey_answer_parent");
+
                     b.Property<Guid>("IdSurveyQuestion")
                         .HasColumnName("id_survey_question");
 
@@ -4191,37 +4155,37 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("permission");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72192e"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192b"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72190b") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72192f"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192b"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72190c") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721930"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192b"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72190d") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721931"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192b"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72190e") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721932"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192b"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72190f") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721933"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721910") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721934"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721911") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721935"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721913") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721936"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721914") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721937"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721915") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721938"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721916") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721939"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721917") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72193a"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721918") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72193b"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721919") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72193c"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72191a") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72193d"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72191b") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72193e"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72191c") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72193f"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72191d") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721940"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72191e") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721941"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72191f") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721942"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721920") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721943"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721921") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721944"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721922") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721945"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721923") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721946"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721924") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721947"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721925") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721948"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721926") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721949"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721927") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72194a"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721928") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72194b"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721929") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72194c"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72192a") }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721929"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721926"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721906") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72192a"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721926"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721907") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72192b"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721926"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721908") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721926"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72192d"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721926"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72190a") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72192e"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72190b") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72192f"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72190c") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721930"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72190e") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721931"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72190f") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721932"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721910") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721933"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721911") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721934"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721912") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721935"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721913") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721936"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721914") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721937"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721915") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721938"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721916") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721939"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721917") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72193a"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721918") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72193b"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721919") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72193c"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72191a") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72193d"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72191b") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72193e"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72191c") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72193f"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72191d") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721940"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72191e") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721941"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db72191f") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721942"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721920") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721943"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721921") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721944"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721922") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721945"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721923") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721946"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721924") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721947"), Access = true, CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdPermissionObject = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IdPermissionSystemFeature = new Guid("f13400a9-70b8-4325-b732-7fe7db721925") }
                     );
                 });
 
@@ -4263,9 +4227,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("permission_object");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72192b"), GenericId = "", GroupName = "Administration", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IsGroup = true, ObjectTable = "group" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72192c"), GenericId = "", GroupName = "Pompier", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IsGroup = true, ObjectTable = "group" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72192d"), GenericId = "f13400a9-70b8-4325-b732-7fe7db72176c", GroupName = "", IdPermissionObjectParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72192b"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), IsGroup = false, ObjectTable = "webuser" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721926"), GenericId = "", GroupName = "Administration", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IsGroup = true, ObjectTable = "group" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), GenericId = "", GroupName = "Pompier", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IsGroup = true, ObjectTable = "group" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721928"), GenericId = "f13400a9-70b8-4325-b732-7fe7db72176c", GroupName = "", IdPermissionObjectParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721926"), IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), IsGroup = false, ObjectTable = "webuser" }
                     );
                 });
 
@@ -4286,7 +4250,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("permission_system");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), Description = "SURVI-Prevention" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721904"), Description = "SURVI-Prevention" }
                     );
                 });
 
@@ -4320,39 +4284,39 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("permission_system_feature");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72190a"), DefaultValue = true, Description = "Accès au tableau de bord", FeatureName = "url-inspection-dashboard", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72190b"), DefaultValue = false, Description = "Accès aux statistiques", FeatureName = "url-statistics", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72190c"), DefaultValue = false, Description = "Accès à la gestion des rapports", FeatureName = "url-report-configuration", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72190d"), DefaultValue = false, Description = "Accès à la gestion système", FeatureName = "url-management-system", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72190e"), DefaultValue = false, Description = "Accès à la gestion des types du système", FeatureName = "url-management-typesystem", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72190f"), DefaultValue = false, Description = "Accès à la gestion des questionnaires", FeatureName = "url-management-survey", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721910"), DefaultValue = false, Description = "Accès à la gestion des villes", FeatureName = "url-management-address", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721911"), DefaultValue = false, Description = "Accès à la gestion du SSI", FeatureName = "url-management-department", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721912"), DefaultValue = true, Description = "Accès au mobile", FeatureName = "RightMobile", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721913"), DefaultValue = false, Description = "Acception des inspections", FeatureName = "RightApproveInspection", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721914"), DefaultValue = false, Description = "Gestion des lots", FeatureName = "RightBatchManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721915"), DefaultValue = false, Description = "Gestion des casernes", FeatureName = "RightFireStationManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721916"), DefaultValue = false, Description = "Gestion des voies", FeatureName = "RightLaneManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721917"), DefaultValue = false, Description = "Gestion des bâtiments", FeatureName = "RightBuildingManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721918"), DefaultValue = false, Description = "Gestion des permissions", FeatureName = "RightPermissionManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721919"), DefaultValue = false, Description = "Gestion des utilisateurs", FeatureName = "RightUserManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72191a"), DefaultValue = false, Description = "Gestion des types de borne", FeatureName = "RightFireHydrantTypeManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72191b"), DefaultValue = false, Description = "Gestion des types de connexion", FeatureName = "RightConnectionTypeManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72191c"), DefaultValue = false, Description = "Gestion des opérateurs", FeatureName = "RightOperatorManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72191d"), DefaultValue = false, Description = "Gestion des unités de mesure", FeatureName = "RightUnitManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72191e"), DefaultValue = false, Description = "Gestion des comtés", FeatureName = "RightCountyManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72191f"), DefaultValue = false, Description = "Gestion des régions", FeatureName = "RightRegionManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721920"), DefaultValue = false, Description = "Gestion des provinces/états", FeatureName = "RightStateManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721921"), DefaultValue = false, Description = "Gestion des pays", FeatureName = "RightCountryManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721922"), DefaultValue = false, Description = "Gestion des types de ville", FeatureName = "RightCityTypeManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721923"), DefaultValue = false, Description = "Gestion des villes", FeatureName = "RightCityManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721924"), DefaultValue = false, Description = "Gestion des niveaux de risque", FeatureName = "RightRiskLevelManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721925"), DefaultValue = false, Description = "Gestion des codes d'utilisation", FeatureName = "RightUtilisationCodeManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721926"), DefaultValue = false, Description = "Gestion des types de PNAPs", FeatureName = "RightRPATypeManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721927"), DefaultValue = false, Description = "Gestion des matières dangereuses", FeatureName = "RightHazardousMaterialManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721928"), DefaultValue = false, Description = "Gestion des niveaux de risque par SSI", FeatureName = "RightDepartmentRiskLevel", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721929"), DefaultValue = false, Description = "Gestion des SSI", FeatureName = "RightDepartmentManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72192a"), DefaultValue = false, Description = "Gestion des bornes", FeatureName = "RightFireHydrantManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721909") }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721905"), DefaultValue = true, Description = "Accès au tableau de bord", FeatureName = "url-inspection-dashboard", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721906"), DefaultValue = false, Description = "Accès aux statistiques", FeatureName = "url-statistics", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721907"), DefaultValue = false, Description = "Accès à la gestion des rapports", FeatureName = "url-report-configuration", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721908"), DefaultValue = false, Description = "Accès à la gestion système", FeatureName = "url-management-system", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721909"), DefaultValue = false, Description = "Accès à la gestion des types du système", FeatureName = "url-management-typesystem", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72190a"), DefaultValue = false, Description = "Accès à la gestion des questionnaires", FeatureName = "url-management-survey", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72190b"), DefaultValue = false, Description = "Accès à la gestion des villes", FeatureName = "url-management-address", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72190c"), DefaultValue = false, Description = "Accès à la gestion du SSI", FeatureName = "url-management-department", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72190d"), DefaultValue = true, Description = "Accès au mobile", FeatureName = "RightMobile", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72190e"), DefaultValue = false, Description = "Acception des inspections", FeatureName = "RightApproveInspection", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72190f"), DefaultValue = false, Description = "Gestion des lots", FeatureName = "RightBatchManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721910"), DefaultValue = false, Description = "Gestion des casernes", FeatureName = "RightFireStationManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721911"), DefaultValue = false, Description = "Gestion des voies", FeatureName = "RightLaneManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721912"), DefaultValue = false, Description = "Gestion des bâtiments", FeatureName = "RightBuildingManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721913"), DefaultValue = false, Description = "Gestion des permissions", FeatureName = "RightPermissionManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721914"), DefaultValue = false, Description = "Gestion des utilisateurs", FeatureName = "RightUserManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721915"), DefaultValue = false, Description = "Gestion des types de borne", FeatureName = "RightFireHydrantTypeManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721916"), DefaultValue = false, Description = "Gestion des types de connexion", FeatureName = "RightConnectionTypeManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721917"), DefaultValue = false, Description = "Gestion des opérateurs", FeatureName = "RightOperatorManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721918"), DefaultValue = false, Description = "Gestion des unités de mesure", FeatureName = "RightUnitManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721919"), DefaultValue = false, Description = "Gestion des comtés", FeatureName = "RightCountyManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72191a"), DefaultValue = false, Description = "Gestion des régions", FeatureName = "RightRegionManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72191b"), DefaultValue = false, Description = "Gestion des provinces/états", FeatureName = "RightStateManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72191c"), DefaultValue = false, Description = "Gestion des pays", FeatureName = "RightCountryManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72191d"), DefaultValue = false, Description = "Gestion des types de ville", FeatureName = "RightCityTypeManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72191e"), DefaultValue = false, Description = "Gestion des villes", FeatureName = "RightCityManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72191f"), DefaultValue = false, Description = "Gestion des niveaux de risque", FeatureName = "RightRiskLevelManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721920"), DefaultValue = false, Description = "Gestion des codes d'utilisation", FeatureName = "RightUtilisationCodeManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721921"), DefaultValue = false, Description = "Gestion des types de PNAPs", FeatureName = "RightRPATypeManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721922"), DefaultValue = false, Description = "Gestion des matières dangereuses", FeatureName = "RightHazardousMaterialManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721923"), DefaultValue = false, Description = "Gestion des niveaux de risque par SSI", FeatureName = "RightDepartmentRiskLevel", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721924"), DefaultValue = false, Description = "Gestion des SSI", FeatureName = "RightDepartmentManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721925"), DefaultValue = false, Description = "Gestion des bornes", FeatureName = "RightFireHydrantManagement", IdPermissionSystem = new Guid("f13400a9-70b8-4325-b732-7fe7db721904") }
                     );
                 });
 
@@ -4415,9 +4379,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("webuser_attributes");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721906"), AttributeName = "last_name", AttributeValue = "Cauca", IdWebuser = new Guid("f13400a9-70b8-4325-b732-7fe7db72176c") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721907"), AttributeName = "reset_password", AttributeValue = "false", IdWebuser = new Guid("f13400a9-70b8-4325-b732-7fe7db72176c") },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721908"), AttributeName = "first_name", AttributeValue = "Admin", IdWebuser = new Guid("f13400a9-70b8-4325-b732-7fe7db72176c") }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721901"), AttributeName = "last_name", AttributeValue = "Cauca", IdWebuser = new Guid("f13400a9-70b8-4325-b732-7fe7db72176c") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721902"), AttributeName = "reset_password", AttributeValue = "false", IdWebuser = new Guid("f13400a9-70b8-4325-b732-7fe7db72176c") },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721903"), AttributeName = "first_name", AttributeValue = "Admin", IdWebuser = new Guid("f13400a9-70b8-4325-b732-7fe7db72176c") }
                     );
                 });
 
@@ -4677,35 +4641,35 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("unit_of_measure");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721855"), Abbreviation = "GIPM", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721858"), Abbreviation = "GPM", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72185b"), Abbreviation = "LPM", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72185e"), Abbreviation = "GI", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721861"), Abbreviation = "G", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721864"), Abbreviation = "L", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721867"), Abbreviation = "", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72186a"), Abbreviation = "PSI", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 1 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72186d"), Abbreviation = "KPA", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 1 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721870"), Abbreviation = "m3/h", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 1 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721873"), Abbreviation = "mm", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 2 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721876"), Abbreviation = "po", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 2 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721879"), Abbreviation = "m", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 4 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72187c"), Abbreviation = "pi", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 4 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72187f"), Abbreviation = "m3", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721882"), Abbreviation = "po3", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721885"), Abbreviation = "ml", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721888"), Abbreviation = "pt", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72188b"), Abbreviation = "t", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72188e"), Abbreviation = "sh tn", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721891"), Abbreviation = "pi3", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721894"), Abbreviation = "GI", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721897"), Abbreviation = "", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72189a"), Abbreviation = "G", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72189d"), Abbreviation = "g", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a0"), Abbreviation = "Kg", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a3"), Abbreviation = "L", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a6"), Abbreviation = "lb", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a9"), Abbreviation = "oz", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721850"), Abbreviation = "GIPM", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721853"), Abbreviation = "GPM", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721856"), Abbreviation = "LPM", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721859"), Abbreviation = "GI", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72185c"), Abbreviation = "G", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72185f"), Abbreviation = "L", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721862"), Abbreviation = "", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721865"), Abbreviation = "PSI", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 1 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721868"), Abbreviation = "KPA", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 1 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72186b"), Abbreviation = "m3/h", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 1 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72186e"), Abbreviation = "mm", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 2 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721871"), Abbreviation = "po", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 2 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721874"), Abbreviation = "m", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 4 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721877"), Abbreviation = "pi", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 4 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72187a"), Abbreviation = "m3", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72187d"), Abbreviation = "po3", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721880"), Abbreviation = "ml", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721883"), Abbreviation = "pt", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721886"), Abbreviation = "t", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721889"), Abbreviation = "sh tn", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72188c"), Abbreviation = "pi3", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72188f"), Abbreviation = "GI", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721892"), Abbreviation = "", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721895"), Abbreviation = "G", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721898"), Abbreviation = "g", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72189b"), Abbreviation = "Kg", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72189e"), Abbreviation = "L", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a1"), Abbreviation = "lb", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a4"), Abbreviation = "oz", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 }
                     );
                 });
 
@@ -4742,64 +4706,64 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("unit_of_measure_localization");
 
                     b.HasData(
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721856"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721855"), IsActive = true, LanguageCode = "fr", Name = "GIPM" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721857"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721855"), IsActive = true, LanguageCode = "en", Name = "GIPM" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721859"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721858"), IsActive = true, LanguageCode = "fr", Name = "GPM" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72185a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721858"), IsActive = true, LanguageCode = "en", Name = "GPM" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72185c"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72185b"), IsActive = true, LanguageCode = "fr", Name = "LPM" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72185d"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72185b"), IsActive = true, LanguageCode = "en", Name = "LPM" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72185f"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72185e"), IsActive = true, LanguageCode = "fr", Name = "GI" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721860"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72185e"), IsActive = true, LanguageCode = "en", Name = "GI" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721862"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721861"), IsActive = true, LanguageCode = "fr", Name = "G" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721863"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721861"), IsActive = true, LanguageCode = "en", Name = "G" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721865"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721864"), IsActive = true, LanguageCode = "fr", Name = "L" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721866"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721864"), IsActive = true, LanguageCode = "en", Name = "L" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721868"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721867"), IsActive = true, LanguageCode = "fr", Name = "Indéterminé" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721869"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721867"), IsActive = true, LanguageCode = "en", Name = "Unknown" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72186b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72186a"), IsActive = true, LanguageCode = "fr", Name = "PSI" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72186c"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72186a"), IsActive = true, LanguageCode = "en", Name = "PSI" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72186e"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72186d"), IsActive = true, LanguageCode = "fr", Name = "KPA" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72186f"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72186d"), IsActive = true, LanguageCode = "en", Name = "KPA" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721871"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721870"), IsActive = true, LanguageCode = "fr", Name = "m3/h" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721872"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721870"), IsActive = true, LanguageCode = "en", Name = "m3/h" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721874"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721873"), IsActive = true, LanguageCode = "fr", Name = "Millimètres" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721875"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721873"), IsActive = true, LanguageCode = "en", Name = "Millimeters" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721877"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721876"), IsActive = true, LanguageCode = "fr", Name = "Pouces" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721878"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721876"), IsActive = true, LanguageCode = "en", Name = "Inches" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72187a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721879"), IsActive = true, LanguageCode = "fr", Name = "Mètres" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72187b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721879"), IsActive = true, LanguageCode = "en", Name = "Meters" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72187d"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72187c"), IsActive = true, LanguageCode = "fr", Name = "Pieds" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72187e"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72187c"), IsActive = true, LanguageCode = "en", Name = "Feet" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721880"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72187f"), IsActive = true, LanguageCode = "fr", Name = "Mètres cubes" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721881"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72187f"), IsActive = true, LanguageCode = "en", Name = "Cubic meters" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721883"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721882"), IsActive = true, LanguageCode = "fr", Name = "Pouces cubes" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721884"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721882"), IsActive = true, LanguageCode = "en", Name = "Cubic inches" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721886"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721885"), IsActive = true, LanguageCode = "fr", Name = "Millilitres" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721887"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721885"), IsActive = true, LanguageCode = "en", Name = "Millilitre" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721889"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721888"), IsActive = true, LanguageCode = "fr", Name = "Pintes" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72188a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721888"), IsActive = true, LanguageCode = "en", Name = "Pints" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72188c"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72188b"), IsActive = true, LanguageCode = "fr", Name = "Tonnes" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72188d"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72188b"), IsActive = true, LanguageCode = "en", Name = "Tons" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72188f"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72188e"), IsActive = true, LanguageCode = "fr", Name = "Tonnes US" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721890"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72188e"), IsActive = true, LanguageCode = "en", Name = "US tons" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721892"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721891"), IsActive = true, LanguageCode = "fr", Name = "Pieds cubes" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721893"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721891"), IsActive = true, LanguageCode = "en", Name = "Cubic feet" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721895"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721894"), IsActive = true, LanguageCode = "fr", Name = "Gallons impériaux" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721896"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721894"), IsActive = true, LanguageCode = "en", Name = "Imperial gallons" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721898"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721897"), IsActive = true, LanguageCode = "fr", Name = "Aucune" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721899"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721897"), IsActive = true, LanguageCode = "en", Name = "None" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72189b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72189a"), IsActive = true, LanguageCode = "fr", Name = "Gallons US" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72189c"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72189a"), IsActive = true, LanguageCode = "en", Name = "US gallons" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72189e"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72189d"), IsActive = true, LanguageCode = "fr", Name = "Grammes" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72189f"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72189d"), IsActive = true, LanguageCode = "en", Name = "Grams" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a1"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a0"), IsActive = true, LanguageCode = "fr", Name = "Kilos" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a2"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a0"), IsActive = true, LanguageCode = "en", Name = "Kilos" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a4"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a3"), IsActive = true, LanguageCode = "fr", Name = "Litres" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a5"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a3"), IsActive = true, LanguageCode = "en", Name = "Litres" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a7"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a6"), IsActive = true, LanguageCode = "fr", Name = "Livres" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a8"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a6"), IsActive = true, LanguageCode = "en", Name = "Pounds" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218aa"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a9"), IsActive = true, LanguageCode = "fr", Name = "Onces" },
-                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218ab"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a9"), IsActive = true, LanguageCode = "en", Name = "Onces" }
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721851"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721850"), IsActive = true, LanguageCode = "fr", Name = "GIPM" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721852"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721850"), IsActive = true, LanguageCode = "en", Name = "GIPM" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721854"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721853"), IsActive = true, LanguageCode = "fr", Name = "GPM" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721855"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721853"), IsActive = true, LanguageCode = "en", Name = "GPM" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721857"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721856"), IsActive = true, LanguageCode = "fr", Name = "LPM" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721858"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721856"), IsActive = true, LanguageCode = "en", Name = "LPM" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72185a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721859"), IsActive = true, LanguageCode = "fr", Name = "GI" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72185b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721859"), IsActive = true, LanguageCode = "en", Name = "GI" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72185d"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72185c"), IsActive = true, LanguageCode = "fr", Name = "G" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72185e"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72185c"), IsActive = true, LanguageCode = "en", Name = "G" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721860"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72185f"), IsActive = true, LanguageCode = "fr", Name = "L" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721861"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72185f"), IsActive = true, LanguageCode = "en", Name = "L" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721863"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721862"), IsActive = true, LanguageCode = "fr", Name = "Indéterminé" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721864"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721862"), IsActive = true, LanguageCode = "en", Name = "Unknown" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721866"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721865"), IsActive = true, LanguageCode = "fr", Name = "PSI" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721867"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721865"), IsActive = true, LanguageCode = "en", Name = "PSI" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721869"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721868"), IsActive = true, LanguageCode = "fr", Name = "KPA" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72186a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721868"), IsActive = true, LanguageCode = "en", Name = "KPA" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72186c"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72186b"), IsActive = true, LanguageCode = "fr", Name = "m3/h" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72186d"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72186b"), IsActive = true, LanguageCode = "en", Name = "m3/h" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72186f"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72186e"), IsActive = true, LanguageCode = "fr", Name = "Millimètres" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721870"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72186e"), IsActive = true, LanguageCode = "en", Name = "Millimeters" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721872"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721871"), IsActive = true, LanguageCode = "fr", Name = "Pouces" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721873"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721871"), IsActive = true, LanguageCode = "en", Name = "Inches" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721875"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721874"), IsActive = true, LanguageCode = "fr", Name = "Mètres" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721876"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721874"), IsActive = true, LanguageCode = "en", Name = "Meters" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721878"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721877"), IsActive = true, LanguageCode = "fr", Name = "Pieds" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721879"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721877"), IsActive = true, LanguageCode = "en", Name = "Feet" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72187b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72187a"), IsActive = true, LanguageCode = "fr", Name = "Mètres cubes" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72187c"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72187a"), IsActive = true, LanguageCode = "en", Name = "Cubic meters" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72187e"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72187d"), IsActive = true, LanguageCode = "fr", Name = "Pouces cubes" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72187f"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72187d"), IsActive = true, LanguageCode = "en", Name = "Cubic inches" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721881"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721880"), IsActive = true, LanguageCode = "fr", Name = "Millilitres" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721882"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721880"), IsActive = true, LanguageCode = "en", Name = "Millilitre" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721884"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721883"), IsActive = true, LanguageCode = "fr", Name = "Pintes" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721885"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721883"), IsActive = true, LanguageCode = "en", Name = "Pints" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721887"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721886"), IsActive = true, LanguageCode = "fr", Name = "Tonnes" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721888"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721886"), IsActive = true, LanguageCode = "en", Name = "Tons" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72188a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721889"), IsActive = true, LanguageCode = "fr", Name = "Tonnes US" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72188b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721889"), IsActive = true, LanguageCode = "en", Name = "US tons" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72188d"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72188c"), IsActive = true, LanguageCode = "fr", Name = "Pieds cubes" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72188e"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72188c"), IsActive = true, LanguageCode = "en", Name = "Cubic feet" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721890"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72188f"), IsActive = true, LanguageCode = "fr", Name = "Gallons impériaux" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721891"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72188f"), IsActive = true, LanguageCode = "en", Name = "Imperial gallons" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721893"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721892"), IsActive = true, LanguageCode = "fr", Name = "Aucune" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721894"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721892"), IsActive = true, LanguageCode = "en", Name = "None" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721896"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721895"), IsActive = true, LanguageCode = "fr", Name = "Gallons US" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721897"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721895"), IsActive = true, LanguageCode = "en", Name = "US gallons" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db721899"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721898"), IsActive = true, LanguageCode = "fr", Name = "Grammes" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72189a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db721898"), IsActive = true, LanguageCode = "en", Name = "Grams" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72189c"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72189b"), IsActive = true, LanguageCode = "fr", Name = "Kilos" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72189d"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72189b"), IsActive = true, LanguageCode = "en", Name = "Kilos" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db72189f"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72189e"), IsActive = true, LanguageCode = "fr", Name = "Litres" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a0"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db72189e"), IsActive = true, LanguageCode = "en", Name = "Litres" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a2"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a1"), IsActive = true, LanguageCode = "fr", Name = "Livres" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a3"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a1"), IsActive = true, LanguageCode = "en", Name = "Pounds" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a5"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a4"), IsActive = true, LanguageCode = "fr", Name = "Onces" },
+                        new { Id = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a6"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IdParent = new Guid("f13400a9-70b8-4325-b732-7fe7db7218a4"), IsActive = true, LanguageCode = "en", Name = "Onces" }
                     );
                 });
 
@@ -5285,29 +5249,15 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasForeignKey("IdLane")
                         .HasConstraintName("fk_fire_hydrant_lanes_lane_id");
 
-                    b.HasOne("Survi.Prevention.Models.FireHydrants.OperatorType", "PressureOperatorType")
-                        .WithMany()
-                        .HasForeignKey("IdOperatorTypePressure")
-                        .HasConstraintName("fk_fire_hydrant_operator_types_pressure_operator_type_id")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Survi.Prevention.Models.FireHydrants.OperatorType", "RateOperatorType")
-                        .WithMany()
-                        .HasForeignKey("IdOperatorTypeRate")
-                        .HasConstraintName("fk_fire_hydrant_operator_types_rate_operator_type_id")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Survi.Prevention.Models.UnitOfMeasure", "PressureUnitOfMeasure")
                         .WithMany()
                         .HasForeignKey("IdUnitOfMeasurePressure")
-                        .HasConstraintName("fk_fire_hydrant_unit_of_measures_pressure_unit_of_measure_id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("fk_fire_hydrant_unit_of_measures_pressure_unit_of_measure_id");
 
                     b.HasOne("Survi.Prevention.Models.UnitOfMeasure", "RateUnitOfMeasure")
                         .WithMany()
                         .HasForeignKey("IdUnitOfMeasureRate")
-                        .HasConstraintName("fk_fire_hydrant_unit_of_measures_rate_unit_of_measure_id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("fk_fire_hydrant_unit_of_measures_rate_unit_of_measure_id");
                 });
 
             modelBuilder.Entity("Survi.Prevention.Models.FireHydrants.FireHydrantConnection", b =>

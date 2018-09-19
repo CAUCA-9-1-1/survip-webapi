@@ -27,7 +27,6 @@ namespace Survi.Prevention.DataLayer.InitialData
 			SeedInitialPersonRequiringAssistanceType(builder);
 			SeedInitialFireHydrantConnectionType(builder);
 			SeedInitialFireHydrantType(builder);
-			SeedInitialOperatorTypes(builder);
 			SeedInitialDataForMeasuringUnit(builder);
 			builder.Entity<LaneGenericCode>().HasData(InitialLaneGenericCodesGenerator.GetInitialData().ToArray());
 			builder.Entity<LanePublicCode>().HasData(InitialLanePublicCodesGenerator.GetInitialData().ToArray());
@@ -260,21 +259,6 @@ namespace Survi.Prevention.DataLayer.InitialData
 			var englishLocalization = new FireHydrantTypeLocalization { Id = GuidExtensions.GetGuid(), LanguageCode = "en", Name = english, IdParent = type.Id, CreatedOn = Now };
 			builder.Entity<FireHydrantType>().HasData(type);
 			builder.Entity<FireHydrantTypeLocalization>().HasData(frenchLocalization, englishLocalization);
-		}
-
-		private static void SeedInitialOperatorTypes(ModelBuilder builder)
-		{
-			SeedOperatorType(builder, "=");
-			SeedOperatorType(builder, ">");
-			SeedOperatorType(builder, ">=");
-			SeedOperatorType(builder, "<");
-			SeedOperatorType(builder, "<=");
-		}
-
-		private static void SeedOperatorType(ModelBuilder builder, string value)
-		{
-			var type = new OperatorType { Id = GuidExtensions.GetGuid(), CreatedOn = Now, Symbol = value };
-			builder.Entity<OperatorType>().HasData(type);
 		}
 
 		private static void SeedInitialDataForMeasuringUnit(ModelBuilder builder)

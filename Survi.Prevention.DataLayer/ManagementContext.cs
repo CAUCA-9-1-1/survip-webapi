@@ -91,7 +91,6 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<AlarmPanelType> AlarmPanelTypes { get; set; }
 		public DbSet<FireHydrantType> FireHydrantTypes { get; set; }
 		public DbSet<FireHydrantConnectionType> FireHydrantConnectionTypes { get; set; }
-		public DbSet<OperatorType> OperatorTypes { get; set; }
 		public DbSet<ConstructionFireResistanceType> ConstructionFireResistanceTypes { get; set; }
 
 		public DbSet<HazardousMaterial> HazardousMaterials { get; set; }
