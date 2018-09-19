@@ -47,14 +47,9 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			foreach (var category in answers)
 			{
 				surveyToText += "<h3>" + category.Title + "</h3>\n";
-				surveyToText += "<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:8.5in\">\n";
-				surveyToText += "<tbody>\n";
-
+				
 				for (var i = 0; i < category.AnswerSummary.Count; i++)
 					surveyToText = AddAnswer(category, i, surveyToText);
-
-				surveyToText += "</tbody>\n";
-				surveyToText += "</table>\n";
 			}
 
 			return surveyToText;
@@ -66,12 +61,17 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			if (answer.QuestionType == 4 && answer.ChildSurveyAnswerList.Count != 0)
 			{
 				surveyToText += "<h3>" + answer.QuestionTitle + " #" + (i + 1) + "</h3>\n";
+				surveyToText += "<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:8.5in\">\n";
 				foreach (var answerChild in answer.ChildSurveyAnswerList)
 					surveyToText += AddAnswer(answerChild);
 			}
 			else
-				surveyToText = AddAnswer(answer);
+			{
+				surveyToText += "<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:8.5in\">\n";
+				surveyToText += AddAnswer(answer);
+			}
 
+			surveyToText += "</table>\n";
 			return surveyToText;
 		}
 
