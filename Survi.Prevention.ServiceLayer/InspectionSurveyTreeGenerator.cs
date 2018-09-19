@@ -26,7 +26,7 @@ namespace Survi.Prevention.ServiceLayer
 	    public List<InspectionQuestionForList> GetSurveyAnswerTreeList(List<InspectionQuestionForList> surveyAnswer)
 	    {
 		    List<InspectionQuestionForList> answerTreeList = new List<InspectionQuestionForList>();
-		    answerTreeList.AddRange(surveyAnswer.Where(sq=>sq.IdParent == null));
+		    answerTreeList.AddRange(surveyAnswer.Where(sq=>sq.IdParent == null).OrderBy(sq=>sq.Sequence));
 		    answerTreeList.ForEach(parentAnswer =>
 		    {
 			    var children = surveyAnswer.Where(sq => string.Equals(sq.IdParent.ToString(), parentAnswer.Id.ToString(), StringComparison.CurrentCultureIgnoreCase)).OrderBy(sq=>sq.Sequence).ToList();
