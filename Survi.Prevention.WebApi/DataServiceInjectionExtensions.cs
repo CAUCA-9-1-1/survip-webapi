@@ -50,7 +50,6 @@ namespace Survi.Prevention.WebApi
 			services.AddTransient<FireHydrantService>();
 			services.AddTransient<FireHydrantTypeService>();
 			services.AddTransient<FireHydrantConnectionTypeService>();
-			services.AddTransient<OperatorTypeService>();
 			services.AddTransient<UnitOfMeasureService>();
 			services.AddTransient<SurveyService>();
 			services.AddTransient<SurveyQuestionService>();

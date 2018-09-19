@@ -29,6 +29,16 @@ namespace Survi.Prevention.Models.FireHydrants
 		VisibleFrom
 	}
 
+	public enum OperatorType
+	{
+		Equal,
+		Greater,
+		GreaterOrEqual,
+		Less,
+		LessOrEqual
+
+	}
+
 	public class FireHydrant : BaseModel
 	{
 		private NetTopologySuitePointWrapper wrapper;
@@ -41,11 +51,11 @@ namespace Survi.Prevention.Models.FireHydrants
 
 		public decimal Altitude { get; set; }
 		public string Number { get; set; }
-		public string RateFrom { get; set; }
-		public string RateTo { get; set; }
+		public Decimal? RateFrom { get; set; }
+		public Decimal? RateTo { get; set; }
 
-		public string PressureFrom { get; set; }
-		public string PressureTo { get; set; }
+		public Decimal? PressureFrom { get; set; }
+		public Decimal? PressureTo { get; set; }
 		public string Color { get; set; }
 		public string Comments { get; set; }
 		public string PhysicalPosition { get; set; }
@@ -56,10 +66,8 @@ namespace Survi.Prevention.Models.FireHydrants
 		public Guid? IdLane { get; set; }
 		public Guid? IdIntersection { get; set; }
 		public Guid IdFireHydrantType { get; set; }
-		public Guid IdOperatorTypeRate { get; set; }
-		public Guid IdUnitOfMeasureRate { get; set; }
-		public Guid IdOperatorTypePressure { get; set; }
-		public Guid IdUnitOfMeasurePressure { get; set; }
+		public Guid? IdUnitOfMeasureRate { get; set; }
+		public Guid? IdUnitOfMeasurePressure { get; set; }
 
 		public City City { get; set; }
 		public Lane Lane { get; set; }
