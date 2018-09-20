@@ -40,4 +40,10 @@
     <ProjectReference Include="..\Survi.Prevention.Models\Survi.Prevention.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.OData">
+      <HintPath>..\..\..\..\Users\philippe\.nuget\packages\microsoft.aspnetcore.odata\7.0.1\lib\netstandard2.0\Microsoft.AspNetCore.OData.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

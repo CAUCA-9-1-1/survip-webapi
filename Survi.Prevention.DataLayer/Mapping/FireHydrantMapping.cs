@@ -11,10 +11,6 @@ namespace Survi.Prevention.DataLayer.Mapping
 		{
 			b.HasKey(m => m.Id);
 			b.Property(m => m.Number).IsRequired().HasMaxLength(10);
-			b.Property(m => m.RateFrom).HasMaxLength(5);
-			b.Property(m => m.RateTo).HasMaxLength(5);
-			b.Property(m => m.PressureFrom).HasMaxLength(5);
-			b.Property(m => m.PressureTo).HasMaxLength(5);
 			b.Property(m => m.Color).IsRequired().HasMaxLength(50);
 			b.Property(m => m.PhysicalPosition).HasMaxLength(200);
 			b.Property(m => m.PointCoordinates).HasColumnType("geometry").HasColumnName("coordinates");
