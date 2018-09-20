@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Survi.Prevention.DataLayer
@@ -24,5 +25,15 @@ namespace Survi.Prevention.DataLayer
 					index.Relational().Name = index.Relational().Name.ToSnakeCase();
 			}
 		}
+
+	    public static PropertyBuilder<decimal?> HasPrecision(this PropertyBuilder<decimal?> builder, int precision, int scale)
+	    {
+		    return builder.HasColumnType($"decimal({precision},{scale})");
+	    }
+
+	    public static PropertyBuilder<decimal> HasPrecision(this PropertyBuilder<decimal> builder, int precision, int scale)
+	    {
+		    return builder.HasColumnType($"decimal({precision},{scale})");
+	    }
     }
 }

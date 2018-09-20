@@ -73,8 +73,8 @@ namespace Survi.Prevention.Models.FireHydrants
 		public Lane Lane { get; set; }
 		public Lane Intersection { get; set; }
 		public FireHydrantType HydrantType { get; set; }
-		public OperatorType RateOperatorType { get; set; }
-		public OperatorType PressureOperatorType { get; set; }
+		public OperatorType RateOperatorType { get; set; } = OperatorType.Equal;
+		public OperatorType PressureOperatorType { get; set; } = OperatorType.Equal;
 		public UnitOfMeasure RateUnitOfMeasure { get; set; }
 		public UnitOfMeasure PressureUnitOfMeasure { get; set; }		
 
