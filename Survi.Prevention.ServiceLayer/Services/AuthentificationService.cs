@@ -4,10 +4,12 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.IdentityModel.Tokens;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.SecurityManagement;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -131,6 +133,16 @@ namespace Survi.Prevention.ServiceLayer.Services
 				rng.GetBytes(randomNumber);
 				return Convert.ToBase64String(randomNumber);
 			}
+		}
+
+		public bool IsMobileVersionValid(string mobileVersion, string minimalVersion)
+		{
+			var mobile = new Version(mobileVersion);
+			var minVersion = new Version(minimalVersion);
+
+			if (mobile.CompareTo(minVersion) < 0)
+				return false;
+			return true;
 		}
 	}
 }

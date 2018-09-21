@@ -15,6 +15,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		private readonly string issuer;
 		private readonly string applicationName;
 		private readonly string secretKey;
+		private readonly string minimalVersion;
 
 		public AuthentificationController(AuthentificationService service, IConfiguration configuration)
 		{
@@ -22,6 +23,7 @@ namespace Survi.Prevention.WebApi.Controllers
 			issuer = configuration.GetSection("APIConfig:Issuer").Value;
 			applicationName = configuration.GetSection("APIConfig:PackageName").Value;
 			secretKey = configuration.GetSection("APIConfig:SecretKey").Value;
+			minimalVersion = configuration.GetSection("APIConfig:MinimalVersion").Value;
 		}
 
 		[Route("[Action]"), HttpPost]
@@ -73,6 +75,14 @@ namespace Survi.Prevention.WebApi.Controllers
 		public ActionResult TokenIsStillValid()
 		{
 			return Ok(true);
+		}
+
+		[HttpGet, Route("VersionValidator/{mobileVersion:double}"), AllowAnonymous]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(401)]
+		public ActionResult MobileVersionIsValid(string mobileVersion)
+		{
+			return Ok(service.IsMobileVersionValid(mobileVersion, minimalVersion));
 		}
 	}
 }
