@@ -21,6 +21,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public (AccessToken token, Webuser user) Login(string username, string password, string applicationName, string issuer, string secretKey)
 		{
+			if (password == null)
+				password = "";
+
 			var encodedPassword = new PasswordGenerator().EncodePassword(password, applicationName);
 			var userFound = Context.Webusers
 				.Include(user => user.Attributes)
