@@ -63,7 +63,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             return query.ToList();
         }
 
-		public IQueryable<CityLocalized> GetCityWithRegionLocalized(Guid idCity, string languageCode)
+		public CityLocalized GetCityWithRegionLocalized(Guid idCity, string languageCode)
 		{
 			var query = (
 				from city in Context.Cities.AsNoTracking()
@@ -76,7 +76,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					RegionName = city.County.Region.Localizations.FirstOrDefault(ccl => ccl.LanguageCode == languageCode).Name,
 					CountyName = city.County.Localizations.FirstOrDefault(ccl => ccl.LanguageCode == languageCode).Name
 				});
-			return query;
+			return query.FirstOrDefault();
 		}
     }
 }
