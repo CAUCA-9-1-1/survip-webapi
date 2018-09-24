@@ -74,7 +74,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Id = city.Id,
 					Name = city.Localizations.FirstOrDefault(ccl => ccl.LanguageCode == languageCode).Name,
 					RegionName = city.County.Region.Localizations.FirstOrDefault(ccl => ccl.LanguageCode == languageCode).Name,
-					CountyName = city.County.Localizations.FirstOrDefault(ccl => ccl.LanguageCode == languageCode).Name
+					CountyName = city.County.Localizations.FirstOrDefault(ccl => ccl.LanguageCode == languageCode).Name,
 				});
 			return query.FirstOrDefault();
 		}
