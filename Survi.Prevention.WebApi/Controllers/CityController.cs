@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Services;
@@ -10,10 +12,12 @@ namespace Survi.Prevention.WebApi.Controllers
     public class CityController : BaseCrudController<CityService, City>
     {
 	    private readonly WebuserService userService;
+	    private readonly GeolocationService geolocationService;
 
-        public CityController(CityService service, WebuserService userService) : base(service)
+        public CityController(CityService service, WebuserService userService, GeolocationService geolocationService) : base(service)
         {
 	        this.userService = userService;
+	        this.geolocationService = geolocationService;
         }
 
 	    private List<Guid> GetUserCityIds()
@@ -32,6 +36,15 @@ namespace Survi.Prevention.WebApi.Controllers
 	    public ActionResult GetCityWithRegionLocalized(Guid id, [FromHeader(Name = "Language-Code")] string languageCode)
 	    {
 		    return Ok(Service.GetCityWithRegionLocalized(id, languageCode));
+	    }
+	    
+	    [HttpGet, Route("{id:guid}/geolocation")]
+	    public async Task<ActionResult> GetCityGeolocation(Guid id, [FromHeader(Name = "Language-Code")] string languageCode)
+	    {
+		    var city = Service.GetCityWithRegionLocalized(id, languageCode);
+		    var json = await geolocationService.SearchWithICherche("municipalite", city.Name + "," + city.CountyName + "," + city.RegionName);
+
+		    return Ok(json);
 	    }
     }
 }
