@@ -25,25 +25,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 			yield return new LaneGenericCode { Id = Guid.Parse("c54c1bcf-8e0e-4132-8de7-3a926f0d59d9"), Code = "O", Description = "LA", AddWhiteSpaceAfter = true };
 			yield return new LaneGenericCode { Id = Guid.Parse("a60472cc-a8ef-42c5-9a72-1baa46c1b96e"), Code = "P", Description = "LE", AddWhiteSpaceAfter = true };
 			yield return new LaneGenericCode { Id = Guid.Parse("dd5d2540-df8d-4e42-81a1-dd09face8308"), Code = "Q", Description = "LES", AddWhiteSpaceAfter = true };
-			yield return new LaneGenericCode { Id = Guid.Parse("99e6098d-2de5-4dc7-811c-e324f1d5dd4b"), Code = "R", Description = "THE", AddWhiteSpaceAfter = true };
-
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			yield return new LaneGenericCode { Id = Guid.Parse("99e6098d-2de5-4dc7-811c-e324f1d5dd4b"), Code = "R", Description = "THE", AddWhiteSpaceAfter = true };	
 		}
 	}
 }
