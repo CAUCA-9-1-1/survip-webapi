@@ -38,8 +38,8 @@ namespace Survi.Prevention.DataLayer.InitialData
 
 		public static void SeedInitialDataForDevelopment(this ModelBuilder builder)
 		{
-			/*InitialDataForCauca.SeedInitialGeographicData(builder);
-			InitialDataForCauca.SeedInitialCityTypes(builder);*/
+			InitialDataForCauca.SeedInitialGeographicData(builder);
+			InitialDataForCauca.SeedInitialCityTypes(builder);
 		}
 
 		private static void SeedInitialFireResistanceType(ModelBuilder builder)
