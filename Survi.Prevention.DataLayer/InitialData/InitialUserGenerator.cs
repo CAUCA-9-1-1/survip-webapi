@@ -18,9 +18,9 @@ namespace Survi.Prevention.DataLayer.InitialData
 
 			var attributes = new []
 			{
-				new WebuserAttributes {Id = GuidExtensions.GetGuid(), IdWebuser = user.Id, AttributeName = "last_name", AttributeValue = "Cauca"},
-				new WebuserAttributes {Id = GuidExtensions.GetGuid(), IdWebuser = user.Id,AttributeName = "reset_password", AttributeValue = "false"},
-				new WebuserAttributes {Id = GuidExtensions.GetGuid(), IdWebuser = user.Id,AttributeName = "first_name", AttributeValue = "Admin"},
+				new WebuserAttributes {Id = Guid.Parse("f90d28fd-4069-4c6a-af1c-fc08f416a1fe"), IdWebuser = user.Id, AttributeName = "last_name", AttributeValue = "Cauca"},
+				new WebuserAttributes {Id = Guid.Parse("aa8b3277-1717-456e-bafb-e5752dcc5e12"), IdWebuser = user.Id,AttributeName = "reset_password", AttributeValue = "false"},
+				new WebuserAttributes {Id = Guid.Parse("4c55d7dd-ee76-473b-be0d-4d8ec7cb3e10"), IdWebuser = user.Id,AttributeName = "first_name", AttributeValue = "Admin"},
 			};
 
 			builder.Entity<Webuser>().HasData(user);
