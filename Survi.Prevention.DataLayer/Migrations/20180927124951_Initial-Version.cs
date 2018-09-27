@@ -1375,7 +1375,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     id = table.Column<Guid>(nullable: false),
                     created_on = table.Column<DateTime>(nullable: false),
                     is_active = table.Column<bool>(nullable: false),
-                    id_fire_hydrant_type = table.Column<Guid>(nullable: false),
+                    id_fire_safety_department = table.Column<Guid>(nullable: false),
                     language_code = table.Column<string>(maxLength: 2, nullable: false),
                     name = table.Column<string>(maxLength: 100, nullable: false)
                 },
@@ -1384,7 +1384,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     table.PrimaryKey("pk_fire_safety_department_localization", x => x.id);
                     table.ForeignKey(
                         name: "fk_fire_safety_department_localization_fire_safety_department_~",
-                        column: x => x.id_fire_hydrant_type,
+                        column: x => x.id_fire_safety_department,
                         principalTable: "fire_safety_department",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -3921,9 +3921,9 @@ namespace Survi.Prevention.DataLayer.Migrations
                 column: "id_fire_safety_department");
 
             migrationBuilder.CreateIndex(
-                name: "IX_fire_safety_department_localization_id_fire_hydrant_type",
+                name: "IX_fire_safety_department_localization_id_fire_safety_department",
                 table: "fire_safety_department_localization",
-                column: "id_fire_hydrant_type");
+                column: "id_fire_safety_department");
 
             migrationBuilder.CreateIndex(
                 name: "IX_fire_safety_department_risk_level_id_risk_level",

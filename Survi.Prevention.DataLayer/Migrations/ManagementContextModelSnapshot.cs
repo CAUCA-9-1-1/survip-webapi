@@ -2355,7 +2355,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("created_on");
 
                     b.Property<Guid>("IdParent")
-                        .HasColumnName("id_fire_hydrant_type");
+                        .HasColumnName("id_fire_safety_department");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
