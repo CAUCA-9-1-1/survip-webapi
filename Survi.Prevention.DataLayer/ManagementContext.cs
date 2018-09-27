@@ -139,7 +139,7 @@ namespace Survi.Prevention.DataLayer
 			modelBuilder.Query<BuildingDetailForReport>()
 				.ToView("building_detail_for_report");
 			modelBuilder.SeedInitialData();
-			modelBuilder.SeedInitialDataForDevelopment();
+			//modelBuilder.SeedInitialDataForDevelopment();
 		}
 	}
 }
