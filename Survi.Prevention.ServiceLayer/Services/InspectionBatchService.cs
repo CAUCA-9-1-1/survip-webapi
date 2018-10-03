@@ -91,7 +91,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					var fireSafetyDepartmentId = Context.FireSafetyDepartments
 						.Single(d => d.FireSafetyDepartmentServing.Any(c => c.IdCity == building.Lane.IdCity)).Id;
 
-					child.IdSurvey = Context.FireSafetyDepartmentRiskLevels.SingleOrDefault(c => c.IdRiskLevel == building.IdRiskLevel && c.IdFireSafetyDepartment == fireSafetyDepartmentId)?.IdSurvey;
+					child.IdSurvey = GetConfiguredSurvey(building.IdRiskLevel, fireSafetyDepartmentId);
 				}
 
 				if (!isExistRecord)
@@ -99,6 +99,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Context.Inspections.Add(child);
 				}
 			});
+		}
+
+		private Guid? GetConfiguredSurvey(Guid idRiskLevel, Guid idFireSafetyDepartment)
+		{
+			var query =
+				from config in Context.FireSafetyDepartmentInspectionConfigurations.AsNoTracking()
+				where config.IsActive && config.IdFireSafetyDepartment == idFireSafetyDepartment
+				                      && config.RiskLevels.Any(risk => risk.IdRiskLevel == idRiskLevel && risk.IsActive)
+				select config.IdSurvey;
+
+			return query.FirstOrDefault();
 		}
 
 		private void RemoveDeleteChildren(List<Inspection> dbInspections, List<Inspection> inspections)

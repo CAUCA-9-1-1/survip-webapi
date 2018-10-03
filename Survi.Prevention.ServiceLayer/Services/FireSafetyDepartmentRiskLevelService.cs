@@ -6,23 +6,23 @@ using Survi.Prevention.Models.FireSafetyDepartments;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class FireSafetyDepartmentRiskLevelService : BaseCrudService<FireSafetyDepartmentRiskLevel>
+	public class FireSafetyDepartmentInspectionConfigurationService : BaseCrudService<FireSafetyDepartmentInspectionConfiguration>
 	{
-		public FireSafetyDepartmentRiskLevelService(ManagementContext context) : base(context)
+		public FireSafetyDepartmentInspectionConfigurationService(ManagementContext context) : base(context)
 		{
 		}
 
-		public override FireSafetyDepartmentRiskLevel Get(Guid id)
+		public override FireSafetyDepartmentInspectionConfiguration Get(Guid id)
 		{
-			var result = Context.FireSafetyDepartmentRiskLevels
+			var result = Context.FireSafetyDepartmentInspectionConfigurations
 				.First(s => s.Id == id);
 
 			return result;
 		}
 
-		public override List<FireSafetyDepartmentRiskLevel> GetList()
+		public override List<FireSafetyDepartmentInspectionConfiguration> GetList()
 		{
-			var result = Context.FireSafetyDepartmentRiskLevels
+			var result = Context.FireSafetyDepartmentInspectionConfigurations
 				.ToList();
 
 			return result;
