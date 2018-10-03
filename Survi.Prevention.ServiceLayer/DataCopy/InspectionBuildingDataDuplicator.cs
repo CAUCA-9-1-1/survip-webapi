@@ -8,15 +8,13 @@ using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 
 namespace Survi.Prevention.ServiceLayer.DataCopy
 {
-	public class InspectionBuildingDataCopyManager : IDisposable
+	public class InspectionBuildingDataCopyManager : InspectionBuildingDataCopyDeleter
 	{
-		private ManagementContext context;
 		private readonly Guid inspectionId;
 		private readonly Guid mainBuildingId;
 
-		public InspectionBuildingDataCopyManager(ManagementContext context, Guid inspectionId)
+		public InspectionBuildingDataCopyManager(ManagementContext context, Guid inspectionId) : base(context)
 		{
-			this.context = context;
 			this.inspectionId = inspectionId;
 			mainBuildingId = GetInspectionMainBuilding(context, inspectionId);
 		}
@@ -27,11 +25,6 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 				.Where(inspection => inspection.Id == inspectionId)
 				.Select(inspection => inspection.IdBuilding)
 				.FirstOrDefault();
-		}
-
-		public void Dispose()
-		{
-			context = null;
 		}
 
 		public void CreateCopy()
@@ -46,51 +39,40 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 				ReplaceBuildingWithCopy();
 		}
 
+		public void DeleteCopy()
+		{
+			DeleteCopy(inspectionId);
+		}
+
+		private List<InspectionBuilding> GetInspectionBuildings()
+		{
+			return GetInspectionBuildings(mainBuildingId);
+		}
+
 		private void ReplaceBuildingWithCopy()
 		{
 			var buildings = GetInspectionBuildings();
-			new OriginalBuildingReplacer(context)
+			new OriginalBuildingReplacer(Context)
 				.ReplaceOriginalDataWithCopy(buildings);
 			DeleteCopy(buildings);
-			context.SaveChanges();
-		}
-
-		public void DeleteCopy()
-		{
-			var buildings = GetInspectionBuildings();
-			DeleteCopy(buildings);
-			context.SaveChanges();
-		}
-
-		public void DeleteCopy(List<InspectionBuilding> buildings)
-		{
-			foreach (var picture in buildings.SelectMany(p => p.ParticularRisks.SelectMany(r => r.Pictures.Select(rp => rp.Picture))))
-				context.Remove(picture);
-			foreach (var picture in buildings.SelectMany(p => p.Anomalies.SelectMany(r => r.Pictures.Select(rp => rp.Picture))))
-				context.Remove(picture);
-			foreach (var picture in buildings.Select(p => p.Picture).Where(p => p != null))
-				context.Remove(picture);
-			foreach (var picture in buildings.Select(p => p.Detail.PlanPicture).Where(p => p != null))
-				context.Remove(picture);
-
-			context.RemoveRange(buildings);
-		}
+			Context.SaveChanges();
+		}		
 
 		private bool DataHasAlreadyBeenDuplicated()
 		{
-			return context.InspectionBuildings.AsNoTracking()
+			return Context.InspectionBuildings.AsNoTracking()
 				.Any(building => building.IdInspection == inspectionId);
 		}
 
 		private void CopyInspectionBuildings()
 		{
-			new BuildingDuplicator(context, inspectionId).DuplicateBuildings(GetBuildings());
-			context.SaveChanges();
+			new BuildingDuplicator(Context, inspectionId).DuplicateBuildings(GetBuildings());
+			Context.SaveChanges();
 		}
 
 		private List<Building> GetBuildings()
 		{
-			var buildings = context.Buildings
+			var buildings = Context.Buildings
 				.Where(building => building.IsActive && (building.Id == mainBuildingId || building.IdParentBuilding == mainBuildingId))
 				.Include(building => building.AlarmPanels)
 				.Include(building => building.Contacts)
@@ -101,31 +83,6 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 				.Include(building => building.Localizations)
 				.Include(building => building.PersonsRequiringAssistance)
 				.Include(building => building.Sprinklers)
-				.ToList();
-			return buildings;
-		}
-
-		private List<InspectionBuilding> GetInspectionBuildings()
-		{
-			var buildings = context.InspectionBuildings.IgnoreQueryFilters()
-				.Where(building => building.IsActive && (building.Id == mainBuildingId || building.IdParentBuilding == mainBuildingId))
-				.Include(building => building.AlarmPanels)
-				.Include(building => building.Contacts)
-				.Include(building => building.Detail)
-				.ThenInclude(detail => detail.PlanPicture)
-				.Include(building => building.FireHydrants)
-				.Include(building => building.HazardousMaterials)
-				.Include(building => building.Localizations)
-				.Include(building => building.PersonsRequiringAssistance)
-				.Include(building => building.Sprinklers)
-				.Include(building => building.Courses)
-				.ThenInclude(course => course.Lanes)
-				.Include(building => building.Anomalies)
-				.ThenInclude(anomaly => anomaly.Pictures)
-				.ThenInclude(pic => pic.Picture)
-				.Include(building => building.ParticularRisks)
-				.ThenInclude(risk => risk.Pictures)
-				.ThenInclude(riskPic => riskPic.Picture)
 				.ToList();
 			return buildings;
 		}

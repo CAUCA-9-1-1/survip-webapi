@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.InspectionManagement;
+using Survi.Prevention.ServiceLayer.DataCopy;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -37,13 +38,17 @@ namespace Survi.Prevention.ServiceLayer.Services
                 .Where(i => i.IdBatch == id)
                 .ToList();
 
-            inspections.ForEach(inspection =>
-            {
-                inspection.IsActive = false;
-                inspection.Status = InspectionStatus.Canceled;
-            });
+	        using (var copyManager = new InspectionBuildingDataCopyDeleter(Context))
+	        {
+		        inspections.ForEach(inspection =>
+		        {
+			        inspection.IsActive = false;
+			        inspection.Status = InspectionStatus.Canceled;
+			        copyManager.DeleteCopy(inspection.Id);
+		        });
+	        }
 
-            Context.SaveChanges();
+	        Context.SaveChanges();
 
             return base.Remove(id);
         }
@@ -98,11 +103,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		private void RemoveDeleteChildren(List<Inspection> dbInspections, List<Inspection> inspections)
 		{
-			dbInspections.ForEach(child =>
+			using (var copyManager = new InspectionBuildingDataCopyDeleter(Context))
 			{
-				if (inspections.All(i => i.Id != child.Id))
-					Context.Inspections.Remove(child);
-			});
+				dbInspections.ForEach(child =>
+				{
+					if (inspections.All(i => i.Id != child.Id))
+					{
+						Context.Inspections.Remove(child);
+						copyManager.DeleteCopy(child.Id);
+					}
+				});
+			}
 		}
 
 		private void UpdateBatchUser(Batch batch)
