@@ -8,6 +8,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 	{
 		public override void Map(EntityTypeBuilder<FireSafetyDepartmentInspectionConfigurationRiskLevel> b)
 		{
+			b.HasQueryFilter(m => m.IsActive);
 			b.HasKey(m => m.Id);
 		}
 	}

@@ -62,7 +62,7 @@ namespace Survi.Prevention.WebApi
 			services.AddTransient<PersonRequiringAssistanceTypeService>();
 			services.AddTransient<InspectionBuildingParticularRiskService>();
 			services.AddTransient<InspectionBuildingParticularRiskPictureService>();
-			services.AddTransient<FireSafetyDepartmentRiskLevelService>();
+			services.AddTransient<FireSafetyDepartmentInspectionConfigurationService>();
 			services.AddTransient<ReportConfigurationTemplateService>();
 			services.AddTransient<ReportGenerationService>();
 			services.AddTransient<InspectionBuildingDetailService>();
