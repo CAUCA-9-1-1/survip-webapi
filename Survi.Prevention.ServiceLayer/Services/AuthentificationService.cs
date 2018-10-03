@@ -64,14 +64,14 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public AccessToken GetAccessTokenFromRefreshToken(string refreshToken, Guid webuserId)
 		{
-			var webuserToken = Context.AccessTokens.Include(t => t.User)
+			var webuserToken = Context.AccessTokens.Include(t => t.User).AsNoTracking()
 				.FirstOrDefault(t => t.IdWebuser == webuserId && t.RefreshToken == refreshToken);
 			return webuserToken;
 		}
 
 		public AccessToken GetAccessTokenFromAccessToken(string accessToken, Guid webuserId)
 		{
-			var webuserToken = Context.AccessTokens.Include(t => t.User)
+			var webuserToken = Context.AccessTokens.Include(t => t.User).AsNoTracking()
 				.FirstOrDefault(t => t.IdWebuser == webuserId && t.TokenForAccess == accessToken);
 			return webuserToken;
 		}
