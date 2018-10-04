@@ -4,12 +4,10 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 using Microsoft.IdentityModel.Tokens;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.SecurityManagement;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
