@@ -20,6 +20,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			var entity = Context.Inspections.Find(id);
 			entity.IsActive = false;
+
+			using (var copyManager = new InspectionBuildingDataCopyManager(Context, id))
+				copyManager.DeleteCopy();
+
 			Context.SaveChanges();
 
 			return true;

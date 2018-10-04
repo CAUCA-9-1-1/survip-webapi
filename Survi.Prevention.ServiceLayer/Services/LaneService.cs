@@ -33,24 +33,34 @@ namespace Survi.Prevention.ServiceLayer.Services
 
         public List<LaneLocalized> GetListLocalized(string languageCode)
         {
-            var query =
-                from lane in Context.Lanes.AsNoTracking()
-                where lane.IsActive
-                let genericCode = lane.LaneGenericCode
-                let publicCode = lane.PublicCode
-                from localization in lane.Localizations.DefaultIfEmpty()
-                where localization.IsActive && localization.LanguageCode == languageCode
-                orderby localization.Name
-                select new { lane.Id, localization.Name, genericDescription = genericCode.Description, genericCode.AddWhiteSpaceAfter, publicDescription = publicCode.Description };
+	        try
+	        {
+		        var query =
+			        from lane in Context.Lanes.AsNoTracking()
+			        where lane.IsActive
+			        let genericCode = lane.LaneGenericCode
+			        let publicCode = lane.PublicCode
+			        from localization in lane.Localizations.DefaultIfEmpty()
+			        where localization.IsActive && localization.LanguageCode == languageCode
+			        orderby localization.Name
+			        select new {lane.Id, localization.Name, genericDescription = genericCode.Description, genericCode.AddWhiteSpaceAfter, publicDescription = publicCode.Description};
 
-            var result = query.ToList()
-                .Select(lane => new LaneLocalized {
-                    Id = lane.Id,
-                    Name = new LocalizedLaneNameGenerator().GenerateLaneName(lane.Name, lane.genericDescription, lane.publicDescription, lane.AddWhiteSpaceAfter)
-                })
-                .ToList();
+		        var rawResult = query.ToList();
 
-            return result;
+		        var result = rawResult
+			        .Select(lane => new LaneLocalized
+			        {
+				        Id = lane.Id,
+				        Name = new LocalizedLaneNameGenerator().GenerateLaneName(lane.Name, lane.genericDescription, lane.publicDescription, lane.AddWhiteSpaceAfter)
+			        })
+			        .ToList();
+
+		        return result;
+	        }
+			catch(Exception ex)
+			{
+				throw;
+			}
         }
 
         public List<LaneLocalized> GetListByCityLocalized(Guid cityId, string languageCode)
