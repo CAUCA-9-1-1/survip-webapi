@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.SurveyManagement;
 
 namespace Survi.Prevention.ServiceLayer
 {
@@ -59,13 +60,27 @@ namespace Survi.Prevention.ServiceLayer
 			    }
 		    });
 
-
 			idsToRemove.ForEach(id =>
 			{
 				if (answerTreeList.Find(atl => atl.Id == id) != null)
 					answerTreeList.Remove(answerTreeList.Find(atl => atl.Id == id));
 			});
 		    return answerTreeList;
+	    }
+
+	    public List<SurveyQuestion> GetSurveyQuestionTreeList(List<SurveyQuestion> questions)
+	    {
+		    var orderedList = new List<SurveyQuestion>();
+		    questions.ForEach(surveyQuestion => 
+		    {
+			    if(surveyQuestion.IdSurveyQuestionParent == null && orderedList.All(ol => ol.Id != surveyQuestion.Id))
+			    {
+				    orderedList.Add(surveyQuestion);
+				    orderedList.AddRange(questions.Where(r => r.IdSurveyQuestionParent == surveyQuestion.Id).ToList());
+			    }
+		    });
+
+		    return orderedList;
 	    }
     }
 }
