@@ -10,7 +10,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 	public class SurveyQuestionService : BaseCrudService<SurveyQuestion>
 	{
-
 		public SurveyQuestionService(ManagementContext context) : base(context)
 		{
 		}
@@ -32,52 +31,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 						.ToList();
 
 			return result;
-		}
-
-		public override Guid AddOrUpdate(SurveyQuestion entity)
-		{
-			UpdateSequenceOnAddingChild(entity);
-
-			return base.AddOrUpdate(entity);
-		}
-
-		private void UpdateSequenceOnAddingChild(SurveyQuestion questionChild)
-		{
-			if (questionChild.IdSurveyQuestionParent != null && questionChild.IdSurveyQuestionParent != Guid.Empty)
-			{
-				if (!Context.SurveyQuestions.Any(sq => sq.Id == questionChild.Id))
-				{
-					var lastParentSequence = GetQuestionMaxSequence(questionChild.IdSurveyQuestionParent);
-					UpdateQuestionSequence(lastParentSequence);
-					questionChild.Sequence = lastParentSequence + 1;
-				}
-			}
-		}
-
-		private int GetQuestionMaxSequence(Guid? idSurveyQuestionParent)
-		{
-			var childQuestions = Context.SurveyQuestions.AsNoTracking()
-						.Where(sq => sq.IdSurveyQuestionParent == idSurveyQuestionParent && sq.IsActive).ToList();
-			if (childQuestions.Any())
-				return childQuestions.Max(sq => sq.Sequence);
-			return GetParentQuestionSequence(idSurveyQuestionParent);
-		}
-
-		private int GetParentQuestionSequence(Guid? idSurveyQuestionParent)
-		{
-			var inspection = Context.SurveyQuestions.AsNoTracking().FirstOrDefault(sq => sq.Id == idSurveyQuestionParent && sq.IsActive);
-			if (inspection != null)
-				return inspection.Sequence;
-			return 0;
-		}
-
-		private void UpdateQuestionSequence(int sequenceStart)
-		{
-			foreach (var surveyQuestion in Context.SurveyQuestions
-											.Where(sql =>sql.Sequence > sequenceStart))
-			{
-				surveyQuestion.Sequence += 1;
-			}
 		}
 
 		public override bool Remove(Guid idSurveyQuestion)
@@ -141,7 +94,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				var question = Context.SurveyQuestions.Single(sq => sq.Id == idSurveyQuestion);
 				if (question.Sequence != sequence)
 				{
-					var questionDest = Context.SurveyQuestions.Single(sqd => sqd.Sequence == sequence && sqd.Id != idSurveyQuestion && sqd.IdSurvey == question.IdSurvey && sqd.IsActive);
+					var questionDest = Context.SurveyQuestions.Single(sqd => sqd.Sequence == sequence && sqd.Id != idSurveyQuestion && sqd.IdSurvey == question.IdSurvey && sqd.IsActive && sqd.IdSurveyQuestionParent == question.IdSurveyQuestionParent);
 
 					int oldSequence = question.Sequence;
 					questionDest.Sequence = oldSequence;
@@ -162,6 +115,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.OrderBy(sq => sq.Sequence);
 
 			var result = query.ToList();
+			//var result = new InspectionSurveyTreeGenerator().GetSurveyQuestionTreeList(query.ToList());
 
 			RemoveNextQuestionNavigationPropertyValue(result);
 
