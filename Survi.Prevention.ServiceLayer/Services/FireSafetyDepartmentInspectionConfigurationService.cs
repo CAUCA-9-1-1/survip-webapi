@@ -38,7 +38,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					HasWaterSupply = config.HasWaterSupply,
 					IdFireSafetyDepartment = config.IdFireSafetyDepartment,
 					IdSurvey = config.IdSurvey,
-					RiskLevelIds = string.Join(", ", config.RiskLevels.Where(risk => risk.IsActive).Select(risk => risk.IdRiskLevel))
+					RiskLevelIds = config.RiskLevels.Where(risk => risk.IsActive).Select(risk => risk.IdRiskLevel.ToString()).ToList()
 				};
 
 			var result = query.FirstOrDefault();
@@ -67,7 +67,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					HasWaterSupply = config.HasWaterSupply,
 					IdFireSafetyDepartment = config.IdFireSafetyDepartment,
 					IdSurvey = config.IdSurvey,
-					RiskLevelIds = string.Join(", ", config.RiskLevels.Where(risk => risk.IsActive).Select(risk => risk.IdRiskLevel))
+					RiskLevelIds = config.RiskLevels.Where(risk => risk.IsActive).Select(risk => risk.IdRiskLevel.ToString()).ToList()
 				};
 
 			var result = query.ToList();
@@ -117,15 +117,16 @@ namespace Survi.Prevention.ServiceLayer.Services
 			currentConfig.HasWaterSupply = entity.HasWaterSupply;
 			currentConfig.IdFireSafetyDepartment = entity.IdFireSafetyDepartment;
 			currentConfig.IdSurvey = entity.IdSurvey;
+			currentConfig.IsActive = true;
 			UpdateRiskLevels(entity, currentConfig);
 		}
 
 		private void UpdateRiskLevels(FireSafetyDepartmentInspectionConfigurationForEdition entity, FireSafetyDepartmentInspectionConfiguration currentConfig)
 		{
-			var riskLevelIds = entity.RiskLevelIds.Split(",").Where(id => !string.IsNullOrWhiteSpace(id)).Select(Guid.Parse).ToList();
+			var riskLevelIds = entity.RiskLevelIds.Select(Guid.Parse).ToList();
 			var activeRisks = currentConfig.RiskLevels.Where(risk => risk.IsActive).ToList();
 			var deletedRiskLevels = activeRisks.Where(risk => riskLevelIds.All(id => id != risk.IdRiskLevel)).ToList();
-			var newRiskLevelIds = riskLevelIds.Where(id => activeRisks.All(risk => risk.Id != id));
+			var newRiskLevelIds = riskLevelIds.Where(id => activeRisks.All(risk => risk.IdRiskLevel != id)).ToList();
 			Context.RemoveRange(deletedRiskLevels);
 			foreach(var id in newRiskLevelIds)
 			{
@@ -140,7 +141,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		private FireSafetyDepartmentInspectionConfiguration CreateNewConfiguration()
 		{
-			var currentConfig = new FireSafetyDepartmentInspectionConfiguration();
+			var currentConfig = new FireSafetyDepartmentInspectionConfiguration
+				{ RiskLevels = new List<FireSafetyDepartmentInspectionConfigurationRiskLevel>() };
 			Context.Add(currentConfig);
 			return currentConfig;
 		}

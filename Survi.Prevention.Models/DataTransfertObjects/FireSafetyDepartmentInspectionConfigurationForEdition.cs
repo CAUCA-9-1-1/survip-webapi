@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Survi.Prevention.Models.DataTransfertObjects
 {
@@ -22,6 +23,6 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 
 		public Guid? IdSurvey { get; set; }
 
-		public string RiskLevelIds { get; set; }
+		public List<string> RiskLevelIds { get; set; }
     }
 }
