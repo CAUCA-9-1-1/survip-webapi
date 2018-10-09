@@ -114,8 +114,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.Where(sq => sq.IdSurvey == idSurvey && sq.IsActive)
 				.OrderBy(sq => sq.Sequence);
 
-			var result = query.ToList();
-			//var result = new InspectionSurveyTreeGenerator().GetSurveyQuestionTreeList(query.ToList());
+			var result = new InspectionSurveyTreeGenerator().GetSurveyQuestionTreeList(query.ToList());
 
 			RemoveNextQuestionNavigationPropertyValue(result);
 
