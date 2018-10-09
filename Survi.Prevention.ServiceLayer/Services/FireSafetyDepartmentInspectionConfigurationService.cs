@@ -113,7 +113,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 			currentConfig.HasBuildingParticularRisks = entity.HasBuildingParticularRisks;
 			currentConfig.HasBuildingPnaps = entity.HasBuildingPnaps;
 			currentConfig.HasCourse = entity.HasCourse;
-			currentConfig.HasGeneralInformation = entity.HasImplantationPlan;
+			currentConfig.HasGeneralInformation = entity.HasGeneralInformation;
+			currentConfig.HasImplantationPlan = entity.HasImplantationPlan;
 			currentConfig.HasWaterSupply = entity.HasWaterSupply;
 			currentConfig.IdFireSafetyDepartment = entity.IdFireSafetyDepartment;
 			currentConfig.IdSurvey = entity.IdSurvey;
