@@ -9,8 +9,6 @@ namespace Survi.Prevention.DataLayer.Mapping
 		public override void Map(EntityTypeBuilder<SurveyQuestion> b)
 		{
 			b.HasKey(m => m.Id);
-			b.HasOne(m => m.NextQuestion)
-				.WithMany();
 
 			b.HasMany(m => m.Choices)
 				.WithOne(m => m.Question)

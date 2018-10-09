@@ -15,7 +15,6 @@ namespace Survi.Prevention.Models.SurveyManagement
 		public Guid? IdSurveyQuestionNext { get; set; }
 
 		public Survey Survey { get; set; }
-		public SurveyQuestion NextQuestion { get; set; }
 
 		public bool IsRecursive { get; set; }
 		public Guid? IdSurveyQuestionParent { get; set; }
