@@ -290,21 +290,22 @@ namespace Survi.Prevention.ServiceLayer.Services
 			).First();
 
 			var query =
-				from risk in Context.FireSafetyDepartmentRiskLevels.AsNoTracking()
-				where risk.IsActive && risk.IdFireSafetyDepartment == departmentId && risk.IdRiskLevel == currentInspection.IdRiskLevel
+				from config in Context.FireSafetyDepartmentInspectionConfigurations.AsNoTracking()
+				where config.IsActive && config.IdFireSafetyDepartment == departmentId
+				                      && config.RiskLevels.Any(risk => risk.IdRiskLevel == currentInspection.IdRiskLevel && risk.IsActive)
 				select new InspectionConfiguration
 				{
-					HasBuildingAnomalies = risk.HasBuildingAnomalies,
-					HasBuildingContacts = risk.HasBuildingContacts,
-					HasBuildingDetails = risk.HasBuildingDetails,
-					HasBuildingFireProtection = risk.HasBuildingFireProtection,
-					HasBuildingHazardousMaterials = risk.HasBuildingHazardousMaterials,
-					HasBuildingParticularRisks = risk.HasBuildingParticularRisks,
-					HasBuildingPnaps = risk.HasBuildingPNAPS,
-					HasCourse = risk.HasCourse,
-					HasGeneralInformation = risk.HasGeneralInformation,
-					HasImplantationPlan = risk.HasImplantationPlan,
-					HasWaterSupply = risk.HasWaterSupply,
+					HasBuildingAnomalies = config.HasBuildingAnomalies,
+					HasBuildingContacts = config.HasBuildingContacts,
+					HasBuildingDetails = config.HasBuildingDetails,
+					HasBuildingFireProtection = config.HasBuildingFireProtection,
+					HasBuildingHazardousMaterials = config.HasBuildingHazardousMaterials,
+					HasBuildingParticularRisks = config.HasBuildingParticularRisks,
+					HasBuildingPnaps = config.HasBuildingPnaps,
+					HasCourse = config.HasCourse,
+					HasGeneralInformation = config.HasGeneralInformation,
+					HasImplantationPlan = config.HasImplantationPlan,
+					HasWaterSupply = config.HasWaterSupply,
 					HasSurvey = currentInspection.IdSurvey != null && currentInspection.IdSurvey != Guid.Empty
 				};
 
