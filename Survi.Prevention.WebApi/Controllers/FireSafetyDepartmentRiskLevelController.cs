@@ -35,6 +35,13 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(result);
 		}
 
+		[HttpGet]
+		[ProducesResponseType(401)]
+		[ProducesResponseType(200, Type = typeof(Guid))]
+		[Route("{id:Guid}/UsedRiskLevels/{idFireSafetyDepartment:Guid}")]
+		public ActionResult<Guid> GetUsedFireSafetyDepartment(Guid id, Guid idFireSafetyDepartment) 
+			=> Ok(Service.GetUsedRiskLevelForFireSafetyDepartmentConfiguration(id, idFireSafetyDepartment));
+
 		[HttpPost]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(200)]

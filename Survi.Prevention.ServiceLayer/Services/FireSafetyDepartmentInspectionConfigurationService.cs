@@ -75,6 +75,18 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
+		public List<Guid> GetUsedRiskLevelForFireSafetyDepartmentConfiguration(Guid fireSafetyDepartmentConfigurationId, Guid fireSafetyDepartmentId)
+		{
+			var query =
+				from config in Context.FireSafetyDepartmentInspectionConfigurations.AsNoTracking()
+				where config.IdFireSafetyDepartment == fireSafetyDepartmentId && config.IsActive
+					  && config.Id != fireSafetyDepartmentConfigurationId
+				from risk in config.RiskLevels
+				select risk.IdRiskLevel;
+
+			return query.Distinct().ToList();
+		}
+
 		public virtual bool Remove(Guid id)
 		{
 			var entity = Context.Set<FireSafetyDepartmentInspectionConfiguration>().Find(id);
