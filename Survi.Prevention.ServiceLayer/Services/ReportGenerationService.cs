@@ -38,7 +38,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 case PlatformID.WinCE:
                     return @"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe";
                 case PlatformID.Unix:
-                    return @"/usr/bin/wkhtmltopdf";
+                    return @"/usr/local/bin/wkhtmltopdf";
                 case PlatformID.MacOSX:
                     return @"/usr/local/bin/wkhtmltopdf";
                 default:
