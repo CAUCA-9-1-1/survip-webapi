@@ -43,6 +43,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 		
 		public string FullLaneName { get; set; }
 		public string FullCivicNumber { get;set; }
+		public string FullCivicNumberSortable { get; set; }
 
 		public string WebuserAssignedTo { get; set; }
 		public Guid? IdWebuserAssignedTo { get; set; }
@@ -55,7 +56,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 		public Boolean HasAnomaly { get; set; }
 		public DateTime? LastInspectionOn { get; set; }
 		public Guid IdBuilding { get; set; }
-		public Guid idLane { get; set; }
+		public Guid IdLane { get; set; }
 		public Guid? IdLaneTransversal { get; set; }
 		public Guid IdCity { get; set; }
 		public string PostalCode { get; set; }

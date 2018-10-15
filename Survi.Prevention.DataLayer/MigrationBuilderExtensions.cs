@@ -39,6 +39,7 @@ namespace Survi.Prevention.DataLayer
 
 				  (CASE WHEN lpc.description != '' or lgc.description != '' THEN concat(laneloc.name, ' (', lpc.description, CASE WHEN lgc.description != '' THEN lgc.description ELSE ''END, ')' ) ELSE laneloc.name END) as full_lane_name,
 				  CONCAT(b.civic_number, b.civic_letter) as full_civic_number,
+				  LPAD(CONCAT(b.civic_number, b.civic_letter), 10, '0') as full_civic_number_sortable,
 
 				  (select completed_on from inspection as i where i.id_building = b.id and i.status = 3 order by i.completed_on desc limit 1) as last_inspection_on,
 				  (select concat(bc.first_name, ' ', bc.last_name) from building_contact as bc where bc.id_building = b.id and bc.is_owner = true and bc.is_active = true limit 1) as owner,
@@ -90,6 +91,7 @@ namespace Survi.Prevention.DataLayer
 
 				  (CASE WHEN lpc.description != '' or lgc.description != '' THEN concat(laneloc.name, ' (', lpc.description, CASE WHEN lgc.description != '' THEN lgc.description ELSE ''END, ')' ) ELSE laneloc.name END) as full_lane_name,
 				  CONCAT(b.civic_number, b.civic_letter) as full_civic_number,
+   				  LPAD(CONCAT(b.civic_number, b.civic_letter), 10, '0') as full_civic_number_sortable,
 
 				  (select i2.completed_on from inspection as i2 where i2.id_building = b.id and i2.status = 3 order by i2.completed_on desc limit 1) as last_inspection_on,
 				  (select concat(bc.first_name, ' ', bc.last_name) from building_contact as bc where bc.id_building = b.id and bc.is_owner = true and bc.is_active = true limit 1) as owner,
@@ -155,6 +157,7 @@ namespace Survi.Prevention.DataLayer
 
 				  (CASE WHEN lpc.description != '' or lgc.description != '' THEN concat(laneloc.name, ' (', lpc.description, CASE WHEN lgc.description != '' THEN lgc.description ELSE ''END, ')' ) ELSE laneloc.name END) as full_lane_name,
 				  CONCAT(b.civic_number, b.civic_letter) as full_civic_number,
+				  LPAD(CONCAT(b.civic_number, b.civic_letter), 10, '0') as full_civic_number_sortable,
 
 				  (select i2.completed_on from inspection as i2 where i2.id_building = b.id and i2.status = 3 order by i2.completed_on desc limit 1) as last_inspection_on,
 				  (select concat(bc.first_name, ' ', bc.last_name) from building_contact as bc where bc.id_building = b.id and bc.is_owner = true and bc.is_active = true limit 1) as owner,
@@ -220,6 +223,7 @@ namespace Survi.Prevention.DataLayer
 
 				  (CASE WHEN lpc.description != '' or lgc.description != '' THEN concat(laneloc.name, ' (', lpc.description, CASE WHEN lgc.description != '' THEN lgc.description ELSE ''END, ')' ) ELSE laneloc.name END) as full_lane_name,
 				  CONCAT(b.civic_number, b.civic_letter) as full_civic_number,
+				  LPAD(CONCAT(b.civic_number, b.civic_letter), 10, '0') as full_civic_number_sortable,
 
 				  (select i2.completed_on from inspection as i2 where i2.id_building = b.id and i2.status = 3 order by i2.completed_on desc limit 1) as last_inspection_on,
 				  (select concat(bc.first_name, ' ', bc.last_name) from building_contact as bc where bc.id_building = b.id and bc.is_owner = true and bc.is_active = true limit 1) as owner,
