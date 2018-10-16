@@ -5,7 +5,7 @@ using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.ServiceLayer.Reporting
 {
-	public class ReportBuildingAnomalyPictureGroupHandler : BaseReportGroupHandler<BuildingChildPictureForWeb>
+	public class ReportBuildingAnomalyPictureGroupHandler : BaseReportGroupHandler<InspectionPictureForWeb>
 	{
 		private readonly BuildingAnomalyService service;
 
@@ -16,7 +16,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			this.service = service;
 		}
 
-		protected override List<BuildingChildPictureForWeb> GetData(Guid idParent, string languageCode)
+		protected override List<InspectionPictureForWeb> GetData(Guid idParent, string languageCode)
 		{
 			return service.GetAnomalyPictures(idParent, languageCode);
 		}

@@ -27,7 +27,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 
 		[HttpPut]
-		public ActionResult PostPictureFile([FromBody]BuildingChildPictureForWeb picture)
+		public ActionResult PostPictureFile([FromBody]InspectionPictureForWeb picture)
 		{
 			return Ok(service.UploadFile(picture));
 		}

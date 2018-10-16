@@ -38,13 +38,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return query.ToList();
 		}
 
-		public List<BuildingChildPictureForWeb> GetRiskPictures(Guid idRisk, string languageCode)
+		public List<InspectionPictureForWeb> GetRiskPictures(Guid idRisk, string languageCode)
 		{
 			var query =
 				from picRisk in Context.BuildingParticularRiskPictures.AsNoTracking()
 				where picRisk.IdBuildingParticularRisk == idRisk && picRisk.IsActive
 				let pic = picRisk.Picture
-				select new BuildingChildPictureForWeb
+				select new InspectionPictureForWeb
 				{
 					Id = pic.Id,
 					IdPicture = pic.Id,

@@ -14,7 +14,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public List<BuildingChildPictureForWeb> GetAnomalyPictures(Guid idBuildingAnomaly)
+		public List<InspectionPictureForWeb> GetAnomalyPictures(Guid idBuildingAnomaly)
 		{
             var query =
                 from picture in Context.InspectionBuildingAnomalyPictures.AsNoTracking()
@@ -34,7 +34,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			var result = query.ToList();
 
-			return result.Select(pic => new BuildingChildPictureForWeb
+			return result.Select(pic => new InspectionPictureForWeb
 			{
 				Id = pic.Id,
 				IdPicture = pic.IdPicture,
@@ -44,7 +44,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}).ToList();
 		}
 
-		public virtual Guid AddOrUpdatePicture(BuildingChildPictureForWeb entity)
+		public virtual Guid AddOrUpdatePicture(InspectionPictureForWeb entity)
 		{
             var anomalyPicture = Context.InspectionBuildingAnomalyPictures.Find(entity.Id) 
 				?? GenerateNewPicture(entity);
@@ -55,7 +55,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             return entity.Id;
         }
 
-		public bool AddUpdatePictures(BuildingChildPictureForWeb[] entity)
+		public bool AddUpdatePictures(InspectionPictureForWeb[] entity)
 		{
 			bool retValue = false;
 			foreach (var pic in entity)
@@ -81,7 +81,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return true;
 		}
 
-        private InspectionBuildingAnomalyPicture GenerateNewPicture(BuildingChildPictureForWeb entity)
+        private InspectionBuildingAnomalyPicture GenerateNewPicture(InspectionPictureForWeb entity)
         {
             var picture = new InspectionBuildingAnomalyPicture
 			{
@@ -94,7 +94,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return picture;
 		}
 
-        private void TransferDtoToModel(BuildingChildPictureForWeb entity, InspectionBuildingAnomalyPicture anomalyPicture)
+        private void TransferDtoToModel(InspectionPictureForWeb entity, InspectionBuildingAnomalyPicture anomalyPicture)
         {
             anomalyPicture.Id = entity.Id;
             anomalyPicture.IdBuildingAnomaly = entity.IdParent;
