@@ -69,7 +69,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 		private string FormatPicture(string picture)
 		{
-			return "<img style=\"margin: 20px 20px\" src=\"data:image/png;base64, " + picture +
+			return "<img style=\"margin: 20px 20px\" src=\"" + picture +
 			       "\" height=\"400\" />";
 		}
 	}
