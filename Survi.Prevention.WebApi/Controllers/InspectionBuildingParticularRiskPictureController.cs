@@ -24,7 +24,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPost]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(200)]
-		public virtual ActionResult Post([FromBody] BuildingChildPictureForWeb entity)
+		public virtual ActionResult Post([FromBody] InspectionPictureForWeb entity)
 		{
 			if (Service.AddOrUpdatePicture(entity) != Guid.Empty)
 				return Ok(new { id = entity.Id });
@@ -35,7 +35,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPost, Route("/api/inspection/building/particularrisk/pictures")]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(200)]
-		public virtual ActionResult Post([FromBody] BuildingChildPictureForWeb[] entities)
+		public virtual ActionResult Post([FromBody] InspectionPictureForWeb[] entities)
 		{
 			if (Service.AddUpdatePictures(entities))
 				return Ok(new { result =  true});

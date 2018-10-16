@@ -28,13 +28,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return query.ToList();
 		}
 
-		public List<BuildingChildPictureForWeb> GetAnomalyPictures(Guid idAnomaly, string languageCode)
+		public List<InspectionPictureForWeb> GetAnomalyPictures(Guid idAnomaly, string languageCode)
 		{
 			var query =
 				from picAnomaly in Context.BuildingAnomalyPictures.AsNoTracking()
 				where picAnomaly.IdBuildingAnomaly == idAnomaly && picAnomaly.IsActive
 				let pic = picAnomaly.Picture
-				select new BuildingChildPictureForWeb
+				select new InspectionPictureForWeb
 				{
 					Id = pic.Id,
 					IdPicture = pic.Id,

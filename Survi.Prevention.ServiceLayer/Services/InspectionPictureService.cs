@@ -15,7 +15,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public List<BuildingChildPictureForWeb> GetFile(Guid pictureId)
+		public List<InspectionPictureForWeb> GetFile(Guid pictureId)
 		{
 			var query =
 				from p in Context.InspectionPictures
@@ -39,7 +39,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				SketchJson = picture.SketchJson,
 			};*/
 
-			return picture.Select(pic => new BuildingChildPictureForWeb
+			return picture.Select(pic => new InspectionPictureForWeb
 			{
 				Id = pic.Id,
 				IdPicture = pic.Id,
@@ -52,7 +52,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             }).ToList();
 		}
 
-		public Guid UploadFile(BuildingChildPictureForWeb picture)
+		public Guid UploadFile(InspectionPictureForWeb picture)
 		{
 			var pic = new InspectionPicture{Id = picture.Id, DataUri = picture.PictureData, SketchJson = picture.SketchJson};
 

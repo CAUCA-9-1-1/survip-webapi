@@ -14,7 +14,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public List<BuildingChildPictureForWeb> GetAnomalyPictures(Guid idBuildingParticularRisk)
+		public List<InspectionPictureForWeb> GetAnomalyPictures(Guid idBuildingParticularRisk)
 		{
 			var query =
 				from picture in Context.InspectionBuildingParticularRiskPictures.AsNoTracking()
@@ -34,7 +34,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			var result = query.ToList();
 
-			return result.Select(pic => new BuildingChildPictureForWeb
+			return result.Select(pic => new InspectionPictureForWeb
 			{
 				Id = pic.Id,
 				IdPicture = pic.IdPicture,
@@ -44,7 +44,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             }).ToList();
 		}
 
-		public virtual Guid AddOrUpdatePicture(BuildingChildPictureForWeb entity)
+		public virtual Guid AddOrUpdatePicture(InspectionPictureForWeb entity)
 		{
             var particularRiskPicture = Context.InspectionBuildingParticularRiskPictures.Find(entity.Id) 
 				?? GenerateNewPicture(entity);
@@ -55,7 +55,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             return entity.Id;
         }
 
-		public bool AddUpdatePictures(BuildingChildPictureForWeb[] entity)
+		public bool AddUpdatePictures(InspectionPictureForWeb[] entity)
 		{
 			bool retValue = false;
 			foreach (var pic in entity)
@@ -76,7 +76,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return true;
 		}
 
-        private InspectionBuildingParticularRiskPicture GenerateNewPicture(BuildingChildPictureForWeb entity)
+        private InspectionBuildingParticularRiskPicture GenerateNewPicture(InspectionPictureForWeb entity)
         {
             var picture =  new InspectionBuildingParticularRiskPicture
 			{
@@ -89,7 +89,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return picture;
 		}
 
-        private void TransferDtoToModel(BuildingChildPictureForWeb entity, InspectionBuildingParticularRiskPicture particularRiskPicture)
+        private void TransferDtoToModel(InspectionPictureForWeb entity, InspectionBuildingParticularRiskPicture particularRiskPicture)
         {
             particularRiskPicture.Id = entity.Id;
             particularRiskPicture.IdBuildingParticularRisk = entity.IdParent;

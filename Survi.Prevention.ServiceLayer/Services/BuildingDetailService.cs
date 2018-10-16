@@ -57,13 +57,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 		}
 
 
-		public BuildingChildPictureForWeb GetSitePlan(Guid detailId)
+		public InspectionPictureForWeb GetSitePlan(Guid detailId)
 		{
 			var query =
 				from detail in Context.BuildingDetails.AsNoTracking()				
 				let pic = detail.PlanPicture
 				where detail.Id == detailId && detail.IdPicturePlan != null
-				select new BuildingChildPictureForWeb
+				select new InspectionPictureForWeb
 				{
 					Id = pic.Id,
 					IdPicture = pic.Id,

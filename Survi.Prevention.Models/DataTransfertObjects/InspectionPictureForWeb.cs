@@ -2,7 +2,7 @@
 
 namespace Survi.Prevention.Models.DataTransfertObjects
 {
-	public class BuildingChildPictureForWeb
+	public class InspectionPictureForWeb
 	{
 		public Guid Id { get; set; }
 		public Guid IdParent { get; set; }
