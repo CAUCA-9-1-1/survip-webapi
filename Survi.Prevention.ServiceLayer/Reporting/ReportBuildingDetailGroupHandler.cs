@@ -44,8 +44,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 		private string FormatPicture(string picture)
 		{
-			return "<img style=\"margin: 20px 20px\" src=\"data:image/png;base64, " + picture +
-			       "\" height=\"400\" />";
+			return PictureHtmlTagGenerator.GetTag(picture);
 		}
 
 		protected override string FormatPropertyValue((string name, object value) property, string languageCode)

@@ -23,11 +23,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		protected override string FormatPropertyValue((string name, object value) property, string languageCode)
 		{
 			if (property.name == "PictureData")
-			{
-				return "<img style=\"margin: 20px 20px\" src=\"data:image/png;base64, " +
-				       property.value +
-				       "\" height=\"400\" />";
-			}
+				return PictureHtmlTagGenerator.GetTag(property.value);
 			return base.FormatPropertyValue(property, languageCode);
 		}
 
