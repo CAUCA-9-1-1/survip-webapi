@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -14,20 +15,20 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public async Task<PictureForWeb> GetFile(Guid pictureId)
+		public List<BuildingChildPictureForWeb> GetFile(Guid pictureId)
 		{
 			var query =
 				from p in Context.InspectionPictures
 				where p.IsActive && p.Id == pictureId
 				select p;
 
-			var picture = await query.SingleOrDefaultAsync();
+			var picture = query.ToList();
 			if (picture == null)
 			{
 				return null;
 			}
 
-			return new PictureForWeb
+			/*return new PictureForWeb
 			{
 				Id = picture.Id,
 				DataUri = string.Format(
@@ -36,20 +37,34 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Convert.ToBase64String(picture.Data)
 				),
 				SketchJson = picture.SketchJson,
-			};
+			};*/
+
+			return picture.Select(pic => new BuildingChildPictureForWeb
+			{
+				Id = pic.Id,
+				IdPicture = pic.Id,
+				IdParent = pictureId,
+				PictureData = string.Format(
+						"data:{0};base64,{1}",
+						pic.MimeType == "" || pic.MimeType == null ? "image/jpeg" : pic.MimeType,
+						Convert.ToBase64String(pic.Data)),
+                SketchJson = pic.SketchJson
+            }).ToList();
 		}
 
-		public Guid UploadFile(InspectionPicture picture)
+		public Guid UploadFile(BuildingChildPictureForWeb picture)
 		{
-			var isExistRecord = Context.InspectionPictures.Any(p => p.Id == picture.Id);
+			var pic = new InspectionPicture{Id = picture.Id, DataUri = picture.PictureData, SketchJson = picture.SketchJson};
+
+			var isExistRecord = Context.InspectionPictures.Any(p => p.Id == pic.Id);
 
 			if (!isExistRecord)
-				Context.Add(picture);
+				Context.Add(pic);
 			else
-				Context.Update(picture);
+				Context.Update(pic);
 
 			Context.SaveChanges();
-			return picture.Id;
+			return pic.Id;
 		}
 	}
 }

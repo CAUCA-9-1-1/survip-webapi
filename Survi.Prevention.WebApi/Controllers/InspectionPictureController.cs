@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -17,16 +18,16 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 
 		[Route("{id:Guid}"), HttpGet]
-		public async Task<ActionResult> GetPicture(Guid id)
+		public ActionResult GetPicture(Guid id)
 		{
-			var data = await service.GetFile(id);
+			var data = service.GetFile(id);
 			if (data == null)
 				return BadRequest();
 			return Ok(data);
 		}
 
 		[HttpPut]
-		public ActionResult PostPictureFile([FromBody]InspectionPicture picture)
+		public ActionResult PostPictureFile([FromBody]BuildingChildPictureForWeb picture)
 		{
 			return Ok(service.UploadFile(picture));
 		}
