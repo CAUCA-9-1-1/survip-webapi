@@ -119,23 +119,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("dimension")
                         .HasMaxLength(100);
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<bool>("HasOpening")
                         .HasColumnName("has_opening");
 
                     b.Property<Guid>("IdBuilding")
                         .HasColumnName("id_building");
 
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -220,14 +211,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("floor")
                         .HasMaxLength(10);
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdCity")
                         .HasColumnName("id_city");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdLane")
                         .HasColumnName("id_lane");
@@ -249,9 +234,6 @@ namespace Survi.Prevention.DataLayer.Migrations
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -337,23 +319,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("floor")
                         .HasMaxLength(100);
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid?>("IdAlarmPanelType")
                         .HasColumnName("id_alarm_panel_type");
 
                     b.Property<Guid>("IdBuilding")
                         .HasColumnName("id_building");
 
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -388,20 +361,11 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuilding")
                         .HasColumnName("id_building");
 
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -434,23 +398,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuildingAnomaly")
                         .HasColumnName("id_building_anomaly");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdPicture")
                         .HasColumnName("id_picture");
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -490,20 +445,11 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("first_name")
                         .HasMaxLength(30);
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuilding")
                         .HasColumnName("id_building");
 
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -566,23 +512,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuilding")
                         .HasColumnName("id_building");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdFirestation")
                         .HasColumnName("id_firestation");
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -612,23 +549,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<int>("Direction")
                         .HasColumnName("direction");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuildingCourse")
                         .HasColumnName("id_building_course");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdLane")
                         .HasColumnName("id_lane");
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -759,23 +687,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnName("deleted_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuilding")
                         .HasColumnName("id_building");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdFireHydrant")
                         .HasColumnName("id_fire_hydrant");
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -820,14 +739,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("gas_inlet")
                         .HasMaxLength(100);
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuilding")
                         .HasColumnName("id_building");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdHazardousMaterial")
                         .HasColumnName("id_hazardous_material");
@@ -837,9 +750,6 @@ namespace Survi.Prevention.DataLayer.Migrations
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -941,23 +851,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuildingParticularRisk")
                         .HasColumnName("id_building_particular_risk");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdPicture")
                         .HasColumnName("id_picture");
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -1015,23 +916,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("floor")
                         .HasMaxLength(3);
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuilding")
                         .HasColumnName("id_building");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdPersonRequiringAssistanceType")
                         .HasColumnName("id_person_requiring_assistance_type");
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -1081,23 +973,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("floor")
                         .HasMaxLength(100);
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuilding")
                         .HasColumnName("id_building");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdSprinklerType")
                         .HasColumnName("id_sprinkler_type");
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -1135,17 +1018,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -1159,10 +1033,10 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("building_type");
 
                     b.HasData(
-                        new { Id = new Guid("7f64d446-ee04-4be4-8884-d478b2205015"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("56c0186b-9c3f-4f9a-9b31-526505eb2f27"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("2a6ce3e4-41a4-4279-81d7-2302273932e9"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("3f39af62-ab3f-4792-a83a-42e1a33bc4e6"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true }
+                        new { Id = new Guid("7f64d446-ee04-4be4-8884-d478b2205015"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("56c0186b-9c3f-4f9a-9b31-526505eb2f27"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("2a6ce3e4-41a4-4279-81d7-2302273932e9"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("3f39af62-ab3f-4792-a83a-42e1a33bc4e6"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true }
                     );
                 });
 
@@ -1413,17 +1287,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("guide_number")
                         .HasMaxLength(255);
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -1496,17 +1361,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -1520,20 +1376,20 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("person_requiring_assistance_type");
 
                     b.HasData(
-                        new { Id = new Guid("895aa8c5-f5fa-4d71-90c9-0f9b48e818f8"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("ec2d9d88-79ac-41ab-8b5c-caac90db4b28"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("fec9e14d-e357-40ba-97d8-fcbfe2c6642c"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("5c2b2097-8e67-4fe5-be33-9adea39fb90a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("9a056318-cb54-4240-8637-0b38cfcaf9f3"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("1bbd7cc9-49ae-490f-a175-ca253d12c21e"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("b76531bc-460c-4ff8-889c-9504e6003e20"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("aaf8e4ca-c2d8-4b68-acb5-bc43bf059b6d"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("3dc24fa2-e091-487f-8d0b-7d0932edcbbe"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("3ed291a4-39fb-4625-93e5-1e0efd76bdea"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("e54c9200-d7c1-4fbf-a08a-833f491e9e50"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("7efe2297-c9ca-473f-b48e-3430e6778272"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("016af358-f9ac-4f72-becc-2b486bb6646b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("078ebd48-9843-43cf-b9fd-cb262b7540df"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true }
+                        new { Id = new Guid("895aa8c5-f5fa-4d71-90c9-0f9b48e818f8"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("ec2d9d88-79ac-41ab-8b5c-caac90db4b28"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("fec9e14d-e357-40ba-97d8-fcbfe2c6642c"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("5c2b2097-8e67-4fe5-be33-9adea39fb90a"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("9a056318-cb54-4240-8637-0b38cfcaf9f3"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("1bbd7cc9-49ae-490f-a175-ca253d12c21e"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("b76531bc-460c-4ff8-889c-9504e6003e20"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("aaf8e4ca-c2d8-4b68-acb5-bc43bf059b6d"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("3dc24fa2-e091-487f-8d0b-7d0932edcbbe"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("3ed291a4-39fb-4625-93e5-1e0efd76bdea"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("e54c9200-d7c1-4fbf-a08a-833f491e9e50"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("7efe2297-c9ca-473f-b48e-3430e6778272"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("016af358-f9ac-4f72-becc-2b486bb6646b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("078ebd48-9843-43cf-b9fd-cb262b7540df"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true }
                     );
                 });
 
@@ -1624,17 +1480,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -1651,11 +1498,11 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("risk_level");
 
                     b.HasData(
-                        new { Id = new Guid("aa91450d-3528-44b3-b589-6fcbba77ad3f"), Code = 1, Color = "-16744448", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 1 },
-                        new { Id = new Guid("9da4d106-116f-42dc-b92e-323f90d672cd"), Code = 2, Color = "-256", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 2 },
-                        new { Id = new Guid("90e4f73a-0c96-4da7-b9e0-4243cd29c2e8"), Code = 3, Color = "-23296", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 3 },
-                        new { Id = new Guid("7b7f3db7-ca71-4ef4-ac7d-0f89a79a651d"), Code = 4, Color = "-65536", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 4 },
-                        new { Id = new Guid("ee9f0456-d6c3-4763-86ad-bd174a76b629"), Code = 0, Color = "-16777216", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 0 }
+                        new { Id = new Guid("aa91450d-3528-44b3-b589-6fcbba77ad3f"), Code = 1, Color = "-16744448", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 1 },
+                        new { Id = new Guid("9da4d106-116f-42dc-b92e-323f90d672cd"), Code = 2, Color = "-256", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 2 },
+                        new { Id = new Guid("90e4f73a-0c96-4da7-b9e0-4243cd29c2e8"), Code = 3, Color = "-23296", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 3 },
+                        new { Id = new Guid("7b7f3db7-ca71-4ef4-ac7d-0f89a79a651d"), Code = 4, Color = "-65536", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 4 },
+                        new { Id = new Guid("ee9f0456-d6c3-4763-86ad-bd174a76b629"), Code = 0, Color = "-16777216", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Sequence = 0 }
                     );
                 });
 
@@ -2091,17 +1938,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("cubf")
                         .HasMaxLength(5);
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -2186,14 +2024,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdCity")
                         .HasColumnName("id_city");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdFireHydrantType")
                         .HasColumnName("id_fire_hydrant_type");
@@ -2212,9 +2044,6 @@ namespace Survi.Prevention.DataLayer.Migrations
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -2400,17 +2229,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -2424,13 +2244,13 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("fire_hydrant_type");
 
                     b.HasData(
-                        new { Id = new Guid("353badcc-5530-403e-8f9a-71b4ff7969d6"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("5f2fbabf-a5d1-4471-a093-2e8614690044"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("5148b24f-1c77-470f-a32f-34b63f191e5d"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("694f3f50-3476-4f4c-895b-7a14ff52e7d9"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("3e021bff-d493-4e8c-be32-a62a7ad91f95"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("7fc0daf9-6b33-4928-92a6-353986acd40e"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
-                        new { Id = new Guid("29f3c611-db28-4500-8d27-944527e006c1"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true }
+                        new { Id = new Guid("353badcc-5530-403e-8f9a-71b4ff7969d6"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("5f2fbabf-a5d1-4471-a093-2e8614690044"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("5148b24f-1c77-470f-a32f-34b63f191e5d"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("694f3f50-3476-4f4c-895b-7a14ff52e7d9"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("3e021bff-d493-4e8c-be32-a62a7ad91f95"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("7fc0daf9-6b33-4928-92a6-353986acd40e"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("29f3c611-db28-4500-8d27-944527e006c1"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true }
                     );
                 });
 
@@ -2514,23 +2334,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("email_address")
                         .HasMaxLength(100);
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdCityType")
                         .HasColumnName("id_city_type");
 
                     b.Property<Guid>("IdCounty")
                         .HasColumnName("id_county");
 
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -2596,17 +2407,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -2678,17 +2480,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -2750,12 +2543,6 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid>("IdRegion")
                         .HasColumnName("id_region");
 
@@ -2764,9 +2551,6 @@ namespace Survi.Prevention.DataLayer.Migrations
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -2832,20 +2616,11 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdCounty")
                         .HasColumnName("id_county");
 
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -3056,23 +2831,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("fax_number")
                         .HasMaxLength(10);
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid?>("IdBuilding")
                         .HasColumnName("id_building");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdFireSafetyDepartment")
                         .HasColumnName("id_fire_safety_department");
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -3108,14 +2874,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdCity")
                         .HasColumnName("id_city");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid?>("IdLaneGenericCode")
                         .HasColumnName("id_lane_generic_code");
@@ -3125,9 +2885,6 @@ namespace Survi.Prevention.DataLayer.Migrations
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -3357,20 +3114,11 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid>("IdState")
                         .HasColumnName("id_state");
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -3439,20 +3187,11 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdCountry")
                         .HasColumnName("id_country");
 
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -3623,14 +3362,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("floor")
                         .HasMaxLength(10);
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdCity")
                         .HasColumnName("id_city");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdInspection")
                         .HasColumnName("id_inspection");
@@ -3655,9 +3388,6 @@ namespace Survi.Prevention.DataLayer.Migrations
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -3745,23 +3475,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("floor")
                         .HasMaxLength(100);
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid?>("IdAlarmPanelType")
                         .HasColumnName("id_alarm_panel_type");
 
                     b.Property<Guid>("IdBuilding")
                         .HasColumnName("id_building");
 
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -3796,20 +3517,11 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuilding")
                         .HasColumnName("id_building");
 
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -3842,23 +3554,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuildingAnomaly")
                         .HasColumnName("id_building_anomaly");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdPicture")
                         .HasColumnName("id_picture");
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -3898,20 +3601,11 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("first_name")
                         .HasMaxLength(30);
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuilding")
                         .HasColumnName("id_building");
 
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -3974,23 +3668,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuilding")
                         .HasColumnName("id_building");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdFirestation")
                         .HasColumnName("id_firestation");
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -4020,23 +3705,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<int>("Direction")
                         .HasColumnName("direction");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuildingCourse")
                         .HasColumnName("id_building_course");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdLane")
                         .HasColumnName("id_lane");
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -4167,23 +3843,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnName("deleted_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuilding")
                         .HasColumnName("id_building");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdFireHydrant")
                         .HasColumnName("id_fire_hydrant");
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -4228,14 +3895,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("gas_inlet")
                         .HasMaxLength(100);
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuilding")
                         .HasColumnName("id_building");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdHazardousMaterial")
                         .HasColumnName("id_hazardous_material");
@@ -4245,9 +3906,6 @@ namespace Survi.Prevention.DataLayer.Migrations
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -4356,23 +4014,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("dimension")
                         .HasMaxLength(100);
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<bool>("HasOpening")
                         .HasColumnName("has_opening");
 
                     b.Property<Guid>("IdBuilding")
                         .HasColumnName("id_building");
 
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -4412,23 +4061,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuildingParticularRisk")
                         .HasColumnName("id_building_particular_risk");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdPicture")
                         .HasColumnName("id_picture");
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -4486,23 +4126,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("floor")
                         .HasMaxLength(3);
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuilding")
                         .HasColumnName("id_building");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdPersonRequiringAssistanceType")
                         .HasColumnName("id_person_requiring_assistance_type");
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -4552,23 +4183,14 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("floor")
                         .HasMaxLength(100);
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
                     b.Property<Guid>("IdBuilding")
                         .HasColumnName("id_building");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
 
                     b.Property<Guid>("IdSprinklerType")
                         .HasColumnName("id_sprinkler_type");
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -5182,17 +4804,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -5216,7 +4829,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("webuser");
 
                     b.HasData(
-                        new { Id = new Guid("0540e8f7-dc44-4b2f-8e42-5004cca3700b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Password = "EDDDFC93F0EBE76F4F79D9C83C298D1126F7F3A01259637AD028607D364FD247", Username = "admin" }
+                        new { Id = new Guid("0540e8f7-dc44-4b2f-8e42-5004cca3700b"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, Password = "EDDDFC93F0EBE76F4F79D9C83C298D1126F7F3A01259637AD028607D364FD247", Username = "admin" }
                     );
                 });
 
@@ -5537,17 +5150,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -5564,35 +5168,35 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("unit_of_measure");
 
                     b.HasData(
-                        new { Id = new Guid("f4f46acc-3aa5-4a77-9a75-25d66c23a917"), Abbreviation = "GIPM", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("96801d59-e01e-4219-a918-0a570a174b74"), Abbreviation = "GPM", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("14ea0d1c-a434-47d1-ba17-57967e79b4c9"), Abbreviation = "LPM", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("845d7bb3-6554-441d-bf41-6ec003598f20"), Abbreviation = "GI", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("3ac84278-7606-4cb9-bc5a-9bdc3a8fb9d0"), Abbreviation = "G", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("3015ac3e-43c5-4b74-9b3d-6f4cec3d1409"), Abbreviation = "L", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("a6b0949f-d056-4aa9-8281-d6f93941369a"), Abbreviation = "", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
-                        new { Id = new Guid("d5a9dd30-c345-496e-8669-ca9f09295878"), Abbreviation = "PSI", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 1 },
-                        new { Id = new Guid("2ee63245-6a57-4c01-8746-b10acc473b1a"), Abbreviation = "KPA", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 1 },
-                        new { Id = new Guid("5f45f2f3-cd97-4ba4-a17c-f191df34ee4a"), Abbreviation = "m3/h", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 1 },
-                        new { Id = new Guid("32d7e795-31e6-4b07-9784-c2de1c63980d"), Abbreviation = "mm", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 2 },
-                        new { Id = new Guid("71feff9f-c32d-44e6-82a8-b86b82d64bb5"), Abbreviation = "po", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 2 },
-                        new { Id = new Guid("900edc6d-7658-46d6-a696-77b57e32a3c7"), Abbreviation = "m", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 4 },
-                        new { Id = new Guid("ada51f7e-2aef-4879-99e2-cd11fe8ca93b"), Abbreviation = "pi", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 4 },
-                        new { Id = new Guid("a29dd195-53b0-4e5f-857d-6236f6faf588"), Abbreviation = "m3", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("db98476e-04bf-4502-9a0a-6e4a14797915"), Abbreviation = "po3", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("eb9d70c4-3b1b-4c84-99dd-684700e84484"), Abbreviation = "ml", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("ef8f06ac-6718-489b-b833-eb0b24926812"), Abbreviation = "pt", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("6414f1c7-73a7-434b-9217-caba747ec10e"), Abbreviation = "t", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("c1ca6d9b-0808-4add-a609-ed50ca8cd23c"), Abbreviation = "sh tn", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("1d79513f-faeb-4bc8-801d-964dd07afa10"), Abbreviation = "pi3", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("556b2773-cd90-413c-a666-a8825a0cc2a3"), Abbreviation = "GI", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("47d931ed-da80-4643-b7ce-1a32fc86366d"), Abbreviation = "", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("0a89ee7d-1205-4e9b-ac34-5231df0477cb"), Abbreviation = "G", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("d2f7d529-f330-44f7-a522-c1248fd0f68d"), Abbreviation = "g", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("b2974a84-ed50-4660-85d0-39d7d394d308"), Abbreviation = "Kg", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("fa616ff7-f819-497c-a80b-e0adf04f4b40"), Abbreviation = "L", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("18ac17a4-623a-404f-a8e3-ffe8e0d5436b"), Abbreviation = "lb", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
-                        new { Id = new Guid("01952575-4d87-4bc2-a087-b4b5ec2cb979"), Abbreviation = "oz", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, ImportedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 }
+                        new { Id = new Guid("f4f46acc-3aa5-4a77-9a75-25d66c23a917"), Abbreviation = "GIPM", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
+                        new { Id = new Guid("96801d59-e01e-4219-a918-0a570a174b74"), Abbreviation = "GPM", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
+                        new { Id = new Guid("14ea0d1c-a434-47d1-ba17-57967e79b4c9"), Abbreviation = "LPM", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
+                        new { Id = new Guid("845d7bb3-6554-441d-bf41-6ec003598f20"), Abbreviation = "GI", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
+                        new { Id = new Guid("3ac84278-7606-4cb9-bc5a-9bdc3a8fb9d0"), Abbreviation = "G", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
+                        new { Id = new Guid("3015ac3e-43c5-4b74-9b3d-6f4cec3d1409"), Abbreviation = "L", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
+                        new { Id = new Guid("a6b0949f-d056-4aa9-8281-d6f93941369a"), Abbreviation = "", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 0 },
+                        new { Id = new Guid("d5a9dd30-c345-496e-8669-ca9f09295878"), Abbreviation = "PSI", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 1 },
+                        new { Id = new Guid("2ee63245-6a57-4c01-8746-b10acc473b1a"), Abbreviation = "KPA", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 1 },
+                        new { Id = new Guid("5f45f2f3-cd97-4ba4-a17c-f191df34ee4a"), Abbreviation = "m3/h", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 1 },
+                        new { Id = new Guid("32d7e795-31e6-4b07-9784-c2de1c63980d"), Abbreviation = "mm", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 2 },
+                        new { Id = new Guid("71feff9f-c32d-44e6-82a8-b86b82d64bb5"), Abbreviation = "po", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 2 },
+                        new { Id = new Guid("900edc6d-7658-46d6-a696-77b57e32a3c7"), Abbreviation = "m", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 4 },
+                        new { Id = new Guid("ada51f7e-2aef-4879-99e2-cd11fe8ca93b"), Abbreviation = "pi", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 4 },
+                        new { Id = new Guid("a29dd195-53b0-4e5f-857d-6236f6faf588"), Abbreviation = "m3", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("db98476e-04bf-4502-9a0a-6e4a14797915"), Abbreviation = "po3", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("eb9d70c4-3b1b-4c84-99dd-684700e84484"), Abbreviation = "ml", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("ef8f06ac-6718-489b-b833-eb0b24926812"), Abbreviation = "pt", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("6414f1c7-73a7-434b-9217-caba747ec10e"), Abbreviation = "t", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("c1ca6d9b-0808-4add-a609-ed50ca8cd23c"), Abbreviation = "sh tn", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("1d79513f-faeb-4bc8-801d-964dd07afa10"), Abbreviation = "pi3", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("556b2773-cd90-413c-a666-a8825a0cc2a3"), Abbreviation = "GI", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("47d931ed-da80-4643-b7ce-1a32fc86366d"), Abbreviation = "", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("0a89ee7d-1205-4e9b-ac34-5231df0477cb"), Abbreviation = "G", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("d2f7d529-f330-44f7-a522-c1248fd0f68d"), Abbreviation = "g", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("b2974a84-ed50-4660-85d0-39d7d394d308"), Abbreviation = "Kg", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("fa616ff7-f819-497c-a80b-e0adf04f4b40"), Abbreviation = "L", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("18ac17a4-623a-404f-a8e3-ffe8e0d5436b"), Abbreviation = "lb", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 },
+                        new { Id = new Guid("01952575-4d87-4bc2-a087-b4b5ec2cb979"), Abbreviation = "oz", CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true, MeasureType = 3 }
                     );
                 });
 
