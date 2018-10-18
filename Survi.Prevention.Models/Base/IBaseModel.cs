@@ -7,7 +7,5 @@ namespace Survi.Prevention.Models.Base
 		DateTime CreatedOn { get; set; }
 		Guid Id { get; set; }
 		bool IsActive { get; set; }
-		DateTime? LastModifiedOn {get; set;}
-		Guid? IdWebUserLastModifiedBy { get; set;}
 	}
 }
