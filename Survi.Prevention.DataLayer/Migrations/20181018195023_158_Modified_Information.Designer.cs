@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -10,9 +11,10 @@ using Survi.Prevention.DataLayer;
 namespace Survi.Prevention.DataLayer.Migrations
 {
     [DbContext(typeof(ManagementContext))]
-    partial class ManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20181018195023_158_Modified_Information")]
+    partial class _158_Modified_Information
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -5870,7 +5872,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .WithMany()
                         .HasForeignKey("IdPicture")
                         .HasConstraintName("fk_building_anomaly_picture_pictures_picture_id")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Survi.Prevention.Models.Buildings.BuildingContact", b =>
@@ -6022,7 +6024,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .WithMany()
                         .HasForeignKey("IdPicture")
                         .HasConstraintName("fk_building_particular_risk_picture_pictures_picture_id")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Survi.Prevention.Models.Buildings.BuildingPersonRequiringAssistance", b =>
@@ -6535,7 +6537,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .WithMany()
                         .HasForeignKey("IdPicture")
                         .HasConstraintName("fk_inspection_building_anomaly_picture_inspection_pictures_pict~")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingContact", b =>
@@ -6696,7 +6698,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .WithMany()
                         .HasForeignKey("IdPicture")
                         .HasConstraintName("fk_inspection_building_particular_risk_picture_inspection_pictu~")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingPersonRequiringAssistance", b =>
