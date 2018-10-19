@@ -15,7 +15,6 @@ namespace Survi.Prevention.WebApi.Controllers
 		protected BaseCrudController(TService service)
 		{
 			Service = service;
-			Service.idUserModified = CurrentUserId;
 		}
 
 		[HttpGet]
@@ -43,7 +42,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public virtual ActionResult Post([FromBody] TModel entity)
 		{
-			if (Service.AddOrUpdate(entity)!= Guid.Empty)			
+			if (Service.AddOrUpdate(entity, CurrentUserId)!= Guid.Empty)			
 				return Ok(new{id = entity.Id});
 
 			return BadRequest();
@@ -55,7 +54,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public virtual ActionResult Delete(Guid id)
 		{
-			if (Service.Remove(id))
+			if (Service.Remove(id, CurrentUserId))
 				return NoContent();
 
 			return BadRequest();

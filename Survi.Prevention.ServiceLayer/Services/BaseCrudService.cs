@@ -16,13 +16,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public virtual Guid AddOrUpdate(T entity)
+		public virtual Guid AddOrUpdate(T entity, Guid idUserModified = new Guid())
 		{
 			var isExistRecord = Context.Set<T>().Any(c => c.Id == entity.Id);
 			
-			entity.LastModifiedOn = DateTime.Now;
-			if (isExistRecord){
+			if(idUserModified != Guid.Empty)
 				entity.IdWebUserLastModifiedBy = idUserModified;
+
+			if (isExistRecord){
+				entity.LastModifiedOn = DateTime.Now;
 				Context.Set<T>().Update(entity);
 			}
 			else
@@ -32,7 +34,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return entity.Id;
 		}
 
-		public virtual bool Remove(Guid id)
+		public virtual bool Remove(Guid id, Guid idUserModified = new Guid())
 		{
 			var entity = Context.Set<T>().Find(id);
 
@@ -40,19 +42,29 @@ namespace Survi.Prevention.ServiceLayer.Services
 			{
 				return false;
 			}
+			
+			if(idUserModified != Guid.Empty)
+				entity.IdWebUserLastModifiedBy = idUserModified;
 
+			entity.LastModifiedOn = DateTime.Now;
 			entity.IsActive = false;
+
 			Context.SaveChanges();
 			
 			return true;
 		}
 
-		public virtual bool RemoveRange(List<Guid> ids)
+		public virtual bool RemoveRange(List<Guid> ids, Guid idUserModified = new Guid())
 		{
 			ids.ForEach(id =>
 			{
 				var entity = new T {Id = id};
 				Context.Set<T>().Attach(entity);
+
+				if(idUserModified != Guid.Empty)
+				entity.IdWebUserLastModifiedBy = idUserModified;
+
+				entity.LastModifiedOn = DateTime.Now;
 				entity.IsActive = false;
 			});
 			Context.SaveChanges();

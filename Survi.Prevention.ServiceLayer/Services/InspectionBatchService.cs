@@ -34,7 +34,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-        public override bool Remove(Guid id)
+        public override bool Remove(Guid id, Guid idUserModified = new Guid())
         {
             var inspections = Context.Inspections
                 .Where(i => i.IdBatch == id)
@@ -56,7 +56,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             return base.Remove(id);
         }
 
-        public override Guid AddOrUpdate(Batch batch)
+        public override Guid AddOrUpdate(Batch batch, Guid idUserModified = new Guid())
         {
             UpdateBatchUser(batch);
             UpdateInspection(batch);

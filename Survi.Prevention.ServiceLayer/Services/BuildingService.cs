@@ -91,7 +91,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             return result;
         }
 
-		public override Guid AddOrUpdate(Building building)
+        public override Guid AddOrUpdate(Building building, Guid idUserModified = new Guid())
         {
             if (building.Picture != null)
             {

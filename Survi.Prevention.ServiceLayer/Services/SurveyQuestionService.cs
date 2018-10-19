@@ -33,7 +33,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-		public override bool Remove(Guid idSurveyQuestion)
+		public override bool Remove(Guid idSurveyQuestion, Guid idUserModified = new Guid())
 		{
 			if (idSurveyQuestion != Guid.Empty)
 			{
