@@ -15,6 +15,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		protected BaseCrudController(TService service)
 		{
 			Service = service;
+			Service.idUserModified = CurrentUserId;
 		}
 
 		[HttpGet]
