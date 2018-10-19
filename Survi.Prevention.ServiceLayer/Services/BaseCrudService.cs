@@ -10,6 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 	public abstract class BaseCrudService<T> : BaseService
 		where T : BaseModel, new()
 	{
+		
 		protected BaseCrudService(ManagementContext context) 
 			: base(context)
 		{
@@ -19,8 +20,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			var isExistRecord = Context.Set<T>().Any(c => c.Id == entity.Id);
 			
-			if (isExistRecord)
+			entity.LastModifiedOn = DateTime.Now;
+			if (isExistRecord){
+				entity.IdWebUserLastModifiedBy = idUserModified;
 				Context.Set<T>().Update(entity);
+			}
 			else
 				Context.Set<T>().Add(entity);
 
