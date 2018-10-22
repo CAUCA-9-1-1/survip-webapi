@@ -27,7 +27,7 @@ namespace Survi.Prevention.WebApi.Controllers
         [ProducesResponseType(200)]
         public override ActionResult Post([FromBody] Webuser entity)
         {
-            if (Service.AddOrUpdate(entity, applicationName) != Guid.Empty)
+            if (Service.AddOrUpdate(entity, applicationName, CurrentUserId) != Guid.Empty)
                 return Ok(new { id = entity.Id });
 
             return BadRequest();
