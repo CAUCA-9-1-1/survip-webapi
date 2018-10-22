@@ -20,7 +20,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPost, Route("{idSurveyQuestion:Guid}/Sequence/{sequence:int}")]
 		public ActionResult Move(Guid idSurveyQuestion, int sequence)
 		{
-			if (Service.MoveQuestion(idSurveyQuestion, sequence))
+			if (Service.MoveQuestion(idSurveyQuestion, sequence, CurrentUserId))
 				return NoContent();
 			else
 				return BadRequest("Error during the moving processs of the question");
