@@ -46,7 +46,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 		        {
 			        inspection.IsActive = false;
 			        inspection.Status = InspectionStatus.Canceled;
-			        // ReSharper disable once AccessToDisposedClosure
+
+					if(idUserModified != Guid.Empty){
+					inspection.LastModifiedOn = DateTime.Now;
+					inspection.IdWebUserLastModifiedBy = idUserModified;
+					}
+
 			        copyManager.DeleteCopy(inspection.Id);
 		        });
 	        }
@@ -61,10 +66,10 @@ namespace Survi.Prevention.ServiceLayer.Services
             UpdateBatchUser(batch);
             UpdateInspection(batch);
 
-            return base.AddOrUpdate(batch);
+            return base.AddOrUpdate(batch, idUserModified);
         }
 
-        private void UpdateInspection(Batch batch)
+        private void UpdateInspection(Batch batch, Guid idUserModified = new Guid())
         {
             var inspections = new List<Inspection>();
             var dbInspections = new List<Inspection>();
@@ -75,12 +80,12 @@ namespace Survi.Prevention.ServiceLayer.Services
                 dbInspections = Context.Inspections.AsNoTracking().Where(i => i.IdBatch == batch.Id).ToList();
 
             RemoveDeleteChildren(dbInspections, inspections);
-            AddOrUpdateChildren(inspections);
+            AddOrUpdateChildren(inspections,idUserModified);
 
             Context.SaveChanges();
         }
 
-		private void AddOrUpdateChildren(List<Inspection> inspections)
+		private void AddOrUpdateChildren(List<Inspection> inspections, Guid idUserModified = new Guid())
 		{
 			inspections.ForEach(child =>
 			{
@@ -96,10 +101,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 					child.IdSurvey = GetConfiguredSurvey(building.IdRiskLevel, fireSafetyDepartmentId);
 				}
+				child.IdWebUserLastModifiedBy = idUserModified;
 
-				if (!isExistRecord)
-				{
+				if (!isExistRecord)		
 					Context.Inspections.Add(child);
+				else
+				{
+					child.LastModifiedOn = DateTime.Now;
 				}
 			});
 		}
