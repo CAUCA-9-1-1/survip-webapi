@@ -44,7 +44,7 @@ namespace Survi.Prevention.WebApi.Controllers
 				return BadRequest("cantAddLane");
 			}
 
-			Service.AddOrUpdate(lane);
+			Service.AddOrUpdate(lane, CurrentUserId);
 			return Ok();
 		}
 		
@@ -60,7 +60,7 @@ namespace Survi.Prevention.WebApi.Controllers
 				return NotFound();
 			}
 			
-			Service.AddOrUpdate(entity);
+			Service.AddOrUpdate(entity, CurrentUserId);
 			return Ok();
 		}
 		
@@ -68,7 +68,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ODataRoute("Lane({id})"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
 		public IActionResult Delete([FromODataUri] Guid id)
 		{
-			if (Service.Remove(id))
+			if (Service.Remove(id, CurrentUserId))
 			{
 				return Ok();
 			}
