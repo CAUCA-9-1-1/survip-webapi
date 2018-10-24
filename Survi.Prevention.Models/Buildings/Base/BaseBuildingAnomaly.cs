@@ -4,7 +4,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings.Base
 {
-	public abstract class BaseBuildingAnomaly<TBuilding, TAnomalyPicture, TPicture> : BaseModel
+	public abstract class BaseBuildingAnomaly<TBuilding, TAnomalyPicture, TPicture> : BaseImportedModel
 		where TBuilding : BaseBuilding
 		where TPicture: BasePicture
 		where TAnomalyPicture : BaseBuildingAnomalyPicture<TPicture>

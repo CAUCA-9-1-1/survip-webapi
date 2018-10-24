@@ -3,7 +3,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings.Base
 {
-	public class BaseBuildingAnomalyPicture<T> : BaseModel
+	public class BaseBuildingAnomalyPicture<T> : BaseImportedModel
 		where T: BasePicture
 	{
 		public Guid? IdPicture { get; set; }

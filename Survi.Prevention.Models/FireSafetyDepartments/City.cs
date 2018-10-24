@@ -4,7 +4,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.FireSafetyDepartments
 {
-	public class City : BaseModel
+	public class City : BaseImportedModel
 	{
 		public string Code { get; set; }
 		public string Code3Letters { get; set; }

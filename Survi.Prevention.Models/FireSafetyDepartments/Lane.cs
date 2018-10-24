@@ -4,7 +4,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.FireSafetyDepartments
 {
-	public class Lane : BaseModel
+	public class Lane : BaseImportedModel
 	{
 		public bool IsValid { get; set; }
 
