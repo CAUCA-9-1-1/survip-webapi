@@ -12,7 +12,7 @@ namespace Survi.Prevention.WebApi.Controllers
 	{
 		private readonly WebuserService userService;
 		private readonly CityService cityService;
-		
+
 		public BuildingController(BuildingService service, CityService cityService, WebuserService userService) : base(service)
 		{
 			this.cityService = cityService;
@@ -30,7 +30,7 @@ namespace Survi.Prevention.WebApi.Controllers
 
 			return cityService.GetCityIdsByFireSafetyDepartments(departmentIds);
 		}
-		
+
 		[HttpGet, Route("Active")]
 		public ActionResult GetListActive([FromHeader(Name = "Language-Code")] string languageCode)
 		{
