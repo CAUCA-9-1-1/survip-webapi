@@ -34,7 +34,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-        public override bool Remove(Guid id, Guid idUserModified = new Guid())
+        public override bool Remove(Guid id, Guid idWebUserLastModifiedBy = new Guid())
         {
             var inspections = Context.Inspections
                 .Where(i => i.IdBatch == id)
@@ -47,9 +47,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 			        inspection.IsActive = false;
 			        inspection.Status = InspectionStatus.Canceled;
 
-					if(idUserModified != Guid.Empty){
+					if(idWebUserLastModifiedBy != Guid.Empty){
 					inspection.LastModifiedOn = DateTime.Now;
-					inspection.IdWebUserLastModifiedBy = idUserModified;
+					inspection.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
 					}
 
 			        copyManager.DeleteCopy(inspection.Id);
@@ -61,15 +61,15 @@ namespace Survi.Prevention.ServiceLayer.Services
             return base.Remove(id);
         }
 
-        public override Guid AddOrUpdate(Batch batch, Guid idUserModified = new Guid())
+        public override Guid AddOrUpdate(Batch batch, Guid idWebUserLastModifiedBy = new Guid())
         {
             UpdateBatchUser(batch);
-            UpdateInspection(batch);
+            UpdateInspection(batch, idWebUserLastModifiedBy);
 
-            return base.AddOrUpdate(batch, idUserModified);
+            return base.AddOrUpdate(batch, idWebUserLastModifiedBy);
         }
 
-        private void UpdateInspection(Batch batch, Guid idUserModified = new Guid())
+        private void UpdateInspection(Batch batch, Guid idWebUserLastModifiedBy = new Guid())
         {
             var inspections = new List<Inspection>();
             var dbInspections = new List<Inspection>();
@@ -80,12 +80,12 @@ namespace Survi.Prevention.ServiceLayer.Services
                 dbInspections = Context.Inspections.AsNoTracking().Where(i => i.IdBatch == batch.Id).ToList();
 
             RemoveDeleteChildren(dbInspections, inspections);
-            AddOrUpdateChildren(inspections,idUserModified);
+            AddOrUpdateChildren(inspections,idWebUserLastModifiedBy);
 
             Context.SaveChanges();
         }
 
-		private void AddOrUpdateChildren(List<Inspection> inspections, Guid idUserModified = new Guid())
+		private void AddOrUpdateChildren(List<Inspection> inspections, Guid idWebUserLastModifiedBy = new Guid())
 		{
 			inspections.ForEach(child =>
 			{
@@ -93,15 +93,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 				if (child.IdSurvey is null)
 				{
-					var building = Context.Buildings
+					var building = Context.Buildings.AsNoTracking()
 						.Include(b => b.Lane)
 						.Single(b => b.Id == child.IdBuilding && b.IsActive);
-					var fireSafetyDepartmentId = Context.FireSafetyDepartments
+					var fireSafetyDepartmentId = Context.FireSafetyDepartments.AsNoTracking()
 						.Single(d => d.FireSafetyDepartmentServing.Any(c => c.IdCity == building.Lane.IdCity)).Id;
 
 					child.IdSurvey = GetConfiguredSurvey(building.IdRiskLevel, fireSafetyDepartmentId);
 				}
-				child.IdWebUserLastModifiedBy = idUserModified;
+				child.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
 
 				if (!isExistRecord)		
 					Context.Inspections.Add(child);
