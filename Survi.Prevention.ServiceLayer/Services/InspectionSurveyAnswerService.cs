@@ -141,18 +141,18 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return formatedList;
 		}
 
-		public Guid SaveQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
+		public Guid SaveQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer, Guid idWebUserLastModifiedBy = new Guid())
 		{
 			var existingAnswer = false;
 			if (inspectionQuestionAnswer.Id != null && inspectionQuestionAnswer.Id != Guid.Empty)
 				existingAnswer = Context.InspectionSurveyAnswers.AsNoTracking().Any(ea => ea.Id == inspectionQuestionAnswer.Id);
 
 			if(existingAnswer)
-				return UpdateQuestionAnswer(inspectionQuestionAnswer);
-			return AddQuestionAnswer(inspectionQuestionAnswer);
+				return UpdateQuestionAnswer(inspectionQuestionAnswer, idWebUserLastModifiedBy);
+			return AddQuestionAnswer(inspectionQuestionAnswer, idWebUserLastModifiedBy);
 		}
 
-		private Guid AddQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
+		private Guid AddQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer, Guid idWebUserLastModifiedBy = new Guid())
 		{
 				var questionAnswer = new InspectionSurveyAnswer
 				{
@@ -163,6 +163,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 					IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice,
 					IdSurveyAnswerParent = inspectionQuestionAnswer.IdParent
 				};
+
+				if(idWebUserLastModifiedBy != Guid.Empty)
+					questionAnswer.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
+
 				Context.InspectionSurveyAnswers.Add(questionAnswer);
 				Context.SaveChanges();
 
@@ -171,11 +175,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 				return questionAnswer.Id;
 		}
 
-		private Guid UpdateQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
+		private Guid UpdateQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer, Guid idWebUserLastModifiedBy = new Guid())
 		{
 			var existingAnswer = Context.InspectionSurveyAnswers.Single(ea => ea.Id == inspectionQuestionAnswer.Id);
 			existingAnswer.Answer = inspectionQuestionAnswer.Answer;
 			existingAnswer.IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice;
+			existingAnswer.LastModifiedOn = DateTime.Now;
+			if(idWebUserLastModifiedBy != Guid.Empty)
+					existingAnswer.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
+
 			Context.InspectionSurveyAnswers.Update(existingAnswer);
 			Context.SaveChanges();
 
