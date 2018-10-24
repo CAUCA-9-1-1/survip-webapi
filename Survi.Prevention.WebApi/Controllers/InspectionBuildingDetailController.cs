@@ -15,7 +15,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[Route("/api/inspection/building/{idBuilding:Guid}/detail"), HttpGet]
 		public ActionResult GetByBuilding(Guid idBuilding)
 		{
-			return Ok(Service.GetByIdBuilding(idBuilding));
+			return Ok(Service.GetByIdBuilding(idBuilding, CurrentUserId));
 		}
     }
 }

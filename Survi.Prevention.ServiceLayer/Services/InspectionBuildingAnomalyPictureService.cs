@@ -16,20 +16,20 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public List<InspectionPictureForWeb> GetAnomalyPictures(Guid idBuildingAnomaly)
 		{
-            var query =
-                from picture in Context.InspectionBuildingAnomalyPictures.AsNoTracking()
-                let data = picture.Picture
-                where picture.IdBuildingAnomaly == idBuildingAnomaly && picture.IsActive && data != null && data.IsActive
-                select new
-                {
-                    picture.Id,
-                    picture.IdBuildingAnomaly,
-                    picture.IdPicture,
-                    PictureData = string.Format(
-	                    "data:{0};base64,{1}",
-	                    data.MimeType == "" || data.MimeType == null ? "image/jpeg" : data.MimeType,
-	                    Convert.ToBase64String(data.Data)),
-                    data.SketchJson
+			var query =
+				from picture in Context.InspectionBuildingAnomalyPictures.AsNoTracking()
+				let data = picture.Picture
+				where picture.IdBuildingAnomaly == idBuildingAnomaly && picture.IsActive && data != null && data.IsActive
+				select new
+				{
+					picture.Id,
+					picture.IdBuildingAnomaly,
+					picture.IdPicture,
+					PictureData = string.Format(
+						"data:{0};base64,{1}",
+						data.MimeType == "" || data.MimeType == null ? "image/jpeg" : data.MimeType,
+						Convert.ToBase64String(data.Data)),
+					data.SketchJson
 				};
 
 			var result = query.ToList();
@@ -44,63 +44,81 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}).ToList();
 		}
 
-		public virtual Guid AddOrUpdatePicture(InspectionPictureForWeb entity)
+		public virtual Guid AddOrUpdatePicture(InspectionPictureForWeb entity, Guid idWebUserLastModifiedBy)
 		{
-            var anomalyPicture = Context.InspectionBuildingAnomalyPictures
+            var anomalyPicture = Context.InspectionBuildingAnomalyPictures.Find(entity.Id)
 				.Include(pic => pic.Picture)
 	            .FirstOrDefault(pic => pic.Id == entity.Id) 
-				?? GenerateNewPicture(entity);
+
+			if (anomalyPicture == null)
+				anomalyPicture = GenerateNewPicture(entity, idWebUserLastModifiedBy);
+			else
+				UpdateInspectionBuildingAnomalyPictureModifiedInformation(anomalyPicture, idWebUserLastModifiedBy);
 
 			TransferDtoToModel(entity, anomalyPicture);
 
-            Context.SaveChanges();
-            return entity.Id;
-        }
+			Context.SaveChanges();
+			return entity.Id;
+		}
 
-		public bool AddUpdatePictures(InspectionPictureForWeb[] entity)
+		public bool AddUpdatePictures(InspectionPictureForWeb[] entity, Guid idWebUserLastModifiedBy)
 		{
 			bool retValue = false;
 			foreach (var pic in entity)
 			{
-				if (this.AddOrUpdatePicture(pic) != Guid.Empty)
+				if (AddOrUpdatePicture(pic, idWebUserLastModifiedBy) != Guid.Empty)
 					retValue = true;
 			}
 			return retValue;
 		}
 
-		public virtual bool Remove(Guid id)
+		public virtual bool Remove(Guid id, Guid idWebUserLastModifiedBy)
 		{
 			var entity = Context.InspectionBuildingAnomalyPictures.Find(id);
 			if (entity != null)
 			{
-				var picture = Context.InspectionPictures.Find(entity.IdPicture);
-				if(picture != null)
-				Context.Remove(picture);
+				entity.IsActive = false;
+				UpdateInspectionBuildingAnomalyPictureModifiedInformation(entity, idWebUserLastModifiedBy);
 
-				Context.Remove(entity);
+				var picture = Context.InspectionPictures.Find(entity.IdPicture);
+				if (picture != null)
+					Context.Remove(picture);
+
 				Context.SaveChanges();
 			}
 			return true;
 		}
 
-        private InspectionBuildingAnomalyPicture GenerateNewPicture(InspectionPictureForWeb entity)
-        {
-            var picture = new InspectionBuildingAnomalyPicture
+		private InspectionBuildingAnomalyPicture GenerateNewPicture(InspectionPictureForWeb entity, Guid idWebUserLastModifiedBy)
+		{
+			var picture = new InspectionBuildingAnomalyPicture
 			{
-                Id = entity.Id,
-                IdBuildingAnomaly = entity.IdParent,
-                IdPicture = entity.Id,
-                Picture = new InspectionPicture { Id = entity.Id, Name = "" }
-            };
-	        Context.Add(picture);
+				Id = entity.Id,
+				IdBuildingAnomaly = entity.IdParent,
+				IdPicture = entity.Id,
+				IdWebUserLastModifiedBy = idWebUserLastModifiedBy,
+				Picture = new InspectionPicture { Id = entity.Id, Name = "", IdWebUserLastModifiedBy = idWebUserLastModifiedBy }
+			};
+			Context.Add(picture);
 			return picture;
 		}
 
-        private void TransferDtoToModel(InspectionPictureForWeb entity, InspectionBuildingAnomalyPicture anomalyPicture)
-        {            
-            anomalyPicture.Picture.DataUri = entity.DataUri;
-            anomalyPicture.Picture.SketchJson = entity.SketchJson;
-	        entity.Id = anomalyPicture.Picture.Id;
-        }
-    }
+		private void TransferDtoToModel(InspectionPictureForWeb entity, InspectionBuildingAnomalyPicture anomalyPicture)
+		{
+			anomalyPicture.Id = entity.Id;
+			anomalyPicture.IdBuildingAnomaly = entity.IdParent;
+
+			anomalyPicture.Picture = Context.InspectionPictures.Find(entity.Id);
+
+			anomalyPicture.Picture.Id = entity.Id;
+			anomalyPicture.Picture.DataUri = entity.PictureData;
+			anomalyPicture.Picture.SketchJson = entity.SketchJson;
+		}
+
+		private void UpdateInspectionBuildingAnomalyPictureModifiedInformation(InspectionBuildingAnomalyPicture entity, Guid idWebUserLastModifiedBy)
+		{
+			entity.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
+			entity.LastModifiedOn = DateTime.Now;
+		}
+	}
 }

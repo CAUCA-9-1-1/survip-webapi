@@ -26,7 +26,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public virtual ActionResult Post([FromBody] InspectionPictureForWeb entity)
 		{
-			if (Service.AddOrUpdatePicture(entity) != Guid.Empty)
+			if (Service.AddOrUpdatePicture(entity, CurrentUserId) != Guid.Empty)
 				return Ok(new { id = entity.Id });
 
 			return BadRequest();
@@ -37,7 +37,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public virtual ActionResult Post([FromBody] InspectionPictureForWeb[] entities)
 		{
-			if (Service.AddUpdatePictures(entities))
+			if (Service.AddUpdatePictures(entities, CurrentUserId))
 				return Ok(new { result =  true});
 
 			return BadRequest();
@@ -49,7 +49,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public virtual ActionResult Delete(Guid id)
 		{
-			if (Service.Remove(id))
+			if (Service.Remove(id, CurrentUserId))
 				return NoContent();
 
 			return BadRequest();

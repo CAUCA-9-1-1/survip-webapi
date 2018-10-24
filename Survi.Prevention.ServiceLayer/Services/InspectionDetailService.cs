@@ -16,11 +16,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public InspectionBuildingDetailForWeb GetDetailForWeb(Guid inspectionId, string languageCode)
+		public InspectionBuildingDetailForWeb GetDetailForWeb(Guid inspectionId, string languageCode, Guid idWebUserLastModifiedBy)
 		{
 			if (Context.InspectionBuildings.Any(b => b.IdInspection == inspectionId))
 				return GetDetailForStartedInspection(inspectionId, languageCode);
-			return GetDetailForToDoInspection(inspectionId, languageCode);
+			return GetDetailForToDoInspection(inspectionId, languageCode, idWebUserLastModifiedBy);
 		}
 
 		private InspectionBuildingDetailForWeb GetDetailForStartedInspection(Guid inspectionId, string languageCode)
@@ -99,9 +99,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 			};
 		}
 
-		private InspectionBuildingDetailForWeb GetDetailForToDoInspection(Guid inspectionId, string languageCode)
+		private InspectionBuildingDetailForWeb GetDetailForToDoInspection(Guid inspectionId, string languageCode, Guid idWebUserLastModifiedBy)
 		{
-			CreateDetailForMainBuildingWhenMissing(inspectionId);
+			CreateDetailForMainBuildingWhenMissing(inspectionId, idWebUserLastModifiedBy);
 
 			var query =
 				from inspection in Context.Inspections.AsNoTracking()
@@ -177,7 +177,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			};
 		}
 
-		private void CreateDetailForMainBuildingWhenMissing(Guid inspectionId)
+		private void CreateDetailForMainBuildingWhenMissing(Guid inspectionId, Guid idWebUserLastModifiedBy)
 		{
 			var idBuilding = (
 				from inspection in Context.Inspections.AsNoTracking()
@@ -189,31 +189,35 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			if (idBuilding != Guid.Empty && !Context.BuildingDetails.Any(d => d.IdBuilding == idBuilding && d.IsActive))
 			{
-				var detail = new BuildingDetail {IdBuilding = idBuilding};
+				var detail = new BuildingDetail {IdBuilding = idBuilding, IdWebUserLastModifiedBy = idWebUserLastModifiedBy};
 				Context.Add(detail);
 				Context.SaveChanges();
 			}
 		}
 
 		// todo: try to get these two functions to be more generic so there can be only one.
-		public bool TryToChangeIntersection(Guid buildingId, Guid? idLaneTransversal)
+		public bool TryToChangeIntersection(Guid buildingId, Guid? idLaneTransversal, Guid idWebUserLastModifiedBy)
 		{
 			var form = Context.Find<InspectionBuilding>(buildingId);
 			if (form != null)
 			{
 				form.IdLaneTransversal = idLaneTransversal;
+				form.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
+				form.LastModifiedOn = DateTime.Now;
 				Context.SaveChanges();
 				return true;
 			}
 			return false;
 		}
 
-		public bool TryToChangeIdPicture(Guid detailId, Guid? idPicture)
+		public bool TryToChangeIdPicture(Guid detailId, Guid? idPicture, Guid idWebUserLastModifiedBy)
 		{
 			var form = Context.Find<InspectionBuildingDetail>(detailId);
 			if (form != null)
 			{
 				form.IdPicturePlan = idPicture;
+				form.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
+				form.LastModifiedOn = DateTime.Now;
 				Context.SaveChanges();
 				return true;
 			}

@@ -18,25 +18,25 @@ namespace Survi.Prevention.WebApi.Controllers
 		[Route("/api/inspection/building/{idBuilding:Guid}/particularrisk/foundation"), HttpGet]
 		public ActionResult GetFoundation(Guid idBuilding)
 		{
-			return Ok(Service.Get<InspectionBuildingFoundationParticularRisk>(idBuilding));
+			return Ok(Service.Get<InspectionBuildingFoundationParticularRisk>(idBuilding, CurrentUserId));
 		}
 
 		[Route("/api/inspection/building/{idBuilding:Guid}/particularrisk/floor"), HttpGet]
 		public ActionResult GetFloor(Guid idBuilding)
 		{
-			return Ok(Service.Get<InspectionBuildingFloorParticularRisk>(idBuilding));
+			return Ok(Service.Get<InspectionBuildingFloorParticularRisk>(idBuilding, CurrentUserId));
 		}
 
 		[Route("/api/inspection/building/{idBuilding:Guid}/particularrisk/wall"), HttpGet]
 		public ActionResult GetWall(Guid idBuilding)
 		{
-			return Ok(Service.Get<InspectionBuildingWallParticularRisk>(idBuilding));
+			return Ok(Service.Get<InspectionBuildingWallParticularRisk>(idBuilding, CurrentUserId));
 		}
 
 		[Route("/api/inspection/building/{idBuilding:Guid}/particularrisk/roof"), HttpGet]
 		public ActionResult GetRoof(Guid idBuilding)
 		{
-			return Ok(Service.Get<InspectionBuildingRoofParticularRisk>(idBuilding));
+			return Ok(Service.Get<InspectionBuildingRoofParticularRisk>(idBuilding, CurrentUserId));
 		}
 
 		[HttpPost, Route("foundation"),ProducesResponseType(401), ProducesResponseType(200)]
@@ -65,14 +65,14 @@ namespace Survi.Prevention.WebApi.Controllers
 
 		private ActionResult Post<T>(T entity) where T : InspectionBuildingParticularRisk
 		{
-			if (Service.AddOrUpdate(entity) != Guid.Empty)
+			if (Service.AddOrUpdate(entity, CurrentUserId) != Guid.Empty)
 				return Ok(new { id = entity.Id });
 			return BadRequest();
 		}
 
 		private ActionResult Delete<T>(Guid id) where T : InspectionBuildingParticularRisk
 		{
-			if (Service.Remove<T>(id))
+			if (Service.Remove<T>(id, CurrentUserId))
 				return NoContent();
 			return BadRequest();
 		}
