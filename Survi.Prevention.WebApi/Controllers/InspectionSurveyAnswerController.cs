@@ -36,7 +36,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPost, Route("Answer")]
 		public ActionResult SaveQuestionAnswer([FromBody] InspectionQuestionForList inspectionQuestionAnswer)
 		{
-			if (Service.SaveQuestionAnswer(inspectionQuestionAnswer) != Guid.Empty)
+			if (Service.SaveQuestionAnswer(inspectionQuestionAnswer, CurrentUserId) != Guid.Empty)
 				return Ok(new { id = inspectionQuestionAnswer.Id });
 			return BadRequest("Error on question answer saving process");
 		}

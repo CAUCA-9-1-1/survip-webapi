@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Newtonsoft.Json.Linq;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Base;
@@ -16,12 +17,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public virtual Guid AddOrUpdate(T entity, Guid idUserModified = new Guid())
+		public virtual Guid AddOrUpdate(T entity, Guid IdWebUserLastModifiedBy = new Guid())
 		{
 			var isExistRecord = Context.Set<T>().Any(c => c.Id == entity.Id);
 			
-			if(idUserModified != Guid.Empty)
-				entity.IdWebUserLastModifiedBy = idUserModified;
+			if(IdWebUserLastModifiedBy != Guid.Empty)
+				entity.IdWebUserLastModifiedBy = IdWebUserLastModifiedBy;
 
 			if (isExistRecord){
 				entity.LastModifiedOn = DateTime.Now;
@@ -30,11 +31,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 			else
 				Context.Set<T>().Add(entity);
 
+
 			Context.SaveChanges();
 			return entity.Id;
 		}
 
-		public virtual bool Remove(Guid id, Guid idUserModified = new Guid())
+		public virtual bool Remove(Guid id, Guid IdWebUserLastModifiedBy = new Guid())
 		{
 			var entity = Context.Set<T>().Find(id);
 
@@ -43,8 +45,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 				return false;
 			}
 			
-			if(idUserModified != Guid.Empty)
-				entity.IdWebUserLastModifiedBy = idUserModified;
+			if(IdWebUserLastModifiedBy != Guid.Empty)
+				entity.IdWebUserLastModifiedBy = IdWebUserLastModifiedBy;
 
 			entity.LastModifiedOn = DateTime.Now;
 			entity.IsActive = false;
