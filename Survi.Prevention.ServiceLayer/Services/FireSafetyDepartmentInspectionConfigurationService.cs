@@ -87,7 +87,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return query.Distinct().ToList();
 		}
 
-		public virtual bool Remove(Guid id)
+		public virtual bool Remove(Guid id, Guid idWebUserLastModifiedBy)
 		{
 			var entity = Context.Set<FireSafetyDepartmentInspectionConfiguration>().Find(id);
 
@@ -97,17 +97,27 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 
 			entity.IsActive = false;
+			entity.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
+			entity.LastModifiedOn = DateTime.Now;
+
 			Context.SaveChanges();
 
 			return true;
 		}
 
-		public Guid AddOrUpdate(FireSafetyDepartmentInspectionConfigurationForEdition entity)
+		public Guid AddOrUpdate(FireSafetyDepartmentInspectionConfigurationForEdition entity, Guid idWebUserLastModifiedBy)
 		{
 			var currentConfig = Context.FireSafetyDepartmentInspectionConfigurations
 					.Include(config => config.RiskLevels)
-				    .FirstOrDefault(config => config.Id == entity.Id) 
-			    ?? CreateNewConfiguration();
+					.FirstOrDefault(config => config.Id == entity.Id);
+
+			if (currentConfig == null)
+				currentConfig = CreateNewConfiguration(idWebUserLastModifiedBy);
+			else
+			{
+				currentConfig.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
+				currentConfig.LastModifiedOn = DateTime.Now;
+			}
 
 			PushDtoToEntity(entity, currentConfig);
 
@@ -141,7 +151,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			var deletedRiskLevels = activeRisks.Where(risk => riskLevelIds.All(id => id != risk.IdRiskLevel)).ToList();
 			var newRiskLevelIds = riskLevelIds.Where(id => activeRisks.All(risk => risk.IdRiskLevel != id)).ToList();
 			Context.RemoveRange(deletedRiskLevels);
-			foreach(var id in newRiskLevelIds)
+			foreach (var id in newRiskLevelIds)
 			{
 				var risk = new FireSafetyDepartmentInspectionConfigurationRiskLevel
 				{
@@ -152,10 +162,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 		}
 
-		private FireSafetyDepartmentInspectionConfiguration CreateNewConfiguration()
+		private FireSafetyDepartmentInspectionConfiguration CreateNewConfiguration(Guid idWebUserLastModifiedBy)
 		{
 			var currentConfig = new FireSafetyDepartmentInspectionConfiguration
-				{ RiskLevels = new List<FireSafetyDepartmentInspectionConfigurationRiskLevel>() };
+			{ RiskLevels = new List<FireSafetyDepartmentInspectionConfigurationRiskLevel>(), IdWebUserLastModifiedBy = idWebUserLastModifiedBy };
 			Context.Add(currentConfig);
 			return currentConfig;
 		}
