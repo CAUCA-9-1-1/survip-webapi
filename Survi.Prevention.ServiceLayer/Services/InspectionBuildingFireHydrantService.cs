@@ -77,19 +77,21 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return "";
 		}
 
-		public bool DeleteBuildingFireHydrant(Guid idBuildingFireHydrant)
+		public bool DeleteBuildingFireHydrant(Guid idBuildingFireHydrant, Guid idWebUserLastModifiedBy)
 		{
 			var buildingfirehydrant = Context.InspectionBuildingFireHydrants.Find(idBuildingFireHydrant);
 			if(buildingfirehydrant != null)
 			{
 				buildingfirehydrant.IsActive = false;
+				buildingfirehydrant.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
+				buildingfirehydrant.LastModifiedOn = DateTime.Now;
 				Context.SaveChanges();
 				return true;
 			}
 			return false;
 		}
 
-		public bool AddBuildingFireHydrant(Guid idBuilding, Guid idFireHydrant)
+		public bool AddBuildingFireHydrant(Guid idBuilding, Guid idFireHydrant, Guid idWebUserLastModifiedBy)
 		{
 			if(idBuilding != Guid.Empty && idFireHydrant != Guid.Empty)
 			{
@@ -97,7 +99,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 				{
 					IdFireHydrant = idFireHydrant,
 					IdBuilding = idBuilding,
-					IsActive = true
+					IsActive = true,
+					IdWebUserLastModifiedBy = idWebUserLastModifiedBy
 				};
 				Context.InspectionBuildingFireHydrants.Add(fireHydrant);
 

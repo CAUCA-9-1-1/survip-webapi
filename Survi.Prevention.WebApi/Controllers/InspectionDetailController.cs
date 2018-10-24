@@ -17,7 +17,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpGet, Route("{idInspection:Guid}/detail")]
 		public ActionResult GetDetailForWeb(Guid idInspection, [FromHeader(Name = "Language-Code")]string languageCode)
 		{
-			var form = service.GetDetailForWeb(idInspection, languageCode);
+			var form = service.GetDetailForWeb(idInspection, languageCode, CurrentUserId);
 			if (form == null)
 				return NotFound();
 			return Ok(form);
@@ -26,7 +26,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPost, Route("building/{idBuilding:Guid}/idLaneIntersection/{idLane:Guid?}")]	
 		public ActionResult SaveIntersection(Guid idBuilding, Guid? idLane)
 		{			
-			if (service.TryToChangeIntersection(idBuilding, idLane))
+			if (service.TryToChangeIntersection(idBuilding, idLane, CurrentUserId))
 				return NoContent();
 			return BadRequest("Unknown building.");			
 		}
@@ -34,7 +34,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPost, Route("buildingdetail/{idBuildingDetail:Guid}/idPicture/{idPicture:Guid?}")]
 		public ActionResult SavePicture(Guid idBuildingDetail, Guid? idPicture)
 		{
-			if (service.TryToChangeIdPicture(idBuildingDetail, idPicture))
+			if (service.TryToChangeIdPicture(idBuildingDetail, idPicture, CurrentUserId))
 				return NoContent();
 			return BadRequest("Unknown building detail.");			
 		}

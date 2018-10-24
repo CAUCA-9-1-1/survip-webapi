@@ -68,12 +68,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return query.Distinct().ToList();
 		}
 
-		public virtual Guid AddOrUpdatePicture(InspectionBuildingAnomalyPicture entity)
+		public virtual Guid AddOrUpdatePicture(InspectionBuildingAnomalyPicture entity, Guid idWebUserLastModifiedBy)
 		{
 			var isExistRecord = Context.InspectionBuildingAnomalyPictures.Any(c => c.Id == entity.Id);
 
+			entity.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
+
 			if (isExistRecord)
+			{
+				entity.LastModifiedOn = DateTime.Now;
 				Context.InspectionBuildingAnomalyPictures.Update(entity);
+			}
 			else
 				Context.InspectionBuildingAnomalyPictures.Add(entity);
 
