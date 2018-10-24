@@ -47,7 +47,7 @@ namespace Survi.Prevention.WebApi.Controllers
 				return BadRequest("cantAddFireHydrant");
 			}
 
-			Service.AddOrUpdate(fireHydrant);
+			Service.AddOrUpdate(fireHydrant, CurrentUserId);
 			return Ok();
 		}
 
@@ -63,7 +63,7 @@ namespace Survi.Prevention.WebApi.Controllers
 				return NotFound();
 			}
 			
-			Service.AddOrUpdate(entity);
+			Service.AddOrUpdate(entity, CurrentUserId);
 			return Ok();
 		}
 
@@ -71,7 +71,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ODataRoute("FireHydrant({id})"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
 		public IActionResult Delete([FromODataUri] Guid id)
 		{
-			if (Service.Remove(id))
+			if (Service.Remove(id, CurrentUserId))
 			{
 				return Ok();
 			}
