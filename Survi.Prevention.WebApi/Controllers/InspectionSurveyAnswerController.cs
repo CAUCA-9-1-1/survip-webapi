@@ -44,7 +44,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPost, Route("SetSurveyStatus")]
 		public ActionResult SetSurveyStatus([FromBody] InspectionSurveyCompletion SurveyStatus)
 		{
-			if (Service.SetSurveyStatus(SurveyStatus))
+			if (Service.SetSurveyStatus(SurveyStatus, CurrentUserId))
 				return NoContent();
 			else
 				return BadRequest("Error on updating the inspection survey completed status");
@@ -53,7 +53,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPut, Route("Inspection/DeleteAnswers")]
 		public ActionResult DeleteSurveyAnswers([FromBody] List<Guid> answerIds)
 		{
-			if (Service.RemoveRange(answerIds))
+			if (Service.RemoveRange(answerIds, CurrentUserId))
 				return Ok();
 			return BadRequest("Error on deleteing answer group");
 		}

@@ -152,7 +152,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return AddQuestionAnswer(inspectionQuestionAnswer, idWebUserLastModifiedBy);
 		}
 
-		private Guid AddQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer, Guid idWebUserLastModifiedBy = new Guid())
+		private Guid AddQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer, Guid idWebUserLastModifiedBy)
 		{
 				var questionAnswer = new InspectionSurveyAnswer
 				{
@@ -161,11 +161,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 					IdSurveyQuestion = inspectionQuestionAnswer.IdSurveyQuestion,
 					IdInspection = inspectionQuestionAnswer.IdInspection,
 					IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice,
-					IdSurveyAnswerParent = inspectionQuestionAnswer.IdParent
+					IdSurveyAnswerParent = inspectionQuestionAnswer.IdParent,
+					IdWebUserLastModifiedBy = idWebUserLastModifiedBy
 				};
-
-				if(idWebUserLastModifiedBy != Guid.Empty)
-					questionAnswer.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
 
 				Context.InspectionSurveyAnswers.Add(questionAnswer);
 				Context.SaveChanges();
@@ -175,14 +173,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 				return questionAnswer.Id;
 		}
 
-		private Guid UpdateQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer, Guid idWebUserLastModifiedBy = new Guid())
+		private Guid UpdateQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer, Guid idWebUserLastModifiedBy)
 		{
 			var existingAnswer = Context.InspectionSurveyAnswers.Single(ea => ea.Id == inspectionQuestionAnswer.Id);
 			existingAnswer.Answer = inspectionQuestionAnswer.Answer;
 			existingAnswer.IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice;
 			existingAnswer.LastModifiedOn = DateTime.Now;
-			if(idWebUserLastModifiedBy != Guid.Empty)
-					existingAnswer.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
+			existingAnswer.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
 
 			Context.InspectionSurveyAnswers.Update(existingAnswer);
 			Context.SaveChanges();
@@ -197,6 +194,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 				var targetInspection = Context.Inspections.Single(i => i.Id == surveyStatus.idInspection && i.IsActive);
 
 				targetInspection.IsSurveyCompleted = surveyStatus.isCompleted;
+				targetInspection.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
+				targetInspection.LastModifiedOn = DateTime.Now;
+					
 				if(surveyStatus.isCompleted)
 					targetInspection.SurveyCompletedOn = DateTime.Now;
 				else
