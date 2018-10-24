@@ -4,7 +4,7 @@ using Survi.Prevention.Models.Buildings;
 
 namespace Survi.Prevention.Models.FireSafetyDepartments
 {
-	public class Firestation : BaseModel
+	public class Firestation : BaseImportedModel
 	{
 		public string Name { get; set; }
 		public string PhoneNumber { get; set; }

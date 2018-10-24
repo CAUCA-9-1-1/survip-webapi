@@ -4,7 +4,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.FireSafetyDepartments
 {
-	public class State : BaseModel
+	public class State : BaseImportedModel
 	{
 		public string AnsiCode { get; set; }
 		public Guid IdCountry { get; set; }

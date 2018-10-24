@@ -15,7 +15,7 @@ namespace Survi.Prevention.Models.Buildings.Base
 		AlarmPanelType AlarmPanelType { get; set; }
 	}
 
-	public abstract class BaseBuildingAlarmPanel<T> : BaseModel, IBaseBuildingAlarmPanel
+	public abstract class BaseBuildingAlarmPanel<T> : BaseImportedModel, IBaseBuildingAlarmPanel
 		where T: BaseBuilding
 	{
 		public string Floor { get; set; }

@@ -38,7 +38,7 @@ namespace Survi.Prevention.Models.FireHydrants
 		LessOrEqual
 	}
 
-	public class FireHydrant : BaseModel
+	public class FireHydrant : BaseImportedModel
 	{
 		private NetTopologySuitePointWrapper wrapper;
 		

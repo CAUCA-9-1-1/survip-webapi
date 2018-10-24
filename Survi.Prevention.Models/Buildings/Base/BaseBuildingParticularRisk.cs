@@ -12,7 +12,7 @@ namespace Survi.Prevention.Models.Buildings.Base
 		Roof
 	}
 
-    public abstract class BaseBuildingParticularRisk<TBuilding, TRiskPicture, TPicture> : BaseModel
+    public abstract class BaseBuildingParticularRisk<TBuilding, TRiskPicture, TPicture> : BaseImportedModel
 	    where TBuilding : BaseBuilding
 	    where TPicture : BasePicture
 		where TRiskPicture : BaseBuildingParticularRiskPicture<TPicture>

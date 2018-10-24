@@ -5,7 +5,7 @@ using Survi.Prevention.Models.FireSafetyDepartments;
 
 namespace Survi.Prevention.Models.Buildings.Base
 {
-	public abstract class BaseBuildingCourse<TCourseLane> : BaseModel, IBaseBuildingCourse<TCourseLane>
+	public abstract class BaseBuildingCourse<TCourseLane> : BaseImportedModel, IBaseBuildingCourse<TCourseLane>
 	{
 		public Guid IdBuilding { get; set; }
 		public Guid IdFirestation { get; set; }

@@ -3,7 +3,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings.Base
 {
-	public abstract class BaseBuildingPersonRequiringAssistance<T> : BaseModel, IBaseBuildingPersonRequiringAssistance 
+	public abstract class BaseBuildingPersonRequiringAssistance<T> : BaseImportedModel, IBaseBuildingPersonRequiringAssistance 
 		where T : BaseBuilding
 	{
 		public int DayResidentCount { get; set; }

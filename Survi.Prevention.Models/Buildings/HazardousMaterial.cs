@@ -3,7 +3,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings
 {
-	public class HazardousMaterial : BaseModel
+	public class HazardousMaterial : BaseImportedModel
 	{
 		public string Number { get; set; }
 		public string GuideNumber { get; set; }

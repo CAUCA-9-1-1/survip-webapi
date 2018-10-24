@@ -12,7 +12,7 @@ namespace Survi.Prevention.Models
 		Dimension
 	}
 
-	public class UnitOfMeasure : BaseModel
+	public class UnitOfMeasure : BaseImportedModel
 	{
 		public string Abbreviation { get; set; }
 		public MeasureType MeasureType { get; set; }

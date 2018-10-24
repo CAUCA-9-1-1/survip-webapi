@@ -3,7 +3,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings
 {
-	public class RiskLevel : BaseModel
+	public class RiskLevel : BaseImportedModel
 	{
 		public int Sequence { get; set; }
 		public int Code { get; set; }
