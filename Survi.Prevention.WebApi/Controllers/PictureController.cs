@@ -28,7 +28,7 @@ namespace Survi.Prevention.WebApi.Controllers
         [HttpPut]
         public ActionResult PostPictureFile([FromBody]Picture picture)
         {
-            return Ok(service.UploadFile(picture));
+            return Ok(service.UploadFile(picture, CurrentUserId));
         }
     }
 }

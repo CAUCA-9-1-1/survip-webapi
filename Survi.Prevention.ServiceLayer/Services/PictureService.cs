@@ -39,9 +39,12 @@ namespace Survi.Prevention.ServiceLayer.Services
             };
         }
 
-        public Guid UploadFile(Picture picture)
+        public Guid UploadFile(Picture picture, Guid idWebUserLastModifiedBy = new Guid())
         {
             var isExistRecord = Context.Pictures.Any(p => p.Id == picture.Id);
+
+			if(idWebUserLastModifiedBy != Guid.Empty)
+				picture.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
 
             if (!isExistRecord)
             {
@@ -49,6 +52,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             }
             else
             {
+				picture.LastModifiedOn = DateTime.Now;
 	            Context.Update(picture);
             }
 
