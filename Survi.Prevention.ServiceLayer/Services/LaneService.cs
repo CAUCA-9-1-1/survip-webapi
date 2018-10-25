@@ -40,8 +40,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 			    let publicCode = lane.PublicCode
 			    from localization in lane.Localizations.DefaultIfEmpty()
 			    where localization.IsActive && localization.LanguageCode == languageCode
-			    orderby localization.Name
-			    select new {lane.Id, localization.Name, genericDescription = genericCode.Description, genericCode.AddWhiteSpaceAfter, publicDescription = publicCode.Description};
+			    from city in lane.City.Localizations.Where(loc => loc.IsActive && loc.LanguageCode == languageCode).DefaultIfEmpty()
+				orderby localization.Name
+			    select new {lane.Id, localization.Name, genericDescription = genericCode.Description, genericCode.AddWhiteSpaceAfter, publicDescription = publicCode.Description, CityName = city.Name};
 
 		    var rawResult = query.ToList();
 
@@ -49,7 +50,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 			    .Select(lane => new LaneLocalized
 			    {
 				    Id = lane.Id,
-				    Name = new LocalizedLaneNameGenerator().GenerateLaneName(lane.Name, lane.genericDescription, lane.publicDescription, lane.AddWhiteSpaceAfter)
+				    Name = new LocalizedLaneNameGenerator().GenerateLaneName(lane.Name, lane.genericDescription, lane.publicDescription, lane.AddWhiteSpaceAfter),
+					CityName = lane.CityName
 			    })
 			    .ToList();
 
@@ -65,12 +67,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 				let publicCode = lane.PublicCode
 				from localization in lane.Localizations.DefaultIfEmpty()
 				where localization.IsActive && localization.LanguageCode == languageCode
-				from city in lane.City.Localizations.Where(loc => loc.IsActive && loc.LanguageCode == languageCode)
+				from city in lane.City.Localizations.Where(loc => loc.IsActive && loc.LanguageCode == languageCode).DefaultIfEmpty()
 				orderby localization.Name
 				select new {lane.Id, localization.Name, genericDescription = genericCode.Description, genericCode.AddWhiteSpaceAfter, publicDescription = publicCode.Description, CityName = city.Name};
 
 			var result = query.ToList()
-				.Select(lane => new LaneLocalized {Id = lane.Id, Name = new LocalizedLaneNameGenerator().GenerateLaneName(lane.Name, lane.genericDescription, lane.publicDescription, lane.AddWhiteSpaceAfter), CityName = lane.CityName})
+				.Select(lane => new LaneLocalized
+					{
+						Id = lane.Id,
+						Name = new LocalizedLaneNameGenerator().GenerateLaneName(lane.Name, lane.genericDescription, lane.publicDescription, lane.AddWhiteSpaceAfter),
+						CityName = lane.CityName
+					})
 				.ToList();
 
 			return result;
