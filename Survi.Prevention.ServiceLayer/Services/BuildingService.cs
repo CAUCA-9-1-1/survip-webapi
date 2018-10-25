@@ -75,7 +75,12 @@ namespace Survi.Prevention.ServiceLayer.Services
             return result;
         }
 
-        public override Guid AddOrUpdate(Building building)
+		public object GetListActiveForFireSafetyDepartment(Guid idFireSafetyDepartment, string languageCode)
+		{
+			throw new NotImplementedException();
+		}
+
+		public override Guid AddOrUpdate(Building building)
         {
             if (building.Picture != null)
             {
