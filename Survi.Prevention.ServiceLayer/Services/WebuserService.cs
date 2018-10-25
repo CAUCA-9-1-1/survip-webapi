@@ -27,6 +27,7 @@ namespace Survi.Prevention.ServiceLayer.Services
         public override List<Webuser> GetList()
         {
             var result = Context.Webusers
+				.Where(wu => wu.IsActive)
                 .Include(u => u.Attributes)
                 .Include(u => u.FireSafetyDepartments)
                 .ToList();

@@ -26,6 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Services
         public override List<UnitOfMeasure> GetList()
         {
             var result = Context.UnitOfMeasures
+						.Where(uom => uom.IsActive)
                         .Include(s => s.Localizations)
                         .ToList();
 

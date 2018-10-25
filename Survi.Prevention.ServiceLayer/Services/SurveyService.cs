@@ -25,6 +25,7 @@ namespace Survi.Prevention.ServiceLayer.Services {
 		public override List<Survey> GetList()
 		{
 			var result = Context.Surveys
+						.Where(s => s.IsActive)
 						.Include(s => s.Localizations)
 						.ToList();
 
