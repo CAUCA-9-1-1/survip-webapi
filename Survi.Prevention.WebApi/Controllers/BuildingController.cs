@@ -18,9 +18,15 @@ namespace Survi.Prevention.WebApi.Controllers
 			this.userService = userService;
 		}
 		
-		private List<Guid> GetUserCityIds()
+		private List<Guid> GetUserCityIds(Guid idFireSafetyDepartment = new Guid())
 		{
-			var departmentIds = userService.GetUserFireSafetyDepartments(CurrentUserId);
+			var departmentIds = new List<Guid>();
+
+			if(idFireSafetyDepartment != Guid.Empty)
+				departmentIds.Add(idFireSafetyDepartment);
+			else
+			 departmentIds = userService.GetUserFireSafetyDepartments(CurrentUserId);
+
 			return cityService.GetCityIdsByFireSafetyDepartments(departmentIds);
 		}
 		
@@ -28,6 +34,12 @@ namespace Survi.Prevention.WebApi.Controllers
 		public ActionResult GetListActive([FromHeader(Name = "Language-Code")] string languageCode)
 		{
 			return Ok(Service.GetListActive(languageCode, GetUserCityIds()));
+		}
+
+		[HttpGet, Route("Active/{idFireSafetyDepartment:Guid}")]
+		public ActionResult GetListActiveForFireSafetyDepartment(Guid idFireSafetyDepartment, [FromHeader(Name = "Language-Code")] string languageCode)
+		{
+			return Ok(Service.GetListActive(languageCode, GetUserCityIds(idFireSafetyDepartment)));
 		}
 		
         [HttpGet, Route("child/{idParentBuilding:Guid}")]

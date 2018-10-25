@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.FireSafetyDepartments;
 
 namespace Survi.Prevention.ServiceLayer.Services
@@ -29,6 +30,19 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.ToList();
 
 			return result;
+		}
+
+		public List<GenericModelForDisplay> GetListLocalized(string languageCode, List<Guid> fireSafetyDepartmentIds)
+		{
+			var result =
+				from department in Context.FireSafetyDepartments.AsNoTracking()
+				where department.IsActive && fireSafetyDepartmentIds.Contains(department.Id)
+				from localization in department.Localizations.DefaultIfEmpty()
+                where localization.IsActive && localization.LanguageCode == languageCode
+				
+				select new GenericModelForDisplay { Id = department.Id, Name = localization.Name};
+
+			return result.Distinct().ToList();
 		}
 	}
 }
