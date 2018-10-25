@@ -26,6 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Services
         public override List<UtilisationCode> GetList()
         {
             var result = Context.UtilisationCodes
+				.Where(uc => uc.IsActive)
                 .Include(r => r.Localizations)
                 .ToList();
 

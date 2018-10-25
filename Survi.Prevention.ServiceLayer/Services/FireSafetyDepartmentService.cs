@@ -26,6 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public override List<FireSafetyDepartment> GetList()
 		{
 			var result = Context.FireSafetyDepartments
+				.Where(fsd => fsd.IsActive)
                 .Include(s => s.Localizations)
 				.ToList();
 

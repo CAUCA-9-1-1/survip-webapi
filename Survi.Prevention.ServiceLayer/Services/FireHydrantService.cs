@@ -17,7 +17,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 	    public IQueryable<FireHydrant> GetList(List<Guid> idCities)
 	    {
 		    var query = Context.FireHydrants
-			    .Where(b => idCities.Contains(b.IdCity));
+			    .Where(b => idCities.Contains(b.IdCity) && b.IsActive);
 
 		    return query;
 	    }

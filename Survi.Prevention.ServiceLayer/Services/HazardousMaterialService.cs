@@ -26,6 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Services
         public override List<HazardousMaterial> GetList()
         {
             var result = Context.HazardousMaterials
+				.Where(hm => hm.IsActive)
                 .Include(r => r.Localizations)
                 .ToList();
 

@@ -25,6 +25,7 @@ namespace Survi.Prevention.ServiceLayer.Services
         public override List<FireHydrantConnectionType> GetList()
         {
             var result = Context.FireHydrantConnectionTypes
+						.Where(fct => fct.IsActive)
                         .Include(s => s.Localizations)
                         .ToList();
 

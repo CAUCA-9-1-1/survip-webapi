@@ -26,6 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public override List<Region> GetList()
 		{
 			var result = Context.Regions
+				.Where(r => r.IsActive)
                 .Include(r => r.Localizations)
 				.ToList();
 

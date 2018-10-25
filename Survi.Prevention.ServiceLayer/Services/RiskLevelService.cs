@@ -26,6 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Services
         public override List<RiskLevel> GetList()
         {
             var result = Context.RiskLevels
+				.Where(rl => rl.IsActive)
                 .Include(r => r.Localizations)
                 .ToList();
 

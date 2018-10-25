@@ -26,6 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Services
         public override List<PersonRequiringAssistanceType> GetList()
         {
             var result = Context.PersonRequiringAssistanceTypes
+				.Where(prat => prat.IsActive)
                 .Include(r => r.Localizations)
                 .ToList();
 
