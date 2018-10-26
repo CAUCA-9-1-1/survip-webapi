@@ -28,5 +28,11 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return Ok(Service.GetLocalized(languageCode, GetDepartmentIds()));
 		}
+
+		[HttpGet, Route("alllocalized")]
+		public ActionResult GetFullListLocalized([FromHeader(Name = "Language-Code")] string languageCode)
+		{
+			return Ok(Service.GetLocalized(languageCode));
+		}
 	}
 }
