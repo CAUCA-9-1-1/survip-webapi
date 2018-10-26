@@ -23,6 +23,23 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
+		public List<FireSafetyDepartmentLocalized> GetLocalized(string languageCode, List<Guid> allowedDepartmentIds)
+		{
+			var query =
+				from department in Context.FireSafetyDepartments.AsNoTracking()
+				where department.IsActive && allowedDepartmentIds.Contains(department.Id)
+				from localization in department.Localizations.DefaultIfEmpty()
+				where localization.IsActive && localization.LanguageCode == languageCode
+				orderby localization.Name
+				select new FireSafetyDepartmentLocalized
+				{
+					Id = department.Id,
+					Name = localization.Name
+				};
+
+			return query.ToList();
+		}
+
 		public override List<FireSafetyDepartment> GetList()
 		{
 			var result = Context.FireSafetyDepartments
