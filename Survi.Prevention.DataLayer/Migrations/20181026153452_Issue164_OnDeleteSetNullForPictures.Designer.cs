@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -10,9 +11,10 @@ using Survi.Prevention.DataLayer;
 namespace Survi.Prevention.DataLayer.Migrations
 {
     [DbContext(typeof(ManagementContext))]
-    partial class ManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20181026153452_Issue164_OnDeleteSetNullForPictures")]
+    partial class Issue164_OnDeleteSetNullForPictures
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -365,7 +367,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<Guid>("IdBuildingAnomaly")
                         .HasColumnName("id_building_anomaly");
 
-                    b.Property<Guid?>("IdPicture")
+                    b.Property<Guid>("IdPicture")
                         .HasColumnName("id_picture");
 
                     b.Property<bool>("IsActive")
@@ -770,7 +772,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<Guid>("IdBuildingParticularRisk")
                         .HasColumnName("id_building_particular_risk");
 
-                    b.Property<Guid?>("IdPicture")
+                    b.Property<Guid>("IdPicture")
                         .HasColumnName("id_picture");
 
                     b.Property<bool>("IsActive")
@@ -3143,7 +3145,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<Guid>("IdBuildingAnomaly")
                         .HasColumnName("id_building_anomaly");
 
-                    b.Property<Guid?>("IdPicture")
+                    b.Property<Guid>("IdPicture")
                         .HasColumnName("id_picture");
 
                     b.Property<bool>("IsActive")
@@ -3596,7 +3598,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<Guid>("IdBuildingParticularRisk")
                         .HasColumnName("id_building_particular_risk");
 
-                    b.Property<Guid?>("IdPicture")
+                    b.Property<Guid>("IdPicture")
                         .HasColumnName("id_picture");
 
                     b.Property<bool>("IsActive")

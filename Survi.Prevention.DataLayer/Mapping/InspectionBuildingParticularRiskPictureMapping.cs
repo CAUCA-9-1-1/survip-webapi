@@ -10,7 +10,8 @@ namespace Survi.Prevention.DataLayer.Mapping
 		{
 			b.HasQueryFilter(m => m.IsActive);
 			b.HasKey(m => m.Id);
-			b.HasOne(m => m.Picture).WithMany().HasForeignKey(m => m.IdPicture).OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Cascade);
+			b.HasOne(m => m.Picture).WithMany().HasForeignKey(m => m.IdPicture)
+				.OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.SetNull);
 		}
 	}
 }
