@@ -39,7 +39,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				Id = pic.Id,
 				IdPicture = pic.IdPicture,
 				IdParent = pic.IdBuildingAnomaly,
-				PictureData = pic.PictureData,
+				DataUri = pic.PictureData,
                 SketchJson = pic.SketchJson
 			}).ToList();
 		}
@@ -102,7 +102,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             anomalyPicture.Picture = Context.InspectionPictures.Find(entity.Id);
 
             anomalyPicture.Picture.Id = entity.Id;
-            anomalyPicture.Picture.DataUri = entity.PictureData;
+            anomalyPicture.Picture.DataUri = entity.DataUri;
             anomalyPicture.Picture.SketchJson = entity.SketchJson;
         }
     }

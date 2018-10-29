@@ -15,46 +15,31 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public List<InspectionPictureForWeb> GetFile(Guid pictureId)
+		public InspectionPictureForWeb GetFile(Guid pictureId)
 		{
 			var query =
 				from p in Context.InspectionPictures
 				where p.IsActive && p.Id == pictureId
 				select p;
 
-			var picture = query.ToList();
-			if (picture == null)
-			{
-				return null;
-			}
+			var picture = query.FirstOrDefault();
 
-			/*return new PictureForWeb
+			return picture == null ? null : new InspectionPictureForWeb
 			{
 				Id = picture.Id,
-				DataUri = string.Format(
-					"data:{0};base64,{1}",
-					picture.MimeType == "" || picture.MimeType is null ? "image/jpeg" : picture.MimeType,
-					Convert.ToBase64String(picture.Data)
-				),
-				SketchJson = picture.SketchJson,
-			};*/
-
-			return picture.Select(pic => new InspectionPictureForWeb
-			{
-				Id = pic.Id,
-				IdPicture = pic.Id,
+				IdPicture = picture.Id,
 				IdParent = pictureId,
-				PictureData = string.Format(
+				DataUri = string.Format(
 						"data:{0};base64,{1}",
-						pic.MimeType == "" || pic.MimeType == null ? "image/jpeg" : pic.MimeType,
-						Convert.ToBase64String(pic.Data)),
-                SketchJson = pic.SketchJson
-            }).ToList();
+						string.IsNullOrEmpty(picture.MimeType) ? "image/jpeg" : picture.MimeType,
+						Convert.ToBase64String(picture.Data)),
+                SketchJson = picture.SketchJson
+            };
 		}
 
 		public Guid UploadFile(InspectionPictureForWeb picture)
 		{
-			var pic = new InspectionPicture{Id = picture.Id, DataUri = picture.PictureData, SketchJson = picture.SketchJson};
+			var pic = new InspectionPicture{Id = picture.Id, DataUri = picture.DataUri, SketchJson = picture.SketchJson};
 
 			var isExistRecord = Context.InspectionPictures.Any(p => p.Id == pic.Id);
 

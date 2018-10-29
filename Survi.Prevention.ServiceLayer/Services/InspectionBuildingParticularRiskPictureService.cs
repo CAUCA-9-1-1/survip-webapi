@@ -39,7 +39,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				Id = pic.Id,
 				IdPicture = pic.IdPicture,
 				IdParent = pic.IdBuildingParticularRisk,
-				PictureData = pic.PictureData,
+				DataUri = pic.PictureData,
                 SketchJson = pic.SketchJson
             }).ToList();
 		}
@@ -97,7 +97,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             particularRiskPicture.Picture = Context.InspectionPictures.Find(entity.Id);
 
             particularRiskPicture.Picture.Id = entity.Id;
-            particularRiskPicture.Picture.DataUri = entity.PictureData;
+            particularRiskPicture.Picture.DataUri = entity.DataUri;
             particularRiskPicture.Picture.SketchJson = entity.SketchJson;
         }
     }
