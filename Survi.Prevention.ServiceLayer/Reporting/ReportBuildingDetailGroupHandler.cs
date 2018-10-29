@@ -38,7 +38,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			var picture = service.GetSitePlan(entity.Id);
 			filledTemplate = picture == null 
 				? filledTemplate.Replace(sitePlanPlaceholder, "") 
-				: filledTemplate.Replace($"@{Group.ToString()}.{sitePlanPlaceholder}@", FormatPicture(picture.PictureData));
+				: filledTemplate.Replace($"@{Group.ToString()}.{sitePlanPlaceholder}@", FormatPicture(picture.DataUri));
 			return filledTemplate;
 		}
 

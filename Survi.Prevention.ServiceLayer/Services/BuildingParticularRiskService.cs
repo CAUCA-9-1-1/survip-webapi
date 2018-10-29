@@ -48,7 +48,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				{
 					Id = pic.Id,
 					IdPicture = pic.Id,
-					PictureData = string.Format(
+					DataUri = string.Format(
 						"data:{0};base64,{1}",
 						pic.MimeType == "" || pic.MimeType == null ? "image/jpeg" : pic.MimeType,
 						Convert.ToBase64String(pic.Data)),
