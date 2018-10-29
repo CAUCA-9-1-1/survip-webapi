@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Services;
@@ -8,8 +9,20 @@ namespace Survi.Prevention.WebApi.Controllers
     [Route("api/Lane")]
     public class LaneController : BaseCrudController<LaneService, Lane>
     {
-	    public LaneController(LaneService service) : base(service)
+	    private readonly WebuserService userService;
+	    private readonly CityService cityService;
+
+		public LaneController(LaneService service, WebuserService userService, CityService cityService) 
+			: base(service)
+		{
+			this.userService = userService;
+			this.cityService = cityService;
+		}
+
+	    private List<Guid> GetUserCityIds()
 	    {
+		    var departmentIds = userService.GetUserFireSafetyDepartments(CurrentUserId);
+		    return cityService.GetCityIdsByFireSafetyDepartments(departmentIds);
 	    }
 
 		[HttpGet, Route("city/{cityId:Guid}")]
@@ -27,7 +40,7 @@ namespace Survi.Prevention.WebApi.Controllers
         [HttpGet, Route("localized")]
         public ActionResult GetListLocalized([FromHeader(Name = "Language-Code")] string languageCode)
         {
-            return Ok(Service.GetListLocalized(languageCode));
+            return Ok(Service.GetListLocalized(GetUserCityIds(), languageCode));
         }
 
         [HttpGet, Route("localized/{laneId:Guid}")]
