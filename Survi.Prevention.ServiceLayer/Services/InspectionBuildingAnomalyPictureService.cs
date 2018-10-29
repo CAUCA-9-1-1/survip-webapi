@@ -46,7 +46,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public virtual Guid AddOrUpdatePicture(InspectionPictureForWeb entity)
 		{
-            var anomalyPicture = Context.InspectionBuildingAnomalyPictures.Find(entity.Id) 
+            var anomalyPicture = Context.InspectionBuildingAnomalyPictures
+				.Include(pic => pic.Picture)
+	            .FirstOrDefault(pic => pic.Id == entity.Id) 
 				?? GenerateNewPicture(entity);
 
 			TransferDtoToModel(entity, anomalyPicture);
@@ -95,15 +97,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 		}
 
         private void TransferDtoToModel(InspectionPictureForWeb entity, InspectionBuildingAnomalyPicture anomalyPicture)
-        {
-            anomalyPicture.Id = entity.Id;
-            anomalyPicture.IdBuildingAnomaly = entity.IdParent;
-
-            anomalyPicture.Picture = Context.InspectionPictures.Find(entity.Id);
-
-            anomalyPicture.Picture.Id = entity.Id;
+        {            
             anomalyPicture.Picture.DataUri = entity.DataUri;
             anomalyPicture.Picture.SketchJson = entity.SketchJson;
+	        entity.Id = anomalyPicture.Picture.Id;
         }
     }
 }
