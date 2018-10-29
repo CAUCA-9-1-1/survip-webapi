@@ -7,7 +7,7 @@ namespace Survi.Prevention.Models.Buildings.Base
 		where T : BasePicture
 	{
 		public Guid IdBuildingParticularRisk { get; set; }
-		public Guid IdPicture { get; set; }
+		public Guid? IdPicture { get; set; }
 
 		public T Picture { get; set; }
 	}
