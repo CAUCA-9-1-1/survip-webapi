@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.SurveyManagement;
 using Microsoft.EntityFrameworkCore;
+using Survi.Prevention.Models.DataTransfertObjects;
 
 namespace Survi.Prevention.ServiceLayer.Services { 
 	
@@ -30,6 +31,22 @@ namespace Survi.Prevention.ServiceLayer.Services {
 						.ToList();
 
 			return result;
+		}
+
+		public List<GenericModelForDisplay> GetListLocalized(string languageCode)
+		{
+			var query =
+				from survey in Context.Surveys.AsNoTracking()
+				where survey.IsActive
+				from localization in survey.Localizations
+				where localization.IsActive && localization.LanguageCode == languageCode
+				select new GenericModelForDisplay
+				{
+					Id = survey.Id,
+					Name = localization.Name
+				};
+
+			return query.ToList();
 		}
 	}
 
