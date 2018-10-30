@@ -46,11 +46,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-		public List<FireSafetyDepartmentInspectionConfigurationForEdition> GetList()
+		public List<FireSafetyDepartmentInspectionConfigurationForEdition> GetList(List<Guid> allowedDepartmentIds)
 		{
 			var query =
 				from config in Context.FireSafetyDepartmentInspectionConfigurations.AsNoTracking()
-				where config.IsActive
+				where config.IsActive && allowedDepartmentIds.Contains(config.IdFireSafetyDepartment)
 				select new FireSafetyDepartmentInspectionConfigurationForEdition
 				{
 					Id = config.Id,

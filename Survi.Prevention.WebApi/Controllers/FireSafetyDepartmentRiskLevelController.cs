@@ -8,11 +8,13 @@ namespace Survi.Prevention.WebApi.Controllers
 	[Route("api/FireSafetyDepartmentRiskLevel")]
 	public class FireSafetyDepartmentRiskLevelController : BaseSecuredController
 	{
+		private readonly WebuserService userService;
 		protected FireSafetyDepartmentInspectionConfigurationService Service;
 
-		public FireSafetyDepartmentRiskLevelController(FireSafetyDepartmentInspectionConfigurationService service) 
+		public FireSafetyDepartmentRiskLevelController(FireSafetyDepartmentInspectionConfigurationService service, WebuserService userService) 
 		{
 			Service = service;
+			this.userService = userService;
 		}
 
 		[HttpGet]
@@ -30,7 +32,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public virtual ActionResult Get()
 		{
-			var result = Service.GetList();
+			var result = Service.GetList(userService.GetUserFireSafetyDepartments(CurrentUserId));
 
 			return Ok(result);
 		}
