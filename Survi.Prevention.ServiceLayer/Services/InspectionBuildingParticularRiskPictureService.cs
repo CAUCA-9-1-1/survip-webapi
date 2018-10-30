@@ -14,7 +14,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public List<InspectionPictureForWeb> GetAnomalyPictures(Guid idBuildingParticularRisk)
+		public List<InspectionPictureForWeb> GetParticularRiskPictures(Guid idBuildingParticularRisk)
 		{
 			var query =
 				from picture in Context.InspectionBuildingParticularRiskPictures.AsNoTracking()

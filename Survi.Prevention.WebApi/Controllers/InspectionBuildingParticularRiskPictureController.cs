@@ -18,7 +18,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[Route("/api/inspection/building/particularrisk/{idBuildingParticularRisk:Guid}/picture"), HttpGet]
 		public ActionResult GetListForDisplay(Guid idBuildingParticularRisk)
 		{
-			return Ok(Service.GetAnomalyPictures(idBuildingParticularRisk));
+			return Ok(Service.GetParticularRiskPictures(idBuildingParticularRisk));
 		}
 
 		[HttpPost]
