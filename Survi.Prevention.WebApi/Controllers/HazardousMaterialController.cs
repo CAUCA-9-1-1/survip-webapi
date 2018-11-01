@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Services;
@@ -19,7 +18,6 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpGet, Route("search/{*searchTerm}")]
 		public ActionResult GetList([FromHeader(Name = "Language-Code")] string languageCode,string searchTerm)
 		{
-			searchTerm = HttpUtility.UrlDecode(searchTerm);
 			return Ok(service.GetList(languageCode, searchTerm));
 		}
 

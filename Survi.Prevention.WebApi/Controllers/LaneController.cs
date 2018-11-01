@@ -35,7 +35,6 @@ namespace Survi.Prevention.WebApi.Controllers
 	    [HttpGet, Route("city/{cityId:Guid}/Search/{*searchTerm}")]
 	    public ActionResult GetFilteredLanesLocalized(Guid cityId, [FromHeader(Name = "Language-Code")]string languageCode, string searchTerm)
 	    {
-		    searchTerm = HttpUtility.UrlDecode(searchTerm);
 			return Ok(Service.GetFilteredLanesLocalized(cityId, languageCode, searchTerm));
 	    }
 
