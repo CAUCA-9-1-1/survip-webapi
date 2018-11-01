@@ -182,11 +182,18 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return existingAnswer.Id;
 		}
 
-		public bool CompleteSurvey(Guid idInspection)
+		public bool SetSurveyStatus(InspectionSurveyCompletion surveyStatus)
 		{
-			if(idInspection != Guid.Empty)
+			if(surveyStatus.idInspection != Guid.Empty)
 			{
-				Context.Inspections.Single(i => i.Id == idInspection && i.IsActive).IsSurveyCompleted = true;
+				var targetInspection = Context.Inspections.Single(i => i.Id == surveyStatus.idInspection && i.IsActive);
+
+				targetInspection.IsSurveyCompleted = surveyStatus.isCompleted;
+				if(surveyStatus.isCompleted)
+					targetInspection.SurveyCompletedOn = DateTime.Now;
+				else
+					targetInspection.SurveyCompletedOn = null;
+
 				Context.SaveChanges();
 				return true;
 			}
