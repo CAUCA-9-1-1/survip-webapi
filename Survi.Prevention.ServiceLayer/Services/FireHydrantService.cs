@@ -57,7 +57,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			var results = (
 				from hydrant in Context.FireHydrants.AsNoTracking()
 				where hydrant.IsActive && hydrant.IdCity == idCity
-				&& !Context.BuildingFireHydrants.Any(bf => bf.IdBuilding == idBuilding && bf.IdFireHydrant == hydrant.Id && bf.IsActive)
+				&& !Context.InspectionBuildingFireHydrants.Any(bf => bf.IdBuilding == idBuilding && bf.IdFireHydrant == hydrant.Id && bf.IsActive)
 				select new FireHydrant
 				{
 					Id = hydrant.Id,
