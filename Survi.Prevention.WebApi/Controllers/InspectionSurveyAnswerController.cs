@@ -41,10 +41,10 @@ namespace Survi.Prevention.WebApi.Controllers
 			return BadRequest("Error on question answer saving process");
 		}
 
-		[HttpPost, Route("CompleteSurvey")]
-		public ActionResult CompleteSurvey([FromBody] Guid idInspection)
+		[HttpPost, Route("SetSurveyStatus")]
+		public ActionResult SetSurveyStatus([FromBody] InspectionSurveyCompletion SurveyStatus)
 		{
-			if (Service.CompleteSurvey(idInspection))
+			if (Service.SetSurveyStatus(SurveyStatus))
 				return NoContent();
 			else
 				return BadRequest("Error on updating the inspection survey completed status");
