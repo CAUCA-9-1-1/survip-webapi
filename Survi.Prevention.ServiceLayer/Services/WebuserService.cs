@@ -107,24 +107,24 @@ namespace Survi.Prevention.ServiceLayer.Services
             Context.SaveChanges();
         }
 
-        public List<WebuserForWeb> GetListActive()
+		public List<WebuserForWeb> GetListActive(List<Guid> allowedDepartmentIds)
         {
             var query =
-                from users in Context.Webusers
-                where users.IsActive
-                let firstname = users.Attributes.FirstOrDefault(a => a.AttributeName == "first_name")
-                let lastname = users.Attributes.FirstOrDefault(a => a.AttributeName == "last_name")
+                from user in Context.Webusers
+                where user.IsActive && user.FireSafetyDepartments.Any(dep => allowedDepartmentIds.Contains(dep.IdFireSafetyDepartment) && dep.IsActive)
+                let firstName = user.Attributes.FirstOrDefault(a => a.AttributeName == "first_name")
+                let lastName = user.Attributes.FirstOrDefault(a => a.AttributeName == "last_name")
                 select new {
-                    users.Id,
-                    firstname,
-                    lastname
+                    user.Id,
+                    firstName,
+                    lastName
                 };
 
             var result = query.ToList()
                 .Select(user => new WebuserForWeb
                 {
                     Id = user.Id,
-                    Name = (user.firstname?.AttributeValue??"") + " " + (user.lastname?.AttributeValue ?? "")
+                    Name = (user.firstName?.AttributeValue??"") + " " + (user.lastName?.AttributeValue ?? "")
                 })
                 .ToList();
 
