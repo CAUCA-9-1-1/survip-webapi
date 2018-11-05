@@ -102,7 +102,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		    anomalyPictures.ForEach(pic =>
 		    {
 			    pic.IsActive = false;
-			    var picture = Context.Pictures.Find(pic.IdPicture);
+			    var picture = Context.InspectionPictures.Find(pic.IdPicture);
 			    picture.IsActive = false;
 		    });
 	    }
