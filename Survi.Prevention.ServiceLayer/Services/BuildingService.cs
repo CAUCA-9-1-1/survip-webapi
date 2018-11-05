@@ -32,10 +32,18 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return query;
 		}
 
-		public IQueryable<AvailableBuildingForManagement> GetAvailableForInspectionList(List<Guid> idCities)
+		public IQueryable<AvailableBuildingForManagement> GetAvailableForInspectionList(string languageCode, List<Guid> idCities)
 		{
 			var query = Context.AvailableBuildingsForManagement
-				.Where(b => idCities.Contains(b.IdCity));
+				.Where(b => idCities.Contains(b.IdCity) && b.LanguageCode == languageCode);
+
+			return query;
+		}
+
+		public IQueryable<AvailableBuildingForManagement> GetForInspectionList(string languageCode, List<Guid> buildingIds)
+		{
+			var query = Context.AvailableBuildingsForManagement
+				.Where(b => buildingIds.Contains(b.IdBuilding) && b.LanguageCode == languageCode);
 
 			return query;
 		}

@@ -426,7 +426,7 @@ namespace Survi.Prevention.DataLayer
 				INNER JOIN city_localization as city ON l.id_city = city.id_city and city.language_code = laneloc.language_code
 				LEFT JOIN risk_level_localization as risk ON b.id_risk_level = risk.id_risk_level and risk.language_code = laneloc.language_code
 
-				WHERE b.is_active = true
+				WHERE i.is_active = true
 				AND 	b.child_type = 0
 				");
 

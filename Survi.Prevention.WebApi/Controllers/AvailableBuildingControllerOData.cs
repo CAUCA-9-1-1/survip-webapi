@@ -35,9 +35,9 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 
 		[ODataRoute("AvailableBuildingForManagement"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
-		public IQueryable<AvailableBuildingForManagement> GetList()
+		public IQueryable<AvailableBuildingForManagement> GetList([FromHeader(Name = "Language-Code")]string languageCode)
 		{
-			return service.GetAvailableForInspectionList(GetUserCityIds());
+			return service.GetAvailableForInspectionList(languageCode, GetUserCityIds());
 		}
 	}
 }
