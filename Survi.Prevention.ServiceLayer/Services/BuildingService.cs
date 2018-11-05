@@ -32,7 +32,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return query;
 		}
 
-        public List<Building> GetChildList(Guid idParentBuilding)
+		public IQueryable<AvailableBuildingForManagement> GetAvailableForInspectionList(List<Guid> idCities)
+		{
+			var query = Context.AvailableBuildingsForManagement
+				.Where(b => idCities.Contains(b.IdCity));
+
+			return query;
+		}
+
+		public List<Building> GetChildList(Guid idParentBuilding)
         {
             var result = Context.Buildings
                 .Where(b => b.ChildType == BuildingChildType.Child && b.IdParentBuilding == idParentBuilding)

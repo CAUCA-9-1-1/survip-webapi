@@ -384,5 +384,82 @@ namespace Survi.Prevention.DataLayer
 				WHERE b.is_active = true;
 				");
 		}
+
+		public static void DropInspectionBuildingManagementView(this MigrationBuilder builder)
+		{
+			builder.Sql("DROP VIEW batch_inspection_building;");
+			builder.Sql("DROP VIEW available_building_for_management;");
+		}
+
+		public static void CreateInspectionBuildingManagementView(this MigrationBuilder builder)
+		{
+			builder.Sql(@"
+				CREATE VIEW batch_inspection_building
+				  AS
+				SELECT
+				  i.id as id_inspection,
+				  b.id_risk_level,
+				  batch.id as id_batch,
+				  b.id as id_building,
+				  i.id_webuser_assigned_to,
+				  i.id_webuser_created_by,
+				  i.sequence,
+
+				  b.matricule,
+
+				  (CASE WHEN lpc.description != '' or lgc.description != '' THEN concat(laneloc.name, ' (', lpc.description, CASE WHEN lgc.description != '' THEN lgc.description ELSE ''END, ')' ) ELSE laneloc.name END) as full_lane_name,
+				  CONCAT(b.civic_number, b.civic_letter) as full_civic_number,
+				  LPAD(CONCAT(b.civic_number, b.civic_letter), 10, '0') as full_civic_number_sortable,
+				  city.name as city_name,
+				  risk.name as risk_level,
+				  
+				  laneloc.language_code,
+				  i.status as inspection_status
+
+				FROM inspection as i
+				INNER JOIN batch on batch.id = i.id_batch
+				INNER JOIN building as b ON i.id_building = b.id AND b.is_active = true and b.child_type = 0
+				INNER JOIN lane as l on b.id_lane = l.id
+				INNER JOIN lane_public_code as lpc ON lpc.id = l.id_public_code
+				INNER JOIN lane_generic_code as lgc ON lgc.id = l.id_lane_generic_code
+				INNER JOIN lane_localization as laneloc ON l.id = laneloc.id_lane
+				INNER JOIN city_localization as city ON l.id_city = city.id_city and city.language_code = laneloc.language_code
+				LEFT JOIN risk_level_localization as risk ON b.id_risk_level = risk.id_risk_level and risk.language_code = laneloc.language_code
+
+				WHERE b.is_active = true
+				AND 	b.child_type = 0
+				");
+
+			builder.Sql(@"
+				CREATE VIEW available_building_for_management
+				  AS
+				SELECT
+				  b.id_risk_level,
+				  b.id as id_building,
+				  l.id_city,
+
+				  b.matricule,
+
+				  (CASE WHEN lpc.description != '' or lgc.description != '' THEN concat(laneloc.name, ' (', lpc.description, CASE WHEN lgc.description != '' THEN lgc.description ELSE ''END, ')' ) ELSE laneloc.name END) as full_lane_name,
+				  CONCAT(b.civic_number, b.civic_letter) as full_civic_number,
+				  LPAD(CONCAT(b.civic_number, b.civic_letter), 10, '0') as full_civic_number_sortable,
+				  city.name as city_name,
+				  risk.name as risk_level,
+				  
+				  laneloc.language_code
+
+				FROM building as b
+				INNER JOIN lane as l on b.id_lane = l.id
+				INNER JOIN lane_public_code as lpc ON lpc.id = l.id_public_code
+				INNER JOIN lane_generic_code as lgc ON lgc.id = l.id_lane_generic_code
+				INNER JOIN lane_localization as laneloc ON l.id = laneloc.id_lane
+				INNER JOIN city_localization as city ON l.id_city = city.id_city and city.language_code = laneloc.language_code
+				LEFT JOIN risk_level_localization as risk ON b.id_risk_level = risk.id_risk_level and risk.language_code = laneloc.language_code
+
+				WHERE b.is_active = true
+				AND 	b.child_type = 0
+				AND 	not exists(select id from inspection as i where i.id_building = b.id and (i.status IN (0, 1, 2, 4)));
+				");
+		}
 	}
 }

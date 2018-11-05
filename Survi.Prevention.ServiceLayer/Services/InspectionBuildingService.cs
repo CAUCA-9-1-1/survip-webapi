@@ -13,6 +13,16 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
+		public List<BatchInspectionBuilding> GetBuildingForManagement(Guid batchId, string languageCode)
+		{
+			var query =
+				from building in Context.BatchInspectionBuildings.AsNoTracking()
+				where building.LanguageCode == languageCode && building.IdBatch == batchId
+				select building;
+
+			return query.ToList();
+		}
+
 		public List<InspectionBuildingForList> GetBuildings(Guid inspectionId, string languageCode)
 		{
 			var results = (
