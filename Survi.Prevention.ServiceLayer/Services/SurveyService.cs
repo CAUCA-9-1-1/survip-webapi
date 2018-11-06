@@ -33,6 +33,11 @@ namespace Survi.Prevention.ServiceLayer.Services {
 			return result;
 		}
 
+		public bool CopySurvey(Guid idSurvey)
+		{
+			return true;
+		}
+
 		public List<GenericModelForDisplay> GetListLocalized(string languageCode)
 		{
 			var query =
