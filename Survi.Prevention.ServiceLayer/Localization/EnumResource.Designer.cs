@@ -61,6 +61,15 @@ namespace Survi.Prevention.ServiceLayer.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copie - .
+        /// </summary>
+        internal static string Copy {
+            get {
+                return ResourceManager.GetString("Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gauche.
         /// </summary>
         internal static string CourseLaneDirection_Left {
