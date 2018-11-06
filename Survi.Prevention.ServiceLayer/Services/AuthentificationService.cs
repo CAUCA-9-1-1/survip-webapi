@@ -60,9 +60,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return newAccessToken;
 		}
 
-		public AccessToken GetAccessTokenFromRefreshToken(string refreshToken, Guid webuserId)
+		private AccessToken GetAccessTokenFromRefreshToken(string refreshToken, Guid webuserId)
 		{
-			var webuserToken = Context.AccessTokens.Include(t => t.User).AsNoTracking()
+			var webuserToken = Context.AccessTokens.Include(t => t.User)
 				.FirstOrDefault(t => t.IdWebuser == webuserId && t.RefreshToken == refreshToken);
 			return webuserToken;
 		}
@@ -120,7 +120,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			var token = new JwtSecurityToken(issuer,
 				applicationName,
 				claims,
-				expires: DateTime.UtcNow.AddMinutes(60),
+				expires: DateTime.UtcNow.AddMinutes(1),
 				signingCredentials: creds);
 
 			return new JwtSecurityTokenHandler().WriteToken(token);
