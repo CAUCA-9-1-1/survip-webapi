@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.SurveyManagement;
@@ -17,6 +18,12 @@ namespace Survi.Prevention.WebApi.Controllers
 		public ActionResult<List<GenericModelForDisplay>> GetListLocalized([FromHeader(Name = "Language-Code")] string languageCode)
 		{
 			return Service.GetListLocalized(languageCode);
+		}
+
+		[HttpPost,  Route("CopySurvey")]
+		public ActionResult CopySurvey([FromBody] Guid idSurvey)
+		{
+			return Ok(Service.CopySurvey(idSurvey));
 		}
 	}
 }
