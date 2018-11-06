@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Services;
@@ -34,7 +35,8 @@ namespace Survi.Prevention.WebApi.Controllers
 	    [HttpGet, Route("city/{cityId:Guid}/Search/{searchTerm?}")]
 	    public ActionResult GetFilteredLanesLocalized(Guid cityId, [FromHeader(Name = "Language-Code")]string languageCode, string searchTerm)
 	    {
-		    return Ok(Service.GetFilteredLanesLocalized(cityId, languageCode, searchTerm));
+		    searchTerm = HttpUtility.UrlDecode(searchTerm);
+			return Ok(Service.GetFilteredLanesLocalized(cityId, languageCode, searchTerm));
 	    }
 
         [HttpGet, Route("localized")]
