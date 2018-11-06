@@ -192,4 +192,7 @@
   <data name="ParticularRiskType_Wall" xml:space="preserve">
     <value>Mur</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copie - </value>
+  </data>
 </root>

@@ -33,11 +33,6 @@ namespace Survi.Prevention.ServiceLayer.Services {
 			return result;
 		}
 
-		public bool CopySurvey(Guid idSurvey)
-		{
-			return true;
-		}
-
 		public List<GenericModelForDisplay> GetListLocalized(string languageCode)
 		{
 			var query =
@@ -53,6 +48,20 @@ namespace Survi.Prevention.ServiceLayer.Services {
 
 			return query.ToList();
 		}
+
+		public bool CopySurvey(Guid idSurvey)
+		{
+			var survey = Context.Surveys
+				.Include(s=>s.Localizations)
+				.Include(s=>s.Questions)
+				.Single(s=>s.IsActive && s.Id == idSurvey);
+
+			if(survey != null)
+				new SurveyDuplicator.SurveyDuplicator().DuplicateSurvey(survey);
+			return true;
+		}
+
+		
 	}
 
 }
