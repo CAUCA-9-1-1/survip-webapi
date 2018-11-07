@@ -3,6 +3,7 @@ using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Services;
 using System;
 using System.Collections.Generic;
+using Survi.Prevention.Models.DataTransfertObjects;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
@@ -47,5 +48,11 @@ namespace Survi.Prevention.WebApi.Controllers
         {
             return Ok(Service.GetChildList(idParentBuilding));
         }
-    }
+
+		[HttpPost, Route("ForInspectionList")]
+		public ActionResult<AvailableBuildingForManagement> GetBuildingForInspectionList([FromBody]List<Guid> buildingIds, [FromHeader(Name = "Language-Code")] string languageCode)
+		{
+			return Ok(Service.GetForInspectionList(languageCode, buildingIds));
+		}
+	}
 }

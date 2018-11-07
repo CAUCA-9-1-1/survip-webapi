@@ -108,7 +108,11 @@ namespace Survi.Prevention.WebApi
 			builder.EntitySet<FireHydrant>("FireHydrant").AllowAllQueryType();
 			builder.EntityType<FireHydrant>().Ignore(t => t.PointCoordinates);
 			builder.EntitySet<Lane>("Lane").AllowAllQueryType();
-			
+			builder.EntityType<AvailableBuildingForManagement>().HasKey(t => t.IdBuilding);
+			builder.EntitySet<AvailableBuildingForManagement>("AvailableBuildingForManagement").AllowAllQueryType();
+			builder.EntityType<BatchInspectionBuilding>().HasKey(t => t.IdInspection);
+			builder.EntitySet<BatchInspectionBuilding>("BatchInspectionBuilding").AllowAllQueryType();
+
 			return builder.GetEdmModel();
 		}
 	}

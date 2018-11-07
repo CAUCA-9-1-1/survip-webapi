@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Survi.Prevention.Models.SecurityManagement;
@@ -11,12 +12,17 @@ namespace Survi.Prevention.WebApi.Controllers
     {
         private readonly string applicationName;
 
-        public WebuserController(WebuserService service, IConfiguration configuration) : base(service)
+        public WebuserController(WebuserService service, IConfiguration configuration, WebuserService userService) : base(service)
         {
             applicationName = configuration.GetSection("APIConfig:PackageName").Value;
         }
 
-        [HttpPost]
+	    private List<Guid> GetCurrentUserDepartmentIds()
+	    {
+		    return Service.GetUserFireSafetyDepartments(CurrentUserId);
+	    }
+
+		[HttpPost]
         [ProducesResponseType(401)]
         [ProducesResponseType(200)]
         public override ActionResult Post([FromBody] Webuser entity)
@@ -30,7 +36,7 @@ namespace Survi.Prevention.WebApi.Controllers
         [HttpGet, Route("Active")]
         public ActionResult GetListActive()
         {
-            return Ok(Service.GetListActive());
+            return Ok(Service.GetListActive(GetCurrentUserDepartmentIds()));
         }
     }
 }

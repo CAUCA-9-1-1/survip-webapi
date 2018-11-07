@@ -111,6 +111,9 @@ namespace Survi.Prevention.DataLayer
 		public DbQuery<BuildingForReport> BuildingsForReport { get; set; }
 		public DbQuery<BuildingDetailForReport> BuildingDetailsForReport { get; set; }
 
+		public DbQuery<BatchInspectionBuilding> BatchInspectionBuildings { get; set; }
+		public DbQuery<AvailableBuildingForManagement> AvailableBuildingsForManagement { get; set; }
+
 		public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
 		{
 		}
@@ -139,6 +142,10 @@ namespace Survi.Prevention.DataLayer
 				.ToView("building_for_report");
 			modelBuilder.Query<BuildingDetailForReport>()
 				.ToView("building_detail_for_report");
+			modelBuilder.Query<BatchInspectionBuilding>()
+				.ToView("batch_inspection_building");
+			modelBuilder.Query<AvailableBuildingForManagement>()
+				.ToView("available_building_for_management");
 			modelBuilder.SeedInitialData();
 			//modelBuilder.SeedInitialDataForDevelopment();
 		}
