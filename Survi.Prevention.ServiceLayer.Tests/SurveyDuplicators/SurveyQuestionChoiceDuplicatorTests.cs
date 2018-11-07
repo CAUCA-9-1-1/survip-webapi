@@ -14,7 +14,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 		private SurveyQuestionChoice originalSurveyQuestionChoice;
 		private List<SurveyQuestionChoice> originalSurveyQuestionChoices;
 
-		public void Setup()
+		public SurveyQuestionChoiceDuplicatorTests()
 		{
 			originalLocalization = new SurveyQuestionChoiceLocalization
 			{
@@ -37,10 +37,11 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 			originalSurveyQuestionChoices = new List<SurveyQuestionChoice>()
 			{
 				originalSurveyQuestionChoice,
-				new SurveyQuestionChoice { IdSurveyQuestion = Guid.NewGuid(), Sequence = 2 }
+				new SurveyQuestionChoice { IdSurveyQuestion = Guid.NewGuid(), Sequence = 2, Localizations = originalLocalizations}
 			};
 		}
 
+		[Fact]
 		public void NewIdSurveyHasBeenCorrectlySet()
 		{			
 			var newId = Guid.NewGuid();
@@ -49,6 +50,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 			Assert.True(newId == copy.IdParent);
 		}
 
+		[Fact]
 		public void LocalizationFieldsAreCorrectlyCopied()
 		{			
 			var copy = duplicatorService.DuplicateSurveyQuestionChoiceLocalization(originalLocalization, Guid.NewGuid());
@@ -61,24 +63,34 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 			return copy.Name == original.Name && copy.LanguageCode == original.LanguageCode;
 		}
 
+		[Fact]
 		public void LocalizationsAreComplete()
 		{
 			var copy = duplicatorService.DuplicateSurveyQuestionChoiceLocalizations(originalLocalizations, Guid.NewGuid());
 			Assert.Equal(originalLocalizations.Count, copy.Count);
 		}
 
+		[Fact]
 		public void SurveyQuestionChoiceFieldsAreCorrectlyDuplicated()
 		{
-			var copy = duplicatorService.DuplicateSurveyQuestionChoice(originalSurveyQuestionChoice, Guid.NewGuid());
+			var copy = duplicatorService.DuplicateSurveyQuestionChoiceFields(originalSurveyQuestionChoice, Guid.NewGuid());
 			Assert.True(SurveyQuestionHasBeenCorrectlyDuplicated(originalSurveyQuestionChoice, copy));
 		}
 
-		private bool SurveyQuestionHasBeenCorrectlyDuplicated(SurveyQuestionChoice originalSurveyQuestionChoice, SurveyQuestionChoice copy)
+		private bool SurveyQuestionHasBeenCorrectlyDuplicated(SurveyQuestionChoice originalChoice, SurveyQuestionChoice copy)
 		{
-			return originalSurveyQuestionChoice.IdSurveyQuestion == copy.IdSurveyQuestion && originalSurveyQuestionChoice.Sequence == copy.Sequence &&
-				   originalSurveyQuestionChoice.IdSurveyQuestionNext == copy.IdSurveyQuestionNext;
+			return originalChoice.Sequence == copy.Sequence && originalChoice.IdSurveyQuestionNext == copy.IdSurveyQuestionNext;
 		}
 
+	    [Fact]
+	    public void NewIdSurveyQuestionHasBeenCorrectlySet()
+	    {
+		    var newIdSurveyQuestion = Guid.NewGuid();
+		    var copy = duplicatorService.DuplicateSurveyQuestionChoiceFields(originalSurveyQuestionChoice, newIdSurveyQuestion);
+		    Assert.True(newIdSurveyQuestion == copy.IdSurveyQuestion);
+	    }
+
+		[Fact]
 		public void ChoicesAreComplete()
 		{
 			var copy = duplicatorService.DuplicateSurveyQuestionChoices(originalSurveyQuestionChoices, Guid.NewGuid());

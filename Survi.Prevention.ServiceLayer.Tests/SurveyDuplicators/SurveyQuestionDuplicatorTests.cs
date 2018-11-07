@@ -3,18 +3,19 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 using Survi.Prevention.ServiceLayer.SurveyDuplicators;
+using Survi.Prevention.ServiceLayer.Tests.Mocks;
 
 namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 {
 	public class SurveyQuestionDuplicatorTests
 	{
-		private SurveyQuestionDuplicator duplicatorService = new SurveyQuestionDuplicator();
+		private readonly SurveyQuestionDuplicator duplicatorService = new SurveyQuestionDuplicator();
 		private SurveyQuestionLocalization originalLocalization;
 		private List<SurveyQuestionLocalization> originalLocalizations;
 		private SurveyQuestion originalSurveyQuestion;
 		private List<SurveyQuestion> originalSurveyQuestions;
 
-		public void Setup()
+		public SurveyQuestionDuplicatorTests()
 		{
 			
 			originalLocalization = new SurveyQuestionLocalization
@@ -23,7 +24,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 				LanguageCode = "en",
 				Title = "Question title"
 			};
-			originalLocalizations = new List<SurveyQuestionLocalization>()
+			originalLocalizations = new List<SurveyQuestionLocalization>
 			{
 				originalLocalization, new SurveyQuestionLocalization{ Name = "Nom de question", LanguageCode = "fr", Title = "Titre de la question"}
 			};
@@ -37,15 +38,10 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 				QuestionType = 4,
 				IdSurveyQuestionNext = Guid.NewGuid(),
 				IdSurveyQuestionParent = Guid.NewGuid(),
-				Localizations = originalLocalizations,
-				Choices = new List<SurveyQuestionChoice>
-				{ 
-					new SurveyQuestionChoice{ Id= Guid.NewGuid(), Sequence=1, IdSurveyQuestion = originalSurveyQuestion.Id},
-					new SurveyQuestionChoice{ Id= Guid.NewGuid(), Sequence=2, IdSurveyQuestion = originalSurveyQuestion.Id}
-				}
+				Localizations = originalLocalizations
 			};
 
-			originalSurveyQuestions = new List<SurveyQuestion>()
+			originalSurveyQuestions = new List<SurveyQuestion>
 			{
 				originalSurveyQuestion,
 				new SurveyQuestion
@@ -56,12 +52,14 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 					Sequence = 1,
 					QuestionType = 4,
 					IdSurveyQuestionNext = Guid.NewGuid(),
-					IdSurveyQuestionParent = Guid.NewGuid()
+					IdSurveyQuestionParent = Guid.NewGuid(),
+					Localizations = originalLocalizations
 				}
 			};
 		}
 
-		public void NewIdSurveyHasBeenCorrectlySet()
+		[Fact]
+		public void NewIdSurveyLocalizationHasBeenCorrectlySet()
 		{			
 			var newId = Guid.NewGuid();
 			var copy = duplicatorService.DuplicateSurveyQuestionLocalization(originalLocalization, newId);
@@ -69,6 +67,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 			Assert.True(newId == copy.IdParent);
 		}
 
+		[Fact]
 		public void LocalizationFieldsAreCorrectlyCopied()
 		{			
 			var copy = duplicatorService.DuplicateSurveyQuestionLocalization(originalLocalization, Guid.NewGuid());
@@ -81,30 +80,62 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 			return copy.Name == original.Name && copy.LanguageCode == original.LanguageCode && copy.Title == original.Title;
 		}
 
+		[Fact]
 		public void LocalizationsAreComplete()
 		{
 			var copy = duplicatorService.DuplicateSurveyQuestionLocalizations(originalLocalizations, Guid.NewGuid());
 			Assert.Equal(originalLocalizations.Count, copy.Count);
 		}
 
+		[Fact]
 		public void SurveyQuestionFieldsAreCorrectlyDuplicated()
 		{
-			var copy = duplicatorService.DuplicateSurveyQuestion(originalSurveyQuestion, Guid.NewGuid());
+			var copy = duplicatorService.DuplicateSurveyQuestionFields(originalSurveyQuestion, Guid.NewGuid());
 			Assert.True(SurveyQuestionHasBeenCorrectlyDuplicated(originalSurveyQuestion, copy));
 		}
 
-		private bool SurveyQuestionHasBeenCorrectlyDuplicated(SurveyQuestion originalSurveyQuestion, SurveyQuestion copy)
+		private bool SurveyQuestionHasBeenCorrectlyDuplicated(SurveyQuestion originalQuestion, SurveyQuestion copy)
 		{
-			return originalSurveyQuestion.IsRecursive == copy.IsRecursive && originalSurveyQuestion.MaxOccurrence == copy.MaxOccurrence &&
-				   originalSurveyQuestion.MinOccurrence == copy.MinOccurrence && originalSurveyQuestion.Sequence == copy.Sequence &&
-				   originalSurveyQuestion.IdSurveyQuestionNext == copy.IdSurveyQuestionNext && 
-				   originalSurveyQuestion.IdSurveyQuestionParent == copy.IdSurveyQuestionParent;
+			return originalQuestion.IsRecursive == copy.IsRecursive && originalQuestion.MaxOccurrence == copy.MaxOccurrence &&
+			       originalQuestion.MinOccurrence == copy.MinOccurrence && originalQuestion.Sequence == copy.Sequence &&
+			       originalQuestion.IdSurveyQuestionNext == copy.IdSurveyQuestionNext && 
+			       originalQuestion.IdSurveyQuestionParent == copy.IdSurveyQuestionParent;
 		}
 
+		[Fact]
+		public void NewIdSurveyHasBeenCorrectlySet()
+		{			
+			var newId = Guid.NewGuid();
+			var copy = duplicatorService.DuplicateSurveyQuestion(originalSurveyQuestion, newId);
+
+			Assert.True(newId == copy.IdSurvey);
+		}
+
+		[Fact]
 		public void QuestionsAreComplete()
 		{
 			var copy = duplicatorService.DuplicateSurveyQuestions(originalSurveyQuestions, Guid.NewGuid());
 			Assert.Equal(originalSurveyQuestions.Count, copy.Count);
+		}
+
+		[Fact]
+		public void IdParentIsCorrectlyUpdated()
+		{
+			var newIdSurveyQuestionParent = Guid.NewGuid();
+			var dictionary = new List<SurveyQuestionDuplicator.SurveyQuestionConnector> { new SurveyQuestionDuplicator.SurveyQuestionConnector{ NewId =newIdSurveyQuestionParent, OriginalId = originalSurveyQuestion.IdSurveyQuestionParent.Value} };
+			new SurveyQuestionDuplicatorMock().UpdatePatente(dictionary, originalSurveyQuestion);
+			
+			Assert.Equal(originalSurveyQuestion.IdSurveyQuestionParent, newIdSurveyQuestionParent);
+		}
+		 
+		[Fact]
+		public void IdParentIsNotUpdatedWhenNull()
+		{
+			var dictionary = new List<SurveyQuestionDuplicator.SurveyQuestionConnector>();
+			originalSurveyQuestion.IdSurveyQuestionParent = null;
+			new SurveyQuestionDuplicatorMock().UpdatePatente(dictionary, originalSurveyQuestion);
+			
+			Assert.Equal(originalSurveyQuestion.IdSurveyQuestionParent, null);
 		}
 	}
 }
