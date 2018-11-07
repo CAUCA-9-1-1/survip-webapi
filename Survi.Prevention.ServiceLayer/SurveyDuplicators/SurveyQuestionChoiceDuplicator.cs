@@ -9,11 +9,11 @@ namespace Survi.Prevention.ServiceLayer.SurveyDuplicators
     {
 		public List<SurveyQuestionChoice> DuplicateSurveyQuestionChoices(ICollection<SurveyQuestionChoice> questionChoicesToCopy, Guid newIdSurveyQuestion)
 		{
-			List<SurveyQuestionChoice> newSurveyQuestionChoice = new List<SurveyQuestionChoice>();
+			List<SurveyQuestionChoice> newSurveyQuestionChoices = new List<SurveyQuestionChoice>();
 
-			questionChoicesToCopy?.ToList().ForEach(choice => newSurveyQuestionChoice.Add(DuplicateSurveyQuestionChoice(choice, newIdSurveyQuestion)));
+			questionChoicesToCopy?.Where(qc=>qc.IsActive).ToList().ForEach(choice => newSurveyQuestionChoices.Add(DuplicateSurveyQuestionChoice(choice, newIdSurveyQuestion)));
 
-			return newSurveyQuestionChoice;
+			return newSurveyQuestionChoices;
 		}
 
 		public SurveyQuestionChoice DuplicateSurveyQuestionChoice(SurveyQuestionChoice questionChoiceToCopy, Guid newIdSurveyQuestion)
@@ -31,7 +31,7 @@ namespace Survi.Prevention.ServiceLayer.SurveyDuplicators
 		public List<SurveyQuestionChoiceLocalization> DuplicateSurveyQuestionChoiceLocalizations(ICollection<SurveyQuestionChoiceLocalization> localizationsToCopy, Guid newIdSurveyQuestionChoice)
 		{
 			List<SurveyQuestionChoiceLocalization> newQuestionChoiceLocalizations = new List<SurveyQuestionChoiceLocalization>();
-			localizationsToCopy.ToList().ForEach(choiceLocalization => newQuestionChoiceLocalizations.Add(DuplicateSurveyQuestionChoiceLocalization(choiceLocalization, newIdSurveyQuestionChoice)));
+			localizationsToCopy.Where(loc=>loc.IsActive).ToList().ForEach(choiceLocalization => newQuestionChoiceLocalizations.Add(DuplicateSurveyQuestionChoiceLocalization(choiceLocalization, newIdSurveyQuestionChoice)));
 			return newQuestionChoiceLocalizations;
 		}
 

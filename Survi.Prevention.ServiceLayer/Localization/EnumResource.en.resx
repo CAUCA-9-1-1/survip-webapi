@@ -193,6 +193,6 @@
     <value>Wall</value>
   </data>
   <data name="Copy" xml:space="preserve">
-    <value>Copy - </value>
+    <value> (Copy)</value>
   </data>
 </root>
