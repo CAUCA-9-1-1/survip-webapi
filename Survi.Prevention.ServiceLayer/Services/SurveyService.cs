@@ -52,17 +52,27 @@ namespace Survi.Prevention.ServiceLayer.Services {
 
 		public bool CopySurvey(Guid idSurvey)
 		{
-			var survey = Context.Surveys
-				.Include(s=>s.Localizations)
-				.Include(s=>s.Questions)
+			var survey = Context.Surveys.AsNoTracking()
+				.Include(s => s.Localizations)
+				.Include(q=>q.Questions)
+					.ThenInclude(ql=>ql.Localizations)
+				.Include(s => s.Questions)
+					.ThenInclude(questionChoice => questionChoice.Choices)
+					.ThenInclude(choiceLoc => choiceLoc.Localizations)		
 				.Single(s=>s.IsActive && s.Id == idSurvey);
 
-			if(survey != null)
-				new SurveyDuplicator().DuplicateSurvey(survey);
-			return true;
-		}
-
-		
+			if (survey != null)
+			{
+				var newSurvey = new SurveyDuplicator().DuplicateSurvey(survey);
+				if (newSurvey != null)
+				{
+					Context.Surveys.Add(newSurvey);
+					Context.SaveChanges();
+					return true;
+				}
+				return false;
+			}
+			return false;
+		}	
 	}
-
 }

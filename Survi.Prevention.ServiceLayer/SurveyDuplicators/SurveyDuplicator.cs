@@ -12,7 +12,6 @@ namespace Survi.Prevention.ServiceLayer.SurveyDuplicators
 			Survey newSurvey = DuplicateSurveyFields(surveyToCopy);
 			newSurvey.Localizations = DuplicateSurveyLocalizations(surveyToCopy.Localizations, newSurvey.Id);
 			newSurvey.Questions = new SurveyQuestionDuplicator().DuplicateSurveyQuestions(surveyToCopy.Questions, newSurvey.Id);
-			new SurveyQuestionDuplicator().UpdateSurveyQuestionsFromConnector(newSurvey.Questions.ToList());
 			return newSurvey;
 		}
 
@@ -30,8 +29,8 @@ namespace Survi.Prevention.ServiceLayer.SurveyDuplicators
 
 		public SurveyLocalization DuplicateSurveyLocalization(SurveyLocalization localizationToCopy, Guid newIdSurvey)
 		{
-			string newName = Localization.EnumResource.ResourceManager.GetString("Copy", System.Globalization.CultureInfo.GetCultureInfo(localizationToCopy.LanguageCode));
-			return new SurveyLocalization { LanguageCode = localizationToCopy.LanguageCode, Name = newName + localizationToCopy.Name, IdParent = newIdSurvey };
+			string suffix = Localization.EnumResource.ResourceManager.GetString("Copy", System.Globalization.CultureInfo.GetCultureInfo(localizationToCopy.LanguageCode));
+			return new SurveyLocalization { LanguageCode = localizationToCopy.LanguageCode, Name =  localizationToCopy.Name + suffix , IdParent = newIdSurvey};
 		}
 
 	}

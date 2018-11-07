@@ -17,9 +17,12 @@ namespace Survi.Prevention.ServiceLayer.SurveyDuplicators
 
 		public List<SurveyQuestion> DuplicateSurveyQuestions(ICollection<SurveyQuestion> questionsToCopy, Guid newIdSurvey)
 		{
-			List<SurveyQuestion> newSurveyQuestion = new List<SurveyQuestion>();
-			questionsToCopy.ToList().ForEach(question => newSurveyQuestion.Add(DuplicateSurveyQuestion(question, newIdSurvey)));
-			return newSurveyQuestion;
+			List<SurveyQuestion> newSurveyQuestions = new List<SurveyQuestion>();
+			questionsToCopy.Where(q=>q.IsActive).ToList().ForEach(question => newSurveyQuestions.Add(DuplicateSurveyQuestion(question, newIdSurvey)));
+
+			UpdateSurveyQuestionsFromConnector(newSurveyQuestions);
+
+			return newSurveyQuestions;
 		}
 
 		public SurveyQuestion DuplicateSurveyQuestion(SurveyQuestion questionToCopy, Guid newIdSurvey)
@@ -51,7 +54,7 @@ namespace Survi.Prevention.ServiceLayer.SurveyDuplicators
 		public List<SurveyQuestionLocalization> DuplicateSurveyQuestionLocalizations(ICollection<SurveyQuestionLocalization> localizationsToCopy, Guid newIdSurveyQuestion)
 		{
 			List<SurveyQuestionLocalization> newQuestionLocalizations = new List<SurveyQuestionLocalization>();
-			localizationsToCopy.ToList().ForEach(questionLocalization => newQuestionLocalizations.Add(DuplicateSurveyQuestionLocalization(questionLocalization, newIdSurveyQuestion)));
+			localizationsToCopy.Where(loc=>loc.IsActive).ToList().ForEach(questionLocalization => newQuestionLocalizations.Add(DuplicateSurveyQuestionLocalization(questionLocalization, newIdSurveyQuestion)));
 			return newQuestionLocalizations;
 		}
 
@@ -74,7 +77,7 @@ namespace Survi.Prevention.ServiceLayer.SurveyDuplicators
 
 		public void UpdateQuestionNextQuestion(SurveyQuestion surveyQuestion)
 		{
-			if(surveyQuestion.IdSurveyQuestionNext != null)
+			if(surveyQuestion.IdSurveyQuestionNext != null && surveyQuestion.IdSurveyQuestionNext != Guid.Empty)
 			{
 				var idsConnector = surveyQuestionConnectorList.Single(sqid => sqid.OriginalId == surveyQuestion.IdSurveyQuestionNext);
 				if(idsConnector != null)
@@ -96,9 +99,13 @@ namespace Survi.Prevention.ServiceLayer.SurveyDuplicators
 		{
 			surveyQuestionChoices.ForEach(choice =>
 			{
-				var idsConnector = surveyQuestionConnectorList.Single(sqid => sqid.OriginalId == choice.IdSurveyQuestionNext && choice.IdSurveyQuestionNext != null);
-				if (idsConnector != null)
-					choice.IdSurveyQuestionNext = idsConnector.NewId;
+				if (choice.IdSurveyQuestionNext != null && choice.IdSurveyQuestionNext != Guid.Empty)
+				{
+					var idsConnector =
+						surveyQuestionConnectorList.Single(sqid => sqid.OriginalId == choice.IdSurveyQuestionNext);
+					if (idsConnector != null)
+						choice.IdSurveyQuestionNext = idsConnector.NewId;
+				}
 			});
 		}
     }

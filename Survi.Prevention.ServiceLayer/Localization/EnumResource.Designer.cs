@@ -61,7 +61,7 @@ namespace Survi.Prevention.ServiceLayer.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copie - .
+        ///   Looks up a localized string similar to  (Copie).
         /// </summary>
         internal static string Copy {
             get {
