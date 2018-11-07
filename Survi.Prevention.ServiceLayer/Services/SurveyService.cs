@@ -5,6 +5,7 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.SurveyManagement;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.SurveyDuplicators;
 
 namespace Survi.Prevention.ServiceLayer.Services { 
 	
@@ -57,7 +58,7 @@ namespace Survi.Prevention.ServiceLayer.Services {
 				.Single(s=>s.IsActive && s.Id == idSurvey);
 
 			if(survey != null)
-				new SurveyDuplicator.SurveyDuplicator().DuplicateSurvey(survey);
+				new SurveyDuplicator().DuplicateSurvey(survey);
 			return true;
 		}
 

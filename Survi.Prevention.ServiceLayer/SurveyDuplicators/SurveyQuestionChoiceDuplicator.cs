@@ -10,7 +10,9 @@ namespace Survi.Prevention.ServiceLayer.SurveyDuplicators
 		public List<SurveyQuestionChoice> DuplicateSurveyQuestionChoices(ICollection<SurveyQuestionChoice> questionChoicesToCopy, Guid newIdSurveyQuestion)
 		{
 			List<SurveyQuestionChoice> newSurveyQuestionChoice = new List<SurveyQuestionChoice>();
-			questionChoicesToCopy.ToList().ForEach(choice => newSurveyQuestionChoice.Add(DuplicateSurveyQuestionChoice(choice, newIdSurveyQuestion)));
+
+			questionChoicesToCopy?.ToList().ForEach(choice => newSurveyQuestionChoice.Add(DuplicateSurveyQuestionChoice(choice, newIdSurveyQuestion)));
+
 			return newSurveyQuestionChoice;
 		}
 

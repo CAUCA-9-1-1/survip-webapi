@@ -19,7 +19,7 @@ namespace Survi.Prevention.Models.SurveyManagement
 		public bool IsRecursive { get; set; }
 		public Guid? IdSurveyQuestionParent { get; set; }
 
-		public ICollection<SurveyQuestionChoice> Choices { get; set; }
-		public ICollection<SurveyQuestionLocalization> Localizations { get; set; }
+		public ICollection<SurveyQuestionChoice> Choices { get; set; } = new List<SurveyQuestionChoice>();
+		public ICollection<SurveyQuestionLocalization> Localizations { get; set; } = new List<SurveyQuestionLocalization>();
 	}
 }

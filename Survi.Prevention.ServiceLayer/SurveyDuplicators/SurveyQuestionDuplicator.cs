@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Survi.Prevention.ServiceLayer.SurveyDuplicators
 {
@@ -14,7 +13,7 @@ namespace Survi.Prevention.ServiceLayer.SurveyDuplicators
 			public Guid NewId { get; set; }
 		}
 
-		private List<SurveyQuestionConnector> surveyQuestionConnectorList = new List<SurveyQuestionConnector>();
+		protected List<SurveyQuestionConnector> surveyQuestionConnectorList = new List<SurveyQuestionConnector>();
 
 		public List<SurveyQuestion> DuplicateSurveyQuestions(ICollection<SurveyQuestion> questionsToCopy, Guid newIdSurvey)
 		{
@@ -27,7 +26,7 @@ namespace Survi.Prevention.ServiceLayer.SurveyDuplicators
 		{
 			SurveyQuestion newSurveyQuestion = DuplicateSurveyQuestionFields(questionToCopy, newIdSurvey);
 			newSurveyQuestion.Localizations = DuplicateSurveyQuestionLocalizations(questionToCopy.Localizations, newSurveyQuestion.Id);
-			newSurveyQuestion.Choices = new SurveyQuestionChoiceDuplicator().DuplicateSurveyQuestionChoices(newSurveyQuestion.Choices, newSurveyQuestion.Id);
+			newSurveyQuestion.Choices = new SurveyQuestionChoiceDuplicator().DuplicateSurveyQuestionChoices(questionToCopy.Choices, newSurveyQuestion.Id);
 
 			surveyQuestionConnectorList.Add(new SurveyQuestionConnector { OriginalId = questionToCopy.Id, NewId = newSurveyQuestion.Id });
 
@@ -63,17 +62,17 @@ namespace Survi.Prevention.ServiceLayer.SurveyDuplicators
 
 		public void UpdateSurveyQuestionsFromConnector(List<SurveyQuestion> surveyQuestions)
 		{
-			surveyQuestions.ForEach(question => UpdateSurveyQuestionFromConnector(question));
+			surveyQuestions.ForEach(UpdateSurveyQuestionFromConnector);
 		}
 
 		public void UpdateSurveyQuestionFromConnector(SurveyQuestion surveyQuestion)
 		{
-			UdapteQuestionNextQuestion(surveyQuestion);
+			UpdateQuestionNextQuestion(surveyQuestion);
 			UdapteQuestionIdParent(surveyQuestion);
 			UpdateChoiceNextQuestionFromConnector(surveyQuestion.Choices.ToList());
 		}
 
-		public void UdapteQuestionNextQuestion(SurveyQuestion surveyQuestion)
+		public void UpdateQuestionNextQuestion(SurveyQuestion surveyQuestion)
 		{
 			if(surveyQuestion.IdSurveyQuestionNext != null)
 			{

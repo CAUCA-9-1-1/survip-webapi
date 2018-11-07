@@ -12,9 +12,8 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 		private SurveyLocalization originalLocalization;
 		private List<SurveyLocalization> originalLocalizations; 
 		private Survey originalSurvey;
-
-
-		public void Setup()
+	
+		public SurveyDuplicatorTests()
 		{
 			originalSurvey = new Survey{Id = Guid.NewGuid(), SurveyType = 1};
 			originalLocalization = new SurveyLocalization
@@ -27,7 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 				originalLocalization, new SurveyLocalization{ Name = "Test", LanguageCode = "en"}
 			};
 		}
-
+		[Fact]
 		public void SurveyFieldsAreCorrectlyCopied()
 		{			
 			var copy = duplicatorService.DuplicateSurveyFields(originalSurvey);
@@ -35,11 +34,13 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 			Assert.True(originalSurvey.SurveyType == copy.SurveyType);
 		}
 
-		private void BaseInformationHasBeenCorrectlySet(Survey originalSurvey, Survey copy)
+		[Fact]
+		private void BaseInformationHasBeenCorrectlySet()
 		{
+			var copy = duplicatorService.DuplicateSurveyFields(originalSurvey);
 			Assert.True(originalSurvey.Id != copy.Id && originalSurvey.CreatedOn != copy.CreatedOn);
 		}
-
+		[Fact]
 		public void NewIdSurveyHasBeenCorrectlySet()
 		{			
 			var newId = Guid.NewGuid();
@@ -48,6 +49,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 			Assert.True(newId == copy.IdParent);
 		}
 
+		[Fact]
 		public void LocalizationFieldsAreCorrectlyCopied()
 		{			
 			var copy = duplicatorService.DuplicateSurveyLocalization(originalLocalization, Guid.NewGuid());
@@ -60,6 +62,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 			return copy.Name != localizationToCopy.Name && copy.LanguageCode == localizationToCopy.LanguageCode;
 		}
 
+		[Fact]
 		public void LocalizationsAreComplete()
 		{
 			var copy = duplicatorService.DuplicateSurveyLocalizations(originalLocalizations, Guid.NewGuid());
