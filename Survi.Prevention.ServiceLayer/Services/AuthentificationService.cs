@@ -120,7 +120,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			var token = new JwtSecurityToken(issuer,
 				applicationName,
 				claims,
-				expires: DateTime.UtcNow.AddMinutes(1),
+				expires: DateTime.UtcNow.AddMinutes(60),
 				signingCredentials: creds);
 
 			return new JwtSecurityTokenHandler().WriteToken(token);
