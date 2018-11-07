@@ -8,7 +8,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Mocks
 {
     public class SurveyQuestionDuplicatorMock : SurveyQuestionDuplicator
     {
-	    public void UpdatePatente(List<SurveyQuestionConnector> dictionary, SurveyQuestion question)
+	    public void UpdateQuestionIdParent(List<SurveyQuestionConnector> dictionary, SurveyQuestion question)
 	    {
 		    surveyQuestionConnectorList = dictionary;
 		    UdapteQuestionIdParent(question);
