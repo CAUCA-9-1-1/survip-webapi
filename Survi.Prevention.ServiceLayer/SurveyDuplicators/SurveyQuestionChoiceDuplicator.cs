@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Survi.Prevention.ServiceLayer.SurveyDuplicator
+namespace Survi.Prevention.ServiceLayer.SurveyDuplicators
 {
     public class SurveyQuestionChoiceDuplicator
     {

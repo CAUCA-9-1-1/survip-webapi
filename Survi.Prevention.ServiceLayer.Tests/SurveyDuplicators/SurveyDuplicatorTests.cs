@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using Xunit;
+using Survi.Prevention.ServiceLayer.SurveyDuplicators;
 
-namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicator
+namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 {
     public class SurveyDuplicatorTests
     {
-		private ServiceLayer.SurveyDuplicator.SurveyDuplicator duplicatorService = new ServiceLayer.SurveyDuplicator.SurveyDuplicator();
+		private SurveyDuplicator duplicatorService = new SurveyDuplicator();
 		private SurveyLocalization originalLocalization;
 		private List<SurveyLocalization> originalLocalizations; 
 		private Survey originalSurvey;
