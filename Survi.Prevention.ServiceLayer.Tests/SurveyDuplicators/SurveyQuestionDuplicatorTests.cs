@@ -123,7 +123,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 		{
 			var newIdSurveyQuestionParent = Guid.NewGuid();
 			originalSurveyQuestion.IdSurveyQuestionParent = Guid.NewGuid();
-			var dictionary = new List<SurveyQuestionDuplicator.SurveyQuestionConnector> { new SurveyQuestionDuplicator.SurveyQuestionConnector{ NewId =newIdSurveyQuestionParent, OriginalId = originalSurveyQuestion.IdSurveyQuestionParent.Value} };
+			var dictionary = new List<SurveyQuestionIdsConnector> { new SurveyQuestionIdsConnector{ NewId = newIdSurveyQuestionParent, OriginalId = originalSurveyQuestion.IdSurveyQuestionParent.Value} };
 			new SurveyQuestionDuplicatorMock().UpdateQuestionIdParent(dictionary, originalSurveyQuestion);
 			
 			Assert.Equal(originalSurveyQuestion.IdSurveyQuestionParent, newIdSurveyQuestionParent);
@@ -132,7 +132,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 		[Fact]
 		public void IdParentIsNotUpdatedWhenNull()
 		{
-			var dictionary = new List<SurveyQuestionDuplicator.SurveyQuestionConnector>();
+			var dictionary = new List<SurveyQuestionIdsConnector>();
 			originalSurveyQuestion.IdSurveyQuestionParent = null;
 			new SurveyQuestionDuplicatorMock().UpdateQuestionIdParent(dictionary, originalSurveyQuestion);
 			
