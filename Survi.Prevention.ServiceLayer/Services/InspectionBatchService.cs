@@ -17,6 +17,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public override Batch Get(Guid id)
 		{
 			var result = Context.Batches
+				.Include(b => b.Users)
+				.Include(b => b.Inspections)
 				.First(s => s.Id == id);
 
 			return result;
@@ -44,6 +46,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		        {
 			        inspection.IsActive = false;
 			        inspection.Status = InspectionStatus.Canceled;
+			        // ReSharper disable once AccessToDisposedClosure
 			        copyManager.DeleteCopy(inspection.Id);
 		        });
 	        }
@@ -121,6 +124,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					if (inspections.All(i => i.Id != child.Id))
 					{
 						Context.Inspections.Remove(child);
+						// ReSharper disable once AccessToDisposedClosure
 						copyManager.DeleteCopy(child.Id);
 					}
 				});
