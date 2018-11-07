@@ -10,10 +10,10 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 	public class SurveyQuestionDuplicatorTests
 	{
 		private readonly SurveyQuestionDuplicator duplicatorService = new SurveyQuestionDuplicator();
-		private SurveyQuestionLocalization originalLocalization;
-		private List<SurveyQuestionLocalization> originalLocalizations;
-		private SurveyQuestion originalSurveyQuestion;
-		private List<SurveyQuestion> originalSurveyQuestions;
+		private readonly SurveyQuestionLocalization originalLocalization;
+		private readonly List<SurveyQuestionLocalization> originalLocalizations;
+		private readonly SurveyQuestion originalSurveyQuestion;
+		private readonly List<SurveyQuestion> originalSurveyQuestions;
 
 		public SurveyQuestionDuplicatorTests()
 		{
@@ -122,8 +122,9 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 		public void IdParentIsCorrectlyUpdated()
 		{
 			var newIdSurveyQuestionParent = Guid.NewGuid();
+			originalSurveyQuestion.IdSurveyQuestionParent = Guid.NewGuid();
 			var dictionary = new List<SurveyQuestionDuplicator.SurveyQuestionConnector> { new SurveyQuestionDuplicator.SurveyQuestionConnector{ NewId =newIdSurveyQuestionParent, OriginalId = originalSurveyQuestion.IdSurveyQuestionParent.Value} };
-			new SurveyQuestionDuplicatorMock().UpdatePatente(dictionary, originalSurveyQuestion);
+			new SurveyQuestionDuplicatorMock().UpdateQuestionIdParent(dictionary, originalSurveyQuestion);
 			
 			Assert.Equal(originalSurveyQuestion.IdSurveyQuestionParent, newIdSurveyQuestionParent);
 		}
@@ -133,9 +134,9 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 		{
 			var dictionary = new List<SurveyQuestionDuplicator.SurveyQuestionConnector>();
 			originalSurveyQuestion.IdSurveyQuestionParent = null;
-			new SurveyQuestionDuplicatorMock().UpdatePatente(dictionary, originalSurveyQuestion);
+			new SurveyQuestionDuplicatorMock().UpdateQuestionIdParent(dictionary, originalSurveyQuestion);
 			
-			Assert.Equal(originalSurveyQuestion.IdSurveyQuestionParent, null);
+			Assert.Null(originalSurveyQuestion.IdSurveyQuestionParent);
 		}
 	}
 }
