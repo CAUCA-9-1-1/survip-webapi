@@ -60,9 +60,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return newAccessToken;
 		}
 
-		public AccessToken GetAccessTokenFromRefreshToken(string refreshToken, Guid webuserId)
+		private AccessToken GetAccessTokenFromRefreshToken(string refreshToken, Guid webuserId)
 		{
-			var webuserToken = Context.AccessTokens.Include(t => t.User).AsNoTracking()
+			var webuserToken = Context.AccessTokens.Include(t => t.User)
 				.FirstOrDefault(t => t.IdWebuser == webuserId && t.RefreshToken == refreshToken);
 			return webuserToken;
 		}
