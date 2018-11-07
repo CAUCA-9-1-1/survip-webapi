@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Survi.Prevention.ServiceLayer.SurveyDuplicator
+namespace Survi.Prevention.ServiceLayer.SurveyDuplicators
 {
     public class SurveyQuestionDuplicator
     {
