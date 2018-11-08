@@ -121,7 +121,13 @@ namespace Survi.Prevention.DataLayer
 					  FROM batch_user as bu
 						INNER JOIN webuser as wu ON bu.id_webuser = wu.id
 					  where bu.id_batch = batch.id)
-				  END), '') as webuser_assigned_to
+				  END), '') as webuser_assigned_to,
+				CASE
+		           WHEN ((SELECT count(inspection.id) AS count
+		                  FROM inspection
+		                  WHERE ((inspection.is_active = true) AND (inspection.id_batch = i.id_batch) AND
+		                         (inspection.status <> 0))) > 0) THEN true
+		           ELSE false END AS is_batch_started
 
 				FROM inspection as i
 				INNER JOIN batch on batch.id = i.id_batch
