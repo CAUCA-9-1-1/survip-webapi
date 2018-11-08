@@ -68,28 +68,34 @@ namespace Survi.Prevention.ServiceLayer.Services
 			if (result == null)
 				return null;
 
-			return new InspectionBuildingDetailForWeb
-			{
-				Id = result.Id,
-				IdInspection = inspectionId,
-				IdDetail = result.IdDetail,
-				IdLaneTransversal = result.IdLaneTransversal,
-				IdPictureSitePlan = result.IdPicturePlan,
-				IdCity = result.IdCity,
-				MainBuildingAddress = new AddressGenerator()
-					.GenerateAddress(result.CivicNumber, result.CivicLetter, result.LaneName, result.GenericDescription, result.PublicDescription, result.AddWhiteSpaceAfter),
-				MainBuildingIdLane = result.MainBuildingIdLane,
-				MainBuildingName = result.MainBuildingName,
-				MainBuildingIdRiskLevel = result.MainBuildingIdRiskLevel,
-				MainBuildingIdUtilisationCode = result.MainBuildingIdUtilisationCode,
-				MainBuildingMatricule = result.Matricule,
-				OtherInformation = result.OtherInformation,
-				IdBuilding = result.IdBuilding,
-				IdSurvey = result.IdSurvey,
-				IsSurveyCompleted = result.IsSurveyCompleted,
-				Status = result.Status,
-				ApprobationRefusalReason = result.Status == InspectionStatus.Refused ? result.ApprobationRefusal : "",
-				Coordinates = result.Coordinates
+		    var owner = Context.InspectionBuildingContacts
+		        .Where(contact => contact.IdBuilding == result.IdBuilding && contact.IsActive && contact.IsOwner)
+		        .Select(contact => (string.IsNullOrWhiteSpace(contact.FirstName) ? "" : contact.FirstName + " ") + contact.LastName)
+		        .FirstOrDefault() ?? "";
+
+            return new InspectionBuildingDetailForWeb
+            {
+                Id = result.Id,
+                IdInspection = inspectionId,
+                IdDetail = result.IdDetail,
+                IdLaneTransversal = result.IdLaneTransversal,
+                IdPictureSitePlan = result.IdPicturePlan,
+                IdCity = result.IdCity,
+                MainBuildingAddress = new AddressGenerator()
+                    .GenerateAddress(result.CivicNumber, result.CivicLetter, result.LaneName, result.GenericDescription, result.PublicDescription, result.AddWhiteSpaceAfter),
+                MainBuildingIdLane = result.MainBuildingIdLane,
+                MainBuildingName = result.MainBuildingName,
+                MainBuildingIdRiskLevel = result.MainBuildingIdRiskLevel,
+                MainBuildingIdUtilisationCode = result.MainBuildingIdUtilisationCode,
+                MainBuildingMatricule = result.Matricule,
+                OtherInformation = result.OtherInformation,
+                IdBuilding = result.IdBuilding,
+                IdSurvey = result.IdSurvey,
+                IsSurveyCompleted = result.IsSurveyCompleted,
+                Status = result.Status,
+                ApprobationRefusalReason = result.Status == InspectionStatus.Refused ? result.ApprobationRefusal : "",
+                Coordinates = result.Coordinates,
+                MainBuildingOwner = owner
 			};
 		}
 
@@ -140,7 +146,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 			if (result == null)
 				return null;
 
-			return new InspectionBuildingDetailForWeb
+		    var owner = Context.BuildingContacts
+		        .Where(contact => contact.IdBuilding == result.IdBuilding && contact.IsActive && contact.IsOwner)
+		        .Select(contact => (string.IsNullOrWhiteSpace(contact.FirstName) ? "" : contact.FirstName + " ") + contact.LastName)
+		        .FirstOrDefault() ?? "";
+
+            return new InspectionBuildingDetailForWeb
 			{
 				Id = result.Id,
 				IdInspection = inspectionId,
@@ -161,7 +172,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 				IsSurveyCompleted = result.IsSurveyCompleted,
 				Status = result.Status,
 				ApprobationRefusalReason = result.Status == InspectionStatus.Refused ? result.ApprobationRefusal : "",
-				Coordinates = result.Coordinates
+				Coordinates = result.Coordinates,
+                MainBuildingOwner = owner
 			};
 		}
 
