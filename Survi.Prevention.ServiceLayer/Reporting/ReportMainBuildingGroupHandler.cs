@@ -29,7 +29,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 		protected override List<BuildingForReport> GetData(Guid mainBuildingId, string languageCode)
 		{
-			return service.GetBuildingsForReport(mainBuildingId, languageCode, false);
+			return service.GetBuildingsForReport(mainBuildingId, languageCode, true);
 		}
 
 		protected override string GetFilledTemplate(string groupTemplate, BuildingForReport entity, string languageCode)
