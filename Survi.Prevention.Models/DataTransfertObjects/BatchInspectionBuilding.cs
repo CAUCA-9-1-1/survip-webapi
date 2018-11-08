@@ -18,5 +18,6 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 		public string CityName { get; set; }
 		public string RiskLevel { get; set; }
 		public string LanguageCode { get; set; }
+		public int InspectionStatus { get; set; }
     }
 }
