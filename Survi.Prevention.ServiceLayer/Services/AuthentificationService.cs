@@ -41,7 +41,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public string Refresh(string token, string refreshToken, string applicationName, string issuer, string secretKey)
 		{
-			var webuserId = GetCallDispatcherIdFromExpiredToken(token, issuer, applicationName, secretKey);
+            if (string.IsNullOrWhiteSpace(token) || string.IsNullOrWhiteSpace(refreshToken))
+                throw new SecurityTokenException("Invalid token.");
+
+            var webuserId = GetCallDispatcherIdFromExpiredToken(token, issuer, applicationName, secretKey);
 			var webuserToken = GetAccessTokenFromRefreshToken(refreshToken, webuserId);
 
 			if (webuserToken == null)
@@ -50,7 +53,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			if (webuserToken.RefreshToken != refreshToken)
 				throw new SecurityTokenValidationException("Invalid token.");
 
-			if (webuserToken.CreatedOn.AddHours(webuserToken.ExpiresIn) < DateTime.Now)
+			if (webuserToken.CreatedOn.AddSeconds(webuserToken.ExpiresIn) < DateTime.Now)
 				throw new SecurityTokenExpiredException("Token expired.");
 
 			var newAccessToken = GenerateAccessToken(webuserToken.User, applicationName, issuer, secretKey);
