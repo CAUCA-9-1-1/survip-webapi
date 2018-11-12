@@ -7,30 +7,31 @@ namespace Survi.Prevention.ServiceLayer.SurveyDuplicators
 {
 	public class SurveyDuplicator
 	{
-		public Survey DuplicateSurvey(Survey surveyToCopy)
+		public Survey DuplicateSurvey(Survey surveyToCopy, Guid idWebUserLastModifiedBy)
 		{
 			Survey newSurvey = DuplicateSurveyFields(surveyToCopy);
-			newSurvey.Localizations = DuplicateSurveyLocalizations(surveyToCopy.Localizations, newSurvey.Id);
-			newSurvey.Questions = new SurveyQuestionDuplicator().DuplicateSurveyQuestions(surveyToCopy.Questions, newSurvey.Id);
+			newSurvey.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
+			newSurvey.Localizations = DuplicateSurveyLocalizations(surveyToCopy.Localizations, newSurvey.Id, idWebUserLastModifiedBy);
+			newSurvey.Questions = new SurveyQuestionDuplicator().DuplicateSurveyQuestions(surveyToCopy.Questions, newSurvey.Id, idWebUserLastModifiedBy);
 			return newSurvey;
 		}
 
 		public Survey DuplicateSurveyFields(Survey surveyToCopy)
 		{
-			return new Survey { SurveyType = surveyToCopy.SurveyType };
+			return new Survey { SurveyType = surveyToCopy.SurveyType};
 		}
 
-		public List<SurveyLocalization> DuplicateSurveyLocalizations(ICollection<SurveyLocalization> localizationsToCopy, Guid newIdSurvey)
+		public List<SurveyLocalization> DuplicateSurveyLocalizations(ICollection<SurveyLocalization> localizationsToCopy, Guid newIdSurvey, Guid idWebUserLastModifiedBy)
 		{
 			List<SurveyLocalization> newLocalizations = new List<SurveyLocalization>();
-			localizationsToCopy.ToList().ForEach(localization => newLocalizations.Add(DuplicateSurveyLocalization(localization, newIdSurvey)));
+			localizationsToCopy.ToList().ForEach(localization => newLocalizations.Add(DuplicateSurveyLocalization(localization, newIdSurvey, idWebUserLastModifiedBy)));
 			return newLocalizations;
 		}
 
-		public SurveyLocalization DuplicateSurveyLocalization(SurveyLocalization localizationToCopy, Guid newIdSurvey)
+		public SurveyLocalization DuplicateSurveyLocalization(SurveyLocalization localizationToCopy, Guid newIdSurvey, Guid idWebUserLastModifiedBy)
 		{
 			string suffix = Localization.EnumResource.ResourceManager.GetString("Copy", System.Globalization.CultureInfo.GetCultureInfo(localizationToCopy.LanguageCode));
-			return new SurveyLocalization { LanguageCode = localizationToCopy.LanguageCode, Name =  localizationToCopy.Name + suffix , IdParent = newIdSurvey};
+			return new SurveyLocalization { LanguageCode = localizationToCopy.LanguageCode, Name =  localizationToCopy.Name + suffix , IdParent = newIdSurvey, IdWebUserLastModifiedBy = idWebUserLastModifiedBy};
 		}
 
 	}

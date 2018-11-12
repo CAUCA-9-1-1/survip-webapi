@@ -50,7 +50,7 @@ namespace Survi.Prevention.ServiceLayer.Services {
 			return query.ToList();
 		}
 
-		public bool CopySurvey(Guid idSurvey)
+		public bool CopySurvey(Guid idSurvey, Guid idWebUserLastModifiedBy)
 		{
 			var survey = Context.Surveys.AsNoTracking()
 				.Include(s => s.Localizations)
@@ -63,7 +63,7 @@ namespace Survi.Prevention.ServiceLayer.Services {
 
 			if (survey != null)
 			{
-				var newSurvey = new SurveyDuplicator().DuplicateSurvey(survey);
+				var newSurvey = new SurveyDuplicator().DuplicateSurvey(survey, idWebUserLastModifiedBy);
 				if (newSurvey != null)
 				{
 					Context.Surveys.Add(newSurvey);

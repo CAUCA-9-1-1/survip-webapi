@@ -12,6 +12,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 		private SurveyLocalization originalLocalization;
 		private List<SurveyLocalization> originalLocalizations; 
 		private Survey originalSurvey;
+	    private readonly Guid idWebUserLastModifiedBy;
 	
 		public SurveyDuplicatorTests()
 		{
@@ -25,6 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 			{
 				originalLocalization, new SurveyLocalization{ Name = "Test", LanguageCode = "en"}
 			};
+			idWebUserLastModifiedBy = Guid.NewGuid();
 		}
 		[Fact]
 		public void SurveyFieldsAreCorrectlyCopied()
@@ -44,7 +46,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 		public void NewIdSurveyHasBeenCorrectlySet()
 		{			
 			var newId = Guid.NewGuid();
-			var copy = duplicatorService.DuplicateSurveyLocalization(originalLocalization, newId);
+			var copy = duplicatorService.DuplicateSurveyLocalization(originalLocalization, newId, idWebUserLastModifiedBy);
 
 			Assert.True(newId == copy.IdParent);
 		}
@@ -52,7 +54,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 		[Fact]
 		public void LocalizationFieldsAreCorrectlyCopied()
 		{			
-			var copy = duplicatorService.DuplicateSurveyLocalization(originalLocalization, Guid.NewGuid());
+			var copy = duplicatorService.DuplicateSurveyLocalization(originalLocalization, Guid.NewGuid(), idWebUserLastModifiedBy);
 
 			Assert.True(LocalizationHasBeenCorrectlyDuplicated(originalLocalization, copy));
 		}
@@ -65,7 +67,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 		[Fact]
 		public void LocalizationsAreComplete()
 		{
-			var copy = duplicatorService.DuplicateSurveyLocalizations(originalLocalizations, Guid.NewGuid());
+			var copy = duplicatorService.DuplicateSurveyLocalizations(originalLocalizations, Guid.NewGuid(), idWebUserLastModifiedBy);
 			Assert.Equal(originalLocalizations.Count, copy.Count);
 		}
 	}
