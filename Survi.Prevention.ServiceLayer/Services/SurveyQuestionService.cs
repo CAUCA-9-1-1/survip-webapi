@@ -33,13 +33,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-		public override bool Remove(Guid idSurveyQuestion, Guid idWebUserModified = new Guid())
+		public override bool Remove(Guid idSurveyQuestion, Guid idWebUserLastModifiedBy = new Guid())
 		{
 			if (idSurveyQuestion != Guid.Empty)
 			{
-				DeleteQuestion(idSurveyQuestion, idWebUserModified);
+				DeleteQuestion(idSurveyQuestion, idWebUserLastModifiedBy);
 
-				DeleteChildQuestion(idSurveyQuestion, idWebUserModified);
+				DeleteChildQuestion(idSurveyQuestion, idWebUserLastModifiedBy);
 
 				Context.SaveChanges();
 
@@ -48,11 +48,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return false;
 		}
 
-		private void DeleteQuestion(Guid idSurveyQuestion, Guid idWebUserModified = new Guid())
+		private void DeleteQuestion(Guid idSurveyQuestion, Guid idWebUserLastModifiedBy = new Guid())
 		{
 			var question = Context.SurveyQuestions.Include(sqc => sqc.Localizations).Single(sq => sq.Id == idSurveyQuestion);
 			question.IsActive = false;
-			question = UpdateModifiedInformation(question, idWebUserModified);
+			UpdateModifiedInformation(question, idWebUserLastModifiedBy);
 			if (question.Localizations.Any())
 			{
 				List<SurveyQuestionLocalization> questionLocalization = new List<SurveyQuestionLocalization>();
@@ -60,7 +60,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				questionLocalization.ForEach(sql =>
 				{
 					sql.IsActive = false;
-					sql.IdWebUserLastModifiedBy = idWebUserModified;
+					sql.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
 					sql.LastModifiedOn = DateTime.Now;
 				});
 			}
@@ -68,12 +68,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 			DeleteQuestionChoices(idSurveyQuestion);
 		}
 
-		private void DeleteChildQuestion(Guid idSurveyQuestion, Guid idWebUserModified = new Guid())
+		private void DeleteChildQuestion(Guid idSurveyQuestion, Guid idWebUserLastModifiedBy = new Guid())
 		{
 			var childQuestions = Context.SurveyQuestions.Include(sqc => sqc.Localizations).Where(sq => sq.IdSurveyQuestionParent == idSurveyQuestion && sq.IsActive).ToList();
 			childQuestions.ForEach(cq =>
 			{
-				DeleteQuestion(cq.Id, idWebUserModified);
+				DeleteQuestion(cq.Id, idWebUserLastModifiedBy);
 			});
 		}
 
@@ -109,11 +109,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 					int oldSequence = question.Sequence;
 					questionDest.Sequence = oldSequence;
-					questionDest = UpdateModifiedInformation(questionDest, idWebUserModified);
+					UpdateModifiedInformation(questionDest, idWebUserModified);
 				}
 
 				question.Sequence = sequence;
-				question = UpdateModifiedInformation(question, idWebUserModified);
+				UpdateModifiedInformation(question, idWebUserModified);
 
 				Context.SaveChanges();
 				return true;
@@ -133,14 +133,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-		private SurveyQuestion UpdateModifiedInformation(SurveyQuestion question, Guid idWebUserModified)
+		private void UpdateModifiedInformation(SurveyQuestion question, Guid idWebUserLastModifiedBy)
 		{
-			if (idWebUserModified != Guid.Empty)
+			if (idWebUserLastModifiedBy != Guid.Empty)
 			{
-				question.IdWebUserLastModifiedBy = idWebUserModified;
+				question.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
 				question.LastModifiedOn = DateTime.Now;
 			}
-			return question;
 		}
 	}
 
