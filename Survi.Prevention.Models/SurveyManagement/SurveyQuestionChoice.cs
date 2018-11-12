@@ -14,6 +14,7 @@ namespace Survi.Prevention.Models.SurveyManagement
 		public SurveyQuestion Question { get; set; }
 		public SurveyQuestion NextQuestion { get; set; }
 		public ICollection<SurveyQuestionChoiceLocalization> Localizations { get; set; } = new List<SurveyQuestionChoiceLocalization>();
+		ICollection<BaseLocalization<SurveyQuestionChoice>> IEntityWithLocalizations<BaseLocalization<SurveyQuestionChoice>>.Localizations { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 	}
 
 	public interface IEntityWithLocalizations<T>

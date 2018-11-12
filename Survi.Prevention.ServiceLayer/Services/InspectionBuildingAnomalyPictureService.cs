@@ -46,9 +46,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public virtual Guid AddOrUpdatePicture(InspectionPictureForWeb entity, Guid idWebUserLastModifiedBy)
 		{
-            var anomalyPicture = Context.InspectionBuildingAnomalyPictures.Find(entity.Id)
-				.Include(pic => pic.Picture)
-	            .FirstOrDefault(pic => pic.Id == entity.Id) 
+			var anomalyPicture = Context.InspectionBuildingAnomalyPictures.Find(entity.Id);
 
 			if (anomalyPicture == null)
 				anomalyPicture = GenerateNewPicture(entity, idWebUserLastModifiedBy);
@@ -111,7 +109,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			anomalyPicture.Picture = Context.InspectionPictures.Find(entity.Id);
 
 			anomalyPicture.Picture.Id = entity.Id;
-			anomalyPicture.Picture.DataUri = entity.PictureData;
+			anomalyPicture.Picture.DataUri = entity.DataUri;
 			anomalyPicture.Picture.SketchJson = entity.SketchJson;
 		}
 

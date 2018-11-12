@@ -42,12 +42,12 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 
 		[HttpPost, Route("SetSurveyStatus")]
-		public ActionResult SetSurveyStatus([FromBody] InspectionSurveyCompletion SurveyStatus)
+		public ActionResult SetSurveyStatus([FromBody] InspectionSurveyCompletion surveyStatus)
 		{
-			if (Service.SetSurveyStatus(SurveyStatus, CurrentUserId))
+			if (Service.SetSurveyStatus(surveyStatus, CurrentUserId))
 				return NoContent();
-			else
-				return BadRequest("Error on updating the inspection survey completed status");
+
+			return BadRequest("Error on updating the inspection survey completed status");
 		}
 
 		[HttpPut, Route("Inspection/DeleteAnswers")]

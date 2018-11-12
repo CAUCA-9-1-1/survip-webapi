@@ -187,7 +187,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return existingAnswer.Id;
 		}
 
-		public bool SetSurveyStatus(InspectionSurveyCompletion surveyStatus)
+		public bool SetSurveyStatus(InspectionSurveyCompletion surveyStatus, Guid idWebUserLastModifiedBy)
 		{
 			if(surveyStatus.idInspection != Guid.Empty)
 			{
