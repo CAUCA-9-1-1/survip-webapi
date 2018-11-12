@@ -36,7 +36,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public override ActionResult Delete(Guid idBuildingAnomaly)
 		{
-			if (Service.Delete(idBuildingAnomaly))
+			if (Service.Delete(idBuildingAnomaly, CurrentUserId))
 				return NoContent();
 
 			return BadRequest();

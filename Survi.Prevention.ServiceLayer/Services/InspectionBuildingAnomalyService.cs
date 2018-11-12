@@ -86,13 +86,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return entity.Id;
 		}
 
-		public virtual bool Delete(Guid id)
+		public virtual bool Delete(Guid id, Guid idWebUserLastModifiedBy)
 		{
 			var entity = Context.InspectionBuildingAnomalies.Find(id);
 			if (entity != null)
 			{
-				DeleteAnomalyPictures(entity.Id);
-				Remove(id);
+				DeleteAnomalyPictures(entity.Id, idWebUserLastModifiedBy);
+				Remove(id, idWebUserLastModifiedBy);
 				Context.SaveChanges();
 				return true;
 			}
@@ -100,7 +100,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return false;
 		}
 
-		private void DeleteAnomalyPictures(Guid idBuildingAnomaly)
+		private void DeleteAnomalyPictures(Guid idBuildingAnomaly, Guid idWebUserLastModifiedBy)
 		{
 			var anomalyPictures = Context.InspectionBuildingAnomalyPictures
 									.Where(bap => bap.IdBuildingAnomaly == idBuildingAnomaly)
@@ -108,9 +108,16 @@ namespace Survi.Prevention.ServiceLayer.Services
 			anomalyPictures.ForEach(pic =>
 			{
 				pic.IsActive = false;
+				pic.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
+				pic.LastModifiedOn = DateTime.Now;
+
 				var picture = Context.InspectionPictures.Find(pic.IdPicture);
 				if (picture != null)
+				{
 					picture.IsActive = false;
+					picture.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
+					picture.LastModifiedOn = DateTime.Now;
+				}
 			});
 		}
 	}
