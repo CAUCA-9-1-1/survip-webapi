@@ -15,13 +15,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public BuildingDetail GetByIdBuilding(Guid idBuilding)
-		{
-			var detail = Context.BuildingDetails.AsNoTracking()
-				.SingleOrDefault(d => d.IdBuilding == idBuilding) ?? GenerateNewDetail(idBuilding);
-
-			return detail;
-		}
 
 		public Guid? GetIdByIdBuilding(Guid idBuilding)
 		{
@@ -31,13 +24,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return detailId;
 		}
 
-		private BuildingDetail GenerateNewDetail(Guid idBuilding)
-		{
-			var detail = new BuildingDetail { IdBuilding = idBuilding };
-			Context.Add(detail);
-			Context.SaveChanges();
-			return detail;
-		}
 
 		public override BuildingDetail Get(Guid id)
 		{

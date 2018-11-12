@@ -49,7 +49,7 @@ namespace Survi.Prevention.ServiceLayer.SurveyDuplicators
 		public List<SurveyQuestionLocalization> DuplicateSurveyQuestionLocalizations(ICollection<SurveyQuestionLocalization> localizationsToCopy, Guid newIdSurveyQuestion, Guid idWebUserLastModifiedBy)
 		{
 			List<SurveyQuestionLocalization> newQuestionLocalizations = new List<SurveyQuestionLocalization>();
-			localizationsToCopy.Where(loc=>loc.IsActive).ToList().ForEach(questionLocalization => newQuestionLocalizations.Add(DuplicateSurveyQuestionLocalization(questionLocalization, newIdSurveyQuestion)));
+			localizationsToCopy.Where(loc=>loc.IsActive).ToList().ForEach(questionLocalization => newQuestionLocalizations.Add(DuplicateSurveyQuestionLocalization(questionLocalization, newIdSurveyQuestion, idWebUserLastModifiedBy)));
 			return newQuestionLocalizations;
 		}
 
