@@ -2,11 +2,11 @@
 using RestSharp;
 using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
-using Survi.Prevention.ApiClient.Exceptions;
 
 namespace Survi.Prevention.ApiClient.Services.Base
 {
-    public abstract class BaseService<T> where T : BaseTransferObject, new()
+    public abstract class BaseService<T> 
+        where T : BaseTransferObject, new()
     {
         protected abstract string BaseUrl { get; set; }
 
@@ -44,21 +44,8 @@ namespace Survi.Prevention.ApiClient.Services.Base
 
         protected void ThrowExceptionWhenResponseHasErrorCode(IRestResponse response, string url)
         {
-            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                throw new NotFoundApiException(url);
-            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
-                throw new BadParameterApiException(url);
-            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-                throw new UnauthorizedApiException(url);
-            if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
-                throw new ForbiddenApiException(url);
-            if (response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
-                throw new InternalErrorApiException(url);
-            if (response.StatusCode == 0 ||
-                (response.ResponseStatus == ResponseStatus.Error
-                 || response.ResponseStatus == ResponseStatus.None
-                 || response.ResponseStatus == ResponseStatus.TimedOut))
-                throw new NoResponseApiException();
+            new RestResponseValidator()
+                .ThrowExceptionWhenResponseHasErrorCode(response, url);
         }
     }
 }

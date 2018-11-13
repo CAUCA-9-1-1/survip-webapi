@@ -69,17 +69,25 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mocks\MockRepository.cs" />
+    <Compile Include="Repositories\BaseRepositoryTests.cs" />
+    <Compile Include="Repositories\BaseRestResponseTests.cs" />
     <Compile Include="Repositories\ConfigurationTests.cs" />
     <Compile Include="Repositories\ExceptionsTests.cs" />
     <Compile Include="Repositories\RestResponseExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\RestResponseValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Survi.Prevention.ApiClient.DataTransfertObjects\Survi.Prevention.ApiClient.DataTransferObjects.csproj">
+      <Project>{1acc3cfb-de6a-4dcf-9fe9-9744138c2541}</Project>
+      <Name>Survi.Prevention.ApiClient.DataTransferObjects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Survi.Prevention.ApiClient\Survi.Prevention.ApiClient.csproj">
-      <Project>{54ae9b50-11b8-42cb-a269-6f0911313efb}</Project>
+      <Project>{f776f8ca-cb78-492a-8ed3-4a2fec00d134}</Project>
       <Name>Survi.Prevention.ApiClient</Name>
     </ProjectReference>
   </ItemGroup>
