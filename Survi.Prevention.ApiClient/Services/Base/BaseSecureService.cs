@@ -1,20 +1,18 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
-using RestSharp;
+using Flurl;
+using Flurl.Http;
 using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
-using Survi.Prevention.ApiClient.Exceptions;
 
 namespace Survi.Prevention.ApiClient.Services.Base
 {
     public abstract class BaseSecureService<T> : BaseService<T> where T : BaseTransferObject, new()
     {
-        protected override IRestRequest GenerateRequest(Method method)
+        protected IFlurlRequest GenerateSecureRequest()
         {
-            var request = base.GenerateRequest(method);
-            request.AddParameter("Authorization", GetAuthorizationHeaderValue(), ParameterType.HttpHeader);
-            return request;
+            var request = GenerateRequest();
+            return request.WithHeader("Authorization", GetAuthorizationHeaderValue());
         }
 
         protected string GetAuthorizationHeaderValue()
@@ -22,56 +20,28 @@ namespace Survi.Prevention.ApiClient.Services.Base
             return $"{Configuration.Current.LoginInfo.AuthorizationType} {Configuration.Current.LoginInfo.AccessToken}";
         }
 
-        protected override async Task<IRestResponse<ImportationResult>> ExecuteAsync(IRestClient client, IRestRequest request)
-        {
-            var response = await client.ExecuteTaskAsync<ImportationResult>(request);
-
-            if (response.AccessTokenIsInvalid())
+        protected override async Task<ImportationResult> ExecuteAsync(T entity, Url request)
+        {            
+            try
             {
-                Configuration.Current.LoginInfo.AccessToken = await RefreshAccessToken(client);
-                Console.WriteLine("Reauthenticated...");
-                request.Parameters.ToList().First(p => p.Name == "Authorization").Value = GetAuthorizationHeaderValue();
-                response = await client.ExecuteTaskAsync<ImportationResult>(request);
+                return await ExecuteRequest(entity);
             }
-
-            ThrowExceptionWhenResponseHasErrorCode(response, client.BuildUri(request).ToString());
-
-            return response;
+            catch(FlurlHttpException exception)
+            { 
+                if (exception.Call.AccessTokenIsExpired())
+                {
+                    await new RefreshTokenHandler()
+                        .RefreshToken();
+                    Console.WriteLine("Reauthenticated...");
+                    return await ExecuteRequest(entity);
+                }
+                return null;
+            }            
         }
 
-        private async Task<string> RefreshAccessToken(IRestClient client)
+        private async Task<ImportationResult> ExecuteRequest(T entity)
         {
-            var request = new RestRequest("authentification/refresh", Method.POST);
-            request.AddJsonBody(new TokenRefreshResult {AccessToken = Configuration.Current.LoginInfo.AccessToken, RefreshToken = Configuration.Current.LoginInfo.RefreshToken});
-            var response = await client.ExecutePostTaskAsync<TokenRefreshResult>(request);
-
-            if (response.RefreshTokenIsExpired())
-                throw new ExpiredRefreshTokenException();
-            if (response.RefreshTokenIsInvalid())
-                throw new InvalidRefreshTokenException();
-
-            return response.Data.AccessToken;
-        }
-
-        public async Task<bool> GetNewAccessToken()
-        {
-            var client = new RestClient(Configuration.Current.ApiBaseUrl);
-            var request = new RestRequest("authentification", Method.POST);
-
-            var response = await client.ExecutePostTaskAsync<TokenRefreshResult>(request);
-
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                Configuration.Current.LoginInfo.AccessToken = response.Data.AccessToken;
-                return true;
-            }
-
-            if (response.RefreshTokenIsExpired())
-                throw new ExpiredRefreshTokenException();
-            if (response.RefreshTokenIsInvalid())
-                throw new InvalidRefreshTokenException();
-
-            return false;
+            return await ExecuteAsync(entity, GenerateSecureRequest());
         }
     }
 }

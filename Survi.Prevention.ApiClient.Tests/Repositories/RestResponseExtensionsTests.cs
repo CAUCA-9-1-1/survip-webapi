@@ -14,17 +14,17 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
         }
 
         [TestCase]
-        public void InvalidRefreshTokenIsCorrectlyDetected()
+        public void InvalidAccessTokenIsCorrectlyDetected()
         {
             var response = GetResponse(System.Net.HttpStatusCode.Unauthorized, RestResponseExtensions.TokenInvalid);
-            Assert.IsTrue(response.RefreshTokenIsInvalid());
+            Assert.IsTrue(response.RefreshTokenIsExpired());
         }
 
         [TestCase]
-        public void InvalidAccessTokenIsCorrectlyDetected()
+        public void ExpiredAccessTokenIsCorrectlyDetected()
         {
-            var response = GetResponse(System.Net.HttpStatusCode.Unauthorized, RestResponseExtensions.RefreshTokenExpired);
-            Assert.IsTrue(response.RefreshTokenIsExpired());
+            var response = GetResponse(System.Net.HttpStatusCode.Unauthorized, RestResponseExtensions.TokenExpired);
+            Assert.IsTrue(response.AccessTokenIsExpired());
         }
     }
 }

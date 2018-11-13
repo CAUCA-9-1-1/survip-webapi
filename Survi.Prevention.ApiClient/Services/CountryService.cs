@@ -7,4 +7,6 @@ namespace Survi.Prevention.ApiClient.Services
     {
         protected override string BaseUrl { get; set; } = "Country/Import";
     }
+
+    
 }

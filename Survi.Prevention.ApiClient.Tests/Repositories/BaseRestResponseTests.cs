@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Flurl.Http;
 using Moq;
 using RestSharp;
 using Survi.Prevention.ApiClient.Configurations;
@@ -7,7 +8,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
 {
     public abstract class BaseRestResponseTests
     {
-        protected static IRestResponse<TokenRefreshResult> GetResponse(System.Net.HttpStatusCode code, string headerName, ResponseStatus? status = null)
+        protected static HttpCall GetResponse(System.Net.HttpStatusCode code, string headerName, ResponseStatus? status = null)
         {
             var mockResponse = new Mock<IRestResponse<TokenRefreshResult>>();
             mockResponse.Setup(res => res.StatusCode)
@@ -19,7 +20,8 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
                 mockResponse.Setup(res => res.ResponseStatus)
                     .Returns(status.Value);
             }
-            return mockResponse.Object;
+
+            return new HttpCall();
         }
     }
 }

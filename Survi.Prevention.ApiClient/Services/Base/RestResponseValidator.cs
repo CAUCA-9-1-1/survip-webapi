@@ -1,26 +1,23 @@
-﻿using RestSharp;
+﻿using System.Net;
 using Survi.Prevention.ApiClient.Exceptions;
 
 namespace Survi.Prevention.ApiClient.Services.Base
 {
     public class RestResponseValidator
     {
-        public void ThrowExceptionWhenResponseHasErrorCode(IRestResponse response, string url)
+        public void ThrowExceptionForStatusCode(string url, bool answerReceived, HttpStatusCode? code)
         {
-            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            if (code == HttpStatusCode.NotFound)
                 throw new NotFoundApiException(url);
-            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            if (code == HttpStatusCode.BadRequest)
                 throw new BadParameterApiException(url);
-            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            if (code == HttpStatusCode.Unauthorized)
                 throw new UnauthorizedApiException(url);
-            if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+            if (code == HttpStatusCode.Forbidden)
                 throw new ForbiddenApiException(url);
-            if (response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+            if (code == HttpStatusCode.InternalServerError)
                 throw new InternalErrorApiException(url);
-            if (response.StatusCode == 0 ||
-                (response.ResponseStatus == ResponseStatus.Error
-                 || response.ResponseStatus == ResponseStatus.None
-                 || response.ResponseStatus == ResponseStatus.TimedOut))
+            if (!answerReceived)
                 throw new NoResponseApiException();
         }
     }

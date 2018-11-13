@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
-using RestSharp;
+using Flurl;
+using Flurl.Http;
 using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 
@@ -10,42 +11,39 @@ namespace Survi.Prevention.ApiClient.Services.Base
     {
         protected abstract string BaseUrl { get; set; }
 
-        protected virtual IRestClient GenerateClient()
+        protected virtual Url GenerateRequest()
         {
-            var client = new RestClient(Configuration.Current.ApiBaseUrl);
-            client.AddHandler("application/json", NewtonsoftJsonSerializer.Default);
-            client.AddHandler("text/json", NewtonsoftJsonSerializer.Default);
-            client.AddHandler("text/x-json", NewtonsoftJsonSerializer.Default);
-            client.AddHandler("text/javascript", NewtonsoftJsonSerializer.Default);
-            client.AddHandler("*+json", NewtonsoftJsonSerializer.Default);
-            return client;
-        }
-
-        protected virtual IRestRequest GenerateRequest(Method method)
-        {
-            return new RestRequest(BaseUrl, method);
+            return Configuration.Current.ApiBaseUrl
+                .AppendPathSegment(BaseUrl);
         }
 
         public virtual async Task<ImportationResult> SendAsync(T entity)
         {
-            var client = GenerateClient();
-            var request = GenerateRequest(Method.POST);
-            request.AddJsonBody(entity);
-            var response = await ExecuteAsync(client, request);
-            return response.Data;
+            var request = GenerateRequest();
+            try
+            {
+                return await ExecuteAsync(entity, request);
+            }
+            catch(FlurlHttpException exception)
+            {
+                new RestResponseValidator()
+                    .ThrowExceptionForStatusCode(request.ToUri().ToString(), exception.Call.Succeeded, exception.Call.HttpStatus);
+                return null;
+            }
         }
 
-        protected virtual async Task<IRestResponse<ImportationResult>> ExecuteAsync(IRestClient client, IRestRequest request)
+        protected virtual async Task<ImportationResult> ExecuteAsync(T entity, Url request)
         {
-            var response = await client.ExecuteTaskAsync<ImportationResult>(request);
-            ThrowExceptionWhenResponseHasErrorCode(response, client.BuildUri(request).ToString());
-            return response;
+            return await request
+                .PostJsonAsync(entity)
+                .ReceiveJson<ImportationResult>();
         }
 
-        protected void ThrowExceptionWhenResponseHasErrorCode(IRestResponse response, string url)
+        protected virtual async Task<ImportationResult> ExecuteAsync(T entity, IFlurlRequest request)
         {
-            new RestResponseValidator()
-                .ThrowExceptionWhenResponseHasErrorCode(response, url);
+            return await request
+                .PostJsonAsync(entity)
+                .ReceiveJson<ImportationResult>();
         }
     }
 }
