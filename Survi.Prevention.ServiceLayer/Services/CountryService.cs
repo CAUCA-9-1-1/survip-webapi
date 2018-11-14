@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Microsoft.EntityFrameworkCore;
+using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.ServiceLayer.Import;
 
@@ -34,35 +35,51 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-        public List<CountryLocalized> GetListLocalized(string languageCode)
-        {
-            var query =
-                from country in Context.Countries.AsNoTracking()
-                where country.IsActive
-                from localization in country.Localizations.DefaultIfEmpty()
-                where localization.IsActive && localization.LanguageCode == languageCode
-                orderby localization.Name
-                select new CountryLocalized
-                {
-                    Id = country.Id,
-                    Name = localization.Name
-                };
-
-            return query.ToList();
-        }
-
-		public Guid ImportCountry(ApiClient.DataTransferObjects.Country importedCountry)
+		public List<CountryLocalized> GetListLocalized(string languageCode)
 		{
+			var query =
+				from country in Context.Countries.AsNoTracking()
+				where country.IsActive
+				from localization in country.Localizations.DefaultIfEmpty()
+				where localization.IsActive && localization.LanguageCode == languageCode
+				orderby localization.Name
+				select new CountryLocalized
+				{
+					Id = country.Id,
+					Name = localization.Name
+				};
+
+			return query.ToList();
+		}
+
+		public List<ImportationResult> ImportCountries(List<ApiClient.DataTransferObjects.Country> importedCountries)
+		{
+			List<ImportationResult> resultList = new List<ImportationResult>();
+			foreach (var country in importedCountries)
+			{
+				resultList.Add(ImportCountry(country));
+			}
+
+			return resultList;
+		}
+
+		public ImportationResult ImportCountry(ApiClient.DataTransferObjects.Country importedCountry)
+		{
+			var result = new ImportationResult{HasBeenImported = false};
 			var isExistRecord = Context.Set<Country>().Any(c => c.IdExtern == importedCountry.Id);
-			Country newCountry = new CountryModelConnector().TransferImportedModelToOriginal(importedCountry);
+			if (new CountryModelConnector().ValidateLocalizations(importedCountry))
+			{
+				Country newCountry = new CountryModelConnector().TransferImportedModelToOriginal(importedCountry);
 
-			if (isExistRecord)
-				Context.Add(newCountry);
-			else
-				Context.Update(newCountry);
+				if (isExistRecord)
+					Context.Add(newCountry);
+				else
+					Context.Update(newCountry);
 
-			Context.SaveChanges();
-			return newCountry.Id;
+				Context.SaveChanges();
+				result.HasBeenImported = true;
+			}
+			return result;
 		}
 	}
 }
