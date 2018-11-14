@@ -20,7 +20,7 @@ namespace Survi.Prevention.ApiClient.Services.Base
             return $"{Configuration.Current.LoginInfo.AuthorizationType} {Configuration.Current.LoginInfo.AccessToken}";
         }
 
-        protected override async Task<ImportationResult> ExecuteAsync(T entity, Url request)
+        protected override async Task<ImportationResult> ExecuteAsync(object entity, Url request)
         {            
             try
             {
@@ -36,7 +36,7 @@ namespace Survi.Prevention.ApiClient.Services.Base
             }            
         }
 
-        private async Task<ImportationResult> RefreshTokenThenRetry(T entity)
+        private async Task<ImportationResult> RefreshTokenThenRetry(object entity)
         {
             await new RefreshTokenHandler()
                 .RefreshToken();
@@ -44,7 +44,7 @@ namespace Survi.Prevention.ApiClient.Services.Base
             return await ExecuteRequest(entity);
         }
 
-        private async Task<ImportationResult> ExecuteRequest(T entity)
+        private async Task<ImportationResult> ExecuteRequest(object entity)
         {
             return await ExecuteAsync(entity, GenerateSecureRequest());
         }

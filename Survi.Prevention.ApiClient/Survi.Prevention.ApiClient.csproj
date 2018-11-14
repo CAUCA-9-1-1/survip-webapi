@@ -67,6 +67,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Base\BaseSecureService.cs" />
     <Compile Include="Services\Base\BaseService.cs" />
+    <Compile Include="Services\Base\IBaseService.cs" />
     <Compile Include="Services\Base\RefreshTokenHandler.cs" />
     <Compile Include="Services\Base\RestResponseExtensions.cs" />
     <Compile Include="Services\Base\RestResponseValidator.cs" />

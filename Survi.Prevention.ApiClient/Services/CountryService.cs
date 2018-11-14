@@ -6,7 +6,5 @@ namespace Survi.Prevention.ApiClient.Services
     public class CountryService : BaseSecureService<Country>
     {
         protected override string BaseUrl { get; set; } = "Country/Import";
-    }
-
-    
+    }    
 }
