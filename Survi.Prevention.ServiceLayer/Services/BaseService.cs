@@ -1,5 +1,4 @@
 using Survi.Prevention.DataLayer;
-using System;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {

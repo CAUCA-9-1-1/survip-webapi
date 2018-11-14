@@ -5,6 +5,7 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.Import;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -49,5 +50,19 @@ namespace Survi.Prevention.ServiceLayer.Services
 
             return query.ToList();
         }
-    }
+
+		public Guid ImportCountry(ApiClient.DataTransferObjects.Country importedCountry)
+		{
+			var isExistRecord = Context.Set<Country>().Any(c => c.IdExtern == importedCountry.Id);
+			Country newCountry = new CountryModelConnector().TransferImportedModelToOriginal(importedCountry);
+
+			if (isExistRecord)
+				Context.Add(newCountry);
+			else
+				Context.Update(newCountry);
+
+			Context.SaveChanges();
+			return newCountry.Id;
+		}
+	}
 }

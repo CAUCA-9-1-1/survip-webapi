@@ -16,5 +16,11 @@ namespace Survi.Prevention.WebApi.Controllers
         {
             return Ok(Service.GetListLocalized(languageCode));
         }
+
+		[HttpGet, Route("import")]
+		public ActionResult ImportCountry([FromBody] ApiClient.DataTransferObjects.Country importedCountry)
+		{
+			return Ok(Service.ImportCountry(importedCountry));
+		}
     }
 }
