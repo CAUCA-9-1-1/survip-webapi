@@ -65,19 +65,16 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public ImportationResult ImportCountry(ApiClient.DataTransferObjects.Country importedCountry)
 		{
-			var newCountry = Context.Countries.Include(loc =>loc.Localizations).SingleOrDefault(c => c.IdExtern == importedCountry.Id);
-			CountryModelConnector connector = new CountryModelConnector();
-			ImportationResult result = connector.ValidateCountry(importedCountry);
-			if (result.HasBeenImported)
+			var result = new ImportationResult{HasBeenImported = false};
+			var isExistRecord = Context.Set<Country>().Any(c => c.IdExtern == importedCountry.Id);
+			if (new CountryModelConnector().ValidateLocalizations(importedCountry))
 			{
-				bool isExistRecord = newCountry != null && newCountry.Id != Guid.Empty;
+				Country newCountry = new CountryModelConnector().TransferImportedModelToOriginal(importedCountry);
 
-				newCountry = connector.TransferDtoImportedToOriginal(importedCountry, newCountry);
-
-				if (!isExistRecord)
-					Context.Countries.Add(newCountry);
+				if (isExistRecord)
+					Context.Add(newCountry);
 				else
-					Context.Countries.Update(newCountry);
+					Context.Update(newCountry);
 
 				Context.SaveChanges();
 				result.HasBeenImported = true;
