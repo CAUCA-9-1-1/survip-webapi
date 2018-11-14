@@ -71,10 +71,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 			{
 				Country newCountry = new CountryModelConnector().TransferImportedModelToOriginal(importedCountry);
 
-				if (isExistRecord)
-					Context.Add(newCountry);
+				if (!isExistRecord)
+					Context.Countries.Add(newCountry);
 				else
-					Context.Update(newCountry);
+					Context.Countries.Update(newCountry);
 
 				Context.SaveChanges();
 				result.HasBeenImported = true;
