@@ -7,9 +7,22 @@ namespace Survi.Prevention.ServiceLayer.Import
 {
     public class CountryModelConnector
     {
-	    public CountryModelConnector()
+	    public bool ValidateLocalizations(ApiClient.DataTransferObjects.Country importedCountry)
 	    {
+		    if (importedCountry.Localizations.Count == 0 && ValidateLanguage(importedCountry.Localizations.ToList()))
+				return false;
+		    return true;
+	    }
 
+	    private bool ValidateLanguage(List<ApiClient.DataTransferObjects.Base.Localization> localizations)
+	    {
+		    foreach (var loc in localizations)
+		    {
+			    if (string.IsNullOrEmpty(loc.LanguageCode) || string.IsNullOrEmpty(loc.Name))
+				    return false;
+		    }
+
+		    return true;
 	    }
 
 	    public Country TransferImportedModelToOriginal(ApiClient.DataTransferObjects.Country importedCountry)
