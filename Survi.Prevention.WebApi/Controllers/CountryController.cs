@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -18,9 +19,9 @@ namespace Survi.Prevention.WebApi.Controllers
         }
 
 		[HttpGet, Route("import")]
-		public ActionResult ImportCountry([FromBody] ApiClient.DataTransferObjects.Country importedCountry)
+		public ActionResult ImportCountry([FromBody] List<ApiClient.DataTransferObjects.Country> importedCountries)
 		{
-			return Ok(Service.ImportCountry(importedCountry));
+			return Ok(Service.ImportCountries(importedCountries));
 		}
     }
 }
