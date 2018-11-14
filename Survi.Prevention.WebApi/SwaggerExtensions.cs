@@ -11,6 +11,7 @@ namespace Survi.Prevention.WebApi
 		{
 			services.AddSwaggerGen(c =>
 			{
+				c.CustomSchemaIds(x=>x.FullName);
 				c.OrderActionsBy(action => action.RelativePath);
 				c.SwaggerDoc("v1", new Info { Title = "SURVI Prevention", Version = "v1" });
 				c.AddSecurityDefinition("Bearer", new ApiKeyScheme

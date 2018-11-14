@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Services;
@@ -18,7 +19,7 @@ namespace Survi.Prevention.WebApi.Controllers
             return Ok(Service.GetListLocalized(languageCode));
         }
 
-		[HttpGet, Route("import")]
+		[HttpPost, Route("import"), AllowAnonymous]
 		public ActionResult ImportCountry([FromBody] List<ApiClient.DataTransferObjects.Country> importedCountries)
 		{
 			return Ok(Service.ImportCountries(importedCountries));
