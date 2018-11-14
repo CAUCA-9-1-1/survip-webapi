@@ -53,7 +53,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 						inspection.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
 					}
 
-					copyManager.DeleteCopy(inspection.Id);
+				    // ReSharper disable once AccessToDisposedClosure
+				    copyManager.DeleteCopy(inspection.Id);
 				});
 			}
 
