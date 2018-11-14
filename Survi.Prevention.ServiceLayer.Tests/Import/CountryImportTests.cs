@@ -59,6 +59,12 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import
 	    }
 
 	    [Fact]
+	    public void LocalizationsAreValid()
+	    {
+		    Assert.True(service.ValidateLocalizations(importedCountry));
+	    }
+
+	    [Fact]
 	    public void CountryFieldsHasBeenCorrectlySet()
 	    {			
 		    var copy = service.TransferImportedModelToOriginal(importedCountry);
