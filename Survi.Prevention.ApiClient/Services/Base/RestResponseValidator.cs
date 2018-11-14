@@ -19,6 +19,6 @@ namespace Survi.Prevention.ApiClient.Services.Base
                 throw new InternalErrorApiException(url);
             if (!answerReceived)
                 throw new NoResponseApiException();
-        }
+        }        
     }
 }

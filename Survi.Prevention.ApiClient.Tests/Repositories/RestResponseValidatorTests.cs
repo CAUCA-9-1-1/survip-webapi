@@ -8,67 +8,52 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
     [TestFixture]
     public class RestResponseValidatorTests : BaseRestResponseTests
     {
-       /* [Test]
+       [Test]
         public void CorrectlyThrowsNotFoundException()
         {
-            var response = GetResponse(HttpStatusCode.NotFound, "test");
-            Assert.Throws<NotFoundApiException>(() => new RestResponseValidator().ThrowExceptionWhenResponseHasErrorCode(response, "test"));
+            Assert.Throws<NotFoundApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", true, HttpStatusCode.NotFound));
         }
 
         [Test]
         public void CorrectlyThrowsBadParameterException()
         {
-            var response = GetResponse(HttpStatusCode.BadRequest, "test");
-            Assert.Throws<BadParameterApiException>(() => new RestResponseValidator().ThrowExceptionWhenResponseHasErrorCode(response, "test"));
+            Assert.Throws<BadParameterApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", true, HttpStatusCode.BadRequest));
         }
 
         [Test]
         public void CorrectlyThrowsUnauthorizedException()
         {
-            var response = GetResponse(HttpStatusCode.Unauthorized, "test");
-            Assert.Throws<UnauthorizedApiException>(() => new RestResponseValidator().ThrowExceptionWhenResponseHasErrorCode(response, "test"));
+            Assert.Throws<UnauthorizedApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", true, HttpStatusCode.Unauthorized));
         }
 
         [Test]
         public void CorrectlyThrowsForbiddenException()
         {
-            var response = GetResponse(HttpStatusCode.Forbidden, "test");
-            Assert.Throws<ForbiddenApiException>(() => new RestResponseValidator().ThrowExceptionWhenResponseHasErrorCode(response, "test"));
+            Assert.Throws<ForbiddenApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", true, HttpStatusCode.Forbidden));
         }
 
         [Test]
         public void CorrectlyThrowsInternalErrorException()
         {
-            var response = GetResponse(HttpStatusCode.InternalServerError, "test");
-            Assert.Throws<InternalErrorApiException>(() => new RestResponseValidator().ThrowExceptionWhenResponseHasErrorCode(response, "test"));
+            Assert.Throws<InternalErrorApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", true, HttpStatusCode.InternalServerError));
         }
 
         [Test]
         public void CorrectlyThrowsNoResponseForZeroStatusCode()
         {
-            var response = GetResponse(0, "test");
-            Assert.Throws<NoResponseApiException>(() => new RestResponseValidator().ThrowExceptionWhenResponseHasErrorCode(response, "test"));
-        }
-
-        [Test]
-        public void CorrectlyThrowsNoResponseForResponseStatusError()
-        {
-            var response = GetResponse(HttpStatusCode.OK, "test", RestSharp.ResponseStatus.Error);
-            Assert.Throws<NoResponseApiException>(() => new RestResponseValidator().ThrowExceptionWhenResponseHasErrorCode(response, "test"));
-        }
-        
-        [Test]
-        public void CorrectlyThrowsNoResponseForResponseStatusNone()
-        {
-            var response = GetResponse(HttpStatusCode.OK, "test", RestSharp.ResponseStatus.None);
-            Assert.Throws<NoResponseApiException>(() => new RestResponseValidator().ThrowExceptionWhenResponseHasErrorCode(response, "test"));
-        }
+            Assert.Throws<NoResponseApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", false, 0));
+        }        
 
         [Test]
         public void CorrectlyThrowsNoResponseForResponseStatusTimedOut()
         {
-            var response = GetResponse(HttpStatusCode.OK, "test", RestSharp.ResponseStatus.TimedOut);
-            Assert.Throws<NoResponseApiException>(() => new RestResponseValidator().ThrowExceptionWhenResponseHasErrorCode(response, "test"));
-        }*/
+            Assert.Throws<NoResponseApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", false, HttpStatusCode.RequestTimeout));
+        }
+
+        [Test]
+        public void DoesNoThrowExceptionWhenNoErrors()
+        {
+            Assert.DoesNotThrow(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", true, HttpStatusCode.OK));
+        }
     }
 }

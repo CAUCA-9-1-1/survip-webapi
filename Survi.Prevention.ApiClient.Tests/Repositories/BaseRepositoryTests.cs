@@ -130,9 +130,6 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
                     .WithVerb(HttpMethod.Post)
                     .Times(1);
             }
-        }
-
-        
-
+        }       
     }
 }
