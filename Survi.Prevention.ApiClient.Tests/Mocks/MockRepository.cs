@@ -8,9 +8,4 @@ namespace Survi.Prevention.ApiClient.Tests.Mocks
     {
         protected override string BaseUrl { get; set; } = "mock";
     }
-
-    public class MockSecureRepository : BaseSecureService<Country>
-    {
-        protected override string BaseUrl { get; set; } = "mock";
-    }
 }

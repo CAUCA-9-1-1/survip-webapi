@@ -30,13 +30,18 @@ namespace Survi.Prevention.ApiClient.Services.Base
             { 
                 if (exception.Call.AccessTokenIsExpired())
                 {
-                    await new RefreshTokenHandler()
-                        .RefreshToken();
-                    Console.WriteLine("Reauthenticated...");
-                    return await ExecuteRequest(entity);
+                    return await RefreshTokenThenRetry(entity);
                 }
                 return null;
             }            
+        }
+
+        private async Task<ImportationResult> RefreshTokenThenRetry(T entity)
+        {
+            await new RefreshTokenHandler()
+                .RefreshToken();
+            Console.WriteLine("Reauthenticated...");
+            return await ExecuteRequest(entity);
         }
 
         private async Task<ImportationResult> ExecuteRequest(T entity)
