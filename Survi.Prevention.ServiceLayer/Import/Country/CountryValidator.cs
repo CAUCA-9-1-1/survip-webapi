@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using FluentValidation;
-using Survi.Prevention.ApiClient.DataTransferObjects;
 
 namespace Survi.Prevention.ServiceLayer.Import
 {
-    public class CountryValidator: AbstractValidator<Country>
+    public class CountryValidator: AbstractValidator<ApiClient.DataTransferObjects.Country>
     {
 	    public CountryValidator()
 	    {

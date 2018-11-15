@@ -5,7 +5,7 @@ using FluentValidation.Results;
 using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.Models.FireSafetyDepartments;
 
-namespace Survi.Prevention.ServiceLayer.Import
+namespace Survi.Prevention.ServiceLayer.Import.Country
 {
     public class CountryModelConnector
     {
@@ -18,18 +18,21 @@ namespace Survi.Prevention.ServiceLayer.Import
 
 	    public ImportationResult ValidateCountry(ApiClient.DataTransferObjects.Country countryToImport)
 	    {
-		    var validationResult = GetValidationResult(countryToImport);		    
-		    ImportationResult importResult = new ImportationResult();
-		    importResult.HasBeenImported = validationResult.IsValid;
-		    importResult.IdEntity = countryToImport.Id;
-		    importResult.Messages =
-			    new FormatFluentValidationErrorsToStringList().GetFluentValidationErrorList(validationResult.Errors.ToList());
+		    var validationResult = GetValidationResult(countryToImport);
+		    ImportationResult importResult = new ImportationResult
+		    {
+			    HasBeenImported = validationResult.IsValid,
+			    IdEntity = countryToImport.Id,
+			    Messages =
+				    new FormatFluentValidationErrorsToStringList().GetFluentValidationErrorList(validationResult.Errors
+					    .ToList())
+		    };
 		    return importResult;
 	    }
 
-	    public Country TransferDtoImportedToOriginal(ApiClient.DataTransferObjects.Country countryToImport)
+	    public Models.FireSafetyDepartments.Country TransferDtoImportedToOriginal(ApiClient.DataTransferObjects.Country countryToImport)
 	    {
-		    Country newCountry = new Country {IdExtern = countryToImport.Id, CodeAlpha2 = countryToImport.CodeAlpha2, 
+		    Models.FireSafetyDepartments.Country newCountry = new Models.FireSafetyDepartments.Country {IdExtern = countryToImport.Id, CodeAlpha2 = countryToImport.CodeAlpha2, 
 			    CodeAlpha3 = countryToImport.CodeAlpha3, IsActive = countryToImport.IsActive, ImportedOn = DateTime.Now};
 				newCountry.Localizations = TransferLocalizationFromImported(countryToImport.Localizations.ToList(), newCountry.Id);
 

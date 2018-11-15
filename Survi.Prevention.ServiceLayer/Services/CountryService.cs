@@ -6,7 +6,7 @@ using Survi.Prevention.Models.FireSafetyDepartments;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.Models.DataTransfertObjects;
-using Survi.Prevention.ServiceLayer.Import;
+using Survi.Prevention.ServiceLayer.Import.Country;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
