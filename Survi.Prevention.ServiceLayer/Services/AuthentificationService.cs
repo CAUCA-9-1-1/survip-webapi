@@ -148,5 +148,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 				return false;
 			return true;
 		}
+
+	    public void SetCurrentUser(Guid userId)
+	    {
+            Context.CurrentUserId = userId;
+	    }
 	}
 }

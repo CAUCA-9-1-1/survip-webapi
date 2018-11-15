@@ -45,8 +45,10 @@ namespace Survi.Prevention.WebApi
 
 				var authService = context.HttpContext.RequestServices.GetRequiredService<AuthentificationService>();
 				var token = authService.GetAccessTokenFromAccessToken(currentToken, userId);
-				if (token == null || token.CreatedOn.AddSeconds(token.ExpiresIn) < DateTime.Now)
-					context.Fail("Unauthorized");
+			    if (token == null || token.CreatedOn.AddSeconds(token.ExpiresIn) < DateTime.Now)
+			        context.Fail("Unauthorized");
+			    else
+			        authService.SetCurrentUser(userId);
 			}
 
 			return Task.CompletedTask;
