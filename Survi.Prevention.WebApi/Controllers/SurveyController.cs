@@ -23,7 +23,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPost,  Route("CopySurvey")]
 		public ActionResult CopySurvey([FromBody] Guid idSurvey)
 		{
-			return Ok(Service.CopySurvey(idSurvey, CurrentUserId));
+			return Ok(Service.CopySurvey(idSurvey));
 		}
 	}
 }

@@ -12,57 +12,42 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public InspectionBuildingParticularRisk Get<T>(Guid idBuilding, Guid idWebUserLastModifiedBy) where T : InspectionBuildingParticularRisk, new()
+		public InspectionBuildingParticularRisk Get<T>(Guid idBuilding) where T : InspectionBuildingParticularRisk, new()
 		{
 			var entity = Context.InspectionBuildingParticularRisks.AsNoTracking()
 				.OfType<T>()
 				.FirstOrDefault(risk => risk.IdBuilding == idBuilding && risk.IsActive)
-				?? CreateMissingParticularRisk<T>(idBuilding, idWebUserLastModifiedBy);
+				?? CreateMissingParticularRisk<T>(idBuilding);
 			return entity;
 		}
 
-		private T CreateMissingParticularRisk<T>(Guid idBuilding, Guid idWebUserLastModifiedBy) where T : InspectionBuildingParticularRisk, new()
+		private T CreateMissingParticularRisk<T>(Guid idBuilding) where T : InspectionBuildingParticularRisk, new()
 		{
-			var entity = new T { IdBuilding = idBuilding, IdWebUserLastModifiedBy = idWebUserLastModifiedBy };
+			var entity = new T { IdBuilding = idBuilding };
 			Context.Add(entity);
 			Context.SaveChanges();
 			return entity;
 		}
 
-		public virtual Guid AddOrUpdate<T>(T entity, Guid idWebUserLastModifiedBy) where T : InspectionBuildingParticularRisk
+		public virtual Guid AddOrUpdate<T>(T entity) where T : InspectionBuildingParticularRisk
 		{
 			var isExistRecord = Context.InspectionBuildingParticularRisks.Any(c => c.Id == entity.Id);
 
 			if (isExistRecord)
-			{
-				UpdateInspectionBuildingParticularRiskModifiedInformation(entity, idWebUserLastModifiedBy);
 				Context.InspectionBuildingParticularRisks.Update(entity);
-			}
 			else
-			{
-				entity.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
 				Context.InspectionBuildingParticularRisks.Add(entity);
-			}
 
 			Context.SaveChanges();
 			return entity.Id;
 		}
 
-		public virtual bool Remove<T>(Guid id, Guid idWebUserLastModifiedBy)
+		public virtual bool Remove<T>(Guid id)
 		{
 			var entity = Context.InspectionBuildingParticularRisks.Find(id);
-			UpdateInspectionBuildingParticularRiskModifiedInformation(entity, idWebUserLastModifiedBy);
 			entity.IsActive = false;
 			Context.SaveChanges();
-
 			return true;
 		}
-
-		public void UpdateInspectionBuildingParticularRiskModifiedInformation(InspectionBuildingParticularRisk entity, Guid idWebUserLastModifiedBy)
-		{
-			entity.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
-			entity.LastModifiedOn = DateTime.Now;
-		}
-
 	}
 }

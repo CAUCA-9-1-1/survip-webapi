@@ -91,21 +91,19 @@ namespace Survi.Prevention.ServiceLayer.Services
             return result;
         }
 
-        public override Guid AddOrUpdate(Building building, Guid idWebUserLastModifiedBy = new Guid())
+        public override Guid AddOrUpdate(Building building)
         {
             if (building.Picture != null)
             {
-                building.IdPicture = UpdatePicture(building, idWebUserLastModifiedBy);
+                building.IdPicture = UpdatePicture(building);
             }
 
-            return base.AddOrUpdate(building, idWebUserLastModifiedBy);
+            return base.AddOrUpdate(building);
         }
 
-        private Guid UpdatePicture(Building building, Guid idWebUserLastModifiedBy)
+        private Guid UpdatePicture(Building building)
         {
             var isExistRecord = Context.Pictures.Any(p => p.Id == building.Picture.Id);
-
-			building.Picture.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
 
             if (!isExistRecord)
                 Context.Add(building.Picture);

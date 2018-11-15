@@ -42,7 +42,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public virtual ActionResult Post([FromBody] TModel entity)
 		{
-			if (Service.AddOrUpdate(entity, CurrentUserId)!= Guid.Empty)			
+			if (Service.AddOrUpdate(entity)!= Guid.Empty)			
 				return Ok(new{id = entity.Id});
 
 			return BadRequest();
@@ -54,7 +54,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(200)]
 		public virtual ActionResult Delete(Guid id)
 		{
-			if (Service.Remove(id, CurrentUserId))
+			if (Service.Remove(id))
 				return NoContent();
 
 			return BadRequest();

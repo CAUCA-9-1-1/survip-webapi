@@ -22,7 +22,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpDelete, Route("SurveyQuestion/{idSurveyQuestion:Guid}")]
 		public ActionResult DeleteQuestionChoices(Guid idSurveyQuestion)
 		{
-			return Ok(Service.DeleteQuestionChoices(idSurveyQuestion, CurrentUserId));
+			return Ok(Service.DeleteQuestionChoices(idSurveyQuestion));
 		}
 	}
 }
