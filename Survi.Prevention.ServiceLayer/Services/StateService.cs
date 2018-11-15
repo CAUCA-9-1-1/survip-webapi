@@ -5,6 +5,8 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ApiClient.Configurations;
+using Survi.Prevention.ServiceLayer.Import.Country;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -49,5 +51,36 @@ namespace Survi.Prevention.ServiceLayer.Services
 
             return query.ToList();
         }
+
+	    public List<ImportationResult> ImportStates(List<ApiClient.DataTransferObjects.State> importedStates)
+	    {
+		    List<ImportationResult> resultList = new List<ImportationResult>();
+		    foreach (var state in importedStates)
+		    {
+			    resultList.Add(ImportState(state));
+		    }
+
+		    return resultList;
+	    }
+
+	    public ImportationResult ImportState(ApiClient.DataTransferObjects.State importedState)
+	    {
+		    var isExistRecord = Context.Set<State>().Any(c => c.IdExtern == importedState.Id);
+		    var connector = new StateModelConnector(Context);
+		    ImportationResult result = connector.ValidateState(importedState);
+		    if (result.HasBeenImported)
+		    {
+			    State newState = connector.TransferDtoImportedToOriginal(importedState);
+
+			    if (!isExistRecord)
+				    Context.States.Add(newState);
+			    else
+				    Context.States.Update(newState);
+
+			    Context.SaveChanges();
+			    result.HasBeenImported = true;
+		    }
+		    return result;
+	    }
     }
 }
