@@ -21,8 +21,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "webuser",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -38,8 +37,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "utilisation_code",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -55,8 +53,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "unit_of_measure",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -72,8 +69,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "state",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -89,8 +85,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "risk_level",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -106,8 +101,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "region",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -123,8 +117,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "person_requiring_assistance_type",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -140,8 +133,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "lane",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -157,8 +149,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "inspection_building_sprinkler",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -174,8 +165,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "inspection_building_person_requiring_assistance",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AlterColumn<Guid>(
                 name: "id_picture",
@@ -197,8 +187,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "inspection_building_particular_risk_picture",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -214,8 +203,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "inspection_building_particular_risk",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -231,8 +219,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "inspection_building_hazardous_material",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -248,8 +235,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "inspection_building_fire_hydrant",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -265,8 +251,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "inspection_building_course_lane",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -282,8 +267,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "inspection_building_course",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -299,8 +283,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "inspection_building_contact",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AlterColumn<Guid>(
                 name: "id_picture",
@@ -322,8 +305,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "inspection_building_anomaly_picture",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -339,8 +321,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "inspection_building_anomaly",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -356,8 +337,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "inspection_building_alarm_panel",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -373,8 +353,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "inspection_building",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -390,8 +369,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "hazardous_material",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -407,8 +385,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "firestation",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -424,8 +401,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "fire_safety_department",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -441,8 +417,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "fire_hydrant_type",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -458,8 +433,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "fire_hydrant",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -475,8 +449,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "county",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -492,8 +465,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "country",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -509,8 +481,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "city_type",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -526,8 +497,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "city",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -543,8 +513,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "building_type",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -560,8 +529,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "building_sprinkler",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -577,8 +545,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "building_person_requiring_assistance",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AlterColumn<Guid>(
                 name: "id_picture",
@@ -600,8 +567,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "building_particular_risk_picture",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -617,8 +583,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "building_particular_risk",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -634,8 +599,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "building_hazardous_material",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -651,8 +615,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "building_fire_hydrant",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -668,8 +631,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "building_course_lane",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -685,8 +647,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "building_course",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -702,8 +663,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "building_contact",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AlterColumn<Guid>(
                 name: "id_picture",
@@ -725,8 +685,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "building_anomaly_picture",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -742,8 +701,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "building_anomaly",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -759,8 +717,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "building_alarm_panel",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "has_been_modified",
@@ -776,8 +733,7 @@ namespace Survi.Prevention.DataLayer.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "imported_on",
                 table: "building",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
