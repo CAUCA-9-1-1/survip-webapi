@@ -36,7 +36,6 @@ namespace Survi.Prevention.Models.FireHydrants
 		GreaterOrEqual,
 		Less,
 		LessOrEqual
-
 	}
 
 	public class FireHydrant : BaseModel
