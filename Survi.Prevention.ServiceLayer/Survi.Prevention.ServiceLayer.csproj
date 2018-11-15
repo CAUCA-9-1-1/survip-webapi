@@ -4,6 +4,7 @@
     <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.0.100" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.8.12" />
   </ItemGroup>
   <ItemGroup>
