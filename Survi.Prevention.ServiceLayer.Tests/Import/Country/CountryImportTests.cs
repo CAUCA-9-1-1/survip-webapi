@@ -6,7 +6,7 @@ using Survi.Prevention.ServiceLayer.Import;
 using countryImported = Survi.Prevention.ApiClient.DataTransferObjects;
 using Xunit;
 
-namespace Survi.Prevention.ServiceLayer.Tests.Import
+namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 {
     public class CountryImportTests
     {
@@ -58,16 +58,11 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import
 		    Assert.Equal(importedCountry.Localizations.Count, copy.Count);
 	    }
 
-	    [Fact]
-	    public void LocalizationsAreValid()
-	    {
-		    Assert.True(service.ValidateLocalizations(importedCountry));
-	    }
 
 	    [Fact]
 	    public void CountryFieldsHasBeenCorrectlySet()
 	    {			
-		    var copy = service.TransferImportedModelToOriginal(importedCountry);
+		    var copy = service.TransferDtoImportedToOriginal(importedCountry);
 
 		    Assert.True(importedCountry.Id == copy.IdExtern && 
 		                importedCountry.CodeAlpha2 == copy.CodeAlpha2 && 
