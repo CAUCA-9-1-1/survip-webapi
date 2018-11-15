@@ -1,35 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentValidation.Results;
+using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.Models.FireSafetyDepartments;
 
 namespace Survi.Prevention.ServiceLayer.Import
 {
     public class CountryModelConnector
     {
-	    public bool ValidateLocalizations(ApiClient.DataTransferObjects.Country importedCountry)
+	    private readonly CountryValidator validator;
+
+	    public CountryModelConnector()
 	    {
-		    if (importedCountry.Localizations.Count == 0 && ValidateLanguage(importedCountry.Localizations.ToList()))
-				return false;
-		    return true;
+			validator = new CountryValidator();
 	    }
 
-	    private bool ValidateLanguage(List<ApiClient.DataTransferObjects.Base.Localization> localizations)
+	    public ImportationResult ValidateCountry(ApiClient.DataTransferObjects.Country countryToImport)
 	    {
-		    foreach (var loc in localizations)
-		    {
-			    if (string.IsNullOrEmpty(loc.LanguageCode) || string.IsNullOrEmpty(loc.Name))
-				    return false;
-		    }
-
-		    return true;
+		    var validationResult = GetValidationResult(countryToImport);		    
+		    ImportationResult importResult = new ImportationResult();
+		    importResult.HasBeenImported = validationResult.IsValid;
+		    importResult.IdEntity = countryToImport.Id;
+		    importResult.Messages =
+			    new FormatFluentValidationErrorsToStringList().GetFluentValidationErrorList(validationResult.Errors.ToList());
+		    return importResult;
 	    }
 
-	    public Country TransferImportedModelToOriginal(ApiClient.DataTransferObjects.Country importedCountry)
+	    public Country TransferDtoImportedToOriginal(ApiClient.DataTransferObjects.Country countryToImport)
 	    {
-		    Country newCountry = new Country {IdExtern = importedCountry.Id, CodeAlpha2 = importedCountry.CodeAlpha2, 
-			    CodeAlpha3 = importedCountry.CodeAlpha3, IsActive = importedCountry.IsActive, ImportedOn = DateTime.Now};
-		    newCountry.Localizations = TransferLocalizationFromImported(importedCountry.Localizations.ToList(), newCountry.Id);
+		    Country newCountry = new Country {IdExtern = countryToImport.Id, CodeAlpha2 = countryToImport.CodeAlpha2, 
+			    CodeAlpha3 = countryToImport.CodeAlpha3, IsActive = countryToImport.IsActive, ImportedOn = DateTime.Now};
+				newCountry.Localizations = TransferLocalizationFromImported(countryToImport.Localizations.ToList(), newCountry.Id);
 
 		    return newCountry;
 	    }
@@ -49,6 +51,11 @@ namespace Survi.Prevention.ServiceLayer.Import
 	    {
 		    return new CountryLocalization
 			    {IdParent = newCountryId, LanguageCode = importedLoc.LanguageCode, Name = importedLoc.Name};
+	    }
+
+	    protected ValidationResult GetValidationResult(ApiClient.DataTransferObjects.Country countryToImport)
+	    {
+		    return validator.Validate(countryToImport);
 	    }
     }
 }
