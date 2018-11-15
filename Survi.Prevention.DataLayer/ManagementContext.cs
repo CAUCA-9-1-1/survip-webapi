@@ -17,7 +17,7 @@ using Survi.Prevention.Models.SurveyManagement;
 
 namespace Survi.Prevention.DataLayer
 {
-	public class ManagementContext : DbContext
+	public class ManagementContext : DbContext, IManagementContext
 	{
 	    public Guid CurrentUserId { get; set; }
 
