@@ -1,6 +1,8 @@
-﻿namespace Survi.Prevention.ApiClient.DataTransferObjects
+﻿using Survi.Prevention.ApiClient.DataTransferObjects.Base;
+
+namespace Survi.Prevention.ApiClient.DataTransferObjects
 {
-    public class Building
+    public class Building: BaseLocalizableTransferObject
     {
         public string CivicNumber { get; set; }
         public string CivicLetter { get; set; }

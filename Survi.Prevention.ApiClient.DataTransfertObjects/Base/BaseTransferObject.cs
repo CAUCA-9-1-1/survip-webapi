@@ -9,14 +9,4 @@ namespace Survi.Prevention.ApiClient.DataTransferObjects.Base
         public DateTime? LastEditedOn { get; set; }
         public bool IsActive { get; set; }
     }
-
-    /* missing so far :
-
-    * Building's picture.
-    * BuildingSprinkler + sprinkler type.
-    * BuildingAnomaly, BuildingAnomalyPicture + Picture
-    * BuildingDetails + detail's types (ConstructionType, ConstructionFireResistanceType, RoofType, RoofMaterialType, SidingType, BuildingType) + implantation plan
-    * BuildingParticularRisk + pictures
-     *
-    */
 }
