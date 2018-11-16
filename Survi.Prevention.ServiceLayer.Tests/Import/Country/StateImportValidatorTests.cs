@@ -14,9 +14,9 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 
 	    public StateImportValidatorTests()
 	    {
-		    var states = new List<Models.FireSafetyDepartments.State>();
+		    var countries = new List<Models.FireSafetyDepartments.Country>();
 		    var ctx = new BaseContextMock();
-		    ctx.Setup(context => context.States).Returns(ctx.GetMockDbSet(states).Object);
+		    ctx.Setup(context => context.Countries).Returns(ctx.GetMockDbSet(countries).Object);
 
 			validator = new StateValidator(ctx.Object);
 		    importedState = new State

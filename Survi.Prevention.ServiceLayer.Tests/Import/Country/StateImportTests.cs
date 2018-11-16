@@ -17,12 +17,6 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 
 		public StateImportTests()
 		{
-			var countries = new List<Models.FireSafetyDepartments.Country>();
-			var ctx = new BaseContextMock();
-			ctx.Setup(context => context.Countries).Returns(ctx.GetMockDbSet(countries).Object);
-
-			service = new StateModelConnector(ctx.Object);
-
 			importedState = new stateImported.State
 			{
 				Id = "state1",
@@ -50,6 +44,12 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 				new StateLocalization
 					{Id = Guid.NewGuid(), Name = "Province 1", LanguageCode = "fr", IdParent = existingState.Id}
 			};
+
+			var countries = new List<Models.FireSafetyDepartments.Country>();
+			var ctx = new BaseContextMock();
+			ctx.Setup(context => context.Countries).Returns(ctx.GetMockDbSet(countries).Object);
+
+			service = new StateModelConnector(ctx.Object);
 		}
 
 		[Fact]

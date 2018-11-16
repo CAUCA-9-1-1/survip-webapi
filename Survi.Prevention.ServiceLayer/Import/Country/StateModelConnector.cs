@@ -52,10 +52,10 @@ namespace Survi.Prevention.ServiceLayer.Import.Country
 
 		public Guid GetIdCountryFromExternal(string idCountryExternal)
 		{
-			var country = stateContext.Countries.SingleOrDefault(c => c.IdExtern == idCountryExternal);
+			var country = stateContext.Countries?.SingleOrDefault(c => c.IdExtern == idCountryExternal);
 			if (country != null)
 				idExistingCountry = country.Id;
-			
+
 			return idExistingCountry;
 		}
 
