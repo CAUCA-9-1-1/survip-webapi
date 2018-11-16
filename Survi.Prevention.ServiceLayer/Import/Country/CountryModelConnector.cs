@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentValidation.Results;
 using Survi.Prevention.ApiClient.Configurations;
+using Survi.Prevention.Models.Base;
 using Survi.Prevention.Models.FireSafetyDepartments;
 
 namespace Survi.Prevention.ServiceLayer.Import.Country
@@ -24,39 +25,58 @@ namespace Survi.Prevention.ServiceLayer.Import.Country
 			    HasBeenImported = validationResult.IsValid,
 			    IdEntity = countryToImport.Id,
 			    Messages =
-				    new FormatFluentValidationErrorsToStringList().GetFluentValidationErrorList(validationResult.Errors
+				    new FluentValidationErrorFormatter().GetFluentValidationErrorList(validationResult.Errors
 					    .ToList())
 		    };
 		    return importResult;
 	    }
 
-	    public Models.FireSafetyDepartments.Country TransferDtoImportedToOriginal(ApiClient.DataTransferObjects.Country countryToImport)
+	    public Models.FireSafetyDepartments.Country TransferDtoImportedToOriginal(ApiClient.DataTransferObjects.Country countryToImport, Models.FireSafetyDepartments.Country newCountry = null)
 	    {
-		    Models.FireSafetyDepartments.Country newCountry = new Models.FireSafetyDepartments.Country {IdExtern = countryToImport.Id, CodeAlpha2 = countryToImport.CodeAlpha2, 
-			    CodeAlpha3 = countryToImport.CodeAlpha3, IsActive = countryToImport.IsActive, ImportedOn = DateTime.Now};
-				newCountry.Localizations = TransferLocalizationFromImported(countryToImport.Localizations.ToList(), newCountry.Id);
+			if(newCountry == null)
+				newCountry = new Models.FireSafetyDepartments.Country();
+
+		    newCountry.IdExtern = countryToImport.Id;
+		    newCountry.CodeAlpha2 = countryToImport.CodeAlpha2;
+		    newCountry.CodeAlpha3 = countryToImport.CodeAlpha3;
+		    newCountry.IsActive = countryToImport.IsActive;
+		    newCountry.ImportedOn = DateTime.Now;
+			newCountry.Localizations = TransferLocalizationsFromImported(countryToImport.Localizations.ToList(), newCountry);
 
 		    return newCountry;
 	    }
 
-	    public List<CountryLocalization> TransferLocalizationFromImported(List<ApiClient.DataTransferObjects.Base.Localization> importedLocalization, Guid newCountryId)
+	    public List<CountryLocalization> TransferLocalizationsFromImported(List<ApiClient.DataTransferObjects.Base.Localization> importedLocalizations, Models.FireSafetyDepartments.Country newCountry)
 	    {
 		    List<CountryLocalization> newLocalizations = new List<CountryLocalization>();
-		    foreach (var localization in importedLocalization)
-		    {
-			    newLocalizations.Add(ImportLocalization(localization, newCountryId));
-		    }
+		    importedLocalizations.ForEach(localization => newLocalizations.Add(ImportLocalization(localization,newCountry)));
+		   
 		    return newLocalizations;
 	    }
 
-	    public CountryLocalization ImportLocalization(ApiClient.DataTransferObjects.Base.Localization importedLoc,
-		    Guid newCountryId)
+
+	    public CountryLocalization ImportLocalization(ApiClient.DataTransferObjects.Base.Localization importedLoc, Models.FireSafetyDepartments.Country newCountry)
 	    {
-		    return new CountryLocalization
-			    {IdParent = newCountryId, LanguageCode = importedLoc.LanguageCode, Name = importedLoc.Name};
+		    CountryLocalization existingLocalization =
+			    newCountry.Localizations?.SingleOrDefault(loc => loc.LanguageCode == importedLoc.LanguageCode);
+		    if(existingLocalization != null)
+			    return UpdateLocalization(importedLoc, existingLocalization);
+		    return CreateLocalization(importedLoc, newCountry.Id);
 	    }
 
-	    protected ValidationResult GetValidationResult(ApiClient.DataTransferObjects.Country countryToImport)
+	    public CountryLocalization UpdateLocalization(ApiClient.DataTransferObjects.Base.Localization importedLoc,
+		    CountryLocalization newLocalization)
+	    {
+		    newLocalization.Name = importedLoc.Name;
+		    return newLocalization;
+	    }
+
+	    public CountryLocalization CreateLocalization(ApiClient.DataTransferObjects.Base.Localization importedLoc, Guid newCountryId)
+	    {
+		    return new CountryLocalization {IdParent = newCountryId, LanguageCode = importedLoc.LanguageCode, Name = importedLoc.Name};
+	    }
+
+	    public ValidationResult GetValidationResult(ApiClient.DataTransferObjects.Country countryToImport)
 	    {
 		    return validator.Validate(countryToImport);
 	    }

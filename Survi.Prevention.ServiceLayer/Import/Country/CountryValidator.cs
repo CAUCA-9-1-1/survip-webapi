@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using FluentValidation;
 
-namespace Survi.Prevention.ServiceLayer.Import
+namespace Survi.Prevention.ServiceLayer.Import.Country
 {
     public class CountryValidator: AbstractValidator<ApiClient.DataTransferObjects.Country>
     {
 	    public CountryValidator()
 	    {
 		    RuleFor(m => m.CodeAlpha2)
-			    .NotEmpty()
+			    .NotEmpty().WithMessage("{PropertyName}_EmptyValue")
 			    .MaximumLength(2).WithMessage("{PropertyName}_InvalidValue");
 
 		    RuleFor(m => m.CodeAlpha3)
-			    .NotEmpty()
+			    .NotEmpty().WithMessage("{PropertyName}_EmptyValue")
 			    .MaximumLength(3).WithMessage("{PropertyName}_InvalidValue");
 
 		    RuleFor(m => m.Localizations)
