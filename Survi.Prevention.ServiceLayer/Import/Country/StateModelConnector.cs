@@ -5,7 +5,6 @@ using FluentValidation.Results;
 using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
-using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.ServiceLayer.Import.Country
 {
@@ -13,6 +12,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Country
 	{
 		private readonly StateValidator validator;
 		private readonly IManagementContext stateContext;
+		private Guid idExistingCountry = Guid.Empty;
 
 		public StateModelConnector(IManagementContext context)
 		{
@@ -22,56 +22,81 @@ namespace Survi.Prevention.ServiceLayer.Import.Country
 
 		public ImportationResult ValidateState(ApiClient.DataTransferObjects.State stateToImport)
 		{
-			var validationResult = GetValidationResult(stateToImport);
-			ImportationResult importResult = new ImportationResult
+			ImportationResult importResult = ValidateExternalCountry(stateToImport.IdCountry);
+			if (importResult.HasBeenImported)
 			{
-				HasBeenImported = validationResult.IsValid,
-				IdEntity = stateToImport.Id,
-				Messages = new FormatFluentValidationErrorsToStringList()
-							.GetFluentValidationErrorList(validationResult.Errors.ToList())
-			};
+				var validationResult = GetValidationResult(stateToImport);
+				importResult = new ImportationResult
+				{
+					HasBeenImported = validationResult.IsValid,
+					IdEntity = stateToImport.Id,
+					Messages = new FluentValidationErrorFormatter()
+						.GetFluentValidationErrorList(validationResult.Errors.ToList())
+				};
+			}
+
 			return importResult;
 		}
 
-		public State TransferDtoImportedToOriginal(ApiClient.DataTransferObjects.State importedState)
+		public State TransferDtoImportedToOriginal(ApiClient.DataTransferObjects.State importedState, State existingState)
 		{
-			State newState = new State
-			{
-				IdExtern = importedState.Id, 
-				AnsiCode = importedState.AnsiCode, 
-				ImportedOn = DateTime.Now,
-				IsActive = importedState.IsActive,
-				IdCountry = GetIdCountryFromExternal(importedState.IdCountry)
-			};
-			newState.Localizations = TransferLocalizationFromImported(importedState.Localizations.ToList(), newState.Id);
+			existingState.IdExtern = importedState.Id;
+			existingState.AnsiCode = importedState.AnsiCode;
+			existingState.ImportedOn = DateTime.Now;
+			existingState.IsActive = importedState.IsActive;
+			existingState.IdCountry = idExistingCountry;
+			existingState.Localizations = TransferLocalizationsFromImported(importedState.Localizations.ToList(), existingState);
 
-			return newState;
+			return existingState;
 		}
 
 		public Guid GetIdCountryFromExternal(string idCountryExternal)
 		{
 			var country = stateContext.Countries.SingleOrDefault(c => c.IdExtern == idCountryExternal);
 			if (country != null)
-				return country.Id;
-			return Guid.Empty;
+				idExistingCountry = country.Id;
+			
+			return idExistingCountry;
 		}
 
-		public List<StateLocalization> TransferLocalizationFromImported(List<ApiClient.DataTransferObjects.Base.Localization> importedLocalizations, Guid newStateId)
+		public ImportationResult ValidateExternalCountry(string idCountryExternal)
+		{
+			if (GetIdCountryFromExternal(idCountryExternal) == Guid.Empty)
+				return new ImportationResult{EntityName = "State", HasBeenImported = false, Messages = new List<string>{"StateCountryNotExists"},IdEntity = idCountryExternal};
+			return new ImportationResult();
+		}
+
+		public List<StateLocalization> TransferLocalizationsFromImported(List<ApiClient.DataTransferObjects.Base.Localization> importedLocalizations, State existingState)
 		{
 			List<StateLocalization> newLocalizations = new List<StateLocalization>();
-			importedLocalizations.ForEach(localization =>
-				newLocalizations.Add(ImportLocalization(localization, newStateId)));
-	
+			importedLocalizations.ForEach(localization => newLocalizations.Add(ImportLocalization(localization,existingState)));
+		   
 			return newLocalizations;
 		}
 
-		public StateLocalization ImportLocalization(ApiClient.DataTransferObjects.Base.Localization importedLocalization,Guid newStateId)
+
+		public StateLocalization ImportLocalization(ApiClient.DataTransferObjects.Base.Localization importedLoc, State existingState)
 		{
-			return new StateLocalization
-				{IdParent = newStateId, LanguageCode = importedLocalization.LanguageCode, Name = importedLocalization.Name};
+			StateLocalization existingLocalization =
+				existingState.Localizations?.SingleOrDefault(loc => loc.LanguageCode == importedLoc.LanguageCode);
+			if(existingLocalization != null)
+				return UpdateLocalization(importedLoc, existingLocalization);
+			return CreateLocalization(importedLoc, existingState.Id);
 		}
 
-		private ValidationResult GetValidationResult(ApiClient.DataTransferObjects.State stateToImport)
+		public StateLocalization UpdateLocalization(ApiClient.DataTransferObjects.Base.Localization importedLoc,
+			StateLocalization newLocalization)
+		{
+			newLocalization.Name = importedLoc.Name;
+			return newLocalization;
+		}
+
+		public StateLocalization CreateLocalization(ApiClient.DataTransferObjects.Base.Localization importedLoc, Guid newCountryId)
+		{
+			return new StateLocalization {IdParent = newCountryId, LanguageCode = importedLoc.LanguageCode, Name = importedLoc.Name};
+		}
+
+		public ValidationResult GetValidationResult(ApiClient.DataTransferObjects.State stateToImport)
 		{
 			return validator.Validate(stateToImport);
 		}
