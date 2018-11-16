@@ -4,12 +4,12 @@ using FluentValidation.Results;
 
 namespace Survi.Prevention.ServiceLayer
 {
-    public class FormatFluentValidationErrorsToStringList
+    public class FluentValidationErrorFormatter
     {
 	    public List<string> GetFluentValidationErrorList(List<ValidationFailure> errorFailures)
 	    {
 			List<string> errorList = new List<string>();
-		    errorFailures.ForEach(error =>errorList.Add(error.ErrorCode+" | "+error.ErrorMessage));
+		    errorFailures.ForEach(error =>errorList.Add(error.ErrorMessage));
 		    return errorList;
 	    }
     }

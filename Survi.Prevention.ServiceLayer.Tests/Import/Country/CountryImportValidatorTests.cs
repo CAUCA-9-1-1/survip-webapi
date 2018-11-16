@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Survi.Prevention.ServiceLayer.Import;
+using Survi.Prevention.ServiceLayer.Import.Country;
 using Xunit;
 using countryImported = Survi.Prevention.ApiClient.DataTransferObjects;
 

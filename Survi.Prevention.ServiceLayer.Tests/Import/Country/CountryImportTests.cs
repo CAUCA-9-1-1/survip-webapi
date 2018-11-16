@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Survi.Prevention.Models.Base;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Country;
 using countryImported = Survi.Prevention.ApiClient.DataTransferObjects;
@@ -11,6 +12,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
     public class CountryImportTests
     {
 	    private readonly countryImported.Country importedCountry;
+	    private readonly Models.FireSafetyDepartments.Country existingCountry;
 	    private readonly CountryModelConnector service = new CountryModelConnector();
 
 	    public CountryImportTests()
@@ -27,21 +29,46 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 					new countryImported.Base.Localization{Name = "Pays 1", LanguageCode = "fr"}
 				}
 			};
+
+		    existingCountry = new Models.FireSafetyDepartments.Country
+		    {
+			    Id = Guid.NewGuid(),
+			    CodeAlpha2 = "CO",
+			    CodeAlpha3 = "CO3",
+			    IsActive = true
+			    
+		    };
+		    existingCountry.Localizations = new List<CountryLocalization>
+		    {
+			    new CountryLocalization
+				    {Id = Guid.NewGuid(), LanguageCode = "en", Name = "existing Name", IdParent = existingCountry.Id},
+			    new CountryLocalization
+				    {Id = Guid.NewGuid(), LanguageCode = "fr", Name = "existing Name", IdParent = existingCountry.Id}
+		    };
 	    }
 
 	    [Fact]
 	    public void NewIdLocalizationHasBeenCorrectlySet()
-	    {			
-		    var newId = Guid.NewGuid();
-		    var copy = service.ImportLocalization(importedCountry.Localizations.First(), newId);
+	    {
+		    var Id = Guid.NewGuid();
+			    
+		    var copy = service.CreateLocalization(importedCountry.Localizations.First(), Id);
 
-		    Assert.True(newId == copy.IdParent);
+		    Assert.True(Id == copy.IdParent);
+	    }
+
+	    [Fact]
+	    public void ExistingIdLocalizationHasBeenCorrectlySet()
+	    {
+		    var copy = service.ImportLocalization(importedCountry.Localizations.First(), existingCountry);
+
+		    Assert.True(existingCountry.Id == copy.IdParent);
 	    }
 
 	    [Fact]
 	    public void LocalizationFieldsAreCorrectlyCopied()
 	    {			
-		    var copy = service.ImportLocalization(importedCountry.Localizations.First(), Guid.NewGuid());
+		    var copy = service.CreateLocalization(importedCountry.Localizations.First(), Guid.NewGuid());
 
 		    Assert.True(LocalizationHasBeenCorrectlyDuplicated(importedCountry.Localizations.First(), copy));
 	    }
@@ -54,10 +81,10 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 	    [Fact]
 	    public void LocalizationsAreComplete()
 	    {
-		    var copy = service.TransferLocalizationFromImported(importedCountry.Localizations.ToList(), Guid.NewGuid());
+		    var newCountry = new Models.FireSafetyDepartments.Country();
+		    var copy = service.TransferLocalizationsFromImported(importedCountry.Localizations.ToList(), newCountry);
 		    Assert.Equal(importedCountry.Localizations.Count, copy.Count);
 	    }
-
 
 	    [Fact]
 	    public void CountryFieldsHasBeenCorrectlySet()
@@ -67,6 +94,23 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 		    Assert.True(importedCountry.Id == copy.IdExtern && 
 		                importedCountry.CodeAlpha2 == copy.CodeAlpha2 && 
 		                importedCountry.CodeAlpha3 == copy.CodeAlpha3);
+	    }
+
+	    [Fact]
+	    public void CountryHasBeenCorrectlyValidated()
+	    {
+		    importedCountry.CodeAlpha3 = "test 4";
+		    var validationResult = service.GetValidationResult(importedCountry);
+
+		    Assert.False(validationResult.IsValid);
+	    }
+
+	    [Fact]
+	    public void CountryValidationMessageHasBeenCorrectlySet()
+	    {
+		    var validationResult = service.ValidateCountry(importedCountry);
+
+		    Assert.True(validationResult.HasBeenImported);
 	    }
     }
 }
