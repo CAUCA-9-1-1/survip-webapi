@@ -31,11 +31,8 @@ namespace Survi.Prevention.ServiceLayer.Import.Country
 		    return importResult;
 	    }
 
-	    public Models.FireSafetyDepartments.Country TransferDtoImportedToOriginal(ApiClient.DataTransferObjects.Country countryToImport, Models.FireSafetyDepartments.Country newCountry = null)
+	    public Models.FireSafetyDepartments.Country TransferDtoImportedToOriginal(ApiClient.DataTransferObjects.Country countryToImport, Models.FireSafetyDepartments.Country newCountry)
 	    {
-			if(newCountry == null)
-				newCountry = new Models.FireSafetyDepartments.Country();
-
 		    newCountry.IdExtern = countryToImport.Id;
 		    newCountry.CodeAlpha2 = countryToImport.CodeAlpha2;
 		    newCountry.CodeAlpha3 = countryToImport.CodeAlpha3;

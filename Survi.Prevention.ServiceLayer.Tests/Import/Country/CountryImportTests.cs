@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Survi.Prevention.Models.Base;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Country;
 using countryImported = Survi.Prevention.ApiClient.DataTransferObjects;
@@ -12,7 +11,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
     public class CountryImportTests
     {
 	    private readonly countryImported.Country importedCountry;
-	    private readonly Models.FireSafetyDepartments.Country existingCountry;
+	    private Models.FireSafetyDepartments.Country existingCountry;
 	    private readonly CountryModelConnector service = new CountryModelConnector();
 
 	    public CountryImportTests()
@@ -50,11 +49,10 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 	    [Fact]
 	    public void NewIdLocalizationHasBeenCorrectlySet()
 	    {
-		    var Id = Guid.NewGuid();
-			    
-		    var copy = service.CreateLocalization(importedCountry.Localizations.First(), Id);
+		    var newId = Guid.NewGuid();		    
+		    var copy = service.CreateLocalization(importedCountry.Localizations.First(), newId);
 
-		    Assert.True(Id == copy.IdParent);
+		    Assert.True(newId == copy.IdParent);
 	    }
 
 	    [Fact]
@@ -88,8 +86,9 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 
 	    [Fact]
 	    public void CountryFieldsHasBeenCorrectlySet()
-	    {			
-		    var copy = service.TransferDtoImportedToOriginal(importedCountry);
+	    {		
+		    existingCountry = new Models.FireSafetyDepartments.Country();
+		    var copy = service.TransferDtoImportedToOriginal(importedCountry,existingCountry);
 
 		    Assert.True(importedCountry.Id == copy.IdExtern && 
 		                importedCountry.CodeAlpha2 == copy.CodeAlpha2 && 

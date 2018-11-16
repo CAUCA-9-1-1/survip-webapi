@@ -1,12 +1,9 @@
-﻿
-using System.Collections.Generic;
-using System.Linq;
-using FluentValidation;
+﻿using FluentValidation;
 using Survi.Prevention.DataLayer;
 
 namespace Survi.Prevention.ServiceLayer.Import.Country
 {
-    public class StateValidator: AbstractValidator<ApiClient.DataTransferObjects.State>
+    public class StateValidator: BaseImportValidator<ApiClient.DataTransferObjects.State>
     {
 	    private IManagementContext stateContext;
 	    public StateValidator(IManagementContext context)
@@ -21,8 +18,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Country
 			    .NotNull().WithMessage("{PropertyName}_InvalidValue");
 
 		    RuleFor(m => m.IdCountry)
-			    .NotNull().WithMessage("{PropertyName}_NullValue")
-			    .Must(CountryMustExists).WithMessage("{PropertyName}_NotExists");
+			    .NotNull().WithMessage("{PropertyName}_NullValue");
 
 		    RuleFor(m => m.Localizations)
 			    .NotNull().WithMessage("{PropertyName}_NullValue")
@@ -31,53 +27,5 @@ namespace Survi.Prevention.ServiceLayer.Import.Country
 			    .Must(ValidateLanguage).WithMessage("{PropertyName}_InvalidValue");
 	    }
 
-	    private bool ValidateLanguage(ICollection<ApiClient.DataTransferObjects.Base.Localization> localizations)
-	    {
-		    if(localizations == null)
-			    return false;
-
-		    foreach (var loc in localizations)
-		    {
-			    if (string.IsNullOrEmpty(loc.Name))
-				    return false;
-		    }
-
-		    return true;
-	    }
-
-	    private bool ValidateMinimumLocalizations(
-		    ICollection<ApiClient.DataTransferObjects.Base.Localization> localizations)
-	    {
-		    if(localizations == null || localizations.Count <= 1)
-			    return false;
-		    return true;
-	    }
-
-	    private bool ValidateRequiredLanguage(
-		    ICollection<ApiClient.DataTransferObjects.Base.Localization> localizations)
-	    {
-		    if(localizations == null)
-			    return false;
-
-		    List<string> languages = new List<string>{"fr","en"};
-		    foreach (var loc in localizations)
-		    {
-			    if (string.IsNullOrEmpty(loc.LanguageCode) || !languages.Contains(loc.LanguageCode))
-				    return false;
-		    }
-
-		    return true;
-	    }
-
-	    private bool CountryMustExists(string idExternal)
-	    {
-		    if(string.IsNullOrEmpty(idExternal))
-			    return false;
-
-		    if (!stateContext.Countries.Any(c => c.IdExtern == idExternal))
-			    return false;
-
-		    return false;
-	    }
     }
 }

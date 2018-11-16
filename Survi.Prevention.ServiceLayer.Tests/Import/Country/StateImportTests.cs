@@ -1,42 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Moq;
-using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using stateImported = Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ServiceLayer.Import.Country;
+using Survi.Prevention.ServiceLayer.Tests.Mocks;
 using Xunit;
 
 namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 {
-    public class StateImportTests
-    {
-
-	internal static Mock<DbSet<T>> GetMockDbSet<T>(ICollection<T> entities) where T : class
+	public class StateImportTests
 	{
-	var mockSet = new Mock<DbSet<T>>();
-	mockSet.As<IQueryable<T>>().Setup(m => m.Provider).Returns(entities.AsQueryable().Provider);
-	mockSet.As<IQueryable<T>>().Setup(m => m.Expression).Returns(entities.AsQueryable().Expression);
-	mockSet.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(entities.AsQueryable().ElementType);
-	mockSet.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(entities.AsQueryable().GetEnumerator());
-	mockSet.Setup(m => m.Add(It.IsAny<T>())).Callback<T>(entities.Add);
-	return mockSet;
-	}
-
 		private readonly stateImported.State importedState;
-	    private readonly StateModelConnector service;
+		private State existingState;
+		private readonly StateModelConnector service;
 
-	    public StateImportTests()
-	    {
-		    var countries = new List<Models.FireSafetyDepartments.Country>();
-		    var ctx = new Mock<IManagementContext>();
-			ctx.Setup(context => context.Countries).Returns(GetMockDbSet(countries).Object);
+		public StateImportTests()
+		{
+			var countries = new List<Models.FireSafetyDepartments.Country>();
+			var ctx = new BaseContextMock();
+			ctx.Setup(context => context.Countries).Returns(ctx.GetMockDbSet(countries).Object);
 
 			service = new StateModelConnector(ctx.Object);
 
-		    importedState = new stateImported.State
+			importedState = new stateImported.State
 			{
 				Id = "state1",
 				AnsiCode = "CO",
@@ -48,44 +35,85 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 					new stateImported.Base.Localization{Name = "Province 1", LanguageCode = "fr"}
 				}
 			};
-	    }
 
-	    [Fact]
-	    public void NewIdLocalizationHasBeenCorrectlySet()
-	    {			
-		    var newId = Guid.NewGuid();
-		    var copy = service.ImportLocalization(importedState.Localizations.First(), newId);
+			existingState = new State
+			{
+				Id = Guid.NewGuid(),
+				AnsiCode = "CO",
+				IdCountry = Guid.NewGuid(),
+				IsActive = true,
+			};
+			existingState.Localizations = new List<StateLocalization>
+			{
+				new StateLocalization
+					{Id = Guid.NewGuid(), Name = "State 1", LanguageCode = "en", IdParent = existingState.Id},
+				new StateLocalization
+					{Id = Guid.NewGuid(), Name = "Province 1", LanguageCode = "fr", IdParent = existingState.Id}
+			};
+		}
 
-		    Assert.True(newId == copy.IdParent);
-	    }
+		[Fact]
+		public void NewIdLocalizationHasBeenCorrectlySet()
+		{
+			var newId = Guid.NewGuid();
+			var copy = service.CreateLocalization(importedState.Localizations.First(), newId);
 
-	    [Fact]
-	    public void LocalizationFieldsAreCorrectlyCopied()
-	    {			
-		    var copy = service.ImportLocalization(importedState.Localizations.First(), Guid.NewGuid());
+			Assert.True(newId == copy.IdParent);
+		}
 
-		    Assert.True(LocalizationHasBeenCorrectlyDuplicated(importedState.Localizations.First(), copy));
-	    }
+		[Fact]
+		public void ExistingIdLocalizationHasBeenCorrectlySet()
+		{
+			var copy = service.ImportLocalization(importedState.Localizations.First(), existingState);
 
-	    private static bool LocalizationHasBeenCorrectlyDuplicated(stateImported.Base.Localization original, StateLocalization copy)
-	    {
-		    return copy.Name == original.Name && copy.LanguageCode == original.LanguageCode;
-	    }
+			Assert.True(existingState.Id == copy.IdParent);
+		}
 
-	    [Fact]
-	    public void LocalizationsAreComplete()
-	    {
-		    var copy = service.TransferLocalizationFromImported(importedState.Localizations.ToList(), Guid.NewGuid());
-		    Assert.Equal(importedState.Localizations.Count, copy.Count);
-	    }
+		[Fact]
+		public void LocalizationFieldsAreCorrectlyCopied()
+		{
+			var copy = service.CreateLocalization(importedState.Localizations.First(), Guid.NewGuid());
 
+			Assert.True(LocalizationHasBeenCorrectlyDuplicated(importedState.Localizations.First(), copy));
+		}
 
-	    [Fact]
-	    public void CountryFieldsHasBeenCorrectlySet()
-	    {			
-		    var copy = service.TransferDtoImportedToOriginal(importedState);
+		private static bool LocalizationHasBeenCorrectlyDuplicated(stateImported.Base.Localization original, StateLocalization copy)
+		{
+			return copy.Name == original.Name && copy.LanguageCode == original.LanguageCode;
+		}
 
-		    Assert.True(importedState.Id == copy.IdExtern && importedState.AnsiCode == copy.AnsiCode);
-	    }
-    }
+		[Fact]
+		public void LocalizationsAreComplete()
+		{
+			existingState = new State();
+			var copy = service.TransferLocalizationsFromImported(importedState.Localizations.ToList(), existingState);
+			Assert.Equal(importedState.Localizations.Count, copy.Count);
+		}
+
+		[Fact]
+		public void EntityFieldsHasBeenCorrectlySet()
+		{
+			existingState = new State();
+			var copy = service.TransferDtoImportedToOriginal(importedState, existingState);
+
+			Assert.True(importedState.Id == copy.IdExtern && importedState.AnsiCode == copy.AnsiCode);
+		}
+
+		[Fact]
+		public void EntityHasBeenCorrectlyValidated()
+		{
+			importedState.AnsiCode = "test 4";
+			var validationResult = service.GetValidationResult(importedState);
+
+			Assert.False(validationResult.IsValid);
+		}
+
+		[Fact]
+		public void StateCountryDoesNotExists()
+		{
+			var validationResult = service.ValidateExternalCountry(importedState.IdCountry);
+
+			Assert.False(validationResult.HasBeenImported);
+		}
+	}
 }
