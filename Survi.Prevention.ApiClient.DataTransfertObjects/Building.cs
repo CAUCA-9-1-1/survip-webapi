@@ -2,7 +2,7 @@
 
 namespace Survi.Prevention.ApiClient.DataTransferObjects
 {
-    public class Building: BaseLocalizableTransferObject
+    public class Building: BaseLocalizableTransferObjectWithPicture
     {
         public string CivicNumber { get; set; }
         public string CivicLetter { get; set; }

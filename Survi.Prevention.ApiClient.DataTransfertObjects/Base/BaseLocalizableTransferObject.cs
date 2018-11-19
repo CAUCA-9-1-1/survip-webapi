@@ -6,4 +6,9 @@ namespace Survi.Prevention.ApiClient.DataTransferObjects.Base
     {
         public ICollection<Localization> Localizations { get; set; }
     }
+
+    public abstract class BaseLocalizableTransferObjectWithPicture: BaseTransferObjectWithPicture
+    {
+        public ICollection<Localization> Localizations { get; set; }
+    }
 }
