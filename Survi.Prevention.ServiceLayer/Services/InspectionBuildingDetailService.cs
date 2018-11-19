@@ -13,17 +13,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public InspectionBuildingDetail GetByIdBuilding(Guid idBuilding, Guid idWebUserLastModifiedBy)
+		public InspectionBuildingDetail GetByIdBuilding(Guid idBuilding)
 		{
 			var detail = Context.InspectionBuildingDetails.AsNoTracking()
-				             .SingleOrDefault(d => d.IdBuilding == idBuilding) ?? GenerateNewDetail(idBuilding, idWebUserLastModifiedBy);
+				             .SingleOrDefault(d => d.IdBuilding == idBuilding) ?? GenerateNewDetail(idBuilding);
 
 			return detail;
 		}
 
-		private InspectionBuildingDetail GenerateNewDetail(Guid idBuilding, Guid idWebUserLastModifiedBy)
+		private InspectionBuildingDetail GenerateNewDetail(Guid idBuilding)
 		{
-			var detail = new InspectionBuildingDetail { IdBuilding = idBuilding, IdWebUserLastModifiedBy = idWebUserLastModifiedBy };
+			var detail = new InspectionBuildingDetail { IdBuilding = idBuilding };
 			Context.Add(detail);
 			Context.SaveChanges();
 			return detail;

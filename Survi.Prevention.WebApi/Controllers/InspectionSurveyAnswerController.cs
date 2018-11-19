@@ -36,7 +36,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPost, Route("Answer")]
 		public ActionResult SaveQuestionAnswer([FromBody] InspectionQuestionForList inspectionQuestionAnswer)
 		{
-			if (Service.SaveQuestionAnswer(inspectionQuestionAnswer, CurrentUserId) != Guid.Empty)
+			if (Service.SaveQuestionAnswer(inspectionQuestionAnswer) != Guid.Empty)
 				return Ok(new { id = inspectionQuestionAnswer.Id });
 			return BadRequest("Error on question answer saving process");
 		}
@@ -44,7 +44,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPost, Route("SetSurveyStatus")]
 		public ActionResult SetSurveyStatus([FromBody] InspectionSurveyCompletion surveyStatus)
 		{
-			if (Service.SetSurveyStatus(surveyStatus, CurrentUserId))
+			if (Service.SetSurveyStatus(surveyStatus))
 				return NoContent();
 
 			return BadRequest("Error on updating the inspection survey completed status");
@@ -53,7 +53,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPut, Route("Inspection/DeleteAnswers")]
 		public ActionResult DeleteSurveyAnswers([FromBody] List<Guid> answerIds)
 		{
-			if (Service.RemoveRange(answerIds, CurrentUserId))
+			if (Service.RemoveRange(answerIds))
 				return Ok();
 			return BadRequest("Error on deleteing answer group");
 		}

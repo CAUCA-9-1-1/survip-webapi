@@ -34,19 +34,16 @@ namespace Survi.Prevention.ServiceLayer.Services
             };
 		}
 
-		public Guid UploadFile(InspectionPictureForWeb picture, Guid idWebUserLastModifiedBy)
+		public Guid UploadFile(InspectionPictureForWeb picture)
 		{
-			var pic = new InspectionPicture{Id = picture.Id, DataUri = picture.DataUri, SketchJson = picture.SketchJson, IdWebUserLastModifiedBy = idWebUserLastModifiedBy};
+			var pic = new InspectionPicture{Id = picture.Id, DataUri = picture.DataUri, SketchJson = picture.SketchJson};
 
 			var isExistRecord = Context.InspectionPictures.Any(p => p.Id == pic.Id);
 
 			if (!isExistRecord)
 				Context.Add(pic);
 			else
-			{
-				pic.LastModifiedOn = DateTime.Now;
 				Context.Update(pic);
-			}
 
 			Context.SaveChanges();
 			return pic.Id;

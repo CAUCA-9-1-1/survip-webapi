@@ -32,30 +32,26 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-		public Guid SaveCompleteCourses(InspectionBuildingCourse course, Guid idWebUserLastModifiedBy)
+		public Guid SaveCompleteCourses(InspectionBuildingCourse course)
 		{
-			UpdateCourse(course, idWebUserLastModifiedBy);
-			UpdateCourseLanes(course, idWebUserLastModifiedBy);
+			UpdateCourse(course);
+			UpdateCourseLanes(course);
 			Context.SaveChanges();
 
 			return course.Id;
 		}
 
-		private void UpdateCourse(InspectionBuildingCourse course, Guid idWebUserLastModifiedBy)
+		private void UpdateCourse(InspectionBuildingCourse course)
 		{
 			var isExistRecord = Context.InspectionBuildingCourses.Any(c => c.Id == course.Id);
 
-			course.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
 			if (isExistRecord)
-			{
-				course.LastModifiedOn = DateTime.Now;
 				Context.InspectionBuildingCourses.Update(course);
-			}
 			else
 				Context.InspectionBuildingCourses.Add(course);
 		}
 
-		private void UpdateCourseLanes(InspectionBuildingCourse course, Guid idWebUserLastModifiedBy)
+		private void UpdateCourseLanes(InspectionBuildingCourse course)
 		{
 			var courseLanes = new List<InspectionBuildingCourseLane>();
 			var dbCourseLanes = new List<InspectionBuildingCourseLane>();
@@ -66,33 +62,28 @@ namespace Survi.Prevention.ServiceLayer.Services
 			if (Context.InspectionBuildingCourseLanes.AsNoTracking().Any(l => l.IdBuildingCourse == course.Id))
 				dbCourseLanes = Context.InspectionBuildingCourseLanes.Where(l => l.IdBuildingCourse == course.Id).ToList();
 
-			RemoveDeletedLanes(dbCourseLanes, courseLanes, idWebUserLastModifiedBy);
-			AddNewLanes(courseLanes, idWebUserLastModifiedBy);
+			RemoveDeletedLanes(dbCourseLanes, courseLanes);
+			AddNewLanes(courseLanes);
 		}
 
-		private void AddNewLanes(List<InspectionBuildingCourseLane> courseLanes, Guid idWebUserLastModifiedBy)
+		private void AddNewLanes(List<InspectionBuildingCourseLane> courseLanes)
 		{
 			courseLanes.ForEach(child =>
 			{
 				var isChildExistRecord = Context.InspectionBuildingCourseLanes.Any(c => c.Id == child.Id);
 				if (!isChildExistRecord)
 				{
-					child.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
 					Context.InspectionBuildingCourseLanes.Add(child);
 				}
 			});
 		}
 
-		private static void RemoveDeletedLanes(List<InspectionBuildingCourseLane> dbCourseLanes, List<InspectionBuildingCourseLane> courseLanes, Guid idWebUserLastModifiedBy)
+		private static void RemoveDeletedLanes(List<InspectionBuildingCourseLane> dbCourseLanes, List<InspectionBuildingCourseLane> courseLanes)
 		{
 			dbCourseLanes.ForEach(child =>
 			{
 				if (courseLanes.All(c => c.Id != child.Id))
-				{
 					child.IsActive = false;
-					child.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
-					child.LastModifiedOn = DateTime.Now;
-				}
 			});
 		}
 
@@ -188,27 +179,23 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return true;
 		}
 
-		public bool Delete<T>(Guid id, Guid idWebUserLastModifiedBy) where T : BaseModel
+		public bool Delete<T>(Guid id) where T : BaseModel
 		{
 			var entity = Context.Set<T>().Find(id);
 			if (entity != null)
 			{
 				entity.IsActive = false;
-				entity.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
-				entity.LastModifiedOn = DateTime.Now;
 				Context.SaveChanges();
 			}
 			return true;
 		}
 
-		public bool UpdateCourseLaneSequence(Guid idCourseLane, int sequence, Guid idWebUserLastModifiedBy)
+		public bool UpdateCourseLaneSequence(Guid idCourseLane, int sequence)
 		{
 			var entity = Context.Set<InspectionBuildingCourseLane>().Find(idCourseLane);
 			if (entity != null)
 			{
 				entity.Sequence = sequence;
-				entity.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
-				entity.LastModifiedOn = DateTime.Now;
 				Context.SaveChanges();
 			}
 			return true;

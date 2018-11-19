@@ -29,7 +29,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPut]
 		public ActionResult PostPictureFile([FromBody]InspectionPictureForWeb picture)
 		{
-			return Ok(service.UploadFile(picture, CurrentUserId));
+			return Ok(service.UploadFile(picture));
 		}
 	}
 }

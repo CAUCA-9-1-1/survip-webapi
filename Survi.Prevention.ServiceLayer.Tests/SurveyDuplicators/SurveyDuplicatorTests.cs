@@ -8,11 +8,10 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 {
     public class SurveyDuplicatorTests
     {
-		private SurveyDuplicator duplicatorService = new SurveyDuplicator();
-		private SurveyLocalization originalLocalization;
-		private List<SurveyLocalization> originalLocalizations; 
-		private Survey originalSurvey;
-	    private readonly Guid idWebUserLastModifiedBy;
+		private readonly SurveyDuplicator duplicatorService = new SurveyDuplicator();
+		private readonly SurveyLocalization originalLocalization;
+		private readonly List<SurveyLocalization> originalLocalizations; 
+		private readonly Survey originalSurvey;
 	
 		public SurveyDuplicatorTests()
 		{
@@ -26,7 +25,6 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 			{
 				originalLocalization, new SurveyLocalization{ Name = "Test", LanguageCode = "en"}
 			};
-			idWebUserLastModifiedBy = Guid.NewGuid();
 		}
 		[Fact]
 		public void SurveyFieldsAreCorrectlyCopied()
@@ -46,7 +44,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 		public void NewIdSurveyHasBeenCorrectlySet()
 		{			
 			var newId = Guid.NewGuid();
-			var copy = duplicatorService.DuplicateSurveyLocalization(originalLocalization, newId, idWebUserLastModifiedBy);
+			var copy = duplicatorService.DuplicateSurveyLocalization(originalLocalization, newId);
 
 			Assert.True(newId == copy.IdParent);
 		}
@@ -54,7 +52,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 		[Fact]
 		public void LocalizationFieldsAreCorrectlyCopied()
 		{			
-			var copy = duplicatorService.DuplicateSurveyLocalization(originalLocalization, Guid.NewGuid(), idWebUserLastModifiedBy);
+			var copy = duplicatorService.DuplicateSurveyLocalization(originalLocalization, Guid.NewGuid());
 
 			Assert.True(LocalizationHasBeenCorrectlyDuplicated(originalLocalization, copy));
 		}
@@ -67,7 +65,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.SurveyDuplicators
 		[Fact]
 		public void LocalizationsAreComplete()
 		{
-			var copy = duplicatorService.DuplicateSurveyLocalizations(originalLocalizations, Guid.NewGuid(), idWebUserLastModifiedBy);
+			var copy = duplicatorService.DuplicateSurveyLocalizations(originalLocalizations, Guid.NewGuid());
 			Assert.Equal(originalLocalizations.Count, copy.Count);
 		}
 	}

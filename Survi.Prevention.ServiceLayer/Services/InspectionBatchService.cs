@@ -34,7 +34,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-		public override bool Remove(Guid id, Guid idWebUserLastModifiedBy = new Guid())
+		public override bool Remove(Guid id)
 		{
 			var inspections = Context.Inspections
 				.Where(i => i.IdBatch == id)
@@ -47,12 +47,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 					inspection.IsActive = false;
 					inspection.Status = InspectionStatus.Canceled;
 
-					if (idWebUserLastModifiedBy != Guid.Empty)
-					{
-						inspection.LastModifiedOn = DateTime.Now;
-						inspection.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
-					}
-
 				    // ReSharper disable once AccessToDisposedClosure
 				    copyManager.DeleteCopy(inspection.Id);
 				});
@@ -63,15 +57,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return base.Remove(id);
 		}
 
-		public override Guid AddOrUpdate(Batch batch, Guid idWebUserLastModifiedBy = new Guid())
+		public override Guid AddOrUpdate(Batch batch)
 		{
 			UpdateBatchUser(batch);
-			UpdateInspection(batch, idWebUserLastModifiedBy);
+			UpdateInspection(batch);
 
-			return base.AddOrUpdate(batch, idWebUserLastModifiedBy);
+			return base.AddOrUpdate(batch);
 		}
 
-		private void UpdateInspection(Batch batch, Guid idWebUserLastModifiedBy = new Guid())
+		private void UpdateInspection(Batch batch)
 		{
 			var inspections = new List<Inspection>();
 			var dbInspections = new List<Inspection>();
@@ -81,13 +75,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 			if (Context.Inspections.AsNoTracking().Any(u => u.IdBatch == batch.Id))
 				dbInspections = Context.Inspections.AsNoTracking().Where(i => i.IdBatch == batch.Id).ToList();
 
-			RemoveDeleteChildren(dbInspections, inspections, idWebUserLastModifiedBy);
-			AddOrUpdateChildren(inspections, idWebUserLastModifiedBy);
+			RemoveDeleteChildren(dbInspections, inspections);
+			AddOrUpdateChildren(inspections);
 
 			Context.SaveChanges();
 		}
 
-		private void AddOrUpdateChildren(List<Inspection> inspections, Guid idWebUserLastModifiedBy = new Guid())
+		private void AddOrUpdateChildren(List<Inspection> inspections)
 		{
 			inspections.ForEach(child =>
 			{
@@ -103,7 +97,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 					child.IdSurvey = GetConfiguredSurvey(building.IdRiskLevel, fireSafetyDepartmentId);
 				}
-				child.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
 
 				if (!isExistRecord)
 					Context.Inspections.Add(child);
@@ -125,7 +118,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return query.FirstOrDefault();
 		}
 
-		private void RemoveDeleteChildren(List<Inspection> dbInspections, List<Inspection> inspections, Guid idWebUserLastModifiedBy = new Guid())
+		private void RemoveDeleteChildren(List<Inspection> dbInspections, List<Inspection> inspections)
 		{
 			using (var copyManager = new InspectionBuildingDataCopyDeleter(Context))
 			{
@@ -133,9 +126,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 				{
 					if (inspections.All(i => i.Id != child.Id))
 					{
-						if (idWebUserLastModifiedBy != Guid.Empty)
-							child.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
-
 						child.LastModifiedOn = DateTime.Now;
 
 						Context.Inspections.Remove(child);

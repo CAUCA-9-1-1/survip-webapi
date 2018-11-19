@@ -29,7 +29,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return true;
 		}
 
-		public bool SetStatus(InspectionStatus status, Guid id, string refusalReason = null, Guid idWebUserLastModifiedBy = new Guid())
+		public bool SetStatus(InspectionStatus status, Guid id, string refusalReason = null)
 		{
 			var inspection = Context.Inspections
 				.Where(i => i.Id == id)
@@ -37,8 +37,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.Single();
 
 			inspection.Status = status;
-			UpdateInspectionModifiedInformation(inspection, idWebUserLastModifiedBy);
-
+			
 			AssignRefusalReasonToLastVisit(refusalReason, inspection);
 
 			using (var manager = new InspectionBuildingDataCopyManager(Context, inspection.Id))
@@ -53,15 +52,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return true;
 		}
 
-		private void AssignRefusalReasonToLastVisit(string refusalReason, Inspection inspection, Guid idWebUserLastModifiedBy = new Guid())
+		private void AssignRefusalReasonToLastVisit(string refusalReason, Inspection inspection)
 		{
 			if (!string.IsNullOrWhiteSpace(refusalReason))
 			{
 				var currentVisit = inspection.Visits.OrderBy(v => v.EndedOn)
 					.Last(v => v.IsActive && v.Status == InspectionVisitStatus.Completed);
 				currentVisit.ReasonForApprobationRefusal = refusalReason;
-
-				UpdateVisitModifiedInformation(currentVisit, idWebUserLastModifiedBy);
 			}
 		}
 
@@ -161,17 +158,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 					.Single();
 
 				AddNewInspectionWhenMissing(idUser, targetInspection);
-
 				targetInspection.Status = InspectionStatus.Started;
 				targetInspection.StartedOn = DateTime.Now;
 
-				UpdateInspectionModifiedInformation(targetInspection, idUser);
-
 				Context.SaveChanges();
-
 				return true;
 			}
-
 			return false;
 		}
 
@@ -197,11 +189,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 					.Include(i => i.Visits)
 					.Single();
 
-				if (CompleteInspectionVisit(targetInspection, idUser))
+				if (CompleteInspectionVisit(targetInspection))
 				{
 					targetInspection.Status = InspectionStatus.WaitingForApprobation;
 					targetInspection.CompletedOn = DateTime.Now;
-					UpdateInspectionModifiedInformation(targetInspection, idUser);
 					Context.SaveChanges();
 
 					return true;
@@ -211,7 +202,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return false;
 		}
 
-		private bool CompleteInspectionVisit(Inspection inspection, Guid idWebUserLastModifiedBy)
+		private bool CompleteInspectionVisit(Inspection inspection)
 		{
 			if (inspection.Visits.Any(v => v.IsActive && v.Status != InspectionVisitStatus.Completed))
 			{
@@ -219,7 +210,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 					inspection.Visits.Single(v => v.IsActive && v.Status != InspectionVisitStatus.Completed);
 				currentVisit.EndedOn = DateTime.Now;
 				currentVisit.Status = InspectionVisitStatus.Completed;
-				UpdateVisitModifiedInformation(currentVisit, idWebUserLastModifiedBy);
 				return true;
 			}
 
@@ -246,7 +236,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 
 			targetInspection.Status = InspectionStatus.Todo;
-			UpdateInspectionModifiedInformation(targetInspection, idUser);
 
 			Context.SaveChanges();
 			return true;
@@ -272,7 +261,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 					currentVisit.DoorHangerHasBeenLeft = refusedInspectionVisit.DoorHangerHasBeenLeft;
 					currentVisit.EndedOn = refusedInspectionVisit.EndedOn;
 					currentVisit.RequestedDateOfVisit = refusedInspectionVisit.RequestedDateOfVisit;
-					UpdateVisitModifiedInformation(currentVisit, idUser);
 				}
 			}
 		}
@@ -374,18 +362,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 				EndedOn = lastVisit.EndedOn,
 				InspectorName = (firstName?.AttributeValue ?? "") + " " + (lastName?.AttributeValue ?? "")
 			};
-		}
-
-		private void UpdateInspectionModifiedInformation(Inspection entity, Guid idWebUserLastModifiedBy)
-		{
-			entity.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
-			entity.LastModifiedOn = DateTime.Now;
-		}
-
-		private void UpdateVisitModifiedInformation(InspectionVisit entity, Guid idWebUserLastModifiedBy)
-		{
-			entity.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
-			entity.LastModifiedOn = DateTime.Now;
 		}
 	}
 }

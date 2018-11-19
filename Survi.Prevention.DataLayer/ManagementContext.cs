@@ -1,6 +1,9 @@
+using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer.InitialData;
 using Survi.Prevention.Models;
+using Survi.Prevention.Models.Base;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.Buildings.Base;
 using Survi.Prevention.Models.DataTransfertObjects;
@@ -16,7 +19,9 @@ namespace Survi.Prevention.DataLayer
 {
 	public class ManagementContext : DbContext
 	{
-		public DbSet<AccessSecretKey> AccessSecretKeys { get; set; }
+	    public Guid CurrentUserId { get; set; }
+
+        public DbSet<AccessSecretKey> AccessSecretKeys { get; set; }
 		public DbSet<AccessToken> AccessTokens { get; set; }
 		public DbSet<Webuser> Webusers { get; set; }
         public DbSet<WebuserAttributes> WebuserAttributes { get; set; }
@@ -112,9 +117,9 @@ namespace Survi.Prevention.DataLayer
 		public DbQuery<BuildingDetailForReport> BuildingDetailsForReport { get; set; }
 
 		public DbQuery<BatchInspectionBuilding> BatchInspectionBuildings { get; set; }
-		public DbQuery<AvailableBuildingForManagement> AvailableBuildingsForManagement { get; set; }
+		public DbQuery<AvailableBuildingForManagement> AvailableBuildingsForManagement { get; set; }	    
 
-		public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
+	    public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
 		{
 		}
 
@@ -149,5 +154,15 @@ namespace Survi.Prevention.DataLayer
 			modelBuilder.SeedInitialData();
 			//modelBuilder.SeedInitialDataForDevelopment();
 		}
-	}
+
+        public override int SaveChanges()
+        {
+            foreach (var dbEntityEntry in ChangeTracker
+                .Entries<BaseModel>()
+                .Where(x => x.State == EntityState.Modified || x.State == EntityState.Added))            
+                dbEntityEntry.Entity.SetAsModified(CurrentUserId);
+
+            return base.SaveChanges();
+        }
+    }
 }

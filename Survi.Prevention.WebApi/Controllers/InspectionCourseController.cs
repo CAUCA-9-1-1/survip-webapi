@@ -54,25 +54,25 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpPost, Route("listcourse")]
 		public ActionResult SaveCompleteCourses([FromBody]InspectionBuildingCourse course)
 		{
-			return Ok(service.SaveCompleteCourses(course, CurrentUserId));
+			return Ok(service.SaveCompleteCourses(course));
 		}
 
 		[HttpDelete, Route("course/{idCourse:Guid}")]
 		public ActionResult DeleteCoures(Guid idCourse)
 		{
-			return Ok(service.Delete<InspectionBuildingCourse>(idCourse, CurrentUserId));
+			return Ok(service.Delete<InspectionBuildingCourse>(idCourse));
 		}
 
 		[HttpPost, Route("courselane/{idCourseLane:Guid}/sequence/{sequence}")]
 		public ActionResult UpdateCourseLaneSequence(Guid idCourseLane, int sequence)
 		{
-			return Ok(service.UpdateCourseLaneSequence(idCourseLane, sequence, CurrentUserId));
+			return Ok(service.UpdateCourseLaneSequence(idCourseLane, sequence));
 		}
 
 		[HttpDelete, Route("courselane/{idCourseLane:Guid}")]
 		public ActionResult DeleteCourseLane(Guid idCourseLane)
 		{
-			return Ok(service.Delete<InspectionBuildingCourseLane>(idCourseLane, CurrentUserId));
+			return Ok(service.Delete<InspectionBuildingCourseLane>(idCourseLane));
 		}
 	}
 }

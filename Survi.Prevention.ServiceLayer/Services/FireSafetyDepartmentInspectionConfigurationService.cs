@@ -87,40 +87,26 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return query.Distinct().ToList();
 		}
 
-		public virtual bool Remove(Guid id, Guid idWebUserLastModifiedBy)
+		public virtual bool Remove(Guid id)
 		{
 			var entity = Context.Set<FireSafetyDepartmentInspectionConfiguration>().Find(id);
 
 			if (entity == null)
-			{
 				return false;
-			}
 
 			entity.IsActive = false;
-			entity.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
-			entity.LastModifiedOn = DateTime.Now;
-
 			Context.SaveChanges();
-
 			return true;
 		}
 
-		public Guid AddOrUpdate(FireSafetyDepartmentInspectionConfigurationForEdition entity, Guid idWebUserLastModifiedBy)
+		public Guid AddOrUpdate(FireSafetyDepartmentInspectionConfigurationForEdition entity)
 		{
 			var currentConfig = Context.FireSafetyDepartmentInspectionConfigurations
-					.Include(config => config.RiskLevels)
-					.FirstOrDefault(config => config.Id == entity.Id);
+                .Include(config => config.RiskLevels)
+			    .FirstOrDefault(config => config.Id == entity.Id) 
+                    ?? CreateNewConfiguration();
 
-			if (currentConfig == null)
-				currentConfig = CreateNewConfiguration(idWebUserLastModifiedBy);
-			else
-			{
-				currentConfig.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
-				currentConfig.LastModifiedOn = DateTime.Now;
-			}
-
-			PushDtoToEntity(entity, currentConfig);
-
+		    PushDtoToEntity(entity, currentConfig);
 			Context.SaveChanges();
 			return currentConfig.Id;
 		}
@@ -162,10 +148,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 		}
 
-		private FireSafetyDepartmentInspectionConfiguration CreateNewConfiguration(Guid idWebUserLastModifiedBy)
+		private FireSafetyDepartmentInspectionConfiguration CreateNewConfiguration()
 		{
 			var currentConfig = new FireSafetyDepartmentInspectionConfiguration
-			{ RiskLevels = new List<FireSafetyDepartmentInspectionConfigurationRiskLevel>(), IdWebUserLastModifiedBy = idWebUserLastModifiedBy };
+			{ RiskLevels = new List<FireSafetyDepartmentInspectionConfigurationRiskLevel>() };
 			Context.Add(currentConfig);
 			return currentConfig;
 		}

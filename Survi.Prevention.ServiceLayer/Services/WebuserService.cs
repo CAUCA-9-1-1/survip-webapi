@@ -37,14 +37,14 @@ namespace Survi.Prevention.ServiceLayer.Services
 
         public Guid AddOrUpdate(Webuser user, string applicationName, Guid idUserModified)
         {
-            UpdateUserDepartment(user, idUserModified);
+            UpdateUserDepartment(user);
             UpdateUserAttribute(user);
 
             user.Password = user.Password == "" ? 
 	            Context.Webusers.AsNoTracking().First(u => u.Id == user.Id).Password : 
 	            new PasswordGenerator().EncodePassword(user.Password, applicationName);
 
-            return base.AddOrUpdate(user, idUserModified);
+            return base.AddOrUpdate(user);
         }
 
         private void UpdateUserAttribute(Webuser user)
@@ -77,7 +77,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             Context.SaveChanges();
         }
 
-        private void UpdateUserDepartment(Webuser user, Guid idUserModified)
+        private void UpdateUserDepartment(Webuser user)
         {
             var fireSafetyDepartments = new List<WebuserFireSafetyDepartment>();
             var dbFireSafetyDepartments = new List<WebuserFireSafetyDepartment>();
@@ -99,10 +99,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 var isExistRecord = Context.WebuserFireSafetyDepartments.Any(c => c.Id == child.Id);
 
                 if (!isExistRecord)
-                {
-					child.IdWebUserLastModifiedBy = idUserModified;
                     Context.WebuserFireSafetyDepartments.Add(child);
-                }
             });
 
             Context.SaveChanges();

@@ -44,27 +44,23 @@ namespace Survi.Prevention.ServiceLayer.Services
             }).ToList();
 		}
 
-		public virtual Guid AddOrUpdatePicture(InspectionPictureForWeb entity, Guid idWebUserLastModifiedBy)
+		public virtual Guid AddOrUpdatePicture(InspectionPictureForWeb entity)
 		{
-			var particularRiskPicture = Context.InspectionBuildingParticularRiskPictures.Find(entity.Id);
+			var particularRiskPicture = Context.InspectionBuildingParticularRiskPictures.Find(entity.Id) 
+			    ?? GenerateNewPicture(entity);
 
-			if (particularRiskPicture == null)
-				particularRiskPicture = GenerateNewPicture(entity, idWebUserLastModifiedBy);
-			else
-				UpdateInspectionBuildingParticularRiskPictureModifiedInformation(particularRiskPicture, idWebUserLastModifiedBy);
-
-			TransferDtoToModel(entity, particularRiskPicture);
+		    TransferDtoToModel(entity, particularRiskPicture);
 
 			Context.SaveChanges();
 			return entity.Id;
 		}
 
-		public bool AddUpdatePictures(InspectionPictureForWeb[] entity, Guid idWebUserLastModifiedBy)
+		public bool AddUpdatePictures(InspectionPictureForWeb[] entity)
 		{
 			bool retValue = false;
 			foreach (var pic in entity)
 			{
-				if (AddOrUpdatePicture(pic, idWebUserLastModifiedBy) != Guid.Empty)
+				if (AddOrUpdatePicture(pic) != Guid.Empty)
 					retValue = true;
 			}
 			return retValue;
@@ -74,7 +70,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			var entity = Context.InspectionBuildingParticularRiskPictures.Find(id);
 			entity.IsActive = false;
-			UpdateInspectionBuildingParticularRiskPictureModifiedInformation(entity, idWebUserLastModifiedBy);
 
 			var picture = Context.InspectionPictures.Find(entity.IdPicture);
 			Context.Remove(picture);
@@ -82,15 +77,14 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return true;
 		}
 
-		private InspectionBuildingParticularRiskPicture GenerateNewPicture(InspectionPictureForWeb entity, Guid idWebUserLastModifiedBy)
+		private InspectionBuildingParticularRiskPicture GenerateNewPicture(InspectionPictureForWeb entity)
 		{
 			var picture = new InspectionBuildingParticularRiskPicture
 			{
 				Id = entity.Id,
 				IdBuildingParticularRisk = entity.IdParent,
 				IdPicture = entity.Id,
-				IdWebUserLastModifiedBy = idWebUserLastModifiedBy,
-				Picture = new InspectionPicture { Id = entity.Id, Name = "", IdWebUserLastModifiedBy = idWebUserLastModifiedBy }
+				Picture = new InspectionPicture { Id = entity.Id, Name = "" }
 			};
 			Context.Add(picture);
 			return picture;
@@ -106,12 +100,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 			particularRiskPicture.Picture.Id = entity.Id;
             particularRiskPicture.Picture.DataUri = entity.DataUri;
 			particularRiskPicture.Picture.SketchJson = entity.SketchJson;
-		}
-
-		private void UpdateInspectionBuildingParticularRiskPictureModifiedInformation(InspectionBuildingParticularRiskPicture entity, Guid idWebUserLastModifiedBy)
-		{
-			entity.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
-			entity.LastModifiedOn = DateTime.Now;
 		}
 	}
 }

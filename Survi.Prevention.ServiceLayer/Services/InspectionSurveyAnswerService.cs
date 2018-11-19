@@ -141,18 +141,18 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return formatedList;
 		}
 
-		public Guid SaveQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer, Guid idWebUserLastModifiedBy = new Guid())
+		public Guid SaveQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
 		{
 			var existingAnswer = false;
 			if (inspectionQuestionAnswer.Id != null && inspectionQuestionAnswer.Id != Guid.Empty)
 				existingAnswer = Context.InspectionSurveyAnswers.AsNoTracking().Any(ea => ea.Id == inspectionQuestionAnswer.Id);
 
 			if(existingAnswer)
-				return UpdateQuestionAnswer(inspectionQuestionAnswer, idWebUserLastModifiedBy);
-			return AddQuestionAnswer(inspectionQuestionAnswer, idWebUserLastModifiedBy);
+				return UpdateQuestionAnswer(inspectionQuestionAnswer);
+			return AddQuestionAnswer(inspectionQuestionAnswer);
 		}
 
-		private Guid AddQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer, Guid idWebUserLastModifiedBy)
+		private Guid AddQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
 		{
 				var questionAnswer = new InspectionSurveyAnswer
 				{
@@ -162,7 +162,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 					IdInspection = inspectionQuestionAnswer.IdInspection,
 					IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice,
 					IdSurveyAnswerParent = inspectionQuestionAnswer.IdParent,
-					IdWebUserLastModifiedBy = idWebUserLastModifiedBy
 				};
 
 				Context.InspectionSurveyAnswers.Add(questionAnswer);
@@ -173,29 +172,24 @@ namespace Survi.Prevention.ServiceLayer.Services
 				return questionAnswer.Id;
 		}
 
-		private Guid UpdateQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer, Guid idWebUserLastModifiedBy)
+		private Guid UpdateQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
 		{
 			var existingAnswer = Context.InspectionSurveyAnswers.Single(ea => ea.Id == inspectionQuestionAnswer.Id);
 			existingAnswer.Answer = inspectionQuestionAnswer.Answer;
 			existingAnswer.IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice;
-			existingAnswer.LastModifiedOn = DateTime.Now;
-			existingAnswer.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
-
 			Context.InspectionSurveyAnswers.Update(existingAnswer);
 			Context.SaveChanges();
 
 			return existingAnswer.Id;
 		}
 
-		public bool SetSurveyStatus(InspectionSurveyCompletion surveyStatus, Guid idWebUserLastModifiedBy)
+		public bool SetSurveyStatus(InspectionSurveyCompletion surveyStatus)
 		{
 			if(surveyStatus.idInspection != Guid.Empty)
 			{
 				var targetInspection = Context.Inspections.Single(i => i.Id == surveyStatus.idInspection && i.IsActive);
 
 				targetInspection.IsSurveyCompleted = surveyStatus.isCompleted;
-				targetInspection.IdWebUserLastModifiedBy = idWebUserLastModifiedBy;
-				targetInspection.LastModifiedOn = DateTime.Now;
 					
 				if(surveyStatus.isCompleted)
 					targetInspection.SurveyCompletedOn = DateTime.Now;
@@ -244,7 +238,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 				};
 
 			return categoryGroupedAnswerList.ToList();
-
 		}
 	}
 }

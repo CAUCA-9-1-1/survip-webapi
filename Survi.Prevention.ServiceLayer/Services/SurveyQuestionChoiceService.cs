@@ -43,25 +43,18 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-		public override bool Remove(Guid idSurveyQuestionChoice, Guid idWebUserModifiedBy = new Guid())
+		public override bool Remove(Guid idSurveyQuestionChoice)
 		{
 			if (idSurveyQuestionChoice != Guid.Empty)
 			{
 				var questionChoice = Context.SurveyQuestionChoices.Include(sqc => sqc.Localizations).Single(sq => sq.Id == idSurveyQuestionChoice);
-				questionChoice.IdWebUserLastModifiedBy = idWebUserModifiedBy;
-				questionChoice.LastModifiedOn = DateTime.Now;
 				questionChoice.IsActive = false;
 
-				if (questionChoice.Localizations.Any())
-				{
-					List<SurveyQuestionChoiceLocalization> questionLocalization = new List<SurveyQuestionChoiceLocalization>();
-					questionLocalization.AddRange(questionChoice.Localizations);
-					questionLocalization.ForEach(sql =>
-					{
-						sql.IsActive = false;
-						sql.IdWebUserLastModifiedBy = idWebUserModifiedBy;
-						sql.LastModifiedOn = DateTime.Now;
-					});
+			    if (questionChoice.Localizations.Any())
+			    {
+			        List<SurveyQuestionChoiceLocalization> questionLocalization = new List<SurveyQuestionChoiceLocalization>();
+			        questionLocalization.AddRange(questionChoice.Localizations);
+			        questionLocalization.ForEach(sql => sql.IsActive = false);
 				}
 				Context.SaveChanges();
 				return true;
@@ -69,7 +62,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return false;
 		}
 
-		public bool DeleteQuestionChoices(Guid idSurveyQuestion, Guid idWebUserModifiedBy = new Guid())
+		public bool DeleteQuestionChoices(Guid idSurveyQuestion)
 		{
 			if (idSurveyQuestion != Guid.Empty)
 			{
@@ -80,17 +73,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 				questionChoices.ForEach(qc =>
 				{
-					qc.IdWebUserLastModifiedBy = idWebUserModifiedBy;
-					qc.LastModifiedOn = DateTime.Now;
 					qc.IsActive = false;
 					List<SurveyQuestionChoiceLocalization> choices = new List<SurveyQuestionChoiceLocalization>();
 					choices.AddRange(qc.Localizations);
-					choices.ForEach(sqcl =>
-					{
-						sqcl.IdWebUserLastModifiedBy = idWebUserModifiedBy;
-						sqcl.LastModifiedOn = DateTime.Now;
-						sqcl.IsActive = false;
-					});
+					choices.ForEach(sqcl => sqcl.IsActive = false);
 				});
 
 				Context.SaveChanges();
