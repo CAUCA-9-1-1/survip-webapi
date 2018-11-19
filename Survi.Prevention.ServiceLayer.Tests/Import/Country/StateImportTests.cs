@@ -56,7 +56,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 		public void NewIdLocalizationHasBeenCorrectlySet()
 		{
 			var newId = Guid.NewGuid();
-			var copy = service.CreateLocalization(importedState.Localizations.First(), newId);
+			var copy = service.CreateLocalization(importedState.Localizations.First(), newId, true);
 
 			Assert.True(newId == copy.IdParent);
 		}
@@ -72,7 +72,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 		[Fact]
 		public void LocalizationFieldsAreCorrectlyCopied()
 		{
-			var copy = service.CreateLocalization(importedState.Localizations.First(), Guid.NewGuid());
+			var copy = service.CreateLocalization(importedState.Localizations.First(), Guid.NewGuid(), true);
 
 			Assert.True(LocalizationHasBeenCorrectlyDuplicated(importedState.Localizations.First(), copy));
 		}
