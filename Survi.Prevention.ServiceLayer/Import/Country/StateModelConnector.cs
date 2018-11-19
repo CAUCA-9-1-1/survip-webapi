@@ -80,20 +80,21 @@ namespace Survi.Prevention.ServiceLayer.Import.Country
 			StateLocalization existingLocalization =
 				existingState.Localizations?.SingleOrDefault(loc => loc.LanguageCode == importedLoc.LanguageCode);
 			if(existingLocalization != null)
-				return UpdateLocalization(importedLoc, existingLocalization);
-			return CreateLocalization(importedLoc, existingState.Id);
+				return UpdateLocalization(importedLoc, existingLocalization, existingState.IsActive);
+			return CreateLocalization(importedLoc, existingState.Id, existingState.IsActive);
 		}
 
 		public StateLocalization UpdateLocalization(ApiClient.DataTransferObjects.Base.Localization importedLoc,
-			StateLocalization newLocalization)
+			StateLocalization newLocalization, bool isActive)
 		{
 			newLocalization.Name = importedLoc.Name;
+			newLocalization.IsActive = isActive;
 			return newLocalization;
 		}
 
-		public StateLocalization CreateLocalization(ApiClient.DataTransferObjects.Base.Localization importedLoc, Guid newCountryId)
+		public StateLocalization CreateLocalization(ApiClient.DataTransferObjects.Base.Localization importedLoc, Guid newCountryId, bool isActive)
 		{
-			return new StateLocalization {IdParent = newCountryId, LanguageCode = importedLoc.LanguageCode, Name = importedLoc.Name};
+			return new StateLocalization {IdParent = newCountryId, LanguageCode = importedLoc.LanguageCode, Name = importedLoc.Name, IsActive = isActive};
 		}
 
 		public ValidationResult GetValidationResult(ApiClient.DataTransferObjects.State stateToImport)
