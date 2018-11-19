@@ -63,7 +63,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Country
 		{
 			if (GetIdCountryFromExternal(idCountryExternal) == Guid.Empty)
 				return new ImportationResult{EntityName = "State", HasBeenImported = false, Messages = new List<string>{"StateCountryNotExists"},IdEntity = idCountryExternal};
-			return new ImportationResult();
+			return new ImportationResult{HasBeenImported = true};
 		}
 
 		public List<StateLocalization> TransferLocalizationsFromImported(List<ApiClient.DataTransferObjects.Base.Localization> importedLocalizations, State existingState)

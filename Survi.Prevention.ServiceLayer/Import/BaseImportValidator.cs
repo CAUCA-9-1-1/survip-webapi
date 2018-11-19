@@ -4,8 +4,19 @@ using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 
 namespace Survi.Prevention.ServiceLayer.Import
 {
-    public abstract class BaseImportValidator<T>: AbstractValidator<T> where T : BaseTransferObject, new()
+    public abstract class BaseImportValidator<T>: AbstractValidator<T> where T : BaseLocalizableTransferObject, new()
     {
+	    protected BaseImportValidator()
+	    {
+		    RuleFor(m => m.Id)
+			    .NotNull().WithMessage("{PropertyName}_InvalidValue");
+
+		    RuleFor(m => m.Localizations)
+			    .NotNull().WithMessage("{PropertyName}_NullValue")
+			    .Must(ValidateMinimumLocalizations).WithMessage("{PropertyName}_InvalidCount")
+			    .Must(ValidateRequiredLanguage).WithMessage("{PropertyName}_InvalidValue")
+			    .Must(ValidateLanguage).WithMessage("{PropertyName}_InvalidValue");
+	    }
 	    public virtual bool ValidateLanguage(ICollection<ApiClient.DataTransferObjects.Base.Localization> localizations)
 	    {
 		    if(localizations == null)

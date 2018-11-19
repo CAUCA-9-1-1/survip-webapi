@@ -14,11 +14,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Country
 			    .NotEmpty().WithMessage("{PropertyName}_EmptyValue")
 			    .MaximumLength(3).WithMessage("{PropertyName}_InvalidValue");
 
-		    RuleFor(m => m.Localizations)
-			    .NotNull().WithMessage("{PropertyName}_NullValue")
-			    .Must(ValidateMinimumLocalizations).WithMessage("{PropertyName}_InvalidCount")
-			    .Must(ValidateRequiredLanguage).WithMessage("{PropertyName}_InvalidValue")
-			    .Must(ValidateLanguage).WithMessage("{PropertyName}_InvalidValue");
+		    
 	    }
     }
 }
