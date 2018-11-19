@@ -11,7 +11,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Country
 		    stateContext = context;
 
 		    RuleFor(m => m.AnsiCode)
-			    .NotEmpty()
+			    .NotEmpty().WithMessage("{PropertyName}_EmptyValue")
 			    .MaximumLength(2).WithMessage("{PropertyName}_InvalidValue");
 
 		    RuleFor(m => m.IdCountry)

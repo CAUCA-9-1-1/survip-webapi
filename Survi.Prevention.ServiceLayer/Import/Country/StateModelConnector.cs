@@ -62,7 +62,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Country
 		public ImportationResult ValidateExternalCountry(string idCountryExternal)
 		{
 			if (GetIdCountryFromExternal(idCountryExternal) == Guid.Empty)
-				return new ImportationResult{EntityName = "State", HasBeenImported = false, Messages = new List<string>{"StateCountryNotExists"},IdEntity = idCountryExternal};
+				return new ImportationResult{EntityName = "State", HasBeenImported = false, Messages = new List<string>{"State_UnknownCountry"},IdEntity = idCountryExternal};
 			return new ImportationResult{HasBeenImported = true};
 		}
 

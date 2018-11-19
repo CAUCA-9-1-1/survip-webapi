@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using FluentValidation;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 
@@ -45,13 +46,15 @@ namespace Survi.Prevention.ServiceLayer.Import
 		    if(localizations == null)
 			    return false;
 
-		    List<string> languages = new List<string>{"fr","en"};
-		    foreach (var loc in localizations)
+		    if (localizations.Any(loc => string.IsNullOrEmpty(loc.LanguageCode)))
+			    return false;
+
+		    List<string> languages = new List<string>{"fr","en"};		    
+		    foreach (var code in languages)
 		    {
-			    if (string.IsNullOrEmpty(loc.LanguageCode) || !languages.Contains(loc.LanguageCode))
+			    if (localizations.All(loc => loc.LanguageCode != code))
 				    return false;
 		    }
-
 		    return true;
 	    }
     }
