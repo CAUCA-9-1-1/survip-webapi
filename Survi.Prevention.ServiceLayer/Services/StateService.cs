@@ -65,12 +65,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 	    public ImportationResult ImportState(ApiClient.DataTransferObjects.State importedState)
 	    {
-		    var newState = Context.States.Include(loc =>loc.Localizations).SingleOrDefault(c => c.IdExtern == importedState.Id);
 		    StateModelConnector connector = new StateModelConnector(Context);
 		    ImportationResult result = connector.ValidateState(importedState);
 
 		    if (result.HasBeenImported)
 		    {
+			    var newState = Context.States.Include(loc =>loc.Localizations).SingleOrDefault(c => c.IdExtern == importedState.Id);
 			    bool isExistRecord = newState != null && newState.Id != Guid.Empty;
 
 			    newState = connector.TransferDtoImportedToOriginal(importedState, newState?? new State());
