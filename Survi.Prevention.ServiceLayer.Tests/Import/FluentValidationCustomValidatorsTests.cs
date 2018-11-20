@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.TestHelper;
 using Survi.Prevention.ServiceLayer.Tests.Mocks.Validations;
 using Xunit;
@@ -16,22 +15,13 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import
             mockValidator = new MockObjectValidator();
         }
 
-        [Fact]
-        public void NotNullOrEmptyCorrectlyFailWhenValueIsNull()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("     ")]
+        public void NotNullOrEmptyCorrectlyFailWhenValueIsInvalid(string value)
         {
-            mockValidator.ShouldHaveValidationErrorFor(mock => mock.SomeProperty, null as string);
-        }
-
-        [Fact]
-        public void NotNullOrEmptyCorrectlyFailWhenValueIsEmpty()
-        {
-            mockValidator.ShouldHaveValidationErrorFor(mock => mock.SomeProperty, string.Empty);
-        }
-
-        [Fact]
-        public void NotNullOrEmptyCorrectlyFailWhenValueIsWhiteSpaces()
-        {
-            mockValidator.ShouldHaveValidationErrorFor(mock => mock.SomeProperty, "   ");
+            mockValidator.ShouldHaveValidationErrorFor(mock => mock.SomeProperty, value);
         }
 
         [Fact]
@@ -40,32 +30,26 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import
             mockValidator.ShouldHaveValidationErrorFor(mock => mock.SomeOtherProperty, "123456");
         }
 
-        [Fact]
-        public void NotNullOrEmptyWithMaxLengthHasNoValidationErrorWhenValueIsAtMaxLength()
+        [Theory]
+        [InlineData("1")]
+        [InlineData("12345")]
+        public void NotNullOrEmptyWithMaxLengthHasNoValidationErrorWhenValueIsValid(string value)
         {
-            mockValidator.ShouldNotHaveValidationErrorFor(mock => mock.SomeOtherProperty, "12345");
-        }
-
-        [Fact]
-        public void NotNullOrEmptyWithMaxLengthHasNoValidationErrorWhenValueIsUnderMaxLength()
-        {
-            mockValidator.ShouldNotHaveValidationErrorFor(mock => mock.SomeOtherProperty, "1234");
+            mockValidator.ShouldNotHaveValidationErrorFor(mock => mock.SomeOtherProperty, value);
         }
 
         [Fact]
         public void ValidationMessageIsCorrectlyGeneratedWhenValueIsNotNullOrEmpty()
         {
-            var mock = new MockObject { SomeProperty = null, SomeOtherProperty = "1" };
-            var validation = mockValidator.Validate(mock);
-            Assert.Equal("SomeProperty_EmptyValue", validation.Errors.FirstOrDefault()?.ErrorMessage);
+            mockValidator.ShouldHaveValidationErrorFor(mock => mock.SomeProperty, null as string)
+                .WithErrorMessage("SomeProperty_EmptyValue");
         }
 
         [Fact]
         public void ValidationMessageIsCorrectlyGeneratedWhenValueIsOverMaxLength()
         {
-            var mock = new MockObject { SomeProperty = "1", SomeOtherProperty = "123456" };
-            var validation = mockValidator.Validate(mock);
-            Assert.Equal("SomeOtherProperty_InvalidValue", validation.Errors.FirstOrDefault()?.ErrorMessage);
+            mockValidator.ShouldHaveValidationErrorFor(mock => mock.SomeOtherProperty, "123456")
+                .WithErrorMessage("SomeOtherProperty_InvalidValue");
         }
     }
 }
