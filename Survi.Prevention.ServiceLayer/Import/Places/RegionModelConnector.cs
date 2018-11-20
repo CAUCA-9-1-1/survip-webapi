@@ -22,7 +22,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 
 		public ImportationResult ValidateRegion(ApiClient.DataTransferObjects.Region regionToImport)
 		{
-			ImportationResult importResult = ValidateExternalCountry(regionToImport.IdState);
+			ImportationResult importResult = ValidateExternalState(regionToImport.IdState);
 			if (importResult.HasBeenImported)
 			{
 				var validationResult = GetValidationResult(regionToImport);
@@ -50,7 +50,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 			return existingRegion;
 		}
 
-		public Guid GetIdCountryFromExternal(string idStateExternal)
+		public Guid GetIdStateFromExternal(string idStateExternal)
 		{
 			var country = regionContext.States?.SingleOrDefault(c => c.IdExtern == idStateExternal);
 			if (country != null)
@@ -59,10 +59,10 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 			return idExistingState;
 		}
 
-		public ImportationResult ValidateExternalCountry(string idCountryExternal)
+		public ImportationResult ValidateExternalState(string idStateExternal)
 		{
-			if (GetIdCountryFromExternal(idCountryExternal) == Guid.Empty)
-				return new ImportationResult{EntityName = "State", HasBeenImported = false, Messages = new List<string>{"Region_UnknownState"},IdEntity = idCountryExternal};
+			if (GetIdStateFromExternal(idStateExternal) == Guid.Empty)
+				return new ImportationResult{EntityName = "State", HasBeenImported = false, Messages = new List<string>{"Region_UnknownState"},IdEntity = idStateExternal};
 			return new ImportationResult{HasBeenImported = true};
 		}
 
