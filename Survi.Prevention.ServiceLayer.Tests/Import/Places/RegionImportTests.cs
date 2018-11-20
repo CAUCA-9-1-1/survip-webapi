@@ -109,7 +109,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 	    [Fact]
 	    public void RegionStateDoesNotExists()
 	    {
-		    var validationResult = service.ValidateExternalCountry(importedRegion.IdState);
+		    var validationResult = service.ValidateExternalState(importedRegion.IdState);
 
 		    Assert.False(validationResult.HasBeenImported);
 	    }
