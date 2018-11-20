@@ -41,7 +41,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasMany(m => m.Contacts).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding).OnDelete(DeleteBehavior.Cascade);
 			b.HasMany(m => m.HazardousMaterials).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding).OnDelete(DeleteBehavior.Cascade);
 			b.HasMany(m => m.PersonsRequiringAssistance).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding).OnDelete(DeleteBehavior.Cascade);
-			b.HasMany(m => m.Localizations).WithOne(m => m.Parent).HasForeignKey(m => m.IdParent).OnDelete(DeleteBehavior.Cascade);
+			b.HasMany(m => m.Localizations).WithOne().HasForeignKey(m => m.IdParent).OnDelete(DeleteBehavior.Cascade);
 			b.HasMany(m => m.AlarmPanels).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding).OnDelete(DeleteBehavior.Cascade);
 			b.HasMany(m => m.FireHydrants).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding).OnDelete(DeleteBehavior.Cascade);
 			b.HasMany(m => m.Sprinklers).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding).OnDelete(DeleteBehavior.Cascade);

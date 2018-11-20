@@ -11,7 +11,7 @@ namespace Survi.Prevention.ServiceLayer.Services {
 	
 	public class SurveyService : BaseCrudService<Survey> {
 
-		public SurveyService(ManagementContext context) : base(context)
+		public SurveyService(IManagementContext context) : base(context)
 		{
 		}
 

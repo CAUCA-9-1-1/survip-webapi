@@ -11,7 +11,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		where T : BaseModel, new()
 	{
 
-		protected BaseCrudService(ManagementContext context)
+		protected BaseCrudService(IManagementContext context)
 			: base(context)
 		{
 		}

@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class RegionService : BaseCrudService<Region>
 	{
-		public RegionService(ManagementContext context) : base(context)
+		public RegionService(IManagementContext context) : base(context)
 		{
 		}
 

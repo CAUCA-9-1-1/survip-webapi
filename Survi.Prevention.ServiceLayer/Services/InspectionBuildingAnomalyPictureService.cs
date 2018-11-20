@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class InspectionBuildingAnomalyPictureService : BaseService
 	{
-		public InspectionBuildingAnomalyPictureService(ManagementContext context) : base(context)
+		public InspectionBuildingAnomalyPictureService(IManagementContext context) : base(context)
 		{
 		}
 

@@ -8,7 +8,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class PermissionObjectService : BaseService
 	{
-		public PermissionObjectService(ManagementContext context) : base(context)
+		public PermissionObjectService(IManagementContext context) : base(context)
 		{
 		}
 

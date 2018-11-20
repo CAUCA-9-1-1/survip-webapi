@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
     public class FireHydrantService : BaseCrudService<FireHydrant>
     {
-		public FireHydrantService(ManagementContext context) : base(context)
+		public FireHydrantService(IManagementContext context) : base(context)
         {
 		}
 

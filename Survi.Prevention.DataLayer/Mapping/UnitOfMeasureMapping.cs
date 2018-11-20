@@ -11,7 +11,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasKey(m => m.Id);
 
 			b.Property(m => m.Abbreviation).HasMaxLength(5).IsRequired();
-			b.HasMany(m => m.Localizations).WithOne(m => m.Parent).HasForeignKey(m => m.IdParent);
+			b.HasMany(m => m.Localizations).WithOne().HasForeignKey(m => m.IdParent);
 		}
 	}
 }

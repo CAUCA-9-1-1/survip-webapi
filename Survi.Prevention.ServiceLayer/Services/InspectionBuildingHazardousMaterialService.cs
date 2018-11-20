@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class InspectionBuildingHazardousMaterialService : BaseCrudService<InspectionBuildingHazardousMaterial>
 	{
-		public InspectionBuildingHazardousMaterialService(ManagementContext context) : base(context)
+		public InspectionBuildingHazardousMaterialService(IManagementContext context) : base(context)
 		{
 		}
 

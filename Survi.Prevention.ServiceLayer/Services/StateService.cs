@@ -12,7 +12,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
     public class StateService : BaseCrudService<State>
     {
-        public StateService(ManagementContext context) : base(context)
+        public StateService(IManagementContext context) : base(context)
         {
         }
 

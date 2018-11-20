@@ -8,7 +8,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
     public class SprinklerTypeService : BaseService
     {
-	    public SprinklerTypeService(ManagementContext context) : base(context)
+	    public SprinklerTypeService(IManagementContext context) : base(context)
 	    {
 	    }
 

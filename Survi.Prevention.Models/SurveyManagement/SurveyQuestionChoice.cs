@@ -4,7 +4,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.SurveyManagement
 {
-	public class SurveyQuestionChoice : BaseModel, IEntityWithLocalizations<BaseLocalization<SurveyQuestionChoice>>
+	public class SurveyQuestionChoice : BaseModel, IEntityWithLocalizations<BaseLocalization>
 	{
 		public int Sequence { get; set; }
 
@@ -14,11 +14,11 @@ namespace Survi.Prevention.Models.SurveyManagement
 		public SurveyQuestion Question { get; set; }
 		public SurveyQuestion NextQuestion { get; set; }
 		public ICollection<SurveyQuestionChoiceLocalization> Localizations { get; set; } = new List<SurveyQuestionChoiceLocalization>();
-		ICollection<BaseLocalization<SurveyQuestionChoice>> IEntityWithLocalizations<BaseLocalization<SurveyQuestionChoice>>.Localizations { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+		ICollection<BaseLocalization> IEntityWithLocalizations<BaseLocalization>.Localizations { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 	}
 
 	public interface IEntityWithLocalizations<T>
 	{
-		ICollection<BaseLocalization<SurveyQuestionChoice>> Localizations { get; set; }
+		ICollection<BaseLocalization> Localizations { get; set; }
 	};	
 }

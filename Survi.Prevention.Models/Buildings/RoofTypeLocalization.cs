@@ -2,8 +2,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings
 {
-	public class RoofTypeLocalization : BaseLocalization<RoofType>
+	public class RoofTypeLocalization : BaseLocalization
 	{
-		public string Name { get; set; }
 	}
 }

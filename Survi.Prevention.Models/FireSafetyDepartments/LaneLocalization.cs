@@ -2,8 +2,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.FireSafetyDepartments
 {
-	public class LaneLocalization : BaseLocalization<Lane>
+	public class LaneLocalization : BaseLocalization
 	{
-		public string Name { get; set; }
 	}
 }

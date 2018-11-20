@@ -7,11 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-
 	public class SurveyQuestionChoiceService : BaseCrudService<SurveyQuestionChoice>
 	{
-
-		public SurveyQuestionChoiceService(ManagementContext context) : base(context)
+		public SurveyQuestionChoiceService(IManagementContext context) : base(context)
 		{
 		}
 

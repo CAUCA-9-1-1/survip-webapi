@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class RiskLevelService : BaseCrudService<RiskLevel>
     {
-		public RiskLevelService(ManagementContext context) : base(context)
+		public RiskLevelService(IManagementContext context) : base(context)
 		{
 		}
 

@@ -12,9 +12,9 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 {
 	public class OriginalBuildingReplacer
 	{
-		private readonly ManagementContext context;
+		private readonly IManagementContext context;
 
-		public OriginalBuildingReplacer(ManagementContext context)
+		public OriginalBuildingReplacer(IManagementContext context)
 		{
 			this.context = context;
 		}

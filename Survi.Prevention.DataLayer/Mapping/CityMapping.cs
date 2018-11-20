@@ -15,7 +15,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasMany(m => m.ServedByFireSafetyDepartments).WithOne(m => m.City).HasForeignKey(m => m.IdCity);
 			b.HasMany(m => m.Lanes).WithOne(m => m.City).HasForeignKey(m => m.IdCity);
 			b.HasOne(m => m.CityType).WithMany().HasForeignKey(m => m.IdCityType);
-			b.HasMany(m => m.Localizations).WithOne(m => m.Parent).HasForeignKey(m => m.IdParent);
+			b.HasMany(m => m.Localizations).WithOne().HasForeignKey(m => m.IdParent);
 		}
 	}
 }

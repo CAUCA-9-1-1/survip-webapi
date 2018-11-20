@@ -19,7 +19,7 @@ namespace Survi.Prevention.DataLayer
 {
 	public class ManagementContext : DbContext, IManagementContext
 	{
-	    public Guid CurrentUserId { get; set; }
+	    public Guid? CurrentUserId { get; set; }
 
         public DbSet<AccessSecretKey> AccessSecretKeys { get; set; }
 		public DbSet<AccessToken> AccessTokens { get; set; }

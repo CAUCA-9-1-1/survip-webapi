@@ -12,7 +12,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 
 			b.HasMany(m => m.Cities).WithOne(m => m.County).HasForeignKey(m => m.IdCounty);
 			b.HasMany(m => m.FireSafetyDepartments).WithOne(m => m.County).HasForeignKey(m => m.IdCounty);
-			b.HasMany(m => m.Localizations).WithOne(m => m.Parent).HasForeignKey(m => m.IdParent);
+			b.HasMany(m => m.Localizations).WithOne().HasForeignKey(m => m.IdParent);
 		}
 	}
 }

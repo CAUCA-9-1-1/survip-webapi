@@ -4,19 +4,21 @@ using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Microsoft.EntityFrameworkCore;
-using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.Models.DataTransfertObjects;
-using Survi.Prevention.ServiceLayer.Import.Country;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class CountryService : BaseCrudService<Country>
+	public class CountryService : BaseCrudServiceWithImportation<Country, ApiClient.DataTransferObjects.Country>
 	{
-		public CountryService(ManagementContext context) : base(context)
-		{
-		}
+	    public CountryService(
+	        IManagementContext context, 
+	        IEntityConverter<ApiClient.DataTransferObjects.Country, Country> converter) 
+	        : base(context, converter)
+	    {
+	    }
 
-		public override Country Get(Guid id)
+        public override Country Get(Guid id)
 		{
 			var result = Context.Countries
 				.Include(c => c.Localizations)
@@ -51,7 +53,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return query.ToList();
 		}
-
+        /*
 		public List<ImportationResult> ImportCountries(List<ApiClient.DataTransferObjects.Country> importedCountries)
 		{
 			List<ImportationResult> resultList = new List<ImportationResult>();
@@ -65,7 +67,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public ImportationResult ImportCountry(ApiClient.DataTransferObjects.Country importedCountry)
 		{
-			CountryModelConnector connector = new CountryModelConnector();
+
+
+			CountryImportationConverter connector = new CountryImportationConverter();
 			ImportationResult result = connector.ValidateCountry(importedCountry);
 
 			if (result.HasBeenImported)
@@ -84,6 +88,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 				result.HasBeenImported = true;
 			}
 			return result;
-		}
+		}*/
 	}
 }

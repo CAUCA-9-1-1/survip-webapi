@@ -1,6 +1,6 @@
 ﻿using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
-namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
+namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 {
     public class UtilisationCodeImportationValidator : BaseImportValidator<ApiClient.DataTransferObjects.UtilisationCode>
     {

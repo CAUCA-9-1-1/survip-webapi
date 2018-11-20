@@ -9,7 +9,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class SurveyQuestionService : BaseCrudService<SurveyQuestion>
 	{
-		public SurveyQuestionService(ManagementContext context) : base(context)
+		public SurveyQuestionService(IManagementContext context) : base(context)
 		{
 		}
 
