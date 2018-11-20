@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Microsoft.EntityFrameworkCore;
+using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.Import.Places;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -49,5 +51,39 @@ namespace Survi.Prevention.ServiceLayer.Services
 
             return query.ToList();
         }
+
+		public List<ImportationResult> ImportRegions(List<ApiClient.DataTransferObjects.Region> importedRegions)
+		{
+			List<ImportationResult> resultList = new List<ImportationResult>();
+			foreach (var region in importedRegions)
+			{
+				resultList.Add(ImportRegion(region));
+			}
+
+			return resultList;
+		}
+
+		public ImportationResult ImportRegion(ApiClient.DataTransferObjects.Region importedRegion)
+		{
+			RegionModelConnector connector = new RegionModelConnector(Context);
+			ImportationResult result = connector.ValidateRegion(importedRegion);
+
+			if (result.HasBeenImported)
+			{
+				var newRegion = Context.Regions.Include(loc =>loc.Localizations).SingleOrDefault(c => c.IdExtern == importedRegion.Id);
+				bool isExistRecord = newRegion != null && newRegion.Id != Guid.Empty;
+
+				newRegion = connector.TransferDtoImportedToOriginal(importedRegion, newRegion?? new Region());
+
+				if (!isExistRecord)
+					Context.Regions.Add(newRegion);
+				else
+					Context.Regions.Update(newRegion);
+
+				Context.SaveChanges();
+				result.HasBeenImported = true;
+			}
+			return result;
+		}
     }
 }
