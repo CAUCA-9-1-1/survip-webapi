@@ -11,7 +11,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class BuildingService : BaseCrudService<Building>
 	{
-		public BuildingService(ManagementContext context) : base(context)
+		public BuildingService(IManagementContext context) : base(context)
 		{
 		}
 

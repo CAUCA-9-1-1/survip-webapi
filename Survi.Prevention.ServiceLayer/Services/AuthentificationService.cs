@@ -13,7 +13,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class AuthentificationService : BaseService
 	{	
-		public AuthentificationService(ManagementContext context) : base(context)
+		public AuthentificationService(IManagementContext context) : base(context)
 		{
 		}
 

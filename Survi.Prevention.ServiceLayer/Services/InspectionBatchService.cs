@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class InspectionBatchService : BaseCrudService<Batch>
 	{
-		public InspectionBatchService(ManagementContext context) : base(context)
+		public InspectionBatchService(IManagementContext context) : base(context)
 		{
 		}
 

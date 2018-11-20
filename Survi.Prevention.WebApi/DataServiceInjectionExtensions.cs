@@ -81,13 +81,14 @@ namespace Survi.Prevention.WebApi
         public static IServiceCollection InjectValidators(this IServiceCollection services)
         {
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.Country>, CountryValidator>();
-
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.State>, StateValidator>();
             return services;
         }
 
         public static IServiceCollection InjectImportationConverters(this IServiceCollection services)
         {
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.Country, Country>, CountryImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.State, State>, StateImportationConverter>();
 
             return services;
         }

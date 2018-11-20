@@ -7,7 +7,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class GeolocationService : BaseService
 	{
-		public GeolocationService(ManagementContext context) : base(context)
+		public GeolocationService(IManagementContext context) : base(context)
 		{
 		}
 

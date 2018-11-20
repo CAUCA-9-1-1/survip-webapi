@@ -12,7 +12,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class InspectionDetailService : BaseService
 	{
-		public InspectionDetailService(ManagementContext context) : base(context)
+		public InspectionDetailService(IManagementContext context) : base(context)
 		{
 		}
 

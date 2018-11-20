@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
     public class UnitOfMeasureService : BaseCrudService<UnitOfMeasure>
     {
-        public UnitOfMeasureService(ManagementContext context) : base(context)
+        public UnitOfMeasureService(IManagementContext context) : base(context)
         {
         }
 

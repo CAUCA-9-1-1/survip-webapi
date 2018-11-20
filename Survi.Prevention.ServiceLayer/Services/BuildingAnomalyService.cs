@@ -9,7 +9,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class BuildingAnomalyService : BaseService
 	{
-		public BuildingAnomalyService(ManagementContext context) : base(context)
+		public BuildingAnomalyService(IManagementContext context) : base(context)
 		{
 		}
 
