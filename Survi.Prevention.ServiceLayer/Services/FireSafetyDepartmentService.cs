@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class FireSafetyDepartmentService : BaseCrudService<FireSafetyDepartment>
 	{
-		public FireSafetyDepartmentService(ManagementContext context) : base(context)
+		public FireSafetyDepartmentService(IManagementContext context) : base(context)
 		{
 		}
 

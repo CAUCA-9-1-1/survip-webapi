@@ -11,7 +11,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class InspectionBuildingFireHydrantService : BaseService
 	{
-		public InspectionBuildingFireHydrantService(ManagementContext context) : base(context)
+		public InspectionBuildingFireHydrantService(IManagementContext context) : base(context)
 		{
 		}
 

@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
     public class WebuserService : BaseCrudService<Webuser>
     {
-        public WebuserService(ManagementContext context) : base(context)
+        public WebuserService(IManagementContext context) : base(context)
         {
         }
 

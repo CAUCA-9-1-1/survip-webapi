@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class CityService : BaseCrudService<City>
 	{
-		public CityService(ManagementContext context) : base(context)
+		public CityService(IManagementContext context) : base(context)
 		{
 		}
 		

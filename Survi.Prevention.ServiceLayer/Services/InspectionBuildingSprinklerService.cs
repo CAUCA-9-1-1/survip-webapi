@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class InspectionBuildingSprinklerService: BaseCrudService<InspectionBuildingSprinkler>
 	{
-		public InspectionBuildingSprinklerService(ManagementContext context) : base(context)
+		public InspectionBuildingSprinklerService(IManagementContext context) : base(context)
 		{
 		}
 

@@ -23,8 +23,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 				password = "";
 
 			var encodedPassword = new PasswordGenerator().EncodePassword(password, applicationName);
-			var userFound = Context.Webusers
-				.Include(user => user.Attributes)
+			var userFound = Context.Set<Webuser>()
+                .Include(user => user.Attributes)
 				.SingleOrDefault(user => user.Username == username && user.Password == encodedPassword && user.IsActive);
 			if (userFound != null)
 			{
@@ -65,14 +65,14 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		private AccessToken GetAccessTokenFromRefreshToken(string refreshToken, Guid webuserId)
 		{
-			var webuserToken = Context.AccessTokens.Include(t => t.User)
+			var webuserToken = Context.Set<AccessToken>().Include(t => t.User)
 				.FirstOrDefault(t => t.IdWebuser == webuserId && t.RefreshToken == refreshToken);
 			return webuserToken;
 		}
 
 		public AccessToken GetAccessTokenFromAccessToken(string accessToken, Guid webuserId)
 		{
-			var webuserToken = Context.AccessTokens.Include(t => t.User).AsNoTracking()
+			var webuserToken = Context.Set<AccessToken>().Include(t => t.User).AsNoTracking()
 				.FirstOrDefault(t => t.IdWebuser == webuserId && t.TokenForAccess == accessToken);
 			return webuserToken;
 		}

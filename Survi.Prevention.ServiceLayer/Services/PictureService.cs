@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class PictureService : BaseService
 	{
-		public PictureService(ManagementContext context) : base(context)
+		public PictureService(IManagementContext context) : base(context)
 		{
 		}
 

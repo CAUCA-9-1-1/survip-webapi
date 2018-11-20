@@ -14,7 +14,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 				.WithOne(m => m.Question)
 				.HasForeignKey(m => m.IdSurveyQuestion);
 			b.HasMany(m => m.Localizations)
-				.WithOne(m => m.Parent)
+				.WithOne()
 				.HasForeignKey(m => m.IdParent);
 		}
 	}

@@ -12,7 +12,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.Property(m => m.AnsiCode).HasMaxLength(2).IsRequired();
 			b.HasMany(m => m.Counties).WithOne(m => m.State).HasForeignKey(m => m.IdState);
 			b.HasMany(m => m.Regions).WithOne(m => m.State).HasForeignKey(m => m.IdState);
-			b.HasMany(m => m.Localizations).WithOne(m => m.Parent).HasForeignKey(m => m.IdParent);
+			b.HasMany(m => m.Localizations).WithOne().HasForeignKey(m => m.IdParent);
 		}
 	}
 }

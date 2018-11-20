@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class BuildingPersonRequiringAssistanceService : BaseCrudService<BuildingPersonRequiringAssistance>
 	{
-		public BuildingPersonRequiringAssistanceService(ManagementContext context) : base(context)
+		public BuildingPersonRequiringAssistanceService(IManagementContext context) : base(context)
 		{
 		}
 

@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
 	[Route("api/Country")]
-	public class CountryController : BaseCrudController<CountryService, Country>
+	public class CountryController 
+	    : BaseCrudControllerWithImportation<CountryService, Country, ApiClient.DataTransferObjects.Country>
 	{		
 		public CountryController(CountryService service) : base(service)
 		{
@@ -17,12 +16,6 @@ namespace Survi.Prevention.WebApi.Controllers
         public ActionResult GetListLocalized([FromHeader(Name = "Language-Code")] string languageCode)
         {
             return Ok(Service.GetListLocalized(languageCode));
-        }
-
-		[HttpPost, Route("import"), AllowAnonymous]
-		public ActionResult ImportCountry([FromBody] List<ApiClient.DataTransferObjects.Country> importedCountries)
-		{
-			return Ok(Service.ImportCountries(importedCountries));
-		}
+        }		
     }
 }

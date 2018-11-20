@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class InspectionBuildingAlarmPanelService : BaseCrudService<InspectionBuildingAlarmPanel>
 	{
-		public InspectionBuildingAlarmPanelService(ManagementContext context) : base(context)
+		public InspectionBuildingAlarmPanelService(IManagementContext context) : base(context)
 		{
 		}
 

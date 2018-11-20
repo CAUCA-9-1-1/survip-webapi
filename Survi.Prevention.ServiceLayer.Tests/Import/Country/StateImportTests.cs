@@ -47,7 +47,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 
 			var countries = new List<Models.FireSafetyDepartments.Country>();
 			var ctx = new BaseContextMock();
-			ctx.Setup(context => context.Countries).Returns(ctx.GetMockDbSet(countries).Object);
+			ctx.Setup(context => context.Set<Models.FireSafetyDepartments.Country>()).Returns(ctx.GetMockDbSet(countries).Object);
 
 			service = new StateModelConnector(ctx.Object);
 		}

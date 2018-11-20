@@ -71,7 +71,10 @@ namespace Survi.Prevention.WebApi
 			{
 				npgOptions.UseNetTopologySuite();
 			}));
+		    services.AddScoped<IManagementContext, ManagementContext>();
 			services.InjectDataServices();
+		    services.InjectValidators();
+		    services.InjectImportationConverters();
 			services.InjectReportHandlers();
 		}
 

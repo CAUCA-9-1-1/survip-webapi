@@ -9,20 +9,22 @@ namespace Survi.Prevention.ServiceLayer
 {
     public class AddressGeneratorWithDb
     {
-	    public string GenerateAddressFromAddressLocationType(ManagementContext context, Guid? idLane, string civicNumber, FireHydrantAddressLocationType adressType, string languageCode)
+	    public string GenerateAddressFromAddressLocationType(IManagementContext context, Guid? idLane, string civicNumber, FireHydrantAddressLocationType adressType, string languageCode)
 	    {
 		    var laneName = idLane.HasValue ? GetLaneLocalizedName(context, idLane.Value, languageCode) : "?";
 		    
 		    return $"{adressType.GetDisplayName(languageCode)} {civicNumber} {laneName}";
 	    }
-		public string GenerateAddressFromLanes(ManagementContext context, Guid? idLane, Guid? idIntersection, string languageCode)
+
+		public string GenerateAddressFromLanes(IManagementContext context, Guid? idLane, Guid? idIntersection, string languageCode)
 		{
 			var laneName = idLane.HasValue ? GetLaneLocalizedName(context, idLane.Value, languageCode) : "?";
 			var interName = idIntersection.HasValue ? GetLaneLocalizedName(context, idIntersection.Value, languageCode) : "?";
 
 			return $"{laneName} / {interName}";
 		}
-		public string GetLaneLocalizedName(ManagementContext context, Guid laneId, string languageCode)
+
+		public string GetLaneLocalizedName(IManagementContext context, Guid laneId, string languageCode)
 		{
 			var query =
 				from lane in context.Lanes.AsNoTracking()
@@ -40,6 +42,5 @@ namespace Survi.Prevention.ServiceLayer
 			return new LocalizedLaneNameGenerator()
 				.GenerateLaneName(laneFound.Name, laneFound.genericDescription, laneFound.publicDescription, laneFound.AddWhiteSpaceAfter);
 		}
-
 	}
 }

@@ -2,8 +2,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings
 {
-	public class AlarmPanelTypeLocalization : BaseLocalization<AlarmPanelType>
+	public class AlarmPanelTypeLocalization : BaseLocalization
 	{
-		public string Name { get; set; }
 	}
 }

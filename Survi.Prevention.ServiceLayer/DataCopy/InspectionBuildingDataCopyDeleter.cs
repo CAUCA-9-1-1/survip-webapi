@@ -8,7 +8,7 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 {
 	public class InspectionBuildingDataCopyDeleter : BaseInspectionBuildingDataCopyHandler
 	{
-		public InspectionBuildingDataCopyDeleter(ManagementContext context) 
+		public InspectionBuildingDataCopyDeleter(IManagementContext context) 
 			: base(context)
 		{
 		}

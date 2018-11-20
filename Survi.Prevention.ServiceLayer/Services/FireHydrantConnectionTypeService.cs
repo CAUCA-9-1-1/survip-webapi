@@ -9,7 +9,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
     public class FireHydrantConnectionTypeService : BaseCrudService<FireHydrantConnectionType>
     {
-        public FireHydrantConnectionTypeService(ManagementContext context) : base(context)
+        public FireHydrantConnectionTypeService(IManagementContext context) : base(context)
         {
         }
 

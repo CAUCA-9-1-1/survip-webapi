@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class CountyService : BaseCrudService<County>
 	{
-		public CountyService(ManagementContext context) : base(context)
+		public CountyService(IManagementContext context) : base(context)
 		{
 		}
 

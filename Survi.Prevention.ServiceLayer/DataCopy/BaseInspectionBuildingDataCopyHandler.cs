@@ -9,9 +9,9 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 {
 	public abstract class BaseInspectionBuildingDataCopyHandler: IDisposable
 	{
-		protected ManagementContext Context;
+		protected IManagementContext Context;
 
-		protected BaseInspectionBuildingDataCopyHandler(ManagementContext context)
+		protected BaseInspectionBuildingDataCopyHandler(IManagementContext context)
 		{
 			Context = context;
 		}

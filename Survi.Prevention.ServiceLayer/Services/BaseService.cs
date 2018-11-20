@@ -4,8 +4,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public abstract class BaseService
 	{
-		protected readonly ManagementContext Context;
-		protected BaseService(ManagementContext context)
+		protected readonly IManagementContext Context;
+		protected BaseService(IManagementContext context)
 		{
 			Context = context;
 		}

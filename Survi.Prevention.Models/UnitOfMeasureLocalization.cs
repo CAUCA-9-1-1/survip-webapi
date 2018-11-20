@@ -2,8 +2,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models
 {
-	public class UnitOfMeasureLocalization : BaseLocalization<UnitOfMeasure>
+	public class UnitOfMeasureLocalization : BaseLocalization
 	{
-		public string Name { get; set; }
 	}
 }

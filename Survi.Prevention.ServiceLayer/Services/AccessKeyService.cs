@@ -9,7 +9,7 @@ namespace Survi.Prevention.ServiceLayer.Services
   {
     private readonly string packageName;
 
-    public AccessKeyService(ManagementContext context, string packageName)
+    public AccessKeyService(IManagementContext context, string packageName)
      : base(context)
     {
       this.packageName = packageName;
@@ -18,7 +18,7 @@ namespace Survi.Prevention.ServiceLayer.Services
     public AccessSecretKey CreateNewSecretKey(Guid webuserId)
     {
       var secretKey = GenerateAccessSecretKey();
-      Context.AccessSecretKeys.Add(secretKey);
+      Context.Set<AccessSecretKey>().Add(secretKey);
       Context.SaveChanges();
       return secretKey;
     }

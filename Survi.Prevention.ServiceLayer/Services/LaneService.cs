@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class LaneService : BaseCrudService<Lane>
 	{
-		public LaneService(ManagementContext context) : base(context)
+		public LaneService(IManagementContext context) : base(context)
 		{
 		}
 

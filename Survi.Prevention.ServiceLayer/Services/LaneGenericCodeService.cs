@@ -7,7 +7,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class LaneGenericCodeService : BaseService
 	{
-		public LaneGenericCodeService(ManagementContext context) : base(context)
+		public LaneGenericCodeService(IManagementContext context) : base(context)
 		{
 		}
 

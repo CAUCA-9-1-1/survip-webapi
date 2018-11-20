@@ -2,8 +2,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.FireHydrants
 {
-	public class FireHydrantConnectionTypeLocalization : BaseLocalization<FireHydrantConnectionType>
+	public class FireHydrantConnectionTypeLocalization : BaseLocalization
 	{
-		public string Name { get; set; }
 	}
 }

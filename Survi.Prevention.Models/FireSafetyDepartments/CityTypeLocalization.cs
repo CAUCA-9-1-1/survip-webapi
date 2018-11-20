@@ -2,8 +2,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.FireSafetyDepartments
 {
-	public class CityTypeLocalization : BaseLocalization<CityType>
+	public class CityTypeLocalization : BaseLocalization
 	{
-		public string Name { get; set; }
 	}
 }

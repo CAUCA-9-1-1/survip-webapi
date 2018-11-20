@@ -8,7 +8,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
     public class ReportConfigurationTemplateService : BaseCrudService<ReportConfigurationTemplate>
     {
-        public ReportConfigurationTemplateService(ManagementContext context) : base(context)
+        public ReportConfigurationTemplateService(IManagementContext context) : base(context)
         {
         }
 

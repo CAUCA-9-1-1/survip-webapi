@@ -13,13 +13,13 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 		private readonly Guid inspectionId;
 		private readonly Guid mainBuildingId;
 
-		public InspectionBuildingDataCopyManager(ManagementContext context, Guid inspectionId) : base(context)
+		public InspectionBuildingDataCopyManager(IManagementContext context, Guid inspectionId) : base(context)
 		{
 			this.inspectionId = inspectionId;
 			mainBuildingId = GetInspectionMainBuilding(context, inspectionId);
 		}
 
-		private static Guid GetInspectionMainBuilding(ManagementContext context, Guid inspectionId)
+		private static Guid GetInspectionMainBuilding(IManagementContext context, Guid inspectionId)
 		{
 			return context.Inspections.AsNoTracking()
 				.Where(inspection => inspection.Id == inspectionId)

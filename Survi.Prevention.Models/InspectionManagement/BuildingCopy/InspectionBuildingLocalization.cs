@@ -2,8 +2,7 @@
 
 namespace Survi.Prevention.Models.InspectionManagement.BuildingCopy
 {
-	public class InspectionBuildingLocalization : BaseLocalization<InspectionBuilding>
+	public class InspectionBuildingLocalization : BaseLocalization
 	{
-		public string Name { get; set; }
 	}
 }

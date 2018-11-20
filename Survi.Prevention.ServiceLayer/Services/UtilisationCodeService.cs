@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class UtilisationCodeService : BaseCrudService<UtilisationCode>
 	{
-		public UtilisationCodeService(ManagementContext context) : base(context)
+		public UtilisationCodeService(IManagementContext context) : base(context)
 		{
 		}
 

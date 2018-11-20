@@ -1,19 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using FluentValidation.Results;
-using Survi.Prevention.ApiClient.Configurations;
-using Survi.Prevention.Models.Base;
+﻿using FluentValidation;
+using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
-using Survi.Prevention.ServiceLayer.ValidationUtilities;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
 namespace Survi.Prevention.ServiceLayer.Import.Country
 {
-    public class CountryModelConnector
+    public class CountryImportationConverter 
+        : BaseLocalizableEntityConverter<
+            ApiClient.DataTransferObjects.Country, 
+            Models.FireSafetyDepartments.Country, 
+            CountryLocalization>
     {
-	    private readonly CountryValidator validator;
+        public CountryImportationConverter(
+            IManagementContext context, 
+            AbstractValidator<ApiClient.DataTransferObjects.Country> validator) 
+            : base(context, validator)
+        {
+        }
 
-	    public CountryModelConnector()
+        protected override void CopyCustomFieldsToEntity(
+            ApiClient.DataTransferObjects.Country importedObject, 
+            Models.FireSafetyDepartments.Country entity)
+        {
+            entity.CodeAlpha2 = importedObject.CodeAlpha2;
+            entity.CodeAlpha3 = importedObject.CodeAlpha3;
+        }
+
+        /*private readonly CountryValidator validator;
+
+	    public CountryImportationConverter()
 	    {
 			validator = new CountryValidator();
 	    }
@@ -78,6 +93,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Country
 	    public ValidationResult GetValidationResult(ApiClient.DataTransferObjects.Country countryToImport)
 	    {
 		    return validator.Validate(countryToImport);
-	    }
+	    }*/
+
     }
 }

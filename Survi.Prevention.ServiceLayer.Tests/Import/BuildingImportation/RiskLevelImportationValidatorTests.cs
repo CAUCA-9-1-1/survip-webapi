@@ -1,6 +1,6 @@
-﻿using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
-using Xunit;
+﻿using Xunit;
 using FluentValidation.TestHelper;
+using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators;
 
 namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 {

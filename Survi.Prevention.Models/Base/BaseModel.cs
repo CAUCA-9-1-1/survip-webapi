@@ -10,7 +10,7 @@ namespace Survi.Prevention.Models.Base
 		public DateTime? LastModifiedOn {get; set;}
 		public Guid? IdWebUserLastModifiedBy { get; set;}
 
-        public void SetAsModified(Guid currentUserId)
+        public void SetAsModified(Guid? currentUserId)
         {
             IdWebUserLastModifiedBy = currentUserId;
             LastModifiedOn = DateTime.Now;
