@@ -9,7 +9,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class BuildingAlarmPanelService : BaseService
 	{
-		public BuildingAlarmPanelService(ManagementContext context) : base(context)
+		public BuildingAlarmPanelService(IManagementContext context) : base(context)
 		{
 		}
 

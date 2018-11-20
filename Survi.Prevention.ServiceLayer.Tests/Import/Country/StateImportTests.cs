@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using stateImported = Survi.Prevention.ApiClient.DataTransferObjects;
-using Survi.Prevention.ServiceLayer.Import.Country;
 using Survi.Prevention.ServiceLayer.Tests.Mocks;
 using Xunit;
 
@@ -11,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 {
 	public class StateImportTests
 	{
-		private readonly stateImported.State importedState;
+		/*private readonly stateImported.State importedState;
 		private State existingState;
 		private readonly StateModelConnector service;
 
@@ -114,6 +113,6 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 			var validationResult = service.ValidateExternalCountry(importedState.IdCountry);
 
 			Assert.False(validationResult.HasBeenImported);
-		}
+		}*/
 	}
 }

@@ -9,7 +9,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class BuildingSprinklerService : BaseService
 	{
-		public BuildingSprinklerService(ManagementContext context) : base(context)
+		public BuildingSprinklerService(IManagementContext context) : base(context)
 		{
 		}
 

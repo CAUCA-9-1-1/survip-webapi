@@ -7,7 +7,7 @@ using Survi.Prevention.ServiceLayer.Services;
 namespace Survi.Prevention.WebApi.Controllers
 {
     [Route("api/State")]
-    public class StateController : BaseCrudController<StateService, State>
+    public class StateController : BaseCrudControllerWithImportation<StateService, State, ApiClient.DataTransferObjects.State>
     {
         public StateController(StateService service) : base(service)
         {
@@ -18,11 +18,5 @@ namespace Survi.Prevention.WebApi.Controllers
         {
             return Ok(Service.GetListLocalized(languageCode));
         }
-
-	    [HttpPost, Route("import"), AllowAnonymous]
-	    public ActionResult ImportStates([FromBody] List<ApiClient.DataTransferObjects.State> importStates)
-	    {
-		    return Ok(Service.ImportStates(importStates));
-	    }
     }
 }

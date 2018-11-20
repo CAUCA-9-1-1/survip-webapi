@@ -15,7 +15,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		private readonly BuildingReportTemplateFiller templateFiller;
 
-		public ReportGenerationService(ManagementContext context, BuildingReportTemplateFiller templateFiller) 
+		public ReportGenerationService(IManagementContext context, BuildingReportTemplateFiller templateFiller) 
 			: base(context)
 		{
 			this.templateFiller = templateFiller;

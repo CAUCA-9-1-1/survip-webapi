@@ -9,7 +9,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class BuildingContactService : BaseCrudService<BuildingContact>
 	{
-		public BuildingContactService(ManagementContext context) : base(context)
+		public BuildingContactService(IManagementContext context) : base(context)
 		{
 		}
 

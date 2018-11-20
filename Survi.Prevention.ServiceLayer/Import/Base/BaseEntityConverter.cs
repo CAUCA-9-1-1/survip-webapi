@@ -27,6 +27,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
 
         public virtual ConversionResult<TOut> Convert(TIn importedObject)
         {
+            GetRealForeignKeys(importedObject);
             var validationResult = Validate(importedObject);
             TOut convertedEntity = default(TOut);
             if (validationResult.IsValid)

@@ -8,7 +8,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class ConstructionService : BaseService
 	{
-		public ConstructionService(ManagementContext context) : base(context)
+		public ConstructionService(IManagementContext context) : base(context)
 		{
 		}
 
