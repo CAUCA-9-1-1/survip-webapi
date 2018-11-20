@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+﻿using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
 namespace Survi.Prevention.ServiceLayer.Import.Country
 {
@@ -7,14 +7,10 @@ namespace Survi.Prevention.ServiceLayer.Import.Country
 	    public CountryValidator()
 	    {
 		    RuleFor(m => m.CodeAlpha2)
-			    .NotEmpty().WithMessage("{PropertyName}_EmptyValue")
-			    .MaximumLength(2).WithMessage("{PropertyName}_InvalidValue");
+			    .NotNullOrEmptyWithMaxLength(2);
 
 		    RuleFor(m => m.CodeAlpha3)
-			    .NotEmpty().WithMessage("{PropertyName}_EmptyValue")
-			    .MaximumLength(3).WithMessage("{PropertyName}_InvalidValue");
-
-		    
+		        .NotNullOrEmptyWithMaxLength(3);
 	    }
     }
 }

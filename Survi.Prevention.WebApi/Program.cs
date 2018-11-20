@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 
 namespace Survi.Prevention.WebApi
@@ -16,6 +17,8 @@ namespace Survi.Prevention.WebApi
 
 	    public static IWebHostBuilder CreateWebHostBuilding(string[] args)
 	    {
+	        ValidatorOptions.DisplayNameResolver = (type, memberInfo, expression) => memberInfo.Name;
+
 		    var config = new ConfigurationBuilder()
 			    .SetBasePath(Directory.GetCurrentDirectory())
 			    .AddJsonFile("hosting.json", optional: true)

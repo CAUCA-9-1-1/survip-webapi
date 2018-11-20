@@ -5,6 +5,7 @@ using FluentValidation.Results;
 using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.Models.Base;
 using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
 namespace Survi.Prevention.ServiceLayer.Import.Country
 {

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Survi.Prevention.ServiceLayer.Import.Country;
 using Xunit;
 using countryImported = Survi.Prevention.ApiClient.DataTransferObjects;
@@ -36,32 +35,6 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 	    }
 
 	    [Fact]
-	    public void LocalizationsMustBeNotNull()
-	    {
-		    importedCountry.Localizations = null;
-		    var result = validator.Validate(importedCountry);
-		    Assert.False(result.IsValid);
-	    }
-
-	    [Fact]
-	    public void LocalizationsMustContainsCorrectLanguageCode()
-	    {
-		    var locFrench = importedCountry.Localizations.SingleOrDefault(loc =>loc.LanguageCode == "fr");
-		    if (locFrench != null) locFrench.LanguageCode = "";
-		    var result = validator.Validate(importedCountry);
-		    Assert.False(result.IsValid);
-	    }
-
-	    [Fact]
-	    public void LocalizationsMustContainsCorrectName()
-	    {
-		    var locFrench = importedCountry.Localizations.SingleOrDefault(loc =>loc.LanguageCode == "fr");
-		    if (locFrench != null) locFrench.Name = "";
-		    var result = validator.Validate(importedCountry);
-		    Assert.False(result.IsValid);
-	    }
-
-	    [Fact]
 	    public void CountryMustContainsValidCodeAlpha2()
 	    {
 		    importedCountry.CodeAlpha2 = "test";
@@ -76,13 +49,5 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 		    var result = validator.Validate(importedCountry);
 		    Assert.False(result.IsValid);
 	    }
-
-		[Fact]
-		public void CountryMustContainsRequiredLanguages()
-		{
-			importedCountry.Localizations = new List<countryImported.Base.Localization>{new countryImported.Base.Localization{Name = "Country 1", LanguageCode = "en"}};
-			var result = validator.Validate(importedCountry);
-			Assert.False(result.IsValid);
-		}
     }
 }
