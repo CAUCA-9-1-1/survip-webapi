@@ -29,7 +29,7 @@ namespace Survi.Prevention.ApiClient.DataTransferObjects
 
         public BuildingChildType ChildType { get; set; }
 
-        public string IdCity { get; set; }
+        public string IdCity { get; set; }        
         public string IdLane { get; set; }
         public string IdLaneTransversal { get; set; }
         public string IdUtilisationCode { get; set; }

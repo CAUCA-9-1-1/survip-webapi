@@ -5,6 +5,7 @@ using FluentValidation.Results;
 using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
 namespace Survi.Prevention.ServiceLayer.Import.Country
 {
@@ -17,7 +18,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Country
 		public StateModelConnector(IManagementContext context)
 		{
 			stateContext = context;
-			validator = new StateValidator(context);
+			validator = new StateValidator();
 		}
 
 		public ImportationResult ValidateState(ApiClient.DataTransferObjects.State stateToImport)

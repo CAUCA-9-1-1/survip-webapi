@@ -2,6 +2,7 @@
 using System.Linq;
 using FluentValidation;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
+using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
 namespace Survi.Prevention.ServiceLayer.Import
 {
@@ -9,16 +10,17 @@ namespace Survi.Prevention.ServiceLayer.Import
     {
 	    protected BaseImportValidator()
 	    {
-		    RuleFor(m => m.Id)
-			    .NotNull().WithMessage("{PropertyName}_InvalidValue");
+	        RuleFor(m => m.Id)
+	            .NotNullOrEmpty();
 
 		    RuleFor(m => m.Localizations)
 			    .NotNull().WithMessage("{PropertyName}_NullValue")
-			    .Must(ValidateMinimumLocalizations).WithMessage("{PropertyName}_InvalidCount")
-			    .Must(ValidateRequiredLanguage).WithMessage("{PropertyName}_InvalidValue")
-			    .Must(ValidateLanguage).WithMessage("{PropertyName}_InvalidValue");
+			    .Must(HaveRequiredLocalisationCount).WithMessage("{PropertyName}_InvalidCount")
+			    .Must(HaveRequiredLanguages).WithMessage("{PropertyName}_InvalidValue")
+			    .Must(HaveLocalizationNames).WithMessage("{PropertyName}_InvalidValue");
 	    }
-	    public virtual bool ValidateLanguage(ICollection<ApiClient.DataTransferObjects.Base.Localization> localizations)
+
+	    public virtual bool HaveLocalizationNames(ICollection<ApiClient.DataTransferObjects.Base.Localization> localizations)
 	    {
 		    if(localizations == null)
 			    return false;
@@ -32,15 +34,15 @@ namespace Survi.Prevention.ServiceLayer.Import
 		    return true;
 	    }
 
-	    public virtual bool ValidateMinimumLocalizations(
-		    ICollection<ApiClient.DataTransferObjects.Base.Localization> localizations)
+	    public virtual bool HaveRequiredLocalisationCount(
+           ICollection<ApiClient.DataTransferObjects.Base.Localization> localizations)
 	    {
 		    if(localizations == null || localizations.Count <= 1)
 			    return false;
 		    return true;
 	    }
 
-	    public virtual bool ValidateRequiredLanguage(
+	    public virtual bool HaveRequiredLanguages(
 		    ICollection<ApiClient.DataTransferObjects.Base.Localization> localizations)
 	    {
 		    if(localizations == null)

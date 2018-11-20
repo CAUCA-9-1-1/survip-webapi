@@ -1,8 +1,7 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FluentValidation.Results;
 
-namespace Survi.Prevention.ServiceLayer
+namespace Survi.Prevention.ServiceLayer.ValidationUtilities
 {
     public class FluentValidationErrorFormatter
     {
