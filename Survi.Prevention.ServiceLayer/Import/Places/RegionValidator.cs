@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+﻿using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
 namespace Survi.Prevention.ServiceLayer.Import.Places
 {
@@ -7,11 +7,10 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 	    public RegionValidator()
 	    {
 		    RuleFor(m => m.Code)
-			    .NotEmpty().WithMessage("{PropertyName}_EmptyValue")
-			    .MaximumLength(10).WithMessage("{PropertyName}_InvalidValue");
+			    .NotNullOrEmptyWithMaxLength(10);
 
 		    RuleFor(m => m.IdState)
-			    .NotNull().WithMessage("{PropertyName}_NullValue");
+			    .NotNullOrEmpty();
 
 	    }
     }

@@ -18,11 +18,5 @@ namespace Survi.Prevention.WebApi.Controllers
         {
             return Ok(Service.GetListLocalized(languageCode));
         }
-
-		[HttpPost, Route("import"), AllowAnonymous]
-		public ActionResult ImportRegions([FromBody] List<ApiClient.DataTransferObjects.Region> importRegions)
-		{
-			return Ok(Service.ImportRegions(importRegions));
-		}
     }
 }
