@@ -1,5 +1,4 @@
-﻿
-using FluentValidation;
+﻿using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
 namespace Survi.Prevention.ServiceLayer.Import.Places
 {
@@ -8,10 +7,10 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 	    public CountyValidator()
 	    {
 		    RuleFor(m => m.IdRegion)
-			    .NotNull().WithMessage("{PropertyName}_NullValue");
+			    .NotNullOrEmpty();
 
 		    RuleFor(m => m.IdState)
-			    .NotNull().WithMessage("{PropertyName}_NullValue");
+			    .NotNullOrEmpty();
 
 	    }
     }

@@ -13,7 +13,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
     {
 		private readonly countyImported.County importedCounty;
 		private County existingCounty;
-		private readonly CountyModelConnector service;
+		private readonly CountyImportationConverter service;
 
 		public CountyImportTests()
 		{
@@ -45,11 +45,15 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 					{Id = Guid.NewGuid(), Name = "Mrc 1", LanguageCode = "fr", IdParent = existingCounty.Id}
 			};
 
-			var countries = new List<Country>();
 			var ctx = new BaseContextMock();
-			ctx.Setup(context => context.Countries).Returns(ctx.GetMockDbSet(countries).Object);
+			ctx.Setup(context => context.States).Returns(ctx.GetMockDbSet(new List<State>()).Object);
+			ctx.Setup(context => context.Regions).Returns(ctx.GetMockDbSet(new List<Region>()).Object);
+			ctx.Setup(context => context.Set<County>()).Returns(ctx.GetMockDbSet(new List<County>()).Object);
+			ctx.Object.States.Add(new State());
+			ctx.Object.Regions.Add(new Region());
+			ctx.Object.Set<County>().Add(existingCounty);
 
-			service = new CountyModelConnector(ctx.Object);
+			service = new CountyImportationConverter(ctx.Object, new CountyValidator());
 		}
 
 		[Fact]
@@ -93,17 +97,13 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 		[Fact]
 		public void CountyRegionDoesNotExists()
 		{
-			var validationResult = service.GetIdRegionFromExternal(importedCounty.IdRegion);
-
-			Assert.False(validationResult.HasBeenImported);
+			Assert.False(service.GetRealRegionForeignKey(importedCounty));
 		}
 
 	    [Fact]
 	    public void CountyStateDoesNotExists()
 	    {
-		    var validationResult = service.GetIdStateFromExternal(importedCounty.IdState);
-
-		    Assert.False(validationResult.HasBeenImported);
+		    Assert.False(service.GetRealStateForeignKey(importedCounty));
 	    }
     }
 }

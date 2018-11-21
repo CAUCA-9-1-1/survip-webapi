@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentValidation;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Places;
 using Survi.Prevention.ServiceLayer.Tests.Mocks;
@@ -13,14 +14,14 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
     {
 	    private readonly regionImported.Region importedRegion;
 	    private Region existingRegion;
-	    private readonly RegionModelConnector service;
+	    private readonly RegionImportationConverter service;
 
 	    public RegionImportTests()
 	    {
 		    importedRegion = new regionImported.Region
 		    {
 			    Id = "region1",
-			    Code = "region de phil",
+			    Code = "PhilRegion",
 			    IdState= "PhilState1",
 			    IsActive = true,
 			    Localizations = new List<regionImported.Base.Localization>
@@ -43,11 +44,12 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 			    new RegionLocalization{Id = Guid.NewGuid(), Name = "Province 1", LanguageCode = "fr", IdParent = existingRegion.Id}
 		    };
 
-		    var states = new List<State>();
 		    var ctx = new BaseContextMock();
-		    ctx.Setup(context => context.States).Returns(ctx.GetMockDbSet(states).Object);
-
-		    service = new RegionModelConnector(ctx.Object);
+		    ctx.Setup(context => context.States).Returns(ctx.GetMockDbSet(new List<State>()).Object);
+		    ctx.Setup(context => context.Set<State>()).Returns(ctx.GetMockDbSet(new List<State>()).Object);
+		    ctx.Setup(context => context.Set<Region>()).Returns(ctx.GetMockDbSet(new List<Region>()).Object);
+		    ctx.Object.Set<State>().Add(new State{Id = Guid.NewGuid(), IdExtern = "PhilState1", Localizations = new List<StateLocalization>()});
+		    service = new RegionImportationConverter(ctx.Object, new RegionValidator());
 	    }
 
 	    [Fact]
@@ -91,27 +93,22 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 	    [Fact]
 	    public void EntityFieldsHasBeenCorrectlySet()
 	    {
-		    existingRegion = new Region();
-		    var copy = service.TransferDtoImportedToOriginal(importedRegion, existingRegion);
-
-		    Assert.True(importedRegion.Id == copy.IdExtern && importedRegion.Code == copy.Code);
+		    var validationResult = service.Convert(importedRegion);
+			Assert.True(validationResult.Result.Code == importedRegion.Code && validationResult.Result.IdState.ToString() == importedRegion.IdState);
 	    }
 
 	    [Fact]
 	    public void EntityHasBeenCorrectlyValidated()
 	    {
 		    importedRegion.Code = "test avec plus que 10";
-		    var validationResult = service.GetValidationResult(importedRegion);
-
-		    Assert.False(validationResult.IsValid);
+		    Assert.False(service.Convert(importedRegion).IsValid);
 	    }
 
 	    [Fact]
 	    public void RegionStateDoesNotExists()
 	    {
-		    var validationResult = service.ValidateExternalState(importedRegion.IdState);
-
-		    Assert.False(validationResult.HasBeenImported);
+		    importedRegion.IdState = "123465789";
+		    Assert.False(service.Convert(importedRegion).IsValid);
 	    }
     }
 }

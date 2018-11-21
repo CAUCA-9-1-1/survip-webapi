@@ -4,7 +4,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.FireSafetyDepartments
 {
-	public class County : BaseImportedModel
+	public class County : BaseLocalizableImportedModel<CountyLocalization>
 	{
 		public Guid IdRegion { get; set; }
 		public Guid IdState { get; set; }
@@ -14,6 +14,5 @@ namespace Survi.Prevention.Models.FireSafetyDepartments
 
 		public ICollection<City> Cities { get; set; }
 		public ICollection<FireSafetyDepartment> FireSafetyDepartments { get; set; }
-		public ICollection<CountyLocalization> Localizations { get; set; }
 	}
 }
