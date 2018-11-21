@@ -1,12 +1,10 @@
-using System.Collections.Generic;
 using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings
 {
-	public class UtilisationCode : BaseImportedModel
+	public class UtilisationCode : BaseLocalizableImportedModel<UtilisationCodeLocalization>
 	{
 		public string Cubf { get; set; }
 		public string Scian { get; set; }
-		public ICollection<UtilisationCodeLocalization> Localizations { get; set; }
 	}
 }
