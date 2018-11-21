@@ -1,4 +1,5 @@
-﻿using Survi.Prevention.ServiceLayer.ValidationUtilities;
+﻿using FluentValidation;
+using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
 namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 {
@@ -6,8 +7,8 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
     {
         public HazardousMaterialImportationValidator()
         {
-            RuleFor(m => m.GuideNumber).NotNullOrEmpty();
-            RuleFor(m => m.Number).NotNullOrEmpty();
+            RuleFor(m => m.GuideNumber).NotNullOrEmptyWithMaxLength(255);
+            RuleFor(m => m.Number).NotNullOrEmptyWithMaxLength(25);
         }
     }
 }

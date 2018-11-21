@@ -72,6 +72,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
             entity.IdExtern = importedObject.Id;
             entity.ImportedOn = DateTime.Now;
             entity.IsActive = importedObject.IsActive;
+	        entity.HasBeenModified = false;
             CopyCustomFieldsToEntity(importedObject, entity);
         }
 

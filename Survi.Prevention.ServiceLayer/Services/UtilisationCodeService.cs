@@ -5,12 +5,16 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class UtilisationCodeService : BaseCrudService<UtilisationCode>
+	public class UtilisationCodeService : BaseCrudServiceWithImportation<UtilisationCode, ApiClient.DataTransferObjects.UtilisationCode>
 	{
-		public UtilisationCodeService(IManagementContext context) : base(context)
+		public UtilisationCodeService(
+			IManagementContext context, 
+			IEntityConverter<ApiClient.DataTransferObjects.UtilisationCode, UtilisationCode> converter) 
+			: base(context, converter)
 		{
 		}
 
@@ -43,7 +47,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 select new UtilisationCodeForWeb
                 {
                     Id = code.Id,
-                    Name = localization.Description
+                    Name = localization.Name
                 };
 
             return query.ToList();
@@ -59,7 +63,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				select new UtilisationCodeForWeb
 				{
 					Id = code.Id,
-					Name = localization.Description
+					Name = localization.Name
 				};
 
 			return query.SingleOrDefault();

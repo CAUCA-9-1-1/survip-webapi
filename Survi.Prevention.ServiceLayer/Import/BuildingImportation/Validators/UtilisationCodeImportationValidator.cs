@@ -6,8 +6,8 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
     {
         public UtilisationCodeImportationValidator()
         {
-            RuleFor(m => m.Cubf).NotNullOrEmpty();
-            RuleFor(m => m.Scian).NotNullOrEmpty();
+            RuleFor(m => m.Cubf).NotNullOrEmptyWithMaxLength(5);
+            RuleFor(m => m.Scian).NotNullOrEmptyWithMaxLength(10);
         }
     }
 }

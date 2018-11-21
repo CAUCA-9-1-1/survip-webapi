@@ -8,7 +8,7 @@ using Survi.Prevention.ServiceLayer.Services;
 namespace Survi.Prevention.WebApi.Controllers
 {
 	[Route("api/UtilisationCode")]
-    public class UtilisationCodeController : BaseCrudController<UtilisationCodeService, UtilisationCode>
+    public class UtilisationCodeController : BaseCrudControllerWithImportation<UtilisationCodeService, UtilisationCode, ApiClient.DataTransferObjects.UtilisationCode>
     {
         private readonly UtilisationCodeService service;
 
