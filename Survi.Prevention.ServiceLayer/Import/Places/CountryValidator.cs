@@ -1,6 +1,6 @@
 ﻿using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
-namespace Survi.Prevention.ServiceLayer.Import.Country
+namespace Survi.Prevention.ServiceLayer.Import.Places
 {
     public class CountryValidator: BaseImportValidator<ApiClient.DataTransferObjects.Country>
     {

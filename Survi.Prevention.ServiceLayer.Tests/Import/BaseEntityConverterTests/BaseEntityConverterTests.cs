@@ -37,7 +37,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BaseEntityConverterTests
         }
 
         [Fact]
-        public void UseNewEntityWhenDoesntExist()
+        public void UseNewEntityWhenDoesNotExist()
         {
             var converter = new BaseEntityConverterMock(CreateMockContext(false), CreateMockValidator());
             converter.Convert(importedCountry);
