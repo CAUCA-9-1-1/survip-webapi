@@ -62,7 +62,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BaseEntityConverterTests
                         && country.IsActive == importedCountry.IsActive);
         }
 
-        [Fact] 
+        [Fact]
         public void ConvertReturnsNullAsResultWhenImportedEntityIsInvalid()
         {
             importedCountry.CodeAlpha2 = null;
