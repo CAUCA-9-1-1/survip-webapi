@@ -59,7 +59,8 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BaseEntityConverterTests
             var country = converter.Convert(importedCountry).Result;
 
             Assert.True(country.IdExtern == importedCountry.Id
-                        && country.IsActive == importedCountry.IsActive);
+                        && country.IsActive == importedCountry.IsActive
+                        && !country.HasBeenModified);
         }
 
         [Fact]

@@ -3,6 +3,7 @@ using System.Linq;
 using FluentValidation;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 using Survi.Prevention.ServiceLayer.ValidationUtilities;
+using imported = Survi.Prevention.ApiClient.DataTransferObjects.Base;
 
 namespace Survi.Prevention.ServiceLayer.Import
 {
@@ -20,7 +21,7 @@ namespace Survi.Prevention.ServiceLayer.Import
 			    .Must(HaveLocalizationNames).WithMessage("{PropertyName}_InvalidValue");
 	    }
 
-	    public virtual bool HaveLocalizationNames(ICollection<ApiClient.DataTransferObjects.Base.Localization> localizations)
+	    public virtual bool HaveLocalizationNames(ICollection<imported.Localization> localizations)
 	    {
 		    if(localizations == null)
 			    return false;
@@ -34,16 +35,14 @@ namespace Survi.Prevention.ServiceLayer.Import
 		    return true;
 	    }
 
-	    public virtual bool HaveRequiredLocalisationCount(
-           ICollection<ApiClient.DataTransferObjects.Base.Localization> localizations)
+	    public virtual bool HaveRequiredLocalisationCount(ICollection<imported.Localization> localizations)
 	    {
 		    if(localizations == null || localizations.Count <= 1)
 			    return false;
 		    return true;
 	    }
 
-	    public virtual bool HaveRequiredLanguages(
-		    ICollection<ApiClient.DataTransferObjects.Base.Localization> localizations)
+	    public virtual bool HaveRequiredLanguages(ICollection<imported.Localization> localizations)
 	    {
 		    if(localizations == null)
 			    return false;

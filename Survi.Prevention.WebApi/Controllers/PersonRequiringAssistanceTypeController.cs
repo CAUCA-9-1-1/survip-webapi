@@ -5,7 +5,10 @@ using Survi.Prevention.ServiceLayer.Services;
 namespace Survi.Prevention.WebApi.Controllers
 {
 	[Route("api/PersonRequiringAssistanceType")]
-	public class PersonRequiringAssistanceTypeController : BaseCrudController<PersonRequiringAssistanceTypeService, PersonRequiringAssistanceType>
+	public class PersonRequiringAssistanceTypeController : 
+		BaseCrudControllerWithImportation<PersonRequiringAssistanceTypeService, 
+										  PersonRequiringAssistanceType, 
+			ApiClient.DataTransferObjects.PersonRequiringAssistanceType>
     {
 		private readonly PersonRequiringAssistanceTypeService service;
 

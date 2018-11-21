@@ -5,12 +5,16 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class RiskLevelService : BaseCrudService<RiskLevel>
+	public class RiskLevelService : BaseCrudServiceWithImportation<RiskLevel, ApiClient.DataTransferObjects.RiskLevel>
     {
-		public RiskLevelService(IManagementContext context) : base(context)
+		public RiskLevelService(
+			IManagementContext context, 
+			IEntityConverter<ApiClient.DataTransferObjects.RiskLevel, RiskLevel> converter) 
+			: base(context, converter)
 		{
 		}
 

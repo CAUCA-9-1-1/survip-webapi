@@ -21,8 +21,8 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
 
         protected override void CopyImportedFieldsToEntity(TIn importedObject, TOut entity)
         {
-            CopyLocalizationFields(importedObject, entity);
             base.CopyImportedFieldsToEntity(importedObject, entity);
+	        CopyLocalizationFields(importedObject, entity);
         }
 
         protected virtual void CopyLocalizationFields(TIn importedObject, TOut entity)

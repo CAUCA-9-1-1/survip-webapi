@@ -8,7 +8,7 @@ using Survi.Prevention.ServiceLayer.Services;
 namespace Survi.Prevention.WebApi.Controllers
 {
 	[Route("api/RiskLevel")]
-	public class RiskLevelController : BaseCrudController<RiskLevelService, RiskLevel>
+	public class RiskLevelController : BaseCrudControllerWithImportation<RiskLevelService, RiskLevel, ApiClient.DataTransferObjects.RiskLevel>
     {
 		private readonly RiskLevelService service;
 

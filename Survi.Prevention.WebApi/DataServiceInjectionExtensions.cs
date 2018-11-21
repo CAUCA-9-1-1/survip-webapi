@@ -5,7 +5,7 @@ using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Base;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators;
-using Survi.Prevention.ServiceLayer.Import.Country;
+using Survi.Prevention.ServiceLayer.Import.Places;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi

@@ -7,7 +7,7 @@ using Survi.Prevention.ServiceLayer.Services;
 namespace Survi.Prevention.WebApi.Controllers
 {
 	[Route("api/HazardousMaterial")]
-	public class HazardousMaterialController : BaseCrudController<HazardousMaterialService, HazardousMaterial>
+	public class HazardousMaterialController : BaseCrudControllerWithImportation<HazardousMaterialService, HazardousMaterial, ApiClient.DataTransferObjects.HazardousMaterial>
     {
 		private readonly HazardousMaterialService service;
 
