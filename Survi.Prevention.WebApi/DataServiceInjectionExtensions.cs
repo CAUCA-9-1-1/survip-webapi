@@ -1,7 +1,10 @@
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
+using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators;
 using Survi.Prevention.ServiceLayer.Import.Country;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -82,6 +85,8 @@ namespace Survi.Prevention.WebApi
         {
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.Country>, CountryValidator>();
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.State>, StateValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.RiskLevel>, RiskLevelImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.HazardousMaterial>, HazardousMaterialImportationValidator>();
             return services;
         }
 
@@ -89,6 +94,8 @@ namespace Survi.Prevention.WebApi
         {
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.Country, Country>, CountryImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.State, State>, StateImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.RiskLevel, RiskLevel>, RiskLevelImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.HazardousMaterial, HazardousMaterial>, HazardousMaterialImportationConverter>();
 
             return services;
         }
