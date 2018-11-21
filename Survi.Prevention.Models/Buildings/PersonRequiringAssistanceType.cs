@@ -1,10 +1,9 @@
-using System.Collections.Generic;
 using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings
 {
-	public class PersonRequiringAssistanceType : BaseImportedModel
+	public class PersonRequiringAssistanceType 
+	    : BaseLocalizableImportedModel<PersonRequiringAssistanceTypeLocalization>
 	{
-		public ICollection<PersonRequiringAssistanceTypeLocalization> Localizations { get; set; }
 	}
 }

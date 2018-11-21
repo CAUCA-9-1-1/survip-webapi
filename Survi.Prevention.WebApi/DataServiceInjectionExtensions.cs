@@ -87,6 +87,8 @@ namespace Survi.Prevention.WebApi
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.State>, StateValidator>();
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.RiskLevel>, RiskLevelImportationValidator>();
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.HazardousMaterial>, HazardousMaterialImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.UtilisationCode>, UtilisationCodeImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.PersonRequiringAssistanceType>, PersonRequiringAssistanceTypeImportationValidator>();
             return services;
         }
 
@@ -96,6 +98,8 @@ namespace Survi.Prevention.WebApi
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.State, State>, StateImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.RiskLevel, RiskLevel>, RiskLevelImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.HazardousMaterial, HazardousMaterial>, HazardousMaterialImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.UtilisationCode, UtilisationCode>, UtilisationCodeImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.PersonRequiringAssistanceType, PersonRequiringAssistanceType>, PersonRequiringAssistanceTypeImportationConverter>();
 
             return services;
         }
