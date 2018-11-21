@@ -13,7 +13,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
     {
 		private readonly countyImported.County importedCounty;
 		private County existingCounty;
-		private readonly CountyImportationConverter service;
+		private CountyImportationConverter service;
 
 		public CountyImportTests()
 		{
@@ -45,54 +45,35 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 					{Id = Guid.NewGuid(), Name = "Mrc 1", LanguageCode = "fr", IdParent = existingCounty.Id}
 			};
 
-			var ctx = new BaseContextMock();
-			ctx.Setup(context => context.States).Returns(ctx.GetMockDbSet(new List<State>()).Object);
-			ctx.Setup(context => context.Regions).Returns(ctx.GetMockDbSet(new List<Region>()).Object);
-			ctx.Setup(context => context.Set<County>()).Returns(ctx.GetMockDbSet(new List<County>()).Object);
-			ctx.Object.States.Add(new State());
-			ctx.Object.Regions.Add(new Region());
-			ctx.Object.Set<County>().Add(existingCounty);
-
-			service = new CountyImportationConverter(ctx.Object, new CountyValidator());
+			InitiateTestingMock();
 		}
 
-		[Fact]
-		public void NewIdLocalizationHasBeenCorrectlySet()
+	    private void InitiateTestingMock()
+	    {
+		    var states = InitStateList<State>();
+			var regions = InitRegionList<Region>();
+
+		    var mockContext = new BaseContextMock();
+		    mockContext.Setup(context => context.States).Returns(mockContext.GetMockDbSet(states).Object);
+		    mockContext.Setup(context => context.Set<State>()).Returns(mockContext.GetMockDbSet(states).Object);
+		    mockContext.Setup(context => context.Regions).Returns(mockContext.GetMockDbSet(regions).Object);
+		    mockContext.Setup(context => context.Set<Region>()).Returns(mockContext.GetMockDbSet(regions).Object);
+		    mockContext.Setup(context => context.Set<County>()).Returns(mockContext.GetMockDbSet(new List<County>()).Object);
+		    mockContext.Object.Set<County>().Add(existingCounty);
+
+		    service = new CountyImportationConverter(mockContext.Object, new CountyValidator());
+	    }
+
+
+		private List<State> InitStateList<State>()
 		{
-			var newId = Guid.NewGuid();
-			var copy = service.CreateLocalization(importedCounty.Localizations.First(), newId, true);
-
-			Assert.True(newId == copy.IdParent);
+			return new List<State>();
 		}
 
-		[Fact]
-		public void ExistingIdLocalizationHasBeenCorrectlySet()
-		{
-			var copy = service.ImportLocalization(importedCounty.Localizations.First(), existingCounty);
-
-			Assert.True(existingCounty.Id == copy.IdParent);
-		}
-
-		[Fact]
-		public void LocalizationFieldsAreCorrectlyCopied()
-		{
-			var copy = service.CreateLocalization(importedCounty.Localizations.First(), Guid.NewGuid(), true);
-
-			Assert.True(LocalizationHasBeenCorrectlyDuplicated(importedCounty.Localizations.First(), copy));
-		}
-
-		private static bool LocalizationHasBeenCorrectlyDuplicated(countyImported.Base.Localization original, CountyLocalization copy)
-		{
-			return copy.Name == original.Name && copy.LanguageCode == original.LanguageCode;
-		}
-
-		[Fact]
-		public void LocalizationsAreComplete()
-		{
-			existingCounty = new County();
-			var copy = service.TransferLocalizationsFromImported(importedCounty.Localizations.ToList(), existingCounty);
-			Assert.Equal(importedCounty.Localizations.Count, copy.Count);
-		}
+	    private List<Region> InitRegionList<Region>()
+	    {
+		    return new List<Region>();
+	    }
 
 		[Fact]
 		public void CountyRegionDoesNotExists()
