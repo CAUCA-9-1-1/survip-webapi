@@ -1,6 +1,4 @@
-﻿
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ServiceLayer.Import.Places;
 using Xunit;
@@ -44,39 +42,5 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 		    var result = validator.Validate(importedCounty);
 		    Assert.False(result.IsValid);
 	    }
-
-	    [Fact]
-	    public void LocalizationsMustBeNotNull()
-	    {
-		    importedCounty.Localizations = null;
-		    var result = validator.Validate(importedCounty);
-		    Assert.False(result.IsValid);
-	    }
-
-	    [Fact]
-	    public void LocalizationsMustContainsCorrectLanguageCode()
-	    {
-		    var locFrench = importedCounty.Localizations.SingleOrDefault(loc =>loc.LanguageCode == "fr");
-		    if (locFrench != null) locFrench.LanguageCode = "";
-		    var result = validator.Validate(importedCounty);
-		    Assert.False(result.IsValid);
-	    }
-
-	    [Fact]
-	    public void LocalizationsMustContainsCorrectName()
-	    {
-		    var locFrench = importedCounty.Localizations.SingleOrDefault(loc =>loc.LanguageCode == "fr");
-		    if (locFrench != null) locFrench.Name = "";
-		    var result = validator.Validate(importedCounty);
-		    Assert.False(result.IsValid);
-	    }
-
-		[Fact]
-		public void CountryMustContainsRequiredLanguages()
-		{
-			importedCounty.Localizations = new List<ApiClient.DataTransferObjects.Base.Localization>{new ApiClient.DataTransferObjects.Base.Localization{Name = "County 1", LanguageCode = "en"}};
-			var result = validator.Validate(importedCounty);
-			Assert.False(result.IsValid);
-		}
     }
 }

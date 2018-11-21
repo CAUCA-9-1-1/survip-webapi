@@ -5,7 +5,7 @@ using Survi.Prevention.ServiceLayer.Services;
 namespace Survi.Prevention.WebApi.Controllers
 {
     [Route("api/CityType")]
-    public class CityTypeController : BaseCrudController<CityTypeService, CityType>
+    public class CityTypeController : BaseCrudControllerWithImportation<CityTypeService, CityType, ApiClient.DataTransferObjects.CityType>
     {
         public CityTypeController(CityTypeService service) : base(service)
         {

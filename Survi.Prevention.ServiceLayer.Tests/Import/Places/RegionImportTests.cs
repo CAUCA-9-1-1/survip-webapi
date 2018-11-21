@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FluentValidation;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Places;
 using Survi.Prevention.ServiceLayer.Tests.Mocks;
@@ -14,7 +13,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
     {
 	    private readonly regionImported.Region importedRegion;
 	    private Region existingRegion;
-	    private readonly RegionImportationConverter service;
+	    private RegionImportationConverter service;
 
 	    public RegionImportTests()
 	    {
@@ -44,51 +43,18 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 			    new RegionLocalization{Id = Guid.NewGuid(), Name = "Province 1", LanguageCode = "fr", IdParent = existingRegion.Id}
 		    };
 
-		    var ctx = new BaseContextMock();
-		    ctx.Setup(context => context.States).Returns(ctx.GetMockDbSet(new List<State>()).Object);
-		    ctx.Setup(context => context.Set<State>()).Returns(ctx.GetMockDbSet(new List<State>()).Object);
-		    ctx.Setup(context => context.Set<Region>()).Returns(ctx.GetMockDbSet(new List<Region>()).Object);
-		    ctx.Object.Set<State>().Add(new State{Id = Guid.NewGuid(), IdExtern = "PhilState1", Localizations = new List<StateLocalization>()});
-		    service = new RegionImportationConverter(ctx.Object, new RegionValidator());
+		    InitiateTestingMock();
 	    }
 
-	    [Fact]
-	    public void NewIdLocalizationHasBeenCorrectlySet()
-	    {
-		    var newId = Guid.NewGuid();
-		    var copy = service.CreateLocalization(importedRegion.Localizations.First(), newId, true);
-
-		    Assert.True(newId == copy.IdParent);
-	    }
-
-	    [Fact]
-	    public void ExistingIdLocalizationHasBeenCorrectlySet()
-	    {
-		    var copy = service.ImportLocalization(importedRegion.Localizations.First(), existingRegion);
-
-		    Assert.True(existingRegion.Id == copy.IdParent);
-	    }
-
-	    [Fact]
-	    public void LocalizationFieldsAreCorrectlyCopied()
-	    {
-		    var copy = service.CreateLocalization(importedRegion.Localizations.First(), Guid.NewGuid(), true);
-
-		    Assert.True(LocalizationHasBeenCorrectlyDuplicated(importedRegion.Localizations.First(), copy));
-	    }
-
-	    private static bool LocalizationHasBeenCorrectlyDuplicated(regionImported.Base.Localization original, RegionLocalization copy)
-	    {
-		    return copy.Name == original.Name && copy.LanguageCode == original.LanguageCode;
-	    }
-
-	    [Fact]
-	    public void LocalizationsAreComplete()
-	    {
-		    existingRegion = new Region();
-		    var copy = service.TransferLocalizationsFromImported(importedRegion.Localizations.ToList(), existingRegion);
-		    Assert.Equal(importedRegion.Localizations.Count, copy.Count);
-	    }
+		private void InitiateTestingMock()
+		{
+			var mockContext = new BaseContextMock();
+			mockContext.Setup(context => context.States).Returns(mockContext.GetMockDbSet(new List<State>()).Object);
+			mockContext.Setup(context => context.Set<State>()).Returns(mockContext.GetMockDbSet(new List<State>()).Object);
+			mockContext.Setup(context => context.Set<Region>()).Returns(mockContext.GetMockDbSet(new List<Region>()).Object);
+			mockContext.Object.Set<State>().Add(new State{Id = Guid.NewGuid(), IdExtern = "PhilState1", Localizations = new List<StateLocalization>()});
+			service = new RegionImportationConverter(mockContext.Object, new RegionValidator());
+		}
 
 	    [Fact]
 	    public void EntityFieldsHasBeenCorrectlySet()
