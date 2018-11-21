@@ -1,7 +1,7 @@
 ﻿using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
 
-namespace Survi.Prevention.ServiceLayer.Import.Country.Mocks
+namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Mocks
 {
     public class UtilisationCodeImportationConverterMock : UtilisationCodeImportationConverter
     {

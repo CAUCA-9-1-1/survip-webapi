@@ -1,5 +1,5 @@
 ﻿using Survi.Prevention.ApiClient.DataTransferObjects;
-using Survi.Prevention.ServiceLayer.Import.Country.Mocks;
+using Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Mocks;
 using Xunit;
 
 namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
