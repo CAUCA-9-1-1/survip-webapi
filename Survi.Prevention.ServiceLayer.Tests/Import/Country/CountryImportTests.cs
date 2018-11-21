@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Survi.Prevention.Models.FireSafetyDepartments;
-using Survi.Prevention.ServiceLayer.Import.Country;
-using countryImported = Survi.Prevention.ApiClient.DataTransferObjects;
+﻿using countryImported = Survi.Prevention.ApiClient.DataTransferObjects;
 using Xunit;
 
 namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
