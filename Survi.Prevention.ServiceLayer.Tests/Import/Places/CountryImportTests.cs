@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
-using Survi.Prevention.ServiceLayer.Import.Country;
+using Survi.Prevention.ServiceLayer.Import.Places;
 using Survi.Prevention.ServiceLayer.Tests.Mocks;
 using countryImported = Survi.Prevention.ApiClient.DataTransferObjects;
 using Xunit;
 
-namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
+namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 {
     public class CountryImportTests
     {
         private readonly countryImported.Country importedCountry;
-        private readonly Models.FireSafetyDepartments.Country existingCountry;
+        private readonly Country existingCountry;
 
         public CountryImportTests()
         {
@@ -30,7 +29,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
                 }
             };
 
-            existingCountry = new Models.FireSafetyDepartments.Country
+            existingCountry = new Country
             {
                 Id = Guid.NewGuid(),
                 CodeAlpha2 = "BO",
@@ -49,9 +48,9 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
 
         private IManagementContext CreateMockContext()
         {
-            var countries = new List<Models.FireSafetyDepartments.Country>{existingCountry};
+            var countries = new List<Country>{existingCountry};
             var mockCtx = new BaseContextMock();
-            mockCtx.Setup(ctx => ctx.Set<Models.FireSafetyDepartments.Country>()).Returns(mockCtx.GetMockDbSet(countries).Object);
+            mockCtx.Setup(ctx => ctx.Set<Country>()).Returns(mockCtx.GetMockDbSet(countries).Object);
             return mockCtx.Object;
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Tests.Import.BaseEntityConverterTests.Mocks;
+using Imported = Survi.Prevention.ApiClient.DataTransferObjects.Base;
 using Xunit;
 
 namespace Survi.Prevention.ServiceLayer.Tests.Import.BaseEntityConverterTests
@@ -12,7 +13,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BaseEntityConverterTests
         public void MissingLocalizationAreCorrectlyAdded()
         {
             var converter = new EntityLocalizationConverterMock();
-            var localization = new ApiClient.DataTransferObjects.Base.Localization {Name = "Test", LanguageCode = "fr"};
+            var localization = new Imported.Localization {Name = "Test", LanguageCode = "fr"};
             var idParent = Guid.NewGuid();
             var result = converter.CreateMyLocalization(localization, idParent, true);
 
@@ -23,7 +24,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BaseEntityConverterTests
         public void ExistingLocalizationAreCorrectlyUpdated()
         {
             var converter = new EntityLocalizationConverterMock();
-            var localization = new ApiClient.DataTransferObjects.Base.Localization { Name = "Test", LanguageCode = "fr" };
+            var localization = new Imported.Localization { Name = "Test", LanguageCode = "fr" };
             var existingLocalization = new CountryLocalization { LanguageCode = "fr", Name = "TestOld" };
             var result = converter.UpdateMyLocalization(localization, existingLocalization, true);
 
@@ -34,7 +35,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BaseEntityConverterTests
         public void CustomFieldsAreCorrectlyCopiedWhenLocalizationIsMissing()
         {
             var converter = new EntityLocalizationConverterMock();
-            var localization = new ApiClient.DataTransferObjects.Base.Localization { Name = "Test", LanguageCode = "fr" };
+            var localization = new Imported.Localization { Name = "Test", LanguageCode = "fr" };
             var idParent = Guid.NewGuid();
             converter.CreateMyLocalization(localization, idParent, true);
 
@@ -45,7 +46,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BaseEntityConverterTests
         public void CustomsFieldsAreCorrectlyCopiedWhenUpdatingExisingLocalization()
         {
             var converter = new EntityLocalizationConverterMock();
-            var localization = new ApiClient.DataTransferObjects.Base.Localization { Name = "Test", LanguageCode = "fr" };
+            var localization = new Imported.Localization { Name = "Test", LanguageCode = "fr" };
             var existingLocalization = new CountryLocalization { LanguageCode = "fr", Name = "TestOld" };
             converter.UpdateMyLocalization(localization, existingLocalization, true);
 
@@ -56,29 +57,29 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BaseEntityConverterTests
         public void ConverterIsCorrectlyAddingMissingLocalization()
         {
             var converter = new EntityLocalizationConverterMock();
-            var localizations = new List<ApiClient.DataTransferObjects.Base.Localization> {
-                new ApiClient.DataTransferObjects.Base.Localization {Name = "Test", LanguageCode = "fr"}};
-            var country = new Models.FireSafetyDepartments.Country { Localizations = new List<CountryLocalization>() };
+            var localizations = new List<Imported.Localization> {
+                new Imported.Localization {Name = "Test", LanguageCode = "fr"}};
+            var country = new Country { Localizations = new List<CountryLocalization>() };
 
             converter.Convert(localizations, country);
 
-            Assert.True(converter.LocalizationIsBeingCreatedWhenItDoesntExist);
+            Assert.True(converter.LocalizationIsBeingCreatedWhenItDoesNotExist);
         }
 
         [Fact]
         public void ConverterIsCorrectlyUpdatingExistingLocalization()
         {
             var converter = new EntityLocalizationConverterMock();
-            var localizations = new List<ApiClient.DataTransferObjects.Base.Localization> {
-                new ApiClient.DataTransferObjects.Base.Localization {Name = "Test", LanguageCode = "fr"}};
-            var country = new Models.FireSafetyDepartments.Country { Localizations = new List<CountryLocalization>{ new CountryLocalization{ LanguageCode = "fr", Name = "TestOld"}} };
+            var localizations = new List<Imported.Localization> {
+                new Imported.Localization {Name = "Test", LanguageCode = "fr"}};
+            var country = new Country { Localizations = new List<CountryLocalization>{ new CountryLocalization{ LanguageCode = "fr", Name = "TestOld"}} };
 
             converter.Convert(localizations, country);
 
             Assert.True(converter.LocalizationIsBeingUpdatedWhenItExists);
         }
 
-        private static bool LocalizationsAreEqual(CountryLocalization result, Guid idParent, ApiClient.DataTransferObjects.Base.Localization localization, bool isActive)
+        private static bool LocalizationsAreEqual(CountryLocalization result, Guid idParent, Imported.Localization localization, bool isActive)
         {
             return result.IdParent == idParent 
                && result.LanguageCode == localization.LanguageCode 

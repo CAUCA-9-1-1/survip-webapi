@@ -1,8 +1,8 @@
 ﻿using FluentValidation.TestHelper;
-using Survi.Prevention.ServiceLayer.Import.Country;
+using Survi.Prevention.ServiceLayer.Import.Places;
 using Xunit;
 
-namespace Survi.Prevention.ServiceLayer.Tests.Import.Country
+namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 {
     public class StateImportValidatorTests
     {
