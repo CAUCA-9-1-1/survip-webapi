@@ -2,14 +2,20 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class AlarmPanelTypeService : BaseService
-	{
-		public AlarmPanelTypeService(IManagementContext context) : base(context)
-		{
+	public class AlarmPanelTypeService 
+	    : BaseCrudServiceWithImportation<AlarmPanelType, ApiClient.DataTransferObjects.AlarmPanelType>
+    {
+		public AlarmPanelTypeService(
+		    IManagementContext context,
+		    IEntityConverter<ApiClient.DataTransferObjects.AlarmPanelType, AlarmPanelType> converter)
+		    : base(context, converter)
+        {
 		}
 
 		public List<GenericModelForDisplay> GetList(string languageCode)

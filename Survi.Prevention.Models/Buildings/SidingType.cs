@@ -1,10 +1,8 @@
-using System.Collections.Generic;
 using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings
 {
-	public class SidingType : BaseModel
+	public class SidingType : BaseLocalizableImportedModel<SidingTypeLocalization>
 	{
-		public ICollection<SidingTypeLocalization> Localizations { get; set; }
 	}
 }

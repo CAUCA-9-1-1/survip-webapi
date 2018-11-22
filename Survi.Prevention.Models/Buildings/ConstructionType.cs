@@ -3,8 +3,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings
 {
-	public class ConstructionType : BaseModel
+	public class ConstructionType : BaseLocalizableImportedModel<ConstructionTypeLocalization>
 	{
-		public ICollection<ConstructionTypeLocalization> Localizations { get; set; }
 	}
 }

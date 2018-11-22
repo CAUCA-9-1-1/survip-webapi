@@ -2,6 +2,6 @@
 
 namespace Survi.Prevention.ApiClient.DataTransferObjects
 {
-    public class Sidingtype : BaseLocalizableTransferObject
+    public class SidingType : BaseLocalizableTransferObject
     { }
 }
