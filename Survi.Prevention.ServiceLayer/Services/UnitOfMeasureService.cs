@@ -5,12 +5,17 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-    public class UnitOfMeasureService : BaseCrudService<UnitOfMeasure>
+    public class UnitOfMeasureService 
+        : BaseCrudServiceWithImportation<UnitOfMeasure, ApiClient.DataTransferObjects.UnitOfMeasure>
     {
-        public UnitOfMeasureService(IManagementContext context) : base(context)
+        public UnitOfMeasureService(
+            IManagementContext context, 
+            IEntityConverter<ApiClient.DataTransferObjects.UnitOfMeasure, UnitOfMeasure> converter) 
+            : base(context, converter)
         {
         }
 

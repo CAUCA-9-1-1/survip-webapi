@@ -5,7 +5,8 @@ using Survi.Prevention.ServiceLayer.Services;
 namespace Survi.Prevention.WebApi.Controllers
 {
     [Route("api/UnitOfMeasure")]
-    public class UnitOfMeasureController : BaseCrudController<UnitOfMeasureService, UnitOfMeasure>
+    public class UnitOfMeasureController 
+        : BaseCrudControllerWithImportation<UnitOfMeasureService, UnitOfMeasure, ApiClient.DataTransferObjects.UnitOfMeasure>
     {
 	    public UnitOfMeasureController(UnitOfMeasureService service) : base(service)
 	    {
