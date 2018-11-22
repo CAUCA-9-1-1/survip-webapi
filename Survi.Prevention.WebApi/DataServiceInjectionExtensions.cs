@@ -7,6 +7,7 @@ using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators;
 using Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment;
 using Survi.Prevention.ServiceLayer.Import.Lane;
+using Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators;
 using Survi.Prevention.ServiceLayer.Import.Places;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -109,6 +110,12 @@ namespace Survi.Prevention.WebApi
 	        services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.LaneGenericCode>, LaneGenericCodeValidator>();
 	        services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.LanePublicCode>, LanePublicCodeValidator>();
 	        services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.Lane>, LaneValidator>();
+
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.FireHydrantType>, FireHydrantTypeImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.FireHydrant>, FireHydrantImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.FireHydrantConnectionType>, FireHydrantConnectionTypeImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.FireHydrantConnection>, FireHydrantConnectionImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.UnitOfMeasure>, UnitOfMeasureImportationValidator>();
 
             return services;
         }
