@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
@@ -22,5 +24,11 @@ namespace Survi.Prevention.WebApi.Controllers
 
             return Ok(result);
         }
+
+	    [HttpPost, Route("Import"), AllowAnonymous]
+	    public ActionResult ImportLanePublicCodes([FromBody] List<ApiClient.DataTransferObjects.LaneGenericCode> importedLanePublicCodes)
+	    {
+		    return Ok(service.ImportLanePublicCodes(importedLanePublicCodes));
+	    }
     }
 }

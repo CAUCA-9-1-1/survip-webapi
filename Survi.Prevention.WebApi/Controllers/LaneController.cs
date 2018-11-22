@@ -8,7 +8,7 @@ using Survi.Prevention.ServiceLayer.Services;
 namespace Survi.Prevention.WebApi.Controllers
 {
     [Route("api/Lane")]
-    public class LaneController : BaseCrudController<LaneService, Lane>
+    public class LaneController : BaseCrudControllerWithImportation<LaneService, Lane, ApiClient.DataTransferObjects.Lane>
     {
 	    private readonly WebuserService userService;
 	    private readonly CityService cityService;

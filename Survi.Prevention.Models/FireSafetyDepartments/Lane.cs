@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
 using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.FireSafetyDepartments
 {
-	public class Lane : BaseImportedModel
+	public class Lane : BaseLocalizableImportedModel<LaneLocalization>
 	{
 		public bool IsValid { get; set; }
 
@@ -15,6 +14,5 @@ namespace Survi.Prevention.Models.FireSafetyDepartments
 		public City City { get; set; }
 		public LaneGenericCode LaneGenericCode { get; set; }
 		public LanePublicCode PublicCode { get; set; }
-		public ICollection<LaneLocalization> Localizations { get; set; }
 	}
 }

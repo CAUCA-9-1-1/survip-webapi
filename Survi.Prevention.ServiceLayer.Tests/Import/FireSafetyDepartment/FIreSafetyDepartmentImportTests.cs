@@ -9,11 +9,11 @@ using fireSafetyDepartment = Survi.Prevention.Models.FireSafetyDepartments.FireS
 
 namespace Survi.Prevention.ServiceLayer.Tests.Import.FireSafetyDepartment
 {
-    public class FIreSafetyDepartmentImportTests
+    public class FireSafetyDepartmentImportTests
     {
 		private readonly imported.FireSafetyDepartment importedFireSafetyDepartment;
 
-        public FIreSafetyDepartmentImportTests()
+        public FireSafetyDepartmentImportTests()
 		{
 			importedFireSafetyDepartment = new imported.FireSafetyDepartment()
 			{
