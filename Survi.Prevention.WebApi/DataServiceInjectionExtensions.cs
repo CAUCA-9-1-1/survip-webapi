@@ -1,12 +1,15 @@
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using Survi.Prevention.Models;
 using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Base;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators;
 using Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment;
 using Survi.Prevention.ServiceLayer.Import.Lane;
+using Survi.Prevention.ServiceLayer.Import.FireHydrantImportation;
 using Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators;
 using Survi.Prevention.ServiceLayer.Import.Places;
 using Survi.Prevention.ServiceLayer.Services;
@@ -59,6 +62,7 @@ namespace Survi.Prevention.WebApi
             services.AddTransient<BuildingSprinklerService>();
             services.AddTransient<FireHydrantService>();
             services.AddTransient<FireHydrantTypeService>();
+            services.AddTransient<FireHydrantConnectionService>();
             services.AddTransient<FireHydrantConnectionTypeService>();
             services.AddTransient<UnitOfMeasureService>();
             services.AddTransient<SurveyService>();
@@ -148,6 +152,11 @@ namespace Survi.Prevention.WebApi
 	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.LanePublicCode, LanePublicCode>, LanePublicCodeImportationConverter>();
 	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.Lane, Lane>, LaneImportationConverter>();
 
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.FireHydrantType, FireHydrantType>, FireHydrantTypeImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.FireHydrantConnectionType, FireHydrantConnectionType>, FireHydrantConnectionTypeImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.FireHydrantConnection, FireHydrantConnection>, FireHydrantConnectionImportationConverter>();
+            //services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.UnitOfMeasure, UnitOfMeasure>, UnitOfMeasureImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.FireHydrant, FireHydrant>, FireHydrantImportationConverter>();
             return services;
         }
     }

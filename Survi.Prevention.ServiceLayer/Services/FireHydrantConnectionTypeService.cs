@@ -4,12 +4,16 @@ using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireHydrants;
 using Microsoft.EntityFrameworkCore;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-    public class FireHydrantConnectionTypeService : BaseCrudService<FireHydrantConnectionType>
+    public class FireHydrantConnectionTypeService : BaseCrudServiceWithImportation<FireHydrantConnectionType, ApiClient.DataTransferObjects.FireHydrantConnectionType>
     {
-        public FireHydrantConnectionTypeService(IManagementContext context) : base(context)
+        public FireHydrantConnectionTypeService(
+            IManagementContext context, 
+            IEntityConverter<ApiClient.DataTransferObjects.FireHydrantConnectionType, FireHydrantConnectionType> converter) 
+            : base(context, converter)
         {
         }
 

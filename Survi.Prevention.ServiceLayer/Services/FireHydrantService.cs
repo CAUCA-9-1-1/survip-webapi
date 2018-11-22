@@ -5,13 +5,18 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireHydrants;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-    public class FireHydrantService : BaseCrudService<FireHydrant>
+    public class FireHydrantService 
+        : BaseCrudServiceWithImportation<FireHydrant, ApiClient.DataTransferObjects.FireHydrant>
     {
-		public FireHydrantService(IManagementContext context) : base(context)
-        {
+		public FireHydrantService(
+		    IManagementContext context, 
+		    IEntityConverter<ApiClient.DataTransferObjects.FireHydrant, FireHydrant> converter)
+		    : base(context, converter)
+		{
 		}
 
 	    public IQueryable<FireHydrant> GetList(List<Guid> idCities)

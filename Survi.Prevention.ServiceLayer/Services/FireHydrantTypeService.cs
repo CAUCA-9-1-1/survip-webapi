@@ -5,12 +5,16 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireHydrants;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-    public class FireHydrantTypeService : BaseCrudService<FireHydrantType>
+    public class FireHydrantTypeService : BaseCrudServiceWithImportation<FireHydrantType, ApiClient.DataTransferObjects.FireHydrantType>
     {
-        public FireHydrantTypeService(IManagementContext context) : base(context)
+        public FireHydrantTypeService(
+            IManagementContext context, 
+            IEntityConverter<ApiClient.DataTransferObjects.FireHydrantType, FireHydrantType> converter) 
+            : base(context, converter)
         {
         }
 
