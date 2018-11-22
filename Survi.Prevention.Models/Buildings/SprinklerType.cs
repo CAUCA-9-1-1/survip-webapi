@@ -1,10 +1,8 @@
-using System.Collections.Generic;
 using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings
 {
-	public class SprinklerType : BaseModel
+	public class SprinklerType : BaseLocalizableImportedModel<SprinklerTypeLocalization>
 	{
-		public ICollection<SprinklerTypeLocalization> Localizations { get; set; }
 	}
 }

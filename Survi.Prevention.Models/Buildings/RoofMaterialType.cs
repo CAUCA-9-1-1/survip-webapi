@@ -1,10 +1,8 @@
-using System.Collections.Generic;
 using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings
 {
-	public class RoofMaterialType : BaseModel
+	public class RoofMaterialType : BaseLocalizableImportedModel<RoofMaterialTypeLocalization>
 	{
-		public ICollection<RoofMaterialTypeLocalization> Localizations { get; set; }
 	}
 }

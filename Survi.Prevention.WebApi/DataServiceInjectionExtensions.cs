@@ -89,6 +89,15 @@ namespace Survi.Prevention.WebApi
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.HazardousMaterial>, HazardousMaterialImportationValidator>();
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.UtilisationCode>, UtilisationCodeImportationValidator>();
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.PersonRequiringAssistanceType>, PersonRequiringAssistanceTypeImportationValidator>();
+
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.ConstructionType>, ConstructionTypeImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.ConstructionFireResistanceType>, ConstructionFireResistanceTypeImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.SidingType>, SidingTypeImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.RoofType>, RoofTypeImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.RoofMaterialType>, RoofMaterialTypeImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.AlarmPanelType>, AlarmPanelTypeImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.SprinklerType>, SprinklerTypeImportationValidator>();
+
             return services;
         }
 
@@ -100,6 +109,14 @@ namespace Survi.Prevention.WebApi
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.HazardousMaterial, HazardousMaterial>, HazardousMaterialImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.UtilisationCode, UtilisationCode>, UtilisationCodeImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.PersonRequiringAssistanceType, PersonRequiringAssistanceType>, PersonRequiringAssistanceTypeImportationConverter>();
+
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.ConstructionType, ConstructionType>, ConstructionTypeImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.ConstructionFireResistanceType, ConstructionFireResistanceType>, ConstructionFireResistanceTypeImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.SidingType, SidingType>, SidingTypeImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.RoofType, RoofType>, RoofTypeImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.RoofMaterialType, RoofMaterialType>, RoofMaterialTypeImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.AlarmPanelType, AlarmPanelType>, AlarmPanelTypeImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.SprinklerType, SprinklerType>, SprinklerTypeImportationConverter>();
 
             return services;
         }
