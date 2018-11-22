@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Survi.Prevention.ServiceLayer.ValidationUtilities;
+﻿using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
 namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 {

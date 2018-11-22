@@ -19,9 +19,9 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 		{
 			importedState = new stateImported.State
 			{
-				Id = "state1",
+				Id = "CAUCA04062012-11",
 				AnsiCode = "CO",
-				IdCountry = "Country001",
+				IdCountry = "CAUCA031052012-1",
 				IsActive = true,                
 				Localizations = new List<stateImported.Base.Localization>
 				{
@@ -33,16 +33,16 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 		    existingCountry = new Country
 		    {
 		        Id = Guid.NewGuid(),
-		        CodeAlpha2 = "BO",
-		        CodeAlpha3 = "BO3",
+		        CodeAlpha2 = "CA",
+		        CodeAlpha3 = "CAD",
 		        IsActive = true,
-                IdExtern = "Country001"
+                IdExtern = "CAUCA031052012-1"
 		    };
 
             existingState = new State
 			{
 				Id = Guid.NewGuid(),
-                IdExtern = "state1",
+                IdExtern = "CAUCA04062012-11",
 				AnsiCode = "CB",
 				IdCountry = existingCountry.Id,
 				IsActive = true,

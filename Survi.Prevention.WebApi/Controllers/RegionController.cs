@@ -7,7 +7,7 @@ using Survi.Prevention.ServiceLayer.Services;
 namespace Survi.Prevention.WebApi.Controllers
 {
 	[Route("api/Region")]
-	public class RegionController : BaseCrudController<RegionService, Region>
+	public class RegionController : BaseCrudControllerWithImportation<RegionService, Region, ApiClient.DataTransferObjects.Region>
 	{		
 		public RegionController(RegionService service) : base(service)
 		{

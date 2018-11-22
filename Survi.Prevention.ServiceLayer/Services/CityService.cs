@@ -5,12 +5,16 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class CityService : BaseCrudService<City>
+	public class CityService : BaseCrudServiceWithImportation<City, ApiClient.DataTransferObjects.City>
 	{
-		public CityService(IManagementContext context) : base(context)
+		public CityService(
+			IManagementContext context, 
+			IEntityConverter<ApiClient.DataTransferObjects.City, City> converter) 
+			: base(context, converter)
 		{
 		}
 		

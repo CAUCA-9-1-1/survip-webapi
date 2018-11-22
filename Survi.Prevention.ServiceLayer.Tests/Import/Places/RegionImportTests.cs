@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Places;
 using Survi.Prevention.ServiceLayer.Tests.Mocks;
@@ -21,7 +20,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 		    {
 			    Id = "region1",
 			    Code = "PhilRegion",
-			    IdState= "PhilState1",
+			    IdState= "CAUCA04062012-11",
 			    IsActive = true,
 			    Localizations = new List<regionImported.Base.Localization>
 			    {
@@ -52,7 +51,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 			mockContext.Setup(context => context.States).Returns(mockContext.GetMockDbSet(new List<State>()).Object);
 			mockContext.Setup(context => context.Set<State>()).Returns(mockContext.GetMockDbSet(new List<State>()).Object);
 			mockContext.Setup(context => context.Set<Region>()).Returns(mockContext.GetMockDbSet(new List<Region>()).Object);
-			mockContext.Object.Set<State>().Add(new State{Id = Guid.NewGuid(), IdExtern = "PhilState1", Localizations = new List<StateLocalization>()});
+			mockContext.Object.Set<State>().Add(new State{Id = Guid.NewGuid(), IdExtern = "CAUCA04062012-11", Localizations = new List<StateLocalization>()});
 			service = new RegionImportationConverter(mockContext.Object, new RegionValidator());
 		}
 
@@ -60,7 +59,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 	    public void EntityFieldsHasBeenCorrectlySet()
 	    {
 		    var validationResult = service.Convert(importedRegion);
-			Assert.True(validationResult.Result.Code == importedRegion.Code && validationResult.Result.IdState.ToString() == importedRegion.IdState);
+			Assert.True(validationResult.Result.Code == importedRegion.Code && validationResult.Result.IdExtern == importedRegion.Id);
 	    }
 
 	    [Fact]

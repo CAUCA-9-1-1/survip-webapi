@@ -8,7 +8,7 @@ using Survi.Prevention.ServiceLayer.Services;
 namespace Survi.Prevention.WebApi.Controllers
 {
     [Route("api/City")]
-    public class CityController : BaseCrudController<CityService, City>
+    public class CityController : BaseCrudControllerWithImportation<CityService, City, ApiClient.DataTransferObjects.City>
     {
 	    private readonly WebuserService userService;
 	    private readonly GeolocationService geolocationService;
