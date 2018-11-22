@@ -8,7 +8,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
     public class FireHydrantImportationValidator
         : AbstractValidator<FireHydrant>
     {
-        public FireHydrantImportationValidator(AbstractValidator<FireHydrantConnection> validator)
+        public FireHydrantImportationValidator()
         {
             RuleFor(m => m.Id)
                 .NotNullOrEmpty();
@@ -50,9 +50,6 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
             RuleFor(m => m.PhysicalPosition)
                 .NotNullOrEmpty()
                 .When(m => m.LocationType == FireHydrantLocationType.Text);
-
-            RuleForEach(m => m.Connections)
-                .SetValidator(validator);
 
             RuleFor(m => m.WktCoordinates)
                 .Must(BeAValidWktCoordinate)

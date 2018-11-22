@@ -12,8 +12,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.FireHydrantImportation
 
         public FireHydrantImportationValidatorTests()
         {
-            var connectionValidator = new FireHydrantConnectionImportationValidator();
-            validator = new FireHydrantImportationValidator(connectionValidator);
+            validator = new FireHydrantImportationValidator();
         }
 
         [Theory]
@@ -109,12 +108,6 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.FireHydrantImportation
         public void EntityShouldNotBeValidWhenPhysicalPositionIsNotSetAndLocationTypeIsIntersection()
         {
             validator.ShouldHaveValidationErrorFor(m => m.PhysicalPosition, new FireHydrant { LocationType = FireHydrantLocationType.Text, PhysicalPosition = null });
-        }
-
-        [Fact]
-        public void EntityConnectionShouldHaveValidator()
-        {
-            validator.ShouldHaveChildValidator(m => m.Connections, typeof(AbstractValidator<FireHydrantConnection>));
         }
 
         [Theory]

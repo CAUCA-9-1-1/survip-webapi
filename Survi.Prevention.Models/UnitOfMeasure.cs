@@ -12,10 +12,9 @@ namespace Survi.Prevention.Models
 		Dimension
 	}
 
-	public class UnitOfMeasure : BaseImportedModel
+	public class UnitOfMeasure : BaseLocalizableImportedModel<UnitOfMeasureLocalization>
 	{
 		public string Abbreviation { get; set; }
 		public MeasureType MeasureType { get; set; }
-		public List<UnitOfMeasureLocalization> Localizations { get; set; }
 	}
 }
