@@ -2,16 +2,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.ServiceLayer.Import.Base;
+using importedFireDeptCityServing = Survi.Prevention.ApiClient.DataTransferObjects.FireSafetyDepartmentCityServing;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class FireSafetyDepartmentService : BaseCrudService<FireSafetyDepartment>
+	public class FireSafetyDepartmentService : BaseCrudServiceWithImportation<FireSafetyDepartment, ApiClient.DataTransferObjects.FireSafetyDepartment>
 	{
-		public FireSafetyDepartmentService(IManagementContext context) : base(context)
+		private IEntityConverter<importedFireDeptCityServing, FireSafetyDepartmentCityServing> cityServingConverter;
+
+		public FireSafetyDepartmentService(
+			IManagementContext context, 
+			IEntityConverter<ApiClient.DataTransferObjects.FireSafetyDepartment, FireSafetyDepartment> converter,
+			IEntityConverter<importedFireDeptCityServing, FireSafetyDepartmentCityServing> servingconverter)
+			: base(context, converter)
 		{
+			cityServingConverter = servingconverter;
 		}
 
 		public override FireSafetyDepartment Get(Guid id)
@@ -68,6 +78,37 @@ namespace Survi.Prevention.ServiceLayer.Services
 				select new GenericModelForDisplay { Id = department.Id, Name = localization.Name};
 
 			return result.Distinct().ToList();
+		}
+
+		public List<ImportationResult> ImportFireSafetyDepartmentCityServings(List<importedFireDeptCityServing> entities)
+		{
+			var resultList = new List<ImportationResult>();
+			foreach (var entity in entities)
+				resultList.Add(ImportFireSafetyDepartmentCityServing(entity));
+
+			return resultList;
+		}
+
+		protected ImportationResult ImportFireSafetyDepartmentCityServing(importedFireDeptCityServing importedEntity)
+		{
+			var result = GetImportationResult(importedEntity);
+
+			if (result.IsValid)
+			{
+				Context.SaveChanges();
+				result.HasBeenImported = true;
+			}
+			return result;
+		}
+
+		protected ImportationResult GetImportationResult(importedFireDeptCityServing importedEntity)
+		{
+			var conversionResult = cityServingConverter.Convert(importedEntity);
+			return new ImportationResult
+			{
+				IdEntity = importedEntity.Id,
+				Messages = conversionResult.ValidationErrors
+			};
 		}
 	}
 }
