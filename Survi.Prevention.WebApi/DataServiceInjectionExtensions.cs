@@ -5,6 +5,7 @@ using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Base;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators;
+using Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment;
 using Survi.Prevention.ServiceLayer.Import.Places;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -102,6 +103,9 @@ namespace Survi.Prevention.WebApi
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.AlarmPanelType>, AlarmPanelTypeImportationValidator>();
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.SprinklerType>, SprinklerTypeImportationValidator>();
 
+	        services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.FireSafetyDepartment>, FireSafetyDepartmentValidator>();
+	        services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.FireSafetyDepartmentCityServing>, FireSafetyDepartmentCityServingValidator>();
+
             return services;
         }
 
@@ -125,6 +129,9 @@ namespace Survi.Prevention.WebApi
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.RoofMaterialType, RoofMaterialType>, RoofMaterialTypeImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.AlarmPanelType, AlarmPanelType>, AlarmPanelTypeImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.SprinklerType, SprinklerType>, SprinklerTypeImportationConverter>();
+
+	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.FireSafetyDepartment, FireSafetyDepartment>, FireSafetyDepartmentImportationConverter>();
+	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.FireSafetyDepartmentCityServing, FireSafetyDepartmentCityServing>, FireSafetyDepartmentCityServingImportationConverter>();
 
             return services;
         }
