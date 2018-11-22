@@ -1,22 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
 	[Route("api/AlarmPanelType")]
-	public class AlarmPanelTypeController : BaseSecuredController
-	{
-		private readonly AlarmPanelTypeService service;
-
-		public AlarmPanelTypeController(AlarmPanelTypeService service)
+	public class AlarmPanelTypeController 
+	    : BaseCrudControllerWithImportation<AlarmPanelTypeService, AlarmPanelType, ApiClient.DataTransferObjects.AlarmPanelType>
+    {
+		public AlarmPanelTypeController(AlarmPanelTypeService service) : base(service)
 		{
-			this.service = service;
 		}
 
 		[HttpGet]
 		public ActionResult GetList([FromHeader(Name = "Language-Code")]string languageCode)
 		{
-			return Ok(service.GetList(languageCode));
+			return Ok(Service.GetList(languageCode));
 		}
 	}
 }
