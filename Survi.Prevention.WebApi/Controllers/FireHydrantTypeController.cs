@@ -5,7 +5,8 @@ using Survi.Prevention.ServiceLayer.Services;
 namespace Survi.Prevention.WebApi.Controllers
 {
     [Route("api/FireHydrantType")]
-    public class FireHydrantTypeController : BaseCrudController<FireHydrantTypeService, FireHydrantType>
+    public class FireHydrantTypeController
+        : BaseCrudControllerWithImportation<FireHydrantTypeService, FireHydrantType, ApiClient.DataTransferObjects.FireHydrantType>
     {
 	    public FireHydrantTypeController(FireHydrantTypeService service) : base(service)
 	    {

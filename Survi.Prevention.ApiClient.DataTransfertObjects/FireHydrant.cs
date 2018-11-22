@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 
 namespace Survi.Prevention.ApiClient.DataTransferObjects
@@ -28,7 +27,5 @@ namespace Survi.Prevention.ApiClient.DataTransferObjects
         public string IdFireHydrantType { get; set; }
         public string IdUnitOfMeasureRate { get; set; }
         public string IdUnitOfMeasurePressure { get; set; }
-
-        public List<FireHydrantConnection> Connections { get; set; }
     }
 }

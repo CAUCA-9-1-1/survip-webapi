@@ -3,7 +3,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.FireHydrants
 {
-	public class FireHydrantConnection : BaseModel
+	public class FireHydrantConnection : BaseImportedModel
 	{
 		public decimal Diameter { get; set; }
 

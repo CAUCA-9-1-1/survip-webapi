@@ -42,7 +42,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             return result;
         }
 
-        protected ImportationResult GetImportationResult(TImportedEntity importedEntity)
+        protected virtual ImportationResult GetImportationResult(TImportedEntity importedEntity)
         {
             var conversionResult = Converter.Convert(importedEntity);
             return new ImportationResult
