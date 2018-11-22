@@ -1,13 +1,11 @@
-using System;
+using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.FireSafetyDepartments
 {
-	public class LaneGenericCode
+	public class LaneGenericCode: BaseImportedModel
 	{
-		public Guid Id { get; set; } = Guid.NewGuid();
 		public string Code { get; set; }
 		public string Description { get; set; }
 		public bool AddWhiteSpaceAfter { get; set; }
-		public bool IsActive { get; set; } = true;
 	}
 }
