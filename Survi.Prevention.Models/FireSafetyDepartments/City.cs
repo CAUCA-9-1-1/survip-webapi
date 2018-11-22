@@ -4,7 +4,7 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.FireSafetyDepartments
 {
-	public class City : BaseImportedModel
+	public class City : BaseLocalizableImportedModel<CityLocalization>
 	{
 		public string Code { get; set; }
 		public string Code3Letters { get; set; }
@@ -18,6 +18,5 @@ namespace Survi.Prevention.Models.FireSafetyDepartments
 
 		public ICollection<FireSafetyDepartmentCityServing> ServedByFireSafetyDepartments { get; set; }
 		public ICollection<Lane> Lanes { get; set; }
-		public ICollection<CityLocalization> Localizations { get; set; }
 	}
 }

@@ -86,6 +86,9 @@ namespace Survi.Prevention.WebApi
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.Country>, CountryValidator>();
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.State>, StateValidator>();
 	        services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.Region>, RegionValidator>();
+	        services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.County>, CountyValidator>();
+	        services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.CityType>, CityTypeValidator>();
+	        services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.City>, CityValidator>();
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.RiskLevel>, RiskLevelImportationValidator>();
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.HazardousMaterial>, HazardousMaterialImportationValidator>();
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.UtilisationCode>, UtilisationCodeImportationValidator>();
@@ -106,11 +109,14 @@ namespace Survi.Prevention.WebApi
         {
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.Country, Country>, CountryImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.State, State>, StateImportationConverter>();
+	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.Region, Region>, RegionImportationConverter>();
+	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.County, County>, CountyImportationConverter>();
+	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.CityType, CityType>, CityTypeImportationConverter>();
+	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.City, City>, CityImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.RiskLevel, RiskLevel>, RiskLevelImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.HazardousMaterial, HazardousMaterial>, HazardousMaterialImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.UtilisationCode, UtilisationCode>, UtilisationCodeImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.PersonRequiringAssistanceType, PersonRequiringAssistanceType>, PersonRequiringAssistanceTypeImportationConverter>();
-	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.Region, Region>, RegionImportationConverter>();
 
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.ConstructionType, ConstructionType>, ConstructionTypeImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.ConstructionFireResistanceType, ConstructionFireResistanceType>, ConstructionFireResistanceTypeImportationConverter>();
