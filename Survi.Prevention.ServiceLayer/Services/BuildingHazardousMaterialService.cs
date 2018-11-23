@@ -5,12 +5,16 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class BuildingHazardousMaterialService : BaseCrudService<BuildingHazardousMaterial>
+	public class BuildingHazardousMaterialService : BaseCrudServiceWithImportation<BuildingHazardousMaterial, ApiClient.DataTransferObjects.BuildingHazardousMaterial>
 	{
-		public BuildingHazardousMaterialService(IManagementContext context) : base(context)
+		public BuildingHazardousMaterialService(
+			IManagementContext context, 
+			IEntityConverter<ApiClient.DataTransferObjects.BuildingHazardousMaterial, BuildingHazardousMaterial> converter) 
+			: base(context, converter)
 		{
 		}
 
