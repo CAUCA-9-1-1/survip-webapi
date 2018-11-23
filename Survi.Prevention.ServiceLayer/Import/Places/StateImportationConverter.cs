@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using FluentValidation;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
@@ -25,9 +24,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 
         protected override void GetRealForeignKeys(ImportedState importedObject)
         {
-            var idCountry = Context.Set<Country>()
-                .FirstOrDefault(country => country.IdExtern == importedObject.IdCountry)?.Id;
-            importedObject.IdCountry = idCountry.HasValue ? idCountry.ToString() : null;
+            importedObject.IdCountry = GetRealId<Country>(importedObject.IdCountry);
         }
     }
 }

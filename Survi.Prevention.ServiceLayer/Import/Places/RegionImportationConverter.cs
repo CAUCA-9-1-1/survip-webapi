@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using FluentValidation;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.ServiceLayer.Import.Base;
@@ -16,16 +15,14 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 		}
 
 		protected override void CopyCustomFieldsToEntity(ImportedRegion importedObject, Region entity)
-		{
-			entity.IdState = Guid.Parse(importedObject.IdState);
+		{		    
+            entity.IdState = Guid.Parse(importedObject.IdState);
 			entity.Code = importedObject.Code;
 		}
 
 		protected override void GetRealForeignKeys(ImportedRegion importedObject)
 		{
-			var idState = Context.Set<State>()
-				.FirstOrDefault(state => state.IdExtern == importedObject.IdState)?.Id;
-			importedObject.IdState = idState.HasValue ? idState.ToString() : null;
+		    importedObject.IdState = GetRealId<State>(importedObject.IdState);
 		}
 	}
 }

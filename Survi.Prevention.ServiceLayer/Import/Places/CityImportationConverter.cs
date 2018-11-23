@@ -26,23 +26,8 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 
 	    protected override void GetRealForeignKeys(ImportedCity importedObject)
 	    {
-		    GetCountyForeignKey(importedObject);
-		    GetCityTypeForeignKey(importedObject);
-	    }
-
-	    private void GetCountyForeignKey(ImportedCity importedObject)
-	    {
-		    var idCounty = Context.Set<County>()
-			    .FirstOrDefault(county => county.IdExtern == importedObject.IdCounty)?.Id;
-		    importedObject.IdCounty = idCounty.HasValue ? idCounty.ToString() : null;
-	    }
-
-	    private void GetCityTypeForeignKey(ImportedCity importedObject)
-	    {
-		    var idCityType = Context.Set<CityType>()
-			    .FirstOrDefault(cityType => cityType.IdExtern == importedObject.IdCityType)?.Id;
-		    importedObject.IdCityType = idCityType.HasValue ? idCityType.ToString() : null;
-	    }
-
+	        importedObject.IdCounty = GetRealId<County>(importedObject.IdCounty);
+	        importedObject.IdCityType = GetRealId<CityType>(importedObject.IdCityType);
+        }
 	}
 }

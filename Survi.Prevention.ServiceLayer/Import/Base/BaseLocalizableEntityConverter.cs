@@ -28,7 +28,6 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
         protected virtual void CopyLocalizationFields(TIn importedObject, TOut entity)
         {
             var localizationConverter = new EntityLocalizationConverter<TOut, TLocalization>();
-
             entity.Localizations = localizationConverter.Convert(importedObject.Localizations, entity);
         }
      
