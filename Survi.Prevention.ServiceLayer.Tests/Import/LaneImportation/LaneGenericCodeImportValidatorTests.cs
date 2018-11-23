@@ -48,7 +48,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.LaneImportation
 	    [Fact]
 	    public void DescriptionIsValidWhenNotEmpty()
 	    {
-		    validator.ShouldNotHaveValidationErrorFor(genCode => genCode.Description, "lane generic code");
+		    validator.ShouldNotHaveValidationErrorFor(genCode => genCode.Description, "Generic code");
 	    }
 
 	    [Theory]

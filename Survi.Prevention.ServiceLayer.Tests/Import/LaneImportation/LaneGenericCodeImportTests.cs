@@ -17,8 +17,8 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.LaneImportation
 		    importedLaneGenericCode = new ImportedCode
 		    {
 			    Id = "FireSafetyDepartment",
-			    Code = "fr",
-			    Description = "CAUCA21092005-10",
+			    Code = "1",
+			    Description = "GenericCode",
 				AddWhiteSpaceAfter = false,
 			    IsActive = true
 		    };
