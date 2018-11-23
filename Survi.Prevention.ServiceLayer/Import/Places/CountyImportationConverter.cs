@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using FluentValidation;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
@@ -23,22 +22,8 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 
 	    protected override void GetRealForeignKeys(ImportedCounty importedObject)
 	    {
-		    GetRealStateForeignKey(importedObject);
-		    GetRealRegionForeignKey(importedObject);
-	    }
-
-	    private void GetRealStateForeignKey(ImportedCounty importedObject)
-	    {
-		    var idState = Context.States
-			    .FirstOrDefault(state => state.IdExtern == importedObject.IdState)?.Id;
-		    importedObject.IdState = idState.HasValue ? idState.ToString() : null;
-	    }
-
-	    private void GetRealRegionForeignKey(ImportedCounty importedObject)
-	    {
-		    var idRegion = Context.Regions
-			    .FirstOrDefault(region => region.IdExtern == importedObject.IdRegion)?.Id;
-		    importedObject.IdRegion = idRegion.HasValue ? idRegion.ToString() : null;
+	        importedObject.IdState = GetRealId<State>(importedObject.IdState);
+	        importedObject.IdRegion = GetRealId<Region>(importedObject.IdRegion);
 	    }
     }
 }

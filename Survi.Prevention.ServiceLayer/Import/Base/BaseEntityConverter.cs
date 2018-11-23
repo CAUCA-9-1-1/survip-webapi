@@ -90,5 +90,27 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
                         .ToList())
             };
         }
+
+
+        protected string GetRealId<T>(string externId)
+            where T : BaseImportedModel
+        {
+            if (string.IsNullOrWhiteSpace(externId))
+                return null;
+            var id = Context.Set<T>()
+                .Where(m => m.IdExtern == externId)
+                .Select(m => m.Id)
+                .FirstOrDefault();
+            if (id == Guid.Empty)
+                return null;
+            return id.ToString();
+        }
+
+        protected Guid? ParseId(string id)
+        {
+            if (!string.IsNullOrWhiteSpace(id) && Guid.TryParse(id, out Guid idParsed) && idParsed != Guid.Empty)
+                return idParsed;
+            return null;
+        }
     }
 }
