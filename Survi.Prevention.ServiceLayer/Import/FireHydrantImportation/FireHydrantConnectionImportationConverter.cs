@@ -29,13 +29,9 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation
 
         protected override void GetRealForeignKeys(FireHydrantConnection importedObject)
         {
-            var idFireHydrant = Context.FireHydrants.Where(m => m.IdExtern == importedObject.IdFireHydrant).Select(m => m.Id).FirstOrDefault();
-            var idFireHydrantConnectionType = Context.FireHydrants.Where(m => m.IdExtern == importedObject.IdFireHydrantConnectionType).Select(m => m.Id).FirstOrDefault();
-            var idUnitOfMeasureDiameter = Context.UnitOfMeasures.Where(m => m.IdExtern == importedObject.IdUnitOfMeasureDiameter).Select(m => m.Id).FirstOrDefault();
-
-            importedObject.IdFireHydrant = idFireHydrant.ToString();
-            importedObject.IdFireHydrantConnectionType = idFireHydrantConnectionType.ToString();
-            importedObject.IdUnitOfMeasureDiameter = idUnitOfMeasureDiameter.ToString();
+            importedObject.IdFireHydrant = GetRealId<Models.FireHydrants.FireHydrant>(importedObject.IdFireHydrant);
+            importedObject.IdFireHydrantConnectionType = GetRealId<Models.FireHydrants.FireHydrantConnectionType>(importedObject.IdFireHydrantConnectionType);
+            importedObject.IdUnitOfMeasureDiameter = GetRealId<Models.UnitOfMeasure>(importedObject.IdUnitOfMeasureDiameter);
         }
     }
 }

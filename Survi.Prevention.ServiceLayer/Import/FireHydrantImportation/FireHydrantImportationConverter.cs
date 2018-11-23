@@ -3,6 +3,7 @@ using System.Linq;
 using FluentValidation;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models.Base;
 using Survi.Prevention.ServiceLayer.Import.Base;
 using FireHydrantAddressLocationType = Survi.Prevention.Models.FireHydrants.FireHydrantAddressLocationType;
 
@@ -16,7 +17,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation
         public FireHydrantImportationConverter(
             IManagementContext context,
             AbstractValidator<FireHydrant> validator
-            )
+        )
             : base(context, validator)
         {
         }
@@ -25,7 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation
             FireHydrant importedObject,
             Models.FireHydrants.FireHydrant entity)
         {
-            entity.AddressLocationType = (FireHydrantAddressLocationType)importedObject.AddressLocationType;
+            entity.AddressLocationType = (FireHydrantAddressLocationType) importedObject.AddressLocationType;
             entity.Altitude = importedObject.Altitude;
             entity.CivicNumber = importedObject.CivicNumber;
             entity.Color = importedObject.Color;
@@ -48,26 +49,12 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation
 
         protected override void GetRealForeignKeys(FireHydrant importedObject)
         {
-            var idCity = Context.Cities.Where(m => m.IdExtern == importedObject.IdCity).Select(m => m.Id).FirstOrDefault();
-            var idFireHydrantType = Context.FireHydrantTypes.Where(m => m.IdExtern == importedObject.IdFireHydrantType).Select(m => m.Id).FirstOrDefault();
-            var idIntersection = Context.Lanes.Where(m => m.IdExtern == importedObject.IdIntersection).Select(m => m.Id).FirstOrDefault();
-            var idLane = Context.Lanes.Where(m => m.IdExtern == importedObject.IdLane).Select(m => m.Id).FirstOrDefault();
-            var idUnitOfMeasurePressure = Context.UnitOfMeasures.Where(m => m.IdExtern == importedObject.IdUnitOfMeasurePressure).Select(m => m.Id).FirstOrDefault();
-            var idUnitOfMeasureRate = Context.UnitOfMeasures.Where(m => m.IdExtern == importedObject.IdUnitOfMeasureRate).Select(m => m.Id).FirstOrDefault();
-
-            importedObject.IdCity = idCity.ToString();
-            importedObject.IdFireHydrantType = idFireHydrantType.ToString();
-            importedObject.IdIntersection = idIntersection.ToString();
-            importedObject.IdLane = idLane.ToString();
-            importedObject.IdUnitOfMeasurePressure = idUnitOfMeasurePressure.ToString();
-            importedObject.IdUnitOfMeasureRate = idUnitOfMeasureRate.ToString();
-        }
-
-        private Guid? ParseId(string id)
-        {
-            if (!string.IsNullOrWhiteSpace(id) && Guid.TryParse(id, out Guid idParsed) && idParsed != Guid.Empty)
-                return idParsed;
-            return null;
+            importedObject.IdCity = GetRealId<Models.FireSafetyDepartments.City>(importedObject.IdCity);
+            importedObject.IdFireHydrantType = GetRealId<Models.FireHydrants.FireHydrantType>(importedObject.IdFireHydrantType);
+            importedObject.IdIntersection = GetRealId<Models.FireSafetyDepartments.Lane>(importedObject.IdIntersection);
+            importedObject.IdLane = GetRealId<Models.FireSafetyDepartments.Lane>(importedObject.IdLane);
+            importedObject.IdUnitOfMeasurePressure = GetRealId<Models.UnitOfMeasure>(importedObject.IdUnitOfMeasurePressure);
+            importedObject.IdUnitOfMeasureRate = GetRealId<Models.UnitOfMeasure>(importedObject.IdUnitOfMeasureRate);
         }
     }
 }
