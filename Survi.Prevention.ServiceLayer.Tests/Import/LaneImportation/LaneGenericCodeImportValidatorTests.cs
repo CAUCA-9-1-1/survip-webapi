@@ -14,6 +14,20 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.LaneImportation
 	    {		    		    
 		    validator = new LaneGenericCodeValidator();
 	    }
+	    [Fact]
+	    public void IdIsValidWhenNotEmpty()
+	    {
+		    validator.ShouldNotHaveValidationErrorFor(genCode => genCode.Id, "IdGenericCode");
+	    }
+
+	    [Theory]
+	    [InlineData("")]
+	    [InlineData("   ")]
+	    [InlineData(null)]
+	    public void IdIsNotValidWhenEmpty(string id)
+	    {
+		    validator.ShouldHaveValidationErrorFor(genCode => genCode.Id, id);
+	    }
 
 		[Fact]
 	    public void CodeIsValidWhenNotEmpty()

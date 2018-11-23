@@ -26,7 +26,7 @@ namespace Survi.Prevention.WebApi.Controllers
         }
 
 	    [HttpPost, Route("Import"), AllowAnonymous]
-	    public ActionResult ImportLanePublicCodes([FromBody] List<ApiClient.DataTransferObjects.LaneGenericCode> importedLanePublicCodes)
+	    public ActionResult ImportLanePublicCodes([FromBody] List<ApiClient.DataTransferObjects.LanePublicCode> importedLanePublicCodes)
 	    {
 		    return Ok(service.ImportLanePublicCodes(importedLanePublicCodes));
 	    }

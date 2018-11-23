@@ -6,6 +6,7 @@ using Survi.Prevention.ServiceLayer.Import.Base;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators;
 using Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment;
+using Survi.Prevention.ServiceLayer.Import.Lane;
 using Survi.Prevention.ServiceLayer.Import.Places;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -105,6 +106,9 @@ namespace Survi.Prevention.WebApi
 
 	        services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.FireSafetyDepartment>, FireSafetyDepartmentValidator>();
 	        services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.FireSafetyDepartmentCityServing>, FireSafetyDepartmentCityServingValidator>();
+	        services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.LaneGenericCode>, LaneGenericCodeValidator>();
+	        services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.LanePublicCode>, LanePublicCodeValidator>();
+	        services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.Lane>, LaneValidator>();
 
             return services;
         }
@@ -132,6 +136,10 @@ namespace Survi.Prevention.WebApi
 
 	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.FireSafetyDepartment, FireSafetyDepartment>, FireSafetyDepartmentImportationConverter>();
 	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.FireSafetyDepartmentCityServing, FireSafetyDepartmentCityServing>, FireSafetyDepartmentCityServingImportationConverter>();
+
+	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.LaneGenericCode, LaneGenericCode>, LaneGenericCodeImportationConverter>();
+	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.LanePublicCode, LanePublicCode>, LanePublicCodeImportationConverter>();
+	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.Lane, Lane>, LaneImportationConverter>();
 
             return services;
         }
