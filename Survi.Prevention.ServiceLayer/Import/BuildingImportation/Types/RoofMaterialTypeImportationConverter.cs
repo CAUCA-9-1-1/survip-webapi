@@ -4,7 +4,7 @@ using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Import.Base;
 using RoofMaterialType = Survi.Prevention.ApiClient.DataTransferObjects.RoofMaterialType;
 
-namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
+namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Types
 {
     public class RoofMaterialTypeImportationConverter
         : BaseLocalizableEntityConverter<

@@ -4,7 +4,7 @@ using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Import.Base;
 using SprinklerType = Survi.Prevention.ApiClient.DataTransferObjects.SprinklerType;
 
-namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
+namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Types
 {
     public class SprinklerTypeImportationConverter
         : BaseLocalizableEntityConverter<

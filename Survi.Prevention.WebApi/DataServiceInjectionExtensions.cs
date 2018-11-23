@@ -6,6 +6,8 @@ using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
+using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Types;
+using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Types.Validators;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.CustomFieldsCopiers;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators;
 using Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment;

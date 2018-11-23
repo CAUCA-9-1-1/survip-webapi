@@ -4,7 +4,7 @@ using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Import.Base;
 using PersonRequiringAssistanceType = Survi.Prevention.ApiClient.DataTransferObjects.PersonRequiringAssistanceType;
 
-namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
+namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Types
 {
     public class PersonRequiringAssistanceTypeImportationConverter
         : BaseLocalizableEntityConverter<
