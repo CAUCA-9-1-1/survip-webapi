@@ -1,6 +1,8 @@
-﻿namespace Survi.Prevention.ApiClient.DataTransferObjects
+﻿using Survi.Prevention.ApiClient.DataTransferObjects.Base;
+
+namespace Survi.Prevention.ApiClient.DataTransferObjects
 {
-    public class BuildingHazardousMaterial
+    public class BuildingHazardousMaterial: BaseTransferObject
     {
         public int Quantity { get; set; }
         public string Container { get; set; }
