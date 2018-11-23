@@ -11,7 +11,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 		{
 			b.HasKey(m => m.Id);
 			b.Property(m => m.IdParent).HasColumnName("id_utilisation_code");
-			b.Property(m => m.Name).HasMaxLength(250).IsRequired().HasColumnName("description");
+			b.Property(m => m.Name).HasMaxLength(250).IsRequired();
 			b.Property(m => m.LanguageCode).HasMaxLength(2).IsRequired();
 		}
 	}
