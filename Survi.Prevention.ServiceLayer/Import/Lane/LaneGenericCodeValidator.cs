@@ -8,8 +8,9 @@ namespace Survi.Prevention.ServiceLayer.Import.Lane
     {
 	    public LaneGenericCodeValidator()
 	    {
-		    RuleFor(m => m.Code).NotNullOrEmptyWithMaxLength(2);
-		    RuleFor(m => m.Description).NotNullOrEmptyWithMaxLength(20);
+		    RuleFor(m => m.Id).NotNullOrEmpty();
+		    RuleFor(m => m.Code).NotNullOrEmptyWithMaxLength(1);
+		    RuleFor(m => m.Description).NotNullOrEmptyWithMaxLength(15);
 	    }
     }
 }

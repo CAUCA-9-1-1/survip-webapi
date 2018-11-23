@@ -16,6 +16,21 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.LaneImportation
 		}
 
 		[Fact]
+		public void IdIsValidWhenNotEmpty()
+		{
+			validator.ShouldNotHaveValidationErrorFor(publicCode => publicCode.Id, "IdPublicCode");
+		}
+
+		[Theory]
+		[InlineData("")]
+		[InlineData("   ")]
+		[InlineData(null)]
+		public void IdIsNotValidWhenEmpty(string id)
+		{
+			validator.ShouldHaveValidationErrorFor(publicCode => publicCode.Id, id);
+		}
+
+		[Fact]
 		public void CodeIsValidWhenNotEmpty()
 		{
 			validator.ShouldNotHaveValidationErrorFor(publicCode => publicCode.Code, "02");
