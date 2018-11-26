@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
         public BuildingAnomalyPictureImportationValidator()
         {
             RuleFor(m => m.IdBuildingAnomaly)
-                .ForeignKeyExists();
+                .RequiredKeyIsValid();
 
             RuleFor(m => m.PictureData)
                 .NotNullOrEmpty();

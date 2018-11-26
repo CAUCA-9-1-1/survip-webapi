@@ -10,8 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 			    .NotNullOrEmptyWithMaxLength(10);
 
 		    RuleFor(m => m.IdState)
-			    .NotNullOrEmpty();
-
+			    .RequiredKeyIsValid();
 	    }
     }
 }

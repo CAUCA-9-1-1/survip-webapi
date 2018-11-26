@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 	            .NotNullOrEmptyWithMaxLength(2);
 
 		    RuleFor(m => m.IdCountry)
-			    .NotNullOrEmpty();
+			    .RequiredKeyIsValid();
 	    }
     }
 }

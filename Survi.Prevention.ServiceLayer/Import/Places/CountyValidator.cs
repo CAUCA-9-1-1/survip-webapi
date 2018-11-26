@@ -7,10 +7,10 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 	    public CountyValidator()
 	    {
 		    RuleFor(m => m.IdRegion)
-			    .NotNullOrEmpty();
+			    .RequiredKeyIsValid();
 
 		    RuleFor(m => m.IdState)
-			    .NotNullOrEmpty();
+			    .RequiredKeyIsValid();
 
 	    }
     }

@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System;
+using FluentValidation;
 
 namespace Survi.Prevention.ServiceLayer.ValidationUtilities
 {
@@ -14,9 +15,17 @@ namespace Survi.Prevention.ServiceLayer.ValidationUtilities
             return ruleBuilder.NotEmpty().WithMessage("{PropertyName}_EmptyValue");
         }
 
-        public static IRuleBuilderOptions<T, string> ForeignKeyExists<T>(this IRuleBuilder<T, string> ruleBuilder)
+        public static IRuleBuilderOptions<T, string> RequiredKeyIsValid<T>(this IRuleBuilder<T, string> ruleBuilder)
         {
-            return ruleBuilder.NotEmpty().WithMessage("{PropertyName}_UnknownRelation");
+            return ruleBuilder
+                .NotEmpty().WithMessage("{PropertyName}_MissingValue")
+                .NotEqual(Guid.Empty.ToString()).WithMessage("{PropertyName}_UnknownValue");
+        }
+
+        public static IRuleBuilderOptions<T, string> OptionalKeyIsNullOrValid<T>(this IRuleBuilder<T, string> ruleBuilder)
+        {
+            return ruleBuilder
+                .NotEqual(Guid.Empty.ToString()).WithMessage("{PropertyName}_UnknownValue");
         }
 
         public static IRuleBuilderOptions<T, string> NotNullOrEmptyWithMaxLength<T>(this IRuleBuilder<T, string> ruleBuilder, int maxLength)

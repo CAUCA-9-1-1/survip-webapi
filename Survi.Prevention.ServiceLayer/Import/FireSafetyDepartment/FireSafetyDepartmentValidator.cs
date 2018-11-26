@@ -8,7 +8,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment
 		public FireSafetyDepartmentValidator()
 		{
 			RuleFor(m => m.Language).NotNullOrEmptyWithMaxLength(2);
-			RuleFor(m => m.IdCounty).NotNullOrEmpty();
+			RuleFor(m => m.IdCounty).RequiredKeyIsValid();
 		}
 	}
 }

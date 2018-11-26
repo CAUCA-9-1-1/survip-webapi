@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
         public BuildingAnomalyImportationValidator()
         {
             RuleFor(m => m.IdBuilding)
-                .ForeignKeyExists();
+                .RequiredKeyIsValid();
             RuleFor(m => m.Theme)
                 .NotNullOrEmptyWithMaxLength(50);
             RuleFor(m => m.Notes)

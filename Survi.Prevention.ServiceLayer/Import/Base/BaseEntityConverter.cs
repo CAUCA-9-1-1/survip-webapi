@@ -12,7 +12,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
     public abstract class BaseEntityConverter<TIn, TOut> 
         : IEntityConverter<TIn, TOut>
         where TIn : BaseTransferObject
-        where TOut : BaseImportedModel, new()
+        where TOut : BaseImportedModel
     {
         protected IManagementContext Context { get; set; }
         protected AbstractValidator<TIn> Validator { get; set; }
@@ -62,9 +62,13 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
 
         protected virtual TOut CreateNew()
         {
-            var entity = new TOut();
-            Context.Add(entity);
-            return entity;
+            if (typeof(TOut).GetConstructor(Type.EmptyTypes) != null)
+            {
+                var entity = (TOut) Activator.CreateInstance(typeof(TOut));
+                Context.Add(entity);
+                return entity;
+            }
+            return null;
         }
 
         protected virtual void CopyImportedFieldsToEntity(TIn importedObject, TOut entity)
@@ -91,7 +95,6 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
             };
         }
 
-
         protected string GetRealId<T>(string externId)
             where T : BaseImportedModel
         {
@@ -101,8 +104,6 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
                 .Where(m => m.IdExtern == externId)
                 .Select(m => m.Id)
                 .FirstOrDefault();
-            if (id == Guid.Empty)
-                return null;
             return id.ToString();
         }
 
