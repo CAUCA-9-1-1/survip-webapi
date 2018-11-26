@@ -6,7 +6,7 @@ using Survi.Prevention.ServiceLayer.Services;
 namespace Survi.Prevention.WebApi.Controllers
 {
 	[Route("api/building/pnaps")]
-	public class BuildingPersonsRequiringAssistanceController : BaseCrudController<BuildingPersonRequiringAssistanceService, BuildingPersonRequiringAssistance>
+	public class BuildingPersonsRequiringAssistanceController : BaseCrudControllerWithImportation<BuildingPersonRequiringAssistanceService, BuildingPersonRequiringAssistance, ApiClient.DataTransferObjects.BuildingPersonRequiringAssistance>
 	{
 		public BuildingPersonsRequiringAssistanceController(BuildingPersonRequiringAssistanceService service) : base(service)
 		{
