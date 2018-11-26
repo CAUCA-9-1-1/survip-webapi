@@ -1,6 +1,8 @@
-﻿namespace Survi.Prevention.ApiClient.DataTransferObjects
+﻿using Survi.Prevention.ApiClient.DataTransferObjects.Base;
+
+namespace Survi.Prevention.ApiClient.DataTransferObjects
 {
-    public class BuildingContact
+    public class BuildingContact: BaseTransferObject
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

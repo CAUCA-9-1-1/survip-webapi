@@ -4,12 +4,16 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class BuildingContactService : BaseCrudService<BuildingContact>
+	public class BuildingContactService : BaseCrudServiceWithImportation<BuildingContact, ApiClient.DataTransferObjects.BuildingContact>
 	{
-		public BuildingContactService(IManagementContext context) : base(context)
+		public BuildingContactService(
+			IManagementContext context, 
+			IEntityConverter<ApiClient.DataTransferObjects.BuildingContact, BuildingContact> converter) 
+			: base(context, converter)
 		{
 		}
 

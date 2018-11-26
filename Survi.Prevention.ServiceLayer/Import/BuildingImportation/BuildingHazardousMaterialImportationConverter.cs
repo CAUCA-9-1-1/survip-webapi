@@ -18,7 +18,7 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
 		{
 			entity.IdBuilding = Guid.Parse(importedObject.IdBuilding);
 			entity.IdHazardousMaterial = Guid.Parse(importedObject.IdHazardousMaterial);
-			entity.IdUnitOfMeasure = Guid.Parse(importedObject.IdUnitOfMeasure);
+			entity.IdUnitOfMeasure = ParseId(importedObject.IdUnitOfMeasure);
 
 			entity.CapacityContainer = importedObject.CapacityContainer;
 			entity.Container = importedObject.Container;
