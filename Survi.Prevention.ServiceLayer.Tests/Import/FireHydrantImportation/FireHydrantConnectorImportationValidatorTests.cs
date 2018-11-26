@@ -41,11 +41,5 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.FireHydrantImportation
         {
             validator.ShouldHaveValidationErrorFor(m => m.IdUnitOfMeasureDiameter, new FireHydrantConnection {Diameter = 2, IdUnitOfMeasureDiameter = null});
         }
-
-        [Fact]
-        public void EntityShouldBeValidWhenUnitOfMeasureIsNotSetAndDiameterIsZero()
-        {
-            validator.ShouldNotHaveValidationErrorFor(m => m.IdUnitOfMeasureDiameter, new FireHydrantConnection {Diameter = 0, IdUnitOfMeasureDiameter = null});
-        }
     }
 }
