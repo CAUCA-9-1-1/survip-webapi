@@ -2,18 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.Buildings.Base;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class BuildingParticularRiskService : BaseService
+	public class BuildingParticularRiskService : BaseServiceWithGenericImportation
 	{
-		public BuildingParticularRiskService(IManagementContext context) : base(context)
+		public BuildingParticularRiskService(
+		    IManagementContext context,
+		    IEntityConverter<ApiClient.DataTransferObjects.BuildingParticularRisk, BuildingParticularRisk> riskConverter,
+		    IEntityConverter<ApiClient.DataTransferObjects.BuildingParticularRiskPicture, BuildingParticularRiskPicture> riskPictureConverter) 
+		    : base(context)
 		{
+		    Converters.Add(riskConverter);
+		    Converters.Add(riskPictureConverter);
 		}
 
 		public List<ParticularRiskForReport> GetListForReport(Guid idBuilding)
@@ -57,5 +65,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return query.ToList();
 		}
+
+	    public List<ImportationResult> ImportRisks(List<ApiClient.DataTransferObjects.BuildingParticularRisk> importedEntities)
+	    {
+	        return Import<BuildingParticularRisk, ApiClient.DataTransferObjects.BuildingParticularRisk>(importedEntities);
+	    }
+
+	    public List<ImportationResult> ImportPictures(List<ApiClient.DataTransferObjects.BuildingParticularRiskPicture> importedEntities)
+	    {
+	        return Import<BuildingParticularRiskPicture, ApiClient.DataTransferObjects.BuildingParticularRiskPicture>(importedEntities);
+	    }
 	}
 }

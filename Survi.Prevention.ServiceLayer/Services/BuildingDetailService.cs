@@ -6,12 +6,15 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class BuildingDetailService : BaseCrudService<BuildingDetail>
+	public class BuildingDetailService 
+	    : BaseCrudServiceWithImportation<BuildingDetail, ApiClient.DataTransferObjects.BuildingDetail>
 	{
-		public BuildingDetailService(IManagementContext context) : base(context)
+		public BuildingDetailService(IManagementContext context, IEntityConverter<ApiClient.DataTransferObjects.BuildingDetail, BuildingDetail> converter) 
+		    : base(context, converter)
 		{
 		}
 
@@ -23,7 +26,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return detailId;
 		}
-
 
 		public override BuildingDetail Get(Guid id)
 		{
@@ -41,7 +43,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return Context.BuildingDetailsForReport
 				.SingleOrDefault(detail => detail.IdBuilding == buildingId && detail.LanguageCode == languageCode);
 		}
-
 
 		public InspectionPictureForWeb GetSitePlan(Guid detailId)
 		{

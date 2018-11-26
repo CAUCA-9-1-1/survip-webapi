@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class BuildingSprinklerService : BaseService
+	public class BuildingSprinklerService : BaseCrudServiceWithImportation<BuildingSprinkler, ApiClient.DataTransferObjects.BuildingSprinkler>
 	{
-		public BuildingSprinklerService(IManagementContext context) : base(context)
+		public BuildingSprinklerService(IManagementContext context, IEntityConverter<ApiClient.DataTransferObjects.BuildingSprinkler, BuildingSprinkler> validator) 
+		    : base(context, validator)
 		{
 		}
 
