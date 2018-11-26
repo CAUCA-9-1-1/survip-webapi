@@ -16,7 +16,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [Fact]
 	    public void IdIsValidWhenNotEmpty()
 	    {
-		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.Id, "IdbuildingPnap");
+		    validator.ShouldNotHaveValidationErrorFor(buildingPnap => buildingPnap.Id, "IdbuildingPnap");
 	    }
 
 	    [Theory]
@@ -25,13 +25,13 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData(null)]
 	    public void IdIsNotValidWhenEmpty(string id)
 	    {
-		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.Id, id);
+		    validator.ShouldHaveValidationErrorFor(buildingPnap => buildingPnap.Id, id);
 	    }
 
 	    [Fact]
 	    public void IdBuildingIsValidWhenNotEmpty()
 	    {
-		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.IdBuilding, "IdBuilding");
+		    validator.ShouldNotHaveValidationErrorFor(buildingPnap => buildingPnap.IdBuilding, "IdBuilding");
 	    }
 
 	    [Theory]
@@ -41,14 +41,14 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    
 	    public void IdBuildingIsNotValidWhenEmpty(string idBuilding)
 	    {
-		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.IdBuilding, idBuilding);
+		    validator.ShouldHaveValidationErrorFor(buildingPnap => buildingPnap.IdBuilding, idBuilding);
 	    }
 
 	    [Theory]
 	    [InlineData(-1)]
 	    public void DayResidentCountIsNotValidWhenInferiorThanZero(int dayResidentCount)
 	    {
-		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.DayResidentCount, dayResidentCount);
+		    validator.ShouldHaveValidationErrorFor(buildingPnap => buildingPnap.DayResidentCount, dayResidentCount);
 	    }
 
 	    [Theory]
@@ -56,14 +56,14 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData(0)]
 	    public void DayResidentCountIsValidWhenEqualOrGreaterThanZero(int dayResidentCount)
 	    {
-		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.DayResidentCount, dayResidentCount);
+		    validator.ShouldNotHaveValidationErrorFor(buildingPnap => buildingPnap.DayResidentCount, dayResidentCount);
 	    }
 
 	    [Theory]
 	    [InlineData(-1)]
 	    public void EveningResidentCountIsNotValidWhenInferiorThanZero(int eveningResidentCount)
 	    {
-		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.EveningResidentCount, eveningResidentCount);
+		    validator.ShouldHaveValidationErrorFor(buildingPnap => buildingPnap.EveningResidentCount, eveningResidentCount);
 	    }
 
 	    [Theory]
@@ -71,14 +71,14 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData(0)]
 	    public void EveningResidentCountIsValidWhenEqualOrGreaterThanZero(int eveningResidentCount)
 	    {
-		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.EveningResidentCount, eveningResidentCount);
+		    validator.ShouldNotHaveValidationErrorFor(buildingPnap => buildingPnap.EveningResidentCount, eveningResidentCount);
 	    }
 
 	    [Theory]
 	    [InlineData(-1)]
 	    public void NightResidentCountIsNotValidWhenInferiorThanZero(int nightResidentCount)
 	    {
-		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.NightResidentCount, nightResidentCount);
+		    validator.ShouldHaveValidationErrorFor(buildingPnap => buildingPnap.NightResidentCount, nightResidentCount);
 	    }
 
 	    [Theory]
@@ -86,7 +86,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData(0)]
 	    public void NightResidentCountIsValidWhenEqualOrGreaterThanZero(int nightResidentCount)
 	    {
-		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.NightResidentCount, nightResidentCount);
+		    validator.ShouldNotHaveValidationErrorFor(buildingPnap => buildingPnap.NightResidentCount, nightResidentCount);
 	    }
 
 	    [Theory]
@@ -94,7 +94,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData("12345")]
 	    public void ContactNameIsValidWhenEmptyOrNotTooLong(string contactName)
 	    {
-		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.ContactName, contactName);
+		    validator.ShouldNotHaveValidationErrorFor(buildingPnap => buildingPnap.ContactName, contactName);
 	    }
 
 	    [Theory]
@@ -102,7 +102,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData("Test de validation de la longueur d' un champs de type (chaine de caractères) de 100 caractères maximum. Celui-ci comprends une série de plus de 150 caractères")]
 	    public void ContactNameIsNotValidWhenEmptyOrTooLong(string contactName)
 	    {
-		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.ContactName, contactName);
+		    validator.ShouldHaveValidationErrorFor(buildingPnap => buildingPnap.ContactName, contactName);
 	    }
 
 	    [Theory]
@@ -110,7 +110,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData("12345")]
 	    public void ContactPhoneNumberIsValidWhenEmptyOrNotTooLong(string contactPhoneNumber)
 	    {
-		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.ContactPhoneNumber, contactPhoneNumber);
+		    validator.ShouldNotHaveValidationErrorFor(buildingPnap => buildingPnap.ContactPhoneNumber, contactPhoneNumber);
 	    }
 
 	    [Theory]
@@ -118,7 +118,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData("Test de validation de la longueur d' un champs de type (chaine de caractères) de 100 caractères maximum. Celui-ci comprends une série de plus de 150 caractères")]
 	    public void ContactPhoneNumberIsNotValidWhenEmptyOrTooLong(string contactPhoneNumber)
 	    {
-		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.ContactPhoneNumber, contactPhoneNumber);
+		    validator.ShouldHaveValidationErrorFor(buildingPnap => buildingPnap.ContactPhoneNumber, contactPhoneNumber);
 	    }
 
 	    [Theory]
@@ -126,7 +126,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData("123")]
 	    public void FloorIsValidWhenEmptyOrNotTooLong(string floor)
 	    {
-		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.Floor, floor);
+		    validator.ShouldNotHaveValidationErrorFor(buildingPnap => buildingPnap.Floor, floor);
 	    }
 
 	    [Theory]
@@ -134,7 +134,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData("3 caractères max")]
 	    public void FloorIsNotValidWhenEmptyOrTooLong(string floor)
 	    {
-		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.Floor, floor);
+		    validator.ShouldHaveValidationErrorFor(buildingPnap => buildingPnap.Floor, floor);
 	    }
 
 	    [Theory]
@@ -142,7 +142,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData("12345")]
 	    public void LocalIsValidWhenEmptyOrNotTooLong(string local)
 	    {
-		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.Local, local);
+		    validator.ShouldNotHaveValidationErrorFor(buildingPnap => buildingPnap.Local, local);
 	    }
 
 	    [Theory]
@@ -150,7 +150,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData("10 caractères max")]
 	    public void LocalIsNotValidWhenEmptyOrTooLong(string local)
 	    {
-		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.Local, local);
+		    validator.ShouldHaveValidationErrorFor(buildingPnap => buildingPnap.Local, local);
 	    }
 
 	    [Theory]
@@ -158,7 +158,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData("12345")]
 	    public void PersonNameIsValidWhenEmptyOrNotTooLong(string personName)
 	    {
-		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.PersonName, personName);
+		    validator.ShouldNotHaveValidationErrorFor(buildingPnap => buildingPnap.PersonName, personName);
 	    }
 
 	    [Theory]
@@ -166,14 +166,14 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData("Test de validation de la longueur d' un champs de type (chaine de caractères) de 100 caractères maximum. Celui-ci comprends une série de plus de 150 caractères")]
 	    public void PersonNameIsNotValidWhenEmptyOrTooLong(string personName)
 	    {
-		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.PersonName, personName);
+		    validator.ShouldHaveValidationErrorFor(buildingPnap => buildingPnap.PersonName, personName);
 	    }
 
 	    [Theory]
 	    [InlineData(null)]
 	    public void DescriptionIsNotValidWhenNull(string description)
 	    {
-		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.Description, description);
+		    validator.ShouldHaveValidationErrorFor(buildingPnap => buildingPnap.Description, description);
 	    }
     }
 }
