@@ -2,16 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Survi.Prevention.ApiClient.Configurations;
+using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class BuildingAnomalyService : BaseService
-	{
-		public BuildingAnomalyService(IManagementContext context) : base(context)
-		{
-		}
+	public class BuildingAnomalyService : BaseServiceWithGenericImportation
+    {
+	    private readonly List<object> converters = new List<object>();
+
+        public BuildingAnomalyService(
+            IManagementContext context,
+            IEntityConverter<BuildingAnomaly, Models.Buildings.BuildingAnomaly> anomalyConverter,
+            IEntityConverter<BuildingAnomalyPicture, Models.Buildings.BuildingAnomalyPicture> pictureConverter) 
+            : base(context)
+        {
+            converters.Add(anomalyConverter);
+            converters.Add(pictureConverter);
+        }
 
 		public List<BuildingAnomalyForList> GetAnomalyForReport(Guid idBuilding, string languageCode)
 		{
@@ -47,5 +58,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return query.ToList();
 		}
-	}
+
+        public List<ImportationResult> ImportAnomalies(List<BuildingAnomaly> importedEntities)
+        {
+            return Import<Models.Buildings.BuildingAnomaly, BuildingAnomaly>(importedEntities);
+        }
+
+        public List<ImportationResult> ImportPictures(List<BuildingAnomalyPicture> importedEntities)
+        {
+            return Import<Models.Buildings.BuildingAnomalyPicture, BuildingAnomalyPicture>(importedEntities);
+        }
+    }
 }

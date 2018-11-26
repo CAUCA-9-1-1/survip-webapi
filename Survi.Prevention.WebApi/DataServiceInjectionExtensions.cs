@@ -121,6 +121,14 @@ namespace Survi.Prevention.WebApi
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.FireHydrantConnection>, FireHydrantConnectionImportationValidator>();
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.UnitOfMeasure>, UnitOfMeasureImportationValidator>();
 
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.BuildingParticularRisk>, BuildingParticularRiskImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.BuildingParticularRiskPicture>, BuildingParticularRiskPictureImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.BuildingAnomaly>, BuildingAnomalyImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.BuildingAnomalyPicture>, BuildingAnomalyPictureImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.BuildingDetail>, BuildingDetailImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.BuildingAlarmPanel>, BuildingAlarmPanelImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.BuildingSprinkler>, BuildingSprinklerImportationValidator>();
+
             return services;
         }
 
@@ -157,6 +165,14 @@ namespace Survi.Prevention.WebApi
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.FireHydrantConnection, FireHydrantConnection>, FireHydrantConnectionImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.FireHydrant, FireHydrant>, FireHydrantImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.UnitOfMeasure, UnitOfMeasure>, UnitOfMeasureImportationConverter>();
+
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.BuildingParticularRisk, Models.Buildings.Base.BuildingParticularRisk>, BuildingParticularRiskImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.BuildingParticularRiskPicture, BuildingParticularRiskPicture>, BuildingParticularRiskPictureImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.BuildingAnomaly, BuildingAnomaly>, BuildingAnomalyImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.BuildingAnomalyPicture, BuildingAnomalyPicture>, BuildingAnomalyPictureImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.BuildingDetail, BuildingDetail>, BuildingDetailImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.BuildingAlarmPanel, BuildingAlarmPanel>, BuildingAlarmPanelImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.BuildingSprinkler, BuildingSprinkler>, BuildingSprinklerImportationConverter>();
 
             return services;
         }
