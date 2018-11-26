@@ -1,12 +1,11 @@
-﻿using System;
-using Survi.Prevention.ApiClient.DataTransferObjects.Base;
+﻿using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 
 namespace Survi.Prevention.ApiClient.DataTransferObjects
 {
-    public class BuildingParticularRisk : BaseTransferObjectWithPicture
+    public class BuildingParticularRisk : BaseTransferObject
     {
         public ParticularRiskType RiskType { get; set; }
-        public Guid IdBuilding { get; set; }
+        public string IdBuilding { get; set; }
         public bool IsWeakened { get; set; }
         public bool HasOpening { get; set; }
         public string Comments { get; set; } = "";

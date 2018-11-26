@@ -9,6 +9,11 @@ namespace Survi.Prevention.ServiceLayer.ValidationUtilities
             return ruleBuilder.NotEmpty().WithMessage("{PropertyName}_EmptyValue");
         }
 
+        public static IRuleBuilderOptions<T, byte[]> NotNullOrEmpty<T>(this IRuleBuilder<T, byte[]> ruleBuilder)
+        {
+            return ruleBuilder.NotEmpty().WithMessage("{PropertyName}_EmptyValue");
+        }
+
         public static IRuleBuilderOptions<T, string> ForeignKeyExists<T>(this IRuleBuilder<T, string> ruleBuilder)
         {
             return ruleBuilder.NotEmpty().WithMessage("{PropertyName}_UnknownRelation");
@@ -26,5 +31,11 @@ namespace Survi.Prevention.ServiceLayer.ValidationUtilities
 			    .NotNull().WithMessage("{PropertyName}_NullValue")
 			    .MaximumLength(maxLength).WithMessage("{PropertyName}_InvalidValue");
 	    }
+
+        public static IRuleBuilderOptions<T, string> MaxLength<T>(this IRuleBuilder<T, string> ruleBuilder, int maxLength)
+        {
+            return ruleBuilder.NotNullOrEmpty()
+                .MaximumLength(maxLength).WithMessage("{PropertyName}_TooLong");
+        }       
     }
 }
