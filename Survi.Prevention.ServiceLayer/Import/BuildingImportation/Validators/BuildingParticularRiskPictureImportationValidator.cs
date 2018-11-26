@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
         public BuildingParticularRiskPictureImportationValidator()
         {
             RuleFor(m => m.IdBuildingParticularRisk)
-                .ForeignKeyExists();
+                .RequiredKeyIsValid();
 
             RuleFor(m => m.PictureData)
                 .NotNullOrEmpty();

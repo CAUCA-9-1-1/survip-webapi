@@ -8,8 +8,8 @@ namespace Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment
     {
 	    public FireSafetyDepartmentCityServingValidator()
 	    {
-		    RuleFor(m => m.IdCity).NotNullOrEmpty();
-		    RuleFor(m => m.IdFireSafetyDepartment).NotNullOrEmpty();
+	        RuleFor(m => m.IdCity).RequiredKeyIsValid();
+	        RuleFor(m => m.IdFireSafetyDepartment).RequiredKeyIsValid();
 	    }
     }
 }

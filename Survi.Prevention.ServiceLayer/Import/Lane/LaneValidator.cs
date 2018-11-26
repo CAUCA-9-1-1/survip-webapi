@@ -6,9 +6,9 @@ namespace Survi.Prevention.ServiceLayer.Import.Lane
     {
 	    public LaneValidator()
 	    {
-		    RuleFor(m => m.IdCity).NotNullOrEmpty();
-		    RuleFor(m => m.IdLaneGenericCode).NotNullOrEmpty();
-		    RuleFor(m => m.IdPublicCode).NotNullOrEmpty();
+		    RuleFor(m => m.IdCity).RequiredKeyIsValid();
+		    RuleFor(m => m.IdLaneGenericCode).RequiredKeyIsValid();
+		    RuleFor(m => m.IdPublicCode).RequiredKeyIsValid();
 	    }
     }
 }

@@ -10,9 +10,9 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
         public BuildingAlarmPanelImportationValidator()
         {
             RuleFor(m => m.IdAlarmPanelType)
-                .ForeignKeyExists();
+                .RequiredKeyIsValid();
             RuleFor(m => m.IdBuilding)
-                .ForeignKeyExists();
+                .RequiredKeyIsValid();
 
             RuleFor(m => m.Floor)
                 .MaxLength(100);

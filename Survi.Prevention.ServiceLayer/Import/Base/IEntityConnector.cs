@@ -4,7 +4,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
 {
     public interface IEntityConverter<in TIn, TOut>
         where TIn: BaseTransferObject
-        where TOut: new()
+        where TOut: class
     {
         ConversionResult<TOut> Convert(TIn entity);
     }

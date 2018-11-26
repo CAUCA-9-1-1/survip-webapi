@@ -19,7 +19,7 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
                 .Must(type => Enum.IsDefined(typeof(ParticularRiskType), type))
                 .WithMessage("{PropertyName}_InvalidValue");
             RuleFor(m => m.IdBuilding)
-                .ForeignKeyExists();
+                .RequiredKeyIsValid();
 
             RuleFor(m => m.Dimension)
                 .MaxLength(100);

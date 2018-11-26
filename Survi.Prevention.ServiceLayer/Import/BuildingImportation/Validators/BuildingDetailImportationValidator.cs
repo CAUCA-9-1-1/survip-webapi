@@ -11,14 +11,24 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
         public BuildingDetailImportationValidator()
         {
             RuleFor(m => m.IdBuilding)
-                .ForeignKeyExists();
+                .RequiredKeyIsValid();
 
             RuleFor(m => m.IdUnitOfMeasureEstimatedWaterFlow)
-                .ForeignKeyExists()
+                .RequiredKeyIsValid()
                 .When(m => m.EstimatedWaterFlow > 0);
+
             RuleFor(m => m.IdUnitOfMeasureHeight)
-                .ForeignKeyExists()
+                .RequiredKeyIsValid()
                 .When(m => m.Height > 0);
+
+            RuleFor(m => m.IdUnitOfMeasureEstimatedWaterFlow)
+                .OptionalKeyIsNullOrValid()
+                .When(m => m.EstimatedWaterFlow <= 0);
+
+            RuleFor(m => m.IdUnitOfMeasureHeight)
+                .OptionalKeyIsNullOrValid()
+                .When(m => m.Height <= 0);
+
             RuleFor(m => m.GarageType)
                 .Must(type => Enum.IsDefined(typeof(GarageType), type))
                 .WithMessage("{PropertyName}_InvalidValue");

@@ -13,10 +13,10 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 			    .NotNullOrEmptyWithMaxLength(3);
 
 		    RuleFor(m => m.IdCounty)
-			    .NotNullOrEmpty();
+			    .RequiredKeyIsValid();
 
 		    RuleFor(m => m.IdCityType)
-			    .NotNullOrEmpty();
+			    .RequiredKeyIsValid();
 
 	    }
     }
