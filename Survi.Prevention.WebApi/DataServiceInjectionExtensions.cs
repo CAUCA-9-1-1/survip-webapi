@@ -132,6 +132,8 @@ namespace Survi.Prevention.WebApi
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.BuildingAlarmPanel>, BuildingAlarmPanelImportationValidator>();
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.BuildingSprinkler>, BuildingSprinklerImportationValidator>();
 
+	        services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.BuildingHazardousMaterial>, BuildingHazardousMaterialImportationValidator>();
+
             return services;
         }
 
@@ -162,6 +164,8 @@ namespace Survi.Prevention.WebApi
 	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.LaneGenericCode, LaneGenericCode>, LaneGenericCodeImportationConverter>();
 	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.LanePublicCode, LanePublicCode>, LanePublicCodeImportationConverter>();
 	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.Lane, Lane>, LaneImportationConverter>();
+
+	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.BuildingHazardousMaterial, BuildingHazardousMaterial>, BuildingHazardousMaterialImportationConverter>();
 
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.FireHydrantType, FireHydrantType>, FireHydrantTypeImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.FireHydrantConnectionType, FireHydrantConnectionType>, FireHydrantConnectionTypeImportationConverter>();
