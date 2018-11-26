@@ -14,12 +14,11 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
             RuleFor(m => m.Diameter)
                 .GreaterThanOrEqualTo(0);
             RuleFor(m => m.IdUnitOfMeasureDiameter)
-                .NotNullOrEmpty().When(m => m.Diameter > 0)
-                .WithMessage("{PropertyName}_MustBeSetWhenDiameterIsGreaterThanZero");
+                .NotNullOrEmpty();
             RuleFor(m => m.IdFireHydrantConnectionType)
                 .ForeignKeyExists();
-            /*RuleFor(m => m.IdFireHydrant)
-                .ForeignKeyExists();*/
+            RuleFor(m => m.IdFireHydrant)
+                .ForeignKeyExists();
         }
     }
 }
