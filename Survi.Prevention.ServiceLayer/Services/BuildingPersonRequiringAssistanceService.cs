@@ -5,12 +5,16 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class BuildingPersonRequiringAssistanceService : BaseCrudService<BuildingPersonRequiringAssistance>
+	public class BuildingPersonRequiringAssistanceService : BaseCrudServiceWithImportation<BuildingPersonRequiringAssistance, ApiClient.DataTransferObjects.BuildingPersonRequiringAssistance>
 	{
-		public BuildingPersonRequiringAssistanceService(IManagementContext context) : base(context)
+		public BuildingPersonRequiringAssistanceService(
+			IManagementContext context, 
+			IEntityConverter<ApiClient.DataTransferObjects.BuildingPersonRequiringAssistance, BuildingPersonRequiringAssistance> converter) 
+			: base(context, converter)
 		{
 		}
 

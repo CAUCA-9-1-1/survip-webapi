@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using FluentValidation.TestHelper;
+using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators;
 using Xunit;
 
@@ -62,7 +65,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [Fact]
 	    public void IdMeasuringUnitIsNotValidWhenNullAndHasCapacity()
 	    {
-		    validator.ShouldHaveValidationErrorFor(buildingHazardousMaterial => buildingHazardousMaterial.IdUnitOfMeasure, new ApiClient.DataTransferObjects.BuildingHazardousMaterial {CapacityContainer = 1, IdUnitOfMeasure = null});
+		    validator.ShouldHaveValidationErrorFor(buildingHazardousMaterial => buildingHazardousMaterial.IdUnitOfMeasure, new BuildingHazardousMaterial {CapacityContainer = 1, IdUnitOfMeasure = null});
 	    }
 
 	    [Theory]
@@ -70,7 +73,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData(null)]
 	    public void IdMeasuringUnitIsValidWhenNullAndNoCapacity(string idUnitOfMeasure)
 	    {
-		    validator.ShouldNotHaveValidationErrorFor(buildingHazardousMaterial => buildingHazardousMaterial.IdUnitOfMeasure, new ApiClient.DataTransferObjects.BuildingHazardousMaterial {CapacityContainer = 0, IdUnitOfMeasure = idUnitOfMeasure});
+		    validator.ShouldNotHaveValidationErrorFor(buildingHazardousMaterial => buildingHazardousMaterial.IdUnitOfMeasure, new BuildingHazardousMaterial {CapacityContainer = 0, IdUnitOfMeasure = idUnitOfMeasure});
 	    }
 
 	    [Theory]
@@ -105,17 +108,16 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 
 		[Theory]
 		[InlineData(-1)]
-		[InlineData(null)]
 		public void TankTypeIsNotValidWhenNullOrNotInTankTypeEnum(int tankType)
 		{
-			Assert.DoesNotContain(tankType, new List<int> { 1, 2, 3 });
+			Assert.DoesNotContain(tankType, Enum.GetValues(typeof(StorageTankType)).Cast<int>());
 		}
 
 		[Theory]
 		[InlineData(1)]
 		public void TankTypeIsValidWhenInTankTypeEnum(int tankType)
 		{
-			Assert.Contains(tankType, new List<int> {1, 2, 3});
+			Assert.Contains(tankType, Enum.GetValues(typeof(StorageTankType)).Cast<int>());
 		}
 
 		[Theory]
