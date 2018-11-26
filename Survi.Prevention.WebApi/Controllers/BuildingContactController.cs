@@ -6,7 +6,7 @@ using Survi.Prevention.ServiceLayer.Services;
 namespace Survi.Prevention.WebApi.Controllers
 {
 	[Route("api/building/contact")]
-	public class BuildingContactController : BaseCrudController<BuildingContactService, BuildingContact>
+	public class BuildingContactController : BaseCrudControllerWithImportation<BuildingContactService, BuildingContact, ApiClient.DataTransferObjects.BuildingContact>
 	{
 		public BuildingContactController(BuildingContactService service) : base(service)
 		{
