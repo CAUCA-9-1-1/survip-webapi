@@ -19,7 +19,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 		{
 			imported = new ImportedBuildingPnap
 			{
-				Id = "importedBuildingHM1",
+				Id = "importedBuildingPnap1",
 				ContactName = "",
 				ContactPhoneNumber = "",
 				DayIsApproximate = false,
@@ -41,7 +41,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 			{
 				Id = Guid.NewGuid(),
 				IsActive = true,
-				IdExtern = "importedBuildingHM1"
+				IdExtern = "importedBuildingPnap1"
 			};
 
 		}

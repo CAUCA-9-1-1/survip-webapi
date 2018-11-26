@@ -19,7 +19,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 		{
 			imported = new ImportedBuildingContact
 			{
-				Id = "importedBuildingHM1",
+				Id = "importedBuildingContact1",
 				FirstName = "Phil",
 				LastName = "Robert",
 				PhoneNumber = "4182152404",
@@ -36,7 +36,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 			existing = new BuildingContact
 			{
 				Id = Guid.NewGuid(),
-				IdExtern = "importedBuildingHM1",
+				IdExtern = "importedBuildingContact1",
 				FirstName = "Phil",
 				LastName = "Robert",
 				PhoneNumber = "4182152404",
