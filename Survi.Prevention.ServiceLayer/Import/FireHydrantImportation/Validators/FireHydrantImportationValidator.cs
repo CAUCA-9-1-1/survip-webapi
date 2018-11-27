@@ -5,17 +5,19 @@ using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
 namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
 {
-    public class FireHydrantImportationValidator
-        : AbstractValidator<FireHydrant>
+    public class FireHydrantImportationValidator: AbstractValidator<FireHydrant>
     {
         public FireHydrantImportationValidator()
         {
             RuleFor(m => m.Id)
                 .NotNullOrEmpty();
+
             RuleFor(m => m.Number)
                 .NotNullOrEmptyWithMaxLength(10);
+
             RuleFor(m => m.PhysicalPosition)
                 .MaximumLength(200);
+
             RuleFor(m => m.CivicNumber)
                 .MaximumLength(50);
 
