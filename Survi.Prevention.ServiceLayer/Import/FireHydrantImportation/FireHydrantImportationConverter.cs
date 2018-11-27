@@ -17,7 +17,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation
             IManagementContext context,
             AbstractValidator<FireHydrant> validator
         )
-            : base(context, validator)
+            : base(context, validator, null)
         {
         }
 

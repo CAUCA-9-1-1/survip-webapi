@@ -21,20 +21,20 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
             RuleFor(m => m.CivicNumber)
                 .MaximumLength(5).WithMessage("{PropertyName}_TooLong");
 
-            RuleFor(m => m.IdCity).ForeignKeyExists();
+            RuleFor(m => m.IdCity).RequiredKeyIsValid();
 
-            RuleFor(m => m.IdFireHydrantType).ForeignKeyExists();
+            RuleFor(m => m.IdFireHydrantType).RequiredKeyIsValid();
 
             RuleFor(m => m.IdUnitOfMeasurePressure)
-                .ForeignKeyExists()
+                .RequiredKeyIsValid()
                 .When(m => m.PressureFrom > 0 || m.PressureTo > 0);
 
             RuleFor(m => m.IdUnitOfMeasureRate)
-                .ForeignKeyExists()
+                .RequiredKeyIsValid()
                 .When(m => m.RateFrom > 0 || m.RateTo > 0);
 
             RuleFor(m => m.IdLane)
-                .ForeignKeyExists()
+                .RequiredKeyIsValid()
                 .When(m => m.LocationType == FireHydrantLocationType.Address || m.LocationType == FireHydrantLocationType.LaneAndIntersection);
 
             RuleFor(m => m.CivicNumber)
@@ -42,7 +42,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
                 .When(m => m.LocationType == FireHydrantLocationType.Address);
 
             RuleFor(m => m.IdIntersection)
-                .ForeignKeyExists()
+                .RequiredKeyIsValid()
                 .When(m => m.LocationType == FireHydrantLocationType.LaneAndIntersection);
 
             RuleFor(m => m.WktCoordinates)
