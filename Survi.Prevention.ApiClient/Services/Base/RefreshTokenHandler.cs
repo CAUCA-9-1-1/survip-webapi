@@ -75,10 +75,8 @@ namespace Survi.Prevention.ApiClient.Services.Base
             }
             catch (FlurlHttpException exception)
             {
-                if (exception.Call.RefreshTokenIsExpired())
-                    throw new ExpiredRefreshTokenException();
-                if (exception.Call.RefreshTokenIsInvalid())
-                    throw new InvalidRefreshTokenException();
+                if (exception.Call.RefreshTokenIsExpired() || exception.Call.RefreshTokenIsInvalid())
+                    await Login();
             }
 
             return null;

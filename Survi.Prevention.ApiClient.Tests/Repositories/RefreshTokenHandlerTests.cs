@@ -51,29 +51,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
 
                 Assert.AreEqual(newToken, configuration.AccessToken);
             }
-        }
-
-        [Test]
-        public void ExceptionIsCorrectlyThrownWhenRefreshTokenIsExpired()
-        {
-            using (var httpTest = new HttpTest())
-            {
-                httpTest.RespondWithJson(new TokenRefreshResult(), 401, new { Refresh_Token_Expired = "True" });
-                var tokenHandler = new RefreshTokenHandler(configuration);
-                Assert.ThrowsAsync<ExpiredRefreshTokenException>(async() => await tokenHandler.RefreshToken());
-            }
-        }
-
-        [Test]
-        public void ExceptionIsCorrectlyThrownWhenRefreshTokenIsInvalid()
-        {
-            using (var httpTest = new HttpTest())
-            {
-                httpTest.RespondWithJson(new TokenRefreshResult(), 401, new { Token_Invalid = "True" });
-                var tokenHandler = new RefreshTokenHandler(configuration);
-                Assert.ThrowsAsync<InvalidRefreshTokenException>(async () => await tokenHandler.RefreshToken());
-            }
-        }
+        }   
 
         [Test]
         public async Task NullIsCorrectlyReturnedForAnyOtherReason()
