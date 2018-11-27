@@ -11,16 +11,22 @@ namespace Survi.Prevention.ApiClient.Services.Base
         where T : BaseTransferObject, new()
     {
         protected abstract string BaseUrl { get; set; }
+        protected IConfiguration Configuration { get; set; }
+
+        protected BaseService(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
         protected virtual Url GenerateRequest()
         {
-            return Configuration.Current.ApiBaseUrl
+            return Configuration.ApiBaseUrl
                 .AppendPathSegment(BaseUrl);
         }
 
         public virtual async Task<ImportationResult> SendAsync(T entity)
         {
-            return await SendObjectAsync(new List<T> { entity });
+            return await SendObjectAsync(new List<T> {entity});
         }
 
         public virtual async Task<ImportationResult> SendAsync(List<T> entity)

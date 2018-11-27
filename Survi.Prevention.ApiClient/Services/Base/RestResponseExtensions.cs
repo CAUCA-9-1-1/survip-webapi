@@ -9,6 +9,11 @@ namespace Survi.Prevention.ApiClient.Services.Base
         public const string RefreshTokenInvalid = "Token-Invalid";
         public const string AccessTokenExpired = "Token-Expired";
 
+        public static bool IsUnauthorized(this HttpCall response)
+        {
+            return response.HttpStatus == System.Net.HttpStatusCode.Unauthorized;
+        }
+
         public static bool RefreshTokenIsExpired(this HttpCall response)
         {
             return response.HttpStatus == System.Net.HttpStatusCode.Unauthorized

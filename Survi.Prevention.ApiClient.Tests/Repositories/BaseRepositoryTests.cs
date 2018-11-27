@@ -5,22 +5,25 @@ using Survi.Prevention.ApiClient.Configurations;
 using Flurl.Http.Testing;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ApiClient.Exceptions;
+using Survi.Prevention.ApiClient.Tests.Mocks;
 
 namespace Survi.Prevention.ApiClient.Tests.Repositories
 {
     [TestFixture]
     public class BaseRepositoryTests
     {
+        private IConfiguration configuration;
+
         [SetUp]
         public void SetupTest()
         {
-            Configuration.Current.ApiBaseUrl = "http://test/";
-        }
-
-        [TearDown]
-        public void ResetTest()
-        {
-            Configuration.ResetConfiguration();
+            configuration = new MockConfiguration
+            {
+                ApiBaseUrl = "http://test",
+                AccessToken = "Token",
+                RefreshToken = "RefreshToken",
+                AuthorizationType = "Mock"
+            };
         }
 
         [TestCase]
@@ -29,7 +32,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
             using (var httpTest = new HttpTest())
             {
                 var country = new Country();
-                var repo = new Mocks.MockRepository();
+                var repo = new MockRepository(configuration);
                 await repo.SendAsync(country);
 
                 httpTest.ShouldHaveCalled("http://test/mock")
@@ -46,7 +49,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
             {
                 httpTest.RespondWithJson(new ImportationResult(), 404);
                 var country = new Country();
-                var repo = new Mocks.MockRepository();
+                var repo = new MockRepository(configuration);
                 Assert.ThrowsAsync<NotFoundApiException>(async() => await repo.SendAsync(country));
             }
         }
@@ -58,7 +61,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
             {
                 httpTest.RespondWithJson(new ImportationResult(), 400);
                 var country = new Country();
-                var repo = new Mocks.MockRepository();
+                var repo = new MockRepository(configuration);
                 Assert.ThrowsAsync<BadParameterApiException>(async () => await repo.SendAsync(country));
             }
         }
@@ -70,7 +73,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
             {
                 httpTest.RespondWithJson(new ImportationResult(), 403);
                 var country = new Country();
-                var repo = new Mocks.MockRepository();
+                var repo = new MockRepository(configuration);
                 Assert.ThrowsAsync<ForbiddenApiException>(async () => await repo.SendAsync(country));
             }
         }
@@ -82,7 +85,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
             {
                 httpTest.RespondWithJson(new ImportationResult(), 500);
                 var country = new Country();
-                var repo = new Mocks.MockRepository();
+                var repo = new MockRepository(configuration);
                 Assert.ThrowsAsync<InternalErrorApiException>(async () => await repo.SendAsync(country));
             }
         }
@@ -94,7 +97,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
             {
                 httpTest.SimulateTimeout();
                 var country = new Country();
-                var repo = new Mocks.MockRepository();
+                var repo = new MockRepository(configuration);
                 Assert.ThrowsAsync<NoResponseApiException>(async () => await repo.SendAsync(country));
             }
         }

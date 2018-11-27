@@ -54,12 +54,14 @@
     <Compile Include="Configurations\Configuration.cs" />
     <Compile Include="Configurations\ImportationResult.cs" />
     <Compile Include="Configurations\LoginInfo.cs" />
+    <Compile Include="Configurations\LoginResult.cs" />
     <Compile Include="Configurations\TokenRefreshResult.cs" />
     <Compile Include="Exceptions\ApiClientException.cs" />
     <Compile Include="Exceptions\BadParameterApiException.cs" />
     <Compile Include="Exceptions\ExpiredRefreshTokenException.cs" />
     <Compile Include="Exceptions\ForbiddenApiException.cs" />
     <Compile Include="Exceptions\InternalErrorApiException.cs" />
+    <Compile Include="Exceptions\InvalidCredentialException.cs" />
     <Compile Include="Exceptions\InvalidRefreshTokenException.cs" />
     <Compile Include="Exceptions\NoResponseApiException.cs" />
     <Compile Include="Exceptions\NotFoundApiException.cs" />

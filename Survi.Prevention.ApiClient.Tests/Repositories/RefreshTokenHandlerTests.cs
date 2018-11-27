@@ -4,36 +4,37 @@ using NUnit.Framework;
 using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.ApiClient.Exceptions;
 using Survi.Prevention.ApiClient.Services.Base;
+using Survi.Prevention.ApiClient.Tests.Mocks;
 
 namespace Survi.Prevention.ApiClient.Tests.Repositories
 {
     [TestFixture]
     public class RefreshTokenHandlerTests
     {
+        private IConfiguration configuration;
+
         [SetUp]
         public void SetupTest()
         {
-            Configuration.Current.ApiBaseUrl = "http://test/";
-        }
-
-        [TearDown]
-        public void ResetTest()
-        {
-            Configuration.ResetConfiguration();
+            configuration = new MockConfiguration
+            {
+                ApiBaseUrl = "http://test",
+                AccessToken = "accesstoken",
+                RefreshToken = "refreshtoken",
+                AuthorizationType = "bearer"
+            };
         }
 
         [Test]
         public async Task UrlIsCorrectlyGenerated()
         {
-            Configuration.Current.LoginInfo = new LoginInfo {AccessToken = "accesstoken", RefreshToken = "refreshtoken", AuthorizationType = "bearer"};
-
             using (var httpTest = new HttpTest())
             {
                 httpTest.RespondWithJson(new TokenRefreshResult());
-                var tokenHandler = new RefreshTokenHandler();
+                var tokenHandler = new RefreshTokenHandler(configuration);
                 await tokenHandler.RefreshToken();
 
-                httpTest.ShouldHaveCalled("http://test/authentification/refresh");
+                httpTest.ShouldHaveCalled("http://test/Authentification/refresh");
             }
         }
 
@@ -42,27 +43,23 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
         {
             var newToken = "newtoken";
 
-            Configuration.Current.LoginInfo = new LoginInfo { AccessToken = "accesstoken", RefreshToken = "refreshtoken", AuthorizationType = "bearer" };
-
             using (var httpTest = new HttpTest())
             {
                 httpTest.RespondWithJson(new TokenRefreshResult { AccessToken = newToken});
-                var tokenHandler = new RefreshTokenHandler();
+                var tokenHandler = new RefreshTokenHandler(configuration);
                 await tokenHandler.RefreshToken();
 
-                Assert.AreEqual(newToken, Configuration.Current.LoginInfo.AccessToken);
+                Assert.AreEqual(newToken, configuration.AccessToken);
             }
         }
 
         [Test]
         public void ExceptionIsCorrectlyThrownWhenRefreshTokenIsExpired()
         {
-            Configuration.Current.LoginInfo = new LoginInfo { AccessToken = "accesstoken", RefreshToken = "refreshtoken", AuthorizationType = "bearer" };
-
             using (var httpTest = new HttpTest())
             {
                 httpTest.RespondWithJson(new TokenRefreshResult(), 401, new { Refresh_Token_Expired = "True" });
-                var tokenHandler = new RefreshTokenHandler();
+                var tokenHandler = new RefreshTokenHandler(configuration);
                 Assert.ThrowsAsync<ExpiredRefreshTokenException>(async() => await tokenHandler.RefreshToken());
             }
         }
@@ -70,12 +67,10 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
         [Test]
         public void ExceptionIsCorrectlyThrownWhenRefreshTokenIsInvalid()
         {
-            Configuration.Current.LoginInfo = new LoginInfo { AccessToken = "accesstoken", RefreshToken = "refreshtoken", AuthorizationType = "bearer" };
-
             using (var httpTest = new HttpTest())
             {
                 httpTest.RespondWithJson(new TokenRefreshResult(), 401, new { Token_Invalid = "True" });
-                var tokenHandler = new RefreshTokenHandler();
+                var tokenHandler = new RefreshTokenHandler(configuration);
                 Assert.ThrowsAsync<InvalidRefreshTokenException>(async () => await tokenHandler.RefreshToken());
             }
         }
@@ -83,15 +78,13 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
         [Test]
         public async Task NullIsCorrectlyReturnedForAnyOtherReason()
         {
-            Configuration.Current.LoginInfo = new LoginInfo { AccessToken = "accesstoken", RefreshToken = "refreshtoken", AuthorizationType = "bearer" };
-
             using (var httpTest = new HttpTest())
             {
                 httpTest.RespondWithJson(new TokenRefreshResult(), 404);
-                var tokenHandler = new RefreshTokenHandler();
+                var tokenHandler = new RefreshTokenHandler(configuration);
                 await tokenHandler.RefreshToken();
 
-                Assert.IsNull(Configuration.Current.LoginInfo.AccessToken);
+                Assert.IsNull(configuration.AccessToken);
             }
         }
     }

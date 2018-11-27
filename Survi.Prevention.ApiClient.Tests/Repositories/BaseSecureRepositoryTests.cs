@@ -11,23 +11,24 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
     [TestFixture]
     public class BaseSecureRepositoryTests
     {
+        private IConfiguration configuration;
+
         [SetUp]
         public void SetupTest()
         {
-            Configuration.Current.ApiBaseUrl = "http://test/";
-            Configuration.Current.LoginInfo = new LoginInfo { AccessToken = "Token", RefreshToken = "RefreshToken", AuthorizationType = "Mock" };
-        }
-
-        [TearDown]
-        public void ResetTest()
-        {
-            Configuration.ResetConfiguration();
+            configuration = new MockConfiguration
+            {
+                ApiBaseUrl = "http://test",
+                AccessToken = "Token",
+                RefreshToken = "RefreshToken",
+                AuthorizationType = "Mock"
+            };
         }
 
         [TestCase]
         public void AuthorizationHeaderIsCorrectlyGenerated()
         {
-            Assert.AreEqual("Mock Token", new MockSecureRepository().GetAuthorizationHeaderValue());
+            Assert.AreEqual("Mock Token", new MockSecureRepository(configuration).GetAuthorizationHeaderValue());
         }
 
         [TestCase]
@@ -38,7 +39,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
                 httpTest.RespondWithJson(new ImportationResult());
 
                 var country = new Country();
-                var repo = new MockSecureRepository();
+                var repo = new MockSecureRepository(configuration);
                 await repo.SendAsync(country);
 
                 httpTest.ShouldHaveCalled("http://test/mock")
@@ -59,7 +60,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
                     .RespondWithJson(new ImportationResult());
 
                 var country = new Country();
-                var repo = new MockSecureRepository();
+                var repo = new MockSecureRepository(configuration);
                 await repo.SendAsync(country);
 
                 httpTest.ShouldHaveCalled("http://test/mock")
@@ -68,7 +69,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
                     .With(call => call.Response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     .Times(1);
 
-                httpTest.ShouldHaveCalled("http://test/authentification/refresh")
+                httpTest.ShouldHaveCalled("http://test/Authentification/refresh")
                     .WithVerb(HttpMethod.Post)
                     .Times(1);
 

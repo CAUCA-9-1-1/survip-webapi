@@ -82,12 +82,12 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mocks\MockConfiguration.cs" />
     <Compile Include="Mocks\MockRepository.cs" />
     <Compile Include="Mocks\MockSecureRepository.cs" />
     <Compile Include="Repositories\BaseRepositoryTests.cs" />
     <Compile Include="Repositories\BaseRestResponseTests.cs" />
     <Compile Include="Repositories\BaseSecureRepositoryTests.cs" />
-    <Compile Include="Repositories\ConfigurationTests.cs" />
     <Compile Include="Repositories\CountryServiceValidationTests.cs" />
     <Compile Include="Repositories\ExceptionsTests.cs" />
     <Compile Include="Repositories\RefreshTokenHandlerTests.cs" />

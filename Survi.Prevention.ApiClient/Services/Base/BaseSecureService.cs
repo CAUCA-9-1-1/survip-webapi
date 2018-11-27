@@ -6,8 +6,15 @@ using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 
 namespace Survi.Prevention.ApiClient.Services.Base
 {
-    public abstract class BaseSecureService<T> : BaseService<T> where T : BaseTransferObject, new()
+    public abstract class BaseSecureService<T> 
+        : BaseService<T> 
+        where T : BaseTransferObject, new()
     {
+        protected BaseSecureService(IConfiguration configuration) 
+            : base(configuration)
+        {
+        }
+
         protected IFlurlRequest GenerateSecureRequest()
         {
             var request = GenerateRequest();
@@ -16,11 +23,12 @@ namespace Survi.Prevention.ApiClient.Services.Base
 
         protected string GetAuthorizationHeaderValue()
         {
-            return $"{Configuration.Current.LoginInfo.AuthorizationType} {Configuration.Current.LoginInfo.AccessToken}";
+            return $"{Configuration.AuthorizationType} {Configuration.AccessToken}";
         }
 
         protected override async Task<ImportationResult> ExecuteAsync(object entity, Url request)
-        {            
+        {
+            await LoginWhenLoggedOut();
             try
             {
                 return await ExecuteRequest(entity);
@@ -35,9 +43,16 @@ namespace Survi.Prevention.ApiClient.Services.Base
             }            
         }
 
+        protected async Task LoginWhenLoggedOut()
+        {
+            if (string.IsNullOrWhiteSpace(Configuration.AccessToken))
+                await new RefreshTokenHandler(Configuration)
+                    .Login();
+        }
+
         private async Task<ImportationResult> RefreshTokenThenRetry(object entity)
         {
-            await new RefreshTokenHandler()
+            await new RefreshTokenHandler(Configuration)
                 .RefreshToken();
             return await ExecuteRequest(entity);
         }
