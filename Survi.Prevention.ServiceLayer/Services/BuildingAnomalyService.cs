@@ -12,16 +12,14 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class BuildingAnomalyService : BaseServiceWithGenericImportation
     {
-	    private readonly List<object> converters = new List<object>();
-
         public BuildingAnomalyService(
             IManagementContext context,
             IEntityConverter<BuildingAnomaly, Models.Buildings.BuildingAnomaly> anomalyConverter,
             IEntityConverter<BuildingAnomalyPicture, Models.Buildings.BuildingAnomalyPicture> pictureConverter) 
             : base(context)
         {
-            converters.Add(anomalyConverter);
-            converters.Add(pictureConverter);
+            Converters.Add(anomalyConverter);
+            Converters.Add(pictureConverter);
         }
 
 		public List<BuildingAnomalyForList> GetAnomalyForReport(Guid idBuilding, string languageCode)
