@@ -23,14 +23,14 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
 
         protected override void GetRealForeignKeys(BuildingDetail importedObject)
         {
-            importedObject.IdBuildingSidingType = GetRealId<Models.Buildings.Building>(importedObject.IdBuilding);
-            importedObject.IdBuildingType = GetRealId<Models.Buildings.Building>(importedObject.IdBuilding);
-            importedObject.IdConstructionFireResistanceType = GetRealId<Models.Buildings.Building>(importedObject.IdBuilding);
-            importedObject.IdConstructionType = GetRealId<Models.Buildings.Building>(importedObject.IdBuilding);
-            importedObject.IdRoofMaterialType = GetRealId<Models.Buildings.Building>(importedObject.IdBuilding);
-            importedObject.IdRoofType = GetRealId<Models.Buildings.Building>(importedObject.IdBuilding);
-            importedObject.IdUnitOfMeasureEstimatedWaterFlow = GetRealId<Models.Buildings.Building>(importedObject.IdBuilding);
-            importedObject.IdUnitOfMeasureHeight = GetRealId<Models.Buildings.Building>(importedObject.IdBuilding);
+            importedObject.IdBuildingSidingType = GetRealId<Models.Buildings.SidingType>(importedObject.IdBuildingSidingType);
+            importedObject.IdBuildingType = GetRealId<Models.Buildings.BuildingType>(importedObject.IdBuildingType);
+            importedObject.IdConstructionFireResistanceType = GetRealId<Models.Buildings.ConstructionFireResistanceType>(importedObject.IdConstructionFireResistanceType);
+            importedObject.IdConstructionType = GetRealId<Models.Buildings.ConstructionType>(importedObject.IdConstructionType);
+            importedObject.IdRoofMaterialType = GetRealId<Models.Buildings.RoofMaterialType>(importedObject.IdRoofMaterialType);
+            importedObject.IdRoofType = GetRealId<Models.Buildings.RoofType>(importedObject.IdRoofType);
+            importedObject.IdUnitOfMeasureEstimatedWaterFlow = GetRealId<Models.UnitOfMeasure>(importedObject.IdUnitOfMeasureEstimatedWaterFlow);
+            importedObject.IdUnitOfMeasureHeight = GetRealId<Models.UnitOfMeasure>(importedObject.IdUnitOfMeasureHeight);
 
             importedObject.IdBuilding = GetRealId<Models.Buildings.Building>(importedObject.IdBuilding);
         }

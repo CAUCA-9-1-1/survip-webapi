@@ -107,10 +107,11 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
         {
             if (string.IsNullOrWhiteSpace(externId))
                 return null;
-            var id = Context.Set<T>()
+            var query = Context.Set<T>()
                 .Where(m => m.IdExtern == externId)
-                .Select(m => m.Id)
-                .FirstOrDefault();
+                .Select(m => m.Id);
+
+            var id = query.FirstOrDefault();
             return id.ToString();
         }
 
