@@ -155,7 +155,6 @@ namespace Survi.Prevention.WebApi
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.FireHydrantType, FireHydrantType>, FireHydrantTypeImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.FireHydrantConnectionType, FireHydrantConnectionType>, FireHydrantConnectionTypeImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.FireHydrantConnection, FireHydrantConnection>, FireHydrantConnectionImportationConverter>();
-            //services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.UnitOfMeasure, UnitOfMeasure>, UnitOfMeasureImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.FireHydrant, FireHydrant>, FireHydrantImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.UnitOfMeasure, UnitOfMeasure>, UnitOfMeasureImportationConverter>();
 
