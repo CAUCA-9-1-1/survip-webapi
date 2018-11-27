@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using FluentValidation;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.DataLayer;
@@ -27,7 +28,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation
             entity.AddressLocationType = (FireHydrantAddressLocationType) importedObject.AddressLocationType;
             entity.Altitude = importedObject.Altitude;
             entity.CivicNumber = importedObject.CivicNumber;
-            entity.Color = importedObject.Color;
+            entity.Color = Color.FromArgb(importedObject.Color).ToHexString();
             entity.Comments = importedObject.Comments;
             entity.Coordinates = importedObject.WktCoordinates;
             entity.IdCity = Guid.Parse(importedObject.IdCity);
