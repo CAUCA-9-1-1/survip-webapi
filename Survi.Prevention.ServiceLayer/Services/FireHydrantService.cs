@@ -5,7 +5,7 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireHydrants;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models.DataTransfertObjects;
-using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {

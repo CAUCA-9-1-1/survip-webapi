@@ -19,10 +19,10 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
                 .NotNullOrEmpty();
 
             RuleFor(m => m.IdFireHydrantConnectionType)
-                .ForeignKeyExists();
+                .RequiredKeyIsValid();
 
             RuleFor(m => m.IdFireHydrant)
-                .ForeignKeyExists();
+                .RequiredKeyIsValid();
         }
     }
 }

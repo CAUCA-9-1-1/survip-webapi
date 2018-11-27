@@ -12,7 +12,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation
         public FireHydrantConnectionImportationConverter(
             IManagementContext context,
             AbstractValidator<FireHydrantConnection> validator)
-            : base(context, validator)
+            : base(context, validator, null)
         {
         }
 
