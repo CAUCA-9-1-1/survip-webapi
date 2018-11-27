@@ -56,6 +56,18 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
             RuleFor(m => m.WktCoordinates)
                 .Must(BeAValidWktCoordinate)
                 .When(m => !string.IsNullOrWhiteSpace(m.WktCoordinates) || m.LocationType == FireHydrantLocationType.Coordinates);
+
+            RuleFor(m => m.AddressLocationType).IsInEnum()
+                .WithMessage("{PropertyName}_InvalidValue");
+
+            RuleFor(m => m.LocationType).IsInEnum()
+                .WithMessage("{PropertyName}_InvalidValue");
+
+            RuleFor(m => m.PressureOperatorType).IsInEnum()
+                .WithMessage("{PropertyName}_InvalidValue");
+
+            RuleFor(m => m.RateOperatorType).IsInEnum()
+                .WithMessage("{PropertyName}_InvalidValue");
         }
 
         private bool BeAValidWktCoordinate(string coordinate)
