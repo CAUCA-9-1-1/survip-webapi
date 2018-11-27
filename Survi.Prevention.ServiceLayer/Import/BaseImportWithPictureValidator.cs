@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using FluentValidation;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
 namespace Survi.Prevention.ServiceLayer.Import
 {
-    public abstract class BaseImportValidator<T>: AbstractValidator<T> where T : BaseLocalizableTransferObject,new()
+    public abstract class BaseImportWithPictureValidator<T>:  AbstractValidator<T> where T : BaseLocalizableTransferObjectWithPicture,new()
     {
-	    protected BaseImportValidator()
+	    protected BaseImportWithPictureValidator()
 	    {
-	        RuleFor(m => m.Id)
-	            .NotNullOrEmpty();
+		    RuleFor(m => m.Id)
+			    .NotNullOrEmpty();
 
 		    RuleFor(m => m.Localizations)
 			    .NotNull().WithMessage("{PropertyName}_NullValue")

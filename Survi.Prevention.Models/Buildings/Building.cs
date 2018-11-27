@@ -18,7 +18,6 @@ namespace Survi.Prevention.Models.Buildings
 		public ICollection<BuildingContact> Contacts { get; set; }
 		public ICollection<BuildingHazardousMaterial> HazardousMaterials { get; set; }
 		public ICollection<BuildingPersonRequiringAssistance> PersonsRequiringAssistance { get; set; }
-		public ICollection<BuildingLocalization> Localizations { get; set; }
 		public ICollection<BuildingCourse> Courses { get; set; }
 		public ICollection<BuildingFireHydrant> FireHydrants { get; set; }
 		public ICollection<BuildingAlarmPanel> AlarmPanels { get; set; }

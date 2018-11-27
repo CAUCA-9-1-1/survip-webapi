@@ -10,7 +10,7 @@ using Survi.Prevention.Models.DataTransfertObjects;
 namespace Survi.Prevention.WebApi.Controllers
 {
 	[Route("api/Building")]
-	public class BuildingController : BaseCrudController<BuildingService, Building>
+	public class BuildingController : BaseCrudControllerWithImportation<BuildingService, Building, ApiClient.DataTransferObjects.Building>
 	{
 		private readonly WebuserService userService;
 		private readonly CityService cityService;
