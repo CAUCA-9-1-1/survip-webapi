@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using Survi.Prevention.ApiClient.DataTransferObjects;
+using Survi.Prevention.ServiceLayer.Import.Base;
 using Survi.Prevention.ServiceLayer.Tests.Import.FireHydrantImportation.Mocks;
 using Xunit;
 
@@ -21,7 +22,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.FireHydrantImportation
             Assert.True(entity.AddressLocationType == (Models.FireHydrants.FireHydrantAddressLocationType)imported.AddressLocationType
                         && entity.Altitude == imported.Altitude
                         && entity.CivicNumber == imported.CivicNumber
-                        && entity.Color == imported.Color
+                        && entity.Color == Color.FromArgb(imported.Color).ToHexString()
                         && entity.Comments == imported.Comments
                         && entity.IdCity == id
                         && entity.IdFireHydrantType == id
@@ -46,7 +47,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.FireHydrantImportation
             {
                 AddressLocationType = FireHydrantAddressLocationType.Above,
                 Altitude = 2, CivicNumber = "civic",
-                Color = Color.Blue.ToArgb().ToString(),
+                Color = Color.Blue.ToArgb(),
                 Comments = "comments",
                 IdCity = id.ToString(),
                 IdFireHydrantType = id.ToString(),

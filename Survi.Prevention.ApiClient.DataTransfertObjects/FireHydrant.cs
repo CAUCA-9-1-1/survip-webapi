@@ -1,5 +1,4 @@
-﻿using System;
-using Survi.Prevention.ApiClient.DataTransferObjects.Base;
+﻿using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 
 namespace Survi.Prevention.ApiClient.DataTransferObjects
 {
@@ -10,12 +9,12 @@ namespace Survi.Prevention.ApiClient.DataTransferObjects
 
         public decimal Altitude { get; set; }
         public string Number { get; set; }
-        public Decimal? RateFrom { get; set; }
-        public Decimal? RateTo { get; set; }
+        public decimal? RateFrom { get; set; }
+        public decimal? RateTo { get; set; }
 
-        public Decimal? PressureFrom { get; set; }
-        public Decimal? PressureTo { get; set; }
-        public string Color { get; set; }
+        public decimal? PressureFrom { get; set; }
+        public decimal? PressureTo { get; set; }
+        public int Color { get; set; }
         public string Comments { get; set; }
         public string PhysicalPosition { get; set; }
         public string CivicNumber { get; set; }
