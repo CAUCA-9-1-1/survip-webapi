@@ -30,7 +30,7 @@ namespace Survi.Prevention.Models
 		{
 			try
 			{
-				if (wrapper?.point == null)
+				if (string.IsNullOrEmpty(wrapper?.point))
 					return null;
 
 				var r = new NetTopologySuite.IO.WKTReader {DefaultSRID = 4326, HandleOrdinates = GeoAPI.Geometries.Ordinates.XY};

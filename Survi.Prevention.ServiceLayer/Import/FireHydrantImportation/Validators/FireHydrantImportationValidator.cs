@@ -38,7 +38,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
                 .When(m => m.LocationType == FireHydrantLocationType.Address || m.LocationType == FireHydrantLocationType.LaneAndIntersection);
 
             RuleFor(m => m.CivicNumber)
-                .NotNullOrEmpty()
+                .NotNullMaxLength(5)
                 .When(m => m.LocationType == FireHydrantLocationType.Address);
 
             RuleFor(m => m.IdIntersection)
@@ -50,7 +50,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
                 .When(m => m.LocationType == FireHydrantLocationType.Coordinates);
 
             RuleFor(m => m.PhysicalPosition)
-                .NotNullOrEmpty()
+                .NotNullMaxLength(200)
                 .When(m => m.LocationType == FireHydrantLocationType.Text);
 
             RuleFor(m => m.WktCoordinates)
