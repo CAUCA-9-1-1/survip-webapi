@@ -10,12 +10,13 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
     {
         public BuildingParticularRiskImportationValidator()
         {
+            RuleFor(m => m.Id)
+                .NotNullOrEmpty();
             RuleFor(m => m.RiskType)
                 .Must(type => Enum.IsDefined(typeof(ParticularRiskType), type))
                 .WithMessage("{PropertyName}_InvalidValue");
             RuleFor(m => m.IdBuilding)
                 .RequiredKeyIsValid();
-
             RuleFor(m => m.Dimension)
                 .MaxLength(100);
             RuleFor(m => m.Wall)
