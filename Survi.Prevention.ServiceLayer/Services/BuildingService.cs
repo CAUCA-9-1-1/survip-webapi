@@ -6,12 +6,16 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class BuildingService : BaseCrudService<Building>
+	public class BuildingService : BaseCrudServiceWithImportation<Building, ApiClient.DataTransferObjects.Building>
 	{
-		public BuildingService(IManagementContext context) : base(context)
+		public BuildingService(
+			IManagementContext context, 
+			IEntityConverter<ApiClient.DataTransferObjects.Building, Building> converter) 
+			: base(context, converter)
 		{
 		}
 

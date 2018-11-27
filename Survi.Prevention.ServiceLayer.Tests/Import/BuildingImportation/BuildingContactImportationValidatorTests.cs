@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 {
-    public class BuildingContactImportationValidatorTests
+    public class BuildingContactImportationValidatorTests: BaseImportValidatorMethodTests
     {
 	    private readonly BuildingContactImportationValidator validator;
 
@@ -37,8 +37,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [Theory]
 	    [InlineData("")]
 	    [InlineData("   ")]
-	    [InlineData(null)]
-	    
+	    [InlineData(null)]	    
 	    public void IdBuildingIsNotValidWhenEmpty(string idBuilding)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.IdBuilding, idBuilding);
@@ -54,7 +53,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData("")]
 	    [InlineData("   ")]
 	    [InlineData(null)]
-	    [InlineData("test de validation de la longueur d'un champs de type (chaine de caractères) de 100 caractères maximum. Celui-ci comprends une série de plus de 150 caractères")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:31)]
 	    public void FirstNameIsNotValidWhenEmptyOrTooLong(string firstName)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.FirstName, firstName);
@@ -70,7 +69,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData("")]
 	    [InlineData("   ")]
 	    [InlineData(null)]
-	    [InlineData("test de validation de la longueur d'un champs de type (chaine de caractères) de 100 caractères maximum. Celui-ci comprends une série de plus de 150 caractères")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:31)]
 	    public void LastNameIsNotValidWhenEmptyOrTooLong(string lastName)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.LastName, lastName);
@@ -86,7 +85,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData("")]
 	    [InlineData("   ")]
 	    [InlineData(null)]
-	    [InlineData("test de validation de la longueur d'un champs de type (chaine de caractères) de 100 caractères maximum. Celui-ci comprends une série de plus de 150 caractères")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:11)]
 	    public void PhoneNumberIsNotValidWhenEmptyOrTooLong(string phoneNumber)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.PhoneNumber, phoneNumber);
@@ -102,14 +101,14 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [Theory]
 	    [InlineData(1)]
 	    [InlineData(0)]
-	    public void QuantityIsValidWhenEqualOrGreaterThanZero(int callPriority)
+	    public void CallPriorityIsValidWhenEqualOrGreaterThanZero(int callPriority)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.CallPriority, callPriority);
 	    }
 
 	    [Theory]
 	    [InlineData("")]
-	    [InlineData("12345")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
 	    public void PhoneNumberExtensionIsValidWhenEmptyOrNotTooLong(string phoneExtension)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.PhoneNumberExtension, phoneExtension);
@@ -117,7 +116,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 
 	    [Theory]
 	    [InlineData(null)]
-	    [InlineData("10 caratères max")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:11)]
 	    public void PhoneNumberExtensionIsNotValidWhenEmptyOrTooLong(string phoneExtension)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.PhoneNumberExtension, phoneExtension);
@@ -126,7 +125,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 		
 	    [Theory]
 	    [InlineData("")]
-	    [InlineData("12345")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
 	    public void PagerNumberIsValidWhenEmptyOrNotTooLong(string pagerNumber)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.PagerNumber, pagerNumber);
@@ -134,7 +133,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 
 	    [Theory]
 	    [InlineData(null)]
-	    [InlineData("10 caratères max")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:11)]
 	    public void PagerNumberIsNotValidWhenEmptyOrTooLong(string pagerNumber)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.PagerNumber, pagerNumber);
@@ -142,7 +141,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 		
 	    [Theory]
 	    [InlineData("")]
-	    [InlineData("12345")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
 	    public void PagerCodeExtensionIsValidWhenEmptyOrNotTooLong(string pagerCode)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.PagerCode, pagerCode);
@@ -150,7 +149,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 
 	    [Theory]
 	    [InlineData(null)]
-	    [InlineData("10 caratères max")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:11)]
 	    public void PagerCodeIsNotValidWhenEmptyOrTooLong(string pagerCode)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.PagerCode, pagerCode);
@@ -158,7 +157,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 		
 	    [Theory]
 	    [InlineData("")]
-	    [InlineData("12345")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
 	    public void CellNumberExtensionIsValidWhenEmptyOrNotTooLong(string cellNumber)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.CellphoneNumber, cellNumber);
@@ -166,7 +165,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 
 	    [Theory]
 	    [InlineData(null)]
-	    [InlineData("10 caratères max")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:11)]
 	    public void CellNumberIsNotValidWhenEmptyOrTooLong(string cellNumber)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.CellphoneNumber, cellNumber);
@@ -174,7 +173,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 		
 	    [Theory]
 	    [InlineData("")]
-	    [InlineData("12345")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
 	    public void OtherPhoneNumberExtensionIsValidWhenEmptyOrNotTooLong(string otherNumber)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.OtherNumber, otherNumber);
@@ -182,7 +181,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 
 	    [Theory]
 	    [InlineData(null)]
-	    [InlineData("10 caratères max")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:11)]
 	    public void OtherPhoneNumberIsNotValidWhenEmptyOrTooLong(string otherNumber)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.OtherNumber, otherNumber);
@@ -190,7 +189,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 		
 	    [Theory]
 	    [InlineData("")]
-	    [InlineData("12345")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
 	    public void OtherPhoneExtensionIsValidWhenEmptyOrNotTooLong(string otherNumberExtension)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.OtherNumberExtension, otherNumberExtension);
@@ -198,10 +197,12 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 
 	    [Theory]
 	    [InlineData(null)]
-	    [InlineData("10 caratères max")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:11)]
 	    public void OtherPhoneExtensionIsNotValidWhenEmptyOrTooLong(string otherNumberExtension)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.OtherNumberExtension, otherNumberExtension);
 	    }
+
+	    
     }
 }

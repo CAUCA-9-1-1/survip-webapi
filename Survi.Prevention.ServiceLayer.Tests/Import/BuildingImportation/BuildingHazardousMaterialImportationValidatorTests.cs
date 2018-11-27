@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 {
-    public class BuildingHazardousMaterialImportationValidatorTests
+    public class BuildingHazardousMaterialImportationValidatorTests : BaseImportValidatorMethodTests
     {
 	    private readonly BuildingHazardousMaterialImportationValidator validator;
 
@@ -129,7 +129,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 
 	    [Theory]
 	    [InlineData(null)]
-	    [InlineData("Test de validation de la longueur d' un champs de type (chaine de caractères) de 100 caractères maximum. Celui-ci comprends une série de plus de 150 caractères")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:101)]
 	    public void ContainerIsNotValidWhenEmptyOrTooLong(string container)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingHazardousMaterial => buildingHazardousMaterial.Container, container);
@@ -161,7 +161,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 
 	    [Theory]
 	    [InlineData(null)]
-	    [InlineData("Test de validation de la longueur d' un champs de type (chaine de caractères) de 100 caractères maximum. Celui-ci comprends une série de plus de 150 caractères")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:101)]
 	    public void GasInletIsNotValidWhenEmptyOrTooLong(string gasInlet)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingHazardousMaterial => buildingHazardousMaterial.GasInlet, gasInlet);
@@ -177,7 +177,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 
 	    [Theory]
 	    [InlineData(null)]
-	    [InlineData("Test de validation de la longueur d' un champs de type (chaine de caractères) de 100 caractères maximum. Celui-ci comprends une série de plus de 150 caractères")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:151)]
 	    public void PlaceIsNotValidWhenEmptyOrTooLong(string place)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingHazardousMaterial => buildingHazardousMaterial.Place, place);
@@ -193,7 +193,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 
 	    [Theory]
 	    [InlineData(null)]
-	    [InlineData("Test de validation de la longueur d' un champs de type (chaine de caractères) de 100 caractères maximum. Celui-ci comprends une série de plus de 150 caractères")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:16)]
 	    public void SectorIsNotValidWhenEmptyOrTooLong(string sector)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingHazardousMaterial => buildingHazardousMaterial.Sector, sector);
@@ -209,7 +209,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 
 	    [Theory]
 	    [InlineData(null)]
-	    [InlineData("Test de validation de la longueur d' un champs de type (chaine de caractères) de 100 caractères maximum. Celui-ci comprends une série de plus de 150 caractères")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:51)]
 	    public void SupplyLineIsNotValidWhenEmptyOrTooLong(string supplyLine)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingHazardousMaterial => buildingHazardousMaterial.SupplyLine, supplyLine);
@@ -225,7 +225,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 
 	    [Theory]
 	    [InlineData(null)]
-	    [InlineData("Test de validation de la longueur d' un champs de type (chaine de caractères) de 100 caractères maximum. Celui-ci comprends une série de plus de 150 caractères")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:16)]
 	    public void WallIsNotValidWhenEmptyOrTooLong(string wall)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingHazardousMaterial => buildingHazardousMaterial.Wall, wall);

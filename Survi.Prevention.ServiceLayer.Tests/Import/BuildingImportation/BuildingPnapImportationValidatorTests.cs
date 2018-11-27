@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 {
-    public class BuildingPnapImportationValidatorTests
+    public class BuildingPnapImportationValidatorTests: BaseImportValidatorMethodTests
     {
 	    private readonly BuildingPnapImportationValidator validator;
 
@@ -99,7 +99,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 
 	    [Theory]
 	    [InlineData(null)]
-	    [InlineData("Test de validation de la longueur d' un champs de type (chaine de caractères) de 100 caractères maximum. Celui-ci comprends une série de plus de 150 caractères")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:61)]
 	    public void ContactNameIsNotValidWhenEmptyOrTooLong(string contactName)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingPnap => buildingPnap.ContactName, contactName);
@@ -115,7 +115,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 
 	    [Theory]
 	    [InlineData(null)]
-	    [InlineData("Test de validation de la longueur d' un champs de type (chaine de caractères) de 100 caractères maximum. Celui-ci comprends une série de plus de 150 caractères")]
+	    [InlineData("5555555555555")]
 	    public void ContactPhoneNumberIsNotValidWhenEmptyOrTooLong(string contactPhoneNumber)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingPnap => buildingPnap.ContactPhoneNumber, contactPhoneNumber);
@@ -163,7 +163,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 
 	    [Theory]
 	    [InlineData(null)]
-	    [InlineData("Test de validation de la longueur d' un champs de type (chaine de caractères) de 100 caractères maximum. Celui-ci comprends une série de plus de 150 caractères")]
+	    [MemberData(nameof(GetMaxLengthString), parameters:61)]
 	    public void PersonNameIsNotValidWhenEmptyOrTooLong(string personName)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingPnap => buildingPnap.PersonName, personName);
