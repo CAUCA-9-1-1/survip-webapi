@@ -16,10 +16,10 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
                 .NotNullOrEmptyWithMaxLength(10);
 
             RuleFor(m => m.PhysicalPosition)
-                .MaximumLength(200);
+                .MaximumLength(200).WithMessage("{PropertyName}_TooLong");
 
             RuleFor(m => m.CivicNumber)
-                .MaximumLength(50);
+                .MaximumLength(5).WithMessage("{PropertyName}_TooLong");
 
             RuleFor(m => m.IdCity).ForeignKeyExists();
 
@@ -38,7 +38,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
                 .When(m => m.LocationType == FireHydrantLocationType.Address || m.LocationType == FireHydrantLocationType.LaneAndIntersection);
 
             RuleFor(m => m.CivicNumber)
-                .NotNullMaxLength(5)
+                .NotNullOrEmptyWithMaxLength(5)
                 .When(m => m.LocationType == FireHydrantLocationType.Address);
 
             RuleFor(m => m.IdIntersection)
@@ -50,7 +50,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
                 .When(m => m.LocationType == FireHydrantLocationType.Coordinates);
 
             RuleFor(m => m.PhysicalPosition)
-                .NotNullMaxLength(200)
+                .NotNullOrEmptyWithMaxLength(200)
                 .When(m => m.LocationType == FireHydrantLocationType.Text);
 
             RuleFor(m => m.WktCoordinates)
@@ -79,7 +79,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
         {
             try
             {
-                if (coordinate == null)
+                if (string.IsNullOrEmpty(coordinate))
                     return null;
 
                 var r = new NetTopologySuite.IO.WKTReader {DefaultSRID = 4326, HandleOrdinates = GeoAPI.Geometries.Ordinates.XY};
