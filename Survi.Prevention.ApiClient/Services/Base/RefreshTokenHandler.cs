@@ -8,22 +8,63 @@ namespace Survi.Prevention.ApiClient.Services.Base
 {
     public class RefreshTokenHandler
     {
-        private Url GenerateRequest()
+        protected IConfiguration Configuration { get; set; }
+
+        public RefreshTokenHandler(IConfiguration configuration)
         {
-            return Configuration.Current.ApiBaseUrl
-                .AppendPathSegment("authentification")
+            Configuration = configuration;
+        }
+
+        private Url GenerateRefreshRequest()
+        {
+            return Configuration.ApiBaseUrl
+                .AppendPathSegment("Authentification")
                 .AppendPathSegment("refresh");
+        }
+
+        private Url GenerateLoginRequest()
+        {
+            return Configuration.ApiBaseUrl
+                .AppendPathSegment("Authentification")
+                .AppendPathSegment("login");
         }
 
         public async Task RefreshToken()
         {
             var token = await GetNewAccessToken();
-            Configuration.Current.LoginInfo.AccessToken = token;
+            Configuration.AccessToken = token;
+        }
+
+        public async Task Login()
+        {
+            var login = await GetInitialAccessToken();
+            Configuration.AccessToken = login.TokenForAccess;
+            Configuration.RefreshToken = login.RefreshToken;
+        }
+
+        private async Task<LoginResult> GetInitialAccessToken()
+        {
+            var request = GenerateLoginRequest();
+
+            try
+            {
+                var response = await request
+                    .PostJsonAsync(new { Configuration.UserName, Configuration.Password })
+                    .ReceiveJson<LoginResult>();
+                return response;
+            }
+            catch (FlurlHttpException exception)
+            {
+                if (exception.Call.IsUnauthorized())
+                    throw new InvalidCredentialException(Configuration.UserName);
+            }
+
+            return null;
         }
 
         private async Task<string> GetNewAccessToken()
         {
-            var request = GenerateRequest();
+            var request = GenerateRefreshRequest();
 
             try
             {
@@ -32,22 +73,23 @@ namespace Survi.Prevention.ApiClient.Services.Base
                     .ReceiveJson<TokenRefreshResult>();
                 return response.AccessToken;
             }
-            catch(FlurlHttpException exception)
+            catch (FlurlHttpException exception)
             {
                 if (exception.Call.RefreshTokenIsExpired())
                     throw new ExpiredRefreshTokenException();
                 if (exception.Call.RefreshTokenIsInvalid())
                     throw new InvalidRefreshTokenException();
             }
+
             return null;
         }
 
-        private static TokenRefreshResult GetRefreshTokenBody()
+        private TokenRefreshResult GetRefreshTokenBody()
         {
             return new TokenRefreshResult
             {
-                AccessToken = Configuration.Current.LoginInfo.AccessToken,
-                RefreshToken = Configuration.Current.LoginInfo.RefreshToken
+                AccessToken = Configuration.AccessToken,
+                RefreshToken = Configuration.RefreshToken
             };
         }
     }
