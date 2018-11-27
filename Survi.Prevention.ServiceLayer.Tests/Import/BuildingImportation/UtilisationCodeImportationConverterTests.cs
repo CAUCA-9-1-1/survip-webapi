@@ -18,39 +18,4 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
             Assert.True(imported.Scian == existing.Scian && imported.Cubf == existing.Cubf);
         }
     }
-
-    public class BuildingSprinklerImportationConverterTests
-    {
-
-    }
-
-    public class BuildingAlarmPanelImportationConverterTests
-    {
-
-    }
-
-    public class BuildingParticularRiskImportationConverterTests
-    {
-
-    }
-
-    public class BuildingParticularRiskPictureImportationConverterTests
-    {
-
-    }
-
-    public class BuildingAnomalyImportationConverterTests
-    {
-
-    }
-
-    public class BuildingAnomalyPictureImportationConverterTests
-    {
-
-    }
-
-    public class BuildingDetailImportationConverterTests
-    {
-
-    }
-}
+ }
