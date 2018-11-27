@@ -13,7 +13,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BaseEntityConverterTests.Mo
         public bool HasUsedAnExistingCountry { get; set; }
 
         public BaseEntityConverterMock(IManagementContext context, AbstractValidator<Imported.Country> validator)
-            : base(context, validator)
+            : base(context, validator, null)
         {
         }
 

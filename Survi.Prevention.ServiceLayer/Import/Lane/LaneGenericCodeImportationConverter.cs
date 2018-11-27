@@ -8,7 +8,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Lane
 {
 	public class LaneGenericCodeImportationConverter : BaseEntityConverter<importedGenericCode, LaneGenericCode>
 	{
-		public LaneGenericCodeImportationConverter(IManagementContext context, AbstractValidator<importedGenericCode> validator) : base(context, validator)
+		public LaneGenericCodeImportationConverter(IManagementContext context, AbstractValidator<importedGenericCode> validator) : base(context, validator, null)
 		{
 		}
 

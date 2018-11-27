@@ -75,6 +75,7 @@ namespace Survi.Prevention.WebApi
 			services.InjectDataServices();
 		    services.InjectValidators();
 		    services.InjectImportationConverters();
+		    services.InjectConverterCustomFieldsCopiers();
 			services.InjectReportHandlers();
 		}
 

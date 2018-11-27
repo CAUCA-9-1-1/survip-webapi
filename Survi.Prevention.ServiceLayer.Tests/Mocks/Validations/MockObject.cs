@@ -4,5 +4,8 @@
     {
         public string SomeProperty { get; set; }
         public string SomeOtherProperty { get; set; }
+
+        public string SomeRequiredForeignKey { get; set; }
+        public string SomeOptionalForeignKey { get; set; }
     }
 }

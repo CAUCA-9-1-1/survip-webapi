@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System;
+using FluentValidation;
 using FluentValidation.TestHelper;
 using Survi.Prevention.ServiceLayer.Tests.Mocks.Validations;
 using Xunit;
@@ -50,6 +51,52 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import
         {
             mockValidator.ShouldHaveValidationErrorFor(mock => mock.SomeOtherProperty, "123456")
                 .WithErrorMessage("SomeOtherProperty_InvalidValue");
+        }
+
+        [Fact]
+        public void RequiredKeyIsInvalidWhenIsEmptyGuid()
+        {
+            mockValidator.ShouldHaveValidationErrorFor(mock => mock.SomeRequiredForeignKey, Guid.Empty.ToString())
+                .WithErrorMessage("SomeRequiredForeignKey_UnknownValue");
+        }
+
+        [Fact]
+        public void RequiredKeyIsInvalidWhenNull()
+        {
+            mockValidator.ShouldHaveValidationErrorFor(mock => mock.SomeRequiredForeignKey, null as string)
+                .WithErrorMessage("SomeRequiredForeignKey_MissingValue");
+        }
+
+        [Fact]
+        public void RequiredKeyIsInvalidWhenEmpty()
+        {
+            mockValidator.ShouldHaveValidationErrorFor(mock => mock.SomeRequiredForeignKey, string.Empty)
+                .WithErrorMessage("SomeRequiredForeignKey_MissingValue");
+        }
+
+        [Fact]
+        public void RequiredKeyIsValidWhenGuid()
+        {
+            mockValidator.ShouldNotHaveValidationErrorFor(mock => mock.SomeRequiredForeignKey, Guid.NewGuid().ToString());
+        }
+
+        [Fact]
+        public void OptionalKeyIsInvalidWhenIsEmptyGuid()
+        {
+            mockValidator.ShouldHaveValidationErrorFor(mock => mock.SomeOptionalForeignKey, Guid.Empty.ToString())
+                .WithErrorMessage("SomeOptionalForeignKey_UnknownValue");
+        }
+
+        [Fact]
+        public void OptionalKeyIsValidWhenGuid()
+        {
+            mockValidator.ShouldNotHaveValidationErrorFor(mock => mock.SomeOptionalForeignKey, Guid.NewGuid().ToString());
+        }
+
+        [Fact]
+        public void OptionalKeyIsValidWhenNull()
+        {
+            mockValidator.ShouldNotHaveValidationErrorFor(mock => mock.SomeOptionalForeignKey, null as string);
         }
     }
 }
