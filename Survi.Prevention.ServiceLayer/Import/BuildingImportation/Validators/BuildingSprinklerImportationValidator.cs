@@ -9,11 +9,12 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
     {
         public BuildingSprinklerImportationValidator()
         {
+            RuleFor(m => m.Id)
+                .NotNullOrEmpty();
             RuleFor(m => m.IdSprinklerType)
                 .RequiredKeyIsValid();
             RuleFor(m => m.IdBuilding)
                 .RequiredKeyIsValid();
-
             RuleFor(m => m.Floor)
                 .MaxLength(100);
             RuleFor(m => m.Wall)

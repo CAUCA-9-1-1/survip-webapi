@@ -9,6 +9,8 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
     {
         public BuildingAnomalyImportationValidator()
         {
+            RuleFor(m => m.Id)
+                .NotNullOrEmpty();
             RuleFor(m => m.IdBuilding)
                 .RequiredKeyIsValid();
             RuleFor(m => m.Theme)
