@@ -20,6 +20,8 @@ namespace Survi.Prevention.ApiClient.DataTransferObjects
         public string PhysicalPosition { get; set; }
         public string CivicNumber { get; set; }
         public FireHydrantAddressLocationType AddressLocationType { get; set; }
+        public OperatorType RateOperatorType { get; set; } = OperatorType.Equal;
+        public OperatorType PressureOperatorType { get; set; } = OperatorType.Equal;
 
         public string IdCity { get; set; }
         public string IdLane { get; set; }

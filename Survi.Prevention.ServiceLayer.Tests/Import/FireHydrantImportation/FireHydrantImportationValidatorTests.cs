@@ -123,5 +123,53 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.FireHydrantImportation
         {
             validator.ShouldNotHaveValidationErrorFor(m => m.WktCoordinates, "POINT (30 10)");
         }
+
+        [Fact]
+        public void RateOperatorIsInvalidWhenValueNotInEnum()
+        {
+            validator.ShouldHaveValidationErrorFor(m => m.RateOperatorType, (OperatorType)22);
+        }
+
+        [Fact]
+        public void PressureOperatorIsInvalidWhenValueNotInEnum()
+        {
+            validator.ShouldHaveValidationErrorFor(m => m.PressureOperatorType, (OperatorType)22);
+        }
+
+        [Fact]
+        public void AddressLocationIsInvalidWhenValueNotInEnum()
+        {
+            validator.ShouldHaveValidationErrorFor(m => m.AddressLocationType, (FireHydrantAddressLocationType)22);
+        }
+
+        [Fact]
+        public void LocationTypeIsInvalidWhenValueNotInEnum()
+        {
+            validator.ShouldHaveValidationErrorFor(m => m.LocationType, (FireHydrantLocationType)22);
+        }
+
+        [Fact]
+        public void RateOperatorIsValidWhenValueInEnum()
+        {
+            validator.ShouldNotHaveValidationErrorFor(m => m.RateOperatorType, OperatorType.Greater);
+        }
+
+        [Fact]
+        public void PressureOperatorIsValidWhenValueInEnum()
+        {
+            validator.ShouldNotHaveValidationErrorFor(m => m.PressureOperatorType, OperatorType.Greater);
+        }
+
+        [Fact]
+        public void AddressLocationTypeIsValidWhenValueInEnum()
+        {
+            validator.ShouldNotHaveValidationErrorFor(m => m.AddressLocationType, FireHydrantAddressLocationType.AtEnd);
+        }
+
+        [Fact]
+        public void LocationTypeIsValidWhenValueInEnum()
+        {
+            validator.ShouldNotHaveValidationErrorFor(m => m.LocationType, FireHydrantLocationType.Coordinates);
+        }
     }
 }

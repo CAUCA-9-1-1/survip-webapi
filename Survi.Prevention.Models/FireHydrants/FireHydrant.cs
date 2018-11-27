@@ -61,7 +61,10 @@ namespace Survi.Prevention.Models.FireHydrants
 		public string CivicNumber { get; set; }
 		public FireHydrantAddressLocationType AddressLocationType { get; set; }
 
-		public Guid IdCity { get; set; }
+	    public OperatorType RateOperatorType { get; set; } = OperatorType.Equal;
+	    public OperatorType PressureOperatorType { get; set; } = OperatorType.Equal;
+
+        public Guid IdCity { get; set; }
 		public Guid? IdLane { get; set; }
 		public Guid? IdIntersection { get; set; }
 		public Guid IdFireHydrantType { get; set; }
@@ -71,9 +74,7 @@ namespace Survi.Prevention.Models.FireHydrants
 		public City City { get; set; }
 		public Lane Lane { get; set; }
 		public Lane Intersection { get; set; }
-		public FireHydrantType HydrantType { get; set; }
-		public OperatorType RateOperatorType { get; set; } = OperatorType.Equal;
-		public OperatorType PressureOperatorType { get; set; } = OperatorType.Equal;
+		public FireHydrantType HydrantType { get; set; }		
 		public UnitOfMeasure RateUnitOfMeasure { get; set; }
 		public UnitOfMeasure PressureUnitOfMeasure { get; set; }		
 

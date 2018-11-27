@@ -43,6 +43,8 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation
             entity.PressureTo = importedObject.PressureTo;
             entity.RateFrom = importedObject.RateFrom;
             entity.RateTo = importedObject.RateTo;
+            entity.PressureOperatorType = (Models.FireHydrants.OperatorType) importedObject.PressureOperatorType;
+            entity.RateOperatorType = (Models.FireHydrants.OperatorType) importedObject.RateOperatorType;
         }
 
         protected override void GetRealForeignKeys(FireHydrant importedObject)
