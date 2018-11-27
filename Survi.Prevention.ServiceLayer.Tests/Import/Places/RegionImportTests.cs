@@ -11,12 +11,11 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
     public class RegionImportTests
     {
 	    private readonly regionImported.Region importedRegion;
-	    private Region existingRegion;
-	    private RegionImportationConverter service;
+        private RegionImportationConverter service;
 
 	    public RegionImportTests()
 	    {
-		    importedRegion = new regionImported.Region
+	        importedRegion = new regionImported.Region
 		    {
 			    Id = "region1",
 			    Code = "PhilRegion",
@@ -29,12 +28,12 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 			    }
 		    };
 
-		    existingRegion = new Region
+		    var existingRegion = new Region
 		    {
-			    Id = Guid.NewGuid(),
-			    Code = "CO",
-			    IdState = Guid.NewGuid(),
-			    IsActive = true,
+		        Id = Guid.NewGuid(),
+		        Code = "CO",
+		        IdState = Guid.NewGuid(),
+		        IsActive = true,
 		    };
 		    existingRegion.Localizations = new List<RegionLocalization>
 		    {

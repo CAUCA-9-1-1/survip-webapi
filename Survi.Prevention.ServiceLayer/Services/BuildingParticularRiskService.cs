@@ -8,7 +8,7 @@ using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.Buildings.Base;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
-using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {

@@ -1,7 +1,8 @@
 ﻿using System;
 using Survi.Prevention.ApiClient.DataTransferObjects;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
-namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
+namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.CustomFieldsCopiers
 {
     public class BuildingSprinklerCustomFieldsCopier
         : BaseCustomFieldsCopier<BuildingSprinkler, Models.Buildings.BuildingSprinkler>

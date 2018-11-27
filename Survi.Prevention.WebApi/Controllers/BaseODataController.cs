@@ -25,11 +25,8 @@ namespace Survi.Prevention.WebApi.Controllers
 
 		protected string ReadBody()
 		{
-			string body = "";
 			using (var reader = new StreamReader(Request.Body))
-				body = reader.ReadToEnd();
-
-			return body;
+				return reader.ReadToEnd();
 		}
 	}
 }

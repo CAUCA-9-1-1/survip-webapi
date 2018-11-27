@@ -5,7 +5,7 @@ using FluentValidation.Results;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Base;
-using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
+using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
 namespace Survi.Prevention.ServiceLayer.Import.Base

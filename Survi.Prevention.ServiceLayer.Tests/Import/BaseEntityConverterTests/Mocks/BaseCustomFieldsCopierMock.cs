@@ -1,8 +1,8 @@
 ﻿using System;
-using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
+using Survi.Prevention.ServiceLayer.Import.Base;
 using BuildingAnomaly = Survi.Prevention.ApiClient.DataTransferObjects.BuildingAnomaly;
 
-namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Mocks
+namespace Survi.Prevention.ServiceLayer.Tests.Import.BaseEntityConverterTests.Mocks
 {
     public class BaseCustomFieldsCopierMock : BaseCustomFieldsCopier<BuildingAnomaly, Models.Buildings.BuildingAnomaly>
     {

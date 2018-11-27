@@ -6,12 +6,13 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 {
 	public static class ReflectionExtensions
 	{
-		/// <summary>
-		/// Extension for 'Object' that copies the properties to a destination object.
-		/// </summary>
-		/// <param name="source">The source.</param>
-		/// <param name="destination">The destination.</param>
-		public static void CopyProperties(this object source, object destination, params string[] ignoredProperties)
+	    /// <summary>
+	    /// Extension for 'Object' that copies the properties to a destination object.
+	    /// </summary>
+	    /// <param name="source">The source.</param>
+	    /// <param name="destination">The destination.</param>
+	    /// <param name="ignoredProperties"></param>
+	    public static void CopyProperties(this object source, object destination, params string[] ignoredProperties)
 		{
 			// If any this null throw an exception
 			if (source == null || destination == null)

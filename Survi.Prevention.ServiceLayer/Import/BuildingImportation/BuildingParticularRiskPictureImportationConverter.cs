@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 
 namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
 {

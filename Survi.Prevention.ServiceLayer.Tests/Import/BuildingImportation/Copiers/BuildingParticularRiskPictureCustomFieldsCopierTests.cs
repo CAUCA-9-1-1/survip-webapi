@@ -2,10 +2,10 @@
 using System.Text;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.Models;
-using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
+using Survi.Prevention.ServiceLayer.Import.BuildingImportation.CustomFieldsCopiers;
 using Xunit;
 
-namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
+namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Copiers
 {
     public class BuildingParticularRiskPictureCustomFieldsCopierTests
     {

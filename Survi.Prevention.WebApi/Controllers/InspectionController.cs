@@ -21,7 +21,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(typeof(bool), 200)]
 		public ActionResult ApproveInspection(Guid id)
 		{
-			return Ok(service.SetStatus(InspectionStatus.Approved, id, null));
+			return Ok(service.SetStatus(InspectionStatus.Approved, id));
 		}
 
         [HttpPost, Route("{id:Guid}/refuse")]
@@ -37,7 +37,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[ProducesResponseType(typeof(bool), 200)]
 		public ActionResult CancelInspection(Guid id)
 		{
-			service.SetStatus(InspectionStatus.Canceled, id, null);
+			service.SetStatus(InspectionStatus.Canceled, id);
 			service.Remove(id);
 
 			return Ok(true);

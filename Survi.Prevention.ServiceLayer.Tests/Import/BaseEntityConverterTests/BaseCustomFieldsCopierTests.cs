@@ -1,9 +1,9 @@
 ﻿using System;
 using Survi.Prevention.ApiClient.DataTransferObjects;
-using Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Mocks;
+using Survi.Prevention.ServiceLayer.Tests.Import.BaseEntityConverterTests.Mocks;
 using Xunit;
 
-namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
+namespace Survi.Prevention.ServiceLayer.Tests.Import.BaseEntityConverterTests
 {
     public class BaseCustomFieldsCopierTests
     {

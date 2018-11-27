@@ -1,8 +1,9 @@
 ﻿using System;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.Models.Base;
+using Survi.Prevention.ServiceLayer.Import.Base;
 
-namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
+namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.CustomFieldsCopiers
 {
     public class BuildingDetailCustomFieldsCopier 
         : BaseCustomFieldsCopierWithPicture<BuildingDetail, Models.Buildings.BuildingDetail>
