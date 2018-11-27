@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -10,9 +11,10 @@ using Survi.Prevention.DataLayer;
 namespace Survi.Prevention.DataLayer.Migrations
 {
     [DbContext(typeof(ManagementContext))]
-    partial class ManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20181127163858_Issue200-MissingFields")]
+    partial class Issue200MissingFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2358,12 +2360,6 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<decimal>("Diameter")
                         .HasColumnName("diameter");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid>("IdFireHydrant")
                         .HasColumnName("id_fire_hydrant");
 
@@ -2375,9 +2371,6 @@ namespace Survi.Prevention.DataLayer.Migrations
 
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime?>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -2406,17 +2399,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("created_on");
 
-                    b.Property<bool>("HasBeenModified")
-                        .HasColumnName("has_been_modified");
-
-                    b.Property<string>("IdExtern")
-                        .HasColumnName("id_extern");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
-
-                    b.Property<DateTime?>("ImportedOn")
-                        .HasColumnName("imported_on");
 
                     b.Property<bool>("IsActive")
                         .HasColumnName("is_active");
@@ -2430,8 +2414,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.ToTable("fire_hydrant_connection_type");
 
                     b.HasData(
-                        new { Id = new Guid("7358ab2d-d6f2-4d0f-af9a-a2146e0c46b1"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, IsActive = true },
-                        new { Id = new Guid("0fc2d8b3-5485-48eb-9573-0ad7d9ca2edb"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), HasBeenModified = false, IsActive = true }
+                        new { Id = new Guid("7358ab2d-d6f2-4d0f-af9a-a2146e0c46b1"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true },
+                        new { Id = new Guid("0fc2d8b3-5485-48eb-9573-0ad7d9ca2edb"), CreatedOn = new DateTime(2018, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsActive = true }
                     );
                 });
 
