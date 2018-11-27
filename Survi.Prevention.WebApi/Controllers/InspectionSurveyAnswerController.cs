@@ -5,7 +5,6 @@ using Survi.Prevention.Models.InspectionManagement;
 using Survi.Prevention.ServiceLayer.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Survi.Prevention.WebApi.Controllers
 {

@@ -1,8 +1,8 @@
-﻿using Xunit;
-using FluentValidation.TestHelper;
+﻿using FluentValidation.TestHelper;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators;
+using Xunit;
 
-namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
+namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validators
 {
     public class UtilisationCodeImportationValidatorTests
     {

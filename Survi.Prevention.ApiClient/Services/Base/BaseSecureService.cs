@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Flurl;
 using Flurl.Http;
 using Survi.Prevention.ApiClient.Configurations;
@@ -40,7 +39,6 @@ namespace Survi.Prevention.ApiClient.Services.Base
         {
             await new RefreshTokenHandler()
                 .RefreshToken();
-            Console.WriteLine("Reauthenticated...");
             return await ExecuteRequest(entity);
         }
 

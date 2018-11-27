@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 using BuildingParticularRisk = Survi.Prevention.ApiClient.DataTransferObjects.BuildingParticularRisk;
 using ParticularRiskType = Survi.Prevention.ApiClient.DataTransferObjects.ParticularRiskType;
 

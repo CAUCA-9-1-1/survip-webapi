@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentValidation.TestHelper;
+﻿using FluentValidation.TestHelper;
 using Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment;
 using Xunit;
 

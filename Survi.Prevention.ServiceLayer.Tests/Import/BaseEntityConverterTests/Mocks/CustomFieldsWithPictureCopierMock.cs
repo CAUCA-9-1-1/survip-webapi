@@ -1,6 +1,6 @@
-﻿using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
+﻿using Survi.Prevention.ServiceLayer.Import.BuildingImportation.CustomFieldsCopiers;
 
-namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Mocks
+namespace Survi.Prevention.ServiceLayer.Tests.Import.BaseEntityConverterTests.Mocks
 {
     public class CustomFieldsWithPictureCopierMock : BuildingParticularRiskPictureCustomFieldCopier
     {

@@ -38,7 +38,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
                 httpTest.RespondWithJson(new ImportationResult());
 
                 var country = new Country();
-                var repo = new Mocks.MockSecureRepository();
+                var repo = new MockSecureRepository();
                 await repo.SendAsync(country);
 
                 httpTest.ShouldHaveCalled("http://test/mock")
@@ -59,7 +59,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
                     .RespondWithJson(new ImportationResult());
 
                 var country = new Country();
-                var repo = new Mocks.MockSecureRepository();
+                var repo = new MockSecureRepository();
                 await repo.SendAsync(country);
 
                 httpTest.ShouldHaveCalled("http://test/mock")

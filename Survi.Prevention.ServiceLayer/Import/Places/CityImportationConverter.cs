@@ -3,7 +3,6 @@ using FluentValidation;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Base;
-using System.Linq;
 using ImportedCity = Survi.Prevention.ApiClient.DataTransferObjects.City;
 
 namespace Survi.Prevention.ServiceLayer.Import.Places

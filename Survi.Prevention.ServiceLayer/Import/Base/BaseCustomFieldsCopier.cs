@@ -1,8 +1,9 @@
 ﻿using System;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 using Survi.Prevention.Models.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 
-namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
+namespace Survi.Prevention.ServiceLayer.Import.Base
 {
     public abstract class BaseCustomFieldsCopier<TIn, TOut> : ICustomFieldsCopier<TIn, TOut>
         where TIn : BaseTransferObject

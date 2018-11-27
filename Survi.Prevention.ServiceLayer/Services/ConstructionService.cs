@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
-using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 using ImportConstructionType = Survi.Prevention.ApiClient.DataTransferObjects.ConstructionType;
 using ImportFireResistanceType = Survi.Prevention.ApiClient.DataTransferObjects.ConstructionFireResistanceType;
 using ImportSidingType = Survi.Prevention.ApiClient.DataTransferObjects.SidingType;

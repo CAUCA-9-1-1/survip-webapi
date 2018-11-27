@@ -4,7 +4,7 @@ using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.DataLayer;
 using ImportedPublicCode = Survi.Prevention.ApiClient.DataTransferObjects.LanePublicCode;
 using Survi.Prevention.Models.FireSafetyDepartments;
-using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {

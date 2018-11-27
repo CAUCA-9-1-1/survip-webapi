@@ -6,14 +6,14 @@ using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.FireSafetyDepartments;
-using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 using importedFireDeptCityServing = Survi.Prevention.ApiClient.DataTransferObjects.FireSafetyDepartmentCityServing;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class FireSafetyDepartmentService : BaseCrudServiceWithImportation<FireSafetyDepartment, ApiClient.DataTransferObjects.FireSafetyDepartment>
 	{
-		private IEntityConverter<importedFireDeptCityServing, FireSafetyDepartmentCityServing> cityServingConverter;
+		private readonly IEntityConverter<importedFireDeptCityServing, FireSafetyDepartmentCityServing> cityServingConverter;
 
 		public FireSafetyDepartmentService(
 			IManagementContext context, 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.FireSafetyDepartments;
-using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 using importedLane = Survi.Prevention.ApiClient.DataTransferObjects.Lane;
 
 namespace Survi.Prevention.ServiceLayer.Services
