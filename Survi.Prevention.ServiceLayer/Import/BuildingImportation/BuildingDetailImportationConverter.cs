@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.ApiClient.DataTransferObjects;
@@ -14,9 +13,10 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
             Models.Buildings.BuildingDetail>
     {
         public BuildingDetailImportationConverter(
-            IManagementContext context,
-            AbstractValidator<BuildingDetail> validator)
-            : base(context, validator)
+            IManagementContext context, 
+            AbstractValidator<BuildingDetail> validator, 
+            ICustomFieldsCopier<BuildingDetail, Models.Buildings.BuildingDetail> copier) 
+            : base(context, validator, copier)
         {
         }
 
@@ -39,47 +39,6 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
             return Context.Set<Models.Buildings.BuildingDetail>()
                 .Include(pic => pic.PlanPicture)
                 .FirstOrDefault(pic => pic.IdExtern == externalId);
-        }
-
-        protected override void CopyCustomFieldsToEntity(
-            BuildingDetail importedObject,
-            Models.Buildings.BuildingDetail entity)
-        {
-            CreatePictureWhenNeeded(importedObject, entity);
-
-            entity.IdBuilding = Guid.Parse(importedObject.IdBuilding);
-            entity.IdBuildingSidingType = ParseId(importedObject.IdBuildingSidingType);
-            entity.IdBuildingType = ParseId(importedObject.IdBuildingType);
-            entity.IdConstructionFireResistanceType = ParseId(importedObject.IdConstructionFireResistanceType);
-            entity.IdConstructionType = ParseId(importedObject.IdConstructionType);
-            entity.IdRoofMaterialType = ParseId(importedObject.IdRoofMaterialType);
-            entity.IdRoofType = ParseId(importedObject.IdRoofType);
-            entity.IdUnitOfMeasureEstimatedWaterFlow = ParseId(importedObject.IdUnitOfMeasureEstimatedWaterFlow);
-            entity.IdUnitOfMeasureHeight = ParseId(importedObject.IdUnitOfMeasureHeight);
-            entity.AdditionalInformation = importedObject.AdditionalInformation;
-            entity.ApprovedOn = importedObject.ApprovedOn;
-            entity.EstimatedWaterFlow = importedObject.EstimatedWaterFlow;
-            entity.Height = importedObject.Height;                       
-
-            CopyPictureFields(importedObject, entity);
-        }
-
-        private static void CopyPictureFields(BuildingDetail importedObject, Models.Buildings.BuildingDetail entity)
-        {
-            if (entity.PlanPicture != null && importedObject.PictureData != null)
-            {
-                entity.PlanPicture.Data = importedObject.PictureData;
-                entity.PlanPicture.Name = importedObject.PictureName;
-                entity.PlanPicture.SketchJson = importedObject.SketchJson;
-            }
-        }
-
-        private static void CreatePictureWhenNeeded(BuildingDetail importedObject, Models.Buildings.BuildingDetail entity)
-        {
-            if (entity.PlanPicture == null && importedObject.PictureData != null)
-            {
-                entity.PlanPicture = new Models.Picture();
-            }
         }
     }
 }

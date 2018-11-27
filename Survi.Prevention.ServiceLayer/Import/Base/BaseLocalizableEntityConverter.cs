@@ -16,7 +16,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
         protected BaseLocalizableEntityConverter(
             IManagementContext context, 
             AbstractValidator<TIn> validator) 
-            : base(context, validator)
+            : base(context, validator, null)
         {}
 
         protected override void CopyImportedFieldsToEntity(TIn importedObject, TOut entity)

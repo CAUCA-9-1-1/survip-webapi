@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.ApiClient.DataTransferObjects;
@@ -14,9 +13,10 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
             Models.Buildings.BuildingAnomalyPicture>
     {
         public BuildingAnomalyPictureImportationConverter(
-            IManagementContext context,
-            AbstractValidator<BuildingAnomalyPicture> validator)
-            : base(context, validator)
+            IManagementContext context, 
+            AbstractValidator<BuildingAnomalyPicture> validator, 
+            ICustomFieldsCopier<BuildingAnomalyPicture, Models.Buildings.BuildingAnomalyPicture> copier) 
+            : base(context, validator, copier)
         {
         }
 
@@ -42,17 +42,6 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
                 entity.Picture = new Models.Picture();
 
             return entity;
-        }
-
-        protected override void CopyCustomFieldsToEntity(
-            BuildingAnomalyPicture importedObject,
-            Models.Buildings.BuildingAnomalyPicture entity)
-        {
-            entity.IdBuildingAnomaly = Guid.Parse(importedObject.IdBuildingAnomaly);
-            entity.Picture.Data = importedObject.PictureData;
-            entity.Picture.Name = importedObject.PictureName;
-            entity.Picture.MimeType = importedObject.MimeType;
-            entity.Picture.SketchJson = importedObject.SketchJson;
         }
     }
 }

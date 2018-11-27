@@ -1,5 +1,4 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.ServiceLayer.Import.Base;
@@ -11,10 +10,12 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
             BuildingAlarmPanel,
             Models.Buildings.BuildingAlarmPanel>
     {
+
         public BuildingAlarmPanelImportationConverter(
-            IManagementContext context,
-            AbstractValidator<BuildingAlarmPanel> validator)
-            : base(context, validator)
+            IManagementContext context, 
+            AbstractValidator<BuildingAlarmPanel> validator, 
+            ICustomFieldsCopier<BuildingAlarmPanel, Models.Buildings.BuildingAlarmPanel> copier) 
+            : base(context, validator, copier)
         {
         }
 
@@ -22,17 +23,6 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
         {
             importedObject.IdAlarmPanelType = GetRealId<Models.Buildings.AlarmPanelType>(importedObject.IdAlarmPanelType);
             importedObject.IdBuilding = GetRealId<Models.Buildings.Building>(importedObject.IdBuilding);
-        }
-
-        protected override void CopyCustomFieldsToEntity(
-            BuildingAlarmPanel importedObject,
-            Models.Buildings.BuildingAlarmPanel entity)
-        {
-            entity.Floor = importedObject.Floor;
-            entity.IdBuilding = Guid.Parse(importedObject.IdBuilding);
-            entity.IdAlarmPanelType = Guid.Parse(importedObject.IdAlarmPanelType);
-            entity.Sector = importedObject.Sector;
-            entity.Wall = importedObject.Wall;
         }
     }
 }

@@ -176,5 +176,18 @@ namespace Survi.Prevention.WebApi
 
             return services;
         }
+
+        public static IServiceCollection InjectConverterCustomFieldsCopiers(this IServiceCollection services)
+        {
+            services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.BuildingParticularRisk, Models.Buildings.Base.BuildingParticularRisk>, BuildingParticularRiskCustomFieldsCopier>();
+            services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.BuildingParticularRiskPicture, BuildingParticularRiskPicture>, BuildingParticularRiskPictureCustomFieldCopier>();
+            services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.BuildingAnomaly, BuildingAnomaly>, BuildingAnomalyCustomFieldsCopier>();
+            services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.BuildingAnomalyPicture, BuildingAnomalyPicture>, BuildingAnomalyPictureCustomFieldCopier>();
+            services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.BuildingDetail, BuildingDetail>, BuildingDetailCustomFieldsCopier>();
+            services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.BuildingAlarmPanel, BuildingAlarmPanel>, BuildingAlarmPanelCustomFieldsCopier>();
+            services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.BuildingSprinkler, BuildingSprinkler>, BuildingSprinklerCustomFieldsCopier>();
+
+            return services;
+        }
     }
 }

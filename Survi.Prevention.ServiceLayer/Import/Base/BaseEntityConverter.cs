@@ -5,6 +5,7 @@ using FluentValidation.Results;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Base;
+using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
 using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
 namespace Survi.Prevention.ServiceLayer.Import.Base
@@ -16,13 +17,16 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
     {
         protected IManagementContext Context { get; set; }
         protected AbstractValidator<TIn> Validator { get; set; }
+        protected ICustomFieldsCopier<TIn, TOut> CustomFieldsCopier;
 
         protected BaseEntityConverter(
-            IManagementContext context, 
-            AbstractValidator<TIn> validator)
+            IManagementContext context,            
+            AbstractValidator<TIn> validator,
+            ICustomFieldsCopier<TIn,TOut> copier)
         {
             Context = context;
             Validator = validator;
+            CustomFieldsCopier = copier;
         }
 
         public virtual ConversionResult<TOut> Convert(TIn importedObject)
@@ -80,7 +84,10 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
             CopyCustomFieldsToEntity(importedObject, entity);
         }
 
-        protected abstract void CopyCustomFieldsToEntity(TIn importedObject, TOut entity);
+        protected virtual void CopyCustomFieldsToEntity(TIn importedObject, TOut entity)
+        {
+            CustomFieldsCopier?.DuplicateFieldsValues(importedObject, entity);
+        }
 
         private ConversionResult<TOut> GetConversionResult(
             TOut convertedEntity, 

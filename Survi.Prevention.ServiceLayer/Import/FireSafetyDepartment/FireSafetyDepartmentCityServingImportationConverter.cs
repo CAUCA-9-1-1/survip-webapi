@@ -11,7 +11,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment
     public class FireSafetyDepartmentCityServingImportationConverter: BaseEntityConverter<importedFireDepCity, FireSafetyDepartmentCityServing>
     {
 	    public FireSafetyDepartmentCityServingImportationConverter(IManagementContext context,
-		    AbstractValidator<importedFireDepCity> validator) : base(context, validator)
+		    AbstractValidator<importedFireDepCity> validator) : base(context, validator, null)
 	    {
 
 	    }
