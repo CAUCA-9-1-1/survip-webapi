@@ -1,7 +1,5 @@
-﻿using System.Text;
-using FluentValidation;
+﻿using FluentValidation;
 using Survi.Prevention.DataLayer;
-using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.ServiceLayer.Import.Base;
 using ImportedHydrantType = Survi.Prevention.ApiClient.DataTransferObjects.FireHydrantType;

@@ -10,7 +10,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.FireHydrantImportation
         public void CustomFieldsAreBeingCopied()
         {
             var unit = new UnitOfMeasure { Abbreviation = "BC", MeasureType = MeasureType.Capacity };
-            var entity = new Models.UnitOfMeasure { };
+            var entity = new Models.UnitOfMeasure( );
 
             var converter = new UnitOfMeasureImportationConverterMock();
             converter.CopyCustomFields(unit, entity);
