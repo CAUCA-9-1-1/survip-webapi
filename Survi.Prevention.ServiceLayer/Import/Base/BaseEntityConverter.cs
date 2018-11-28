@@ -110,7 +110,6 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
             if (string.IsNullOrWhiteSpace(externId))
                 return null;
             var query = Context.Set<T>()
-                .IgnoreQueryFilters()
                 .Where(m => m.IdExtern == externId)
                 .Select(m => m.Id);
 
