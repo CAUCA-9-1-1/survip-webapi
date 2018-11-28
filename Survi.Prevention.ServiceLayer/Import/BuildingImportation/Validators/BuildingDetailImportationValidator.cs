@@ -26,11 +26,11 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 
             RuleFor(m => m.IdUnitOfMeasureEstimatedWaterFlow)
                 .OptionalKeyIsNullOrValid()
-                .When(m => m.EstimatedWaterFlow <= 0);
+                .When(m => !string.IsNullOrEmpty(m.IdUnitOfMeasureEstimatedWaterFlow));
 
             RuleFor(m => m.IdUnitOfMeasureHeight)
                 .OptionalKeyIsNullOrValid()
-                .When(m => m.Height <= 0);
+                .When(m => !string.IsNullOrEmpty(m.IdUnitOfMeasureHeight));
 
             RuleFor(m => m.GarageType)
                 .Must(type => Enum.IsDefined(typeof(GarageType), type))
@@ -39,6 +39,12 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
             RuleFor(m => m.MimeType)
                 .NotNullOrEmpty()
                 .When(m => m.PictureData != null);
+
+	        RuleFor(m => m.Height)
+		        .GreaterThanOrEqualTo(0);
+
+	        RuleFor(m => m.EstimatedWaterFlow)
+		        .GreaterThanOrEqualTo(0);
         }
     }
 }
