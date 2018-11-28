@@ -19,6 +19,8 @@ namespace Survi.Prevention.WebApi.Controllers
         [HttpPost, Route("import"), AllowAnonymous]
         public ActionResult Import([FromBody] List<TImportedModel> importedEntities)
         {
+            if (importedEntities == null)
+                return BadRequest();
             return Ok(Service.Import(importedEntities));
         }
     }

@@ -34,6 +34,8 @@ namespace Survi.Prevention.WebApi.Controllers
         [HttpPost, Route("connection/import"), AllowAnonymous]
         public ActionResult Import([FromBody] List<ApiClient.DataTransferObjects.FireHydrantConnection> importedEntities)
         {
+            if (importedEntities == null)
+                return BadRequest();
             return Ok(connectionService.Import(importedEntities));
         }
     }
