@@ -41,10 +41,10 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
                 .When(m => m.PictureData != null);
 
 	        RuleFor(m => m.Height)
-		        .GreaterThanOrEqualTo(0);
+		        .GreaterThanOrEqualTo(0).WithMessage("{PropertyName}_InvalidValue");
 
 	        RuleFor(m => m.EstimatedWaterFlow)
-		        .GreaterThanOrEqualTo(0);
+		        .GreaterThanOrEqualTo(0).WithMessage("{PropertyName}_InvalidValue");
         }
     }
 }
