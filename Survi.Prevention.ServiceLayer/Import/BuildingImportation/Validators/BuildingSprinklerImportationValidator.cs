@@ -18,9 +18,9 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
             RuleFor(m => m.Floor)
                 .MaximumLength(3);
             RuleFor(m => m.Wall)
-                .MaximumLength(15);
+                .MaximumLength(3);
             RuleFor(m => m.Sector)
-                .MaximumLength(15);
+                .MaximumLength(3);
             RuleFor(m => m.PipeLocation)
                 .MaximumLength(500);
             RuleFor(m => m.CollectorLocation)

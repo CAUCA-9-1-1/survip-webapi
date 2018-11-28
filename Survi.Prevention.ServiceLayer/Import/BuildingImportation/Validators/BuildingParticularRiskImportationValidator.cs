@@ -20,9 +20,9 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
             RuleFor(m => m.Dimension)
                 .MaximumLength(100);
             RuleFor(m => m.Wall)
-                .MaximumLength(15);
+                .MaximumLength(3);
             RuleFor(m => m.Sector)
-                .MaximumLength(15);
+                .MaximumLength(3);
         }
     }
 }
