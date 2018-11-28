@@ -38,6 +38,7 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
         protected override Models.Buildings.BuildingDetail GetEntityFromDatabase(string externalId)
         {
             return Context.Set<Models.Buildings.BuildingDetail>()
+                .IgnoreQueryFilters()
                 .Include(pic => pic.PlanPicture)
                 .FirstOrDefault(pic => pic.IdExtern == externalId);
         }

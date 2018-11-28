@@ -2,6 +2,7 @@
 using System.Linq;
 using FluentValidation;
 using FluentValidation.Results;
+using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Base;
@@ -108,6 +109,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
             if (string.IsNullOrWhiteSpace(externId))
                 return null;
             var query = Context.Set<T>()
+                .IgnoreQueryFilters()
                 .Where(m => m.IdExtern == externId)
                 .Select(m => m.Id);
 
