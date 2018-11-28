@@ -1,16 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Survi.Prevention.DataLayer.Mapping.Base;
 using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 
 namespace Survi.Prevention.DataLayer.Mapping
 {
-	public class InspectionBuildingMapping : EntityMappingConfiguration<InspectionBuilding>
+	public class InspectionBuildingMapping : BaseImportedModelMapping<InspectionBuilding>
 	{
 		public override void Map(EntityTypeBuilder<InspectionBuilding> b)
 		{
 			b.HasQueryFilter(m => m.IsActive);
-			b.HasKey(m => m.Id);
 
 			b.Property(m => m.CivicNumber).HasMaxLength(15).IsRequired();
 			b.Property(m => m.CivicLetter).HasMaxLength(10).IsRequired();
@@ -26,9 +24,6 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.Ignore(m => m.Coordinates);
 			b.Property(m => m.CoordinatesSource).HasMaxLength(50).IsRequired();
 			b.Property(m => m.Details).IsRequired();
-
-			b.Property(m => m.CreatedOn).IsRequired();
-			b.Property(m => m.IsActive).IsRequired();
 
 			b.HasOne(m => m.RiskLevel).WithMany().HasForeignKey(m => m.IdRiskLevel);
 			b.HasOne(m => m.UtilisationCode).WithMany().HasForeignKey(m => m.IdUtilisationCode);

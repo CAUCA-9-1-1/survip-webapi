@@ -9,7 +9,6 @@ namespace Survi.Prevention.DataLayer.Mapping
 	{
 		public override void Map(EntityTypeBuilder<FireHydrantConnectionTypeLocalization> b)
 		{
-			b.HasKey(m => m.Id);
 			b.Property(m => m.IdParent).HasColumnName("id_fire_hydrant_connection_type");
 			b.Property(m => m.Name).HasMaxLength(100).IsRequired();
 			b.Property(m => m.LanguageCode).HasMaxLength(2).IsRequired();

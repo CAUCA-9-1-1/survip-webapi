@@ -1,16 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Survi.Prevention.DataLayer.Mapping.Base;
 using Survi.Prevention.Models.Buildings;
 
 namespace Survi.Prevention.DataLayer.Mapping
 {
-	public class BuildingDetailMapping : EntityMappingConfiguration<BuildingDetail>
+	public class BuildingDetailMapping : BaseImportedModelMapping<BuildingDetail>
 	{
 		public override void Map(EntityTypeBuilder<BuildingDetail> b)
 		{
 			b.HasQueryFilter(m => m.IsActive);
-			b.HasKey(m => m.Id);
 
 			b.Property(m => m.AdditionalInformation).IsRequired();
 
