@@ -5,16 +5,21 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class FirestationService : BaseCrudService<Firestation>
+	public class FirestationService 
+	    : BaseCrudServiceWithImportation<Firestation, ApiClient.DataTransferObjects.Firestation>
 	{
-		public FirestationService(IManagementContext context) : base(context)
-		{
-		}
+	    public FirestationService(
+	        IManagementContext context, 
+	        IEntityConverter<ApiClient.DataTransferObjects.Firestation, Firestation> converter) 
+	        : base(context, converter)
+	    {
+	    }
 
-		public override Firestation Get(Guid id)
+        public override Firestation Get(Guid id)
 		{
 			var result = Context.Firestations
 				.First(s => s.Id == id);

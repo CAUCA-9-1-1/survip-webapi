@@ -15,6 +15,7 @@ using Survi.Prevention.ServiceLayer.Import.Lane;
 using Survi.Prevention.ServiceLayer.Import.FireHydrantImportation;
 using Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators;
 using Survi.Prevention.ServiceLayer.Import.Places;
+using Survi.Prevention.ServiceLayer.Import.Places.Copiers;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi
@@ -138,6 +139,8 @@ namespace Survi.Prevention.WebApi
 	        services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.Building>, BuildingImportationValidator>();
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.BuildingFireHydrant>, BuildingFireHydrantImportationValidator>();
 
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.Firestation>, FirestationImportationValidator>();
+
             return services;
         }
 
@@ -189,6 +192,8 @@ namespace Survi.Prevention.WebApi
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.BuildingSprinkler, BuildingSprinkler>, BuildingSprinklerImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.BuildingFireHydrant, BuildingFireHydrant>, BuildingFireHydrantImportationConverter>();
 
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.Firestation, Firestation>, FirestationImportationConverter>();
+
             return services;
         }
 
@@ -202,6 +207,7 @@ namespace Survi.Prevention.WebApi
             services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.BuildingAlarmPanel, BuildingAlarmPanel>, BuildingAlarmPanelCustomFieldsCopier>();
             services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.BuildingSprinkler, BuildingSprinkler>, BuildingSprinklerCustomFieldsCopier>();
 	        services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.Building, Building>, BuildingCustomFieldsCopier>();
+            services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.Firestation, Firestation>, FirestationFieldsCopier>();
 
             return services;
         }
