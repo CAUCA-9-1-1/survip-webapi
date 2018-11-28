@@ -4,6 +4,7 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
+using Survi.Prevention.ServiceLayer.Import.BuildingImportation.CustomFieldsCopiers;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators;
 using Survi.Prevention.ServiceLayer.Tests.Mocks;
 using Xunit;
@@ -46,6 +47,8 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 				CoordinatesSource = "",
 				Details = "",
 				ChildType = ApiClient.DataTransferObjects.BuildingChildType.None,
+				PictureData = new byte[100],
+				MimeType = "png",
 				IsActive =  false
 			};
 			imported.Localizations = new List<ApiClient.DataTransferObjects.Base.Localization>
@@ -78,7 +81,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 		public void CustomFieldsAreCorrectlyCopied()
 		{
 			var validator = new BuildingImportationValidator();
-			var converter = new BuildingImportationConverter(CreateMockContext(), validator);
+			var converter = new BuildingImportationConverter(CreateMockContext(), validator, new BuildingCustomFieldsCopier());
 			var result = converter.Convert(imported).Result;
 
 			Assert.True(result.CivicNumber == imported.CivicNumber && 

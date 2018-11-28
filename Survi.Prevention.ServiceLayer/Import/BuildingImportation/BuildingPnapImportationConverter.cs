@@ -11,7 +11,7 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
 		BuildingPnapImportationConverter : BaseEntityConverter<importedBuildingPnap, BuildingPersonRequiringAssistance>
 	{
 		public BuildingPnapImportationConverter(IManagementContext context,
-			AbstractValidator<importedBuildingPnap> validator) : base(context, validator)
+			AbstractValidator<importedBuildingPnap> validator) : base(context, validator, null)
 		{
 		}
 

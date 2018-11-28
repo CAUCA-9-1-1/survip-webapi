@@ -12,13 +12,13 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 				.NotNullOrEmpty();
 
 			RuleFor(m => m.IdCity)
-				.NotNullOrEmpty();
+				.RequiredKeyIsValid();
 
 			RuleFor(m => m.IdLane)
-				.NotNullOrEmpty();
+				.RequiredKeyIsValid();
 
 			RuleFor(m => m.IdRiskLevel)
-				.NotNullOrEmpty();
+				.RequiredKeyIsValid();
 
 			RuleFor(m => m.CivicNumber)
 				.NotNullOrEmptyWithMaxLength(15);

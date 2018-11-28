@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 
 namespace Survi.Prevention.ServiceLayer.Import.Base
 {
@@ -14,11 +15,15 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
 		where TLocalization : BaseLocalization, new()
 		where TOut : BaseLocalizableImportedModel<TLocalization>, new()
 	{
+		protected ICustomFieldsCopier<TIn, TOut> CustomFieldsCopier;
+
 		protected BaseLocalizableEntityWithPictureConverter(
 			IManagementContext context,
-			AbstractValidator<TIn> validator)
-			: base(context, validator)
+			AbstractValidator<TIn> validator,
+			ICustomFieldsCopier<TIn,TOut> copier)
+			: base(context, validator, copier)
 		{
+			CustomFieldsCopier = copier;
 		}
 
 		protected override void CopyImportedFieldsToEntity(TIn importedObject, TOut entity)

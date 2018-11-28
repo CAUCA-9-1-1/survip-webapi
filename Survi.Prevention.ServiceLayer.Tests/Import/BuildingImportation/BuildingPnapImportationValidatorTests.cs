@@ -16,7 +16,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [Fact]
 	    public void IdIsValidWhenNotEmpty()
 	    {
-		    validator.ShouldNotHaveValidationErrorFor(buildingPnap => buildingPnap.Id, "IdbuildingPnap");
+		    validator.ShouldNotHaveValidationErrorFor(buildingPnap => buildingPnap.Id, "Id");
 	    }
 
 	    [Theory]
@@ -38,10 +38,24 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData("")]
 	    [InlineData("   ")]
 	    [InlineData(null)]
-	    
 	    public void IdBuildingIsNotValidWhenEmpty(string idBuilding)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingPnap => buildingPnap.IdBuilding, idBuilding);
+	    }
+
+	    [Fact]
+	    public void IdPnapTypeIsValidWhenNotEmpty()
+	    {
+		    validator.ShouldNotHaveValidationErrorFor(buildingPnap => buildingPnap.IdPersonRequiringAssistanceType, "IdPnapType");
+	    }
+
+	    [Theory]
+	    [InlineData("")]
+	    [InlineData("   ")]
+	    [InlineData(null)]
+	    public void IdPnapTypeIsNotValidWhenEmpty(string idPersonRequiringAssistanceType)
+	    {
+		    validator.ShouldHaveValidationErrorFor(buildingPnap => buildingPnap.IdPersonRequiringAssistanceType, idPersonRequiringAssistanceType);
 	    }
 
 	    [Theory]
