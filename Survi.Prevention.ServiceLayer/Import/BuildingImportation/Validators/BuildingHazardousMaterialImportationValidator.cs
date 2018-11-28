@@ -43,7 +43,7 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 				.NotNullMaxLength(150);
 
 			RuleFor(m => m.Sector)
-				.NotNullMaxLength(15);
+				.NotNullMaxLength(3);
 
 			RuleFor(m => m.SupplyLine)
 				.NotNullMaxLength(50);
@@ -58,7 +58,7 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 				.NotNullMaxLength(50);
 
 			RuleFor(m => m.Wall)
-				.NotNullMaxLength(15);            
+				.NotNullMaxLength(3);            
 		}
 
 		private bool IsContainerCapacityImplemented(BuildingHazardousMaterial arg) => arg.CapacityContainer > 0;
