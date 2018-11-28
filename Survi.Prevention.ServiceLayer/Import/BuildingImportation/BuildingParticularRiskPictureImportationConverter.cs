@@ -23,7 +23,7 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
 
         protected override void GetRealForeignKeys(BuildingParticularRiskPicture importedObject)
         {
-            importedObject.IdBuildingParticularRisk = GetRealId<Models.Buildings.BuildingParticularRiskPicture>(importedObject.IdBuildingParticularRisk);
+            importedObject.IdBuildingParticularRisk = GetRealId<Models.Buildings.Base.BuildingParticularRisk>(importedObject.IdBuildingParticularRisk);
         }
 
         protected override Models.Buildings.BuildingParticularRiskPicture CreateNew()
