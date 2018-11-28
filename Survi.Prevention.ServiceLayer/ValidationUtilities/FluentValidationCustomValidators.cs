@@ -31,7 +31,7 @@ namespace Survi.Prevention.ServiceLayer.ValidationUtilities
         public static IRuleBuilderOptions<T, string> NotNullOrEmptyWithMaxLength<T>(this IRuleBuilder<T, string> ruleBuilder, int maxLength)
         {
             return ruleBuilder.NotNullOrEmpty()
-                .MaximumLength(maxLength).WithMessage("{PropertyName}_TooLongValue");
+                .MaximumLength(maxLength).WithMessage("{PropertyName}_InvalidValue");
         }
 
 	    public static IRuleBuilderOptions<T, string> NotNullMaxLength<T>(this IRuleBuilder<T, string> ruleBuilder, int maxLength)

@@ -78,7 +78,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [Fact]
 	    public void PhoneNumberIsValidWhenNotEmpty()
 	    {
-		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.PhoneNumber, "phone");
+		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.PhoneNumber, "5555555555");
 	    }
 
 	    [Theory]
@@ -157,7 +157,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 		
 	    [Theory]
 	    [InlineData("")]
-	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
+	    [MemberData(nameof(GetMaxLengthString), parameters:10)]
 	    public void CellNumberExtensionIsValidWhenEmptyOrNotTooLong(string cellNumber)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.CellphoneNumber, cellNumber);
@@ -173,7 +173,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 		
 	    [Theory]
 	    [InlineData("")]
-	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
+	    [MemberData(nameof(GetMaxLengthString), parameters:10)]
 	    public void OtherPhoneNumberExtensionIsValidWhenEmptyOrNotTooLong(string otherNumber)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(buildingContact => buildingContact.OtherNumber, otherNumber);

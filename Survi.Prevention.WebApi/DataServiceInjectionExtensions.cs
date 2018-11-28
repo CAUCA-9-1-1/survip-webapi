@@ -199,6 +199,7 @@ namespace Survi.Prevention.WebApi
             services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.BuildingDetail, BuildingDetail>, BuildingDetailCustomFieldsCopier>();
             services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.BuildingAlarmPanel, BuildingAlarmPanel>, BuildingAlarmPanelCustomFieldsCopier>();
             services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.BuildingSprinkler, BuildingSprinkler>, BuildingSprinklerCustomFieldsCopier>();
+	        services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.Building, Building>, BuildingCustomFieldsCopier>();
 
             return services;
         }

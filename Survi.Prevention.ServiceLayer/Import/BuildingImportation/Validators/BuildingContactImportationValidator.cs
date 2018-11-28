@@ -12,7 +12,7 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 				.NotNullOrEmpty();
 
 			RuleFor(m => m.IdBuilding)
-				.NotNullOrEmpty();
+				.RequiredKeyIsValid();
 
 			RuleFor(m => m.FirstName)
 				.NotNullOrEmptyWithMaxLength(30);

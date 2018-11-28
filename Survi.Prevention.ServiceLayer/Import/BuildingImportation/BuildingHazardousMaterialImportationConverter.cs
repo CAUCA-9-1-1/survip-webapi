@@ -10,7 +10,9 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
 {
 	public class BuildingHazardousMaterialImportationConverter : BaseEntityConverter<importedBuildingHazardousMaterial, BuildingHazardousMaterial>
 	{
-		public BuildingHazardousMaterialImportationConverter(IManagementContext context, AbstractValidator<importedBuildingHazardousMaterial> validator) : base(context, validator)
+		public BuildingHazardousMaterialImportationConverter
+			(IManagementContext context, 
+			AbstractValidator<importedBuildingHazardousMaterial> validator) : base(context, validator, null)
 		{
 		}
 

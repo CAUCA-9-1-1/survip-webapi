@@ -12,13 +12,13 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 				.NotNullOrEmpty();
 
 			RuleFor(m => m.IdBuilding)
-				.NotNullOrEmpty();
+				.RequiredKeyIsValid();
 
 			RuleFor(m => m.IdHazardousMaterial)
-				.NotNullOrEmpty();
+				.RequiredKeyIsValid();
 
 			RuleFor(m => m.IdUnitOfMeasure)
-				.NotNullOrEmpty()
+				.RequiredKeyIsValid()
 				.When(IsContainerCapacityImplemented);
 			
 			RuleFor(m => m.CapacityContainer)

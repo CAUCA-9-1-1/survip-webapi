@@ -3,13 +3,14 @@ using FluentValidation;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 using importedBuildingContact = Survi.Prevention.ApiClient.DataTransferObjects.BuildingContact;
 
 namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
 {
     public class BuildingContactImportationConverter: BaseEntityConverter<importedBuildingContact, BuildingContact>
     {
-	    public BuildingContactImportationConverter(IManagementContext context, AbstractValidator<importedBuildingContact> validator) : base(context, validator)
+	    public BuildingContactImportationConverter(IManagementContext context, AbstractValidator<importedBuildingContact> validator) : base(context, validator, null)
 	    {
 	    }
 
