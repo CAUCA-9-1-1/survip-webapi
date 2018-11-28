@@ -34,6 +34,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
         protected override TOut GetEntityFromDatabase(string externalId)
         {
             return Context.Set<TOut>()
+                .IgnoreQueryFilters()
                 .Include(entity => entity.Localizations)
                 .FirstOrDefault(entity => entity.IdExtern == externalId);
         }
