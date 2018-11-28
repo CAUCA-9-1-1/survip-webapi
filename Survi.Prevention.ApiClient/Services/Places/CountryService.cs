@@ -2,7 +2,7 @@
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ApiClient.Services.Base;
 
-namespace Survi.Prevention.ApiClient.Services
+namespace Survi.Prevention.ApiClient.Services.Places
 {
     public class CountryService : BaseSecureService<Country>
     {
