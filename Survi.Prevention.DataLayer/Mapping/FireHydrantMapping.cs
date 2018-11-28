@@ -1,15 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Survi.Prevention.DataLayer.Mapping.Base;
 using Survi.Prevention.Models.FireHydrants;
 
 namespace Survi.Prevention.DataLayer.Mapping
 {
-	public class FireHydrantMapping : EntityMappingConfiguration<FireHydrant>
+	public class FireHydrantMapping : BaseImportedModelMapping<FireHydrant>
 	{
 		public override void Map(EntityTypeBuilder<FireHydrant> b)
-		{
-			b.HasKey(m => m.Id);
+		{			
 			b.Property(m => m.Number).IsRequired().HasMaxLength(10);
 			b.Property(m => m.Color).IsRequired().HasMaxLength(50);
 			b.Property(m => m.PhysicalPosition).HasMaxLength(200);
@@ -24,7 +22,6 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasOne(m => m.PressureUnitOfMeasure).WithMany().HasForeignKey(m => m.IdUnitOfMeasurePressure);
 			b.HasOne(m => m.City).WithMany().HasForeignKey(m => m.IdCity);
 			b.Property(m => m.CivicNumber).HasMaxLength(5);
-
 		}
 	}
 }
