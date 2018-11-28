@@ -24,6 +24,8 @@ namespace Survi.Prevention.WebApi.Controllers
         [HttpPost, Route("import"), AllowAnonymous]
         public ActionResult Import([FromBody] List<ApiClient.DataTransferObjects.AlarmPanelType> importedEntities)
         {
+            if (importedEntities == null)
+                return BadRequest();
             return Ok(service.Import(importedEntities));
         }
     }
