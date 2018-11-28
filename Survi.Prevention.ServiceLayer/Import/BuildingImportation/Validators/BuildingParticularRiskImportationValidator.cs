@@ -18,11 +18,11 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
             RuleFor(m => m.IdBuilding)
                 .RequiredKeyIsValid();
             RuleFor(m => m.Dimension)
-                .MaxLength(100);
+                .MaximumLength(100);
             RuleFor(m => m.Wall)
-                .MaxLength(15);
+                .MaximumLength(15);
             RuleFor(m => m.Sector)
-                .MaxLength(15);
+                .MaximumLength(15);
         }
     }
 }

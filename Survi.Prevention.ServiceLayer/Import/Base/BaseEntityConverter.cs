@@ -62,6 +62,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
         protected virtual TOut GetEntityFromDatabase(string externalId)
         {
             return Context.Set<TOut>()
+	            .IgnoreQueryFilters()
                 .FirstOrDefault(entity => entity.IdExtern == externalId);
         }       
 
