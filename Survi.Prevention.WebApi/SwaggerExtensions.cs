@@ -21,7 +21,8 @@ namespace Survi.Prevention.WebApi
 					In = "header",
 					Type = "apiKey",
 				});
-				c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+			    c.CustomOperationIds(apiDesc => null);
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
 				{
 					{"Bearer", new string[]{}}
 				});
