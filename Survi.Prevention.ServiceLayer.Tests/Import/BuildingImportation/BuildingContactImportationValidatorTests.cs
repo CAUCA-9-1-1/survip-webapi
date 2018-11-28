@@ -86,7 +86,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 	    [InlineData("   ")]
 	    [InlineData(null)]
 	    [MemberData(nameof(GetMaxLengthString), parameters:11)]
-	    public void PhoneNumberIsNotValidWhenEmptyOrTooLong(string phoneNumber)
+	    public void PhoneNumberIsNotValidWhenEmptyOrIncorrect(string phoneNumber)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.PhoneNumber, phoneNumber);
 	    }
