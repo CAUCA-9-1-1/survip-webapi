@@ -5,7 +5,7 @@ using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators;
 using Xunit;
 
-namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
+namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validators
 {
     public class BuildingImportationValidatorTests: BaseImportValidatorMethodTests
     {
@@ -329,16 +329,17 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 
 	    [Theory]
 	    [InlineData("")]
-	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
-	    public void CoordinatesIsValidWhenEmptyOrNotTooLong(string wktCoordinates)
+	    [InlineData("Point(0 0)")]
+	    public void CoordinatesIsValidWhenEmptyOrHasValidFormat(string wktCoordinates)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(building => building.WktCoordinates, wktCoordinates);
 	    }
 
 	    [Theory]
 	    [InlineData(null)]
+	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
 	    [MemberData(nameof(GetMaxLengthString), parameters:51)]
-	    public void CoordinatesIsNotValidWhenEmptyOrTooLong(string wktCoordinates)
+	    public void CoordinatesIsNotValidWhenNullOrHasNotInvalidFormat(string wktCoordinates)
 	    {
 		    validator.ShouldHaveValidationErrorFor(building => building.WktCoordinates, wktCoordinates);
 	    }
