@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using NetTopologySuite.Geometries;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
@@ -71,6 +72,10 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 			RuleFor(m => m.WktCoordinates)
 				.NotNullMaxLength(50);
 
+			RuleFor(m => m.WktCoordinates)
+				.Must(BeAValidWktCoordinate)
+				.When(m=>!string.IsNullOrWhiteSpace(m.WktCoordinates));
+
 			RuleFor(m => m.CoordinatesSource)
 				.NotNullMaxLength(50);
 
@@ -79,6 +84,28 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 
 			RuleFor(m => m.ChildType)
 				.IsInEnum();
+		}
+
+		private bool BeAValidWktCoordinate(string coordinate)
+		{
+			return ReadCoordinate(coordinate) != null;
+		}
+
+		private static Point ReadCoordinate(string coordinate)
+		{
+			try
+			{
+				if (string.IsNullOrEmpty(coordinate))
+					return null;
+
+				var r = new NetTopologySuite.IO.WKTReader {DefaultSRID = 4326, HandleOrdinates = GeoAPI.Geometries.Ordinates.XY};
+				var vr = r.Read(coordinate) as Point;
+				return vr;
+			}
+			catch
+			{
+				return null;
+			}
 		}
 	}
 }
