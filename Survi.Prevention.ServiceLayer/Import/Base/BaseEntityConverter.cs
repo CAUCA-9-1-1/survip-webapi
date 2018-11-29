@@ -104,7 +104,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
             };
         }
 
-        protected string GetRealId<T>(string externId)
+        protected virtual string GetRealId<T>(string externId)
             where T : BaseImportedModel
         {
             if (string.IsNullOrWhiteSpace(externId))
