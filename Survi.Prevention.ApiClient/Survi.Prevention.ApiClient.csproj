@@ -77,7 +77,9 @@
     <Compile Include="Services\Building\BuildingAnomlayPictureService.cs" />
     <Compile Include="Services\Building\BuildingAnomlyService.cs" />
     <Compile Include="Services\Building\BuildingContactService.cs" />
+    <Compile Include="Services\Building\BuildingCourseService.cs" />
     <Compile Include="Services\Building\BuildingDetailService.cs" />
+    <Compile Include="Services\Building\BuildingFireHydrantService.cs" />
     <Compile Include="Services\Building\BuildingHazardousMaterialService.cs" />
     <Compile Include="Services\Building\BuildingParticularRiskPictureService.cs" />
     <Compile Include="Services\Building\BuildingParticularRiskService.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="Services\FireHydrant\FireHydrantService.cs" />
     <Compile Include="Services\FireSafetyDepartment\FireSafetyDepartmentCityServingService.cs" />
     <Compile Include="Services\FireSafetyDepartment\FireSafetyDepartmentService.cs" />
+    <Compile Include="Services\FireSafetyDepartment\FireStationService.cs" />
     <Compile Include="Services\Lane\LanePublicCodeService.cs" />
     <Compile Include="Services\Lane\LaneService.cs" />
     <Compile Include="Services\Places\CountryService.cs" />
