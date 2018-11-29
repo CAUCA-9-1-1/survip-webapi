@@ -12,6 +12,6 @@ namespace Survi.Prevention.Models.Buildings.Base
 		
 		public Firestation Firestation { get; set; }
 
-		public virtual ICollection<TCourseLane> Lanes { get; set; }
+	    public virtual ICollection<TCourseLane> Lanes { get; set; } = new List<TCourseLane>();
 	}
 }

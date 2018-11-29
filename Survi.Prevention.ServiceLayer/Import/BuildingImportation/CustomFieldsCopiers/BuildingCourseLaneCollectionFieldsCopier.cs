@@ -26,6 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.CustomFieldsC
         {
             entity.IdLane = Guid.Parse(lane.IdLane);
             entity.Direction = (Models.Buildings.CourseLaneDirection) lane.Direction;
+            entity.ImportedOn = DateTime.Now;
         }
 
         protected Models.Buildings.BuildingCourseLane GetCorrespondingEntity(ICollection<Models.Buildings.BuildingCourseLane> entities, int sequence)
