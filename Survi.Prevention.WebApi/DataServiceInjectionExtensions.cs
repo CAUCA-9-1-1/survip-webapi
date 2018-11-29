@@ -132,6 +132,7 @@ namespace Survi.Prevention.WebApi
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.BuildingDetail>, BuildingDetailImportationValidator>();
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.BuildingAlarmPanel>, BuildingAlarmPanelImportationValidator>();
             services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.BuildingSprinkler>, BuildingSprinklerImportationValidator>();
+            services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.BuildingCourse>, BuildingCourseImportationValidator>();
 
 	        services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.BuildingHazardousMaterial>, BuildingHazardousMaterialImportationValidator>();
 	        services.AddSingleton<AbstractValidator<ApiClient.DataTransferObjects.BuildingContact>, BuildingContactImportationValidator>();
