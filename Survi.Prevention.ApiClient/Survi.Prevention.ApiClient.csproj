@@ -30,6 +30,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NuGet|AnyCPU'">
+    <OutputPath>bin\NuGet\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Flurl, Version=2.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Flurl.2.8.0\lib\net40\Flurl.dll</HintPath>
@@ -40,8 +49,17 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Survi.Prevention.ApiClient.DataTransferObjects, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Survi.Prevention.ApiClient.DataTransferObjects.1.0.0\lib\netstandard1.2\Survi.Prevention.ApiClient.DataTransferObjects.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -116,13 +134,17 @@
     <Compile Include="Services\Types\UnitOfMeasureService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Survi.Prevention.ApiClient.DataTransfertObjects\Survi.Prevention.ApiClient.DataTransferObjects.csproj">
-      <Project>{1acc3cfb-de6a-4dcf-9fe9-9744138c2541}</Project>
-      <Name>Survi.Prevention.ApiClient.DataTransferObjects</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if "$(ConfigurationName)" == "NuGet" (
+  "\\casrvfile\public\Departements\Programmeurs\LocalNugets\Tools\Cause.Nuget.exe" "$(ProjectDir)$(TargetName).nuspec" "$(ProjectDir)CauseNugetConfiguration.xml"
+ if NOT errorlevel 0 goto BuildEventFailed
+ "\\casrvfile\public\Departements\Programmeurs\LocalNugets\Tools\nuget.exe" pack "$(ProjectPath)" -IncludeReferencedProjects -OutputDirectory "\\casrv0104\public\Departements\Programmeurs\LocalNugets" -Prop Configuration=$(ConfigurationName)
+ exit 0
+ :BuildEventFailed
+ exit 1
+)</PostBuildEvent>
+  </PropertyGroup>
 </Project>
