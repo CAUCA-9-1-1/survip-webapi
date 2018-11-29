@@ -2,7 +2,7 @@
 using FluentValidation;
 using FluentValidation.TestHelper;
 using Survi.Prevention.ApiClient.DataTransferObjects;
-using Survi.Prevention.ServiceLayer.Import.Places;
+using Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment;
 using Xunit;
 
 namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
