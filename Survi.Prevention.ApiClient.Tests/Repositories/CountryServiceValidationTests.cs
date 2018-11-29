@@ -1,11 +1,10 @@
-﻿using System.Configuration;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Flurl.Http.Testing;
 using NUnit.Framework;
 using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.ApiClient.DataTransferObjects;
-using Survi.Prevention.ApiClient.Services;
+using Survi.Prevention.ApiClient.Services.Places;
 using Survi.Prevention.ApiClient.Tests.Mocks;
 
 namespace Survi.Prevention.ApiClient.Tests.Repositories
