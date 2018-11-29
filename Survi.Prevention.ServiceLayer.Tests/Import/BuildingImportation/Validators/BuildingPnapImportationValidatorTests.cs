@@ -113,7 +113,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:61)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:61)]
 	    public void ContactNameIsNotValidWhenEmptyOrTooLong(string contactName)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingPnap => buildingPnap.ContactName, contactName);
@@ -177,7 +177,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:61)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:61)]
 	    public void PersonNameIsNotValidWhenEmptyOrTooLong(string personName)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingPnap => buildingPnap.PersonName, personName);

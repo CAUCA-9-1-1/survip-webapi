@@ -129,7 +129,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:101)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:101)]
 	    public void ContainerIsNotValidWhenEmptyOrTooLong(string container)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingHazardousMaterial => buildingHazardousMaterial.Container, container);
@@ -161,7 +161,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:101)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:101)]
 	    public void GasInletIsNotValidWhenEmptyOrTooLong(string gasInlet)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingHazardousMaterial => buildingHazardousMaterial.GasInlet, gasInlet);
@@ -177,7 +177,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:151)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:151)]
 	    public void PlaceIsNotValidWhenEmptyOrTooLong(string place)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingHazardousMaterial => buildingHazardousMaterial.Place, place);
@@ -185,7 +185,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData("")]
-	    [InlineData("15 caractères")]
+	    [InlineData("3")]
 	    public void SectorIsValidWhenEmptyOrNotTooLong(string sector)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(buildingHazardousMaterial => buildingHazardousMaterial.Sector, sector);
@@ -193,7 +193,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:16)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:16)]
 	    public void SectorIsNotValidWhenEmptyOrTooLong(string sector)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingHazardousMaterial => buildingHazardousMaterial.Sector, sector);
@@ -209,7 +209,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:51)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:51)]
 	    public void SupplyLineIsNotValidWhenEmptyOrTooLong(string supplyLine)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingHazardousMaterial => buildingHazardousMaterial.SupplyLine, supplyLine);
@@ -217,7 +217,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData("")]
-	    [InlineData("15 caractères")]
+	    [InlineData("3")]
 	    public void WallIsValidWhenEmptyOrNotTooLong(string wall)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(buildingHazardousMaterial => buildingHazardousMaterial.Wall, wall);
@@ -225,7 +225,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:16)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:16)]
 	    public void WallIsNotValidWhenEmptyOrTooLong(string wall)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingHazardousMaterial => buildingHazardousMaterial.Wall, wall);
