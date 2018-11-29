@@ -86,7 +86,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 	    [InlineData("")]
 	    [InlineData("   ")]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:16)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:16)]
 	    public void CivicNumberIsNotValidWhenEmptyOrTooLong(string civicNumber)
 	    {
 		    validator.ShouldHaveValidationErrorFor(building => building.CivicNumber, civicNumber);
@@ -185,7 +185,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData("")]
-	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:5)]
 	    public void CivicLetterIsValidWhenEmptyOrNotTooLong(string civicLetter)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(building => building.CivicLetter, civicLetter);
@@ -193,7 +193,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:11)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:11)]
 	    public void CivicLetterIsNotValidWhenEmptyOrTooLong(string civicLetter)
 	    {
 		    validator.ShouldHaveValidationErrorFor(building => building.CivicLetter, civicLetter);
@@ -201,7 +201,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData("")]
-	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:5)]
 	    public void CivicSuppIsValidWhenEmptyOrNotTooLong(string civicSupp)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(building => building.CivicSupp, civicSupp);
@@ -209,7 +209,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:11)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:11)]
 	    public void CivicSuppIsNotValidWhenEmptyOrTooLong(string civicSupp)
 	    {
 		    validator.ShouldHaveValidationErrorFor(building => building.CivicSupp, civicSupp);
@@ -217,7 +217,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData("")]
-	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:5)]
 	    public void CivicLetterSuppIsValidWhenEmptyOrNotTooLong(string civicLetterSupp)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(building => building.CivicLetterSupp, civicLetterSupp);
@@ -225,7 +225,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:11)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:11)]
 	    public void CivicLetterSuppIsNotValidWhenEmptyOrTooLong(string civicLetterSupp)
 	    {
 		    validator.ShouldHaveValidationErrorFor(building => building.CivicLetterSupp, civicLetterSupp);
@@ -233,7 +233,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData("")]
-	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:5)]
 	    public void AppartmentNumberIsValidWhenEmptyOrNotTooLong(string appartmentNumber)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(building => building.AppartmentNumber, appartmentNumber);
@@ -241,7 +241,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:11)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:11)]
 	    public void AppartmentNumberIsNotValidWhenEmptyOrTooLong(string appartmentNumber)
 	    {
 		    validator.ShouldHaveValidationErrorFor(building => building.AppartmentNumber, appartmentNumber);
@@ -249,7 +249,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData("")]
-	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:5)]
 	    public void FloorIsValidWhenEmptyOrNotTooLong(string floor)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(building => building.Floor, floor);
@@ -257,7 +257,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:11)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:11)]
 	    public void FloorIsNotValidWhenEmptyOrTooLong(string floor)
 	    {
 		    validator.ShouldHaveValidationErrorFor(building => building.Floor, floor);
@@ -265,7 +265,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData("")]
-	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:5)]
 	    public void PostalCodeIsValidWhenEmptyOrNotTooLong(string postalCode)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(building => building.PostalCode, postalCode);
@@ -273,7 +273,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:7)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:7)]
 	    public void PostalCodeIsNotValidWhenEmptyOrTooLong(string postalCode)
 	    {
 		    validator.ShouldHaveValidationErrorFor(building => building.PostalCode, postalCode);
@@ -281,7 +281,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData("")]
-	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:5)]
 	    public void SourceIsValidWhenEmptyOrNotTooLong(string source)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(building => building.Source, source);
@@ -289,7 +289,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:26)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:26)]
 	    public void SourceIsNotValidWhenEmptyOrTooLong(string source)
 	    {
 		    validator.ShouldHaveValidationErrorFor(building => building.Source, source);
@@ -297,7 +297,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData("")]
-	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:5)]
 	    public void UtilisationDescriptionIsValidWhenEmptyOrNotTooLong(string utilisationDescription)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(building => building.UtilisationDescription, utilisationDescription);
@@ -305,7 +305,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:256)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:256)]
 	    public void UtilisationDescriptionIsNotValidWhenEmptyOrTooLong(string utilisationDescription)
 	    {
 		    validator.ShouldHaveValidationErrorFor(building => building.UtilisationDescription, utilisationDescription);
@@ -313,7 +313,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData("")]
-	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:5)]
 	    public void MatriculeIsValidWhenEmptyOrNotTooLong(string matricule)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(building => building.Matricule, matricule);
@@ -321,7 +321,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:19)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:19)]
 	    public void MatriculeIsNotValidWhenEmptyOrTooLong(string matricule)
 	    {
 		    validator.ShouldHaveValidationErrorFor(building => building.Matricule, matricule);
@@ -337,8 +337,8 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:51)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:5)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:51)]
 	    public void CoordinatesIsNotValidWhenNullOrHasNotInvalidFormat(string wktCoordinates)
 	    {
 		    validator.ShouldHaveValidationErrorFor(building => building.WktCoordinates, wktCoordinates);
@@ -346,7 +346,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData("")]
-	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:5)]
 	    public void CoordinatesSourceIsValidWhenEmptyOrNotTooLong(string coordinatesSource)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(building => building.CoordinatesSource, coordinatesSource);
@@ -354,7 +354,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData(null)]
-	    [MemberData(nameof(GetMaxLengthString), parameters:51)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:51)]
 	    public void CoordinatesSourceIsNotValidWhenEmptyOrTooLong(string coordinatesSource)
 	    {
 		    validator.ShouldHaveValidationErrorFor(building => building.CoordinatesSource, coordinatesSource);
@@ -362,7 +362,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
 	    [Theory]
 	    [InlineData("")]
-	    [MemberData(nameof(GetMaxLengthString), parameters:5)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:5)]
 	    public void DetailsIsValidWhenEmpty(string details)
 	    {
 		    validator.ShouldNotHaveValidationErrorFor(building => building.Details, details);

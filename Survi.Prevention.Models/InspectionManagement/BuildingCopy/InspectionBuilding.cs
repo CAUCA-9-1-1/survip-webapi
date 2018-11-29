@@ -16,7 +16,7 @@ namespace Survi.Prevention.Models.InspectionManagement.BuildingCopy
 		public ICollection<InspectionBuildingContact> Contacts { get; set; }
 		public ICollection<InspectionBuildingHazardousMaterial> HazardousMaterials { get; set; }
 		public ICollection<InspectionBuildingPersonRequiringAssistance> PersonsRequiringAssistance { get; set; }
-		public ICollection<InspectionBuildingLocalization> Localizations { get; set; }
+		public new ICollection<InspectionBuildingLocalization> Localizations { get; set; }
 		public ICollection<InspectionBuildingCourse> Courses { get; set; }
 		public ICollection<InspectionBuildingFireHydrant> FireHydrants { get; set; }
 		public ICollection<InspectionBuildingAlarmPanel> AlarmPanels { get; set; }
