@@ -2,18 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.FireHydrants;
+using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class BuildingFireHydrantService : BaseService
+	public class BuildingFireHydrantService 
+	    : BaseCrudServiceWithImportation<BuildingFireHydrant, ApiClient.DataTransferObjects.BuildingFireHydrant>
 	{
-		public BuildingFireHydrantService(IManagementContext context) : base(context)
-		{
-		}
+	    public BuildingFireHydrantService(
+	        IManagementContext context, 
+	        IEntityConverter<ApiClient.DataTransferObjects.BuildingFireHydrant, BuildingFireHydrant> converter) 
+	        : base(context, converter)
+	    {
+	    }
 
-		public List<FireHydrantForList> GetFireHydrants(Guid idBuilding, string languageCode)
+        public List<FireHydrantForList> GetFireHydrants(Guid idBuilding, string languageCode)
 		{
 			var results = (
 				from formHydrant in Context.BuildingFireHydrants

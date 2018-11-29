@@ -19,6 +19,7 @@ namespace Survi.Prevention.WebApi.Controllers
 	    private readonly BuildingAlarmPanelService alarmService;
 	    private readonly BuildingAnomalyService anomalyService;
 	    private readonly BuildingParticularRiskService riskService;
+        private readonly BuildingFireHydrantService hydrantService;
 
 		public BuildingController(
 		    BuildingService service, 
@@ -27,6 +28,7 @@ namespace Survi.Prevention.WebApi.Controllers
             BuildingAlarmPanelService alarmService,
             BuildingAnomalyService anomalyService,
             BuildingParticularRiskService riskService,
+            BuildingFireHydrantService hydrantService,
 		    CityService cityService, 
 		    WebuserService userService) 
 		    : base(service)
@@ -38,6 +40,7 @@ namespace Survi.Prevention.WebApi.Controllers
 			this.cityService = cityService;
 			this.userService = userService;
 		    this.detailService = detailService;
+		    this.hydrantService = hydrantService;
 		}
 		
 		private List<Guid> GetUserCityIds(Guid idFireSafetyDepartment = new Guid())
@@ -130,6 +133,14 @@ namespace Survi.Prevention.WebApi.Controllers
 	        if (importedEntities == null)
 	            return BadRequest();
             return Ok(riskService.ImportPictures(importedEntities));
+	    }
+
+	    [HttpPost, Route("FireHydrant/Import"), AllowAnonymous]
+	    public ActionResult<List<ImportationResult>> Import([FromBody] List<ApiClient.DataTransferObjects.BuildingFireHydrant> importedEntities)
+	    {
+	        if (importedEntities == null)
+	            return BadRequest();
+	        return Ok(hydrantService.Import(importedEntities));
 	    }
     }
 }
