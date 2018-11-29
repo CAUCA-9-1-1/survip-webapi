@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.CustomFieldsCopiers;
 using Xunit;
@@ -24,7 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Copiers
                 Floor = "F",
                 IdAlarmPanelType = idType.ToString(),
                 Sector = "S",
-                Wall = "W"                
+                Wall = "W"
             };
 
             entity = new Models.Buildings.BuildingAlarmPanel
@@ -53,7 +55,6 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Copiers
             copier.DuplicateFieldsValues(imported, entity);
             Assert.Equal("F", entity.Floor);
         }
-
 
         [Fact]
         public void SectorIsCorrectlyCopied()
@@ -113,6 +114,57 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Copiers
         {
             copier.DuplicateFieldsValues(imported, entity);
             Assert.Equal("Theme", entity.Theme);
+        }
+    }
+
+    public class BuildingCourseFieldsCopierTests
+    {
+        private readonly BuildingCourseFieldsCopier copier;
+        private readonly BuildingCourse imported;
+        private readonly Models.Buildings.BuildingCourse entity;
+        private readonly Guid idBuilding;
+        private readonly Guid idFirestation;
+
+        public BuildingCourseFieldsCopierTests()
+        {
+            idBuilding = Guid.NewGuid();
+            idFirestation = Guid.NewGuid();
+            var idLane = Guid.NewGuid();
+            var importedLane = new BuildingCourseLane { Direction = CourseLaneDirection.StraightAhead, IdLane = idLane.ToString(), Sequence = 1 };
+            var importedLanes = new List<BuildingCourseLane> { importedLane };
+
+            copier = new BuildingCourseFieldsCopier();
+            imported = new BuildingCourse
+            {
+                IdBuilding = idBuilding.ToString(),
+                IdFirestation = idFirestation.ToString(),
+                Lanes = importedLanes
+            };
+            entity = new Models.Buildings.BuildingCourse
+            {
+                Lanes = new List<Models.Buildings.BuildingCourseLane>()
+            };
+        }
+
+        [Fact]
+        public void IdFirestationIsCorrectlyCopied()
+        {
+            copier.DuplicateFieldsValues(imported, entity);
+            Assert.Equal(idFirestation, entity.IdFirestation);
+        }
+
+        [Fact]
+        public void IdBuildingIsCorrectlyCopied()
+        {
+            copier.DuplicateFieldsValues(imported, entity);
+            Assert.Equal(idBuilding, entity.IdBuilding);
+        }
+
+        [Fact]
+        public void LanesCorrectlyCopied()
+        {
+            copier.DuplicateFieldsValues(imported, entity);
+            Assert.Equal(imported.Lanes.Count, entity.Lanes.Count(lane => lane.IsActive));
         }
     }
 }

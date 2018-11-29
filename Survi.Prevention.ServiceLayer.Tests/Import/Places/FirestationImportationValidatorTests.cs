@@ -51,8 +51,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 
         [Theory]
         [InlineData(null)]
-        [InlineData("")]
-        [InlineData("12345678901")]
+        [InlineData("012345678901")]
         public void ValidationFailWhenPhoneNumberIsNullOrTooLong(string number)
         {
             validator.ShouldHaveValidationErrorFor(entity => entity.PhoneNumber, number);
@@ -60,8 +59,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 
         [Theory]
         [InlineData(null)]
-        [InlineData("")]
-        [InlineData("12345678901")]
+        [InlineData("012345678901")]
         public void ValidationFailWhenFaxNumberIsNullOrTooLong(string number)
         {
             validator.ShouldHaveValidationErrorFor(entity => entity.FaxNumber, number);

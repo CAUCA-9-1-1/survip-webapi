@@ -191,6 +191,7 @@ namespace Survi.Prevention.WebApi
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.BuildingAlarmPanel, BuildingAlarmPanel>, BuildingAlarmPanelImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.BuildingSprinkler, BuildingSprinkler>, BuildingSprinklerImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.BuildingFireHydrant, BuildingFireHydrant>, BuildingFireHydrantImportationConverter>();
+            services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.BuildingCourse, BuildingCourse>, BuildingCourseImportationConverter>();
 
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.Firestation, Firestation>, FirestationImportationConverter>();
 
@@ -208,6 +209,7 @@ namespace Survi.Prevention.WebApi
             services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.BuildingSprinkler, BuildingSprinkler>, BuildingSprinklerCustomFieldsCopier>();
 	        services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.Building, Building>, BuildingCustomFieldsCopier>();
             services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.Firestation, Firestation>, FirestationFieldsCopier>();
+            services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.BuildingCourse, BuildingCourse>, BuildingCourseFieldsCopier>();
 
             return services;
         }

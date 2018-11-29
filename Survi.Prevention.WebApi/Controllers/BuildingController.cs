@@ -19,9 +19,10 @@ namespace Survi.Prevention.WebApi.Controllers
 	    private readonly BuildingAlarmPanelService alarmService;
 	    private readonly BuildingAnomalyService anomalyService;
 	    private readonly BuildingParticularRiskService riskService;
+	    private readonly BuildingCourseService courseService;
         private readonly BuildingFireHydrantService hydrantService;
 
-		public BuildingController(
+        public BuildingController(
 		    BuildingService service, 
 		    BuildingDetailService detailService, 
             BuildingSprinklerService sprinklerService,
@@ -29,6 +30,7 @@ namespace Survi.Prevention.WebApi.Controllers
             BuildingAnomalyService anomalyService,
             BuildingParticularRiskService riskService,
             BuildingFireHydrantService hydrantService,
+            BuildingCourseService courseService,
 		    CityService cityService, 
 		    WebuserService userService) 
 		    : base(service)
@@ -40,6 +42,7 @@ namespace Survi.Prevention.WebApi.Controllers
 			this.cityService = cityService;
 			this.userService = userService;
 		    this.detailService = detailService;
+		    this.courseService = courseService;
 		    this.hydrantService = hydrantService;
 		}
 		
@@ -141,6 +144,14 @@ namespace Survi.Prevention.WebApi.Controllers
 	        if (importedEntities == null)
 	            return BadRequest();
 	        return Ok(hydrantService.Import(importedEntities));
+	    }
+
+	    [HttpPost, Route("Course/Import"), AllowAnonymous]
+	    public ActionResult<List<ImportationResult>> Import([FromBody] List<ApiClient.DataTransferObjects.BuildingCourse> importedEntities)
+	    {
+	        if (importedEntities == null)
+	            return BadRequest();
+	        return Ok(courseService.Import(importedEntities));
 	    }
     }
 }
