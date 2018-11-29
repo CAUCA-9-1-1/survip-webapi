@@ -11,6 +11,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Places.Copiers
         {
             entity.Email = importedObject.Email;
             entity.FaxNumber = importedObject.FaxNumber;
+            entity.PhoneNumber = importedObject.PhoneNumber;
             entity.IdBuilding = ParseId(importedObject.IdBuilding);
             entity.IdFireSafetyDepartment = Guid.Parse(importedObject.IdFireSafetyDepartment);
             entity.Name = importedObject.Name;

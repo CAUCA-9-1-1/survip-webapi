@@ -5,17 +5,21 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 using Survi.Prevention.ServiceLayer.Localization.Base;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class BuildingCourseService : BaseService 
+	public class BuildingCourseService : BaseCrudServiceWithImportation<BuildingCourse, ApiClient.DataTransferObjects.BuildingCourse> 
 	{
-		public BuildingCourseService(IManagementContext context) : base(context)
-		{
-		}
+	    public BuildingCourseService(
+	        IManagementContext context, 
+	        IEntityConverter<ApiClient.DataTransferObjects.BuildingCourse, BuildingCourse> converter) 
+	        : base(context, converter)
+	    {
+	    }
 
-		public List<BuildingCourseForList> GetCourseList(Guid idBuilding, string languageCode)
+        public List<BuildingCourseForList> GetCourseList(Guid idBuilding, string languageCode)
 		{
 			var query =
 				from course in Context.BuildingCourses.AsNoTracking()

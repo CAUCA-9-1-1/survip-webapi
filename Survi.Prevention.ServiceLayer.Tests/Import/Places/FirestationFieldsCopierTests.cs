@@ -22,7 +22,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
             {
                 Email = "E",
                 FaxNumber = "F",
-                IdFireSafetyDepartment = "IDF",
+                IdFireSafetyDepartment = idBuilding.ToString(),
                 IdBuilding = idBuilding.ToString(),
                 Name = "N",
                 PhoneNumber = "P"
