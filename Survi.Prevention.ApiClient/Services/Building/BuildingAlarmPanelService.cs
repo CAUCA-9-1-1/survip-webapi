@@ -10,5 +10,5 @@ namespace Survi.Prevention.ApiClient.Services.Building
 		public BuildingAlarmPanelService(IConfiguration configuration) : base(configuration)
 		{
 		}
-	}    
+	}
 }
