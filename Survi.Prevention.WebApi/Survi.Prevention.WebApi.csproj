@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <Configurations>Debug;Release;Initialize</Configurations>
+    <Configurations>Debug;Release;Initialize;NuGet</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Initialize|AnyCPU'">
     <DefineConstants>TRACE;INITIALIZE;NETCOREAPP2_0;CREATEDB</DefineConstants>

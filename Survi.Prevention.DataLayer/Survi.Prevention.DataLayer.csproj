@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <Configurations>Debug;Release;Initialize</Configurations>
+    <Configurations>Debug;Release;Initialize;NuGet</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
