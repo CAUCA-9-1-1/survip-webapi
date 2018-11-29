@@ -9,7 +9,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment
         public FirestationImportationValidator()
         {
             RuleFor(m => m.Id).NotNullOrEmpty();
-            RuleFor(m => m.Name).NotNullOrEmpty();
+            RuleFor(m => m.Name).NotNullOrEmptyWithMaxLength(50);
             RuleFor(m => m.IdBuilding).OptionalKeyIsNullOrValid();
             RuleFor(m => m.IdFireSafetyDepartment).RequiredKeyIsValid();
             RuleFor(m => m.PhoneNumber).NotNullMaxLength(10);
