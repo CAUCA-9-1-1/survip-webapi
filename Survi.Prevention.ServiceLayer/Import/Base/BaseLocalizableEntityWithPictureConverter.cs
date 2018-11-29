@@ -15,15 +15,12 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
 		where TLocalization : BaseLocalization, new()
 		where TOut : BaseLocalizableImportedModel<TLocalization>, new()
 	{
-		protected ICustomFieldsCopier<TIn, TOut> CustomFieldsCopier;
-
 		protected BaseLocalizableEntityWithPictureConverter(
 			IManagementContext context,
 			AbstractValidator<TIn> validator,
 			ICustomFieldsCopier<TIn,TOut> copier)
 			: base(context, validator, copier)
 		{
-			CustomFieldsCopier = copier;
 		}
 
 		protected override void CopyImportedFieldsToEntity(TIn importedObject, TOut entity)
