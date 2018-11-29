@@ -4,7 +4,7 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.ServiceLayer.Import.Base;
 using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 
-namespace Survi.Prevention.ServiceLayer.Import.Places
+namespace Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment
 {
     public class FirestationImportationConverter 
         : BaseEntityConverter<Firestation, Models.FireSafetyDepartments.Firestation>

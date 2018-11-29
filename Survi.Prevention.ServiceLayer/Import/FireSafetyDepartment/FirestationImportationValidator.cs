@@ -2,7 +2,7 @@
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
-namespace Survi.Prevention.ServiceLayer.Import.Places
+namespace Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment
 {
     public class FirestationImportationValidator : AbstractValidator<Firestation>
     {
