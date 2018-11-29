@@ -13,9 +13,9 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
     {
 
         public BuildingAlarmPanelImportationConverter(
-            IManagementContext context, 
-            AbstractValidator<BuildingAlarmPanel> validator, 
-            ICustomFieldsCopier<BuildingAlarmPanel, Models.Buildings.BuildingAlarmPanel> copier) 
+            IManagementContext context,
+            AbstractValidator<BuildingAlarmPanel> validator,
+            ICustomFieldsCopier<BuildingAlarmPanel, Models.Buildings.BuildingAlarmPanel> copier)
             : base(context, validator, copier)
         {
         }
