@@ -65,7 +65,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
                 var repo = new MockSecureRepository(configuration);
                 await repo.SendAsync(country);
 
-                httpTest.ShouldHaveCalled("http://test/Authentification/login")
+                httpTest.ShouldHaveCalled("http://test/Authentification/logon")
                     .WithVerb(HttpMethod.Post)
                     .Times(1);
 
@@ -157,7 +157,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
                     .With(call => call.Response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     .Times(1);
 
-                httpTest.ShouldHaveCalled("http://test/Authentification/login")
+                httpTest.ShouldHaveCalled("http://test/Authentification/logon")
                     .WithVerb(HttpMethod.Post)
                     .Times(1);
 

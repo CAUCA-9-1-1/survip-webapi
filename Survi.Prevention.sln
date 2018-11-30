@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Survi.Prevention.ApiClient.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Survi.Prevention.ApiClient", "Survi.Prevention.ApiClient\Survi.Prevention.ApiClient.csproj", "{F776F8CA-CB78-492A-8ED3-4A2FEC00D134}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Survi.Prevention.ApiClient.Tester", "Survi.Prevention.ApiClient.Tester\Survi.Prevention.ApiClient.Tester.csproj", "{6BFFA322-DEEB-473C-A99F-98229E05F28E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,14 @@ Global
 		{F776F8CA-CB78-492A-8ED3-4A2FEC00D134}.NuGet|Any CPU.Build.0 = NuGet|Any CPU
 		{F776F8CA-CB78-492A-8ED3-4A2FEC00D134}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F776F8CA-CB78-492A-8ED3-4A2FEC00D134}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BFFA322-DEEB-473C-A99F-98229E05F28E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BFFA322-DEEB-473C-A99F-98229E05F28E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BFFA322-DEEB-473C-A99F-98229E05F28E}.Initialize|Any CPU.ActiveCfg = Release|Any CPU
+		{6BFFA322-DEEB-473C-A99F-98229E05F28E}.Initialize|Any CPU.Build.0 = Release|Any CPU
+		{6BFFA322-DEEB-473C-A99F-98229E05F28E}.NuGet|Any CPU.ActiveCfg = Release|Any CPU
+		{6BFFA322-DEEB-473C-A99F-98229E05F28E}.NuGet|Any CPU.Build.0 = Release|Any CPU
+		{6BFFA322-DEEB-473C-A99F-98229E05F28E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BFFA322-DEEB-473C-A99F-98229E05F28E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
