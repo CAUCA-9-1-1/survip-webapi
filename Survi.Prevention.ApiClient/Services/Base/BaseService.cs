@@ -24,17 +24,17 @@ namespace Survi.Prevention.ApiClient.Services.Base
                 .AppendPathSegment(BaseUrl);
         }
 
-        public virtual async Task<ImportationResult> SendAsync(T entity)
+        public virtual async Task<List<ImportationResult>> SendAsync(T entity)
         {
             return await SendObjectAsync(new List<T> {entity});
         }
 
-        public virtual async Task<ImportationResult> SendAsync(List<T> entity)
+        public virtual async Task<List<ImportationResult>> SendAsync(List<T> entity)
         {
             return await SendObjectAsync(entity);
         }
 
-        private async Task<ImportationResult> SendObjectAsync(object entity)
+        private async Task<List<ImportationResult>> SendObjectAsync(object entity)
         {
             var request = GenerateRequest();
             try
@@ -49,18 +49,18 @@ namespace Survi.Prevention.ApiClient.Services.Base
             }
         }
 
-        protected virtual async Task<ImportationResult> ExecuteAsync(object entity, Url request)
+        protected virtual async Task<List<ImportationResult>> ExecuteAsync(object entity, Url request)
         {
             return await request
                 .PostJsonAsync(entity)
-                .ReceiveJson<ImportationResult>();
+                .ReceiveJson<List<ImportationResult>>();
         }
 
-        protected virtual async Task<ImportationResult> ExecuteAsync(object entity, IFlurlRequest request)
+        protected virtual async Task<List<ImportationResult>> ExecuteAsync(object entity, IFlurlRequest request)
         {
             return await request
                 .PostJsonAsync(entity)
-                .ReceiveJson<ImportationResult>();
+                .ReceiveJson<List<ImportationResult>>();
         }
     }
 }

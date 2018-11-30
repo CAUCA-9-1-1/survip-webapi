@@ -26,7 +26,7 @@ namespace Survi.Prevention.ApiClient.Services.Base
         {
             return Configuration.ApiBaseUrl
                 .AppendPathSegment("Authentification")
-                .AppendPathSegment("login");
+                .AppendPathSegment("logon");
         }
 
         public async Task RefreshToken()

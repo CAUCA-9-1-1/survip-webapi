@@ -7,7 +7,7 @@ namespace Survi.Prevention.ApiClient.Services.Base
 {
     public interface IBaseService<T> where T : BaseTransferObject, new()
     {
-        Task<ImportationResult> SendAsync(T entity);
-        Task<ImportationResult> SendAsync(List<T> entity);
+        Task<List<ImportationResult>> SendAsync(T entity);
+        Task<List<ImportationResult>> SendAsync(List<T> entity);
     }
 }

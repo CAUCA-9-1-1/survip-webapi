@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Flurl;
 using Flurl.Http;
 using Survi.Prevention.ApiClient.Configurations;
@@ -26,7 +27,7 @@ namespace Survi.Prevention.ApiClient.Services.Base
             return $"{Configuration.AuthorizationType} {Configuration.AccessToken}";
         }
 
-        protected override async Task<ImportationResult> ExecuteAsync(object entity, Url request)
+        protected override async Task<List<ImportationResult>> ExecuteAsync(object entity, Url request)
         {
             await LoginWhenLoggedOut();
             try
@@ -50,14 +51,14 @@ namespace Survi.Prevention.ApiClient.Services.Base
                     .Login();
         }
 
-        private async Task<ImportationResult> RefreshTokenThenRetry(object entity)
+        private async Task<List<ImportationResult>> RefreshTokenThenRetry(object entity)
         {
             await new RefreshTokenHandler(Configuration)
                 .RefreshToken();
             return await ExecuteRequest(entity);
         }
 
-        private async Task<ImportationResult> ExecuteRequest(object entity)
+        private async Task<List<ImportationResult>> ExecuteRequest(object entity)
         {
             return await ExecuteAsync(entity, GenerateSecureRequest());
         }
