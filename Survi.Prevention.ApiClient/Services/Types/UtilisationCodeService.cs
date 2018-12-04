@@ -2,7 +2,7 @@
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ApiClient.Services.Base;
 
-namespace Survi.Prevention.ApiClient.Services.Building
+namespace Survi.Prevention.ApiClient.Services.Types
 {
 	public class UtilisationCodeService : BaseSecureService<UtilisationCode>
 	{
