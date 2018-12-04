@@ -2,7 +2,7 @@
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ApiClient.Services.Base;
 
-namespace Survi.Prevention.ApiClient.Services.Lane
+namespace Survi.Prevention.ApiClient.Services.Types
 {
 	public class LanePublicCodeService : BaseSecureService<LanePublicCode>
 	{
