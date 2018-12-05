@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using Flurl;
 using Flurl.Http;
 using Survi.Prevention.ApiClient.Configurations;
@@ -49,7 +50,7 @@ namespace Survi.Prevention.ApiClient.Services.Base
             try
             {
                 var response = await request
-                    .PostJsonAsync(new { Configuration.UserName, Configuration.Password })
+                    .PostJsonAsync(new {Configuration.UserName, Configuration.Password})
                     .ReceiveJson<LoginResult>();
                 return response;
             }
@@ -57,7 +58,12 @@ namespace Survi.Prevention.ApiClient.Services.Base
             {
                 if (exception.Call.IsUnauthorized())
                     throw new InvalidCredentialException(Configuration.UserName);
+
+                if (exception.Call.NoResponse())
+                    throw new NoResponseApiException();
+
             }
+            
 
             return null;
         }
