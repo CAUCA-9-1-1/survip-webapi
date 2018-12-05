@@ -31,5 +31,10 @@ namespace Survi.Prevention.ApiClient.Services.Base
             return response.HttpStatus == System.Net.HttpStatusCode.Unauthorized
                 && response.Response.Headers.ToList().Any(h => h.Key == AccessTokenExpired);
         }
+
+        public static bool NoResponse(this HttpCall response)
+        {
+            return response.Response == null;
+        }
     }
 }
