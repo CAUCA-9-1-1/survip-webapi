@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DevExpress.XtraPrinting.Native.WebClientUIControl;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 using Survi.Prevention.ApiClient.Services.Places;
