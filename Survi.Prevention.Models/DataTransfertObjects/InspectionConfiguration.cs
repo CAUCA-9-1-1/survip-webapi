@@ -16,5 +16,6 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 	    public bool HasBuildingParticularRisks { get; set; }
 	    public bool HasBuildingAnomalies { get; set; }
 		public bool HasSurvey { get; set; }
-	}
+        public decimal MaxUploadSize { get; set; } = 5.0m;
+    }
 }
