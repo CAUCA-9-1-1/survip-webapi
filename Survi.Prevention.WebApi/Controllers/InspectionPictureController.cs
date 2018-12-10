@@ -29,5 +29,17 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return Ok(service.UploadFile(picture));
 		}
-	}
+
+	    [HttpDelete]
+	    [Route("{id:Guid}")]
+	    [ProducesResponseType(401)]
+	    [ProducesResponseType(200)]
+	    public virtual ActionResult Delete(Guid id)
+	    {
+	        if (service.Remove(id))
+	            return NoContent();
+
+	        return BadRequest();
+	    }
+    }
 }

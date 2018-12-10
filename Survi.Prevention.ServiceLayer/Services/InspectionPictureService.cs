@@ -48,5 +48,25 @@ namespace Survi.Prevention.ServiceLayer.Services
 			Context.SaveChanges();
 			return pic.Id;
 		}
-	}
+
+	    public virtual bool Remove(Guid id)
+	    {
+	        var entity = Context.InspectionPictures.Find(id);
+	        if (entity != null)
+	        {
+	            RemoveIdPlanPicture(id);
+                Context.Remove(entity);
+
+                Context.SaveChanges();
+	        }
+	        return true;
+	    }
+
+	    private void RemoveIdPlanPicture(Guid idPlanPicture)
+	    {
+	        var entity = Context.InspectionBuildingDetails.SingleOrDefault(p => p.IdPicturePlan == idPlanPicture);
+	        if (entity != null)
+	            entity.IdPicturePlan = null;
+	    }
+    }
 }
