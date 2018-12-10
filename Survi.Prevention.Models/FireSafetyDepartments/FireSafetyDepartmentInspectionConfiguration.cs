@@ -20,7 +20,6 @@ namespace Survi.Prevention.Models.FireSafetyDepartments
         public bool HasBuildingHazardousMaterials { get; set; }
         public bool HasBuildingParticularRisks { get; set; }
         public bool HasBuildingAnomalies { get; set; }
-	    public decimal MaxUploadSize { get; set; } = 25.0m;
 
         public Guid? IdSurvey { get; set; }
 
