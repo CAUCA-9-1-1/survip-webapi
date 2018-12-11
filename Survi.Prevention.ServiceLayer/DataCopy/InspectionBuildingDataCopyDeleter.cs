@@ -17,6 +17,8 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 		{
 			var mainBuildingId = GetInspectionMainBuilding(inspectionId);
 			var buildings = GetInspectionBuildings(mainBuildingId);
+
+            if (buildings.Any()) 
 			DeleteCopy(buildings);			
 		}
 
