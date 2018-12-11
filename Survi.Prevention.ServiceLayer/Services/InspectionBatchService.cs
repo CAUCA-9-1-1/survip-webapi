@@ -127,7 +127,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 					if (inspections.All(i => i.Id != child.Id))
 					{
 						child.LastModifiedOn = DateTime.Now;
-
 						Context.Inspections.Remove(child);
 						// ReSharper disable once AccessToDisposedClosure
 						copyManager.DeleteCopy(child.Id);
