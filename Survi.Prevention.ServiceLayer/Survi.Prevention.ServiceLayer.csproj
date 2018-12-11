@@ -9,7 +9,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Survi.Prevention.ApiClient.DataTransfertObjects\Survi.Prevention.ApiClient.DataTransferObjects.csproj" />
-    <ProjectReference Include="..\Survi.Prevention.ApiClient\Survi.Prevention.ApiClient.csproj" />
     <ProjectReference Include="..\Survi.Prevention.DataLayer\Survi.Prevention.DataLayer.csproj" />
     <ProjectReference Include="..\Survi.Prevention.Models\Survi.Prevention.Models.csproj" />
   </ItemGroup>

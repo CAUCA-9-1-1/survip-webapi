@@ -1,0 +1,71 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Survi.Prevention.WebApi", "Survi.Prevention.WebApi\Survi.Prevention.WebApi.csproj", "{6805A199-95EC-4114-BFC7-6B4DD0028567}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Survi.Prevention.ServiceLayer", "Survi.Prevention.ServiceLayer\Survi.Prevention.ServiceLayer.csproj", "{A36F78CC-B5F0-415A-B87E-3C717B2D4E33}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Survi.Prevention.DataLayer", "Survi.Prevention.DataLayer\Survi.Prevention.DataLayer.csproj", "{DB5D16F5-49CE-409C-A56B-2BE98CE3A311}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Survi.Prevention.Models", "Survi.Prevention.Models\Survi.Prevention.Models.csproj", "{FCF9C6AF-B361-46F3-A957-802F70EB1A9C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Survi.Prevention.ApiClient.DataTransferObjects", "Survi.Prevention.ApiClient.DataTransfertObjects\Survi.Prevention.ApiClient.DataTransferObjects.csproj", "{5EAC42FC-5E6D-48EC-AA4E-4F92ED2DFF55}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Initialize|Any CPU = Initialize|Any CPU
+		NuGet|Any CPU = NuGet|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6805A199-95EC-4114-BFC7-6B4DD0028567}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6805A199-95EC-4114-BFC7-6B4DD0028567}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6805A199-95EC-4114-BFC7-6B4DD0028567}.Initialize|Any CPU.ActiveCfg = Initialize|Any CPU
+		{6805A199-95EC-4114-BFC7-6B4DD0028567}.Initialize|Any CPU.Build.0 = Initialize|Any CPU
+		{6805A199-95EC-4114-BFC7-6B4DD0028567}.NuGet|Any CPU.ActiveCfg = NuGet|Any CPU
+		{6805A199-95EC-4114-BFC7-6B4DD0028567}.NuGet|Any CPU.Build.0 = NuGet|Any CPU
+		{6805A199-95EC-4114-BFC7-6B4DD0028567}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6805A199-95EC-4114-BFC7-6B4DD0028567}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A36F78CC-B5F0-415A-B87E-3C717B2D4E33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A36F78CC-B5F0-415A-B87E-3C717B2D4E33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A36F78CC-B5F0-415A-B87E-3C717B2D4E33}.Initialize|Any CPU.ActiveCfg = Debug|Any CPU
+		{A36F78CC-B5F0-415A-B87E-3C717B2D4E33}.Initialize|Any CPU.Build.0 = Debug|Any CPU
+		{A36F78CC-B5F0-415A-B87E-3C717B2D4E33}.NuGet|Any CPU.ActiveCfg = NuGet|Any CPU
+		{A36F78CC-B5F0-415A-B87E-3C717B2D4E33}.NuGet|Any CPU.Build.0 = NuGet|Any CPU
+		{A36F78CC-B5F0-415A-B87E-3C717B2D4E33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A36F78CC-B5F0-415A-B87E-3C717B2D4E33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB5D16F5-49CE-409C-A56B-2BE98CE3A311}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB5D16F5-49CE-409C-A56B-2BE98CE3A311}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB5D16F5-49CE-409C-A56B-2BE98CE3A311}.Initialize|Any CPU.ActiveCfg = Initialize|Any CPU
+		{DB5D16F5-49CE-409C-A56B-2BE98CE3A311}.Initialize|Any CPU.Build.0 = Initialize|Any CPU
+		{DB5D16F5-49CE-409C-A56B-2BE98CE3A311}.NuGet|Any CPU.ActiveCfg = NuGet|Any CPU
+		{DB5D16F5-49CE-409C-A56B-2BE98CE3A311}.NuGet|Any CPU.Build.0 = NuGet|Any CPU
+		{DB5D16F5-49CE-409C-A56B-2BE98CE3A311}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB5D16F5-49CE-409C-A56B-2BE98CE3A311}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCF9C6AF-B361-46F3-A957-802F70EB1A9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCF9C6AF-B361-46F3-A957-802F70EB1A9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCF9C6AF-B361-46F3-A957-802F70EB1A9C}.Initialize|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCF9C6AF-B361-46F3-A957-802F70EB1A9C}.Initialize|Any CPU.Build.0 = Debug|Any CPU
+		{FCF9C6AF-B361-46F3-A957-802F70EB1A9C}.NuGet|Any CPU.ActiveCfg = NuGet|Any CPU
+		{FCF9C6AF-B361-46F3-A957-802F70EB1A9C}.NuGet|Any CPU.Build.0 = NuGet|Any CPU
+		{FCF9C6AF-B361-46F3-A957-802F70EB1A9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCF9C6AF-B361-46F3-A957-802F70EB1A9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EAC42FC-5E6D-48EC-AA4E-4F92ED2DFF55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EAC42FC-5E6D-48EC-AA4E-4F92ED2DFF55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EAC42FC-5E6D-48EC-AA4E-4F92ED2DFF55}.Initialize|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EAC42FC-5E6D-48EC-AA4E-4F92ED2DFF55}.Initialize|Any CPU.Build.0 = Debug|Any CPU
+		{5EAC42FC-5E6D-48EC-AA4E-4F92ED2DFF55}.NuGet|Any CPU.ActiveCfg = NuGet|Any CPU
+		{5EAC42FC-5E6D-48EC-AA4E-4F92ED2DFF55}.NuGet|Any CPU.Build.0 = NuGet|Any CPU
+		{5EAC42FC-5E6D-48EC-AA4E-4F92ED2DFF55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EAC42FC-5E6D-48EC-AA4E-4F92ED2DFF55}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {435C6830-03A3-4B85-B830-27B5B7A565A7}
+	EndGlobalSection
+EndGlobal

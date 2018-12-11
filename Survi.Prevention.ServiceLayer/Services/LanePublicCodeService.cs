@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
-using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models.DataTransfertObjects;
 using ImportedPublicCode = Survi.Prevention.ApiClient.DataTransferObjects.LanePublicCode;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;

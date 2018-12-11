@@ -4,7 +4,6 @@ using Survi.Prevention.ServiceLayer.Services;
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
-using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.Models.DataTransfertObjects;
 
 namespace Survi.Prevention.WebApi.Controllers
