@@ -21,7 +21,6 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 
 	    protected override void GetRealForeignKeys(ImportedCounty importedObject)
 	    {
-	        importedObject.IdState = GetRealId<State>(importedObject.IdState);
 	        importedObject.IdRegion = GetRealId<Region>(importedObject.IdRegion);
 	    }
     }

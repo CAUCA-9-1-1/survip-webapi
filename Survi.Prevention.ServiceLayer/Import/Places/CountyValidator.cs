@@ -9,9 +9,6 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 		    RuleFor(m => m.IdRegion)
 			    .RequiredKeyIsValid();
 
-		    RuleFor(m => m.IdState)
-			    .RequiredKeyIsValid();
-
 	    }
     }
 }
