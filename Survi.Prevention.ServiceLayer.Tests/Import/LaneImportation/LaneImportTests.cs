@@ -20,8 +20,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.LaneImportation
 			    IdCity = "IdCity",
 			    IdLaneGenericCode = "IdLaneGenericCode",
 			    IdPublicCode = "IdPublicCode",
-				IsValid = true,
-			    IsActive = true,                
+				IsActive = true,                
 			    Localizations = new List<imported.Base.Localization>
 			    {
 				    new imported.Base.Localization{Name = "Lane 1", LanguageCode = "en"},
@@ -43,16 +42,6 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.LaneImportation
 		    mockCtx.Setup(ctx => ctx.Set<LanePublicCode>()).Returns(mockCtx.GetMockDbSet(publicCodes).Object);
 
 		    return mockCtx.Object;
-	    }
-
-	    [Fact]
-	    public void CustomFieldsAreCorrectlyCopied()
-	    {
-		    var validator = new LaneValidator();
-		    var converter = new LaneImportationConverter(CreateMockContext(), validator);
-		    var result = converter.Convert(importedLane).Result;
-
-		    Assert.True(result.IsValid == importedLane.IsValid);
 	    }
     }
 }

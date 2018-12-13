@@ -16,7 +16,6 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 
 	    protected override void CopyCustomFieldsToEntity(ImportedCounty importedObject, County entity)
 	    {
-		    entity.IdState = Guid.Parse(importedObject.IdState);
 		    entity.IdRegion = Guid.Parse(importedObject.IdRegion);
 	    }
 
