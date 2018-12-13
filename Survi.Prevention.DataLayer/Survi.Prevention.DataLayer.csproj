@@ -26,6 +26,7 @@
     <Compile Remove="Migrations\20180802191908_DatabaseCreation.cs" />
     <Compile Remove="Migrations\20180802194839_DatabaseCreation.cs" />
     <Compile Remove="Migrations\20180802201451_DatabaseCreation.cs" />
+    <Compile Remove="Migrations\20181213153217_Issue228-RemoveUnusedFields.cs" />
   </ItemGroup>
 
   <ItemGroup>

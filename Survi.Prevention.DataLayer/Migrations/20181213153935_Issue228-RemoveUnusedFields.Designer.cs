@@ -11,7 +11,7 @@ using Survi.Prevention.DataLayer;
 namespace Survi.Prevention.DataLayer.Migrations
 {
     [DbContext(typeof(ManagementContext))]
-    [Migration("20181213153217_Issue228-RemoveUnusedFields")]
+    [Migration("20181213153935_Issue228-RemoveUnusedFields")]
     partial class Issue228RemoveUnusedFields
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
