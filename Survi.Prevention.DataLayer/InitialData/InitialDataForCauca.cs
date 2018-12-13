@@ -91,8 +91,8 @@ namespace Survi.Prevention.DataLayer.InitialData
 
 		private static void SeedCounties(ModelBuilder builder, Guid idRegion)
 		{
-			var beauce = new County {Id = Guid.Parse("4088faa7-6780-43ba-8b65-40709a1bc00d"), CreatedOn = Now, IdState = StateId, IdRegion = idRegion};
-		    var newBeauce = new County { Id = Guid.Parse("f727eb7e-ce7b-4b9e-a314-b5beff1c9019"), CreatedOn = Now, IdState = StateId, IdRegion = idRegion};
+			var beauce = new County {Id = Guid.Parse("4088faa7-6780-43ba-8b65-40709a1bc00d"), CreatedOn = Now, IdRegion = idRegion};
+		    var newBeauce = new County { Id = Guid.Parse("f727eb7e-ce7b-4b9e-a314-b5beff1c9019"), CreatedOn = Now, IdRegion = idRegion};
 
 			builder.Entity<County>().HasData(beauce, newBeauce);
 			SeedCities(builder, beauce.Id);

@@ -5,8 +5,6 @@ namespace Survi.Prevention.Models.FireSafetyDepartments
 {
 	public class Lane : BaseLocalizableImportedModel<LaneLocalization>
 	{
-		public bool IsValid { get; set; }
-
 		public Guid? IdPublicCode { get; set; }
 		public Guid? IdLaneGenericCode { get; set; }
 		public Guid IdCity { get; set; }

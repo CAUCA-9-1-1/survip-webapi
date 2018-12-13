@@ -17,7 +17,6 @@ namespace Survi.Prevention.ServiceLayer.Import.Lane
 
 		protected override void CopyCustomFieldsToEntity(importedLane importedObject, Models.FireSafetyDepartments.Lane entity)
 		{
-			entity.IsValid = importedObject.IsValid;
 			entity.IdCity = Guid.Parse(importedObject.IdCity);
 			entity.IdPublicCode = Guid.Parse(importedObject.IdPublicCode);
 			entity.IdLaneGenericCode = Guid.Parse(importedObject.IdLaneGenericCode);
