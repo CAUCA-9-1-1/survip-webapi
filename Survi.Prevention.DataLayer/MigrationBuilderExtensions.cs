@@ -294,7 +294,7 @@ namespace Survi.Prevention.DataLayer
 
 				  bloc.name,
 
-				  ucloc.description        AS utilisation_code,
+				  ucloc.name        AS utilisation_code,
 				  riskloc.name             AS risk_level,
 
 				  (CASE WHEN lpc.description != '' OR lgc.description != ''
@@ -334,7 +334,8 @@ namespace Survi.Prevention.DataLayer
 				  INNER JOIN city_localization as cl on city.id = cl.id_city and cl.language_code = laneloc.language_code
 				  INNER JOIN county_localization as countyloc on city.id_county = countyloc.id_county and countyloc.language_code = laneloc.language_code
 				  INNER JOIN county on countyloc.id_county = county.id
-				  INNER JOIN state on county.id_state = state.id
+                  INNER JOIN region on county.id_region = region.id
+				  INNER JOIN state on region.id_state = state.id
 				  INNER JOIN country_localization as countryloc ON state.id_country = countryloc.id_country and countryloc.language_code = laneloc.language_code
 
 				  LEFT JOIN lane AS lt ON b.id_lane_transversal = lt.id

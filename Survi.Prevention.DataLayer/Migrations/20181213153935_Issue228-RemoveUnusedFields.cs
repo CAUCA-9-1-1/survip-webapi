@@ -7,6 +7,8 @@ namespace Survi.Prevention.DataLayer.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropInitialInspectionViews();
+
             migrationBuilder.DropForeignKey(
                 name: "fk_county_states_state_id",
                 table: "county");
@@ -40,6 +42,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                 principalTable: "state",
                 principalColumn: "id",
                 onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.CreateInitialInspectionViews();
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
