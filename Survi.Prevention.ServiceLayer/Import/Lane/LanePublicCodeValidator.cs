@@ -10,8 +10,8 @@ namespace Survi.Prevention.ServiceLayer.Import.Lane
 	    {
 		    RuleFor(m => m.Id).NotNullOrEmpty();
 		    RuleFor(m => m.Code).NotNullOrEmptyWithMaxLength(2);
-		    RuleFor(m => m.Abbreviation).NotNullOrEmptyWithMaxLength(2);
-		    RuleFor(m => m.Description).NotNullOrEmptyWithMaxLength(20);
+		    RuleFor(m => m.Abbreviation).NotNullMaxLength(2);
+		    RuleFor(m => m.Description).NotNullMaxLength(20);
 	    }
     }
 }
