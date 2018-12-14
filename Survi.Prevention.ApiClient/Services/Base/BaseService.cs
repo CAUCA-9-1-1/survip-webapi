@@ -30,19 +30,18 @@ namespace Survi.Prevention.ApiClient.Services.Base
             return await SendObjectAsync(new List<T> {entity});
         }
 
-        public virtual async Task<List<ImportationResult>> SendAsync(List<T> entity)
+        public virtual async Task<List<ImportationResult>> SendAsync(List<T> entities, IProgress<int> progressReporter = null)
         {
-
-
-            return await SendObjectAsync(entity);
-        }
-
-        private static IEnumerable<List<T>> GetSplittedLists<T>(List<T> list, int nSize = 30)
-        {
-            for (int i = 0; i < list.Count; i += nSize)
+            var results = new List<ImportationResult>();
+            var sentEntities = 0;
+            foreach (var partialLists in GetSplittedLists(entities, Configuration.RequestBatchSize))
             {
-                yield return list.GetRange(i, Math.Min(nSize, list.Count - i));
+                results.AddRange(await SendObjectAsync(partialLists));
+                sentEntities += partialLists.Count;
+                progressReporter?.Report(sentEntities * 100 / entities.Count);
             }
+
+            return results;
         }
 
         private async Task<List<ImportationResult>> SendObjectAsync(object entity)
@@ -56,6 +55,7 @@ namespace Survi.Prevention.ApiClient.Services.Base
             {
                 new RestResponseValidator()
                     .ThrowExceptionForStatusCode(request.ToUri().ToString(), exception.Call.Succeeded, exception.Call.HttpStatus);
+                //throw;
                 return null;
             }
         }
@@ -74,6 +74,12 @@ namespace Survi.Prevention.ApiClient.Services.Base
                 .WithTimeout(TimeSpan.FromSeconds(Configuration.RequestTimeoutInSeconds))
                 .PostJsonAsync(entity)
                 .ReceiveJson<List<ImportationResult>>();
+        }
+
+        private static IEnumerable<List<T>> GetSplittedLists(List<T> list, int nSize = 30)
+        {
+            for (int i = 0; i < list.Count; i += nSize)
+                yield return list.GetRange(i, Math.Min(nSize, list.Count - i));
         }
     }
 }
