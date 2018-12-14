@@ -8,5 +8,7 @@
         string AuthorizationType { get; set; }
         string AccessToken { get; set; }
         string RefreshToken { get; set; }
+        int RequestTimeoutInSeconds { get; set; }
+        int RequestBatchSize { get; set; }
     }
 }

@@ -10,5 +10,7 @@ namespace Survi.Prevention.ApiClient.Tester
 		public string AuthorizationType { get; set; }
 		public string AccessToken { get; set; }
 		public string RefreshToken { get; set; }
+	    public int RequestTimeoutInSeconds { get; set; } = 300;
+	    public int RequestBatchSize { get; set; } 
 	}
 }

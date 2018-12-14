@@ -69,7 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\Configuration.cs" />
+    <Compile Include="Configurations\IConfiguration.cs" />
     <Compile Include="Configurations\ImportationResult.cs" />
     <Compile Include="Configurations\LoginInfo.cs" />
     <Compile Include="Configurations\LoginResult.cs" />
