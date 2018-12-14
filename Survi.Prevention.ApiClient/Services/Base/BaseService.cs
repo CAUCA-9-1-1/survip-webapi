@@ -76,10 +76,15 @@ namespace Survi.Prevention.ApiClient.Services.Base
                 .ReceiveJson<List<ImportationResult>>();
         }
 
-        private static IEnumerable<List<T>> GetSplittedLists(List<T> list, int nSize = 30)
+        private static IEnumerable<List<T>> GetSplittedLists(List<T> list, int listSizeWanted = 30)
         {
-            for (int i = 0; i < list.Count; i += nSize)
-                yield return list.GetRange(i, Math.Min(nSize, list.Count - i));
+            if (listSizeWanted == 0)
+                yield return list;
+            else
+            {
+                for (int i = 0; i < list.Count; i += listSizeWanted)
+                    yield return list.GetRange(i, Math.Min(listSizeWanted, list.Count - i));
+            }
         }
     }
 }
