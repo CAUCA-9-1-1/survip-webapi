@@ -4,6 +4,7 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using importedBuildingHazardousMaterial = Survi.Prevention.ApiClient.DataTransferObjects.BuildingHazardousMaterial;
 
 namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
@@ -12,8 +13,9 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
 	{
 		public BuildingHazardousMaterialImportationConverter
 			(IManagementContext context, 
-			AbstractValidator<importedBuildingHazardousMaterial> validator) : base(context, validator, null)
-		{
+			AbstractValidator<importedBuildingHazardousMaterial> validator, CacheSystem cache)
+		    : base(context, validator, null, cache)
+        {
 		}
 
 		protected override void CopyCustomFieldsToEntity(importedBuildingHazardousMaterial importedObject, BuildingHazardousMaterial entity)

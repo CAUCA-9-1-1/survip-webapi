@@ -2,6 +2,7 @@
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using AlarmPanelType = Survi.Prevention.ApiClient.DataTransferObjects.AlarmPanelType;
 
 namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Types
@@ -14,8 +15,8 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Types
     {
         public AlarmPanelTypeImportationConverter(
             IManagementContext context,
-            AbstractValidator<AlarmPanelType> validator)
-            : base(context, validator)
+            AbstractValidator<AlarmPanelType> validator, CacheSystem cache)
+            : base(context, validator, cache)
         {
         }
 

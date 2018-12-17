@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 
 namespace Survi.Prevention.ServiceLayer.Import.Base
 {
@@ -15,9 +16,9 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
     {
         protected BaseLocalizableEntityConverter(
             IManagementContext context, 
-            AbstractValidator<TIn> validator) 
-            : base(context, validator, null)
-        {}
+            AbstractValidator<TIn> validator, CacheSystem cache)
+            : base(context, validator, null, cache)
+        { }
 
         protected override void CopyImportedFieldsToEntity(TIn importedObject, TOut entity)
         {

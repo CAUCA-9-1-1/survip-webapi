@@ -2,6 +2,7 @@
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 
 namespace Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment
@@ -12,8 +13,8 @@ namespace Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment
         public FirestationImportationConverter(
             IManagementContext context, 
             AbstractValidator<Firestation> validator, 
-            ICustomFieldsCopier<Firestation, Models.FireSafetyDepartments.Firestation> copier) 
-            : base(context, validator, copier)
+            ICustomFieldsCopier<Firestation, Models.FireSafetyDepartments.Firestation> copier, CacheSystem cache)
+            : base(context, validator, copier, cache)
         {
         }
 

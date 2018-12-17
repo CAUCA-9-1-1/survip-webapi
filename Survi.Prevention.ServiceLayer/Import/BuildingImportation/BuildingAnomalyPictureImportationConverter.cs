@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 
 namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
@@ -16,8 +17,8 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
         public BuildingAnomalyPictureImportationConverter(
             IManagementContext context, 
             AbstractValidator<BuildingAnomalyPicture> validator, 
-            ICustomFieldsCopier<BuildingAnomalyPicture, Models.Buildings.BuildingAnomalyPicture> copier) 
-            : base(context, validator, copier)
+            ICustomFieldsCopier<BuildingAnomalyPicture, Models.Buildings.BuildingAnomalyPicture> copier, CacheSystem cache)
+            : base(context, validator, copier, cache)
         {
         }
 

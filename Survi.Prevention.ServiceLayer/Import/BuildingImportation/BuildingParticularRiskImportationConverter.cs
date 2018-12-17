@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 using BuildingParticularRisk = Survi.Prevention.ApiClient.DataTransferObjects.BuildingParticularRisk;
 using ParticularRiskType = Survi.Prevention.ApiClient.DataTransferObjects.ParticularRiskType;
@@ -17,8 +18,8 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
         public BuildingParticularRiskImportationConverter(
             IManagementContext context, 
             AbstractValidator<BuildingParticularRisk> validator, 
-            ICustomFieldsCopier<BuildingParticularRisk, Models.Buildings.Base.BuildingParticularRisk> copier) 
-            : base(context, validator, copier)
+            ICustomFieldsCopier<BuildingParticularRisk, Models.Buildings.Base.BuildingParticularRisk> copier, CacheSystem cache)
+            : base(context, validator, copier, cache)
         {
         }
 

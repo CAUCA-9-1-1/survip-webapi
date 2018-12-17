@@ -2,6 +2,7 @@
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using FireHydrantConnectionType = Survi.Prevention.ApiClient.DataTransferObjects.FireHydrantConnectionType;
 
 namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation
@@ -14,8 +15,8 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation
     {
         public FireHydrantConnectionTypeImportationConverter(
             IManagementContext context,
-            AbstractValidator<FireHydrantConnectionType> validator)
-            : base(context, validator)
+            AbstractValidator<FireHydrantConnectionType> validator, CacheSystem cache)
+            : base(context, validator, cache)
         {
         }
 

@@ -2,6 +2,7 @@
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using ConstructionFireResistanceType = Survi.Prevention.ApiClient.DataTransferObjects.ConstructionFireResistanceType;
 
 namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Types
@@ -14,8 +15,8 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Types
     {
         public ConstructionFireResistanceTypeImportationConverter(
             IManagementContext context,
-            AbstractValidator<ConstructionFireResistanceType> validator)
-            : base(context, validator)
+            AbstractValidator<ConstructionFireResistanceType> validator, CacheSystem cache)
+            : base(context, validator, cache)
         {
         }
 

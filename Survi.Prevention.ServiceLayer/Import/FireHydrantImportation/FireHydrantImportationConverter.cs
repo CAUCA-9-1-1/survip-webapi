@@ -4,6 +4,7 @@ using FluentValidation;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using FireHydrantAddressLocationType = Survi.Prevention.Models.FireHydrants.FireHydrantAddressLocationType;
 
 namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation
@@ -15,9 +16,8 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation
     {
         public FireHydrantImportationConverter(
             IManagementContext context,
-            AbstractValidator<FireHydrant> validator
-        )
-            : base(context, validator, null)
+            AbstractValidator<FireHydrant> validator, CacheSystem cache)
+            : base(context, validator, null, cache)
         {
         }
 

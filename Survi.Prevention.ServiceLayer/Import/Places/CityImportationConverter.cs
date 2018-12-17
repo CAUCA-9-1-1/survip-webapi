@@ -3,15 +3,16 @@ using FluentValidation;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using ImportedCity = Survi.Prevention.ApiClient.DataTransferObjects.City;
 
 namespace Survi.Prevention.ServiceLayer.Import.Places
 {
     public class CityImportationConverter : BaseLocalizableEntityConverter<ImportedCity, City, CityLocalization>
     {
-	    public CityImportationConverter(IManagementContext context, AbstractValidator<ImportedCity> validator) 
-		    : base(context, validator)
-	    {
+	    public CityImportationConverter(IManagementContext context, AbstractValidator<ImportedCity> validator, CacheSystem cache)
+	        : base(context, validator, cache)
+        {
 	    }
 
 	    protected override void CopyCustomFieldsToEntity(ImportedCity importedObject, City entity)

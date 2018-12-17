@@ -2,14 +2,15 @@
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using importedCountry = Survi.Prevention.ApiClient.DataTransferObjects.Country;
 
 namespace Survi.Prevention.ServiceLayer.Import.Places
 {
     public class CountryImportationConverter : BaseLocalizableEntityConverter<importedCountry, Country, CountryLocalization>
     {
-        public CountryImportationConverter(IManagementContext context, AbstractValidator<importedCountry> validator) 
-            : base(context, validator)
+        public CountryImportationConverter(IManagementContext context, AbstractValidator<importedCountry> validator, CacheSystem cache)
+            : base(context, validator, cache)
         {
         }
 
