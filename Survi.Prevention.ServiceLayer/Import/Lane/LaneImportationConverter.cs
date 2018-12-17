@@ -5,14 +5,15 @@ using Survi.Prevention.ServiceLayer.Import.Base;
 using importedLane = Survi.Prevention.ApiClient.DataTransferObjects.Lane;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using System.Linq;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 
 namespace Survi.Prevention.ServiceLayer.Import.Lane
 {
 	public class LaneImportationConverter : BaseLocalizableEntityConverter<importedLane, Models.FireSafetyDepartments.Lane, LaneLocalization>
 	{
-		public LaneImportationConverter(IManagementContext context, AbstractValidator<importedLane> validator)
-			: base(context, validator)
-		{
+		public LaneImportationConverter(IManagementContext context, AbstractValidator<importedLane> validator, CacheSystem cache)
+		    : base(context, validator, cache)
+        {
 		}
 
 		protected override void CopyCustomFieldsToEntity(importedLane importedObject, Models.FireSafetyDepartments.Lane entity)

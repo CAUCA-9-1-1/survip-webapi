@@ -3,6 +3,7 @@ using FluentValidation;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using importedBuildingPnap = Survi.Prevention.ApiClient.DataTransferObjects.BuildingPersonRequiringAssistance;
 
 namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
@@ -11,8 +12,9 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
 		BuildingPnapImportationConverter : BaseEntityConverter<importedBuildingPnap, BuildingPersonRequiringAssistance>
 	{
 		public BuildingPnapImportationConverter(IManagementContext context,
-			AbstractValidator<importedBuildingPnap> validator) : base(context, validator, null)
-		{
+			AbstractValidator<importedBuildingPnap> validator, CacheSystem cache)
+		    : base(context, validator, null, cache)
+        {
 		}
 
 		protected override void CopyCustomFieldsToEntity(importedBuildingPnap importedObject,

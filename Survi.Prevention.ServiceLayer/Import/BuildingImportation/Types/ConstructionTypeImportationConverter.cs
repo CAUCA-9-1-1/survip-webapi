@@ -2,6 +2,7 @@
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using ConstructionType = Survi.Prevention.ApiClient.DataTransferObjects.ConstructionType;
 
 namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Types
@@ -14,8 +15,8 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Types
     {
         public ConstructionTypeImportationConverter(
             IManagementContext context,
-            AbstractValidator<ConstructionType> validator)
-            : base(context, validator)
+            AbstractValidator<ConstructionType> validator, CacheSystem cache)
+            : base(context, validator, cache)
         {
         }
 

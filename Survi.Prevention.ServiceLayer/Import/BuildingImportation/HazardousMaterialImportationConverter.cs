@@ -2,6 +2,7 @@
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using HazardousMaterial = Survi.Prevention.ApiClient.DataTransferObjects.HazardousMaterial;
 
 namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
@@ -14,8 +15,8 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
     {
         public HazardousMaterialImportationConverter(
             IManagementContext context,
-            AbstractValidator<HazardousMaterial> validator)
-            : base(context, validator)
+            AbstractValidator<HazardousMaterial> validator, CacheSystem cache)
+            : base(context, validator, cache)
         {
         }
 

@@ -4,15 +4,16 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Base;
 using System.Linq;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using importedFireSafetyDepartment = Survi.Prevention.ApiClient.DataTransferObjects.FireSafetyDepartment;
 
 namespace Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment
 {
     public class FireSafetyDepartmentImportationConverter: BaseLocalizableEntityConverter<importedFireSafetyDepartment, Models.FireSafetyDepartments.FireSafetyDepartment, FireSafetyDepartmentLocalization>
     {
-	    public FireSafetyDepartmentImportationConverter(IManagementContext context, AbstractValidator<importedFireSafetyDepartment> validator) 
-		    : base(context, validator)
-	    {
+	    public FireSafetyDepartmentImportationConverter(IManagementContext context, AbstractValidator<importedFireSafetyDepartment> validator, CacheSystem cache)
+	        : base(context, validator, cache)
+        {
 	    }
 
 	    protected override void CopyCustomFieldsToEntity(importedFireSafetyDepartment importedObject, Models.FireSafetyDepartments.FireSafetyDepartment entity)

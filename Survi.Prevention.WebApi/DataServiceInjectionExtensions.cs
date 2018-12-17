@@ -4,6 +4,7 @@ using Survi.Prevention.Models;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Types;
@@ -148,6 +149,8 @@ namespace Survi.Prevention.WebApi
 
         public static IServiceCollection InjectImportationConverters(this IServiceCollection services)
         {
+            services.AddScoped<CacheSystem>();
+
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.Country, Country>, CountryImportationConverter>();
             services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.State, State>, StateImportationConverter>();
 	        services.AddScoped<IEntityConverter<ApiClient.DataTransferObjects.Region, Region>, RegionImportationConverter>();

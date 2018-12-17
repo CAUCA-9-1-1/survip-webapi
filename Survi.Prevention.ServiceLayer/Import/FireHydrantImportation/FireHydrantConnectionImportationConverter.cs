@@ -3,6 +3,7 @@ using FluentValidation;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 
 namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation
 {
@@ -11,8 +12,8 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation
     {
         public FireHydrantConnectionImportationConverter(
             IManagementContext context,
-            AbstractValidator<FireHydrantConnection> validator)
-            : base(context, validator, null)
+            AbstractValidator<FireHydrantConnection> validator, CacheSystem cache)
+            : base(context, validator, null, cache)
         {
         }
 

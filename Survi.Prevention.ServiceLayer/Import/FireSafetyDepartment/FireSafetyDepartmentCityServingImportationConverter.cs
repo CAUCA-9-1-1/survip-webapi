@@ -5,14 +5,16 @@ using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Base;
 using importedFireDepCity = Survi.Prevention.ApiClient.DataTransferObjects.FireSafetyDepartmentCityServing;
 using System.Linq;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 
 namespace Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment
 {
     public class FireSafetyDepartmentCityServingImportationConverter: BaseEntityConverter<importedFireDepCity, FireSafetyDepartmentCityServing>
     {
 	    public FireSafetyDepartmentCityServingImportationConverter(IManagementContext context,
-		    AbstractValidator<importedFireDepCity> validator) : base(context, validator, null)
-	    {
+		    AbstractValidator<importedFireDepCity> validator, CacheSystem cache)
+	        : base(context, validator, null, cache)
+        {
 
 	    }
 

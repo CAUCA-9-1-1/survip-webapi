@@ -2,6 +2,7 @@
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using ImportedRisk = Survi.Prevention.ApiClient.DataTransferObjects.RiskLevel;
 using DataRisk = Survi.Prevention.Models.Buildings.RiskLevel;
 
@@ -15,8 +16,8 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
     {
         public RiskLevelImportationConverter(
             IManagementContext context,
-            AbstractValidator<ImportedRisk> validator)
-            : base(context, validator)
+            AbstractValidator<ImportedRisk> validator, CacheSystem cache)
+            : base(context, validator, cache)
         {
         }
 

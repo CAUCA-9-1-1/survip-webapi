@@ -2,6 +2,7 @@
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using PersonRequiringAssistanceType = Survi.Prevention.ApiClient.DataTransferObjects.PersonRequiringAssistanceType;
 
 namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Types
@@ -14,8 +15,8 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Types
     {
         public PersonRequiringAssistanceTypeImportationConverter(
             IManagementContext context,
-            AbstractValidator<PersonRequiringAssistanceType> validator)
-            : base(context, validator)
+            AbstractValidator<PersonRequiringAssistanceType> validator, CacheSystem cache)
+            : base(context, validator, cache)
         {
         }
 

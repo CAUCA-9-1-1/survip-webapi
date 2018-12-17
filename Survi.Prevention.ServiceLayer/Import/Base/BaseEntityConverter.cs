@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FluentValidation;
 using FluentValidation.Results;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
@@ -19,15 +21,19 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
         protected IManagementContext Context { get; set; }
         protected AbstractValidator<TIn> Validator { get; set; }
         protected ICustomFieldsCopier<TIn, TOut> CustomFieldsCopier;
+        protected readonly CacheSystem Cache;
 
         protected BaseEntityConverter(
             IManagementContext context,            
             AbstractValidator<TIn> validator,
-            ICustomFieldsCopier<TIn,TOut> copier)
+            ICustomFieldsCopier<TIn,TOut> copier,
+            CacheSystem cache
+            )
         {
             Context = context;
             Validator = validator;
             CustomFieldsCopier = copier;
+            Cache = cache;
         }
 
         public virtual ConversionResult<TOut> Convert(TIn importedObject)
@@ -109,12 +115,27 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
         {
             if (string.IsNullOrWhiteSpace(externId))
                 return null;
+
+            var foundId = Cache.GetForeignKey(typeof(T), externId);
+            if (foundId != null)
+                return foundId.ToString();
+                        
+            var id = GetRealIdFromDatabase<T>(externId);
+
+            if (id != Guid.Empty)
+                Cache.SetForeignKeys(typeof(T), externId, id);
+
+            return id.ToString();
+        }
+
+        private Guid GetRealIdFromDatabase<T>(string externId) where T : BaseImportedModel
+        {
             var query = Context.Set<T>()
                 .Where(m => m.IdExtern == externId)
                 .Select(m => m.Id);
 
             var id = query.FirstOrDefault();
-            return id.ToString();
+            return id;
         }
 
         protected Guid? ParseId(string id)
