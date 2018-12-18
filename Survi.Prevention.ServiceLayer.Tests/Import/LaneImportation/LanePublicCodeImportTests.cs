@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.Lane;
 using Survi.Prevention.ServiceLayer.Tests.Mocks;
 using Xunit;
@@ -36,7 +37,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.LaneImportation
 	    public void CustomFieldsAreCorrectlyCopied()
 	    {
 		    var validator = new LanePublicCodeValidator();
-		    var converter = new LanePublicCodeImportationConverter(CreateMockContext(), validator);
+		    var converter = new LanePublicCodeImportationConverter(CreateMockContext(), validator, new CacheSystem());
 		    var result = converter.Convert(importedLanePublicCode).Result;
 
 		    Assert.True(result.Code == importedLanePublicCode.Code && 

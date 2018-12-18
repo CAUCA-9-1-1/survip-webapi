@@ -2,6 +2,7 @@
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Base;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Imported = Survi.Prevention.ApiClient.DataTransferObjects;
 
 namespace Survi.Prevention.ServiceLayer.Tests.Import.BaseEntityConverterTests.Mocks
@@ -14,7 +15,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BaseEntityConverterTests.Mo
         public BaseLocalizableEntityConverterMock(
             IManagementContext context, 
             AbstractValidator<Imported.Country> validator) 
-            : base(context, validator)
+            : base(context, validator, new CacheSystem())
         {
         }
 

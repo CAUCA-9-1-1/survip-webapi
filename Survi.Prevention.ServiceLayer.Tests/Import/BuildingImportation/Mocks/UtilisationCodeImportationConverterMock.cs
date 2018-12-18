@@ -5,7 +5,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Mocks
 {
     public class UtilisationCodeImportationConverterMock : UtilisationCodeImportationConverter
     {
-        public UtilisationCodeImportationConverterMock() : base(null, null)
+        public UtilisationCodeImportationConverterMock() : base(null, null, null)
         {
         }
 

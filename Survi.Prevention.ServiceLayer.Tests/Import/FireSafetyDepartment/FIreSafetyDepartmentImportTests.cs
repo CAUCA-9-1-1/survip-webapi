@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment;
 using Survi.Prevention.ServiceLayer.Tests.Mocks;
 using Xunit;
@@ -43,7 +44,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.FireSafetyDepartment
 	    public void CustomFieldsAreCorrectlyCopied()
 	    {
 	        var validator = new FireSafetyDepartmentValidator();
-	        var converter = new FireSafetyDepartmentImportationConverter(CreateMockContext(), validator);
+	        var converter = new FireSafetyDepartmentImportationConverter(CreateMockContext(), validator, new CacheSystem());
 	        var result = converter.Convert(importedFireSafetyDepartment).Result;
 
 	        Assert.True(result.Language == importedFireSafetyDepartment.Language);

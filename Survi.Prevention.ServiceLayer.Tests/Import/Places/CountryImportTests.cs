@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.Places;
 using Survi.Prevention.ServiceLayer.Tests.Mocks;
 using countryImported = Survi.Prevention.ApiClient.DataTransferObjects;
@@ -58,7 +59,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
         public void CustomFieldsAreCorrectlyCopied()
         {
             var validator = new CountryValidator();
-            var converter = new CountryImportationConverter(CreateMockContext(), validator);
+            var converter = new CountryImportationConverter(CreateMockContext(), validator, new CacheSystem());
             var result = converter.Convert(importedCountry).Result;
 
             Assert.True(result.CodeAlpha2 == importedCountry.CodeAlpha2 && result.CodeAlpha3 == importedCountry.CodeAlpha3);
