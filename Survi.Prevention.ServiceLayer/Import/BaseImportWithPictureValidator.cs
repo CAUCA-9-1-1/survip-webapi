@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using FluentValidation;
+﻿using FluentValidation;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
