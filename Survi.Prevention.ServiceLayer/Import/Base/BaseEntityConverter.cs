@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models;
 using Survi.Prevention.Models.Base;
 using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
@@ -73,11 +74,14 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
         }       
 
         protected virtual TOut CreateNew()
-        {
+        {            
             if (typeof(TOut).GetConstructor(Type.EmptyTypes) != null)
             {
+                var watch = Stopwatch.StartNew();
                 var entity = (TOut) Activator.CreateInstance(typeof(TOut));
                 Context.Add(entity);
+                watch.Stop();
+                Metrics.CreateNew =  Metrics.CreateNew.Add(watch.Elapsed);
                 return entity;
             }
             return null;

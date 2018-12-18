@@ -1,5 +1,7 @@
-﻿using FluentValidation;
+﻿using System.Diagnostics;
+using FluentValidation;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Base;
@@ -21,12 +23,18 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
 
 		protected override void GetRealForeignKeys(importedBuilding importedObject)
 		{
+		    Stopwatch watch = Stopwatch.StartNew();
+
 			importedObject.IdCity = GetRealId<City>(importedObject.IdCity);
 			importedObject.IdLane = GetRealId<Models.FireSafetyDepartments.Lane>(importedObject.IdLane);
 			importedObject.IdRiskLevel = GetRealId<RiskLevel>(importedObject.IdRiskLevel);
 			importedObject.IdLaneTransversal = GetRealId<Models.FireSafetyDepartments.Lane>(importedObject.IdLaneTransversal);
 			importedObject.IdParentBuilding = GetRealId<Building>(importedObject.IdParentBuilding);		
 			importedObject.IdUtilisationCode = GetRealId<UtilisationCode>(importedObject.IdUtilisationCode);
+
+            watch.Stop();
+
+		    Metrics.GetRealForeignKeysTotalTime = Metrics.GetRealForeignKeysTotalTime.Add(watch.Elapsed);
 		}
 	}
 }

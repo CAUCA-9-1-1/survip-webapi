@@ -1,9 +1,11 @@
 ﻿
+using System.Diagnostics;
 using System.Linq;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models;
 using Survi.Prevention.Models.Base;
 using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
@@ -39,10 +41,17 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
      
 		protected override TOut GetEntityFromDatabase(string externalId)
 		{
-			return Context.Set<TOut>()
+            Stopwatch watch = Stopwatch.StartNew();
+		    
+			var item = Context.Set<TOut>()
 				.IgnoreQueryFilters()
 				.Include(entity => entity.Localizations)
 				.FirstOrDefault(entity => entity.IdExtern == externalId);
+
+            watch.Stop();
+		    Metrics.GetEntitiyFromDatabase = Metrics.GetEntitiyFromDatabase.Add(watch.Elapsed);
+
+		    return item;
 		}
 	}
 }
