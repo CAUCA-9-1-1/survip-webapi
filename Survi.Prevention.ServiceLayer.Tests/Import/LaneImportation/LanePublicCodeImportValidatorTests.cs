@@ -53,11 +53,9 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.LaneImportation
 		}
 
 		[Theory]
-		[InlineData("")]
-		[InlineData("   ")]
 		[InlineData(null)]
 		[InlineData("LimitOf2")]
-		public void AbbreviationIsInvalidWhenNullEmptyOrTooLong(string abbreviation)
+		public void AbbreviationIsInvalidWhenNullOrTooLong(string abbreviation)
 		{
 			validator.ShouldHaveValidationErrorFor(publicCode => publicCode.Abbreviation, abbreviation);
 		}
@@ -69,11 +67,9 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.LaneImportation
 		}
 
 		[Theory]
-		[InlineData("")]
-		[InlineData("   ")]
 		[InlineData(null)]
 		[InlineData("TooLongDescriptionToValidate20")]
-		public void DescriptionIsInvalidWhenNullEmptyOrTooLong(string description)
+		public void DescriptionIsInvalidWhenNullOrTooLong(string description)
 		{
 			validator.ShouldHaveValidationErrorFor(genCode => genCode.Description, description);
 		}

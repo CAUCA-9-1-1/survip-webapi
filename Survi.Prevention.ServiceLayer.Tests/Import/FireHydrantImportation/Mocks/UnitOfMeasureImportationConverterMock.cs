@@ -5,7 +5,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.FireHydrantImportation.Mock
 {
     public class UnitOfMeasureImportationConverterMock : UnitOfMeasureImportationConverter
     {
-        public UnitOfMeasureImportationConverterMock() : base(null, null)
+        public UnitOfMeasureImportationConverterMock() : base(null, null, null)
         {
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models;
 using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators;
 using Survi.Prevention.ServiceLayer.Tests.Mocks;
@@ -79,7 +80,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 		public void CustomFieldsAreCorrectlyCopied()
 		{
 			var validator = new BuildingHazardousMaterialImportationValidator();
-			var converter = new BuildingHazardousMaterialImportationConverter(CreateMockContext(), validator);
+			var converter = new BuildingHazardousMaterialImportationConverter(CreateMockContext(), validator, new CacheSystem());
 			var result = converter.Convert(imported).Result;
 
 			Assert.True(result.CapacityContainer == imported.CapacityContainer

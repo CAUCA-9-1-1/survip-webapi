@@ -52,8 +52,6 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.LaneImportation
 	    }
 
 	    [Theory]
-	    [InlineData("")]
-	    [InlineData("   ")]
 	    [InlineData(null)]
 	    [InlineData("TooLongDescriptionToValidate")]
 	    public void DescriptionIsInvalidWhenNullEmptyOrTooLong(string description)

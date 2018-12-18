@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.Places;
 using stateImported = Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ServiceLayer.Tests.Mocks;
@@ -77,7 +78,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 	    public void CustomFieldsAreCorrectlyCopied()
 	    {
 	        var validator = new StateValidator();
-	        var converter = new StateImportationConverter(CreateMockContext(), validator);
+	        var converter = new StateImportationConverter(CreateMockContext(), validator, new CacheSystem());
 	        var result = converter.Convert(importedState).Result;
 
 	        Assert.True(result.AnsiCode == importedState.AnsiCode);

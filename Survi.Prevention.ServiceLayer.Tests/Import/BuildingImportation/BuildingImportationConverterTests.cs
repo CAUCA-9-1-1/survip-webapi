@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.CustomFieldsCopiers;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators;
@@ -81,7 +82,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 		public void CustomFieldsAreCorrectlyCopied()
 		{
 			var validator = new BuildingImportationValidator();
-			var converter = new BuildingImportationConverter(CreateMockContext(), validator, new BuildingCustomFieldsCopier());
+			var converter = new BuildingImportationConverter(CreateMockContext(), validator, new BuildingCustomFieldsCopier(), new CacheSystem());
 			var result = converter.Convert(imported).Result;
 
 			Assert.True(result.CivicNumber == imported.CivicNumber && 

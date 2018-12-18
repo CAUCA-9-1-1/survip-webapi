@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.Places;
 using Survi.Prevention.ServiceLayer.Tests.Mocks;
 using Xunit;
@@ -51,7 +52,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 			mockContext.Setup(context => context.Set<State>()).Returns(mockContext.GetMockDbSet(new List<State>()).Object);
 			mockContext.Setup(context => context.Set<Region>()).Returns(mockContext.GetMockDbSet(new List<Region>()).Object);
 			mockContext.Object.Set<State>().Add(new State{Id = Guid.NewGuid(), IdExtern = "CAUCA04062012-11", Localizations = new List<StateLocalization>()});
-			service = new RegionImportationConverter(mockContext.Object, new RegionValidator());
+			service = new RegionImportationConverter(mockContext.Object, new RegionValidator(), new CacheSystem());
 		}
 
 	    [Fact]

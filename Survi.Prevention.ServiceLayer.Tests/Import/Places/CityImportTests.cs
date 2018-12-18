@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.Places;
 using Survi.Prevention.ServiceLayer.Tests.Mocks;
 using cityImported = Survi.Prevention.ApiClient.DataTransferObjects;
@@ -68,7 +69,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
         public void CustomFieldsAreCorrectlyCopied()
         {
             var validator = new CityValidator();
-            var converter = new CityImportationConverter(CreateMockContext(), validator);
+            var converter = new CityImportationConverter(CreateMockContext(), validator, new CacheSystem());
             var result = converter.Convert(importedCity).Result;
 
             Assert.True(result.Code == importedCity.Code && result.Code3Letters == importedCity.Code3Letters && result.EmailAddress == importedCity.EmailAddress);

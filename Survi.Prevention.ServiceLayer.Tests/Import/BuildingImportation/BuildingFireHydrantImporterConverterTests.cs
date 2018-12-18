@@ -1,5 +1,6 @@
 ﻿using System;
 using Survi.Prevention.ApiClient.DataTransferObjects;
+using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
 using Xunit;
 
@@ -16,7 +17,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
         private bool buildingHasBeenRetrievedFromDatabase;
 
         public BuildingFireHydrantImporterConverterTests()
-            : base(null, null)
+            : base(null, null, new CacheSystem())
         {
             idBuilding = Guid.NewGuid();
             idFireHydrant = Guid.NewGuid();
