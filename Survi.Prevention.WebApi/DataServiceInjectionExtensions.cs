@@ -25,7 +25,7 @@ namespace Survi.Prevention.WebApi
     {
         public static IServiceCollection InjectDataServices(this IServiceCollection services)
         {
-            services.AddTransient<AuthentificationService>();
+            services.AddTransient<AuthenticationService>();
             services.AddTransient<WebuserService>();
             services.AddTransient<CountryService>();
             services.AddTransient<StateService>();

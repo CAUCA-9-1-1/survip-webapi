@@ -123,7 +123,7 @@ namespace Survi.Prevention.DataLayer
 		{
 		}
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			base.OnConfiguring(optionsBuilder);
 			optionsBuilder.EnableSensitiveDataLogging();			

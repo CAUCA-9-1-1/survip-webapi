@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models;
@@ -25,51 +26,51 @@ namespace Survi.Prevention.ServiceLayer.Services
             Converter = converter;
         }
 
-        public List<ImportationResult> Import(List<TImportedEntity> entities)
-        {
-            Context.AccessTokens.Where(t => t.Id == Guid.Empty);
-
+        public List<ImportationResult> Import(List<TImportedEntity> inputs)
+        {            
             Stopwatch watch = Stopwatch.StartNew();
 
-            var resultList = new List<ImportationResult>();
-            foreach (var entity in entities)
-                resultList.Add(Import(entity));
+            var resultList = new List<(ImportationResult result, TEntity entity)>();
+            foreach (var input in inputs)
+                resultList.Add(Import(input));            
 
             Stopwatch watchSave = Stopwatch.StartNew();
-            if (resultList.Any(result => result.IsValid))
-            {
-                Context.SaveChanges();
-                foreach (var result in resultList.Where(t => t.IsValid))
-                    result.HasBeenImported = true;                
-            }
+
+            Context.SaveChanges();
 
             watchSave.Stop();
             Console.WriteLine($"SaveChanges : {watchSave.Elapsed.TotalSeconds} seconds");
 
             watch.Stop();
-            var timespan = watch.Elapsed;            
+            var timespan = watch.Elapsed;
             Console.WriteLine($"FromDatabase : {Metrics.GetEntitiyFromDatabase.TotalSeconds} seconds");
             Console.WriteLine($"ForeignKeys : {Metrics.GetRealForeignKeysTotalTime.TotalSeconds} seconds");
             Console.WriteLine($"CreateNew : {Metrics.CreateNew.TotalSeconds} seconds");
             Console.WriteLine($"{typeof(TEntity).Name} - elapsed : {timespan.Minutes:00}:{timespan.Seconds:00}:{timespan.Milliseconds / 10:00}");
             Metrics.Reset();
-            return resultList;
+
+            return resultList.Select(result => result.Item1).ToList();
         }
 
-        protected ImportationResult Import(TImportedEntity importedEntity)
+        protected (ImportationResult result, TEntity entity) Import(TImportedEntity input)
         {
-            var result = GetImportationResult(importedEntity);
+            var result = GetImportationResult(input);
+
+            if (result.result.IsValid)
+                result.result.HasBeenImported = true;
+
             return result;
         }
 
-        protected virtual ImportationResult GetImportationResult(TImportedEntity importedEntity)
+        protected (ImportationResult result, TEntity entity) GetImportationResult(TImportedEntity input)
         {
-            var conversionResult = Converter.Convert(importedEntity);
-            return new ImportationResult
+            var conversionResult = Converter.Convert(input);
+            return (new ImportationResult
             {
-                IdEntity = importedEntity.Id,
+                IdEntity = input.Id,
+                EntityName = typeof(TImportedEntity).Name,
                 Messages = conversionResult.ValidationErrors
-            };
+            }, conversionResult.Result);
         }
     }
 }

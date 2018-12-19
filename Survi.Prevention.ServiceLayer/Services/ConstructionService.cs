@@ -15,8 +15,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 {
 	public class ConstructionService : BaseServiceWithGenericImportation
     {
-	    private readonly List<object> converters = new List<object>();
-
 		public ConstructionService(
 		    IManagementContext context,
 		    IEntityConverter<ImportConstructionType, ConstructionType> constructionTypeConverter,
@@ -26,11 +24,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 	        IEntityConverter<ImportRoofMaterialType, RoofMaterialType> roofMaterialTypeConverter
         ) : base(context)
 		{
-		    converters.Add(constructionTypeConverter);
-		    converters.Add(fireResistanceTypeConverter);
-		    converters.Add(sidingTypeConverter);
-		    converters.Add(roofTypeConverter);
-		    converters.Add(roofMaterialTypeConverter);
+		    Converters.Add(constructionTypeConverter);
+		    Converters.Add(fireResistanceTypeConverter);
+		    Converters.Add(sidingTypeConverter);
+		    Converters.Add(roofTypeConverter);
+		    Converters.Add(roofMaterialTypeConverter);
         }
 
 		public List<GenericModelForDisplay> GetBuildingSidingTypes(string languageCode)

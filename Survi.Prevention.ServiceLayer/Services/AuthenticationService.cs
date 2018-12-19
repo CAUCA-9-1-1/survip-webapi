@@ -11,9 +11,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class AuthentificationService : BaseService
+	public class AuthenticationService : BaseService
 	{	
-		public AuthentificationService(IManagementContext context) : base(context)
+		public AuthenticationService(IManagementContext context) : base(context)
 		{
 		}
 
