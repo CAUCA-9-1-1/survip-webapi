@@ -1,33 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <Configurations>Debug;Release;Initialize;NuGet</Configurations>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Migrations\20180802122241_CreateDatabase.cs" />
-    <Compile Remove="Migrations\20180802122535_CreateDatabase.cs" />
-    <Compile Remove="Migrations\20180802122738_CreateDatabase.cs" />
-    <Compile Remove="Migrations\20180802123023_CreateDatabase.cs" />
-    <Compile Remove="Migrations\20180802162650_CreateDatabase.cs" />
-    <Compile Remove="Migrations\20180802162854_CreateDatabase.cs" />
-    <Compile Remove="Migrations\20180802163018_CreateDatabase.cs" />
-    <Compile Remove="Migrations\20180802163221_CreateDatabase.cs" />
-    <Compile Remove="Migrations\20180802163444_V2.cs" />
-    <Compile Remove="Migrations\20180802163718_CreateDatabase.cs" />
-    <Compile Remove="Migrations\20180802163821_v2.cs" />
-    <Compile Remove="Migrations\20180802163954_CreateDatabase.cs" />
-    <Compile Remove="Migrations\20180802164028_v2.cs" />
-    <Compile Remove="Migrations\20180802173309_CreateDatabase.cs" />
-    <Compile Remove="Migrations\20180802180740_DatabaseCreation.cs" />
-    <Compile Remove="Migrations\20180802183158_DatabaseCreation.cs" />
-    <Compile Remove="Migrations\20180802183829_DatabaseCreation.cs" />
-    <Compile Remove="Migrations\20180802191908_DatabaseCreation.cs" />
-    <Compile Remove="Migrations\20180802194839_DatabaseCreation.cs" />
-    <Compile Remove="Migrations\20180802201451_DatabaseCreation.cs" />
-    <Compile Remove="Migrations\20181213153217_Issue228-RemoveUnusedFields.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.4" />

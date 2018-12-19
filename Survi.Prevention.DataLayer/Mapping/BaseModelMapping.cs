@@ -10,6 +10,7 @@ namespace Survi.Prevention.DataLayer.Mapping
         public override void Map(ModelBuilder b)
         {
             b.Entity<T>().HasKey(m => m.Id);
+            b.Entity<T>().Property(m => m.Id).ValueGeneratedNever();
             Map(b.Entity<T>());
         }
     }

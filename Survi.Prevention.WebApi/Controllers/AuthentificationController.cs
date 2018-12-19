@@ -11,13 +11,13 @@ namespace Survi.Prevention.WebApi.Controllers
 	[Route("api/[controller]")]
 	public class AuthentificationController : Controller
 	{
-		private readonly AuthentificationService service;
+		private readonly AuthenticationService service;
 		private readonly string issuer;
 		private readonly string applicationName;
 		private readonly string secretKey;
 		private readonly string minimalVersion;
 
-		public AuthentificationController(AuthentificationService service, IConfiguration configuration)
+		public AuthentificationController(AuthenticationService service, IConfiguration configuration)
 		{
 			this.service = service;
 			issuer = configuration.GetSection("APIConfig:Issuer").Value;

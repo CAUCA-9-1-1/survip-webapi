@@ -54,8 +54,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
 
         protected virtual TOut ReadDataTransferObject(TIn importedObject)
         {
-            var entity = GetEntityFromDatabase(importedObject.Id)
-                         ?? CreateNew();
+            var entity = GetEntityFromDatabase(importedObject.Id) ?? CreateNew();
             CopyImportedFieldsToEntity(importedObject, entity);
             return entity;
         }

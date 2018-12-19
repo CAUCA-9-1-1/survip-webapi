@@ -17,10 +17,10 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public FireSafetyDepartmentService(
 			IManagementContext context, 
 			IEntityConverter<ApiClient.DataTransferObjects.FireSafetyDepartment, FireSafetyDepartment> converter,
-			IEntityConverter<importedFireDeptCityServing, FireSafetyDepartmentCityServing> servingconverter)
+			IEntityConverter<importedFireDeptCityServing, FireSafetyDepartmentCityServing> servingConverter)
 			: base(context, converter)
 		{
-			cityServingConverter = servingconverter;
+			cityServingConverter = servingConverter;
 		}
 
 		public override FireSafetyDepartment Get(Guid id)

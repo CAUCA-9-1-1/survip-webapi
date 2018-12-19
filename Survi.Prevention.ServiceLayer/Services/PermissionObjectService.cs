@@ -55,11 +55,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			if (isExistRecord)
 			{
-				var childs = Context.PermissionObjects.Where(p => p.IdPermissionObjectParent == id).ToList();
+				var children = Context.PermissionObjects.Where(p => p.IdPermissionObjectParent == id).ToList();
 
-				if (childs.Any())
+				if (children.Any())
 				{
-					childs.ForEach(child => { Context.PermissionObjects.Remove(child); });
+				    children.ForEach(child => { Context.PermissionObjects.Remove(child); });
 				}
 
 				Context.PermissionObjects.Remove(Context.PermissionObjects.First(p => p.Id == id));
