@@ -10,6 +10,7 @@ namespace Survi.Prevention.DataLayer.Mapping
         {
             base.Map(b);
             b.Entity<T>().Property(m => m.IdExtern).HasMaxLength(100);
+            b.Entity<T>().HasIndex(m => m.IdExtern).IsUnique();
         }
     }
 }
