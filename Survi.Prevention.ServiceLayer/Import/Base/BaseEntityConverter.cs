@@ -44,6 +44,10 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
             TOut convertedEntity = default(TOut);
             if (validationResult.IsValid)
                 convertedEntity = ReadDataTransferObject(importedObject);
+            else
+            {
+
+            }
 
             return GetConversionResult(convertedEntity, validationResult);
         }
@@ -134,6 +138,8 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
         private Guid GetRealIdFromDatabase<T>(string externId) where T : BaseImportedModel
         {
             var query = Context.Set<T>()
+                .AsNoTracking()
+                .IgnoreQueryFilters()
                 .Where(m => m.IdExtern == externId)
                 .Select(m => m.Id);
 
