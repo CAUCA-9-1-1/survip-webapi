@@ -24,8 +24,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
         [Theory]
         [InlineData(null)]
-        [InlineData("")]
-        [InlineData("   ")]
+        [InlineData("012345678901234567890123456789")]
         public void ValidationFailWhenScianIsInvalid(string scian)
         {
             validator.ShouldHaveValidationErrorFor(code => code.Scian, scian);

@@ -15,16 +15,16 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 				.RequiredKeyIsValid();
 
 			RuleFor(m => m.FirstName)
-				.NotNullOrEmptyWithMaxLength(30);
+				.NotNullMaxLength(100);
 
 			RuleFor(m => m.LastName)
-				.NotNullOrEmptyWithMaxLength(30);
+				.NotNullOrEmptyWithMaxLength(100);
 
 			RuleFor(m => m.CallPriority)
 				.GreaterThanOrEqualTo(0).WithMessage("{PropertyName}_InferiorToZeroValue");
 
 			RuleFor(m => m.PhoneNumber)
-				.NotNullOrEmptyWithMaxLength(10);
+				.NotNullMaxLength(10);
 
 			RuleFor(m => m.PhoneNumber)
 				.MinimumLength(10)

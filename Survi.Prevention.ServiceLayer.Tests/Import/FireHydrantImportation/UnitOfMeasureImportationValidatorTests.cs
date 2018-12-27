@@ -16,8 +16,6 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.FireHydrantImportation
         }
 
         [Theory]
-        [InlineData("")]
-        [InlineData("   ")]
         [InlineData("123456")]
         [InlineData(null)]
         public void EntityIsInvalidWhenAbbreviationIsInvalid(string value)

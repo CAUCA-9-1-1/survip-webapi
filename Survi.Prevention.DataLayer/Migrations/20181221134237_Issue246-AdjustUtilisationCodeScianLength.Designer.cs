@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -10,9 +11,10 @@ using Survi.Prevention.DataLayer;
 namespace Survi.Prevention.DataLayer.Migrations
 {
     [DbContext(typeof(ManagementContext))]
-    partial class ManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20181221134237_Issue246-AdjustUtilisationCodeScianLength")]
+    partial class Issue246AdjustUtilisationCodeScianLength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -514,7 +516,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnName("first_name")
-                        .HasMaxLength(100);
+                        .HasMaxLength(30);
 
                     b.Property<bool>("HasBeenModified")
                         .HasColumnName("has_been_modified");
@@ -544,7 +546,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnName("last_name")
-                        .HasMaxLength(100);
+                        .HasMaxLength(30);
 
                     b.Property<string>("OtherNumber")
                         .IsRequired()

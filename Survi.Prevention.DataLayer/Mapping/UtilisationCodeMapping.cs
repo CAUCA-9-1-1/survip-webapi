@@ -8,7 +8,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 		public override void Map(EntityTypeBuilder<UtilisationCode> b)
 		{
 			b.Property(m => m.Cubf).HasMaxLength(5).IsRequired();
-			b.Property(m => m.Scian).HasMaxLength(10).IsRequired();
+			b.Property(m => m.Scian).HasMaxLength(25).IsRequired();
 			b.HasMany(m => m.Localizations).WithOne().HasForeignKey(m => m.IdParent);
 		}
 	}
