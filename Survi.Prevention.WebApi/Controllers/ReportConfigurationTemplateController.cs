@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models;
 using Survi.Prevention.ServiceLayer.Reporting;
 using Survi.Prevention.ServiceLayer.Services;
+using System;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
@@ -18,5 +19,11 @@ namespace Survi.Prevention.WebApi.Controllers
 	        var groups = BuildingReportTemplateFiller.GetPlaceholderGroups();
 			return Ok(groups);
         }
+
+		[HttpPost,  Route("CopyReportConfiguration")]
+		public ActionResult CopyReportConfiguration([FromBody] Guid idReport)
+		{
+			return Ok(Service.CopyReportConfiguration(idReport));
+		}
     }
 }

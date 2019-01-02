@@ -3,6 +3,8 @@ using System.Linq;
 using System.Collections.Generic;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models;
+using Microsoft.EntityFrameworkCore;
+using Survi.Prevention.ServiceLayer.DataCopy;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -32,6 +34,22 @@ namespace Survi.Prevention.ServiceLayer.Services
                 };
 
             return query.ToList();
-        }      
+        }
+        
+        public ReportConfigurationTemplate CopyReportConfiguration(Guid idReport)
+		{
+			var reportTemplate = Context.ReportConfigurationTemplate.AsNoTracking()
+                .First(u => u.Id == idReport);
+
+			if (reportTemplate != null)
+			{
+                ReportConfigurationTemplate newReportTemplate = new ReportTemplateDuplicator().DuplicateReportTemplate(reportTemplate);
+
+				Context.ReportConfigurationTemplate.Add(newReportTemplate);
+				Context.SaveChanges();
+				return newReportTemplate;
+			}
+			return reportTemplate;
+		}	
     }
 }
