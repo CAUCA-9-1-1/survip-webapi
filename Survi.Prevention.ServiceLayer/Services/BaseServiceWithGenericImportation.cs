@@ -24,7 +24,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             where TImportedEntity : BaseTransferObject
         {
             Stopwatch watch = Stopwatch.StartNew();
-
+            Context.IsInImportationMode = true;
             var resultList = new List<(ImportationResult result, TEntity entity)>();
             foreach (var input in inputs)
                 resultList.Add(ImportInput<TEntity, TImportedEntity>(input));

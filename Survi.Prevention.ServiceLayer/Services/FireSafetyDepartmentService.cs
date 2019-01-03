@@ -81,6 +81,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public List<ImportationResult> ImportFireSafetyDepartmentCityServings(List<importedFireDeptCityServing> entities)
 		{
+		    Context.IsInImportationMode = true;
 			var resultList = new List<ImportationResult>();
 			foreach (var entity in entities)
 				resultList.Add(ImportFireSafetyDepartmentCityServing(entity));

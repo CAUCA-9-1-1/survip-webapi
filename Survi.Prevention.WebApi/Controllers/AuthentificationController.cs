@@ -38,7 +38,7 @@ namespace Survi.Prevention.WebApi.Controllers
 				Data =
 					new
 					{
-						AuthorizationType = "Token",
+						AuthorizationType = "Bearer",
 						token.ExpiresIn,
 						AccessToken = token.TokenForAccess,
 						token.RefreshToken,

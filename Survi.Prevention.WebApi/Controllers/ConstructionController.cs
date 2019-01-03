@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Services;
@@ -63,31 +62,31 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(service.GetAllTypes(languageCode));
 		}
 
-	    [HttpPost, Route("ConstructionType/Import"), AllowAnonymous]
+	    [HttpPost, Route("ConstructionType/Import")]
 	    public ActionResult ImportConstructionTypes([FromBody] List<ImportConstructionType> importedEntities)
 	    {
 	        return Ok(service.Import<ConstructionType, ImportConstructionType>(importedEntities));
 	    }
 
-	    [HttpPost, Route("ConstructionFireResistanceType/Import"), AllowAnonymous]
+	    [HttpPost, Route("ConstructionFireResistanceType/Import")]
 	    public ActionResult ImportConstructionFireResistanceTypes([FromBody] List<ImportFireResistanceType> importedEntities)
 	    {
 	        return Ok(service.Import<ConstructionFireResistanceType, ImportFireResistanceType>(importedEntities));
 	    }
 
-	    [HttpPost, Route("SidingType/Import"), AllowAnonymous]
+	    [HttpPost, Route("SidingType/Import")]
 	    public ActionResult ImportSidingTypes([FromBody] List<ImportSidingType> importedEntities)
 	    {
 	        return Ok(service.Import<SidingType, ImportSidingType>(importedEntities));
         }
 
-	    [HttpPost, Route("RoofType/Import"), AllowAnonymous]
+	    [HttpPost, Route("RoofType/Import")]
 	    public ActionResult ImportRoofTypes([FromBody] List<ImportRoofType> importedEntities)
 	    {
 	        return Ok(service.Import<RoofType, ImportRoofType>(importedEntities));
         }
 
-	    [HttpPost, Route("RoofMaterialType/Import"), AllowAnonymous]
+	    [HttpPost, Route("RoofMaterialType/Import")]
 	    public ActionResult ImportRoofMaterialTypes([FromBody] List<ImportRoofMaterialType> importedEntities)
 	    {
 	        return Ok(service.Import<RoofMaterialType, ImportRoofMaterialType>(importedEntities));

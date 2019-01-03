@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 using Survi.Prevention.Models.Base;
@@ -16,7 +15,7 @@ namespace Survi.Prevention.WebApi.Controllers
         {
         }
 
-        [HttpPost, Route("import"), AllowAnonymous]
+        [HttpPost, Route("import")]
         public ActionResult Import([FromBody] List<TImportedModel> importedEntities)
         {
             if (importedEntities == null)

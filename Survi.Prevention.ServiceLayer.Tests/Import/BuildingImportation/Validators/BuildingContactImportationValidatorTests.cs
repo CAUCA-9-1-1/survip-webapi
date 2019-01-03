@@ -50,10 +50,8 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 	    }
 
 	    [Theory]
-	    [InlineData("")]
-	    [InlineData("   ")]
 	    [InlineData(null)]
-	    [MemberData(nameof(GenerateMaxLengthData), parameters:31)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:101)]
 	    public void FirstNameIsNotValidWhenEmptyOrTooLong(string firstName)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.FirstName, firstName);
@@ -69,7 +67,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 	    [InlineData("")]
 	    [InlineData("   ")]
 	    [InlineData(null)]
-	    [MemberData(nameof(GenerateMaxLengthData), parameters:31)]
+	    [MemberData(nameof(GenerateMaxLengthData), parameters:101)]
 	    public void LastNameIsNotValidWhenEmptyOrTooLong(string lastName)
 	    {
 		    validator.ShouldHaveValidationErrorFor(buildingContact => buildingContact.LastName, lastName);
@@ -82,8 +80,6 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 	    }
 
 	    [Theory]
-	    [InlineData("")]
-	    [InlineData("   ")]
 	    [InlineData(null)]
 	    [MemberData(nameof(GenerateMaxLengthData), parameters:11)]
 	    public void PhoneNumberIsNotValidWhenEmptyOrIncorrect(string phoneNumber)

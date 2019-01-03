@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.ServiceLayer.Services;
@@ -31,7 +30,7 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(Service.GetCityListForBuilding(idCity, idBuilding, languageCode));
 		}
 
-        [HttpPost, Route("connection/import"), AllowAnonymous]
+        [HttpPost, Route("connection/import")]
         public ActionResult Import([FromBody] List<ApiClient.DataTransferObjects.FireHydrantConnection> importedEntities)
         {
             if (importedEntities == null)

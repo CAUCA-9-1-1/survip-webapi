@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.InspectionManagement;
 using Survi.Prevention.ServiceLayer.Services;
@@ -14,19 +13,19 @@ namespace Survi.Prevention.WebApi.Controllers
 		public InspectionSurveyAnswerController(InspectionSurveyAnswerService service) : base(service)
 		{
 		}
-		[HttpGet, Route("Inspection/{idInspection:Guid}/Answer"), AllowAnonymous]
+		[HttpGet, Route("Inspection/{idInspection:Guid}/Answer")]
 		public ActionResult GetAnswerListLocalized(Guid idInspection, [FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return Ok(Service.GetAnswerListLocalized(idInspection, languageCode));
 		}
 
-		[HttpGet, Route("Inspection/{idInspection:Guid}/Question"), AllowAnonymous]
+		[HttpGet, Route("Inspection/{idInspection:Guid}/Question")]
 		public ActionResult GetSurveyQuestionListLocalized(Guid idInspection, [FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return Ok(Service.GetSurveyQuestionListLocalized(idInspection, languageCode));
 		}
 
-		[HttpGet, Route("Inspection/{idInspection:Guid}/Summary"), AllowAnonymous]
+		[HttpGet, Route("Inspection/{idInspection:Guid}/Summary")]
 		public ActionResult GetInspectionQuestionSummaryListLocalized(Guid idInspection, [FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return Ok(Service.GetInspectionQuestionSummaryListLocalized(idInspection, languageCode));

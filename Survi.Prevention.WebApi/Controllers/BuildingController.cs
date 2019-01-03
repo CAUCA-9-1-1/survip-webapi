@@ -3,7 +3,6 @@ using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Services;
 using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
 using Survi.Prevention.Models.DataTransfertObjects;
 
 namespace Survi.Prevention.WebApi.Controllers
@@ -81,7 +80,7 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(Service.GetForInspectionList(languageCode, buildingIds));
 		}
 
-	    [HttpPost, Route("Detail/Import"), AllowAnonymous]
+	    [HttpPost, Route("Detail/Import")]
 	    public ActionResult Import([FromBody] List<ApiClient.DataTransferObjects.BuildingDetail> importedEntities)
 	    {
 	        if (importedEntities == null)
@@ -89,7 +88,7 @@ namespace Survi.Prevention.WebApi.Controllers
             return Ok(detailService.Import(importedEntities));
 	    }
 
-	    [HttpPost, Route("Sprinklers/Import"), AllowAnonymous]
+	    [HttpPost, Route("Sprinklers/Import")]
 	    public ActionResult Import([FromBody] List<ApiClient.DataTransferObjects.BuildingSprinkler> importedEntities)
 	    {
 	        if (importedEntities == null)
@@ -97,7 +96,7 @@ namespace Survi.Prevention.WebApi.Controllers
             return Ok(sprinklerService.Import(importedEntities));
 	    }
 
-	    [HttpPost, Route("AlarmPanel/Import"), AllowAnonymous]
+	    [HttpPost, Route("AlarmPanel/Import")]
 	    public ActionResult Import([FromBody] List<ApiClient.DataTransferObjects.BuildingAlarmPanel> importedEntities)
 	    {
 	        if (importedEntities == null)
@@ -105,7 +104,7 @@ namespace Survi.Prevention.WebApi.Controllers
             return Ok(alarmService.Import(importedEntities));
 	    }
 
-	    [HttpPost, Route("Anomaly/Import"), AllowAnonymous]
+	    [HttpPost, Route("Anomaly/Import")]
 	    public ActionResult<List<ImportationResult>> Import([FromBody] List<ApiClient.DataTransferObjects.BuildingAnomaly> importedEntities)
 	    {
 	        if (importedEntities == null)
@@ -113,7 +112,7 @@ namespace Survi.Prevention.WebApi.Controllers
             return Ok(anomalyService.ImportAnomalies(importedEntities));
 	    }
 
-	    [HttpPost, Route("ParticularRisk/Import"), AllowAnonymous]
+	    [HttpPost, Route("ParticularRisk/Import")]
 	    public ActionResult<List<ImportationResult>> Import([FromBody] List<ApiClient.DataTransferObjects.BuildingParticularRisk> importedEntities)
 	    {
 	        if (importedEntities == null)
@@ -121,7 +120,7 @@ namespace Survi.Prevention.WebApi.Controllers
             return Ok(riskService.ImportRisks(importedEntities));
 	    }
 
-	    [HttpPost, Route("Anomaly/Picture/Import"), AllowAnonymous]
+	    [HttpPost, Route("Anomaly/Picture/Import")]
 	    public ActionResult<List<ImportationResult>> Import([FromBody] List<ApiClient.DataTransferObjects.BuildingAnomalyPicture> importedEntities)
 	    {
 	        if (importedEntities == null)
@@ -129,7 +128,7 @@ namespace Survi.Prevention.WebApi.Controllers
             return Ok(anomalyService.ImportPictures(importedEntities));
 	    }
 
-	    [HttpPost, Route("ParticularRisk/Picture/Import"), AllowAnonymous]
+	    [HttpPost, Route("ParticularRisk/Picture/Import")]
 	    public ActionResult<List<ImportationResult>> Import([FromBody] List<ApiClient.DataTransferObjects.BuildingParticularRiskPicture> importedEntities)
 	    {
 	        if (importedEntities == null)
@@ -137,7 +136,7 @@ namespace Survi.Prevention.WebApi.Controllers
             return Ok(riskService.ImportPictures(importedEntities));
 	    }
 
-	    [HttpPost, Route("FireHydrant/Import"), AllowAnonymous]
+	    [HttpPost, Route("FireHydrant/Import")]
 	    public ActionResult<List<ImportationResult>> Import([FromBody] List<ApiClient.DataTransferObjects.BuildingFireHydrant> importedEntities)
 	    {
 	        if (importedEntities == null)
@@ -145,7 +144,7 @@ namespace Survi.Prevention.WebApi.Controllers
 	        return Ok(hydrantService.Import(importedEntities));
 	    }
 
-	    [HttpPost, Route("Course/Import"), AllowAnonymous]
+	    [HttpPost, Route("Course/Import")]
 	    public ActionResult<List<ImportationResult>> Import([FromBody] List<ApiClient.DataTransferObjects.BuildingCourse> importedEntities)
 	    {
 	        if (importedEntities == null)
