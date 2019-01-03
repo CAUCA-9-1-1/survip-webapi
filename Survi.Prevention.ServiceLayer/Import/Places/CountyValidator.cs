@@ -8,7 +8,6 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 	    {
 		    RuleFor(m => m.IdRegion)
 			    .RequiredKeyIsValid();
-
 	    }
     }
 }
