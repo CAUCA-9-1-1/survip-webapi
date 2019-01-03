@@ -30,6 +30,8 @@ namespace Survi.Prevention.ServiceLayer.Services
         {            
             Stopwatch watch = Stopwatch.StartNew();
 
+            Context.IsInImportationMode = true;
+
             var resultList = new List<(ImportationResult result, TEntity entity)>();
             foreach (var input in inputs)
                 resultList.Add(Import(input));            

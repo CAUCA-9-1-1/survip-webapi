@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -21,7 +20,7 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(service.GetList(languageCode));
 		}
 
-        [HttpPost, Route("import"), AllowAnonymous]
+        [HttpPost, Route("import")]
         public ActionResult Import([FromBody] List<ApiClient.DataTransferObjects.AlarmPanelType> importedEntities)
         {
             if (importedEntities == null)

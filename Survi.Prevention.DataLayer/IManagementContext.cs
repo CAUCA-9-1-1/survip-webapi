@@ -18,6 +18,7 @@ namespace Survi.Prevention.DataLayer
 	public interface IManagementContext
 	{
 	    Guid? CurrentUserId { get; set; }
+	    bool IsInImportationMode { get; set; }
 
         DbSet<AccessSecretKey> AccessSecretKeys { get; set; }
         DbSet<AccessToken> AccessTokens { get; set; }

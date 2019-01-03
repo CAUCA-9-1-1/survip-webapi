@@ -20,6 +20,7 @@ namespace Survi.Prevention.DataLayer
 	public class ManagementContext : DbContext, IManagementContext
 	{
 	    public Guid? CurrentUserId { get; set; }
+	    public bool IsInImportationMode { get; set; } = false;
 
         public DbSet<AccessSecretKey> AccessSecretKeys { get; set; }
 		public DbSet<AccessToken> AccessTokens { get; set; }
@@ -160,7 +161,7 @@ namespace Survi.Prevention.DataLayer
             foreach (var dbEntityEntry in ChangeTracker
                 .Entries<BaseModel>()
                 .Where(x => x.State == EntityState.Modified || x.State == EntityState.Added))            
-                dbEntityEntry.Entity.SetAsModified(CurrentUserId);
+                dbEntityEntry.Entity.SetAsModified(CurrentUserId, IsInImportationMode);
 
             return base.SaveChanges();
         }
