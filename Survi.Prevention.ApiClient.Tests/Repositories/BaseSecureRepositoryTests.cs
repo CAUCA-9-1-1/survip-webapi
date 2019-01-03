@@ -58,7 +58,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
             using (var httpTest = new HttpTest())
             {
                 httpTest
-                    .RespondWithJson(new LoginResult { AuthorizationType = "Bearer", RefreshToken = "NewRefreshToken", TokenForAccess = "NewAccessToken" })
+                    .RespondWithJson(new LoginResult { AuthorizationType = "Bearer", RefreshToken = "NewRefreshToken", AccessToken = "NewAccessToken" })
                     .RespondWithJson(new ImportationResult());
 
                 var country = new Country();
@@ -86,7 +86,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
             using (var httpTest = new HttpTest())
             {
                 httpTest
-                    .RespondWithJson(new LoginResult { AuthorizationType = "Bearer", RefreshToken = "NewRefreshToken", TokenForAccess = "NewAccessToken" })
+                    .RespondWithJson(new LoginResult { AuthorizationType = "Bearer", RefreshToken = "NewRefreshToken", AccessToken = "NewAccessToken" })
                     .RespondWithJson(new ImportationResult());
 
                 var country = new Country();
