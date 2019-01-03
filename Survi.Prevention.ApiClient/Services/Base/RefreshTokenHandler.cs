@@ -38,7 +38,8 @@ namespace Survi.Prevention.ApiClient.Services.Base
         public async Task Login()
         {
             var login = await GetInitialAccessToken();
-            Configuration.AccessToken = login.TokenForAccess;
+            Configuration.AuthorizationType = login.AuthorizationType;
+            Configuration.AccessToken = login.AccessToken;
             Configuration.RefreshToken = login.RefreshToken;
         }
 
@@ -50,8 +51,8 @@ namespace Survi.Prevention.ApiClient.Services.Base
             {
                 var response = await request
                     .PostJsonAsync(new {Configuration.UserName, Configuration.Password})
-                    .ReceiveJson<LoginResult>();
-                return response;
+                    .ReceiveJson<LoginData>();
+                return response.Data;
             }
             catch (FlurlHttpException exception)
             {
