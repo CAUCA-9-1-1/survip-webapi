@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models;
+using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.ServiceLayer.Services;
+using System.Collections.Generic;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
@@ -12,26 +14,32 @@ namespace Survi.Prevention.WebApi.Controllers
 	    {
 	    }
 
-	    [HttpGet, Route("rate")]
-	    public ActionResult GetRateMeasuringUnits([FromHeader(Name = "Language-Code")]string languageCode)
+        [HttpGet, Route("all")]
+        public ActionResult<IEnumerable<UnitOfMeasureForDisplay>> GetAllMeasuringUnits([FromHeader(Name = "Language-Code")]string languageCode)
+        {
+            return Ok(Service.GetListLocalized(languageCode));
+        }
+
+        [HttpGet, Route("rate")]
+	    public ActionResult<List<GenericModelForDisplay>> GetRateMeasuringUnits([FromHeader(Name = "Language-Code")]string languageCode)
 	    {
 		    return Ok(Service.GetListLocalized(languageCode, MeasureType.Rate));
 	    }
 
 	    [HttpGet, Route("diameter")]
-	    public ActionResult GetDiameterMeasuringUnits([FromHeader(Name = "Language-Code")]string languageCode)
+	    public ActionResult<List<GenericModelForDisplay>> GetDiameterMeasuringUnits([FromHeader(Name = "Language-Code")]string languageCode)
 	    {
 		    return Ok(Service.GetListLocalized(languageCode, MeasureType.Diameter));
 		}
 
 	    [HttpGet, Route("pressure")]
-	    public ActionResult GetPressureMeasuringUnits([FromHeader(Name = "Language-Code")]string languageCode)
+	    public ActionResult<List<GenericModelForDisplay>> GetPressureMeasuringUnits([FromHeader(Name = "Language-Code")]string languageCode)
 	    {
 		    return Ok(Service.GetListLocalized(languageCode, MeasureType.Pressure));
 		}
 
 	    [HttpGet, Route("capacity")]
-	    public ActionResult GetCapacityMeasuringUnits([FromHeader(Name = "Language-Code")]string languageCode)
+	    public ActionResult<List<GenericModelForDisplay>> GetCapacityMeasuringUnits([FromHeader(Name = "Language-Code")]string languageCode)
 	    {
 		    return Ok(Service.GetListLocalized(languageCode, MeasureType.Capacity));
 		}
