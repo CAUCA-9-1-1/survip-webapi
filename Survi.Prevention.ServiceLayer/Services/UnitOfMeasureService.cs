@@ -49,5 +49,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return query.ToList();
 		}
+
+        public List<UnitOfMeasureForDisplay> GetListLocalized(string languageCode)
+        {
+            var query =
+                from unit in Context.UnitOfMeasures.AsNoTracking()
+                where unit.IsActive
+                from loc in unit.Localizations
+                where loc.LanguageCode == languageCode
+                select new UnitOfMeasureForDisplay { Id = unit.Id, Name = loc.Name, MeasureType = unit.MeasureType };
+
+            return query.ToList();
+        }
     }
 }
