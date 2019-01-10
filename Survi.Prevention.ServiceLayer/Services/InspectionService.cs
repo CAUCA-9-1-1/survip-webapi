@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
 using Survi.Prevention.Models.InspectionManagement;
@@ -74,36 +75,64 @@ namespace Survi.Prevention.ServiceLayer.Services
 					  && (inspection.Status == InspectionStatus.Todo || inspection.Status == InspectionStatus.Started || inspection.Status == InspectionStatus.Refused)
 					  && (inspection.IdWebuserAssignedTo == null || inspection.IdWebuserAssignedTo == userId)
 				let building = inspection.MainBuilding
+                from alias in building.Localizations.Where(loc => loc.LanguageCode == languageCode && loc.IsActive)
 				from laneLocalization in building.Lane.Localizations
 				where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
-				select new
-				{
-					inspection.Id,
-					IdBatch = batch.Id,
-					BatchDescription = batch.Description,
-					inspection.IdBuilding,
-					building.IdRiskLevel,
-					building.Matricule,
-					building.CivicLetter,
-					building.CivicNumber,
-					laneLocalization.Name,
-					publicDescription = building.Lane.PublicCode.Description,
-					GenericDescription = building.Lane.LaneGenericCode.Description,
-					building.Lane.LaneGenericCode.AddWhiteSpaceAfter
-				};
+                let transversal = building.Transversal
+                select new
+                {
+                    inspection.Id,
+                    inspection.Status,
+                    idBatch = batch.Id,
+                    batchDescription = batch.Description,
+                    inspection.IdBuilding,
+                    building.IdRiskLevel,
+                    building.Matricule,
+                    codeUtilisation = building.IdUtilisationCode == null ? "" : 
+                        Context.UtilisationCodeLocalizations
+                            .Where(code => code.IdParent == building.IdUtilisationCode && code.LanguageCode == languageCode)
+                            .Select(code => code.Name)
+                            .FirstOrDefault(),
+                            
+                    building.CivicLetter,
+                    building.CivicNumber,                    
+                    aliasName = alias.Name,
+                    ownerName = Context.BuildingContacts
+                        .Where(c => c.IsActive && c.IdBuilding == building.Id && c.IsOwner)
+                        .Select(c => c.FirstName + " " + c.LastName)
+                        .FirstOrDefault(), 
 
-			var results = query.ToList()
+                    laneName = laneLocalization.Name,
+                    publicDescription = building.Lane.PublicCode.Description,
+                    genericDescription = building.Lane.LaneGenericCode.Description,
+                    building.Lane.LaneGenericCode.AddWhiteSpaceAfter,
+
+                    transName = transversal != null ? transversal.Localizations.Where(loc => loc.IsActive && loc.LanguageCode == languageCode).Select(loc => loc.Name).FirstOrDefault() : "",
+                    transPublicDescription = transversal != null ? transversal.PublicCode.Description : "",
+                    transGenericDescription = transversal != null ? transversal.LaneGenericCode.Description : "",
+                    transAddWhiteSpace = transversal != null && transversal.LaneGenericCode.AddWhiteSpaceAfter
+                };
+
+			var results = query.AsNoTracking().ToList()
 				.Select(result => new InspectionForList
 				{
 					Id = result.Id,
-					IdBatch = result.IdBatch,
-					BatchDescription = result.BatchDescription,
+					IdBatch = result.idBatch,
+					BatchDescription = result.batchDescription,
 					IdBuilding = result.IdBuilding,
 					IdRiskLevel = result.IdRiskLevel,
 					Matricule = result.Matricule,
-					Address = new AddressGenerator()
-						.GenerateAddress(result.CivicNumber, result.CivicLetter, result.Name, result.GenericDescription, result.publicDescription, result.AddWhiteSpaceAfter)
-				});
+                    Status = result.Status,
+                    AliasName = result.aliasName,
+                    CivicLetter = result.CivicLetter,
+                    CivicNumber = result.CivicNumber,
+                    OwnerName = result.ownerName ?? "",
+                    UtilisationCodeDescription = result.codeUtilisation ?? "",
+                    LaneName = new LocalizedLaneNameGenerator()
+                        .GenerateLaneName(result.laneName, result.genericDescription, result.publicDescription, result.AddWhiteSpaceAfter),
+				    TransversalLaneName = new LocalizedLaneNameGenerator()
+				        .GenerateLaneName(result.transName, result.transGenericDescription, result.transPublicDescription, result.transAddWhiteSpace)
+                });
 
 			return results
 				.GroupBy(data => new { data.IdBatch, data.BatchDescription })

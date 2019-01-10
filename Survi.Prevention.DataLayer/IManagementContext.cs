@@ -68,6 +68,7 @@ namespace Survi.Prevention.DataLayer
         DbSet<Country> Countries { get; set; }
         DbSet<RiskLevel> RiskLevels { get; set; }
         DbSet<UtilisationCode> UtilisationCodes { get; set; }
+	    DbSet<UtilisationCodeLocalization> UtilisationCodeLocalizations { get; set; }
         DbSet<State> States { get; set; }
         DbSet<Region> Regions { get; set; }
         DbSet<County> Counties { get; set; }

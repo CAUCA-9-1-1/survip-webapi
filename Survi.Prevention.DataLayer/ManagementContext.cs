@@ -70,6 +70,7 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<Country> Countries { get; set; }
 		public DbSet<RiskLevel> RiskLevels { get; set; }
 		public DbSet<UtilisationCode> UtilisationCodes { get; set; }
+	    public DbSet<UtilisationCodeLocalization> UtilisationCodeLocalizations { get; set; }
         public DbSet<State> States { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<County> Counties { get; set; }
@@ -77,7 +78,7 @@ namespace Survi.Prevention.DataLayer
         public DbSet<City> Cities { get; set; }
 
         public DbSet<Lane> Lanes { get; set; }
-		public DbSet<LaneGenericCode> LaneGenericCodes { get; set; }
+        public DbSet<LaneGenericCode> LaneGenericCodes { get; set; }
 		public DbSet<LanePublicCode> LanePublicCodes { get; set; }
 
 		public DbSet<Picture> Pictures { get; set; }
