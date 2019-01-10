@@ -12,7 +12,8 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 		public string BatchDescription { get; set; }
 		public string Matricule { get; set; }
 		public Guid? IdRiskLevel { get; set; }
-		public Guid? IdBuilding { get; set; }
+		public Guid IdBuilding { get; set; }
+        public Guid IdCity { get; set; }
 		public string LaneName { get; set; }
         public string CivicNumber { get; set; }
         public string CivicLetter { get; set; }

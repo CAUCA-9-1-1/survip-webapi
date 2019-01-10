@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
-using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
 using Survi.Prevention.Models.InspectionManagement;
@@ -88,6 +87,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     inspection.IdBuilding,
                     building.IdRiskLevel,
                     building.Matricule,
+                    building.IdCity,
                     codeUtilisation = building.IdUtilisationCode == null ? "" : 
                         Context.UtilisationCodeLocalizations
                             .Where(code => code.IdParent == building.IdUtilisationCode && code.LanguageCode == languageCode)
@@ -120,6 +120,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					IdBatch = result.idBatch,
 					BatchDescription = result.batchDescription,
 					IdBuilding = result.IdBuilding,
+                    IdCity = result.IdCity,
 					IdRiskLevel = result.IdRiskLevel,
 					Matricule = result.Matricule,
                     Status = result.Status,

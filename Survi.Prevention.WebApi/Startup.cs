@@ -37,8 +37,7 @@ namespace Survi.Prevention.WebApi
                 options.AddPolicy("AllowAllOrigin",
                     builder => builder.AllowAnyOrigin()
                         .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials());
+                        .AllowAnyHeader());
             });
 
             services.AddTokenAuthentification(Configuration);
