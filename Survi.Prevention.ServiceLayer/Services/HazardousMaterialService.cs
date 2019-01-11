@@ -65,6 +65,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 where mat.IsActive
                 from loc in mat.Localizations
                 where loc.IsActive && loc.LanguageCode == languageCode
+                orderby loc.Name
                 select new HazardousMaterialForList
                 {
                     Id = mat.Id,
