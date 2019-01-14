@@ -20,6 +20,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
         public string AliasName { get; set; }
         public string OwnerName { get; set; }
         public string UtilisationCodeDescription { get; set; }
-        public string TransversalLaneName { get; set; }               
+        public string TransversalLaneName { get; set; }  
+        public string ApprobationRefusalReason { get; set; }
     }
 }
