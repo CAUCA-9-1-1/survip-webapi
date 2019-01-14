@@ -23,5 +23,5 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return Ok(Service.GetListLocalized(idBuilding, languageCode));
 		}
-	}v
+	}
 }
