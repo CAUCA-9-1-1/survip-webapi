@@ -110,7 +110,15 @@ namespace Survi.Prevention.ServiceLayer.Services
                     transName = transversal != null ? transversal.Localizations.Where(loc => loc.IsActive && loc.LanguageCode == languageCode).Select(loc => loc.Name).FirstOrDefault() : "",
                     transPublicDescription = transversal != null ? transversal.PublicCode.Description : "",
                     transGenericDescription = transversal != null ? transversal.LaneGenericCode.Description : "",
-                    transAddWhiteSpace = transversal != null && transversal.LaneGenericCode.AddWhiteSpaceAfter
+                    transAddWhiteSpace = transversal != null && transversal.LaneGenericCode.AddWhiteSpaceAfter,
+                    approbationRefusalReason = (
+                        Context.InspectionVisits
+                            .Where(visit => visit.IdInspection == inspection.Id)
+                            .OrderBy(visit => visit.EndedOn)
+                            .Where(iv => iv.IsActive && iv.Status == InspectionVisitStatus.Completed)
+                            .Select(visit => visit.ReasonForApprobationRefusal)
+                            .DefaultIfEmpty("")
+                            .LastOrDefault())
                 };
 
 			var results = query.AsNoTracking().ToList()
@@ -132,7 +140,8 @@ namespace Survi.Prevention.ServiceLayer.Services
                     LaneName = new LocalizedLaneNameGenerator()
                         .GenerateLaneName(result.laneName, result.genericDescription, result.publicDescription, result.AddWhiteSpaceAfter),
 				    TransversalLaneName = new LocalizedLaneNameGenerator()
-				        .GenerateLaneName(result.transName, result.transGenericDescription, result.transPublicDescription, result.transAddWhiteSpace)
+				        .GenerateLaneName(result.transName, result.transGenericDescription, result.transPublicDescription, result.transAddWhiteSpace),
+				    ApprobationRefusalReason = result.approbationRefusalReason
                 });
 
 			return results
