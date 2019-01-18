@@ -110,5 +110,29 @@ namespace Survi.Prevention.ServiceLayer.Services
 				Messages = conversionResult.ValidationErrors
 			};
 		}
-	}
+
+        public override Guid AddOrUpdate(FireSafetyDepartment firesafetydepartment)
+        {
+            if (firesafetydepartment.Picture != null)
+            {
+                firesafetydepartment.IdPicture = UpdatePicture(firesafetydepartment);
+            }
+
+            return base.AddOrUpdate(firesafetydepartment);
+        }
+
+        private Guid UpdatePicture(FireSafetyDepartment firesafetydepartment)
+        {
+            var isExistRecord = Context.Pictures.Any(p => p.Id == firesafetydepartment.Picture.Id);
+
+            if (!isExistRecord)
+                Context.Add(firesafetydepartment.Picture);
+            else
+                firesafetydepartment.Picture.LastModifiedOn = DateTime.Now;
+
+            Context.SaveChanges();
+
+            return firesafetydepartment.Picture.Id;
+        }
+    }
 }
