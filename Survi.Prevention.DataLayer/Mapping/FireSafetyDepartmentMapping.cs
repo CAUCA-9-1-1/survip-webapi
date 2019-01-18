@@ -11,6 +11,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasMany(m => m.Firestations).WithOne(m => m.FireSafetyDepartment).HasForeignKey(m => m.IdFireSafetyDepartment);
 			b.HasMany(m => m.FireSafetyDepartmentServing).WithOne(m => m.FireSafetyDepartment).HasForeignKey(m => m.IdFireSafetyDepartment);
 			b.HasMany(m => m.Localizations).WithOne().HasForeignKey(m => m.IdParent);
-		}
+            b.HasOne(m => m.Picture).WithMany().HasForeignKey(m => m.IdPicture);
+        }
 	}
 }
