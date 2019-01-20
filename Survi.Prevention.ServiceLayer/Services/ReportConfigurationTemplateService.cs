@@ -22,15 +22,17 @@ namespace Survi.Prevention.ServiceLayer.Services
             return result;
         }
 
-        public override List<ReportConfigurationTemplate> GetList()
+        public List<ReportConfigurationTemplate> GetPlaceholders(List<Guid> allowedDepartmentIds = null)
         {
             var query =
                 from template in Context.ReportConfigurationTemplate
-                where template.IsActive
+                where template.IsActive && ContainsAllowedDepartmentId(allowedDepartmentIds, template.IdFireSafetyDepartment)
                 select new ReportConfigurationTemplate
                 {
                     Id = template.Id,
-                    Name = template.Name
+                    Name = template.Name,
+                    IdFireSafetyDepartment = template.IdFireSafetyDepartment,
+                    IsDefault = template.IsDefault
                 };
 
             return query.ToList();
@@ -51,5 +53,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 			return reportTemplate;
 		}	
+        }
+
+        private bool ContainsAllowedDepartmentId(List<Guid> allowedDepartmentIds, Guid? templateFireDepartmentId)
+        {
+            if (allowedDepartmentIds == null)
+                return false;
+            else if (allowedDepartmentIds.Contains(templateFireDepartmentId ?? Guid.Empty))
+                return true;
+            return false;
+
+
+        }
     }
 }
