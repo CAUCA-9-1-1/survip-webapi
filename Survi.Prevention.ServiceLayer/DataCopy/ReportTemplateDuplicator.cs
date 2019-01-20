@@ -13,6 +13,8 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
                 Data = template.Data,
                 CreatedOn = template.CreatedOn,
                 IsActive = template.IsActive,
+                IdFireSafetyDepartment = template.IdFireSafetyDepartment,
+                IsDefault = false
 			};
 		}
 
