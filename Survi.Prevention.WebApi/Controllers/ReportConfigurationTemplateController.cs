@@ -1,3 +1,5 @@
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models;
 using Survi.Prevention.ServiceLayer.Reporting;
@@ -8,15 +10,18 @@ namespace Survi.Prevention.WebApi.Controllers
 {
     [Route("api/ReportConfigurationTemplate")]
     public class ReportConfigurationTemplateController : BaseCrudController<ReportConfigurationTemplateService, ReportConfigurationTemplate>
-    {             
-        public ReportConfigurationTemplateController(ReportConfigurationTemplateService service) : base(service)
+    {            
+        private readonly WebuserService userService;
+
+        public ReportConfigurationTemplateController(ReportConfigurationTemplateService service, WebuserService userService) : base(service)
         {
+            this.userService = userService;
         }
         
         [HttpGet("placeholders")]
         public ActionResult GetAvailablePlaceholders()
         {
-	        var groups = BuildingReportTemplateFiller.GetPlaceholderGroups();
+            List<ReportConfigurationTemplate> groups = Service.GetPlaceholders(GetDepartmentIds());
 			return Ok(groups);
         }
 
@@ -24,6 +29,11 @@ namespace Survi.Prevention.WebApi.Controllers
 		public ActionResult CopyReportConfiguration([FromBody] Guid idReport)
 		{
 			return Ok(Service.CopyReportConfiguration(idReport));
+		}
+
+        private List<Guid> GetDepartmentIds()
+		{
+			return userService.GetUserFireSafetyDepartments(CurrentUserId);
 		}
     }
 }
