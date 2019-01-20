@@ -53,7 +53,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 			return reportTemplate;
 		}	
-        }
 
         public override Guid AddOrUpdate(ReportConfigurationTemplate entity)
 		{
