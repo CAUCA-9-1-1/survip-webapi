@@ -21,6 +21,13 @@ namespace Survi.Prevention.WebApi.Controllers
         [HttpGet("placeholders")]
         public ActionResult GetAvailablePlaceholders()
         {
+	        var groups = BuildingReportTemplateFiller.GetPlaceholderGroups();
+			return Ok(groups);
+        }
+
+        [HttpGet("list")]
+        public ActionResult GetAvailableReports()
+        {
             List<ReportConfigurationTemplate> groups = Service.GetPlaceholders(GetDepartmentIds());
 			return Ok(groups);
         }

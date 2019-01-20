@@ -55,6 +55,24 @@ namespace Survi.Prevention.ServiceLayer.Services
 		}	
         }
 
+        public override Guid AddOrUpdate(ReportConfigurationTemplate entity)
+		{
+            if (entity.IsDefault)
+            {
+                RemovePreviousDefault(entity.IdFireSafetyDepartment);
+            }
+
+			var isExistRecord = Context.Set<ReportConfigurationTemplate>().Any(c => c.Id == entity.Id);
+
+			if (isExistRecord)
+				Context.Set<ReportConfigurationTemplate>().Update(entity);
+			else
+				Context.Set<ReportConfigurationTemplate>().Add(entity);
+
+			Context.SaveChanges();
+			return entity.Id;
+		}
+
         private bool ContainsAllowedDepartmentId(List<Guid> allowedDepartmentIds, Guid? templateFireDepartmentId)
         {
             if (allowedDepartmentIds == null)
@@ -62,8 +80,23 @@ namespace Survi.Prevention.ServiceLayer.Services
             else if (allowedDepartmentIds.Contains(templateFireDepartmentId ?? Guid.Empty))
                 return true;
             return false;
+        }
 
+        private void RemovePreviousDefault(Guid? idFireSafetyDepartment)
+        {
+                var query =
+                from template in Context.ReportConfigurationTemplate
+                where template.IdFireSafetyDepartment == idFireSafetyDepartment && template.IsDefault
+                select template;
 
+                query.ToList();
+
+                foreach (ReportConfigurationTemplate template in query) {
+                    template.IsDefault = false;
+                    Context.Set<ReportConfigurationTemplate>().Update(template);
+                }
+
+                Context.SaveChanges();
         }
     }
 }
