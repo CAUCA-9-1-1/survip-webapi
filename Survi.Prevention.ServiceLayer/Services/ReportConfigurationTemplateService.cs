@@ -72,13 +72,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return entity.Id;
 		}
 
-        private bool ContainsAllowedDepartmentId(List<Guid> allowedDepartmentIds, Guid? templateFireDepartmentId)
+        private bool ContainsAllowedDepartmentId(List<Guid> allowedDepartmentIds, Guid templateFireDepartmentId)
         {
             if (allowedDepartmentIds == null)
                 return false;
-            else if (allowedDepartmentIds.Contains(templateFireDepartmentId ?? Guid.Empty))
-                return true;
-            return false;
+            return (allowedDepartmentIds.Contains(templateFireDepartmentId)) || templateFireDepartmentId == Guid.Empty;
         }
 
         private void RemovePreviousDefault(Guid? idFireSafetyDepartment)
