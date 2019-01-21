@@ -9,12 +9,12 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 		{
 			return new ReportConfigurationTemplate
 			{
-                Name = template.Name + " (Copie)",
-                Data = template.Data,
-                CreatedOn = template.CreatedOn,
-                IsActive = template.IsActive,
-                IdFireSafetyDepartment = template.IdFireSafetyDepartment,
-                IsDefault = false
+				Name = template.Name + " (Copie)",
+				Data = template.Data,
+				CreatedOn = template.CreatedOn,
+				IsActive = template.IsActive,
+				IdFireSafetyDepartment = template.IdFireSafetyDepartment,
+				IsDefault = false
 			};
 		}
 
