@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -10,16 +11,17 @@ using Survi.Prevention.DataLayer;
 namespace Survi.Prevention.DataLayer.Migrations
 {
     [DbContext(typeof(ManagementContext))]
-    partial class ManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20190121023721_Issue257-AddReportByFireStation")]
+    partial class Issue257AddReportByFireStation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:PostgresExtension:postgis", ",,")
-                .HasAnnotation("Npgsql:PostgresExtension:uuid-ossp", ",,")
+                .HasAnnotation("Npgsql:PostgresExtension:postgis", "'postgis', '', ''")
+                .HasAnnotation("Npgsql:PostgresExtension:uuid-ossp", "'uuid-ossp', '', ''")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("Survi.Prevention.Models.Buildings.AlarmPanelType", b =>
@@ -4807,9 +4809,6 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasColumnName("id_extern")
                         .HasMaxLength(100);
 
-                    b.Property<Guid?>("IdPicture")
-                        .HasColumnName("id_picture");
-
                     b.Property<Guid?>("IdWebUserLastModifiedBy")
                         .HasColumnName("id_web_user_last_modified_by");
 
@@ -4834,8 +4833,6 @@ namespace Survi.Prevention.DataLayer.Migrations
 
                     b.HasIndex("IdExtern")
                         .IsUnique();
-
-                    b.HasIndex("IdPicture");
 
                     b.ToTable("fire_safety_department");
                 });
@@ -10475,11 +10472,6 @@ namespace Survi.Prevention.DataLayer.Migrations
                         .HasForeignKey("IdCounty")
                         .HasConstraintName("fk_fire_safety_department_county_county_id")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Survi.Prevention.Models.Picture", "Picture")
-                        .WithMany()
-                        .HasForeignKey("IdPicture")
-                        .HasConstraintName("fk_fire_safety_department_pictures_picture_id");
                 });
 
             modelBuilder.Entity("Survi.Prevention.Models.FireSafetyDepartments.FireSafetyDepartmentCityServing", b =>
