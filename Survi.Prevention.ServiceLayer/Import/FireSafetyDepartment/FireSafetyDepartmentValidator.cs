@@ -3,7 +3,7 @@ using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
 namespace Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment
 {
-	public class FireSafetyDepartmentValidator : BaseImportValidator<ApiClient.DataTransferObjects.FireSafetyDepartment>
+	public class FireSafetyDepartmentValidator : BaseImportWithPictureValidator<ApiClient.DataTransferObjects.FireSafetyDepartment>
 	{
 		public FireSafetyDepartmentValidator()
 		{

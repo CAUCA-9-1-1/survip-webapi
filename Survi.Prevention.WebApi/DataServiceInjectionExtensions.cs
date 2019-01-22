@@ -15,6 +15,7 @@ using Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment;
 using Survi.Prevention.ServiceLayer.Import.Lane;
 using Survi.Prevention.ServiceLayer.Import.FireHydrantImportation;
 using Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators;
+using Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment.CustomFieldsCopier;
 using Survi.Prevention.ServiceLayer.Import.Places;
 using Survi.Prevention.ServiceLayer.Import.Places.Copiers;
 using Survi.Prevention.ServiceLayer.Services;
@@ -205,6 +206,7 @@ namespace Survi.Prevention.WebApi
 
         public static IServiceCollection InjectConverterCustomFieldsCopiers(this IServiceCollection services)
         {
+            services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.FireSafetyDepartment, FireSafetyDepartment>, FireSafetyDepartmentCustomFieldsCopier>();
             services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.BuildingParticularRisk, Models.Buildings.Base.BuildingParticularRisk>, BuildingParticularRiskCustomFieldsCopier>();
             services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.BuildingParticularRiskPicture, BuildingParticularRiskPicture>, BuildingParticularRiskPictureCustomFieldCopier>();
             services.AddScoped<ICustomFieldsCopier<ApiClient.DataTransferObjects.BuildingAnomaly, BuildingAnomaly>, BuildingAnomalyCustomFieldsCopier>();
