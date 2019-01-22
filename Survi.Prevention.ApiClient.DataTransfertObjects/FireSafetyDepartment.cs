@@ -2,7 +2,7 @@
 
 namespace Survi.Prevention.ApiClient.DataTransferObjects
 {
-    public class FireSafetyDepartment : BaseLocalizableTransferObject
+    public class FireSafetyDepartment : BaseLocalizableTransferObjectWithPicture
     {
         public string Language { get; set; }
         public string IdCounty { get; set; }
