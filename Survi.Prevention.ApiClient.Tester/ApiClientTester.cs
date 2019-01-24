@@ -11,7 +11,7 @@ using Survi.Prevention.ApiClient.Services.Places;
 
 namespace Survi.Prevention.ApiClient.Tester
 {
-	public partial class ApiClientTester : Form
+    public partial class ApiClientTester : Form
 	{
 		private AuthentificationConfiguration authConfig;
 		public ApiClientTester()
@@ -42,10 +42,10 @@ namespace Survi.Prevention.ApiClient.Tester
 				CodeAlpha3 = "Tes",
 				Id = "PhilCountry1",
 				IsActive = true,
-				Localizations = new List<Localization>
+				Localizations = new List<DataTransferObjects.Base.Localization>
 					{
-						new Localization {Name = "Phil country", LanguageCode = "en"},
-						new Localization {Name = "Pays de Phil", LanguageCode = "fr"}
+						new DataTransferObjects.Base.Localization {Name = "Phil country", LanguageCode = "en"},
+						new DataTransferObjects.Base.Localization {Name = "Pays de Phil", LanguageCode = "fr"}
 					}
 			};
 			return new List<Country> { countryToSend };
