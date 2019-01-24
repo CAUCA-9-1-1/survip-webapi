@@ -31,14 +31,14 @@ namespace Survi.Prevention.ServiceLayer.ValidationUtilities
         public static IRuleBuilderOptions<T, string> NotNullOrEmptyWithMaxLength<T>(this IRuleBuilder<T, string> ruleBuilder, int maxLength)
         {
             return ruleBuilder.NotNullOrEmpty()
-                .MaximumLength(maxLength).WithMessage("{PropertyName}_TooLong");
+                .MaximumLength(maxLength).WithMessage("{PropertyName}_TooLong_{MaxLength}");
         }
 
 	    public static IRuleBuilderOptions<T, string> NotNullMaxLength<T>(this IRuleBuilder<T, string> ruleBuilder, int maxLength)
 	    {
 		    return ruleBuilder
 			    .NotNull().WithMessage("{PropertyName}_NullValue")
-			    .MaximumLength(maxLength).WithMessage("{PropertyName}_TooLong");
+			    .MaximumLength(maxLength).WithMessage("{PropertyName}_TooLong_{MaxLength}");
 	    }      
     }
 }
