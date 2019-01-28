@@ -25,31 +25,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return query.ToList();
 		}
 
-	    public InspectionWithBuildings GetInspectionWithBuildings(Guid inspectionId, string languageCode)
-	    {
-	        var query =
-	            from inspection in Context.Inspections.AsNoTracking()
-	            where inspection.Id == inspectionId
-	            from building in inspection.Buildings
-	            where building.IsActive
-	            from loc in building.Localizations
-	            where loc.IsActive && loc.LanguageCode == languageCode
-                select new InspectionBuildingResume
-                {
-                    IdBuilding = building.Id,
-                    Name = loc.Name,
-                    IsMainBuilding = building.Id == inspection.IdBuilding
-	            };
-
-	        var buildings = query.ToList();
-
-	        return new InspectionWithBuildings
-	        {
-	            Id = inspectionId,
-	            Buildings = buildings
-	        };
-	    }
-
 		public List<InspectionBuildingForList> GetBuildings(Guid inspectionId, string languageCode)
 		{
 			var results = (

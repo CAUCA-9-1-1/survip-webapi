@@ -44,7 +44,42 @@ namespace Survi.Prevention.ServiceLayer.Services
             }).ToList();
 		}
 
-		public virtual Guid AddOrUpdatePicture(InspectionPictureForWeb entity)
+	    public List<EntityPictures> GetBuildingParticularRiskPictures(Guid idBuilding)
+	    {
+	        var query =
+	            from risk in Context.InspectionBuildingParticularRisks.AsNoTracking()
+	            where risk.IdBuilding == idBuilding && risk.IsActive
+	            from pictureRisk in risk.Pictures
+	            where pictureRisk.IsActive
+	            group pictureRisk by risk.Id
+	            into grp
+	            select new
+	            {
+	                Id = grp.Key,
+	                Pictures = grp.Select(p => new InspectionPictureForWeb
+	                {
+	                    Id = p.Id,
+	                    IdParent = p.IdBuildingParticularRisk,
+	                    IdPicture = p.Picture.Id,
+	                    DataUri = string.Format(
+	                        "data:{0};base64,{1}",
+	                        p.Picture.MimeType == "" || p.Picture.MimeType == null ? "image/jpeg" : p.Picture.MimeType,
+	                        Convert.ToBase64String(p.Picture.Data)),
+	                    SketchJson = p.Picture.SketchJson
+	                })
+	            };
+
+	        var anomalies = query.ToList();
+
+	        return anomalies
+	            .Select(anomaly => new EntityPictures
+	            {
+	                Id = anomaly.Id,
+	                Pictures = anomaly.Pictures.ToList()
+	            }).ToList();
+	    }
+
+        public virtual Guid AddOrUpdatePicture(InspectionPictureForWeb entity)
 		{
 			var particularRiskPicture = Context.InspectionBuildingParticularRiskPictures.Find(entity.Id) 
 			    ?? GenerateNewPicture(entity);

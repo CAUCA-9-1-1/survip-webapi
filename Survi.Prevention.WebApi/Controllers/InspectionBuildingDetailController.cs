@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -17,5 +18,11 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return Ok(Service.GetByIdBuilding(idBuilding));
 		}
+
+        [Route("/api/inspection/building/{idBuilding:Guid}/detail/picture"), HttpGet]
+        public ActionResult<InspectionPictureForWeb> GetPlanByBuilding(Guid idBuilding)
+        {
+            return Ok(Service.GetPictureByIdBuilding(idBuilding));
+        }
     }
 }

@@ -1,7 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Survi.Prevention.Models.DataTransfertObjects
 {
+    public class EntityPictures
+    {
+        public Guid Id { get; set; }
+        public List<InspectionPictureForWeb> Pictures { get; set; }
+    }
+
 	public class InspectionPictureForWeb
 	{
 		public Guid Id { get; set; }

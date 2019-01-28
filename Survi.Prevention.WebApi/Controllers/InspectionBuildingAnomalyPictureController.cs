@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.ServiceLayer.Services;
@@ -20,6 +21,12 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return Ok(Service.GetAnomalyPictures(idBuildingAnomaly));
 		}
+
+	    [Route("/api/inspection/building/{idBuilding:Guid}/anomaly/pictures"), HttpGet]
+	    public ActionResult<List<EntityPictures>> GetPicturesForBuilding(Guid idBuilding)
+	    {
+	        return Ok(Service.GetBuildingAnomalyPictures(idBuilding));
+	    }
 
 		[HttpPost]
 		[ProducesResponseType(401)]
