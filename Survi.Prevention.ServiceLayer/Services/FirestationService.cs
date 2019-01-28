@@ -27,13 +27,15 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-		public override List<Firestation> GetList()
+        public List<Firestation> GetList(List<Guid> idFireSafetyDepartments)
 		{
-			var result = Context.Firestations
-				.ToList();
+            var query =
+                from firestation in Context.Firestations
+                where firestation.IsActive && idFireSafetyDepartments.Contains(firestation.IdFireSafetyDepartment)
+                select firestation;
 
-			return result;
-		}
+            return query.ToList();
+        }
 
 		public List<FirestationForList> GetListLocalized(Guid idCity)
 		{
