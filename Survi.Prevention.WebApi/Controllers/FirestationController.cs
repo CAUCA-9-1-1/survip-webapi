@@ -24,7 +24,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[Route("AvailableForManagement"), HttpGet]
 		public ActionResult GetLocalizedFirestations()
 		{
-			return Ok(Service.GetList(this.GetDepartmentIds()));
+			return Ok(Service.GetList(GetDepartmentIds()));
 		}
 
 		[Route("/api/city/{idCity:Guid}/firestations"), HttpGet]
