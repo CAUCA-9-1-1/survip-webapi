@@ -51,7 +51,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				Context.SaveChanges();
 				return newReportTemplate;
 			}
-			return reportTemplate;
+			return null;
 		}	
 
 		public override Guid AddOrUpdate(ReportConfigurationTemplate entity)
@@ -85,8 +85,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 				from template in Context.ReportConfigurationTemplate
 				where template.IdFireSafetyDepartment == idFireSafetyDepartment && template.IsDefault
 				select template;
-
-				query.ToList();
 
 				foreach (ReportConfigurationTemplate template in query) {
 					template.IsDefault = false;
