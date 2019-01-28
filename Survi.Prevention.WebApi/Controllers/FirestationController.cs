@@ -21,7 +21,7 @@ namespace Survi.Prevention.WebApi.Controllers
             return userService.GetUserFireSafetyDepartments(CurrentUserId);
         }
 
-		[Route("localized"), HttpGet]
+		[Route("AvailableForManagement"), HttpGet]
 		public ActionResult GetLocalizedFirestations()
 		{
 			return Ok(Service.GetList(this.GetDepartmentIds()));
