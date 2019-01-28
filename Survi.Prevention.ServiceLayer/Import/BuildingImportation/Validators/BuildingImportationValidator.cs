@@ -80,7 +80,7 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 				.NotNullMaxLength(50);
 
 			RuleFor(m => m.Details)
-				.NotNull().WithMessage("{PropertyName_InvalidValue}");
+				.NotNull().WithMessage("{PropertyName}_InvalidValue");
 
 			RuleFor(m => m.ChildType)
 				.IsInEnum();

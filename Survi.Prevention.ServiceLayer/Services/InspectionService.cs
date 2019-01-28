@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.DataTransfertObjects.Inspections;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
 using Survi.Prevention.Models.InspectionManagement;
 using Survi.Prevention.ServiceLayer.DataCopy;
@@ -304,7 +305,47 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 		}
 
-		public InspectionConfiguration GetInspectionConfiguration(Guid inspectionId)
+	    public InspectionWithBuildings GetInspectionWithBuildings(Guid inspectionId, string languageCode)
+	    {
+	        var currentInspection = (
+	            from inspection in Context.Inspections.AsNoTracking()
+	            where inspection.Id == inspectionId
+	            select new
+	            {
+                    inspection.IdBuilding,
+                    inspection.IdSurvey,
+                    inspection.IsSurveyCompleted,
+                    inspection.Status                   
+	            }).First();
+
+	        var query =	            
+	            from building in Context.InspectionBuildings.AsNoTracking()
+	            where building.IsActive && building.IdInspection == inspectionId
+	            from loc in building.Localizations
+	            where loc.IsActive && loc.LanguageCode == languageCode
+	            select new InspectionBuildingResume
+	            {
+	                IdBuilding = building.Id,
+	                Name = loc.Name,
+	                IsMainBuilding = building.Id == currentInspection.IdBuilding,
+                    Coordinates = building.Coordinates,
+                    IdLaneTransversal = building.IdLaneTransversal
+	            };
+
+	        var buildings = query.ToList();
+
+            return new InspectionWithBuildings
+	        {
+	            Id = inspectionId,
+	            Buildings = buildings,
+                Configuration = GetInspectionConfiguration(inspectionId),
+                IdSurvey = currentInspection.IdSurvey,
+                IsSurveyCompleted = currentInspection.IsSurveyCompleted,
+                Status = currentInspection.Status
+	        };
+	    }
+
+        public InspectionConfiguration GetInspectionConfiguration(Guid inspectionId)
 		{
 			var currentInspection = (
 				from inspection in Context.Inspections.AsNoTracking()

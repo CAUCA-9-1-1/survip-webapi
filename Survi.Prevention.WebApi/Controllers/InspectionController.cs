@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.DataTransfertObjects.Inspections;
 using Survi.Prevention.Models.InspectionManagement;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -17,7 +18,13 @@ namespace Survi.Prevention.WebApi.Controllers
 			this.service = service;
 		}
 
-		[HttpPost, Route("{id:Guid}/approve")]
+	    [HttpGet, Route("{idInspection:Guid}/buildinglist")]
+	    public ActionResult<InspectionWithBuildings> GetInspectionWithBuilding(Guid idInspection, [FromHeader(Name = "Language-Code")]string languageCode)
+	    {
+	        return Ok(service.GetInspectionWithBuildings(idInspection, languageCode));
+	    }
+
+        [HttpPost, Route("{id:Guid}/approve")]
 		[ProducesResponseType(typeof(bool), 200)]
 		public ActionResult ApproveInspection(Guid id)
 		{

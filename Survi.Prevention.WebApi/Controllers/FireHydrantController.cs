@@ -24,11 +24,17 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(Service.GetListForCity(idCity, languageCode));
 		}
 
-		[HttpGet, Route("city/{idCity:Guid}/building/{idBuilding:Guid}")]
+        [HttpGet, Route("forBuilding/{idBuilding:Guid}/withinDistance/{distance}")]
+        public ActionResult GetListLocalizedForBuilding(Guid idBuilding, int distance, [FromHeader(Name = "Language-Code")]string languageCode)
+        {
+            return Ok(Service.GetListForBuilding(idBuilding, distance, languageCode));
+        }
+
+        /*[HttpGet, Route("city/{idCity:Guid}/building/{idBuilding:Guid}")]
 		public ActionResult GetCityListLocalizedForBuilding(Guid idCity, Guid idBuilding, [FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return Ok(Service.GetCityListForBuilding(idCity, idBuilding, languageCode));
-		}
+		}*/
 
         [HttpPost, Route("connection/import")]
         public ActionResult Import([FromBody] List<ApiClient.DataTransferObjects.FireHydrantConnection> importedEntities)

@@ -38,7 +38,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 					hydrant.PointCoordinates,
 					formHydrant.IdFireHydrant,
 					hydrant.CivicNumber,
-					hydrant.AddressLocationType
+					hydrant.AddressLocationType,
+                    formHydrant.IdBuilding
 				}).ToList();
 
 			return results
@@ -46,7 +47,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				{
 					Id = hydrant.Id,
 					Color = hydrant.Color,
-					IdInspection = inspectionId,
+					IdBuilding = hydrant.IdBuilding,
 					Number = hydrant.Number,
 					Address = GenerateAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdLaneTransversal, hydrant.PhysicalPosition, 
 						hydrant.PointCoordinates, hydrant.CivicNumber, hydrant.AddressLocationType, languageCode),
@@ -54,7 +55,44 @@ namespace Survi.Prevention.ServiceLayer.Services
 				}).ToList();
 		}
 
-		private string GenerateAddress(FireHydrantLocationType type, Guid? idLane, Guid? idIntersection, string physicalPosition, 
+	    public List<InspectionBuildingFireHydrantForList> GetBuildingFireHydrants(Guid buildingId, string languageCode)
+	    {
+	        var results = (
+	            from building in Context.Buildings.AsNoTracking()
+	            where building.Id == buildingId && building.ChildType == Models.Buildings.BuildingChildType.None
+	            from formHydrant in building.FireHydrants
+	            where formHydrant.IsActive
+	            let hydrant = formHydrant.Hydrant
+	            select new
+	            {
+	                formHydrant.Id,
+	                IdFireHdydrant = hydrant.Id,
+	                hydrant.Color,
+	                hydrant.Number,
+	                hydrant.IdLane,
+	                hydrant.IdIntersection,
+	                hydrant.PhysicalPosition,
+	                hydrant.LocationType,
+	                hydrant.PointCoordinates,
+	                formHydrant.IdFireHydrant,
+	                hydrant.CivicNumber,
+	                hydrant.AddressLocationType
+	            }).ToList();
+
+	        return results
+	            .Select(hydrant => new InspectionBuildingFireHydrantForList
+	            {
+	                Id = hydrant.Id,
+	                Color = hydrant.Color,
+	                IdBuilding = buildingId,
+	                Number = hydrant.Number,
+	                Address = GenerateAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition,
+	                    hydrant.PointCoordinates, hydrant.CivicNumber, hydrant.AddressLocationType, languageCode),
+	                IdFireHydrant = hydrant.IdFireHydrant
+	            }).ToList();
+	    }
+
+        private string GenerateAddress(FireHydrantLocationType type, Guid? idLane, Guid? idIntersection, string physicalPosition, 
 			NetTopologySuite.Geometries.Point coordinate, string civicNumber, FireHydrantAddressLocationType addressLocationType, string languageCode)
 		{
 			if (type == FireHydrantLocationType.Address)
@@ -65,7 +103,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				return physicalPosition;
 			if (type == FireHydrantLocationType.Coordinates)
 			{
-				if (physicalPosition != String.Empty)
+				if (physicalPosition != string.Empty)
 					return physicalPosition;
 				if (!coordinate.IsEmpty && coordinate.IsValid)
 					return $"{coordinate.ToText()}";

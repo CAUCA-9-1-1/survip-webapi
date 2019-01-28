@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models;
+using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 
 namespace Survi.Prevention.ServiceLayer.Services
@@ -39,5 +41,27 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			return Enumerable.Empty<InspectionBuildingDetail>().ToList();
 		}
+
+	    public InspectionPictureForWeb GetPictureByIdBuilding(Guid idBuilding)
+	    {
+	        var query =
+	            from detail in Context.BuildingDetails.AsNoTracking()
+	            where detail.IdBuilding == idBuilding && detail.IsActive
+	            select detail.PlanPicture;
+
+	        var picture = query.FirstOrDefault();
+
+	        return picture == null ? null : new InspectionPictureForWeb
+	        {
+	            Id = picture.Id,
+	            IdPicture = picture.Id,
+	            IdParent = idBuilding,
+	            DataUri = string.Format(
+	                "data:{0};base64,{1}",
+	                string.IsNullOrEmpty(picture.MimeType) ? "image/jpeg" : picture.MimeType,
+	                Convert.ToBase64String(picture.Data)),
+	            SketchJson = picture.SketchJson
+	        };
+        }
 	}
 }

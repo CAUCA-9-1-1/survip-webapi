@@ -20,7 +20,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				.FirstOrDefault(anomaly => anomaly.Id == id);
 		}
 
-		public List<InspectionBuildingAnomaly> GetList(Guid idBuilding)
+		public List<InspectionBuildingAnomaly> GetListWithPictures(Guid idBuilding)
 		{
 			var value = Context.InspectionBuildingAnomalies
 				.Where(a => a.IsActive && a.IdBuilding == idBuilding)
@@ -31,7 +31,16 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return value;
 		}
 
-		public List<InspectionBuildingAnomalyThemeForList> GetListForWeb(Guid idBuilding)
+	    public List<InspectionBuildingAnomaly> GetList(Guid idBuilding)
+	    {
+	        var value = Context.InspectionBuildingAnomalies
+	            .Where(a => a.IsActive && a.IdBuilding == idBuilding)
+	            .ToList();
+
+	        return value;
+	    }
+
+        public List<InspectionBuildingAnomalyThemeForList> GetListForWeb(Guid idBuilding)
 		{
 			var query =
 				from anomaly in Context.InspectionBuildingAnomalies.AsNoTracking()
