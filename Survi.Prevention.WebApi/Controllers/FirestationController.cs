@@ -11,15 +11,15 @@ namespace Survi.Prevention.WebApi.Controllers
 	{
 		private readonly WebuserService userService;
 
-		public FirestationController(FirestationService service, WebuserService userService): base(service)
+		public FirestationController(FirestationService service, WebuserService userService) : base(service)
 		{
 			this.userService = userService;
 		}
 
-        private List<Guid> GetDepartmentIds()
-        {
-            return userService.GetUserFireSafetyDepartments(CurrentUserId);
-        }
+		private List<Guid> GetDepartmentIds()
+		{
+			return userService.GetUserFireSafetyDepartments(CurrentUserId);
+		}
 
 		[Route("AvailableForManagement"), HttpGet]
 		public ActionResult GetLocalizedFirestations()
@@ -27,10 +27,10 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(Service.GetList(this.GetDepartmentIds()));
 		}
 
-        [Route("/api/city/{idCity:Guid}/firestations"), HttpGet]
+		[Route("/api/city/{idCity:Guid}/firestations"), HttpGet]
 		public ActionResult GetLocalizedFirestations(Guid idCity)
 		{
 			return Ok(Service.GetListLocalized(idCity));
-		}	
+		}
 	}
 }
