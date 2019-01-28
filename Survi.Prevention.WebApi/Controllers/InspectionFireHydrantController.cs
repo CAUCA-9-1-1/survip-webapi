@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
@@ -15,12 +17,18 @@ namespace Survi.Prevention.WebApi.Controllers
 		}
 
 		[HttpGet, Route("{idInspection:Guid}/firehydrant")]
-		public ActionResult GetList(Guid idInspection, [FromHeader(Name = "Language-Code")]string languageCode)
+		public ActionResult<List<InspectionBuildingFireHydrantForList>> GetList(Guid idInspection, [FromHeader(Name = "Language-Code")]string languageCode)
 		{
 			return Ok(service.GetFormFireHydrants(idInspection, languageCode));
 		}
 
-		[HttpDelete, Route("buildingFireHydrant/{idBuildingFireHydrant:Guid}")]
+	    [HttpGet, Route("building/{idBuilding:Guid}/firehydrant")]
+	    public ActionResult<List<InspectionBuildingFireHydrantForList>> GetListByBuilding(Guid idBuilding, [FromHeader(Name = "Language-Code")]string languageCode)
+	    {
+	        return Ok(service.GetBuildingFireHydrants(idBuilding, languageCode));
+	    }
+
+        [HttpDelete, Route("buildingFireHydrant/{idBuildingFireHydrant:Guid}")]
 		public ActionResult DeleteBuildingFireHydrant(Guid idBuildingFireHydrant)
 		{
 			if (service.DeleteBuildingFireHydrant(idBuildingFireHydrant))

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.ServiceLayer.Services;
@@ -21,7 +22,13 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(Service.GetParticularRiskPictures(idBuildingParticularRisk));
 		}
 
-		[HttpPost]
+	    [Route("/api/inspection/building/{idBuilding:Guid}/particularrisk/pictures"), HttpGet]
+	    public ActionResult<List<EntityPictures>> GetPicturesForBuilding(Guid idBuilding)
+	    {
+	        return Ok(Service.GetBuildingParticularRiskPictures(idBuilding));
+	    }
+
+        [HttpPost]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(200)]
 		public virtual ActionResult Post([FromBody] InspectionPictureForWeb entity)
