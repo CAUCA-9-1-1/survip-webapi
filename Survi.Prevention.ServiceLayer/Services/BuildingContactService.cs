@@ -31,5 +31,33 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return result;
 		}
+
+        public List<ApiClient.DataTransferObjects.BuildingContact> Export(List<string> idBuildings)
+        {
+            var query = (
+                from buildingcontact in Context.BuildingContacts.AsNoTracking()
+                    .IgnoreQueryFilters()
+                where buildingcontact.HasBeenModified &&
+                      idBuildings.Contains(buildingcontact.IdBuilding.ToString())
+                select new ApiClient.DataTransferObjects.BuildingContact
+                {
+                    Id = buildingcontact.IdExtern,
+                    IdBuilding = buildingcontact.Building.IdExtern,
+                    CallPriority = buildingcontact.CallPriority,
+                    CellphoneNumber = buildingcontact.CellphoneNumber,
+                    FirstName = buildingcontact.FirstName,
+                    IsOwner = buildingcontact.IsOwner,
+                    LastName = buildingcontact.LastName,
+                    OtherNumber = buildingcontact.OtherNumber,
+                    OtherNumberExtension = buildingcontact.OtherNumberExtension,
+                    PagerCode = buildingcontact.PagerCode,
+                    PagerNumber = buildingcontact.PagerNumber,
+                    PhoneNumber = buildingcontact.PhoneNumber,
+                    PhoneNumberExtension = buildingcontact.PhoneNumberExtension,
+                    IsActive = buildingcontact.IsActive,
+                    LastEditedOn = buildingcontact.LastModifiedOn
+                });
+            return query.ToList();
+        }
     }
 }

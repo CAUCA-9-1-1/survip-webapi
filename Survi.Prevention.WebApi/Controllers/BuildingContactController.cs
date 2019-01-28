@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Services;
@@ -17,5 +19,11 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return Ok(Service.GetBuildingContactList(idBuilding));
 		}
-	}
+
+        [HttpGet, Route("Export"), AllowAnonymous]
+        public ActionResult Export([FromQuery] List<string> idBuildings)
+        {
+            return Ok(Service.Export(idBuildings));
+        }
+    }
 }

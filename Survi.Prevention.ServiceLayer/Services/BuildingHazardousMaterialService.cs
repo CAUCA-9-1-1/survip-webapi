@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Remotion.Linq.Clauses;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
+using StorageTankType = Survi.Prevention.ApiClient.DataTransferObjects.StorageTankType;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -84,5 +86,38 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return quantityDescription;
 		}
-	}
+
+        public List<ApiClient.DataTransferObjects.BuildingHazardousMaterial> Export(List<string> idBuildings)
+        {
+            var query =
+                from buildingHazardousMaterial in Context.BuildingHazardousMaterials.AsNoTracking()
+                    .IgnoreQueryFilters()
+                where buildingHazardousMaterial.HasBeenModified &&
+                      idBuildings.Contains(buildingHazardousMaterial.IdBuilding.ToString())
+                select new ApiClient.DataTransferObjects.BuildingHazardousMaterial
+                {
+                    Id = buildingHazardousMaterial.IdExtern,
+                    CapacityContainer = buildingHazardousMaterial.CapacityContainer,
+                    Container = buildingHazardousMaterial.Container,
+                    IdBuilding = buildingHazardousMaterial.Building.IdExtern,
+                    Floor = buildingHazardousMaterial.Floor,
+                    GasInlet = buildingHazardousMaterial.GasInlet,
+                    IdHazardousMaterial = buildingHazardousMaterial.Material.IdExtern,
+                    IdUnitOfMeasure = buildingHazardousMaterial.Unit.IdExtern,
+                    OtherInformation = buildingHazardousMaterial.OtherInformation,
+                    Place = buildingHazardousMaterial.Place,
+                    Quantity = buildingHazardousMaterial.Quantity,
+                    Sector = buildingHazardousMaterial.Sector,
+                    SecurityPerimeter = buildingHazardousMaterial.SecurityPerimeter,
+                    SupplyLine = buildingHazardousMaterial.SupplyLine,
+                    TankType = (StorageTankType) buildingHazardousMaterial.TankType,
+                    Wall = buildingHazardousMaterial.Wall,
+                    IsActive = buildingHazardousMaterial.IsActive,
+                    LastEditedOn = buildingHazardousMaterial.LastModifiedOn
+
+                };
+
+            return query.ToList();
+        }
+    }
 }
