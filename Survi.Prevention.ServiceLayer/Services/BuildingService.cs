@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Remotion.Linq.Clauses;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.Buildings;
@@ -142,5 +143,20 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return query.ToList();
 		}
-	}
+
+        public List<BuildingForExport> Export(List<string> idBuildings)
+        {
+            var query = from building in Context.Buildings.AsNoTracking()
+                    .IgnoreQueryFilters()
+                where idBuildings.Contains(building.Id.ToString()) && building.HasBeenModified
+                from buildingLoc in building.Localizations.Where(bl => bl.LanguageCode == "fr" && bl.IsActive)
+                select new BuildingForExport
+                {
+                    Id = building.IdExtern,
+                    Name = buildingLoc.Name,
+                    IdLaneTransversal = building.Transversal.IdExtern
+                };
+            return query.ToList();
+        }
+    }
 }

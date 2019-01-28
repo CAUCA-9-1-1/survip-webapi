@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Remotion.Linq.Clauses;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.InspectionManagement;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
@@ -51,5 +53,26 @@ namespace Survi.Prevention.ServiceLayer.Services
 				})
                 .ToList();
 		}
+
+        public List<InspectionForExport> GetInspectionForExport()
+        {
+            var query = (from inspection in Context.Inspections.AsNoTracking()
+                where inspection.IsActive && inspection.Status == InspectionStatus.Approved
+                from building in Context.Buildings
+                where building.IsActive && building.Id == inspection.IdBuilding
+                from buildingLoc in building.Localizations.Where(bl => bl.LanguageCode == "fr" && bl.IsActive)
+                from cityLoc in building.City.Localizations.Where(cl => cl.LanguageCode == "fr" && cl.IsActive)
+                from laneLocalization in building.Lane.Localizations.Where(ll => ll.LanguageCode == "fr" && ll.IsActive)
+                         select new InspectionForExport
+                {
+                    CityName = cityLoc.Name,
+                    Name = buildingLoc.Name,
+                    Id = inspection.Id,
+                    IdBuilding = inspection.IdBuilding,
+                    Address = new AddressGenerator().GenerateAddress(building.CivicNumber, building.CivicLetter, laneLocalization.Name, building.Lane.LaneGenericCode.Description, building.Lane.PublicCode.Description, building.Lane.LaneGenericCode.AddWhiteSpaceAfter)
+                });
+
+            return query.ToList();
+        }
 	}
 }

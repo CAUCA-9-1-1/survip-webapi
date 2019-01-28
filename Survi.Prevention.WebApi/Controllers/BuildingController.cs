@@ -3,6 +3,7 @@ using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.ServiceLayer.Services;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Survi.Prevention.Models.DataTransfertObjects;
 
 namespace Survi.Prevention.WebApi.Controllers
@@ -151,5 +152,12 @@ namespace Survi.Prevention.WebApi.Controllers
 	            return BadRequest();
 	        return Ok(courseService.Import(importedEntities));
 	    }
+
+        [HttpGet, Route("Export"), AllowAnonymous]
+        public ActionResult Export([FromQuery] List<string> idBuildings)
+        {
+            return Ok(Service.Export(idBuildings));
+        }
+
     }
 }

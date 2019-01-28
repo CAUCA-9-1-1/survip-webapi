@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -19,5 +20,11 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return Ok(service.GetBuildings(idInspection, languageCode));
 		}
-	}
+
+        [HttpGet, Route("inspectionForExport"), AllowAnonymous]
+        public ActionResult GetInspectionForExport()
+        {
+            return Ok(service.GetInspectionForExport());
+        }
+    }
 }
