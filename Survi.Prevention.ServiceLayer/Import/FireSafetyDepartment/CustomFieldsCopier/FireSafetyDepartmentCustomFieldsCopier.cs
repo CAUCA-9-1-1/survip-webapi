@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using Survi.Prevention.Models.Base;
 using Survi.Prevention.ServiceLayer.Import.Base;
 using importedFireSafetyDepartment = Survi.Prevention.ApiClient.DataTransferObjects.FireSafetyDepartment;
