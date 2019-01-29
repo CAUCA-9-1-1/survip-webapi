@@ -6,7 +6,6 @@ using NUnit.Framework;
 using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ApiClient.Services.Building;
-using Survi.Prevention.ApiClient.Services.Places;
 using Survi.Prevention.ApiClient.Tests.Mocks;
 
 namespace Survi.Prevention.ApiClient.Tests.Repositories
@@ -55,6 +54,33 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
                     .WithRequestJson(new List<string> { "", "" })
                     .WithVerb(HttpMethod.Post)
                     .Times(1);
+            }
+        }
+
+        [TestCase]
+        public async Task ServiceCallTheRightUriButNotImplemented()
+        {
+            using (var httpTest = new HttpTest())
+            {
+                var repo = new BuildingAnomalyService(configuration);
+                await repo.GetAsync(new List<string> { "", "" });
+
+                httpTest.ShouldHaveCalled("http://test/Building/Anomaly/Export")
+                    .WithRequestJson(new List<string> { "", "" })
+                    .WithVerb(HttpMethod.Post)
+                    .Times(1);
+            }
+        }
+
+        [TestCase]
+        public async Task ServiceCallTheWrongUri()
+        {
+            using (var httpTest = new HttpTest())
+            {
+                var repo = new BuildingAnomalyService(configuration);
+                await repo.GetAsync(new List<string> { "", "" });
+
+                httpTest.ShouldNotHaveCalled("http://test/Building/Anomaly/Import");
             }
         }
     }
