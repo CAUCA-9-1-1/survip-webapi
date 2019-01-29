@@ -21,7 +21,7 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(service.GetBuildings(idInspection, languageCode));
 		}
 
-        [HttpGet, Route("inspectionForExport"), AllowAnonymous]
+        [HttpPost, Route("Building/Export"), AllowAnonymous]
         public ActionResult GetInspectionForExport()
         {
             return Ok(service.GetInspectionForExport());
