@@ -92,8 +92,8 @@
     <Compile Include="Services\Base\RestResponseExtensions.cs" />
     <Compile Include="Services\Base\RestResponseValidator.cs" />
     <Compile Include="Services\Building\BuildingAlarmPanelService.cs" />
-    <Compile Include="Services\Building\BuildingAnomlayPictureService.cs" />
-    <Compile Include="Services\Building\BuildingAnomlyService.cs" />
+    <Compile Include="Services\Building\BuildingAnomalyPictureService.cs" />
+    <Compile Include="Services\Building\BuildingAnomalyService.cs" />
     <Compile Include="Services\Building\BuildingContactService.cs" />
     <Compile Include="Services\Building\BuildingCourseService.cs" />
     <Compile Include="Services\Building\BuildingDetailService.cs" />

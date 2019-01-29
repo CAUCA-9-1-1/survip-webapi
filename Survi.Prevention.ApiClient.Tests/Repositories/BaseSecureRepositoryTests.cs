@@ -40,7 +40,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
 
                 var country = new Country();
                 var repo = new MockSecureRepository(configuration);
-                await repo.SendAsync(country);
+                await repo.SendAsync<ImportationResult>(country);
 
                 httpTest.ShouldHaveCalled("http://test/mock")
                     .WithRequestJson(country)
@@ -63,7 +63,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
 
                 var country = new Country();
                 var repo = new MockSecureRepository(configuration);
-                await repo.SendAsync(country);
+                await repo.SendAsync<ImportationResult>(country);
 
                 httpTest.ShouldHaveCalled("http://test/Authentification/logon")
                     .WithVerb(HttpMethod.Post)
@@ -91,7 +91,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
 
                 var country = new Country();
                 var repo = new MockSecureRepository(configuration);
-                await repo.SendAsync(country);
+                await repo.SendAsync<ImportationResult>(country);
 
                 Assert.AreEqual("NewRefreshToken", configuration.RefreshToken);
                 Assert.AreEqual("NewAccessToken", configuration.AccessToken);
@@ -111,7 +111,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
 
                 var country = new Country();
                 var repo = new MockSecureRepository(configuration);
-                await repo.SendAsync(country);
+                await repo.SendAsync<ImportationResult>(country);
 
                 httpTest.ShouldHaveCalled("http://test/mock")
                     .WithRequestJson(country)                    
@@ -144,7 +144,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
 
                 var country = new Country();
                 var repo = new MockSecureRepository(configuration);
-                await repo.SendAsync(country);
+                await repo.SendAsync<ImportationResult>(country);
 
                 httpTest.ShouldHaveCalled("http://test/mock")
                     .WithRequestJson(country)

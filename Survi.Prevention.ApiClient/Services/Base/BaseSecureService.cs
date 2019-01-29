@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Flurl;
 using Flurl.Http;
@@ -27,18 +28,18 @@ namespace Survi.Prevention.ApiClient.Services.Base
             return $"{Configuration.AuthorizationType} {Configuration.AccessToken}";
         }
 
-        protected override async Task<List<ImportationResult>> ExecuteAsync(object entity, Url request)
+        protected override async Task<List<TResult>> ExecutePostAsync<TResult>(object entity, Url request)
         {
             await LoginWhenLoggedOut();
             try
             {
-                return await ExecuteRequest(entity);
+                return await ExecuteRequest<TResult>(entity);
             }
             catch(FlurlHttpException exception)
             { 
                 if (exception.Call.AccessTokenIsExpired())
                 {
-                    return await RefreshTokenThenRetry(entity);
+                    return await RefreshTokenThenRetry<TResult>(entity);
                 }
                 return null;
             }            
@@ -51,16 +52,16 @@ namespace Survi.Prevention.ApiClient.Services.Base
                     .Login();
         }
 
-        private async Task<List<ImportationResult>> RefreshTokenThenRetry(object entity)
+        private async Task<List<TResult>> RefreshTokenThenRetry<TResult>(object entity)
         {
             await new RefreshTokenHandler(Configuration)
                 .RefreshToken();
-            return await ExecuteRequest(entity);
+            return await ExecuteRequest<TResult>(entity);
         }
 
-        private async Task<List<ImportationResult>> ExecuteRequest(object entity)
+        private async Task<List<TResult>> ExecuteRequest<TResult>(object entity)
         {
-            return await ExecuteAsync(entity, GenerateSecureRequest());
+            return await ExecutePostAsync<TResult>(entity, GenerateSecureRequest());
         }
     }
 }
