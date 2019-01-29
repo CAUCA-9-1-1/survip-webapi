@@ -97,6 +97,7 @@
     <Compile Include="Repositories\BaseRepositoryTests.cs" />
     <Compile Include="Repositories\BaseRestResponseTests.cs" />
     <Compile Include="Repositories\BaseSecureRepositoryTests.cs" />
+    <Compile Include="Repositories\BuildingServiceValidationTests.cs" />
     <Compile Include="Repositories\CountryServiceValidationTests.cs" />
     <Compile Include="Repositories\ExceptionsTests.cs" />
     <Compile Include="Repositories\RefreshTokenHandlerTests.cs" />
