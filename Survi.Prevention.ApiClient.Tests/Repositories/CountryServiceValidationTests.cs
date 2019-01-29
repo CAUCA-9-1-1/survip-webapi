@@ -33,7 +33,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
             {
                 var country = new Country();
                 var repo = new CountryService(configuration);
-                await repo.SendAsync(country);
+                await repo.SendAsync<ImportationResult>(country);
 
                 httpTest.ShouldHaveCalled("http://test/Country/Import")
                     .WithRequestJson(country)

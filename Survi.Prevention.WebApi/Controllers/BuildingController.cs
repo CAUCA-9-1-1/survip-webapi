@@ -153,8 +153,8 @@ namespace Survi.Prevention.WebApi.Controllers
 	        return Ok(courseService.Import(importedEntities));
 	    }
 
-        [HttpGet, Route("Export"), AllowAnonymous]
-        public ActionResult Export([FromQuery] List<string> idBuildings)
+        [HttpPost, Route("Export"), AllowAnonymous]
+        public ActionResult Export([FromBody] List<string> idBuildings)
         {
             return Ok(Service.Export(idBuildings));
         }
