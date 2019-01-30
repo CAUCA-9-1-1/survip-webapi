@@ -11,7 +11,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
         [TestCase]
         public static void BadParameterApiExceptionMessageIsCorrectlyGenerated()
         {
-            Assert.AreEqual("API returned a 400 (bad request) response for url 'http://www.test.com/'.", new BadParameterApiException(Url).Message);
+            Assert.AreEqual("API returned a 400 (bad request) response for url 'http://www.test.com/'.", new BadParameterApiException(Url, null).Message);
         }
 
         [TestCase]
@@ -41,13 +41,13 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
         [TestCase]
         public static void NoResponseApiExceptionMessageIsCorrectlyGenerated()
         {
-            Assert.AreEqual("API didn't return an answer in a timely manner.", new NoResponseApiException().Message);
+            Assert.AreEqual("API didn't return an answer in a timely manner.", new NoResponseApiException(null).Message);
         }
 
         [TestCase]
         public static void NotFoundApiExceptionMessageIsCorrectlyGenerated()
         {
-            Assert.AreEqual("API returned a 404 (not found) response for url 'http://www.test.com/'.", new NotFoundApiException(Url).Message);
+            Assert.AreEqual("API returned a 404 (not found) response for url 'http://www.test.com/'.", new NotFoundApiException(Url, null).Message);
         }
 
         [TestCase]
