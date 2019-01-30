@@ -47,7 +47,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 
 		public string WebuserAssignedTo { get; set; }
 		public Guid? IdWebuserAssignedTo { get; set; }
-		public Guid IdBatch { get; set; }
+		public Guid? IdBatch { get; set; }
 		public string BatchDescription { get; set; }
 		public DateTime? ShouldStartOn { get; set; }
 		public Boolean IsReadyForInspection { get; set; }
