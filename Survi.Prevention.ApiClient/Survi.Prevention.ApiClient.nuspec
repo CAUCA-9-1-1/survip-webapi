@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <developmentDependency>false</developmentDependency>
     <description>$description$</description>
-    <releaseNotes>Fix security issues.</releaseNotes>
+    <releaseNotes>Add entity translation</releaseNotes>
     <copyright>Copyright 2016 CAUSE Inc.</copyright>
     <tags>Cause  Survi  Prevention  ApiClient</tags>
   </metadata>

@@ -1,14 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Resources;
+using System.Threading;
 
 namespace Survi.Prevention.ApiClient.Localization
 {
-    public class ErrorMessageTranslator
+	public class ErrorMessageTranslator
     {
-        //aller chercher la translation dans les fichier de ressources
-        private string errorMessage;
         private string[] errorMessageList;
+        private CultureInfo currentCulture;
 
+        public ErrorMessageTranslator()
+        {
+            currentCulture = CultureInfo.CreateSpecificCulture(Thread.CurrentThread.CurrentUICulture.Name);
+        }
         public List<ErrorMessageInformation> TranslateErrorMessages(List<string> errors)
         {
             var errorList = new List<ErrorMessageInformation>();
@@ -19,30 +24,29 @@ namespace Survi.Prevention.ApiClient.Localization
             return errorList;
         }
 
-        public ErrorMessageInformation GetErrorMessageTranslated(string errorMessage)
+        public ErrorMessageInformation GetErrorMessageTranslated(string error)
         {
-            this.errorMessage = errorMessage;
-            SplitErrorMessage();
-            return CreateErrorMessageTranslated();
+            SplitErrorMessage(error);
+            return CreateErrorMessageTranslated(error);
         }
 
-        private ErrorMessageInformation CreateErrorMessageTranslated()
+        private ErrorMessageInformation CreateErrorMessageTranslated(string error)
         {
             return new ErrorMessageInformation()
             {
-                EntityName = GetEntityTranslated(),
-                ErrorMessage = GetErrorMessage() 
+                FieldName = GetEntityTranslated() ?? error,
+                ErrorMessage = GetErrorMessage() ?? error
             };
         }
         
         private string GetErrorMessage()
         {
-            return new ResourceManager(typeof(Localization)).GetString(errorMessageList[1]) + GetMaximumValue();
+            return new ResourceManager(typeof(Localization)).GetString(errorMessageList[1], currentCulture) + GetMaximumValue();
         }
 
         private string GetEntityTranslated()
         {
-            return new ResourceManager(typeof(Localization)).GetString(errorMessageList[0]);
+            return new ResourceManager(typeof(Localization)).GetString(errorMessageList[0],currentCulture);
         }
 
         private string GetMaximumValue()
@@ -50,9 +54,16 @@ namespace Survi.Prevention.ApiClient.Localization
             return errorMessageList.Length > 2 ? " " + errorMessageList[2] + "." : "";
         }
         
-        private void SplitErrorMessage()
+        private void SplitErrorMessage(string error)
         {
-            errorMessageList = errorMessage.Split('_');
+            if (error.Contains("_"))
+            {
+                errorMessageList = error.Split('_');
+            }
+            else
+            {
+                errorMessageList[0] = error;
+            }
         }
     }
 }

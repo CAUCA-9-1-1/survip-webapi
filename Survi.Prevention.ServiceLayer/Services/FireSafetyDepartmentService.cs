@@ -10,7 +10,7 @@ using importedFireDeptCityServing = Survi.Prevention.ApiClient.DataTransferObjec
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class FireSafetyDepartmentService : BaseCrudServiceWithImportation<FireSafetyDepartment, ApiClient.DataTransferObjects.FireSafetyDepartment>
+    public class FireSafetyDepartmentService : BaseCrudServiceWithImportation<FireSafetyDepartment, ApiClient.DataTransferObjects.FireSafetyDepartment>
 	{
 		private readonly IEntityConverter<importedFireDeptCityServing, FireSafetyDepartmentCityServing> cityServingConverter;
 
@@ -107,6 +107,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return new ImportationResult
 			{
 				IdEntity = importedEntity.Id,
+                EntityName = conversionResult.Result.GetType().Name,
 				Messages = conversionResult.ValidationErrors
 			};
 		}
