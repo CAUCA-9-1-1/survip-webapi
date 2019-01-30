@@ -74,6 +74,12 @@
     <Compile Include="Configurations\LoginInfo.cs" />
     <Compile Include="Configurations\LoginResult.cs" />
     <Compile Include="Configurations\TokenRefreshResult.cs" />
+    <Compile Include="Localization\EntityLocalization.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityLocalization.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Localization\EntityTranslator.cs" />
     <Compile Include="Localization\ErrorMessageInformation.cs" />
     <Compile Include="Localization\ErrorMessageTranslator.cs" />
     <Compile Include="Exceptions\ApiClientException.cs" />
@@ -86,15 +92,15 @@
     <Compile Include="Exceptions\NoResponseApiException.cs" />
     <Compile Include="Exceptions\NotFoundApiException.cs" />
     <Compile Include="Exceptions\UnauthorizedApiException.cs" />
-    <Compile Include="Localization\Localization.Designer.cs">
-      <DependentUpon>Localization.resx</DependentUpon>
+    <Compile Include="Localization\Localization.en.Designer.cs">
+      <DependentUpon>Localization.en.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Localization\Localization.fr.Designer.cs">
+    <Compile Include="Localization\Localization.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Localization.fr.resx</DependentUpon>
+      <DependentUpon>Localization.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Base\BaseSecureService.cs" />
@@ -149,14 +155,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EmbeddedResource Include="Localization\Localization.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.en.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Localization\Localization.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Localization.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Localization\Localization.fr.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Localization.fr.Designer.cs</LastGenOutput>
+    <EmbeddedResource Include="Localization\EntityLocalization.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EntityLocalization.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />

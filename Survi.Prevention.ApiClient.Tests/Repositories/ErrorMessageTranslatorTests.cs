@@ -6,7 +6,7 @@ using Survi.Prevention.ApiClient.Localization;
 
 namespace Survi.Prevention.ApiClient.Tests.Repositories
 {
-    [TestFixture]
+	[TestFixture]
     public class ErrorMessageTranslatorTestsEnglishTranslation
     {
         public ErrorMessageTranslatorTestsEnglishTranslation()
@@ -19,42 +19,42 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
         [TestCase]
         public static void EntityDescriptionIsValid()
         {
-            var errorMessage = new ErrorMessageInformation() { EntityName = "Number", ErrorMessage = "A value is missing." };
-            Assert.AreEqual(errorMessage.EntityName,  new ErrorMessageTranslator().GetErrorMessageTranslated("Number_MissingValue").EntityName);
+            var errorMessage = new ErrorMessageInformation() { FieldName = "Number", ErrorMessage = "A value is missing." };
+            Assert.AreEqual(errorMessage.FieldName,  new ErrorMessageTranslator().GetErrorMessageTranslated("Number_MissingValue").FieldName);
         }
 
         [TestCase]
         public static void EntityDescriptionIsNotValid()
         {
-            var errorMessage = new ErrorMessageInformation() { EntityName = "Number", ErrorMessage = "A value is missing." };
-            Assert.AreNotEqual(errorMessage.EntityName, new ErrorMessageTranslator().GetErrorMessageTranslated("Numer_MissingValue").EntityName);
+            var errorMessage = new ErrorMessageInformation() { FieldName = "Number", ErrorMessage = "A value is missing." };
+            Assert.AreNotEqual(errorMessage.FieldName, new ErrorMessageTranslator().GetErrorMessageTranslated("Numer_MissingValue").FieldName);
         }
 
         [TestCase]
         public static void ErrorMessageDescriptionWithoutMaxValueIsValid()
         {
-            var errorMsg = new ErrorMessageInformation() { EntityName = "Number", ErrorMessage = "A value is missing." };
+            var errorMsg = new ErrorMessageInformation() { FieldName = "Number", ErrorMessage = "A value is missing." };
             Assert.AreEqual(errorMsg.ErrorMessage, new ErrorMessageTranslator().GetErrorMessageTranslated("Number_MissingValue").ErrorMessage);
         }
 
         [TestCase]
         public static void ErrorMessageDescriptionWithoutMaxValueIsNotValid()
         {
-            var errorMsg = new ErrorMessageInformation() { EntityName = "Number", ErrorMessage = "A value is missing." };
+            var errorMsg = new ErrorMessageInformation() { FieldName = "Number", ErrorMessage = "A value is missing." };
             Assert.AreNotEqual(errorMsg.ErrorMessage, new ErrorMessageTranslator().GetErrorMessageTranslated("Number_MissingVaue").ErrorMessage);
         }
 
         [TestCase]
         public static void ErrorMessageDescriptionWithMaxValueIsValid()
         {
-                        var errorMsg = new ErrorMessageInformation() { EntityName = "Number", ErrorMessage = "The maximum number of characters is 5." };
+                        var errorMsg = new ErrorMessageInformation() { FieldName = "Number", ErrorMessage = "The maximum number of characters is 5." };
             Assert.AreEqual(errorMsg.ErrorMessage, new ErrorMessageTranslator().GetErrorMessageTranslated("Number_TooLong_5").ErrorMessage);
         }
 
         [TestCase]
         public static void ErrorMessageDescriptionWithMaxValueIsNotValid()
         {
-            var errorMsg = new ErrorMessageInformation() { EntityName = "Number", ErrorMessage = "The maximum number of characters is 5." };
+            var errorMsg = new ErrorMessageInformation() { FieldName = "Number", ErrorMessage = "The maximum number of characters is 5." };
             Assert.AreNotEqual(errorMsg.ErrorMessage, new ErrorMessageTranslator().GetErrorMessageTranslated("Number_TooLong").ErrorMessage);
         }
 
@@ -63,14 +63,38 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
         {
             var listOfErrors = new List<string>() {"Number_TooLong_4", "LastName_InvalidValue", "Quantity_NullValue"};
             var result = new List<ErrorMessageInformation>();
-            result.Add(new ErrorMessageInformation(){ EntityName = "Number", ErrorMessage = "The maximum number of characters is 4."});
-            result.Add(new ErrorMessageInformation(){ EntityName = "Last name", ErrorMessage = "The value is invalid."});
-            result.Add(new ErrorMessageInformation(){ EntityName = "Quantity", ErrorMessage = "The value does not exist."});
+            result.Add(new ErrorMessageInformation(){ FieldName = "Number", ErrorMessage = "The maximum number of characters is 4."});
+            result.Add(new ErrorMessageInformation(){ FieldName = "Last name", ErrorMessage = "The value is invalid."});
+            result.Add(new ErrorMessageInformation(){ FieldName = "Quantity", ErrorMessage = "The value does not exist."});
             var test = new ErrorMessageTranslator().TranslateErrorMessages(listOfErrors);
             Assert.AreEqual(3, test.Count);
         }
     }
 
+    [TestFixture]
+    public class ErrorMessagesTestLanguages
+    {
+        [TestCase]
+        public static void ErrorMessageWithFrenchCurrentCulture()
+        {
+            var cultureInfo = Thread.CurrentThread.CurrentCulture;
+            Assert.AreEqual("fr-CA",cultureInfo.Name);
+        }
+
+        [TestCase]
+        public static void ErrorMessageWithEnglishCurrentCulture()
+        {
+            var cultureInfo = Thread.CurrentThread.CurrentCulture;
+            Assert.AreNotEqual("en-US", cultureInfo.Name);
+        }
+
+        [TestCase]
+        public static void ErrorMessageReturnsRighValuesWithFrenchCurrentCulture()
+        {
+            var errorMessage = new ErrorMessageInformation() { FieldName = "Numéro", ErrorMessage = "Une valeur est manquante." };
+            Assert.AreEqual(errorMessage.FieldName, new ErrorMessageTranslator().GetErrorMessageTranslated("Number_MissingValue").FieldName);
+        }
+    }
 
     [TestFixture]
     public class ErrorMessageTranslatorTestsFrenchTranslation
@@ -85,42 +109,42 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
         [TestCase]
         public static void EntityDescriptionIsValid()
         {
-            var errorMessage = new ErrorMessageInformation() { EntityName = "Numéro",ErrorMessage = "Une valeur est manquante." };
-            Assert.AreEqual(errorMessage.EntityName,new ErrorMessageTranslator().GetErrorMessageTranslated("Number_MissingValue").EntityName);
+            var errorMessage = new ErrorMessageInformation() { FieldName = "Numéro",ErrorMessage = "Une valeur est manquante." };
+            Assert.AreEqual(errorMessage.FieldName,new ErrorMessageTranslator().GetErrorMessageTranslated("Number_MissingValue").FieldName);
         }
 
         [TestCase]
         public static void EntityDescriptionIsNotValid()
         {
-            var errorMessage = new ErrorMessageInformation() { EntityName = "Numéro", ErrorMessage = "Une valeur est manquante." };
-            Assert.AreNotEqual(errorMessage.EntityName, new ErrorMessageTranslator().GetErrorMessageTranslated("Numer_MissingValue").EntityName);
+            var errorMessage = new ErrorMessageInformation() { FieldName = "Numéro", ErrorMessage = "Une valeur est manquante." };
+            Assert.AreNotEqual(errorMessage.FieldName, new ErrorMessageTranslator().GetErrorMessageTranslated("Numer_MissingValue").FieldName);
         }
 
         [TestCase]
         public static void ErrorMessageDescriptionWithoutMaxValueIsValid()
         {
-            var errorMsg = new ErrorMessageInformation() {EntityName = "Numéro", ErrorMessage = "Une valeur est manquante."};
+            var errorMsg = new ErrorMessageInformation() {FieldName = "Numéro", ErrorMessage = "Une valeur est manquante."};
             Assert.AreEqual(errorMsg.ErrorMessage, new ErrorMessageTranslator().GetErrorMessageTranslated("Number_MissingValue").ErrorMessage);
         }
 
         [TestCase]
         public static void ErrorMessageDescriptionWithoutMaxValueIsNotValid()
         {
-            var errorMsg = new ErrorMessageInformation() { EntityName = "Numéro", ErrorMessage = "Une valeur est manquante." };
+            var errorMsg = new ErrorMessageInformation() { FieldName = "Numéro", ErrorMessage = "Une valeur est manquante." };
             Assert.AreNotEqual(errorMsg.ErrorMessage, new ErrorMessageTranslator().GetErrorMessageTranslated("Number_MissingVaue").ErrorMessage);
         }
 
         [TestCase]
         public static void ErrorMessageDescriptionWithMaxValueIsValid()
         {
-            var errorMsg = new ErrorMessageInformation() { EntityName = "Numéro", ErrorMessage = "Le nombre de caractères maximal est de 5." };
+            var errorMsg = new ErrorMessageInformation() { FieldName = "Numéro", ErrorMessage = "Le nombre de caractères maximal est de 5." };
             Assert.AreEqual(errorMsg.ErrorMessage, new ErrorMessageTranslator().GetErrorMessageTranslated("Number_TooLong_5").ErrorMessage);
         }
 
         [TestCase]
         public static void ErrorMessageDescriptionWithMaxValueIsNotValid()
         {
-            var errorMsg = new ErrorMessageInformation() { EntityName = "Numéro", ErrorMessage = "Le nombre de caractères maximal est de 5." };
+            var errorMsg = new ErrorMessageInformation() { FieldName = "Numéro", ErrorMessage = "Le nombre de caractères maximal est de 5." };
             Assert.AreNotEqual(errorMsg.ErrorMessage, new ErrorMessageTranslator().GetErrorMessageTranslated("Number_TooLong").ErrorMessage);
         }
 
@@ -129,9 +153,9 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
         {
             var listOfErrors = new List<string>() { "Number_TooLong_4", "LastName_InvalidValue", "Quantity_NullValue" };
             var result = new List<ErrorMessageInformation>();
-            result.Add(new ErrorMessageInformation() { EntityName = "Numéro", ErrorMessage = "Le nombre de caractères maximal est de 4." });
-            result.Add(new ErrorMessageInformation() { EntityName = "Nom", ErrorMessage = "La valeur est invalide." });
-            result.Add(new ErrorMessageInformation() { EntityName = "Quantité", ErrorMessage = "La valeur est inexistante." });
+            result.Add(new ErrorMessageInformation() { FieldName = "Numéro", ErrorMessage = "Le nombre de caractères maximal est de 4." });
+            result.Add(new ErrorMessageInformation() { FieldName = "Nom", ErrorMessage = "La valeur est invalide." });
+            result.Add(new ErrorMessageInformation() { FieldName = "Quantité", ErrorMessage = "La valeur est inexistante." });
             var test = new ErrorMessageTranslator().TranslateErrorMessages(listOfErrors);
             Assert.AreEqual(3, test.Count);
         }
