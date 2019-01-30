@@ -60,9 +60,10 @@ namespace Survi.Prevention.ApiClient.Services.Base
                     throw new InvalidCredentialException(Configuration.UserName);
 
                 if (exception.Call.NoResponse())
-                    throw new NoResponseApiException();
+                    throw new NoResponseApiException(exception);
+
+                throw new InternalErrorApiException("An error occured in the login process", exception);
             }
-            return null;
         }
 
         private async Task<string> GetNewAccessToken()

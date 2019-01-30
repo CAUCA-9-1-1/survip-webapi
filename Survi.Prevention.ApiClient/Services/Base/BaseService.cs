@@ -54,7 +54,7 @@ namespace Survi.Prevention.ApiClient.Services.Base
             catch (FlurlHttpException exception)
             {
                 new RestResponseValidator()
-                    .ThrowExceptionForStatusCode(request.ToUri().ToString(), exception.Call.Succeeded, exception.Call.HttpStatus);
+                    .ThrowExceptionForStatusCode(request.ToUri().ToString(), exception.Call.Succeeded, exception.Call.HttpStatus, exception);
                 //throw;
                 return null;
             }
