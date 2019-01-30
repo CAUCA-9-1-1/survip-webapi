@@ -7,7 +7,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 		public Guid IdInspection { get; set; }
 		public Guid IdBatch { get; set; }
 		public Guid IdBuilding { get; set; }
-		public Guid IdWebuserAssignedTo { get; set; }
+		public Guid? IdWebuserAssignedTo { get; set; }
 		public Guid IdWebuserCreatedBy { get; set; }
 		public Guid IdRiskLevel { get; set; }
 		public int Sequence { get; set; }
