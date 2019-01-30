@@ -41,5 +41,5 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return userService.GetUserFireSafetyDepartments(CurrentUserId);
 		}
-	}
+    }
 }

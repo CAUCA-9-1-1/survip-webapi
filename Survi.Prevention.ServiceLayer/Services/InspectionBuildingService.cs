@@ -58,7 +58,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             var query = (from inspection in Context.Inspections.AsNoTracking()
                 where inspection.IsActive && inspection.Status == InspectionStatus.Approved
                 from building in Context.Buildings
-                where building.IsActive && building.Id == inspection.IdBuilding
+                where building.IsActive && building.Id == inspection.IdBuilding && !string.IsNullOrEmpty(building.IdExtern)
                 from buildingLoc in building.Localizations.Where(bl => bl.LanguageCode == "fr" && bl.IsActive)
                 from cityLoc in building.City.Localizations.Where(cl => cl.LanguageCode == "fr" && cl.IsActive)
                 from laneLocalization in building.Lane.Localizations.Where(ll => ll.LanguageCode == "fr" && ll.IsActive)

@@ -101,6 +101,7 @@
     <Compile Include="Services\Building\BuildingPersonRequiringAssistanceService.cs" />
     <Compile Include="Services\Building\BuildingService.cs" />
     <Compile Include="Services\Building\BuildingSprinklerService.cs" />
+    <Compile Include="Services\Building\InspectedBuildingReportService.cs" />
     <Compile Include="Services\InspectionBuildingService.cs" />
     <Compile Include="Services\Types\HazardousMaterialService.cs" />
     <Compile Include="Services\Types\RiskLevelService.cs" />

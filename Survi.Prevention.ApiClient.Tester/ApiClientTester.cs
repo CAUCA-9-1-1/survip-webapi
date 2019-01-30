@@ -65,12 +65,12 @@ namespace Survi.Prevention.ApiClient.Tester
 
         private async Task GetData()
         {
-            var service = new InspectionBuildingService(authConfig);
+            var service = new InspectedBuildingReportService(authConfig);
 
-            var result = await service.GetAsync(null);
+            var result = await service.GetAsync(new List<string>{ "000f577d-b957-4b11-975d-bc08c50f69b2" });
             if (result.Count > 0)
             {
-                MessageBox.Show(string.Join(",", result.Select(m=>m.Id)), "Récupération des données du transfert",
+                MessageBox.Show(string.Join(",", result.Select(m=>m.IdBuilding)), "Récupération des données du transfert",
                     MessageBoxButtons.OK);
             }
         }
