@@ -134,21 +134,34 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			var riskLevelIds = entity.RiskLevelIds.Select(Guid.Parse).ToList();
 			var activeRisks = currentConfig.RiskLevels.Where(risk => risk.IsActive).ToList();
-			var deletedRiskLevels = activeRisks.Where(risk => riskLevelIds.All(id => id != risk.IdRiskLevel)).ToList();
-			var newRiskLevelIds = riskLevelIds.Where(id => activeRisks.All(risk => risk.IdRiskLevel != id)).ToList();
-			Context.RemoveRange(deletedRiskLevels);
-			foreach (var id in newRiskLevelIds)
-			{
-				var risk = new FireSafetyDepartmentInspectionConfigurationRiskLevel
-				{
-					IdFireSafetyDepartmentInspectionConfiguration = currentConfig.Id,
-					IdRiskLevel = id,
-				};
-				Context.Add(risk);
-			}
+
+			RemoveDeletedRiskLevels(activeRisks, riskLevelIds);
+		    AddNewRiskLevels(currentConfig, riskLevelIds, activeRisks);
 		}
 
-		private FireSafetyDepartmentInspectionConfiguration CreateNewConfiguration()
+	    private void RemoveDeletedRiskLevels(List<FireSafetyDepartmentInspectionConfigurationRiskLevel> activeRisks, List<Guid> riskLevelIds)
+	    {
+	        var deletedRiskLevels = activeRisks.Where(risk => riskLevelIds.All(id => id != risk.IdRiskLevel)).ToList();
+	        if (deletedRiskLevels.Any())
+	            Context.RemoveRange(deletedRiskLevels);
+	    }
+
+	    private void AddNewRiskLevels(FireSafetyDepartmentInspectionConfiguration currentConfig, List<Guid> riskLevelIds,
+	        List<FireSafetyDepartmentInspectionConfigurationRiskLevel> activeRisks)
+	    {
+	        var newRiskLevelIds = riskLevelIds.Where(id => activeRisks.All(risk => risk.IdRiskLevel != id)).ToList();
+	        foreach (var id in newRiskLevelIds)
+	        {
+	            var risk = new FireSafetyDepartmentInspectionConfigurationRiskLevel
+	            {
+	                IdFireSafetyDepartmentInspectionConfiguration = currentConfig.Id,
+	                IdRiskLevel = id,
+	            };
+	            Context.Add(risk);
+	        }
+	    }
+
+	    private FireSafetyDepartmentInspectionConfiguration CreateNewConfiguration()
 		{
 			var currentConfig = new FireSafetyDepartmentInspectionConfiguration
 			{ RiskLevels = new List<FireSafetyDepartmentInspectionConfigurationRiskLevel>() };
