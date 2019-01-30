@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -21,6 +23,12 @@ namespace Survi.Prevention.WebApi.Controllers
             var fileName = buildindId + ".pdf";
             Response.Headers.Add("Content-Disposition", "inline; filename=" + fileName);
             return File(fileStream, "application/pdf", fileName);
+        }
+
+        [HttpPost, Route("Export"), AllowAnonymous]
+        public ActionResult GetDefaultReportForExport([FromBody] List<string> idBuildings)
+        {
+            return Ok(service.GetDefaultReportForExport(idBuildings));
         }
     }
 }
