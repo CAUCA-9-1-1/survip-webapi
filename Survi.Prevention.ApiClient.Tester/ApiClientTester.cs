@@ -6,7 +6,6 @@ using System.Windows.Forms;
 using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
-using Survi.Prevention.ApiClient.Services;
 using Survi.Prevention.ApiClient.Services.Building;
 using Survi.Prevention.ApiClient.Services.Places;
 
