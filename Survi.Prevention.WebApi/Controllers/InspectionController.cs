@@ -66,15 +66,23 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(service.GetGroupedUserInspections(languageCode, CurrentUserId));
 		}
 
-		[HttpPost, Route("StartInspection")]
-		public ActionResult StartInspection([FromBody] Guid idInspection)
+		[HttpPost, Route("StartVisit")]
+		public ActionResult StartVisit([FromBody] Guid idInspection)
 		{
-			if (service.StartInspection(idInspection, CurrentUserId))
+			if (service.CreateBuildingCopyAndSetVisitStatus(idInspection, CurrentUserId, true))
 				return NoContent();
 			return BadRequest("Error during the starting process of the inspection");
 		}
 
-		[HttpPost, Route("CompleteInspection")]
+	    [HttpPost, Route("CreateVisit")]
+	    public ActionResult CreateVisit([FromBody] Guid idInspection)
+	    {
+	        if (service.CreateBuildingCopyAndSetVisitStatus(idInspection, CurrentUserId, false))
+	            return NoContent();
+	        return BadRequest("Error during the creation process of the inspection");
+	    }
+
+        [HttpPost, Route("CompleteInspection")]
 		public ActionResult CompleteInspection([FromBody] Guid idInspection)
 		{
 			if (service.CompleteInspection(idInspection, CurrentUserId))
