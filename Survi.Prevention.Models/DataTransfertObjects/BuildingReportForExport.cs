@@ -1,5 +1,4 @@
-﻿
-namespace Survi.Prevention.Models.DataTransfertObjects
+﻿namespace Survi.Prevention.Models.DataTransfertObjects
 {
     public class BuildingReportForExport
     {

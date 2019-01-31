@@ -158,6 +158,5 @@ namespace Survi.Prevention.WebApi.Controllers
         {
             return Ok(Service.Export(idBuildings));
         }
-
     }
 }
