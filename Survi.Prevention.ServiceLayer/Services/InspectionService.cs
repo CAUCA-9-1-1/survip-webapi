@@ -118,7 +118,6 @@ namespace Survi.Prevention.ServiceLayer.Services
                             .OrderBy(visit => visit.EndedOn)
                             .Where(iv => iv.IsActive && iv.Status == InspectionVisitStatus.Completed)
                             .Select(visit => visit.ReasonForApprobationRefusal)
-                            .DefaultIfEmpty("")
                             .LastOrDefault())
                 };
 
@@ -142,7 +141,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                         .GenerateLaneName(result.laneName, result.genericDescription, result.publicDescription, result.AddWhiteSpaceAfter),
 				    TransversalLaneName = new LocalizedLaneNameGenerator()
 				        .GenerateLaneName(result.transName, result.transGenericDescription, result.transPublicDescription, result.transAddWhiteSpace),
-				    ApprobationRefusalReason = result.approbationRefusalReason
+				    ApprobationRefusalReason = result.approbationRefusalReason ?? ""
                 });
 
 			return results
@@ -186,7 +185,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return query;
 		}
 
-		public bool StartInspection(Guid idInspection, Guid idUser)
+		public bool CreateBuildingCopyAndSetVisitStatus(Guid idInspection, Guid idUser, bool setVisitAsStarted)
 		{
 			if (idInspection != Guid.Empty)
 			{
@@ -197,31 +196,47 @@ namespace Survi.Prevention.ServiceLayer.Services
 					.Include(i => i.Visits)
 					.Single();
 
-				AddNewInspectionWhenMissing(idUser, targetInspection);
-				targetInspection.Status = InspectionStatus.Started;
-				targetInspection.StartedOn = DateTime.Now;
+			    AddNewVisitWhenMissing(idUser, targetInspection, setVisitAsStarted);
+			    if (setVisitAsStarted)
+			    {
+			        targetInspection.Status = InspectionStatus.Started;
+			        targetInspection.StartedOn = DateTime.Now;
+			    }
 
-				Context.SaveChanges();
+			    Context.SaveChanges();
 				return true;
 			}
 			return false;
 		}
 
-		private static void AddNewInspectionWhenMissing(Guid idUser, Inspection targetInspection)
+		private static void AddNewVisitWhenMissing(Guid idUser, Inspection targetInspection, bool setAsStarted)
 		{
 			if (!targetInspection.Visits.Any(iv => iv.IsActive && iv.Status != InspectionVisitStatus.Completed))
 			{
-				targetInspection.Visits.Add(new InspectionVisit
-				{
-					Status = InspectionVisitStatus.Started,
-					CreatedOn = DateTime.Now,
-					IdWebuserVisitedBy = idUser,
-					IdWebUserLastModifiedBy = idUser
-				});
+			    var newVisit = CreateNewVisit(idUser, setAsStarted);
+			    targetInspection.Visits.Add(newVisit);
 			}
 		}
 
-		public bool CompleteInspection(Guid idInspection, Guid idUser)
+	    private static InspectionVisit CreateNewVisit(Guid idUser, bool setAsStarted)
+	    {
+	        var newVisit = new InspectionVisit
+	        {
+	            CreatedOn = DateTime.Now,
+	            Status = InspectionVisitStatus.Todo,
+	            IdWebUserLastModifiedBy = idUser
+	        };
+
+	        if (setAsStarted)
+	        {
+	            newVisit.Status = InspectionVisitStatus.Started;
+	            newVisit.IdWebuserVisitedBy = idUser;
+	        }
+
+	        return newVisit;
+	    }
+
+	    public bool CompleteInspection(Guid idInspection, Guid idUser)
 		{
 			if (idInspection != Guid.Empty)
 			{
