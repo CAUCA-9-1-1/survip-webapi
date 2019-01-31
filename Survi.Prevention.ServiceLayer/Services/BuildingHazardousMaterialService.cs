@@ -114,7 +114,6 @@ namespace Survi.Prevention.ServiceLayer.Services
                     Wall = buildingHazardousMaterial.Wall,
                     IsActive = buildingHazardousMaterial.IsActive,
                     LastEditedOn = buildingHazardousMaterial.LastModifiedOn
-
                 };
 
             return query.ToList();

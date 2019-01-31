@@ -12,7 +12,5 @@ namespace Survi.Prevention.ApiClient.Services.Base
 
         Task<List<T>> GetAsync(List<string> ids = null);
         Task<List<T>> GetAsync(List<string> ids, IProgress<int> progressReporter);
-
-
     }
 }

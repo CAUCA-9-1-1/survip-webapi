@@ -97,7 +97,6 @@ namespace Survi.Prevention.ServiceLayer.Services
             return filledTemplate;
         }
 
-
         public List<BuildingReportForExport> GetDefaultReportForExport(List<string> idBuildings)
         {
             var query = from building in Context.Buildings.AsNoTracking().IgnoreQueryFilters()          
