@@ -16,8 +16,8 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
         }
 
         protected TCopy DuplicateBuilding<TOriginal, TCopy>(TOriginal building)
-            where TOriginal : BaseBuilding
-            where TCopy : BaseBuilding, new()
+            where TOriginal : IBaseBuilding
+            where TCopy : IBaseBuilding, new()
         {
             return new TCopy
             {

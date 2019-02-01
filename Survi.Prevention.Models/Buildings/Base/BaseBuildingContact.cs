@@ -4,8 +4,8 @@ using Survi.Prevention.Models.Base;
 namespace Survi.Prevention.Models.Buildings.Base
 {
 	public abstract class BaseBuildingContact<T> : BaseImportedModel, IBaseBuildingContact 
-		where T : BaseBuilding
-	{
+		where T : IBaseBuilding
+    {
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public int CallPriority { get; set; }

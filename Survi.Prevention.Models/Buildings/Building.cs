@@ -9,7 +9,7 @@ namespace Survi.Prevention.Models.Buildings
 		Child
 	}
 
-	public class Building : BaseBuilding
+	public class Building : BaseBuilding<BuildingLocalization>
 	{		
 		public BuildingDetail Detail { get; set; }
 		public Building Parent { get; set; }

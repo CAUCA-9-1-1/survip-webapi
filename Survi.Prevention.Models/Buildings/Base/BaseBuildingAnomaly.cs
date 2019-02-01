@@ -5,8 +5,8 @@ using Survi.Prevention.Models.Base;
 namespace Survi.Prevention.Models.Buildings.Base
 {
 	public abstract class BaseBuildingAnomaly<TBuilding, TAnomalyPicture, TPicture> : BaseImportedModel
-		where TBuilding : BaseBuilding
-		where TPicture: BasePicture
+		where TBuilding : IBaseBuilding
+        where TPicture: BasePicture
 		where TAnomalyPicture : BaseBuildingAnomalyPicture<TPicture>
 	{
 		public string Theme { get; set; }

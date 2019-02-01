@@ -3,8 +3,8 @@ using Survi.Prevention.Models.Base;
 
 namespace Survi.Prevention.Models.Buildings.Base
 {
-	public abstract class BaseBuildingHazardousMaterial<T> : BaseImportedModel, IBaseBuildingHazardousMaterial where T : BaseBuilding
-	{
+	public abstract class BaseBuildingHazardousMaterial<T> : BaseImportedModel, IBaseBuildingHazardousMaterial where T : IBaseBuilding
+    {
 		public int Quantity { get; set; }
 		public string Container { get; set; }
 		public decimal CapacityContainer { get; set; }

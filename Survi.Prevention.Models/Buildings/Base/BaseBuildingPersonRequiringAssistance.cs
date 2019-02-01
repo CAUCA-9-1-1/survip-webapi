@@ -4,8 +4,8 @@ using Survi.Prevention.Models.Base;
 namespace Survi.Prevention.Models.Buildings.Base
 {
 	public abstract class BaseBuildingPersonRequiringAssistance<T> : BaseImportedModel, IBaseBuildingPersonRequiringAssistance 
-		where T : BaseBuilding
-	{
+		where T : IBaseBuilding
+    {
 		public int DayResidentCount { get; set; }
 		public int EveningResidentCount { get; set; }
 		public int NightResidentCount { get; set; }

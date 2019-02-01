@@ -13,8 +13,8 @@ namespace Survi.Prevention.Models.Buildings.Base
 	}
 
     public abstract class BaseBuildingParticularRisk<TBuilding, TRiskPicture, TPicture> : BaseImportedModel
-	    where TBuilding : BaseBuilding
-	    where TPicture : BasePicture
+	    where TBuilding : IBaseBuilding
+        where TPicture : BasePicture
 		where TRiskPicture : BaseBuildingParticularRiskPicture<TPicture>
 	{
 		public Guid IdBuilding { get; set; }
