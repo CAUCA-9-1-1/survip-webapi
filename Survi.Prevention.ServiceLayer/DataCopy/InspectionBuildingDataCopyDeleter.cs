@@ -33,7 +33,7 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 			foreach (var picture in buildings.Select(p => p.Detail.PlanPicture).Where(p => p != null))
 				Context.Remove(picture);
 
-			Context.RemoveRange(buildings);
+			Context.InspectionBuildings.RemoveRange(buildings);
 		}
 	}
 }

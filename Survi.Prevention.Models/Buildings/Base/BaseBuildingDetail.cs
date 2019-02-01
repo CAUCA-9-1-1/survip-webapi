@@ -4,8 +4,8 @@ using Survi.Prevention.Models.Base;
 namespace Survi.Prevention.Models.Buildings.Base
 {
 	public abstract class BaseBuildingDetail<TBuilding, TPicture> : BaseImportedModel 
-		where TBuilding : BaseBuilding
-		where TPicture : BasePicture
+		where TBuilding : IBaseBuilding
+        where TPicture : BasePicture
 	{
 		public string AdditionalInformation { get; set; } = "";
 		public decimal Height { get; set; }

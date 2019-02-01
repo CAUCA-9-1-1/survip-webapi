@@ -5,7 +5,7 @@ using Survi.Prevention.Models.FireSafetyDepartments;
 
 namespace Survi.Prevention.Models.Buildings.Base
 {
-	public class BaseBuilding : BaseLocalizableImportedModel<BuildingLocalization>
+	public class BaseBuilding<TLocalization> : BaseLocalizableImportedModel<TLocalization>, IBaseBuilding where TLocalization : BaseLocalization
 	{
 		private NetTopologySuitePointWrapper wrapper;
 

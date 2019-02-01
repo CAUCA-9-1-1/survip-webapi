@@ -16,8 +16,8 @@ namespace Survi.Prevention.Models.Buildings.Base
 	}
 
 	public abstract class BaseBuildingAlarmPanel<T> : BaseImportedModel, IBaseBuildingAlarmPanel
-		where T: BaseBuilding
-	{
+		where T: IBaseBuilding
+    {
 		public string Floor { get; set; }
 		public string Wall { get; set; }
 		public string Sector { get; set; }
