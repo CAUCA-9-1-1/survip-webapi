@@ -330,7 +330,9 @@ namespace Survi.Prevention.ServiceLayer.Services
                     inspection.IdBuilding,
                     inspection.IdSurvey,
                     inspection.IsSurveyCompleted,
-                    inspection.Status                   
+                    inspection.Status,
+                    inspection.StartedOn,
+                    currentVisit = inspection.Visits.SingleOrDefault(visit => visit.IsActive && visit.Status != InspectionVisitStatus.Completed)
 	            }).First();
 
 	        var query =	            
@@ -344,7 +346,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 	                Name = loc.Name,
 	                IsMainBuilding = building.Id == currentInspection.IdBuilding,
                     Coordinates = building.Coordinates,
-                    IdLaneTransversal = building.IdLaneTransversal
+                    IdLaneTransversal = building.IdLaneTransversal                    
 	            };
 
 	        var buildings = query.ToList();
@@ -356,7 +358,9 @@ namespace Survi.Prevention.ServiceLayer.Services
                 Configuration = GetInspectionConfiguration(inspectionId),
                 IdSurvey = currentInspection.IdSurvey,
                 IsSurveyCompleted = currentInspection.IsSurveyCompleted,
-                Status = currentInspection.Status
+                Status = currentInspection.Status,
+	            StartedOn = currentInspection.StartedOn,
+                CurrentVisit = currentInspection.currentVisit
 	        };
 	    }
 
@@ -458,5 +462,33 @@ namespace Survi.Prevention.ServiceLayer.Services
 				InspectorName = (firstName?.AttributeValue ?? "") + " " + (lastName?.AttributeValue ?? "")
 			};
 		}
+
+	    public bool SaveInspectionAndVisit(InspectionWithBuildings inspection, Guid idUser)
+	    {
+	        var currentInspection = Context.Inspections.Include(i => i.Visits).First(i => i.Id == inspection.Id);
+	        var currentVisit = currentInspection.Visits
+	            .First(v => v.IsActive && v.Status != InspectionVisitStatus.Completed);
+
+	        if (currentVisit != null)
+	        {
+	            currentInspection.StartedOn = inspection.StartedOn;
+	            currentInspection.IdWebUserLastModifiedBy = idUser;
+	            currentInspection.Status = inspection.Status;
+	            currentVisit.Status = inspection.CurrentVisit.Status;
+	            currentVisit.StartedOn = inspection.CurrentVisit.StartedOn;
+	            currentVisit.EndedOn = inspection.CurrentVisit.EndedOn;
+	            currentVisit.DoorHangerHasBeenLeft = inspection.CurrentVisit.DoorHangerHasBeenLeft;
+	            currentVisit.HasBeenRefused = inspection.CurrentVisit.HasBeenRefused;
+	            currentVisit.IdWebuserVisitedBy = idUser;
+	            currentVisit.OwnerWasAbsent = inspection.CurrentVisit.OwnerWasAbsent;
+	            currentVisit.ReasonForInspectionRefusal = inspection.CurrentVisit.ReasonForInspectionRefusal;
+	            currentVisit.RequestedDateOfVisit = inspection.CurrentVisit.RequestedDateOfVisit;
+
+	            Context.SaveChanges();
+	            return true;
+	        }
+
+	        return false;
+	    }
 	}
 }
