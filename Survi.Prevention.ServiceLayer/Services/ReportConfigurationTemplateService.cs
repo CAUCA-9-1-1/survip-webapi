@@ -24,9 +24,17 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public List<ReportConfigurationTemplate> GetPlaceholders(List<Guid> allowedDepartmentIds = null)
 		{
-			var query =
-				from template in Context.ReportConfigurationTemplate
-				where template.IsActive && ContainsAllowedDepartmentId(allowedDepartmentIds, template.IdFireSafetyDepartment)
+		    var query =
+		        from template in Context.ReportConfigurationTemplate
+		        select template;
+
+		    if (allowedDepartmentIds != null)
+		    {
+		        query = query.Where(t => allowedDepartmentIds.Contains(t.IdFireSafetyDepartment) || t.IdFireSafetyDepartment == Guid.Empty);
+		    }
+
+            query = 
+                from template in query
 				select new ReportConfigurationTemplate
 				{
 					Id = template.Id,
@@ -70,13 +78,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			Context.SaveChanges();
 			return entity.Id;
-		}
-
-		private bool ContainsAllowedDepartmentId(List<Guid> allowedDepartmentIds, Guid templateFireDepartmentId)
-		{
-			if (allowedDepartmentIds == null)
-				return false;
-			return (allowedDepartmentIds.Contains(templateFireDepartmentId)) || templateFireDepartmentId == Guid.Empty;
 		}
 
 		private void RemovePreviousDefault(Guid? idFireSafetyDepartment)

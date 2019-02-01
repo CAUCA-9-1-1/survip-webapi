@@ -74,6 +74,12 @@ namespace Survi.Prevention.WebApi.Controllers
 			return BadRequest("Error during the starting process of the inspection");
 		}
 
+	    [HttpPost]
+	    public ActionResult SaveInspectionAndVisit([FromBody] InspectionWithBuildings inspection)
+	    {
+	        return Ok(service.SaveInspectionAndVisit(inspection, CurrentUserId));
+	    }
+
 	    [HttpPost, Route("CreateVisit")]
 	    public ActionResult CreateVisit([FromBody] Guid idInspection)
 	    {
