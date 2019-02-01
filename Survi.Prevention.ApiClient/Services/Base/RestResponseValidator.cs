@@ -6,7 +6,7 @@ namespace Survi.Prevention.ApiClient.Services.Base
 {
     public class RestResponseValidator
     {
-        public void ThrowExceptionForStatusCode(string url, bool answerReceived, HttpStatusCode? code, Exception exception)
+        public void ThrowExceptionForStatusCode(string url, bool answerReceived, HttpStatusCode? code, Exception exception = null)
         {
             if (code == HttpStatusCode.NotFound)
                 throw new NotFoundApiException(url, exception);
