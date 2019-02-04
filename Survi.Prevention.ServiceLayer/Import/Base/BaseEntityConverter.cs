@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using FluentValidation;
@@ -44,10 +44,6 @@ namespace Survi.Prevention.ServiceLayer.Import.Base
             TOut convertedEntity = default(TOut);
             if (validationResult.IsValid)
                 convertedEntity = ReadDataTransferObject(importedObject);
-            else
-            {
-
-            }
 
             return GetConversionResult(convertedEntity, validationResult);
         }

@@ -3,19 +3,17 @@ using FluentValidation;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Base;
-using importedFireDepCity = Survi.Prevention.ApiClient.DataTransferObjects.FireSafetyDepartmentCityServing;
-using System.Linq;
 using Survi.Prevention.ServiceLayer.Import.Base.Cache;
+using importedFireDepCity = Survi.Prevention.ApiClient.DataTransferObjects.FireSafetyDepartmentCityServing;
 
 namespace Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment
 {
-    public class FireSafetyDepartmentCityServingImportationConverter: BaseEntityConverter<importedFireDepCity, FireSafetyDepartmentCityServing>
+	public class FireSafetyDepartmentCityServingImportationConverter: BaseEntityConverter<importedFireDepCity, FireSafetyDepartmentCityServing>
     {
 	    public FireSafetyDepartmentCityServingImportationConverter(IManagementContext context,
 		    AbstractValidator<importedFireDepCity> validator, CacheSystem cache)
 	        : base(context, validator, null, cache)
         {
-
 	    }
 
 		protected override void CopyCustomFieldsToEntity(importedFireDepCity importedObject, FireSafetyDepartmentCityServing entity)
@@ -26,22 +24,9 @@ namespace Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment
 
 		protected override void GetRealForeignKeys(importedFireDepCity importedFireDepCityServing)
 		{
-			GetFireSafetyDepartmentForeignKey(importedFireDepCityServing);
-			GetCityForeignKey(importedFireDepCityServing);
+			importedFireDepCityServing.IdCity = GetRealId<City>(importedFireDepCityServing.IdCity);
+			importedFireDepCityServing.IdFireSafetyDepartment = GetRealId<Models.FireSafetyDepartments.FireSafetyDepartment>(importedFireDepCityServing.IdFireSafetyDepartment);
 		}
-
-	    private void GetFireSafetyDepartmentForeignKey(importedFireDepCity importedFireDepCityServing)
-	    {
-		    var idFireSafetyDepartment = Context.Set<Models.FireSafetyDepartments.FireSafetyDepartment>()
-			    .FirstOrDefault(fireSafetyDepartment => fireSafetyDepartment.IdExtern == importedFireDepCityServing.IdFireSafetyDepartment)?.Id;
-		    importedFireDepCityServing.IdFireSafetyDepartment = idFireSafetyDepartment.HasValue ? idFireSafetyDepartment.ToString() : null;
-	    }
-
-	    private void GetCityForeignKey(importedFireDepCity importedFireDepCityServing)
-	    {
-		    var idCity = Context.Set<City>()
-			    .FirstOrDefault(city => city.IdExtern == importedFireDepCityServing.IdCity)?.Id;
-		    importedFireDepCityServing.IdCity = idCity.HasValue ? idCity.ToString() : null;
-	    }
     }
 }
+
