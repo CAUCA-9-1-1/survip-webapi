@@ -139,16 +139,16 @@
     <value>Contact de bâtiment</value>
   </data>
   <data name="BuildingCourse" xml:space="preserve">
-    <value />
+    <value>Parcours</value>
   </data>
   <data name="BuildingCourseLane" xml:space="preserve">
-    <value />
+    <value>Rue du parcours</value>
   </data>
   <data name="BuildingDetail" xml:space="preserve">
     <value>Détails de bâtiment</value>
   </data>
   <data name="BuildingFireHydrant" xml:space="preserve">
-    <value />
+    <value>Borne de bâtiment</value>
   </data>
   <data name="BuildingHazardousMaterial" xml:space="preserve">
     <value>Matières dangeureuses de bâtiment</value>
@@ -160,10 +160,10 @@
     <value>Images de risques particuliers de bâtiment</value>
   </data>
   <data name="BuildingPersonRequiringAssistance" xml:space="preserve">
-    <value />
+    <value>Personne nécessitant de l'aide dans un bâtiment</value>
   </data>
   <data name="BuildingSprinkler" xml:space="preserve">
-    <value />
+    <value>Gicleurs</value>
   </data>
   <data name="BuildingType" xml:space="preserve">
     <value>Type de bâtiment</value>
@@ -175,7 +175,7 @@
     <value>Type de municipalité</value>
   </data>
   <data name="ConstructionFireResistanceType" xml:space="preserve">
-    <value />
+    <value>Type de résistance au feu (construction)</value>
   </data>
   <data name="ConstructionType" xml:space="preserve">
     <value>Type de construction</value>
@@ -187,22 +187,22 @@
     <value>MRC</value>
   </data>
   <data name="CourseLaneDirection" xml:space="preserve">
-    <value />
+    <value>Direction de voie</value>
   </data>
   <data name="FireHydrant" xml:space="preserve">
     <value>Borne incendie</value>
   </data>
   <data name="FireHydrantAddressLocationType" xml:space="preserve">
-    <value />
+    <value>Type d'adresse de borne incendie</value>
   </data>
   <data name="FireHydrantConnection" xml:space="preserve">
-    <value />
+    <value>Raccord de borne incendie</value>
   </data>
   <data name="FireHydrantConnectionType" xml:space="preserve">
-    <value />
+    <value>Type de raccord de borne incendie</value>
   </data>
   <data name="FireHydrantLocationType" xml:space="preserve">
-    <value />
+    <value>Type d'emplacement de borne incendie</value>
   </data>
   <data name="FireHydrantType" xml:space="preserve">
     <value>Type de borne d'incendie</value>
@@ -214,7 +214,7 @@
     <value>Service incendie pour une municipalité</value>
   </data>
   <data name="FireSafetyDepartmentCityServing" xml:space="preserve">
-    <value />
+    <value>Service sécurité incendie desservant une ville</value>
   </data>
   <data name="Firestation" xml:space="preserve">
     <value>Caserne de pompiers</value>
@@ -229,10 +229,10 @@
     <value>Rue</value>
   </data>
   <data name="LaneGenericCode" xml:space="preserve">
-    <value />
+    <value>Code générique d'une rue</value>
   </data>
   <data name="LanePublicCode" xml:space="preserve">
-    <value />
+    <value>Code public d'une rue</value>
   </data>
   <data name="MeasureType" xml:space="preserve">
     <value>Type de mesure</value>
@@ -253,16 +253,16 @@
     <value>Niveau de risque</value>
   </data>
   <data name="RoofMaterialType" xml:space="preserve">
-    <value />
+    <value>Type de matériel de toiture</value>
   </data>
   <data name="RoofType" xml:space="preserve">
-    <value />
+    <value>Type de toiture</value>
   </data>
   <data name="Sidingtype" xml:space="preserve">
-    <value />
+    <value>Type de revêtement</value>
   </data>
   <data name="SprinklerType" xml:space="preserve">
-    <value />
+    <value>Type de gicleur</value>
   </data>
   <data name="State" xml:space="preserve">
     <value>État</value>

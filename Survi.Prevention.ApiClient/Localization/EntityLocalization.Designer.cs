@@ -124,7 +124,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Parcours.
         /// </summary>
         public static string BuildingCourse {
             get {
@@ -133,7 +133,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Rue du parcours.
         /// </summary>
         public static string BuildingCourseLane {
             get {
@@ -151,7 +151,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Borne de bâtiment.
         /// </summary>
         public static string BuildingFireHydrant {
             get {
@@ -187,7 +187,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Personne nécessitant de l&apos;aide dans un bâtiment.
         /// </summary>
         public static string BuildingPersonRequiringAssistance {
             get {
@@ -196,7 +196,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Gicleurs.
         /// </summary>
         public static string BuildingSprinkler {
             get {
@@ -232,7 +232,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Type de résistance au feu (construction).
         /// </summary>
         public static string ConstructionFireResistanceType {
             get {
@@ -268,7 +268,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Direction de voie.
         /// </summary>
         public static string CourseLaneDirection {
             get {
@@ -286,7 +286,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Type d&apos;adresse de borne incendie.
         /// </summary>
         public static string FireHydrantAddressLocationType {
             get {
@@ -295,7 +295,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Raccord de borne incendie.
         /// </summary>
         public static string FireHydrantConnection {
             get {
@@ -304,7 +304,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Type de raccord de borne incendie.
         /// </summary>
         public static string FireHydrantConnectionType {
             get {
@@ -313,7 +313,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Type d&apos;emplacement de borne incendie.
         /// </summary>
         public static string FireHydrantLocationType {
             get {
@@ -349,7 +349,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Service sécurité incendie desservant une ville.
         /// </summary>
         public static string FireSafetyDepartmentCityServing {
             get {
@@ -394,7 +394,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Code générique d&apos;une rue.
         /// </summary>
         public static string LaneGenericCode {
             get {
@@ -403,7 +403,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Code public d&apos;une rue.
         /// </summary>
         public static string LanePublicCode {
             get {
@@ -466,7 +466,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Type de matériel de toiture.
         /// </summary>
         public static string RoofMaterialType {
             get {
@@ -475,7 +475,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Type de toiture.
         /// </summary>
         public static string RoofType {
             get {
@@ -484,7 +484,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Type de revêtement.
         /// </summary>
         public static string Sidingtype {
             get {
@@ -493,7 +493,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Type de gicleur.
         /// </summary>
         public static string SprinklerType {
             get {
