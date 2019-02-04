@@ -96,13 +96,13 @@ namespace Survi.Prevention.WebApi.Controllers
 			return BadRequest("Error during the starting process of the inspection");
 		}
 
-		[HttpPost, Route("RefuseInspectionVisit")]
+		/*[HttpPost, Route("RefuseInspectionVisit")]
 		public ActionResult RefuseInspectionVisit([FromBody] InspectionVisit inspectionVisit)
 		{
 			if (service.RefuseInspectionVisit(inspectionVisit, CurrentUserId))
 				return NoContent();
 			return BadRequest("Error during the starting process of the inspection");
-		}
+		}*/
 
 		[HttpGet, Route("{id:Guid}/UserAllowed")]
 		public ActionResult CanUserAccessInspection(Guid id)
