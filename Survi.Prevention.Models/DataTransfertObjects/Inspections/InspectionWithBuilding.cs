@@ -9,9 +9,11 @@ namespace Survi.Prevention.Models.DataTransfertObjects.Inspections
         public Guid Id { get; set; }
         public List<InspectionBuildingResume> Buildings { get; set; }
         public InspectionConfiguration Configuration { get; set; }
+        public InspectionVisit CurrentVisit { get; set; }
         public Guid? IdSurvey { get; set; }
         public bool IsSurveyCompleted { get; set; }
         public InspectionStatus Status { get; set; }
+        public DateTime? StartedOn { get; set; }
     }
 
     public class InspectionBuildingResume

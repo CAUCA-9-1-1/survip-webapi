@@ -271,7 +271,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return false;
 		}
 
-		public bool RefuseInspectionVisit(InspectionVisit inspectionVisit, Guid idUser)
+		/*public bool RefuseInspectionVisit(InspectionVisit inspectionVisit, Guid idUser)
 		{
 			var targetInspection = Context.Inspections.Where(i => i.Id == inspectionVisit.IdInspection && i.IsActive)
 				.Include(i => i.Visits)
@@ -318,7 +318,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					currentVisit.RequestedDateOfVisit = refusedInspectionVisit.RequestedDateOfVisit;
 				}
 			}
-		}
+		}*/
 
 	    public InspectionWithBuildings GetInspectionWithBuildings(Guid inspectionId, string languageCode)
 	    {
@@ -471,24 +471,48 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 	        if (currentVisit != null)
 	        {
-	            currentInspection.StartedOn = inspection.StartedOn;
-	            currentInspection.IdWebUserLastModifiedBy = idUser;
-	            currentInspection.Status = inspection.Status;
-	            currentVisit.Status = inspection.CurrentVisit.Status;
-	            currentVisit.StartedOn = inspection.CurrentVisit.StartedOn;
-	            currentVisit.EndedOn = inspection.CurrentVisit.EndedOn;
-	            currentVisit.DoorHangerHasBeenLeft = inspection.CurrentVisit.DoorHangerHasBeenLeft;
-	            currentVisit.HasBeenRefused = inspection.CurrentVisit.HasBeenRefused;
-	            currentVisit.IdWebuserVisitedBy = idUser;
-	            currentVisit.OwnerWasAbsent = inspection.CurrentVisit.OwnerWasAbsent;
-	            currentVisit.ReasonForInspectionRefusal = inspection.CurrentVisit.ReasonForInspectionRefusal;
-	            currentVisit.RequestedDateOfVisit = inspection.CurrentVisit.RequestedDateOfVisit;
+	            CopyInspectionFields(inspection, idUser, currentInspection);
+	            CopyVisitFields(inspection, idUser, currentVisit);
+
+	            if (inspection.CurrentVisit.RequestedDateOfVisit != null)
+	                AddNextVisit(inspection, idUser, currentInspection);
 
 	            Context.SaveChanges();
 	            return true;
 	        }
 
 	        return false;
+	    }
+
+	    private static void CopyInspectionFields(InspectionWithBuildings inspection, Guid idUser, Inspection currentInspection)
+	    {
+	        currentInspection.StartedOn = inspection.StartedOn;
+	        currentInspection.CompletedOn = inspection.CurrentVisit.EndedOn;
+	        currentInspection.IdWebUserLastModifiedBy = idUser;
+	        currentInspection.Status = inspection.Status;
+	    }
+
+	    private static void CopyVisitFields(InspectionWithBuildings inspection, Guid idUser, InspectionVisit currentVisit)
+	    {
+	        currentVisit.Status = inspection.CurrentVisit.Status;
+	        currentVisit.StartedOn = inspection.CurrentVisit.StartedOn;
+	        currentVisit.EndedOn = inspection.CurrentVisit.EndedOn;
+	        currentVisit.DoorHangerHasBeenLeft = inspection.CurrentVisit.DoorHangerHasBeenLeft;
+	        currentVisit.HasBeenRefused = inspection.CurrentVisit.HasBeenRefused;
+	        currentVisit.IdWebuserVisitedBy = idUser;
+	        currentVisit.OwnerWasAbsent = inspection.CurrentVisit.OwnerWasAbsent;
+	        currentVisit.ReasonForInspectionRefusal = inspection.CurrentVisit.ReasonForInspectionRefusal;
+	    }
+
+	    private static void AddNextVisit(InspectionWithBuildings inspection, Guid idUser, Inspection currentInspection)
+	    {
+	        var nextVisit = new InspectionVisit
+	        {
+	            CreatedOn = DateTime.Now,
+	            RequestedDateOfVisit = inspection.CurrentVisit.RequestedDateOfVisit,
+	            IdWebUserLastModifiedBy = idUser
+	        };
+	        currentInspection.Visits.Add((nextVisit));
 	    }
 	}
 }
