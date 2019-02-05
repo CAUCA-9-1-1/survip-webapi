@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Major>1</Major>
-  <Minor>2</Minor>
-  <Revision>1</Revision>
+  <Minor>3</Minor>
+  <Revision>0</Revision>
   <IsTestVersion>false</IsTestVersion>
   <TestVersionRelease>0</TestVersionRelease>
 </Config>
