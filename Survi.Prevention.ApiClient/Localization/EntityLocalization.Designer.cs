@@ -142,7 +142,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Détails de bâtiment.
+        ///   Looks up a localized string similar to Détail de bâtiment.
         /// </summary>
         public static string BuildingDetail {
             get {
@@ -160,7 +160,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Matières dangeureuses de bâtiment.
+        ///   Looks up a localized string similar to Matière dangeureuse de bâtiment.
         /// </summary>
         public static string BuildingHazardousMaterial {
             get {
@@ -169,7 +169,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Risques particuliers de bâtiment.
+        ///   Looks up a localized string similar to Risque particulier de bâtiment.
         /// </summary>
         public static string BuildingParticularRisk {
             get {
@@ -178,7 +178,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Images de risques particuliers de bâtiment.
+        ///   Looks up a localized string similar to Image de risque particulier de bâtiment.
         /// </summary>
         public static string BuildingParticularRiskPicture {
             get {
@@ -187,7 +187,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Personne nécessitant de l&apos;aide dans un bâtiment.
+        ///   Looks up a localized string similar to PNAP de bâtiment.
         /// </summary>
         public static string BuildingPersonRequiringAssistance {
             get {
@@ -196,7 +196,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gicleurs.
+        ///   Looks up a localized string similar to Gicleur de bâtiment.
         /// </summary>
         public static string BuildingSprinkler {
             get {
@@ -268,7 +268,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Direction de voie.
+        ///   Looks up a localized string similar to Direction de rue.
         /// </summary>
         public static string CourseLaneDirection {
             get {
@@ -340,7 +340,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Service incendie pour une municipalité.
+        ///   Looks up a localized string similar to Desserte de service incendie.
         /// </summary>
         public static string FireSafetyDepartmentCity {
             get {
@@ -349,7 +349,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Service sécurité incendie desservant une ville.
+        ///   Looks up a localized string similar to Desserte de service incendie.
         /// </summary>
         public static string FireSafetyDepartmentCityServing {
             get {
@@ -358,7 +358,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Caserne de pompiers.
+        ///   Looks up a localized string similar to Caserne .
         /// </summary>
         public static string Firestation {
             get {
@@ -376,7 +376,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Matières dangereux.
+        ///   Looks up a localized string similar to Matière dangereuse.
         /// </summary>
         public static string HazardousMaterial {
             get {
@@ -439,7 +439,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type de personne nécessitant de l&apos;aide.
+        ///   Looks up a localized string similar to Type de PNAP.
         /// </summary>
         public static string PersonRequiringAssistanceType {
             get {
@@ -448,7 +448,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Région.
+        ///   Looks up a localized string similar to Région administrative.
         /// </summary>
         public static string Region {
             get {
@@ -502,7 +502,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to État.
+        ///   Looks up a localized string similar to Province.
         /// </summary>
         public static string State {
             get {

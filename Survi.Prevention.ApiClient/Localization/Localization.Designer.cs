@@ -79,7 +79,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type .
+        ///   Looks up a localized string similar to Localisation.
         /// </summary>
         public static string AdressLocationType {
             get {
@@ -124,7 +124,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Capacité de réservoir.
+        ///   Looks up a localized string similar to Capacité du réservoir.
         /// </summary>
         public static string CapacityContainer {
             get {
@@ -142,7 +142,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type d&apos;enfant.
+        ///   Looks up a localized string similar to Relation.
         /// </summary>
         public static string ChildType {
             get {
@@ -151,7 +151,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Lettre civique supérieure.
         /// </summary>
         public static string CivicLetterSupp {
             get {
@@ -169,7 +169,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Numéro civique supérieur.
         /// </summary>
         public static string CivicSupp {
             get {
@@ -232,7 +232,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Source coordonnées.
         /// </summary>
         public static string CoordinatesSource {
             get {
@@ -241,7 +241,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cubf.
+        ///   Looks up a localized string similar to Code d&apos;utilisation des biens-fonds.
         /// </summary>
         public static string Cubf {
             get {
@@ -286,7 +286,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email.
+        ///   Looks up a localized string similar to Courriel.
         /// </summary>
         public static string Email {
             get {
@@ -295,7 +295,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La valeur est vide..
+        ///   Looks up a localized string similar to Valeur vide..
         /// </summary>
         public static string EmptyValue {
             get {
@@ -304,7 +304,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Débit d&apos;eau estimé.
+        ///   Looks up a localized string similar to Débit incendie estimé.
         /// </summary>
         public static string EstimatedWaterFlow {
             get {
@@ -358,7 +358,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Numéro de guide.
+        ///   Looks up a localized string similar to Numéro du guide.
         /// </summary>
         public static string GuideNumber {
             get {
@@ -385,7 +385,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Type du panneau d&apos;alarme.
         /// </summary>
         public static string IdAlarmPanelType {
             get {
@@ -394,7 +394,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant de bâtiment.
+        ///   Looks up a localized string similar to Bâtiment.
         /// </summary>
         public static string IdBuilding {
             get {
@@ -403,7 +403,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant d&apos;anomalie de bâtiment.
+        ///   Looks up a localized string similar to Anomalie de bâtiment.
         /// </summary>
         public static string IdBuildingAnomaly {
             get {
@@ -412,7 +412,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant de la municipalité.
+        ///   Looks up a localized string similar to Municipalité.
         /// </summary>
         public static string IdCity {
             get {
@@ -421,7 +421,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant du type de municipalité.
+        ///   Looks up a localized string similar to Type de municipalité.
         /// </summary>
         public static string IdCityType {
             get {
@@ -430,7 +430,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identidiant du pays.
+        ///   Looks up a localized string similar to Pays.
         /// </summary>
         public static string IdCountry {
             get {
@@ -439,7 +439,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant de MRC.
+        ///   Looks up a localized string similar to MRC.
         /// </summary>
         public static string IdCounty {
             get {
@@ -448,7 +448,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant de borne incendie.
+        ///   Looks up a localized string similar to Borne incendie.
         /// </summary>
         public static string IdFireHydrant {
             get {
@@ -457,7 +457,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant de type de connexion de borne incendie.
+        ///   Looks up a localized string similar to Type du raccord .
         /// </summary>
         public static string IdFireHydrantConnectionType {
             get {
@@ -466,7 +466,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant de type de bouche incendie.
+        ///   Looks up a localized string similar to Type de la borne incendie.
         /// </summary>
         public static string IdFireHydrantType {
             get {
@@ -475,7 +475,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant de service sécurité incendie.
+        ///   Looks up a localized string similar to Service sécurité incendie.
         /// </summary>
         public static string IdFireSafetyDepartment {
             get {
@@ -484,7 +484,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant de matières dangereuses.
+        ///   Looks up a localized string similar to Matière dangereuse.
         /// </summary>
         public static string IdHazardousMaterial {
             get {
@@ -493,7 +493,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant d&apos;intersection.
+        ///   Looks up a localized string similar to Transversale.
         /// </summary>
         public static string IdIntersection {
             get {
@@ -502,7 +502,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant de la rue.
+        ///   Looks up a localized string similar to Voie de circulation.
         /// </summary>
         public static string IdLane {
             get {
@@ -511,7 +511,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant de code générique pour une voie.
+        ///   Looks up a localized string similar to Code générique.
         /// </summary>
         public static string IdLaneGenericCode {
             get {
@@ -520,7 +520,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant du code public.
+        ///   Looks up a localized string similar to Code public.
         /// </summary>
         public static string IdPublicCode {
             get {
@@ -529,7 +529,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant de niveau de risque.
+        ///   Looks up a localized string similar to Niveau de risque.
         /// </summary>
         public static string IdRiskLevel {
             get {
@@ -538,7 +538,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant d&apos;une unité de mesure.
+        ///   Looks up a localized string similar to Unité de mesure.
         /// </summary>
         public static string IdUnitOfMeasure {
             get {
@@ -547,7 +547,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant de diamètre d&apos;une unité de mesure.
+        ///   Looks up a localized string similar to Unité de mesure du diamètre.
         /// </summary>
         public static string IdUnitOfMeasureDiameter {
             get {
@@ -556,7 +556,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant d&apos;unité de mesure de débit d&apos;eau estimé.
+        ///   Looks up a localized string similar to Unité de mesure de débit d&apos;eau estimé.
         /// </summary>
         public static string IdUnitOfMeasureEstimatedWaterFlow {
             get {
@@ -565,7 +565,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant d&apos;unité de mesure de la hauteur.
+        ///   Looks up a localized string similar to Unité de mesure de la hauteur.
         /// </summary>
         public static string IdUnitOfMeasureHeight {
             get {
@@ -574,7 +574,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant pour l&apos;unité de mesure de pression.
+        ///   Looks up a localized string similar to Unité de mesure de la pression.
         /// </summary>
         public static string IdUnitOfMeasurePressure {
             get {
@@ -583,7 +583,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identifiant du taux d&apos;unité de mesure.
+        ///   Looks up a localized string similar to Unité de mesure du taux.
         /// </summary>
         public static string IdUnitOfMeasureRate {
             get {
@@ -592,7 +592,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La valeur est inférieure à 0..
+        ///   Looks up a localized string similar to La valeur doit être supérieure ou égale à 0..
         /// </summary>
         public static string InferiorToZeroValue {
             get {
@@ -601,7 +601,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Le compte doit être supérieur à 1..
+        ///   Looks up a localized string similar to Il doit y avoir au moins 2 éléments..
         /// </summary>
         public static string InvalidCount {
             get {
@@ -610,7 +610,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type Invalide..
+        ///   Looks up a localized string similar to Valeur invalide..
         /// </summary>
         public static string InvalidType {
             get {
@@ -619,7 +619,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La valeur est invalide..
+        ///   Looks up a localized string similar to Valeur invalide..
         /// </summary>
         public static string InvalidValue {
             get {
@@ -691,7 +691,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Type de fichier.
         /// </summary>
         public static string MimeType {
             get {
@@ -700,7 +700,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Une valeur est manquante..
+        ///   Looks up a localized string similar to Valeur manquante..
         /// </summary>
         public static string MissingValue {
             get {
@@ -727,7 +727,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La valeur est inexistante..
+        ///   Looks up a localized string similar to Valeur nulle..
         /// </summary>
         public static string NullValue {
             get {
@@ -745,7 +745,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quantité d&apos;appartements.
+        ///   Looks up a localized string similar to Nombre d&apos;appartements.
         /// </summary>
         public static string NumberOfAppartment {
             get {
@@ -754,7 +754,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Numéro de bâtiment.
+        ///   Looks up a localized string similar to Nombre de bâtiments.
         /// </summary>
         public static string NumberOfBuilding {
             get {
@@ -763,7 +763,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Numéro d&apos;étage.
+        ///   Looks up a localized string similar to Nombre d&apos;étages.
         /// </summary>
         public static string NumberOfFloor {
             get {
@@ -781,7 +781,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Autre numéro.
+        ///   Looks up a localized string similar to Autre numéro de téléphone.
         /// </summary>
         public static string OtherNumber {
             get {
@@ -790,7 +790,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Autre numéro d&apos;extension.
+        ///   Looks up a localized string similar to Extension de l&apos;autre numéro de téléphone.
         /// </summary>
         public static string OtherNumberExtension {
             get {
@@ -799,7 +799,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Code de pagette.
+        ///   Looks up a localized string similar to Code de téléavertisseur.
         /// </summary>
         public static string PagerCode {
             get {
@@ -808,7 +808,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Numéro de pagette.
+        ///   Looks up a localized string similar to Numéro de téléavertisseur.
         /// </summary>
         public static string PagerNumber {
             get {
@@ -826,7 +826,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Numéro d&apos;extension de téléphone.
+        ///   Looks up a localized string similar to Numéro d&apos;extension du téléphone.
         /// </summary>
         public static string PhoneNumberExtension {
             get {
@@ -835,7 +835,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Position physique.
         /// </summary>
         public static string PhysicalPosition {
             get {
@@ -862,7 +862,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type d&apos;opérateur de pression.
+        ///   Looks up a localized string similar to Opérateur de la pression.
         /// </summary>
         public static string PressureOperatorType {
             get {
@@ -880,7 +880,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type d&apos;opérateur de taux.
+        ///   Looks up a localized string similar to Opérateur du taux.
         /// </summary>
         public static string RateOperatorType {
             get {
@@ -889,7 +889,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Réagis à l&apos;eau.
+        ///   Looks up a localized string similar to Réagit à l&apos;eau.
         /// </summary>
         public static string ReactToWater {
             get {
@@ -898,7 +898,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scian.
+        ///   Looks up a localized string similar to SCIAN.
         /// </summary>
         public static string Scian {
             get {
@@ -970,7 +970,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Le nombre de caractères maximal est de.
+        ///   Looks up a localized string similar to La valeur ne doit pas dépasser .
         /// </summary>
         public static string TooLong {
             get {
@@ -979,7 +979,16 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toxique lorsque inhalé .
+        ///   Looks up a localized string similar to La valeur doit être plus grande que .
+        /// </summary>
+        public static string TooShort {
+            get {
+                return ResourceManager.GetString("TooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toxique lorsque inhalée .
         /// </summary>
         public static string ToxicInhalationHazard {
             get {
@@ -988,7 +997,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La valeur n&apos;est pas reconnue..
+        ///   Looks up a localized string similar to Valeur inconnue..
         /// </summary>
         public static string UnknownValue {
             get {
@@ -1015,7 +1024,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Coordonnées wkt.
+        ///   Looks up a localized string similar to Coordonnées géographiques.
         /// </summary>
         public static string WktCoordinates {
             get {

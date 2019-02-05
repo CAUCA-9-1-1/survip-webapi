@@ -124,7 +124,7 @@
     <value>Informations supplémentaires</value>
   </data>
   <data name="AdressLocationType" xml:space="preserve">
-    <value>Type </value>
+    <value>Localisation</value>
   </data>
   <data name="AnsiCode" xml:space="preserve">
     <value>Code Ansi</value>
@@ -139,22 +139,22 @@
     <value>Priorité d'appel</value>
   </data>
   <data name="CapacityContainer" xml:space="preserve">
-    <value>Capacité de réservoir</value>
+    <value>Capacité du réservoir</value>
   </data>
   <data name="CellphoneNumber" xml:space="preserve">
     <value>Numéro de téléphone cellulaire</value>
   </data>
   <data name="ChildType" xml:space="preserve">
-    <value>Type d'enfant</value>
+    <value>Relation</value>
   </data>
   <data name="CivicLetterSupp" xml:space="preserve">
-    <value />
+    <value>Lettre civique supérieure</value>
   </data>
   <data name="CivicNumber" xml:space="preserve">
     <value>Numéro civique</value>
   </data>
   <data name="CivicSupp" xml:space="preserve">
-    <value />
+    <value>Numéro civique supérieur</value>
   </data>
   <data name="Code" xml:space="preserve">
     <value>Code</value>
@@ -175,10 +175,10 @@
     <value>Contenant</value>
   </data>
   <data name="CoordinatesSource" xml:space="preserve">
-    <value />
+    <value>Source coordonnées</value>
   </data>
   <data name="Cubf" xml:space="preserve">
-    <value>Cubf</value>
+    <value>Code d'utilisation des biens-fonds</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
@@ -193,13 +193,13 @@
     <value>Dimension</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Email</value>
+    <value>Courriel</value>
   </data>
   <data name="EmptyValue" xml:space="preserve">
-    <value>La valeur est vide.</value>
+    <value>Valeur vide.</value>
   </data>
   <data name="EstimatedWaterFlow" xml:space="preserve">
-    <value>Débit d'eau estimé</value>
+    <value>Débit incendie estimé</value>
   </data>
   <data name="FaxNumber" xml:space="preserve">
     <value>Numéro de fax</value>
@@ -217,7 +217,7 @@
     <value>Entrée de gaz</value>
   </data>
   <data name="GuideNumber" xml:space="preserve">
-    <value>Numéro de guide</value>
+    <value>Numéro du guide</value>
   </data>
   <data name="Height" xml:space="preserve">
     <value>Hauteur</value>
@@ -226,85 +226,85 @@
     <value>Identifiant </value>
   </data>
   <data name="IdAlarmPanelType" xml:space="preserve">
-    <value />
+    <value>Type du panneau d'alarme</value>
   </data>
   <data name="IdBuilding" xml:space="preserve">
-    <value>Identifiant de bâtiment</value>
+    <value>Bâtiment</value>
   </data>
   <data name="IdBuildingAnomaly" xml:space="preserve">
-    <value>Identifiant d'anomalie de bâtiment</value>
+    <value>Anomalie de bâtiment</value>
   </data>
   <data name="IdCity" xml:space="preserve">
-    <value>Identifiant de la municipalité</value>
+    <value>Municipalité</value>
   </data>
   <data name="IdCityType" xml:space="preserve">
-    <value>Identifiant du type de municipalité</value>
+    <value>Type de municipalité</value>
   </data>
   <data name="IdCountry" xml:space="preserve">
-    <value>Identidiant du pays</value>
+    <value>Pays</value>
   </data>
   <data name="IdCounty" xml:space="preserve">
-    <value>Identifiant de MRC</value>
+    <value>MRC</value>
   </data>
   <data name="IdFireHydrant" xml:space="preserve">
-    <value>Identifiant de borne incendie</value>
+    <value>Borne incendie</value>
   </data>
   <data name="IdFireHydrantConnectionType" xml:space="preserve">
-    <value>Identifiant de type de connexion de borne incendie</value>
+    <value>Type du raccord </value>
   </data>
   <data name="IdFireHydrantType" xml:space="preserve">
-    <value>Identifiant de type de bouche incendie</value>
+    <value>Type de la borne incendie</value>
   </data>
   <data name="IdFireSafetyDepartment" xml:space="preserve">
-    <value>Identifiant de service sécurité incendie</value>
+    <value>Service sécurité incendie</value>
   </data>
   <data name="IdHazardousMaterial" xml:space="preserve">
-    <value>Identifiant de matières dangereuses</value>
+    <value>Matière dangereuse</value>
   </data>
   <data name="IdIntersection" xml:space="preserve">
-    <value>Identifiant d'intersection</value>
+    <value>Transversale</value>
   </data>
   <data name="IdLane" xml:space="preserve">
-    <value>Identifiant de la rue</value>
+    <value>Voie de circulation</value>
   </data>
   <data name="IdLaneGenericCode" xml:space="preserve">
-    <value>Identifiant de code générique pour une voie</value>
+    <value>Code générique</value>
   </data>
   <data name="IdPublicCode" xml:space="preserve">
-    <value>Identifiant du code public</value>
+    <value>Code public</value>
   </data>
   <data name="IdRiskLevel" xml:space="preserve">
-    <value>Identifiant de niveau de risque</value>
+    <value>Niveau de risque</value>
   </data>
   <data name="IdUnitOfMeasure" xml:space="preserve">
-    <value>Identifiant d'une unité de mesure</value>
+    <value>Unité de mesure</value>
   </data>
   <data name="IdUnitOfMeasureDiameter" xml:space="preserve">
-    <value>Identifiant de diamètre d'une unité de mesure</value>
+    <value>Unité de mesure du diamètre</value>
   </data>
   <data name="IdUnitOfMeasureEstimatedWaterFlow" xml:space="preserve">
-    <value>Identifiant d'unité de mesure de débit d'eau estimé</value>
+    <value>Unité de mesure de débit d'eau estimé</value>
   </data>
   <data name="IdUnitOfMeasureHeight" xml:space="preserve">
-    <value>Identifiant d'unité de mesure de la hauteur</value>
+    <value>Unité de mesure de la hauteur</value>
   </data>
   <data name="IdUnitOfMeasurePressure" xml:space="preserve">
-    <value>Identifiant pour l'unité de mesure de pression</value>
+    <value>Unité de mesure de la pression</value>
   </data>
   <data name="IdUnitOfMeasureRate" xml:space="preserve">
-    <value>Identifiant du taux d'unité de mesure</value>
+    <value>Unité de mesure du taux</value>
   </data>
   <data name="InferiorToZeroValue" xml:space="preserve">
-    <value>La valeur est inférieure à 0.</value>
+    <value>La valeur doit être supérieure ou égale à 0.</value>
   </data>
   <data name="InvalidCount" xml:space="preserve">
-    <value>Le compte doit être supérieur à 1.</value>
+    <value>Il doit y avoir au moins 2 éléments.</value>
   </data>
   <data name="InvalidType" xml:space="preserve">
-    <value>Type Invalide.</value>
+    <value>Valeur invalide.</value>
   </data>
   <data name="InvalidValue" xml:space="preserve">
-    <value>La valeur est invalide.</value>
+    <value>Valeur invalide.</value>
   </data>
   <data name="IsWeakened" xml:space="preserve">
     <value>Est affaibli</value>
@@ -328,10 +328,10 @@
     <value>Type de mesure</value>
   </data>
   <data name="MimeType" xml:space="preserve">
-    <value />
+    <value>Type de fichier</value>
   </data>
   <data name="MissingValue" xml:space="preserve">
-    <value>Une valeur est manquante.</value>
+    <value>Valeur manquante.</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Nom</value>
@@ -340,43 +340,43 @@
     <value>Notes</value>
   </data>
   <data name="NullValue" xml:space="preserve">
-    <value>La valeur est inexistante.</value>
+    <value>Valeur nulle.</value>
   </data>
   <data name="Number" xml:space="preserve">
     <value>Numéro</value>
   </data>
   <data name="NumberOfAppartment" xml:space="preserve">
-    <value>Quantité d'appartements</value>
+    <value>Nombre d'appartements</value>
   </data>
   <data name="NumberOfBuilding" xml:space="preserve">
-    <value>Numéro de bâtiment</value>
+    <value>Nombre de bâtiments</value>
   </data>
   <data name="NumberOfFloor" xml:space="preserve">
-    <value>Numéro d'étage</value>
+    <value>Nombre d'étages</value>
   </data>
   <data name="OtherInformation" xml:space="preserve">
     <value>Autres informations</value>
   </data>
   <data name="OtherNumber" xml:space="preserve">
-    <value>Autre numéro</value>
+    <value>Autre numéro de téléphone</value>
   </data>
   <data name="OtherNumberExtension" xml:space="preserve">
-    <value>Autre numéro d'extension</value>
+    <value>Extension de l'autre numéro de téléphone</value>
   </data>
   <data name="PagerCode" xml:space="preserve">
-    <value>Code de pagette</value>
+    <value>Code de téléavertisseur</value>
   </data>
   <data name="PagerNumber" xml:space="preserve">
-    <value>Numéro de pagette</value>
+    <value>Numéro de téléavertisseur</value>
   </data>
   <data name="PhoneNumber" xml:space="preserve">
     <value>Numéro de téléphone</value>
   </data>
   <data name="PhoneNumberExtension" xml:space="preserve">
-    <value>Numéro d'extension de téléphone</value>
+    <value>Numéro d'extension du téléphone</value>
   </data>
   <data name="PhysicalPosition" xml:space="preserve">
-    <value />
+    <value>Position physique</value>
   </data>
   <data name="Place" xml:space="preserve">
     <value>Endroit</value>
@@ -385,19 +385,19 @@
     <value>Code postal</value>
   </data>
   <data name="PressureOperatorType" xml:space="preserve">
-    <value>Type d'opérateur de pression</value>
+    <value>Opérateur de la pression</value>
   </data>
   <data name="Quantity" xml:space="preserve">
     <value>Quantité</value>
   </data>
   <data name="RateOperatorType" xml:space="preserve">
-    <value>Type d'opérateur de taux</value>
+    <value>Opérateur du taux</value>
   </data>
   <data name="ReactToWater" xml:space="preserve">
-    <value>Réagis à l'eau</value>
+    <value>Réagit à l'eau</value>
   </data>
   <data name="Scian" xml:space="preserve">
-    <value>Scian</value>
+    <value>SCIAN</value>
   </data>
   <data name="Sector" xml:space="preserve">
     <value>Secteur</value>
@@ -421,13 +421,16 @@
     <value>Thème</value>
   </data>
   <data name="TooLong" xml:space="preserve">
-    <value>Le nombre de caractères maximal est de</value>
+    <value>La valeur ne doit pas dépasser </value>
+  </data>
+  <data name="TooShort" xml:space="preserve">
+    <value>La valeur doit être plus grande que </value>
   </data>
   <data name="ToxicInhalationHazard" xml:space="preserve">
-    <value>Toxique lorsque inhalé </value>
+    <value>Toxique lorsque inhalée </value>
   </data>
   <data name="UnknownValue" xml:space="preserve">
-    <value>La valeur n'est pas reconnue.</value>
+    <value>Valeur inconnue.</value>
   </data>
   <data name="UtilisationDescription" xml:space="preserve">
     <value>Description d'utilisation</value>
@@ -436,7 +439,7 @@
     <value>Mur</value>
   </data>
   <data name="WktCoordinates" xml:space="preserve">
-    <value>Coordonnées wkt</value>
+    <value>Coordonnées géographiques</value>
   </data>
   <data name="YearOfConstruction" xml:space="preserve">
     <value>Année de construction</value>

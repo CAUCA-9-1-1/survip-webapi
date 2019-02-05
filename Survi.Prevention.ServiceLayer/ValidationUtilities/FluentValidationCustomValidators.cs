@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Survi.Prevention.ServiceLayer.ValidationUtilities
 {
-    public static class FluentValidationCustomValidators
+	public static class FluentValidationCustomValidators
     {
         public static IRuleBuilderOptions<T, string> NotNullOrEmpty<T>(this IRuleBuilder<T, string> ruleBuilder)
         {
@@ -39,6 +39,13 @@ namespace Survi.Prevention.ServiceLayer.ValidationUtilities
 		    return ruleBuilder
 			    .NotNull().WithMessage("{PropertyName}_NullValue")
 			    .MaximumLength(maxLength).WithMessage("{PropertyName}_TooLong_{MaxLength}");
-	    }      
-    }
+	    }
+
+		public static IRuleBuilderOptions<T, string> HasMinimumLengthWhenNotEmpty<T>(this IRuleBuilder<T, string> ruleBuilder, int minimumLength)
+		{
+			return ruleBuilder
+				.MinimumLength(minimumLength)
+				.WithMessage("{PropertyName}_TooShort_{MinLength}");
+		} 		  
+	}
 }
