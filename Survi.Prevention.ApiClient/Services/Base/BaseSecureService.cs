@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Flurl;
 using Flurl.Http;
 using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
+
 
 namespace Survi.Prevention.ApiClient.Services.Base
 {
