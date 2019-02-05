@@ -50,7 +50,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import
         public void ValidationMessageIsCorrectlyGeneratedWhenValueIsOverMaxLength()
         {
             mockValidator.ShouldHaveValidationErrorFor(mock => mock.SomeOtherProperty, "123456")
-                .WithErrorMessage("SomeOtherProperty_TooLong");
+                .WithErrorMessage("SomeOtherProperty_TooLong_5");
         }
 
         [Fact]
