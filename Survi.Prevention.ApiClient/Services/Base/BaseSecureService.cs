@@ -5,7 +5,6 @@ using Flurl.Http;
 using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 
-
 namespace Survi.Prevention.ApiClient.Services.Base
 {
     public abstract class BaseSecureService<T> 
