@@ -11,73 +11,74 @@ using Survi.Prevention.ServiceLayer.DataCopy;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class InspectionService : BaseService
-	{
-		public InspectionService(IManagementContext context) : base(context)
-		{
-		}
+    public class InspectionService : BaseService
+    {
+        public InspectionService(IManagementContext context) : base(context)
+        {
+        }
 
-		public bool Remove(Guid id)
-		{
-			var entity = Context.Inspections.Find(id);
-			entity.IsActive = false;
+        public bool Remove(Guid id)
+        {
+            var entity = Context.Inspections.Find(id);
+            entity.IsActive = false;
 
-			using (var copyManager = new InspectionBuildingDataCopyManager(Context, id))
-				copyManager.DeleteCopy();
+            using (var copyManager = new InspectionBuildingDataCopyManager(Context, id))
+                copyManager.DeleteCopy();
 
-			Context.SaveChanges();
+            Context.SaveChanges();
 
-			return true;
-		}
+            return true;
+        }
 
-		public bool SetStatus(InspectionStatus status, Guid id, string refusalReason = null)
-		{
-			var inspection = Context.Inspections
-				.Where(i => i.Id == id)
-				.Include(i => i.Visits)
-				.Single();
+        public bool SetStatus(InspectionStatus status, Guid id, string refusalReason = null)
+        {
+            var inspection = Context.Inspections
+                .Where(i => i.Id == id)
+                .Include(i => i.Visits)
+                .Single();
 
-			inspection.Status = status;
-			
-			AssignRefusalReasonToLastVisit(refusalReason, inspection);
+            inspection.Status = status;
 
-			using (var manager = new InspectionBuildingDataCopyManager(Context, inspection.Id))
-			{
-				if (status == InspectionStatus.Approved)
-					manager.ReplaceOriginalWithCopy();
-				else if (status == InspectionStatus.Canceled)
-					manager.DeleteCopy();
-			}
+            AssignRefusalReasonToLastVisit(refusalReason, inspection);
 
-			Context.SaveChanges();
-			return true;
-		}
+            using (var manager = new InspectionBuildingDataCopyManager(Context, inspection.Id))
+            {
+                if (status == InspectionStatus.Approved)
+                    manager.ReplaceOriginalWithCopy();
+                else if (status == InspectionStatus.Canceled)
+                    manager.DeleteCopy();
+            }
 
-		private void AssignRefusalReasonToLastVisit(string refusalReason, Inspection inspection)
-		{
-			if (!string.IsNullOrWhiteSpace(refusalReason))
-			{
-				var currentVisit = inspection.Visits.OrderBy(v => v.EndedOn)
-					.Last(v => v.IsActive && v.Status == InspectionVisitStatus.Completed);
-				currentVisit.ReasonForApprobationRefusal = refusalReason;
-			}
-		}
+            Context.SaveChanges();
+            return true;
+        }
 
-		public List<BatchForList> GetGroupedUserInspections(string languageCode, Guid userId)
-		{
-			var query =
-				from batch in Context.Batches
-				where batch.IsActive
-					  && batch.IsReadyForInspection
-					  && batch.Users.Any(user => user.IdWebuser == userId)
-				from inspection in batch.Inspections
-				where inspection.IsActive
-					  && (inspection.Status == InspectionStatus.Todo || inspection.Status == InspectionStatus.Started || inspection.Status == InspectionStatus.Refused)
-					  && (inspection.IdWebuserAssignedTo == null || inspection.IdWebuserAssignedTo == userId)
-				let building = inspection.MainBuilding
+        private void AssignRefusalReasonToLastVisit(string refusalReason, Inspection inspection)
+        {
+            if (!string.IsNullOrWhiteSpace(refusalReason))
+            {
+                var currentVisit = inspection.Visits.OrderBy(v => v.EndedOn)
+                    .Last(v => v.IsActive && v.Status == InspectionVisitStatus.Completed);
+                currentVisit.ReasonForApprobationRefusal = refusalReason;
+            }
+        }
+
+        public List<BatchForList> GetGroupedUserInspections(string languageCode, Guid userId)
+        {
+            var query =
+                from batch in Context.Batches
+                where batch.IsActive
+                      && batch.IsReadyForInspection
+                      && batch.Users.Any(user => user.IdWebuser == userId)
+                from inspection in batch.Inspections
+                where inspection.IsActive
+                      && (inspection.Status == InspectionStatus.Todo || inspection.Status == InspectionStatus.Started ||
+                          inspection.Status == InspectionStatus.Refused)
+                      && (inspection.IdWebuserAssignedTo == null || inspection.IdWebuserAssignedTo == userId)
+                let building = inspection.MainBuilding
                 from alias in building.Localizations.Where(loc => loc.LanguageCode == languageCode && loc.IsActive)
-				from laneLocalization in building.Lane.Localizations
-				where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
+                from laneLocalization in building.Lane.Localizations
+                where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
                 let transversal = building.Transversal
                 select new
                 {
@@ -89,26 +90,31 @@ namespace Survi.Prevention.ServiceLayer.Services
                     building.IdRiskLevel,
                     building.Matricule,
                     building.IdCity,
-                    codeUtilisation = building.IdUtilisationCode == null ? "" : 
-                        Context.UtilisationCodeLocalizations
-                            .Where(code => code.IdParent == building.IdUtilisationCode && code.LanguageCode == languageCode)
+                    codeUtilisation = building.IdUtilisationCode == null
+                        ? ""
+                        : Context.UtilisationCodeLocalizations
+                            .Where(code =>
+                                code.IdParent == building.IdUtilisationCode && code.LanguageCode == languageCode)
                             .Select(code => code.Name)
                             .FirstOrDefault(),
-                            
+
                     building.CivicLetter,
-                    building.CivicNumber,                    
+                    building.CivicNumber,
                     aliasName = alias.Name,
                     ownerName = Context.BuildingContacts
                         .Where(c => c.IsActive && c.IdBuilding == building.Id && c.IsOwner)
                         .Select(c => c.FirstName + " " + c.LastName)
-                        .FirstOrDefault(), 
+                        .FirstOrDefault(),
 
                     laneName = laneLocalization.Name,
                     publicDescription = building.Lane.PublicCode.Description,
                     genericDescription = building.Lane.LaneGenericCode.Description,
                     building.Lane.LaneGenericCode.AddWhiteSpaceAfter,
 
-                    transName = transversal != null ? transversal.Localizations.Where(loc => loc.IsActive && loc.LanguageCode == languageCode).Select(loc => loc.Name).FirstOrDefault() : "",
+                    transName = transversal != null
+                        ? transversal.Localizations.Where(loc => loc.IsActive && loc.LanguageCode == languageCode)
+                            .Select(loc => loc.Name).FirstOrDefault()
+                        : "",
                     transPublicDescription = transversal != null ? transversal.PublicCode.Description : "",
                     transGenericDescription = transversal != null ? transversal.LaneGenericCode.Description : "",
                     transAddWhiteSpace = transversal != null && transversal.LaneGenericCode.AddWhiteSpaceAfter,
@@ -121,16 +127,16 @@ namespace Survi.Prevention.ServiceLayer.Services
                             .LastOrDefault())
                 };
 
-			var results = query.AsNoTracking().ToList()
-				.Select(result => new InspectionForList
-				{
-					Id = result.Id,
-					IdBatch = result.idBatch,
-					BatchDescription = result.batchDescription,
-					IdBuilding = result.IdBuilding,
+            var results = query.AsNoTracking().ToList()
+                .Select(result => new InspectionForList
+                {
+                    Id = result.Id,
+                    IdBatch = result.idBatch,
+                    BatchDescription = result.batchDescription,
+                    IdBuilding = result.IdBuilding,
                     IdCity = result.IdCity,
-					IdRiskLevel = result.IdRiskLevel,
-					Matricule = result.Matricule,
+                    IdRiskLevel = result.IdRiskLevel,
+                    Matricule = result.Matricule,
                     Status = result.Status,
                     AliasName = result.aliasName,
                     CivicLetter = result.CivicLetter,
@@ -138,381 +144,348 @@ namespace Survi.Prevention.ServiceLayer.Services
                     OwnerName = result.ownerName ?? "",
                     UtilisationCodeDescription = result.codeUtilisation ?? "",
                     LaneName = new LocalizedLaneNameGenerator()
-                        .GenerateLaneName(result.laneName, result.genericDescription, result.publicDescription, result.AddWhiteSpaceAfter),
-				    TransversalLaneName = new LocalizedLaneNameGenerator()
-				        .GenerateLaneName(result.transName, result.transGenericDescription, result.transPublicDescription, result.transAddWhiteSpace),
-				    ApprobationRefusalReason = result.approbationRefusalReason ?? ""
+                        .GenerateLaneName(result.laneName, result.genericDescription, result.publicDescription,
+                            result.AddWhiteSpaceAfter),
+                    TransversalLaneName = new LocalizedLaneNameGenerator()
+                        .GenerateLaneName(result.transName, result.transGenericDescription,
+                            result.transPublicDescription, result.transAddWhiteSpace),
+                    ApprobationRefusalReason = result.approbationRefusalReason ?? ""
                 });
 
-			return results
-				.GroupBy(data => new { data.IdBatch, data.BatchDescription })
-				.Select(group => new BatchForList { Id = group.Key.IdBatch, Description = group.Key.BatchDescription, Inspections = group.ToList() })
-				.ToList();
-		}
+            return results
+                .GroupBy(data => new {data.IdBatch, data.BatchDescription})
+                .Select(group => new BatchForList
+                    {Id = group.Key.IdBatch, Description = group.Key.BatchDescription, Inspections = group.ToList()})
+                .ToList();
+        }
 
-		public IQueryable<InspectionToDo> GetToDoInspections(string languageCode, List<Guid> cityIds)
-		{
-			var query =
-				from inspection in Context.InspectionsToDo
-				where inspection.LanguageCode == languageCode && cityIds.Contains(inspection.IdCity)
-				select inspection;
-			return query;
-		}
+        public IQueryable<InspectionToDo> GetToDoInspections(string languageCode, List<Guid> cityIds)
+        {
+            var query =
+                from inspection in Context.InspectionsToDo
+                where inspection.LanguageCode == languageCode && cityIds.Contains(inspection.IdCity)
+                select inspection;
+            return query;
+        }
 
-		public IQueryable<InspectionForApproval> GetInspectionsForApproval(string languageCode, List<Guid> cityIds)
-		{
-			var query =
-				from inspection in Context.InspectionsForApproval
-				where inspection.LanguageCode == languageCode && cityIds.Contains(inspection.IdCity)
-				select inspection;
-			return query;
-		}
+        public IQueryable<InspectionForApproval> GetInspectionsForApproval(string languageCode, List<Guid> cityIds)
+        {
+            var query =
+                from inspection in Context.InspectionsForApproval
+                where inspection.LanguageCode == languageCode && cityIds.Contains(inspection.IdCity)
+                select inspection;
+            return query;
+        }
 
-		public IQueryable<InspectionCompleted> GetInspectionsCompleted(string languageCode, List<Guid> cityIds)
-		{
-			var query =
-				from inspection in Context.InspectionsCompleted
-				where inspection.LanguageCode == languageCode && cityIds.Contains(inspection.IdCity)
-				select inspection;
-			return query;
-		}
+        public IQueryable<InspectionCompleted> GetInspectionsCompleted(string languageCode, List<Guid> cityIds)
+        {
+            var query =
+                from inspection in Context.InspectionsCompleted
+                where inspection.LanguageCode == languageCode && cityIds.Contains(inspection.IdCity)
+                select inspection;
+            return query;
+        }
 
-		public IQueryable<BuildingWithoutInspection> GetBuildingWithoutInspectionQueryable(string languageCode, List<Guid> cityIds)
-		{
-			var query = Context.BuildingsWithoutInspection
-				.Where(b => b.LanguageCode == languageCode && cityIds.Contains(b.IdCity));
+        public IQueryable<BuildingWithoutInspection> GetBuildingWithoutInspectionQueryable(string languageCode,
+            List<Guid> cityIds)
+        {
+            var query = Context.BuildingsWithoutInspection
+                .Where(b => b.LanguageCode == languageCode && cityIds.Contains(b.IdCity));
 
-			return query;
-		}
+            return query;
+        }
 
-		public bool CreateBuildingCopyAndSetVisitStatus(Guid idInspection, Guid idUser, bool setVisitAsStarted)
-		{
-			if (idInspection != Guid.Empty)
-			{
-				using (var manager = new InspectionBuildingDataCopyManager(Context, idInspection))
-					manager.CreateCopy();
+        public bool CreateBuildingCopyAndSetVisitStatus(Guid idInspection, Guid idUser, bool setVisitAsStarted)
+        {
+            if (idInspection != Guid.Empty)
+            {
+                using (var manager = new InspectionBuildingDataCopyManager(Context, idInspection))
+                    manager.CreateCopy();
 
-				var targetInspection = Context.Inspections.Where(i => i.Id == idInspection && i.IsActive)
-					.Include(i => i.Visits)
-					.Single();
+                var targetInspection = Context.Inspections.Where(i => i.Id == idInspection && i.IsActive)
+                    .Include(i => i.Visits)
+                    .Single();
 
-			    AddNewVisitWhenMissing(idUser, targetInspection, setVisitAsStarted);
-			    if (setVisitAsStarted)
-			    {
-			        targetInspection.Status = InspectionStatus.Started;
-			        targetInspection.StartedOn = DateTime.Now;
-			    }
+                AddNewVisitWhenMissing(idUser, targetInspection, setVisitAsStarted);
+                if (setVisitAsStarted)
+                {
+                    targetInspection.Status = InspectionStatus.Started;
+                    targetInspection.StartedOn = DateTime.Now;
+                }
 
-			    Context.SaveChanges();
-				return true;
-			}
-			return false;
-		}
+                Context.SaveChanges();
+                return true;
+            }
 
-		private static void AddNewVisitWhenMissing(Guid idUser, Inspection targetInspection, bool setAsStarted)
-		{
-			if (!targetInspection.Visits.Any(iv => iv.IsActive && iv.Status != InspectionVisitStatus.Completed))
-			{
-			    var newVisit = CreateNewVisit(idUser, setAsStarted);
-			    targetInspection.Visits.Add(newVisit);
-			}
-		}
+            return false;
+        }
 
-	    private static InspectionVisit CreateNewVisit(Guid idUser, bool setAsStarted)
-	    {
-	        var newVisit = new InspectionVisit
-	        {
-	            CreatedOn = DateTime.Now,
-	            Status = InspectionVisitStatus.Todo,
-	            IdWebUserLastModifiedBy = idUser
-	        };
+        private static void AddNewVisitWhenMissing(Guid idUser, Inspection targetInspection, bool setAsStarted)
+        {
+            if (!targetInspection.Visits.Any(iv => iv.IsActive && iv.Status != InspectionVisitStatus.Completed))
+            {
+                var newVisit = CreateNewVisit(idUser, setAsStarted);
+                targetInspection.Visits.Add(newVisit);
+            }
+        }
 
-	        if (setAsStarted)
-	        {
-	            newVisit.Status = InspectionVisitStatus.Started;
-	            newVisit.IdWebuserVisitedBy = idUser;
-	        }
+        private static InspectionVisit CreateNewVisit(Guid idUser, bool setAsStarted)
+        {
+            var newVisit = new InspectionVisit
+            {
+                CreatedOn = DateTime.Now,
+                Status = InspectionVisitStatus.Todo,
+                IdWebUserLastModifiedBy = idUser
+            };
 
-	        return newVisit;
-	    }
+            if (setAsStarted)
+            {
+                newVisit.Status = InspectionVisitStatus.Started;
+                newVisit.IdWebuserVisitedBy = idUser;
+            }
 
-	    public bool CompleteInspection(Guid idInspection, Guid idUser)
-		{
-			if (idInspection != Guid.Empty)
-			{
-				var targetInspection = Context.Inspections.Where(i => i.Id == idInspection && i.IsActive)
-					.Include(i => i.Visits)
-					.Single();
+            return newVisit;
+        }
 
-				if (CompleteInspectionVisit(targetInspection))
-				{
-					targetInspection.Status = InspectionStatus.WaitingForApprobation;
-					targetInspection.CompletedOn = DateTime.Now;
-					Context.SaveChanges();
+        public bool CompleteInspection(Guid idInspection, Guid idUser)
+        {
+            if (idInspection != Guid.Empty)
+            {
+                var targetInspection = Context.Inspections.Where(i => i.Id == idInspection && i.IsActive)
+                    .Include(i => i.Visits)
+                    .Single();
 
-					return true;
-				}
-			}
+                if (CompleteInspectionVisit(targetInspection))
+                {
+                    targetInspection.Status = InspectionStatus.WaitingForApprobation;
+                    targetInspection.CompletedOn = DateTime.Now;
+                    Context.SaveChanges();
 
-			return false;
-		}
+                    return true;
+                }
+            }
 
-		private bool CompleteInspectionVisit(Inspection inspection)
-		{
-			if (inspection.Visits.Any(v => v.IsActive && v.Status != InspectionVisitStatus.Completed))
-			{
-				InspectionVisit currentVisit =
-					inspection.Visits.Single(v => v.IsActive && v.Status != InspectionVisitStatus.Completed);
-				currentVisit.EndedOn = DateTime.Now;
-				currentVisit.Status = InspectionVisitStatus.Completed;
-				return true;
-			}
+            return false;
+        }
 
-			return false;
-		}
+        private bool CompleteInspectionVisit(Inspection inspection)
+        {
+            if (inspection.Visits.Any(v => v.IsActive && v.Status != InspectionVisitStatus.Completed))
+            {
+                var currentVisit =
+                    inspection.Visits.Single(v => v.IsActive && v.Status != InspectionVisitStatus.Completed);
+                currentVisit.EndedOn = DateTime.Now;
+                currentVisit.Status = InspectionVisitStatus.Completed;
+                return true;
+            }
 
-		/*public bool RefuseInspectionVisit(InspectionVisit inspectionVisit, Guid idUser)
-		{
-			var targetInspection = Context.Inspections.Where(i => i.Id == inspectionVisit.IdInspection && i.IsActive)
-				.Include(i => i.Visits)
-				.Single();
+            return false;
+        }
 
-			RefuseCurrentInspectionVisit(targetInspection, inspectionVisit, idUser);
-			if (inspectionVisit.RequestedDateOfVisit != null)
-			{
-				targetInspection.Visits.Add(new InspectionVisit()
-				{
-					Status = InspectionVisitStatus.Todo,
-					CreatedOn = DateTime.Now,
-					IdWebuserVisitedBy = idUser,
-					RequestedDateOfVisit = inspectionVisit.RequestedDateOfVisit,
-					IdWebUserLastModifiedBy = idUser
-				});
-			}
-
-			targetInspection.Status = InspectionStatus.Todo;
-
-			Context.SaveChanges();
-			return true;
-		}
-
-		private void RefuseCurrentInspectionVisit(Inspection inspection, InspectionVisit refusedInspectionVisit, Guid idUser)
-		{
-			if (!inspection.Visits.Any())
-			{
-				refusedInspectionVisit.IdWebuserVisitedBy = idUser;
-				inspection.Visits.Add(refusedInspectionVisit);
-			}
-			else
-			{
-				if (inspection.Visits.Any(v => v.IsActive && v.Status != InspectionVisitStatus.Completed))
-				{
-					var currentVisit =
-						inspection.Visits.Last(v => v.IsActive && v.Status != InspectionVisitStatus.Completed);
-					currentVisit.Status = refusedInspectionVisit.Status;
-					currentVisit.ReasonForInspectionRefusal = refusedInspectionVisit.ReasonForInspectionRefusal;
-					currentVisit.HasBeenRefused = refusedInspectionVisit.HasBeenRefused;
-					currentVisit.OwnerWasAbsent = refusedInspectionVisit.OwnerWasAbsent;
-					currentVisit.DoorHangerHasBeenLeft = refusedInspectionVisit.DoorHangerHasBeenLeft;
-					currentVisit.EndedOn = refusedInspectionVisit.EndedOn;
-					currentVisit.RequestedDateOfVisit = refusedInspectionVisit.RequestedDateOfVisit;
-				}
-			}
-		}*/
-
-	    public InspectionWithBuildings GetInspectionWithBuildings(Guid inspectionId, string languageCode)
-	    {
-	        var currentInspection = (
-	            from inspection in Context.Inspections.AsNoTracking()
-	            where inspection.Id == inspectionId
-	            select new
-	            {
+        public InspectionWithBuildings GetInspectionWithBuildings(Guid inspectionId, string languageCode)
+        {
+            var currentInspection = (
+                from inspection in Context.Inspections.AsNoTracking()
+                where inspection.Id == inspectionId
+                select new
+                {
                     inspection.IdBuilding,
                     inspection.IdSurvey,
                     inspection.IsSurveyCompleted,
                     inspection.Status,
                     inspection.StartedOn,
-                    currentVisit = inspection.Visits.SingleOrDefault(visit => visit.IsActive && visit.Status != InspectionVisitStatus.Completed)
-	            }).First();
+                    currentVisit = inspection.Visits.SingleOrDefault(visit =>
+                        visit.IsActive && visit.Status != InspectionVisitStatus.Completed)
+                }).First();
 
-	        var query =	            
-	            from building in Context.InspectionBuildings.AsNoTracking()
-	            where building.IsActive && building.IdInspection == inspectionId
-	            from loc in building.Localizations
-	            where loc.IsActive && loc.LanguageCode == languageCode
-	            select new InspectionBuildingResume
-	            {
-	                IdBuilding = building.Id,
-	                Name = loc.Name,
-	                IsMainBuilding = building.Id == currentInspection.IdBuilding,
+            var query =
+                from building in Context.InspectionBuildings.AsNoTracking()
+                where building.IsActive && building.IdInspection == inspectionId
+                from loc in building.Localizations
+                where loc.IsActive && loc.LanguageCode == languageCode
+                select new InspectionBuildingResume
+                {
+                    IdBuilding = building.Id,
+                    Name = loc.Name,
+                    IsMainBuilding = building.Id == currentInspection.IdBuilding,
                     Coordinates = building.Coordinates,
-                    IdLaneTransversal = building.IdLaneTransversal                    
-	            };
+                    IdLaneTransversal = building.IdLaneTransversal
+                };
 
-	        var buildings = query.ToList();
+            var buildings = query.ToList();
 
             return new InspectionWithBuildings
-	        {
-	            Id = inspectionId,
-	            Buildings = buildings,
+            {
+                Id = inspectionId,
+                Buildings = buildings,
                 Configuration = GetInspectionConfiguration(inspectionId),
                 IdSurvey = currentInspection.IdSurvey,
                 IsSurveyCompleted = currentInspection.IsSurveyCompleted,
                 Status = currentInspection.Status,
-	            StartedOn = currentInspection.StartedOn,
+                StartedOn = currentInspection.StartedOn,
                 CurrentVisit = currentInspection.currentVisit
-	        };
-	    }
+            };
+        }
 
         public InspectionConfiguration GetInspectionConfiguration(Guid inspectionId)
-		{
-			var currentInspection = (
-				from inspection in Context.Inspections.AsNoTracking()
-				where inspection.Id == inspectionId
-				select new
-				{
-					inspection.IdSurvey,
-					inspection.MainBuilding.IdCity,
-					inspection.MainBuilding.IdRiskLevel
-				}).FirstOrDefault();
+        {
+            var currentInspection = (
+                from inspection in Context.Inspections.AsNoTracking()
+                where inspection.Id == inspectionId
+                select new
+                {
+                    inspection.IdSurvey,
+                    inspection.MainBuilding.IdCity,
+                    inspection.MainBuilding.IdRiskLevel
+                }).FirstOrDefault();
 
-			if (currentInspection == null)
-				return null;
+            if (currentInspection == null)
+                return null;
 
-			var departmentId = (
-				from city in Context.Cities.AsNoTracking()
-				where city.Id == currentInspection.IdCity
-				from serving in city.ServedByFireSafetyDepartments
-				where serving.IsActive
-				select serving.IdFireSafetyDepartment
-			).First();
+            var departmentId = (
+                from city in Context.Cities.AsNoTracking()
+                where city.Id == currentInspection.IdCity
+                from serving in city.ServedByFireSafetyDepartments
+                where serving.IsActive
+                select serving.IdFireSafetyDepartment
+            ).First();
 
-			var query =
-				from config in Context.FireSafetyDepartmentInspectionConfigurations.AsNoTracking()
-				where config.IsActive && config.IdFireSafetyDepartment == departmentId
-									  && config.RiskLevels.Any(risk => risk.IdRiskLevel == currentInspection.IdRiskLevel && risk.IsActive)
-				select new InspectionConfiguration
-				{
-					HasBuildingAnomalies = config.HasBuildingAnomalies,
-					HasBuildingContacts = config.HasBuildingContacts,
-					HasBuildingDetails = config.HasBuildingDetails,
-					HasBuildingFireProtection = config.HasBuildingFireProtection,
-					HasBuildingHazardousMaterials = config.HasBuildingHazardousMaterials,
-					HasBuildingParticularRisks = config.HasBuildingParticularRisks,
-					HasBuildingPnaps = config.HasBuildingPnaps,
-					HasCourse = config.HasCourse,
-					HasGeneralInformation = config.HasGeneralInformation,
-					HasImplantationPlan = config.HasImplantationPlan,
-					HasWaterSupply = config.HasWaterSupply,
-					HasSurvey = currentInspection.IdSurvey != null && currentInspection.IdSurvey != Guid.Empty
-				};
+            var query =
+                from config in Context.FireSafetyDepartmentInspectionConfigurations.AsNoTracking()
+                where config.IsActive && config.IdFireSafetyDepartment == departmentId
+                                      && config.RiskLevels.Any(risk =>
+                                          risk.IdRiskLevel == currentInspection.IdRiskLevel && risk.IsActive)
+                select new InspectionConfiguration
+                {
+                    HasBuildingAnomalies = config.HasBuildingAnomalies,
+                    HasBuildingContacts = config.HasBuildingContacts,
+                    HasBuildingDetails = config.HasBuildingDetails,
+                    HasBuildingFireProtection = config.HasBuildingFireProtection,
+                    HasBuildingHazardousMaterials = config.HasBuildingHazardousMaterials,
+                    HasBuildingParticularRisks = config.HasBuildingParticularRisks,
+                    HasBuildingPnaps = config.HasBuildingPnaps,
+                    HasCourse = config.HasCourse,
+                    HasGeneralInformation = config.HasGeneralInformation,
+                    HasImplantationPlan = config.HasImplantationPlan,
+                    HasWaterSupply = config.HasWaterSupply,
+                    HasSurvey = currentInspection.IdSurvey != null && currentInspection.IdSurvey != Guid.Empty
+                };
 
-			return query.FirstOrDefault() ?? new InspectionConfiguration();
-		}
+            return query.FirstOrDefault() ?? new InspectionConfiguration();
+        }
 
-		public bool CanUserAccessInspection(Guid idInspection, Guid idUser)
-		{
-			var retValue = false;
+        public bool CanUserAccessInspection(Guid idInspection, Guid idUser)
+        {
+            var retValue = false;
 
-			var targetInspection = Context.Inspections.Where(i => i.Id == idInspection && i.IsActive)
-				.Include(i => i.Visits)
-				.Single();
-			if (targetInspection != null)
-			{
-				var visit = targetInspection.Visits.SingleOrDefault(iv =>
-					iv.IsActive && iv.Status != InspectionVisitStatus.Completed);
-				if (visit == null || visit.IdWebuserVisitedBy == idUser)
-					retValue = true;
-			}
+            var targetInspection = Context.Inspections.Where(i => i.Id == idInspection && i.IsActive)
+                .Include(i => i.Visits)
+                .Single();
+            if (targetInspection != null)
+            {
+                var visit = targetInspection.Visits.SingleOrDefault(iv =>
+                    iv.IsActive && iv.Status != InspectionVisitStatus.Completed);
+                if (visit == null || visit.IdWebuserVisitedBy == idUser)
+                    retValue = true;
+            }
 
-			return retValue;
-		}
+            return retValue;
+        }
 
-		public InspectionForReport GetBuildingLastCompletedInspection(Guid idBuilding)
-		{
-			var lastInspectionId = Context.Inspections.AsNoTracking()
-				.Where(inspection => inspection.IdBuilding == idBuilding && inspection.Status == InspectionStatus.Approved)
-				.OrderByDescending(inspection => inspection.CompletedOn)
-				.Select(inspection => inspection.Id)
-				.FirstOrDefault();
+        public InspectionForReport GetBuildingLastCompletedInspection(Guid idBuilding)
+        {
+            var lastInspectionId = Context.Inspections.AsNoTracking()
+                .Where(inspection =>
+                    inspection.IdBuilding == idBuilding && inspection.Status == InspectionStatus.Approved)
+                .OrderByDescending(inspection => inspection.CompletedOn)
+                .Select(inspection => inspection.Id)
+                .FirstOrDefault();
 
-			if (lastInspectionId == Guid.Empty)
-				return null;
+            if (lastInspectionId == Guid.Empty)
+                return null;
 
-			var lastVisit =
-				(from visit in Context.InspectionVisits.AsNoTracking()
-				 where visit.IdInspection == lastInspectionId
-				 orderby visit.EndedOn descending
-				 select visit)
-				.Include(visit => visit.VisitedBy)
-				.ThenInclude(user => user.Attributes)
-				.FirstOrDefault();
+            var lastVisit =
+                (from visit in Context.InspectionVisits.AsNoTracking()
+                    where visit.IdInspection == lastInspectionId
+                    orderby visit.EndedOn descending
+                    select visit)
+                .Include(visit => visit.VisitedBy)
+                .ThenInclude(user => user.Attributes)
+                .FirstOrDefault();
 
-			if (lastVisit == null)
-				return null;
+            if (lastVisit == null)
+                return null;
 
-			var firstName = lastVisit.VisitedBy.Attributes.FirstOrDefault(a => a.AttributeName == "first_name");
-			var lastName = lastVisit.VisitedBy.Attributes.FirstOrDefault(a => a.AttributeName == "last_name");
+            var firstName = lastVisit.VisitedBy.Attributes.FirstOrDefault(a => a.AttributeName == "first_name");
+            var lastName = lastVisit.VisitedBy.Attributes.FirstOrDefault(a => a.AttributeName == "last_name");
 
-			return new InspectionForReport
-			{
-				Id = lastInspectionId,
-				StartedOn = lastVisit.StartedOn,
-				EndedOn = lastVisit.EndedOn,
-				InspectorName = (firstName?.AttributeValue ?? "") + " " + (lastName?.AttributeValue ?? "")
-			};
-		}
+            return new InspectionForReport
+            {
+                Id = lastInspectionId,
+                StartedOn = lastVisit.StartedOn,
+                EndedOn = lastVisit.EndedOn,
+                InspectorName = (firstName?.AttributeValue ?? "") + " " + (lastName?.AttributeValue ?? "")
+            };
+        }
 
-	    public bool SaveInspectionAndVisit(InspectionWithBuildings inspection, Guid idUser)
-	    {
-	        var currentInspection = Context.Inspections.Include(i => i.Visits).First(i => i.Id == inspection.Id);
-	        var currentVisit = currentInspection.Visits
-	            .First(v => v.IsActive && v.Status != InspectionVisitStatus.Completed);
+        public bool SaveInspectionAndVisit(InspectionWithBuildings inspection, Guid idUser)
+        {
+            var currentInspection = Context.Inspections.Include(i => i.Visits).First(i => i.Id == inspection.Id);
+            var currentVisit = currentInspection.Visits
+                .FirstOrDefault(v => v.IsActive && v.Status != InspectionVisitStatus.Completed);
 
-	        if (currentVisit != null)
-	        {
-	            CopyInspectionFields(inspection, idUser, currentInspection);
-	            CopyVisitFields(inspection, idUser, currentVisit);
+            if (currentVisit == null)
+            {
+                currentVisit = CreateNewVisit(idUser, false);
+                currentInspection.Visits.Add(currentVisit);
+            }
 
-	            if (inspection.CurrentVisit.RequestedDateOfVisit != null)
-	                AddNextVisit(inspection, idUser, currentInspection);
+            if (currentVisit != null)
+            {
+                CopyInspectionFields(inspection, idUser, currentInspection);
+                CopyVisitFields(inspection, idUser, currentVisit);
 
-	            Context.SaveChanges();
-	            return true;
-	        }
+                if (inspection.CurrentVisit.RequestedDateOfVisit != null)
+                    AddNextVisit(inspection, idUser, currentInspection);
 
-	        return false;
-	    }
+                Context.SaveChanges();
+                return true;
+            }
 
-	    private static void CopyInspectionFields(InspectionWithBuildings inspection, Guid idUser, Inspection currentInspection)
-	    {
-	        currentInspection.StartedOn = inspection.StartedOn;
-	        currentInspection.CompletedOn = inspection.CurrentVisit.EndedOn;
-	        currentInspection.IdWebUserLastModifiedBy = idUser;
-	        currentInspection.Status = inspection.Status;
-	    }
+            return false;
+        }
 
-	    private static void CopyVisitFields(InspectionWithBuildings inspection, Guid idUser, InspectionVisit currentVisit)
-	    {
-	        currentVisit.Status = inspection.CurrentVisit.Status;
-	        currentVisit.StartedOn = inspection.CurrentVisit.StartedOn;
-	        currentVisit.EndedOn = inspection.CurrentVisit.EndedOn;
-	        currentVisit.DoorHangerHasBeenLeft = inspection.CurrentVisit.DoorHangerHasBeenLeft;
-	        currentVisit.HasBeenRefused = inspection.CurrentVisit.HasBeenRefused;
-	        currentVisit.IdWebuserVisitedBy = idUser;
-	        currentVisit.OwnerWasAbsent = inspection.CurrentVisit.OwnerWasAbsent;
-	        currentVisit.ReasonForInspectionRefusal = inspection.CurrentVisit.ReasonForInspectionRefusal;
-	    }
+        private static void CopyInspectionFields(InspectionWithBuildings inspection, Guid idUser,
+            Inspection currentInspection)
+        {
+            currentInspection.StartedOn = inspection.StartedOn;
+            currentInspection.CompletedOn = inspection.CurrentVisit.EndedOn;
+            currentInspection.IdWebUserLastModifiedBy = idUser;
+            currentInspection.Status = inspection.Status;
+        }
 
-	    private static void AddNextVisit(InspectionWithBuildings inspection, Guid idUser, Inspection currentInspection)
-	    {
-	        var nextVisit = new InspectionVisit
-	        {
-	            CreatedOn = DateTime.Now,
-	            RequestedDateOfVisit = inspection.CurrentVisit.RequestedDateOfVisit,
-	            IdWebUserLastModifiedBy = idUser
-	        };
-	        currentInspection.Visits.Add((nextVisit));
-	    }
-	}
+        private static void CopyVisitFields(InspectionWithBuildings inspection, Guid idUser,
+            InspectionVisit currentVisit)
+        {
+            currentVisit.Status = inspection.CurrentVisit.Status;
+            currentVisit.StartedOn = inspection.CurrentVisit.StartedOn;
+            currentVisit.EndedOn = inspection.CurrentVisit.EndedOn;
+            currentVisit.DoorHangerHasBeenLeft = inspection.CurrentVisit.DoorHangerHasBeenLeft;
+            currentVisit.HasBeenRefused = inspection.CurrentVisit.HasBeenRefused;
+            currentVisit.IdWebuserVisitedBy = idUser;
+            currentVisit.OwnerWasAbsent = inspection.CurrentVisit.OwnerWasAbsent;
+            currentVisit.ReasonForInspectionRefusal = inspection.CurrentVisit.ReasonForInspectionRefusal;
+        }
+
+        private static void AddNextVisit(InspectionWithBuildings inspection, Guid idUser, Inspection currentInspection)
+        {
+            var nextVisit = new InspectionVisit
+            {
+                CreatedOn = DateTime.Now,
+                RequestedDateOfVisit = inspection.CurrentVisit.RequestedDateOfVisit,
+                IdWebUserLastModifiedBy = idUser
+            };
+            currentInspection.Visits.Add((nextVisit));
+        }
+    }
 }
