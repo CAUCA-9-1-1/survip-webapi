@@ -424,7 +424,7 @@
     <value>La valeur ne doit pas dépasser </value>
   </data>
   <data name="TooShort" xml:space="preserve">
-    <value>La valeur doit être plus grande que </value>
+    <value>La valeur doit avoir au moins</value>
   </data>
   <data name="ToxicInhalationHazard" xml:space="preserve">
     <value>Toxique lorsque inhalée </value>
