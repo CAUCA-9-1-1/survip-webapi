@@ -27,7 +27,7 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 				.NotNullMaxLength(10);
 
 			RuleFor(m => m.PhoneNumber)
-				.MinimumLength(10)
+				.HasMinimumLengthWhenNotEmpty(10)
 				.When(m => !string.IsNullOrEmpty(m.PhoneNumber));
 
 			RuleFor(m => m.PhoneNumberExtension)
@@ -43,14 +43,14 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 				.NotNullMaxLength(10);
 
 			RuleFor(m => m.CellphoneNumber)
-				.MinimumLength(10)
+				.HasMinimumLengthWhenNotEmpty(10)
 				.When(m => !string.IsNullOrEmpty(m.CellphoneNumber));
 
 			RuleFor(m => m.OtherNumber)
 				.NotNullMaxLength(10);
 
 			RuleFor(m => m.OtherNumber)
-				.MinimumLength(10)
+				.HasMinimumLengthWhenNotEmpty(10)
 				.When(m => !string.IsNullOrEmpty(m.OtherNumber));
 
 			RuleFor(m => m.OtherNumberExtension)

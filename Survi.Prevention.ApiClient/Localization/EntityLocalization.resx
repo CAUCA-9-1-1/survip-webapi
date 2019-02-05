@@ -145,25 +145,25 @@
     <value>Rue du parcours</value>
   </data>
   <data name="BuildingDetail" xml:space="preserve">
-    <value>Détails de bâtiment</value>
+    <value>Détail de bâtiment</value>
   </data>
   <data name="BuildingFireHydrant" xml:space="preserve">
     <value>Borne de bâtiment</value>
   </data>
   <data name="BuildingHazardousMaterial" xml:space="preserve">
-    <value>Matières dangeureuses de bâtiment</value>
+    <value>Matière dangeureuse de bâtiment</value>
   </data>
   <data name="BuildingParticularRisk" xml:space="preserve">
-    <value>Risques particuliers de bâtiment</value>
+    <value>Risque particulier de bâtiment</value>
   </data>
   <data name="BuildingParticularRiskPicture" xml:space="preserve">
-    <value>Images de risques particuliers de bâtiment</value>
+    <value>Image de risque particulier de bâtiment</value>
   </data>
   <data name="BuildingPersonRequiringAssistance" xml:space="preserve">
-    <value>Personne nécessitant de l'aide dans un bâtiment</value>
+    <value>PNAP de bâtiment</value>
   </data>
   <data name="BuildingSprinkler" xml:space="preserve">
-    <value>Gicleurs</value>
+    <value>Gicleur de bâtiment</value>
   </data>
   <data name="BuildingType" xml:space="preserve">
     <value>Type de bâtiment</value>
@@ -187,7 +187,7 @@
     <value>MRC</value>
   </data>
   <data name="CourseLaneDirection" xml:space="preserve">
-    <value>Direction de voie</value>
+    <value>Direction de rue</value>
   </data>
   <data name="FireHydrant" xml:space="preserve">
     <value>Borne incendie</value>
@@ -211,19 +211,19 @@
     <value>Service incendie</value>
   </data>
   <data name="FireSafetyDepartmentCity" xml:space="preserve">
-    <value>Service incendie pour une municipalité</value>
+    <value>Desserte de service incendie</value>
   </data>
   <data name="FireSafetyDepartmentCityServing" xml:space="preserve">
-    <value>Service sécurité incendie desservant une ville</value>
+    <value>Desserte de service incendie</value>
   </data>
   <data name="Firestation" xml:space="preserve">
-    <value>Caserne de pompiers</value>
+    <value>Caserne </value>
   </data>
   <data name="GarageType" xml:space="preserve">
     <value>Type de garage</value>
   </data>
   <data name="HazardousMaterial" xml:space="preserve">
-    <value>Matières dangereux</value>
+    <value>Matière dangereuse</value>
   </data>
   <data name="Lane" xml:space="preserve">
     <value>Rue</value>
@@ -244,10 +244,10 @@
     <value>Type de risque particulier</value>
   </data>
   <data name="PersonRequiringAssistanceType" xml:space="preserve">
-    <value>Type de personne nécessitant de l'aide</value>
+    <value>Type de PNAP</value>
   </data>
   <data name="Region" xml:space="preserve">
-    <value>Région</value>
+    <value>Région administrative</value>
   </data>
   <data name="RiskLevel" xml:space="preserve">
     <value>Niveau de risque</value>
@@ -265,7 +265,7 @@
     <value>Type de gicleur</value>
   </data>
   <data name="State" xml:space="preserve">
-    <value>État</value>
+    <value>Province</value>
   </data>
   <data name="StorageTankType" xml:space="preserve">
     <value>Type de réservoir de stockage</value>
