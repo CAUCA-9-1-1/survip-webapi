@@ -979,7 +979,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La valeur doit être plus grande que .
+        ///   Looks up a localized string similar to La valeur doit avoir au moins.
         /// </summary>
         public static string TooShort {
             get {
