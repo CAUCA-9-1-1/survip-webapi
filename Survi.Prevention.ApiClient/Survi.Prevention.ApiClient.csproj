@@ -49,6 +49,9 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Survi.Prevention.ApiClient.DataTransferObjects, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Survi.Prevention.ApiClient.DataTransferObjects.1.1.3\lib\netstandard1.2\Survi.Prevention.ApiClient.DataTransferObjects.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -101,7 +104,7 @@
     <Compile Include="Services\Building\BuildingPersonRequiringAssistanceService.cs" />
     <Compile Include="Services\Building\BuildingService.cs" />
     <Compile Include="Services\Building\BuildingSprinklerService.cs" />
-    <Compile Include="Services\Building\InspectedBuildingReportService.cs" />
+    <Compile Include="Services\Building\BuildingReportService.cs" />
     <Compile Include="Services\InspectionBuildingService.cs" />
     <Compile Include="Services\Types\HazardousMaterialService.cs" />
     <Compile Include="Services\Types\RiskLevelService.cs" />
@@ -135,12 +138,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Survi.Prevention.ApiClient.DataTransfertObjects\Survi.Prevention.ApiClient.DataTransferObjects.csproj">
-      <Project>{1acc3cfb-de6a-4dcf-9fe9-9744138c2541}</Project>
-      <Name>Survi.Prevention.ApiClient.DataTransferObjects</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

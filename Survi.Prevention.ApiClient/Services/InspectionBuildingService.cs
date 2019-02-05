@@ -3,7 +3,7 @@ using Survi.Prevention.ApiClient.Services.Base;
 
 namespace Survi.Prevention.ApiClient.Services
 {
-    public class InspectionBuildingService : BaseSecureService<DataTransferObjects.InspectedBuidldingForExport>
+    public class InspectionBuildingService : BaseSecureService<DataTransferObjects.BuidldingForExport>
     {
         protected override string BaseUrl { get; set; } = "inspection/Building/Import";
 
