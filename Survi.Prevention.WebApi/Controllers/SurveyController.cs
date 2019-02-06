@@ -25,5 +25,12 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return Ok(Service.CopySurvey(idSurvey));
 		}
+
+	    [HttpGet, Route("CheckIfUsed/{idSurvey:Guid}")]
+	    public ActionResult<bool> CheckIfUsed(Guid idSurvey)
+	    {
+	        return Service.CheckIfUsed(idSurvey);
+	    }
+
 	}
 }
