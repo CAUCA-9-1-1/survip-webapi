@@ -6,6 +6,6 @@ namespace Survi.Prevention.ApiClient.DataTransferObjects
     {
         public int Sequence { get; set; }
         public int Code { get; set; }
-        public string ArgbColor { get; set; }
+        public string Color { get; set; }
     }
 }

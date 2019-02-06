@@ -21,7 +21,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
             imported = new RiskLevel
             {
                 Id = "imported1",
-                ArgbColor = 100,
+                Color = "#10FF00",
                 Code = 100,
                 Sequence = 100,
                 IsActive = true,
@@ -35,7 +35,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
             existing = new Models.Buildings.RiskLevel
             {
                 Id = Guid.NewGuid(),
-                Color = "1",
+                Color = "#101000",
                 Code = 1,
                 Sequence = 1,
                 IsActive = true,
@@ -66,7 +66,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
             var result = converter.Convert(imported).Result;
 
             Assert.True(result.Sequence == imported.Sequence
-                        && result.Color == imported.ArgbColor.ToString()
+                        && result.Color == imported.Color
                         && result.Code == imported.Code);
         }
     }
