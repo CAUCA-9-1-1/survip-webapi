@@ -73,6 +73,11 @@ namespace Survi.Prevention.ServiceLayer.Services {
 				return false;
 			}
 			return false;
-		}	
+		}
+
+	    public bool CheckIfUsed(Guid idSurvey)
+	    {
+	        return Context.Inspections.Any(c => c.IdSurvey == idSurvey);
+	    }
 	}
 }
