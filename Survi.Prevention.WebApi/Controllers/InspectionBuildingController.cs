@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.ServiceLayer.Services;
@@ -25,6 +26,12 @@ namespace Survi.Prevention.WebApi.Controllers
         public ActionResult GetInspectionForExport()
         {
             return Ok(service.GetInspectionForExport());
+        }
+
+        [HttpPost, Route("Building/TransferedToCad"), AllowAnonymous]
+        public ActionResult SetBuildingAsTransferedToCad([FromBody] List<string> ids)
+        {
+            return Ok(service.SetBuildingAsTransferedToCad(ids));
         }
     }
 }

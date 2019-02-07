@@ -30,6 +30,7 @@
 		{
             this.TransferPreventionButton = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.SuspendLayout();
             // 
             // TransferPreventionButton
@@ -50,11 +51,21 @@
             this.simpleButton1.Text = "Mettre à jour depuis la Prévention";
             this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
             // 
+            // simpleButton2
+            // 
+            this.simpleButton2.Location = new System.Drawing.Point(233, 70);
+            this.simpleButton2.Name = "simpleButton2";
+            this.simpleButton2.Size = new System.Drawing.Size(117, 39);
+            this.simpleButton2.TabIndex = 2;
+            this.simpleButton2.Text = "Données transférées";
+            this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
+            // 
             // ApiClientTester
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.simpleButton2);
             this.Controls.Add(this.simpleButton1);
             this.Controls.Add(this.TransferPreventionButton);
             this.Name = "ApiClientTester";
@@ -67,6 +78,7 @@
 
 		private DevExpress.XtraEditors.SimpleButton TransferPreventionButton;
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraEditors.SimpleButton simpleButton2;
     }
 }
 
