@@ -92,9 +92,9 @@ namespace Survi.Prevention.ApiClient.Services.Base
             return await GetObjectAsync(ids);
         }
 
-        public Task<List<T>> GetAsync(List<string> ids, IProgress<int> progressReporter)
+        public async Task<List<T>> GetAsync(List<string> ids, IProgress<int> progressReporter)
         {
-            throw new NotImplementedException();
+            return await GetObjectAsync(ids);
         }
 
         private async Task<List<T>> GetObjectAsync(object entity)
@@ -111,6 +111,28 @@ namespace Survi.Prevention.ApiClient.Services.Base
                     .ThrowExceptionForStatusCode(request.ToUri().ToString(), exception.Call.Succeeded,exception.Call.HttpStatus, exception);
                 //throw;
                 return null;
+            }
+        }
+
+        public async Task<bool> SetItemsAsTransfered(List<string> ids)
+        {
+            BaseUrl = BaseUrl.Replace("Import", "TransferedToCad");
+            var request = GenerateRequest();
+            try
+            {
+                var result =  await request
+                .WithTimeout(TimeSpan.FromSeconds(Configuration.RequestTimeoutInSeconds))
+                .PostJsonAsync(ids)
+                .ReceiveJson<bool>();
+
+                return result;
+            }
+            catch (FlurlHttpException exception)
+            {
+                new RestResponseValidator()
+                    .ThrowExceptionForStatusCode(request.ToUri().ToString(), exception.Call.Succeeded, exception.Call.HttpStatus, exception);
+                //throw;
+                return false;
             }
         }
     }

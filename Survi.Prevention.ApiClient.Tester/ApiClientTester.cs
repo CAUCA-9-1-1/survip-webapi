@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
+using Survi.Prevention.ApiClient.Services;
 using Survi.Prevention.ApiClient.Services.Building;
 using Survi.Prevention.ApiClient.Services.Places;
 
@@ -68,15 +69,23 @@ namespace Survi.Prevention.ApiClient.Tester
 
             var result = await service.GetAsync(new List<string>{ "000f577d-b957-4b11-975d-bc08c50f69b2" });
             if (result.Count > 0)
-            {
                 MessageBox.Show(string.Join(",", result.Select(m=>m.IdBuilding)), "Récupération des données du transfert",
                     MessageBoxButtons.OK);
-            }
+            MessageBox.Show("Aucune données à exporter", "Résultat du transfert", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private async void simpleButton1_Click(object sender, EventArgs e)
         {
             await GetData();
+        }
+
+        private async void simpleButton2_Click(object sender, EventArgs e)
+        {
+            var service = new InspectionBuildingService(authConfig);
+            var result = await service.SetItemsAsTransfered(new List<string> { "000f577d-b957-4b11-975d-bc08c50f69b2" });
+            if(result)
+                MessageBox.Show("Les données ont été mises à jour comme transférées vers le CAD.", "Résultat du transfert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Un problème est survenue lors de la mise à jour du statut de transfert.", "Résultat du transfert", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
