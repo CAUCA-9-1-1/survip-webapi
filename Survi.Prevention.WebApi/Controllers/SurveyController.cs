@@ -31,6 +31,5 @@ namespace Survi.Prevention.WebApi.Controllers
 	    {
 	        return Service.CheckIfUsed(idSurvey);
 	    }
-
 	}
 }
