@@ -107,7 +107,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return new ImportationResult
 			{
 				IdEntity = importedEntity.Id,
-                EntityName = conversionResult.Result.GetType().Name,
+                EntityName = importedEntity.GetType().Name,
 				Messages = conversionResult.ValidationErrors
 			};
 		}
