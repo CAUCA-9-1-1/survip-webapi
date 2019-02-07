@@ -385,7 +385,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             {
                 var visit = targetInspection.Visits.SingleOrDefault(iv =>
                     iv.IsActive && iv.Status != InspectionVisitStatus.Completed);
-                if (visit == null || visit.IdWebuserVisitedBy == idUser)
+                if (visit == null || visit.IdWebuserVisitedBy == idUser || visit.Status == InspectionVisitStatus.Todo)
                     retValue = true;
             }
 
