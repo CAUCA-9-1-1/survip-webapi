@@ -3,7 +3,7 @@
     public enum FireHydrantLocationType
     {
         Address,
-        LaneAndIntersection,
+        LaneAndLaneTransversal,
         Coordinates,
         Text
     }

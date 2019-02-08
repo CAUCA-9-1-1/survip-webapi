@@ -10,7 +10,7 @@ namespace Survi.Prevention.Models.FireHydrants
 	public enum FireHydrantLocationType
 	{
 		Address,
-		LaneAndIntersection,
+		LaneAndTransversal,
 		Coordinates,
 		Text
 	}
@@ -66,14 +66,14 @@ namespace Survi.Prevention.Models.FireHydrants
 
         public Guid IdCity { get; set; }
 		public Guid? IdLane { get; set; }
-		public Guid? IdIntersection { get; set; }
+		public Guid? IdLaneTransversal { get; set; }
 		public Guid IdFireHydrantType { get; set; }
 		public Guid? IdUnitOfMeasureRate { get; set; }
 		public Guid? IdUnitOfMeasurePressure { get; set; }
 
 		public City City { get; set; }
 		public Lane Lane { get; set; }
-		public Lane Intersection { get; set; }
+		public Lane LaneTransversal { get; set; }
 		public FireHydrantType HydrantType { get; set; }		
 		public UnitOfMeasure RateUnitOfMeasure { get; set; }
 		public UnitOfMeasure PressureUnitOfMeasure { get; set; }		

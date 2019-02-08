@@ -16,7 +16,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 
 			b.HasMany(m => m.Connections).WithOne(m => m.Hydrant).HasForeignKey(m => m.IdFireHydrant);
 			b.HasOne(m => m.Lane).WithMany().HasForeignKey(m => m.IdLane);
-			b.HasOne(m => m.Intersection).WithMany().HasForeignKey(m => m.IdIntersection);
+			b.HasOne(m => m.LaneTransversal).WithMany().HasForeignKey(m => m.IdLaneTransversal);
 			b.HasOne(m => m.HydrantType).WithMany().HasForeignKey(m => m.IdFireHydrantType);
 			b.HasOne(m => m.RateUnitOfMeasure).WithMany().HasForeignKey(m => m.IdUnitOfMeasureRate);
 			b.HasOne(m => m.PressureUnitOfMeasure).WithMany().HasForeignKey(m => m.IdUnitOfMeasurePressure);

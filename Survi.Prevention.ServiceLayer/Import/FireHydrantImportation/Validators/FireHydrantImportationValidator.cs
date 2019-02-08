@@ -35,15 +35,15 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
 
             RuleFor(m => m.IdLane)
                 .RequiredKeyIsValid()
-                .When(m => m.LocationType == FireHydrantLocationType.Address || m.LocationType == FireHydrantLocationType.LaneAndIntersection);
+                .When(m => m.LocationType == FireHydrantLocationType.Address || m.LocationType == FireHydrantLocationType.LaneAndLaneTransversal);
 
             RuleFor(m => m.CivicNumber)
                 .NotNullOrEmptyWithMaxLength(5)
                 .When(m => m.LocationType == FireHydrantLocationType.Address);
 
-            RuleFor(m => m.IdIntersection)
+            RuleFor(m => m.IdLaneTransversal)
                 .RequiredKeyIsValid()
-                .When(m => m.LocationType == FireHydrantLocationType.LaneAndIntersection);
+                .When(m => m.LocationType == FireHydrantLocationType.LaneAndLaneTransversal);
 
             RuleFor(m => m.WktCoordinates)
                 .NotNullOrEmpty()

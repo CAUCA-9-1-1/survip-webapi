@@ -86,7 +86,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.FireHydrantImportation
 
         [Theory]
         [InlineData(FireHydrantLocationType.Address)]
-        [InlineData(FireHydrantLocationType.LaneAndIntersection)]
+        [InlineData(FireHydrantLocationType.LaneAndLaneTransversal)]
         public void EntityShouldNotBeValidWhenIdLaneIsMissingAndLocationTypeIsAddressOrIntersection(FireHydrantLocationType type)
         {
             validator.ShouldHaveValidationErrorFor(m => m.IdLane, new FireHydrant { LocationType = type, IdLane = null });
@@ -101,7 +101,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.FireHydrantImportation
         [Fact]
         public void EntityShouldNotBeValidWhenIdIntersectionIsNotSetAndLocationTypeIsIntersection()
         {
-            validator.ShouldHaveValidationErrorFor(m => m.IdIntersection, new FireHydrant { LocationType = FireHydrantLocationType.LaneAndIntersection, IdIntersection = null });
+            validator.ShouldHaveValidationErrorFor(m => m.IdLaneTransversal, new FireHydrant { LocationType = FireHydrantLocationType.LaneAndLaneTransversal, IdLaneTransversal = null });
         }
 
         [Fact]

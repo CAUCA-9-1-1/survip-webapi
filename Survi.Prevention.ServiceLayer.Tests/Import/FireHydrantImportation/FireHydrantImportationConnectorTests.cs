@@ -26,7 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.FireHydrantImportation
                         && entity.Comments == imported.Comments
                         && entity.IdCity == id
                         && entity.IdFireHydrantType == id
-                        && entity.IdIntersection == id
+                        && entity.IdLaneTransversal == id
                         && entity.IdLane == id
                         && entity.IdUnitOfMeasurePressure == id
                         && entity.IdUnitOfMeasureRate == id
@@ -51,7 +51,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.FireHydrantImportation
                 Comments = "comments",
                 IdCity = id.ToString(),
                 IdFireHydrantType = id.ToString(),
-                IdIntersection = id.ToString(),
+                IdLaneTransversal = id.ToString(),
                 IdLane = id.ToString(),
                 IdUnitOfMeasurePressure = id.ToString(),
                 IdUnitOfMeasureRate = id.ToString(),
