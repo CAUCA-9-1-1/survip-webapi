@@ -33,7 +33,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation
             entity.Coordinates = importedObject.WktCoordinates;
             entity.IdCity = Guid.Parse(importedObject.IdCity);
             entity.IdFireHydrantType = Guid.Parse(importedObject.IdFireHydrantType);
-            entity.IdIntersection = ParseId(importedObject.IdIntersection);
+            entity.IdLaneTransversal = ParseId(importedObject.IdLaneTransversal);
             entity.IdLane = ParseId(importedObject.IdLane);
             entity.IdUnitOfMeasurePressure = ParseId(importedObject.IdUnitOfMeasurePressure);
             entity.IdUnitOfMeasureRate = ParseId(importedObject.IdUnitOfMeasureRate);
@@ -52,7 +52,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation
         {
             importedObject.IdCity = GetRealId<Models.FireSafetyDepartments.City>(importedObject.IdCity);
             importedObject.IdFireHydrantType = GetRealId<Models.FireHydrants.FireHydrantType>(importedObject.IdFireHydrantType);
-            importedObject.IdIntersection = GetRealId<Models.FireSafetyDepartments.Lane>(importedObject.IdIntersection);
+            importedObject.IdLaneTransversal = GetRealId<Models.FireSafetyDepartments.Lane>(importedObject.IdLaneTransversal);
             importedObject.IdLane = GetRealId<Models.FireSafetyDepartments.Lane>(importedObject.IdLane);
             importedObject.IdUnitOfMeasurePressure = GetRealId<Models.UnitOfMeasure>(importedObject.IdUnitOfMeasurePressure);
             importedObject.IdUnitOfMeasureRate = GetRealId<Models.UnitOfMeasure>(importedObject.IdUnitOfMeasureRate);

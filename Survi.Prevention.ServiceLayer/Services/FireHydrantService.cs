@@ -37,7 +37,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Id = hydrant.Id,
 					Number = hydrant.Number,
 					IdLane = hydrant.IdLane,
-					IdIntersection = hydrant.IdIntersection,
+					IdLaneTransversal = hydrant.IdLaneTransversal,
 					PhysicalPosition = hydrant.PhysicalPosition,
 					LocationType = hydrant.LocationType,
 					Coordinates = hydrant.Coordinates,
@@ -68,7 +68,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Id = hydrant.Id,
 					Number = hydrant.Number,
 					IdLane = hydrant.IdLane,
-					IdIntersection = hydrant.IdIntersection,
+					IdLaneTransversal = hydrant.IdLaneTransversal,
 					PhysicalPosition = hydrant.PhysicalPosition,
 					LocationType = hydrant.LocationType,
 					PointCoordinates = hydrant.PointCoordinates,
@@ -104,9 +104,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 			    if (!hydrant.PointCoordinates.IsEmpty && hydrant.PointCoordinates.IsValid)
 				    return $"{hydrant.PointCoordinates.ToText()}";
 		    }
-		    if (hydrant.LocationType == FireHydrantLocationType.LaneAndIntersection)
+		    if (hydrant.LocationType == FireHydrantLocationType.LaneAndTransversal)
 		    {
-			    return new AddressGeneratorWithDb().GenerateAddressFromLanes(Context, hydrant.IdLane, hydrant.IdIntersection, languageCode);
+			    return new AddressGeneratorWithDb().GenerateAddressFromLanes(Context, hydrant.IdLane, hydrant.IdLaneTransversal, languageCode);
 		    }
 		    return "";
 	    }

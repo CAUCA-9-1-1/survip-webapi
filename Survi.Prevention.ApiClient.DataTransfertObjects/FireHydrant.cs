@@ -24,7 +24,7 @@ namespace Survi.Prevention.ApiClient.DataTransferObjects
 
         public string IdCity { get; set; }
         public string IdLane { get; set; }
-        public string IdIntersection { get; set; }
+        public string IdLaneTransversal { get; set; }
         public string IdFireHydrantType { get; set; }
         public string IdUnitOfMeasureRate { get; set; }
         public string IdUnitOfMeasurePressure { get; set; }
