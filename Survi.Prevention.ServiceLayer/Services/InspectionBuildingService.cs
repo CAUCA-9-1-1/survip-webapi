@@ -90,7 +90,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 Context.IsInImportationMode = false;
                 return true;
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 Context.IsInImportationMode = false;
                 return false;

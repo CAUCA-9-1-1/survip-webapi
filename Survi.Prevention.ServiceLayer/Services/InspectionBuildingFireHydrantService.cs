@@ -70,7 +70,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 	                hydrant.Color,
 	                hydrant.Number,
 	                hydrant.IdLane,
-	                hydrant.IdIntersection,
+	                hydrant.IdLaneTransversal,
 	                hydrant.PhysicalPosition,
 	                hydrant.LocationType,
 	                hydrant.PointCoordinates,
@@ -86,7 +86,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 	                Color = hydrant.Color,
 	                IdBuilding = buildingId,
 	                Number = hydrant.Number,
-	                Address = GenerateAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdIntersection, hydrant.PhysicalPosition,
+	                Address = GenerateAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdLaneTransversal, hydrant.PhysicalPosition,
 	                    hydrant.PointCoordinates, hydrant.CivicNumber, hydrant.AddressLocationType, languageCode),
 	                IdFireHydrant = hydrant.IdFireHydrant
 	            }).ToList();
