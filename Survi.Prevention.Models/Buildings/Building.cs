@@ -28,7 +28,5 @@ namespace Survi.Prevention.Models.Buildings
 	}
 
     public class BuildingChild : Building
-    {
-
-    }
+    {}
 }
