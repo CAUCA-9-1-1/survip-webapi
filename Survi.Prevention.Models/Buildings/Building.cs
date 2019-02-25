@@ -26,4 +26,9 @@ namespace Survi.Prevention.Models.Buildings
 		public ICollection<BuildingAnomaly> Anomalies { get; set; }
 		public ICollection<BuildingParticularRisk> ParticularRisks { get; set; }
 	}
+
+    public class BuildingChild : Building
+    {
+
+    }
 }

@@ -63,6 +63,14 @@ namespace Survi.Prevention.ServiceLayer.Services
             return result;
         }
 
+	    public IQueryable<Building> GetChildListOData()
+	    {
+	        var query = Context.Buildings
+	            .Where(b => b.ChildType == BuildingChildType.Child);
+
+	        return query;
+	    }
+
         public List<BuildingForWeb> GetListActive(string languageCode, List<Guid> idCities)
         {
             var query =

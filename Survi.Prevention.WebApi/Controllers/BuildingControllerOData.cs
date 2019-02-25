@@ -34,7 +34,13 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return Service.GetList(GetUserCityIds());
 		}
-		
+
+	    [ODataRoute("BuildingChild"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
+	    public IQueryable<Building> GetChildList()
+	    {
+	        return Service.GetChildListOData();
+	    }
+
 		[HttpPost]
 		[ODataRoute("Building"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
 		public IActionResult Post()

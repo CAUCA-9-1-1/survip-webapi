@@ -107,6 +107,7 @@ namespace Survi.Prevention.WebApi
 			builder.EntitySet<InspectionForApproval>("InspectionsForApproval").AllowAllQueryType();
 			builder.EntitySet<InspectionCompleted>("InspectionsCompleted").AllowAllQueryType();
 			builder.EntitySet<Building>("Building").AllowAllQueryType();
+		    builder.EntitySet<BuildingChild>("BuildingChild").AllowAllQueryType();
 			builder.EntityType<Building>().Ignore(t => t.PointCoordinates);
 			builder.EntitySet<FireHydrant>("FireHydrant").AllowAllQueryType();
 			builder.EntityType<FireHydrant>().Ignore(t => t.PointCoordinates);
