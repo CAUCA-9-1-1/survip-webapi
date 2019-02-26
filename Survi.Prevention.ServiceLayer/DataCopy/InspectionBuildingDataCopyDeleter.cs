@@ -24,9 +24,9 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 
 		public void DeleteCopy(List<InspectionBuilding> buildings)
 		{
-			foreach (var picture in buildings.SelectMany(p => p.ParticularRisks.SelectMany(r => r.Pictures.Select(rp => rp.Picture))))
+			foreach (var picture in buildings.SelectMany(p => p.ParticularRisks.SelectMany(r => r.Pictures.Select(rp => rp.Picture))).Where(p => p != null))
 				Context.Remove(picture);
-			foreach (var picture in buildings.SelectMany(p => p.Anomalies.SelectMany(r => r.Pictures.Select(rp => rp.Picture))))
+			foreach (var picture in buildings.SelectMany(p => p.Anomalies.SelectMany(r => r.Pictures.Select(rp => rp.Picture))).Where(p => p != null))
 				Context.Remove(picture);
 			foreach (var picture in buildings.Select(p => p.Picture).Where(p => p != null))
 				Context.Remove(picture);
