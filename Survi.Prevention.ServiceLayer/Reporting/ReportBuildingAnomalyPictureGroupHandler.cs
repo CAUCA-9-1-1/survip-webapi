@@ -23,7 +23,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 		protected override string FormatPropertyValue((string name, object value) property, string languageCode)
 		{
-			if (property.name == "PictureData")
+			if (property.name == "DataUri")
 				return PictureHtmlTagGenerator.GetTag(property.value);
 			return base.FormatPropertyValue(property, languageCode);
 		}
