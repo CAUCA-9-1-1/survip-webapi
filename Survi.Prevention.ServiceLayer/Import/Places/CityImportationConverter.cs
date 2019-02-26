@@ -8,7 +8,7 @@ using ImportedCity = Survi.Prevention.ApiClient.DataTransferObjects.City;
 
 namespace Survi.Prevention.ServiceLayer.Import.Places
 {
-    public class CityImportationConverter : BaseLocalizableEntityConverter<ImportedCity, City, CityLocalization>
+	public class CityImportationConverter : BaseLocalizableEntityConverter<ImportedCity, City, CityLocalization>
     {
 	    public CityImportationConverter(IManagementContext context, AbstractValidator<ImportedCity> validator, CacheSystem cache)
 	        : base(context, validator, cache)
@@ -22,6 +22,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 		    entity.Code3Letters = importedObject.Code3Letters;
 		    entity.Code = importedObject.Code;
 		    entity.EmailAddress = importedObject.EmailAddress;
+		    entity.UtilizationCodeYear = importedObject.UtilizationCodeYear;
 	    }
 
 	    protected override void GetRealForeignKeys(ImportedCity importedObject)

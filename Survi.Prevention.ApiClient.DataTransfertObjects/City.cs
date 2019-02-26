@@ -2,7 +2,7 @@
 
 namespace Survi.Prevention.ApiClient.DataTransferObjects
 {
-    public class City: BaseLocalizableTransferObject
+	public class City: BaseLocalizableTransferObject
     {
         public string Code { get; set; }
         public string Code3Letters { get; set; }
@@ -10,5 +10,6 @@ namespace Survi.Prevention.ApiClient.DataTransferObjects
 
         public string IdCityType { get; set; }
         public string IdCounty { get; set; }
+		public int UtilizationCodeYear { get; set; }
     }
 }
