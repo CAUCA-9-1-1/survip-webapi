@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
@@ -31,6 +32,25 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return result;
 		}
+
+	    public PictureForWeb GetLogoByCity(Guid idCity)
+	    {
+	        var query =
+	            from serving in Context.FireSafetyDepartmentCityServings
+	            let pic = serving.FireSafetyDepartment.Picture
+                where serving.IdCity == idCity && serving.IsActive && pic != null
+	            select new PictureForWeb
+	            {
+	                Id = pic.Id,
+	                DataUri = string.Format(
+	                    "data:{0};base64,{1}",
+	                    pic.MimeType == "" || pic.MimeType == null ? "image/jpeg" : pic.MimeType,
+	                    Convert.ToBase64String(pic.Data)),
+	                SketchJson = pic.SketchJson
+	            };
+
+            return query.FirstOrDefault();
+	    }
 
 		public List<FireSafetyDepartmentLocalized> GetLocalized(string languageCode, List<Guid> allowedDepartmentIds = null)
 		{
