@@ -30,6 +30,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 				where risk.IdBuilding == idBuilding && risk.IsActive
 				select new ParticularRiskForReport
 				{
+                    Id = risk.Id,
 					Comments = risk.Comments,
 					Dimension = risk.Dimension,
 					HasOpening = risk.HasOpening,
