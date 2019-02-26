@@ -66,7 +66,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			if (entity.IsDefault)
 			{
-				RemovePreviousDefault(entity.IdFireSafetyDepartment);
+				RemovePreviousDefault(entity.IdFireSafetyDepartment, entity.Id);
 			}
 
 			var isExistRecord = Context.Set<ReportConfigurationTemplate>().Any(c => c.Id == entity.Id);
@@ -84,7 +84,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 				var query =
 				from template in Context.ReportConfigurationTemplate
-				where template.IdFireSafetyDepartment == idFireSafetyDepartment && template.IsDefault
+				where template.IdFireSafetyDepartment == idFireSafetyDepartment && template.IsDefault && template.Id != currentReportId
 				select template;
 
 				foreach (ReportConfigurationTemplate template in query) {
