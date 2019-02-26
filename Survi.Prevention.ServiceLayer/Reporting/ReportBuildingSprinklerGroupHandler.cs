@@ -10,9 +10,6 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		private readonly BuildingSprinklerService service;
 		protected override ReportBuildingGroup Group => ReportBuildingGroup.BuildingSprinkler;
 
-		public ReportBuildingSprinklerGroupHandler()
-		{ }
-
 		public ReportBuildingSprinklerGroupHandler(BuildingSprinklerService service)
 		{
 			this.service = service;

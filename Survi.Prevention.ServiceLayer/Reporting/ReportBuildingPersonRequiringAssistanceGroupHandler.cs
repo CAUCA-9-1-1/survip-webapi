@@ -10,9 +10,6 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		private readonly BuildingPersonRequiringAssistanceService service;
 		protected override ReportBuildingGroup Group => ReportBuildingGroup.BuildingPersonRequiringAssistance;
 
-		public ReportBuildingPersonRequiringAssistanceGroupHandler()
-		{ }
-
 		public ReportBuildingPersonRequiringAssistanceGroupHandler(BuildingPersonRequiringAssistanceService service)
 		{
 			this.service = service;

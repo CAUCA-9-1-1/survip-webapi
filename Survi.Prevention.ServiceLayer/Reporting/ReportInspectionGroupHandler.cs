@@ -23,7 +23,14 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 		protected override List<InspectionForReport> GetData(Guid idBuilding, string languageCode)
 		{
-			return new List<InspectionForReport> {service.GetBuildingLastCompletedInspection(idBuilding)};
+			var list = new List<InspectionForReport>();
+		    var inspection = service.GetBuildingLastCompletedInspection(idBuilding);
+		    if (inspection != null)
+		    {
+                list.Add(inspection);
+		    }
+
+		    return list;
 		}
 
 		protected override string GetFilledTemplate(string groupTemplate, InspectionForReport entity, string languageCode)
