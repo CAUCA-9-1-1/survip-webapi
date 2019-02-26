@@ -7,7 +7,7 @@ using UtilisationCode = Survi.Prevention.ApiClient.DataTransferObjects.Utilisati
 
 namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
 {
-    public class UtilisationCodeImportationConverter
+	public class UtilisationCodeImportationConverter
         : BaseLocalizableEntityConverter<
             UtilisationCode,
             Models.Buildings.UtilisationCode,
@@ -26,6 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
         {
             entity.Cubf = importedObject.Cubf;
             entity.Scian = importedObject.Scian;
+	        entity.Year = importedObject.Year;
         }
     }
 }

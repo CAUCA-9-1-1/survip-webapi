@@ -3,7 +3,7 @@ using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
 namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 {
-    public class UtilisationCodeImportationValidator : AbstractValidator<ApiClient.DataTransferObjects.UtilisationCode>
+	public class UtilisationCodeImportationValidator : AbstractValidator<ApiClient.DataTransferObjects.UtilisationCode>
     {
         public UtilisationCodeImportationValidator()
         {
@@ -18,6 +18,9 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 
             RuleFor(m => m.Cubf).NotNullOrEmptyWithMaxLength(5);
             RuleFor(m => m.Scian).NotNullMaxLength(25);
-        }
+	        RuleFor(m => m.Year)
+				.GreaterThan(2000)
+		        .LessThan(2100);
+		}
     }
 }

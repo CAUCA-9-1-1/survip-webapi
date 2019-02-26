@@ -18,5 +18,6 @@ namespace Survi.Prevention.Models.FireSafetyDepartments
 
 		public ICollection<FireSafetyDepartmentCityServing> ServedByFireSafetyDepartments { get; set; }
 		public ICollection<Lane> Lanes { get; set; }
+		public int UtilizationCodeYear { get; set; }
 	}
 }

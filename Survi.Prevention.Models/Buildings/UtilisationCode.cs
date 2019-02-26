@@ -6,5 +6,6 @@ namespace Survi.Prevention.Models.Buildings
 	{
 		public string Cubf { get; set; }
 		public string Scian { get; set; }
+		public int Year { get; set; }
 	}
 }

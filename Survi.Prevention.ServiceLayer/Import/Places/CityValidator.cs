@@ -1,8 +1,9 @@
-﻿using Survi.Prevention.ServiceLayer.ValidationUtilities;
+﻿using FluentValidation;
+using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
 namespace Survi.Prevention.ServiceLayer.Import.Places
 {
-    public class CityValidator: BaseImportValidator<ApiClient.DataTransferObjects.City>
+	public class CityValidator: BaseImportValidator<ApiClient.DataTransferObjects.City>
     {
 	    public CityValidator()
 	    {
@@ -18,6 +19,9 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 		    RuleFor(m => m.IdCityType)
 			    .RequiredKeyIsValid();
 
+		    RuleFor(m => m.UtilizationCodeYear)
+			    .GreaterThan(2000)
+			    .LessThan(2100);
 	    }
     }
 }
