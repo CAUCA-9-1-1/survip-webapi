@@ -628,6 +628,15 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La valeur doit être entre 2000 et 2100..
+        /// </summary>
+        public static string InvalidYear {
+            get {
+                return ResourceManager.GetString("InvalidYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Est affaibli.
         /// </summary>
         public static string IsWeakened {

@@ -306,6 +306,9 @@
   <data name="InvalidValue" xml:space="preserve">
     <value>Valeur invalide.</value>
   </data>
+  <data name="InvalidYear" xml:space="preserve">
+    <value>La valeur doit être entre 2000 et 2100.</value>
+  </data>
   <data name="IsWeakened" xml:space="preserve">
     <value>Est affaibli</value>
   </data>

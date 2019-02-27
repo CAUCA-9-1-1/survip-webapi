@@ -536,5 +536,23 @@ namespace Survi.Prevention.ApiClient.Localization {
                 return ResourceManager.GetString("UtilisationCode", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Année du code d&apos;utilisation.
+        /// </summary>
+        public static string UtilizationCodeYear {
+            get {
+                return ResourceManager.GetString("UtilizationCodeYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Année .
+        /// </summary>
+        public static string Year {
+            get {
+                return ResourceManager.GetString("Year", resourceCulture);
+            }
+        }
     }
 }
