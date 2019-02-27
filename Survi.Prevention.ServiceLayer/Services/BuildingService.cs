@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using GeoAPI;
 using Microsoft.EntityFrameworkCore;
 using Remotion.Linq.Clauses;
 using Survi.Prevention.DataLayer;
@@ -144,19 +146,65 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return query.ToList();
 		}
 
-        public List<BuildingForExport> Export(List<string> idBuildings)
+        public List<ApiClient.DataTransferObjects.Building> Export(List<string> idBuildings)
         {
             var query = from building in Context.Buildings.AsNoTracking()
                     .IgnoreQueryFilters()
+                    .Include(b=>b.Localizations)
                 where idBuildings.Contains(building.Id.ToString()) && building.HasBeenModified
-                from buildingLoc in building.Localizations.Where(bl => bl.LanguageCode == "fr" && bl.IsActive)
-                select new BuildingForExport
+                select new ApiClient.DataTransferObjects.Building
                 {
+                    AppartmentNumber = building.AppartmentNumber,
+                    BuildingValue = building.BuildingValue,
+                    ChildType = (ApiClient.DataTransferObjects.BuildingChildType) building.ChildType,
+                    CivicLetter = building.CivicLetter,
+                    CivicLetterSupp = building.CivicLetterSupp,
+                    CivicNumber = building.CivicNumber,
+                    CivicSupp = building.CivicSupp,
+                    CoordinatesSource = building.CoordinatesSource,
+                    CreatedOn = building.CreatedOn,
+                    Details = building.Details,
+                    IsActive = building.IsActive,
                     Id = building.IdExtern,
-                    Name = buildingLoc.Name,
-                    IdLaneTransversal = building.Transversal.IdExtern
+                    IdCity = building.City.IdExtern,
+                    IdLaneTransversal = building.Transversal.IdExtern,
+                    IdLane = building.Lane.IdExtern,
+                    IdParentBuilding = building.Parent.IdExtern,
+                    IdRiskLevel = building.RiskLevel.IdExtern,
+                    IdUtilisationCode = building.UtilisationCode.IdExtern,
+                    Floor = building.Floor,
+                    YearOfConstruction = building.YearOfConstruction,
+                    LastEditedOn = building.LastModifiedOn,
+                    Matricule = building.Matricule,
+                    NumberOfAppartment = building.NumberOfAppartment,
+                    NumberOfBuilding = building.NumberOfBuilding,
+                    NumberOfFloor = building.NumberOfFloor,
+                    PostalCode = building.PostalCode,
+                    ShowInResources = building.ShowInResources,
+                    Source = building.Source,
+                    Suite = building.Suite,
+                    UtilisationDescription = building.UtilisationDescription,
+                    VacantLand = building.VacantLand,
+                    WktCoordinates = building.Coordinates,
+                    Localizations = GetLocationCollection(building.Localizations),
+                    MimeType = building.Picture.MimeType,
+                    PictureData = building.Picture.Data,
+                    PictureName = building.Picture.Name,
+                    SketchJson = building.Picture.SketchJson
                 };
             return query.ToList();
+        }
+
+        private ICollection<ApiClient.DataTransferObjects.Base.Localization> GetLocationCollection(
+            List<BuildingLocalization> localizations)
+        {
+            ICollection<ApiClient.DataTransferObjects.Base.Localization> locCollection = new List<ApiClient.DataTransferObjects.Base.Localization>();
+           localizations.ForEach(loc =>
+           {
+               locCollection.Add(new ApiClient.DataTransferObjects.Base.Localization{Name = loc.Name, LanguageCode = loc.LanguageCode});
+           });
+
+           return locCollection;
         }
     }
 }
