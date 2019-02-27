@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using GeoAPI;
 using Microsoft.EntityFrameworkCore;
-using Remotion.Linq.Clauses;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.Buildings;
