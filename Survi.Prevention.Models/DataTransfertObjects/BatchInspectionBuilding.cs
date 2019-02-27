@@ -19,5 +19,6 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 		public string RiskLevel { get; set; }
 		public string LanguageCode { get; set; }
 		public int InspectionStatus { get; set; }
+        public bool HasBeenDownloaded { get; set; }
     }
 }
