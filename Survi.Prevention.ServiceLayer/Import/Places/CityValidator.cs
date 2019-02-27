@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Survi.Prevention.ServiceLayer.ValidationUtilities;
+﻿using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
 namespace Survi.Prevention.ServiceLayer.Import.Places
 {
@@ -20,8 +19,7 @@ namespace Survi.Prevention.ServiceLayer.Import.Places
 			    .RequiredKeyIsValid();
 
 		    RuleFor(m => m.UtilizationCodeYear)
-			    .GreaterThan(2000)
-			    .LessThan(2100);
+			    .HasValidYear();
 	    }
     }
 }

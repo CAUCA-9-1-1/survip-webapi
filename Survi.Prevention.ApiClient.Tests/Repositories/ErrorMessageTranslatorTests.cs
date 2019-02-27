@@ -58,7 +58,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
             Assert.AreNotEqual(errorMsg.ErrorMessage, new ErrorMessageTranslator().GetErrorMessageTranslated("Number_TooLong").ErrorMessage);
         }
 
-        [TestCase]
+		[TestCase]
         public static void TranslateErrorMessagesStringToObject()
         {
             var listOfErrors = new List<string>() {"Number_TooLong_4", "LastName_InvalidValue", "Quantity_NullValue"};
@@ -159,5 +159,19 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
             var test = new ErrorMessageTranslator().TranslateErrorMessages(listOfErrors);
             Assert.AreEqual(3, test.Count);
         }
-    }
+
+		[TestCase]
+		public static void ErrorMessageDescriptionValidYear()
+		{
+			var errorMsg = new ErrorMessageInformation() { FieldName = "Année du code d'utilisation", ErrorMessage = "La valeur doit être entre 2000 et 2100." };
+			Assert.AreEqual(errorMsg.ErrorMessage, new ErrorMessageTranslator().GetErrorMessageTranslated("UtilizationCodeYear_InvalidYear").ErrorMessage);
+		}
+
+		[TestCase]
+	    public static void ErrorMessageDescriptionInvalidYear()
+	    {
+		    var errorMsg = new ErrorMessageInformation() { FieldName = "Année du code d'utilisation", ErrorMessage = "La valeur doit être entre 2000 et 2100." };
+		    Assert.AreNotEqual(errorMsg.ErrorMessage, new ErrorMessageTranslator().GetErrorMessageTranslated("UtilizationCodeYear_Invalidyea").ErrorMessage);
+	    }
+	}
 }

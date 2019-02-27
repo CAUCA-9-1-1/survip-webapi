@@ -46,6 +46,13 @@ namespace Survi.Prevention.ServiceLayer.ValidationUtilities
 			return ruleBuilder
 				.MinimumLength(minimumLength)
 				.WithMessage("{PropertyName}_TooShort_{MinLength}");
-		} 		  
+		}
+
+		public static IRuleBuilderOptions<T, int> HasValidYear<T>(this IRuleBuilder<T, int> ruleBuilder)
+		{
+			return ruleBuilder
+				.GreaterThanOrEqualTo(2000).WithMessage("{PropertyName}_InvalidYear")
+				.LessThanOrEqualTo(2100).WithMessage("{PropertyName}_InvalidYear");
+		}
 	}
 }

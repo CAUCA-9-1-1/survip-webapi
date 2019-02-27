@@ -276,4 +276,10 @@
   <data name="UtilisationCode" xml:space="preserve">
     <value>Code d'utilisation</value>
   </data>
+  <data name="UtilizationCodeYear" xml:space="preserve">
+    <value>Année du code d'utilisation</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Année </value>
+  </data>
 </root>
