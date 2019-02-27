@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Survi.Prevention.DataLayer
 {
@@ -108,6 +108,7 @@ namespace Survi.Prevention.DataLayer
 				  i.status as inspection_status,
 				  batch.is_ready_for_inspection,
 				  batch.should_start_on,
+                  (CASE When (select (CASE when inspection_visit.status >= 0 THEN true ELSE false END) as has_been_downloaded from inspection_visit where inspection_visit.id_inspection = i.id group by i.id, inspection_visit.id, inspection_visit.status LIMIT 1) = true THEN true ELSE false END ) AS has_been_downloaded,
 				  COALESCE((CASE WHEN i.id_webuser_assigned_to IS NOT NULL THEN
 					(SELECT
 					  CONCAT(
@@ -413,7 +414,7 @@ namespace Survi.Prevention.DataLayer
 				  i.sequence,
 
 				  b.matricule,
-
+                  (CASE When (select (CASE when inspection_visit.status >= 0 THEN true ELSE false END) as has_been_downloaded from inspection_visit where inspection_visit.id_inspection = i.id group by i.id, inspection_visit.id, inspection_visit.status LIMIT 1) = true THEN true ELSE false END ) AS has_been_downloaded,
 				  (CASE WHEN lpc.description != '' or lgc.description != '' THEN concat(laneloc.name, ' (', lpc.description, CASE WHEN lgc.description != '' THEN lgc.description ELSE ''END, ')' ) ELSE laneloc.name END) as full_lane_name,
 				  CONCAT(b.civic_number, b.civic_letter) as full_civic_number,
 				  LPAD(CONCAT(b.civic_number, b.civic_letter), 10, '0') as full_civic_number_sortable,

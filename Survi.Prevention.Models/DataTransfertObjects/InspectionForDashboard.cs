@@ -77,6 +77,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 
 	public class InspectionToDo : BaseInspectionForDashboard
 	{
+        public Boolean HasBeenDownloaded { get; set; }
 		public Boolean IsBatchStarted { get; set; } = true;
 	}
 
