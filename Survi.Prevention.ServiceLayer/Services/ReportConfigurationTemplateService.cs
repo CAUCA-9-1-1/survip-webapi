@@ -80,7 +80,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return entity.Id;
 		}
 
-		private void RemovePreviousDefault(Guid? idFireSafetyDepartment)
+		private void RemovePreviousDefault(Guid? idFireSafetyDepartment, Guid currentReportId)
 		{
 				var query =
 				from template in Context.ReportConfigurationTemplate

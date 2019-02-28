@@ -211,13 +211,13 @@ namespace Survi.Prevention.ServiceLayer.Services
 
            return locCollection;
         }
-    }
 
-    public Guid GetIdCity(Guid buildingId)
-    {
-        return Context.Buildings.AsNoTracking()
-            .Where(b => b.Id == buildingId)
-            .Select(b => b.IdCity)
-            .First();
+	    public Guid GetIdCity(Guid buildingId)
+	    {
+	        return Context.Buildings.AsNoTracking()
+	            .Where(b => b.Id == buildingId)
+	            .Select(b => b.IdCity)
+	            .First();
+	    }
     }
 }

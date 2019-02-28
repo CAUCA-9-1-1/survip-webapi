@@ -416,8 +416,8 @@ namespace Survi.Prevention.ServiceLayer.Services
             if (lastVisit == null)
                 return null;
 
-            var firstName = lastVisit.VisitedBy.Attributes.FirstOrDefault(a => a.AttributeName == "first_name");
-            var lastName = lastVisit.VisitedBy.Attributes.FirstOrDefault(a => a.AttributeName == "last_name");
+            var firstName = lastVisit.VisitedBy?.Attributes?.FirstOrDefault(a => a.AttributeName == "first_name");
+            var lastName = lastVisit.VisitedBy?.Attributes?.FirstOrDefault(a => a.AttributeName == "last_name");
 
             return new InspectionForReport
             {
