@@ -11,7 +11,7 @@ using Survi.Prevention.DataLayer;
 namespace Survi.Prevention.DataLayer.Migrations
 {
     [DbContext(typeof(ManagementContext))]
-    [Migration("20190227125809_Issue253-UpdateViewsBuildingWithToDoInspectionAndBatchInspectionBuilding")]
+    [Migration("20190228145513_Issue253-UpdateViewsBuildingWithToDoInspectionAndBatchInspectionBuilding")]
     partial class Issue253UpdateViewsBuildingWithToDoInspectionAndBatchInspectionBuilding
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
