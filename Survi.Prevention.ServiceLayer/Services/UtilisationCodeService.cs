@@ -47,9 +47,26 @@ namespace Survi.Prevention.ServiceLayer.Services
                 select new UtilisationCodeForWeb
                 {
                     Id = code.Id,
-                    Name = localization.Name
+                    Name = localization.Name,
+					Year =  code.Year
                 };
+            return query.ToList();
+        }
 
+		public List<UtilisationCodeForWeb> GetListLocalizedByCity(string language,Guid cityId)
+        {
+            var query =
+                from code in Context.UtilisationCodes
+                from localization in code.Localizations
+				join city in Context.Cities on code.Year equals city.UtilizationCodeYear
+                where localization.LanguageCode == language && code.IsActive
+					  && city.Id == cityId
+				select new UtilisationCodeForWeb
+                {
+                    Id = code.Id,
+                    Name = localization.Name,
+					Year =  code.Year
+                };
             return query.ToList();
         }
 
@@ -63,7 +80,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 				select new UtilisationCodeForWeb
 				{
 					Id = code.Id,
-					Name = localization.Name
+					Name = localization.Name,
+					Year = code.Year
 				};
 
 			return query.SingleOrDefault();

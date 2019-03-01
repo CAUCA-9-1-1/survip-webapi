@@ -9,6 +9,7 @@ namespace Survi.Prevention.DataLayer.Mapping
 		{
 			b.Property(m => m.Cubf).HasMaxLength(5).IsRequired();
 			b.Property(m => m.Scian).HasMaxLength(25).IsRequired();
+			b.Property(m => m.Year);
 			b.HasMany(m => m.Localizations).WithOne().HasForeignKey(m => m.IdParent);
 		}
 	}
