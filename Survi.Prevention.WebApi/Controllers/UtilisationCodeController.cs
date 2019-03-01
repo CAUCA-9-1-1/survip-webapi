@@ -25,7 +25,15 @@ namespace Survi.Prevention.WebApi.Controllers
             return Ok(service.GetListLocalized(languageCode));
         }
 
-        [HttpGet, Route("localized/{id:Guid}")]
+	    [HttpGet, Route("localizedByCity/{cityId:Guid}")]
+	    [ProducesResponseType(401)]
+	    [ProducesResponseType(typeof(List<UtilisationCodeForWeb>), 200)]
+	    public ActionResult GetListLocalizedByCity([FromHeader(Name = "Language-Code")]string languageCode,Guid cityId)
+	    {
+		    return Ok(service.GetListLocalizedByCity(languageCode,cityId));
+	    }
+
+		[HttpGet, Route("localized/{id:Guid}")]
         [ProducesResponseType(401)]
         [ProducesResponseType(404)]
         [ProducesResponseType(typeof(UtilisationCodeForWeb), 200)]
