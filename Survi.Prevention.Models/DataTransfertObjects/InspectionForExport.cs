@@ -6,8 +6,10 @@ namespace Survi.Prevention.Models.DataTransfertObjects
     {
         public Guid Id { get; set; }
         public Guid IdBuilding { get; set; }
+        public Guid IdCity { get; set; }
         public string CityName { get; set; }
         public string Address { get; set; }
         public string Name { get; set; }
+        public DateTime LastEditedOn { get; set; }
     }
 }

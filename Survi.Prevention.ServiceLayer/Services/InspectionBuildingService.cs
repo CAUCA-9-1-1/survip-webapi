@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
@@ -88,7 +89,9 @@ namespace Survi.Prevention.ServiceLayer.Services
                     Name = building.AliasName,
                     Id = inspection.Id,
                     IdBuilding = inspection.IdBuilding,
-                    Address = new AddressGenerator().GenerateAddress(building.CivicNumber, building.CivicLetter, laneLocalization.Name, building.Lane.LaneGenericCode.Description, building.Lane.PublicCode.Description, building.Lane.LaneGenericCode.AddWhiteSpaceAfter)
+                    IdCity = building.City.Id,
+                    Address = new AddressGenerator().GenerateAddress(building.CivicNumber, building.CivicLetter, laneLocalization.Name, building.Lane.LaneGenericCode.Description, building.Lane.PublicCode.Description, building.Lane.LaneGenericCode.AddWhiteSpaceAfter),
+                    LastEditedOn = inspection.LastModifiedOn ?? DateTime.Now
                 });
 
             return query.ToList();
