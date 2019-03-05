@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
-using Survi.Prevention.Models.DataTransfertObjects.Inspections;
 using Survi.Prevention.Models.InspectionManagement;
 
 namespace Survi.Prevention.ServiceLayer.Services
