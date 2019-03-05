@@ -10,11 +10,13 @@ namespace Survi.Prevention.WebApi.Controllers
 	[Route("api/building/hazardousmaterial")]
 	public class BuildingHazardousMaterialController : BaseCrudControllerWithImportation<BuildingHazardousMaterialService, BuildingHazardousMaterial, ApiClient.DataTransferObjects.BuildingHazardousMaterial>
 	{
-		public BuildingHazardousMaterialController(BuildingHazardousMaterialService service) : base(service)
-		{
-		}
+        private readonly BuildingService BuildingService;
+        public BuildingHazardousMaterialController(BuildingHazardousMaterialService service, BuildingService buildingService) : base(service)
+        {
+            BuildingService = buildingService;
+        }
 
-		[HttpGet, Route("/api/building/{idBuilding:Guid}/hazardousmaterial")]
+        [HttpGet, Route("/api/building/{idBuilding:Guid}/hazardousmaterial")]
 		public ActionResult GetList(Guid idBuilding)
 		{
 			return Ok(Service.GetBuildingHazardousMaterialList(idBuilding));
@@ -23,7 +25,8 @@ namespace Survi.Prevention.WebApi.Controllers
         [HttpPost, Route("Export"), AllowAnonymous]
         public ActionResult Export([FromBody] List<string> idBuildings)
         {
-            return Ok(Service.Export(idBuildings));
+            List<string> completeIdBuildList = BuildingService.AddBuildingChildToParentList(idBuildings);
+            return Ok(Service.Export(completeIdBuildList));
         }
     }
 }
