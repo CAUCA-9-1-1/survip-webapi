@@ -205,5 +205,16 @@ namespace Survi.Prevention.ServiceLayer.Services
 	            .Select(b => b.IdCity)
 	            .First();
 	    }
+
+        public List<string> AddBuildingChildToParentList(List<string> idBuildings)
+        {
+            var query = (from building in Context.Buildings.AsNoTracking()
+                    .IgnoreQueryFilters()
+                    .Include(b => b.Localizations)
+                where (idBuildings.Contains(building.Id.ToString()) ||
+                       idBuildings.Contains(building.IdParentBuilding.ToString())) && building.HasBeenModified
+                select building.Id).ToList();
+            return query.Select(q => q.ToString()).ToList();
+        }
     }
 }

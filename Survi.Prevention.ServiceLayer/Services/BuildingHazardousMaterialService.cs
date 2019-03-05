@@ -89,12 +89,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 
         public List<ApiClient.DataTransferObjects.BuildingHazardousMaterial> Export(List<string> idBuildings)
         {
-            List<string> idBuildingCompleteList = GetBuildingCompleteIdList(idBuildings);
             var query =
                 from buildingHazardousMaterial in Context.BuildingHazardousMaterials.AsNoTracking()
                     .IgnoreQueryFilters()
                 where buildingHazardousMaterial.HasBeenModified &&
-                      idBuildingCompleteList.Contains(buildingHazardousMaterial.IdBuilding.ToString())
+                      idBuildings.Contains(buildingHazardousMaterial.IdBuilding.ToString())
                 select new ApiClient.DataTransferObjects.BuildingHazardousMaterial
                 {
                     Id = buildingHazardousMaterial.IdExtern,
@@ -118,17 +117,6 @@ namespace Survi.Prevention.ServiceLayer.Services
                 };
 
             return query.ToList();
-        }
-
-        private List<string> GetBuildingCompleteIdList(List<string> idBuildings)
-        {
-            var query = (from building in Context.Buildings.AsNoTracking()
-                    .IgnoreQueryFilters()
-                    .Include(b => b.Localizations)
-                where (idBuildings.Contains(building.Id.ToString()) ||
-                       idBuildings.Contains(building.IdParentBuilding.ToString())) && building.HasBeenModified
-                select building.Id).ToList();
-            return query.Select(q => q.ToString()).ToList();
         }
     }
 }
