@@ -1,14 +1,14 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using Survi.Prevention.DataLayer;
-using Survi.Prevention.Models.SecurityManagement;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.SecurityManagement;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-    public class WebuserService : BaseCrudService<Webuser>
+	public class WebuserService : BaseCrudService<Webuser>
     {
         public WebuserService(IManagementContext context) : base(context)
         {
@@ -105,11 +105,11 @@ namespace Survi.Prevention.ServiceLayer.Services
             Context.SaveChanges();
         }
 
-		public List<WebuserForWeb> GetListActive(List<Guid> allowedDepartmentIds)
+		public List<WebuserForWeb> GetListActiveByAllowedFireSafetyDepartments(List<Guid> allowedDepartmentIds)
         {
             var query =
                 from user in Context.Webusers
-                where user.IsActive && user.FireSafetyDepartments.Any(dep => allowedDepartmentIds.Contains(dep.IdFireSafetyDepartment) && dep.IsActive)
+                where user.IsActive //&& user.FireSafetyDepartments.Any(dep => allowedDepartmentIds.Contains(dep.IdFireSafetyDepartment) && dep.IsActive)
                 let firstName = user.Attributes.FirstOrDefault(a => a.AttributeName == "first_name")
                 let lastName = user.Attributes.FirstOrDefault(a => a.AttributeName == "last_name")
                 select new {
@@ -128,6 +128,31 @@ namespace Survi.Prevention.ServiceLayer.Services
 
             return result;
         }
+
+	    public List<WebuserForWeb> GetListActive()
+	    {
+		    var query =
+			    from user in Context.Webusers
+			    where user.IsActive 
+			    let firstName = user.Attributes.FirstOrDefault(a => a.AttributeName == "first_name")
+			    let lastName = user.Attributes.FirstOrDefault(a => a.AttributeName == "last_name")
+			    select new
+			    {
+				    user.Id,
+				    firstName,
+				    lastName
+			    };
+
+		    var result = query.ToList()
+			    .Select(user => new WebuserForWeb
+			    {
+				    Id = user.Id,
+				    Name = (user.firstName?.AttributeValue ?? "") + " " + (user.lastName?.AttributeValue ?? "")
+			    })
+			    .ToList();
+
+		    return result;
+	    }
 
 		public List<Guid> GetUserFireSafetyDepartments(Guid idWebuser)
 		{

@@ -7,7 +7,7 @@ using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
-    [Route("api/Webuser")]
+	[Route("api/Webuser")]
     public class WebuserController : BaseCrudController<WebuserService, Webuser>
     {
         private readonly string applicationName;
@@ -33,10 +33,16 @@ namespace Survi.Prevention.WebApi.Controllers
             return BadRequest();
         }
 
-        [HttpGet, Route("Active")]
+        [HttpGet, Route("Active/Departments")]
         public ActionResult GetListActive()
         {
-            return Ok(Service.GetListActive(GetCurrentUserDepartmentIds()));
+            return Ok(Service.GetListActiveByAllowedFireSafetyDepartments(GetCurrentUserDepartmentIds()));
         }
-    }
+
+	    [HttpGet, Route("Active")]
+	    public ActionResult GetActiveUsers()
+	    {
+		    return Ok(Service.GetListActive());
+	    }
+	}
 }
