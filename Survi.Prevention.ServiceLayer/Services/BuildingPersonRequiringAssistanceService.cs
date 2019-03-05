@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Remotion.Linq.Clauses;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
@@ -62,10 +61,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 
         public List<ApiClient.DataTransferObjects.BuildingPersonRequiringAssistance> Export(List<string> idBuildings)
         {
+            List<string> idBuildingCompleteList = GetBuildingCompleteIdList(idBuildings);
+
             var query = from buildingPnap in Context.BuildingPersonsRequiringAssistance.AsNoTracking()
                     .IgnoreQueryFilters()
                         where buildingPnap.HasBeenModified &&
-                      idBuildings.Contains(buildingPnap.IdBuilding.ToString())
+                              idBuildingCompleteList.Contains(buildingPnap.IdBuilding.ToString())
                 select new ApiClient.DataTransferObjects.BuildingPersonRequiringAssistance
                 {
                     Id = buildingPnap.IdExtern,
@@ -87,6 +88,17 @@ namespace Survi.Prevention.ServiceLayer.Services
                     LastEditedOn = buildingPnap.LastModifiedOn
                 };
             return query.ToList();
+        }
+
+        private List<string> GetBuildingCompleteIdList(List<string> idBuildings)
+        {
+            var query = (from building in Context.Buildings.AsNoTracking()
+                    .IgnoreQueryFilters()
+                    .Include(b => b.Localizations)
+                where (idBuildings.Contains(building.Id.ToString()) ||
+                       idBuildings.Contains(building.IdParentBuilding.ToString())) && building.HasBeenModified
+                select building.Id).ToList();
+            return query.Select(q => q.ToString()).ToList();
         }
     }
 }

@@ -6,7 +6,6 @@ using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.ServiceLayer.Reporting;
 using WkWrap;
@@ -102,7 +101,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             var query = from building in Context.Buildings.AsNoTracking().IgnoreQueryFilters()          
                         join departmentCity in Context.FireSafetyDepartmentCityServings.AsNoTracking() on building.IdCity equals departmentCity.IdCity
                         join reportConfiguration in Context.ReportConfigurationTemplate.AsNoTracking() on departmentCity.IdFireSafetyDepartment equals reportConfiguration.IdFireSafetyDepartment
-                        where idBuildings.Contains(building.Id.ToString()) 
+                        where (idBuildings.Contains(building.Id.ToString()) || idBuildings.Contains(building.IdParentBuilding.ToString()))
                               && departmentCity.IsActive
                               && reportConfiguration.IsDefault 
                               && reportConfiguration.IsActive
