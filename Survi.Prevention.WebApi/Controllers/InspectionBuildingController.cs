@@ -1,25 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
-{
-    [Route("api/inspection")]
-    public class InspectionBuildingController : BaseSecuredController
-    {
-        private readonly InspectionBuildingService service;
+{	
+	[Route("api/inspection")]
+	public class InspectionBuildingController : BaseSecuredController
+	{
+		private readonly InspectionBuildingService service;
+        private readonly BuildingService BuildingService;
 
-        public InspectionBuildingController(InspectionBuildingService service)
+        public InspectionBuildingController(InspectionBuildingService service, BuildingService buildingService) : base(service)
         {
             this.service = service;
+            BuildingService = buildingService;
         }
 
         [HttpGet, Route("{idInspection:Guid}/building")]
-        public ActionResult GetList(Guid idInspection, [FromHeader(Name = "Language-Code")] string languageCode)
-        {
-            return Ok(service.GetBuildings(idInspection, languageCode));
-        }
+		public ActionResult GetList(Guid idInspection, [FromHeader(Name = "Language-Code")]string languageCode)
+		{
+			return Ok(service.GetBuildings(idInspection, languageCode));
+		}
 
         [HttpGet, Route("{idInspection:Guid}/buildingresume")]
         public ActionResult GetResumeList(Guid idInspection)
@@ -33,10 +36,11 @@ namespace Survi.Prevention.WebApi.Controllers
             return Ok(service.GetInspectionForExport());
         }
 
-        [HttpPost, Route("Building"), AllowAnonymous]
-        public ActionResult Save([FromBody]InspectionBuildingResume building)
+        [HttpPost, Route("Building/TransferedToCad"), AllowAnonymous]
+        public ActionResult SetBuildingAsTransferedToCad([FromBody] List<string> ids)
         {
-            return Ok(service.SaveBuildingsResume(building));
+            List<string> completeIdBuildList = BuildingService.AddBuildingChildToParentList(ids);
+            return Ok(service.SetBuildingAsTransferedToCad(completeIdBuildList));
         }
     }
 }
