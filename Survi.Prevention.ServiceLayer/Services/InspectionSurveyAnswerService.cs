@@ -141,7 +141,34 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return formatedList;
 		}
 
-		public Guid SaveQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
+	    public bool SaveQuestionAnswers(Guid idInspection, List<InspectionQuestionForList> inspectionQuestionAnswers)
+	    {
+	        var currentAnswers = Context.InspectionSurveyAnswers
+	            .Where(a => a.IdInspection == idInspection && a.IsActive)
+	            .ToList();
+
+	        var answersToDelete = currentAnswers
+	            .Where(answer => inspectionQuestionAnswers.All(a => a.Id != answer.Id))
+	            .ToList();
+
+	        foreach (var answer in inspectionQuestionAnswers)
+	        {
+	            var currentAnswer = currentAnswers.FirstOrDefault(a => a.Id == answer.Id)
+	                ?? GeneratetNewQuestion(answer);
+
+	            currentAnswer.Answer = answer.Answer;
+	            currentAnswer.IdSurveyQuestionChoice = answer.IdSurveyQuestionChoice;
+	        }
+
+            foreach (var answer in answersToDelete)
+                Context.Remove(answer);
+
+	        Context.SaveChanges();
+
+	        return true;
+	    }
+
+        public Guid SaveQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
 		{
 			var existingAnswer = false;
 			if (inspectionQuestionAnswer.Id != null && inspectionQuestionAnswer.Id != Guid.Empty)
@@ -152,27 +179,33 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return AddQuestionAnswer(inspectionQuestionAnswer);
 		}
 
-		private Guid AddQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
-		{
-				var questionAnswer = new InspectionSurveyAnswer
-				{
-					Id = inspectionQuestionAnswer.Id ?? Guid.NewGuid() ,
-					Answer = inspectionQuestionAnswer.Answer,
-					IdSurveyQuestion = inspectionQuestionAnswer.IdSurveyQuestion,
-					IdInspection = inspectionQuestionAnswer.IdInspection,
-					IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice,
-					IdSurveyAnswerParent = inspectionQuestionAnswer.IdParent,
-				};
+	    private Guid AddQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
+	    {
+	        var questionAnswer = GeneratetNewQuestion(inspectionQuestionAnswer);
+	        Context.SaveChanges();
 
-				Context.InspectionSurveyAnswers.Add(questionAnswer);
-				Context.SaveChanges();
+	        inspectionQuestionAnswer.Id = questionAnswer.Id;
 
-				inspectionQuestionAnswer.Id = questionAnswer.Id;
+	        return questionAnswer.Id;
+	    }
 
-				return questionAnswer.Id;
-		}
+	    private InspectionSurveyAnswer GeneratetNewQuestion(InspectionQuestionForList inspectionQuestionAnswer)
+	    {
+	        var questionAnswer = new InspectionSurveyAnswer
+	        {
+	            Id = inspectionQuestionAnswer.Id ?? Guid.NewGuid(),
+	            Answer = inspectionQuestionAnswer.Answer,
+	            IdSurveyQuestion = inspectionQuestionAnswer.IdSurveyQuestion,
+	            IdInspection = inspectionQuestionAnswer.IdInspection,
+	            IdSurveyQuestionChoice = inspectionQuestionAnswer.IdSurveyQuestionChoice,
+	            IdSurveyAnswerParent = inspectionQuestionAnswer.IdParent,
+	        };
 
-		private Guid UpdateQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
+	        Context.InspectionSurveyAnswers.Add(questionAnswer);
+	        return questionAnswer;
+	    }
+
+	    private Guid UpdateQuestionAnswer(InspectionQuestionForList inspectionQuestionAnswer)
 		{
 			var existingAnswer = Context.InspectionSurveyAnswers.Single(ea => ea.Id == inspectionQuestionAnswer.Id);
 			existingAnswer.Answer = inspectionQuestionAnswer.Answer;

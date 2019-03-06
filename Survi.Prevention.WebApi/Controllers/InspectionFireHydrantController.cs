@@ -28,6 +28,12 @@ namespace Survi.Prevention.WebApi.Controllers
 	        return Ok(service.GetBuildingFireHydrants(idBuilding, languageCode));
 	    }
 
+	    [HttpPost, Route("building/{idBuilding:Guid}/firehydrants")]
+	    public ActionResult SaveFireHydrants(Guid idBuilding, [FromBody]List<Guid> fireHydrantIds)
+	    {
+	        return Ok(service.SaveFireHydrants(idBuilding, fireHydrantIds));
+	    }
+
         [HttpDelete, Route("buildingFireHydrant/{idBuildingFireHydrant:Guid}")]
 		public ActionResult DeleteBuildingFireHydrant(Guid idBuildingFireHydrant)
 		{

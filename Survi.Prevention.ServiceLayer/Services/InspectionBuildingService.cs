@@ -75,14 +75,14 @@ namespace Survi.Prevention.ServiceLayer.Services
             return query.ToList();
         }
 
-        public Boolean SetBuildingAsTransferedToCad(List<string> ids)
+        public bool SetBuildingAsTransferedToCad(List<string> ids)
         {
             try
             {
                 Context.IsInImportationMode = true;
-                var Buildings = Context.Buildings.Where(b => ids.Contains(b.Id.ToString())).ToList();
+                var buildings = Context.Buildings.Where(b => ids.Contains(b.Id.ToString())).ToList();
 
-                Buildings.ForEach(b =>
+                buildings.ForEach(b =>
                 {
                     b.HasBeenModified = false;
                 });
@@ -96,5 +96,19 @@ namespace Survi.Prevention.ServiceLayer.Services
                 return false;
             }
         }
-    }
+
+	    public bool SaveBuildingsResume(InspectionBuildingResume building)
+	    {
+	        var currentBuilding = Context.Buildings.FirstOrDefault(b => b.Id == building.IdBuilding);
+	        if (currentBuilding != null)
+	        {
+	            currentBuilding.IdLaneTransversal = building.IdLaneTransversal;
+	        }
+	        else
+	            return false;
+
+	        Context.SaveChanges();
+	        return true;
+	    }
+	}
 }

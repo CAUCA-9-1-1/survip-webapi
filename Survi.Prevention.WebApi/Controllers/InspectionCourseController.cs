@@ -27,7 +27,13 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(service.GetCompleteCourses(idInspection));
 		}
 
-		[HttpGet, Route("course/{idCourse:Guid}")]
+	    [HttpGet, Route("building/{idBuilding:Guid}/listcourse")]
+	    public ActionResult GetCompleteListByBuilding(Guid idBuilding)
+	    {
+	        return Ok(service.GetCompleteCoursesByBuilding(idBuilding));
+	    }
+
+        [HttpGet, Route("course/{idCourse:Guid}")]
 		public ActionResult GetCourse(Guid idCourse, [FromHeader(Name = "Language-Code")] string languageCode)
 		{
 			return Ok(service.GetCourse(idCourse, languageCode));
@@ -57,7 +63,13 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok(service.SaveCompleteCourses(course));
 		}
 
-		[HttpDelete, Route("course/{idCourse:Guid}")]
+	    [HttpPost, Route("building/listcourse")]
+	    public ActionResult SaveBuildingCompleteCourses([FromBody]InspectionBuildingCourse course)
+	    {
+	        return Ok(service.SaveCompleteCourses(course));
+	    }
+
+        [HttpDelete, Route("course/{idCourse:Guid}")]
 		public ActionResult DeleteCoures(Guid idCourse)
 		{
 			return Ok(service.Delete<InspectionBuildingCourse>(idCourse));

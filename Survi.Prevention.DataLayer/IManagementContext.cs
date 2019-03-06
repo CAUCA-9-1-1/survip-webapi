@@ -128,5 +128,8 @@ namespace Survi.Prevention.DataLayer
 	    void RemoveRange(params object[] entities);
         TEntity Find<TEntity>(params object[] keyValues) where TEntity : class;
         int SaveChanges();
+
+	    EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
+
     }
 }

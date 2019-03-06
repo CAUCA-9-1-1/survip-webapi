@@ -9,140 +9,172 @@ using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-	public class InspectionBuildingFireHydrantService : BaseService
-	{
-		public InspectionBuildingFireHydrantService(IManagementContext context) : base(context)
-		{
-		}
+    public class InspectionBuildingFireHydrantService : BaseService
+    {
+        public InspectionBuildingFireHydrantService(IManagementContext context) : base(context)
+        {
+        }
 
-		public List<InspectionBuildingFireHydrantForList> GetFormFireHydrants(Guid inspectionId, string languageCode)
-		{
-			var results = (
-				from inspection in Context.Inspections.AsNoTracking()
-				where inspection.Id == inspectionId
-				from building in inspection.Buildings
-				where building.ChildType == Models.Buildings.BuildingChildType.None
-				from formHydrant in building.FireHydrants
-				where formHydrant.IsActive
-				let hydrant = formHydrant.Hydrant
-				select new
-				{
-					formHydrant.Id,
-					IdFireHdydrant = hydrant.Id,
-					hydrant.Color,
-					hydrant.Number,
-					hydrant.IdLane,
-					hydrant.IdLaneTransversal,
-					hydrant.PhysicalPosition,
-					hydrant.LocationType,
-					hydrant.PointCoordinates,
-					formHydrant.IdFireHydrant,
-					hydrant.CivicNumber,
-					hydrant.AddressLocationType,
+        public List<InspectionBuildingFireHydrantForList> GetFormFireHydrants(Guid inspectionId, string languageCode)
+        {
+            var results = (
+                from inspection in Context.Inspections.AsNoTracking()
+                where inspection.Id == inspectionId
+                from building in inspection.Buildings
+                where building.ChildType == Models.Buildings.BuildingChildType.None
+                from formHydrant in building.FireHydrants
+                where formHydrant.IsActive
+                let hydrant = formHydrant.Hydrant
+                select new
+                {
+                    formHydrant.Id,
+                    IdFireHdydrant = hydrant.Id,
+                    hydrant.Color,
+                    hydrant.Number,
+                    hydrant.IdLane,
+                    hydrant.IdLaneTransversal,
+                    hydrant.PhysicalPosition,
+                    hydrant.LocationType,
+                    hydrant.PointCoordinates,
+                    formHydrant.IdFireHydrant,
+                    hydrant.CivicNumber,
+                    hydrant.AddressLocationType,
                     formHydrant.IdBuilding
-				}).ToList();
+                }).ToList();
 
-			return results
-				.Select(hydrant => new InspectionBuildingFireHydrantForList
-				{
-					Id = hydrant.Id,
-					Color = hydrant.Color,
-					IdBuilding = hydrant.IdBuilding,
-					Number = hydrant.Number,
-					Address = GenerateAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdLaneTransversal, hydrant.PhysicalPosition, 
-						hydrant.PointCoordinates, hydrant.CivicNumber, hydrant.AddressLocationType, languageCode),
-					IdFireHydrant = hydrant.IdFireHydrant
-				}).ToList();
-		}
+            return results
+                .Select(hydrant => new InspectionBuildingFireHydrantForList
+                {
+                    Id = hydrant.Id,
+                    Color = hydrant.Color,
+                    IdBuilding = hydrant.IdBuilding,
+                    Number = hydrant.Number,
+                    Address = GenerateAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdLaneTransversal,
+                        hydrant.PhysicalPosition,
+                        hydrant.PointCoordinates, hydrant.CivicNumber, hydrant.AddressLocationType, languageCode),
+                    IdFireHydrant = hydrant.IdFireHydrant
+                }).ToList();
+        }
 
-	    public List<InspectionBuildingFireHydrantForList> GetBuildingFireHydrants(Guid buildingId, string languageCode)
-	    {
-	        var results = (
-	            from building in Context.Buildings.AsNoTracking()
-	            where building.Id == buildingId && building.ChildType == Models.Buildings.BuildingChildType.None
-	            from formHydrant in building.FireHydrants
-	            where formHydrant.IsActive
-	            let hydrant = formHydrant.Hydrant
-	            select new
-	            {
-	                formHydrant.Id,
-	                IdFireHdydrant = hydrant.Id,
-	                hydrant.Color,
-	                hydrant.Number,
-	                hydrant.IdLane,
-	                hydrant.IdLaneTransversal,
-	                hydrant.PhysicalPosition,
-	                hydrant.LocationType,
-	                hydrant.PointCoordinates,
-	                formHydrant.IdFireHydrant,
-	                hydrant.CivicNumber,
-	                hydrant.AddressLocationType
-	            }).ToList();
+        public List<InspectionBuildingFireHydrantForList> GetBuildingFireHydrants(Guid buildingId, string languageCode)
+        {
+            var results = (
+                from formHydrant in Context.InspectionBuildingFireHydrants.AsNoTracking()
+                where formHydrant.IsActive
+                let hydrant = formHydrant.Hydrant
+                select new
+                {
+                    formHydrant.Id,
+                    IdFireHdydrant = hydrant.Id,
+                    hydrant.Color,
+                    hydrant.Number,
+                    hydrant.IdLane,
+                    hydrant.IdLaneTransversal,
+                    hydrant.PhysicalPosition,
+                    hydrant.LocationType,
+                    hydrant.PointCoordinates,
+                    formHydrant.IdFireHydrant,
+                    hydrant.CivicNumber,
+                    hydrant.AddressLocationType
+                }).ToList();
 
-	        return results
-	            .Select(hydrant => new InspectionBuildingFireHydrantForList
-	            {
-	                Id = hydrant.Id,
-	                Color = hydrant.Color,
-	                IdBuilding = buildingId,
-	                Number = hydrant.Number,
-	                Address = GenerateAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdLaneTransversal, hydrant.PhysicalPosition,
-	                    hydrant.PointCoordinates, hydrant.CivicNumber, hydrant.AddressLocationType, languageCode),
-	                IdFireHydrant = hydrant.IdFireHydrant
-	            }).ToList();
-	    }
+            return results
+                .Select(hydrant => new InspectionBuildingFireHydrantForList
+                {
+                    Id = hydrant.Id,
+                    Color = hydrant.Color,
+                    IdBuilding = buildingId,
+                    Number = hydrant.Number,
+                    Address = GenerateAddress(hydrant.LocationType, hydrant.IdLane, hydrant.IdLaneTransversal,
+                        hydrant.PhysicalPosition,
+                        hydrant.PointCoordinates, hydrant.CivicNumber, hydrant.AddressLocationType, languageCode),
+                    IdFireHydrant = hydrant.IdFireHydrant
+                }).ToList();
+        }
 
-        private string GenerateAddress(FireHydrantLocationType type, Guid? idLane, Guid? idIntersection, string physicalPosition, 
-			NetTopologySuite.Geometries.Point coordinate, string civicNumber, FireHydrantAddressLocationType addressLocationType, string languageCode)
-		{
-			if (type == FireHydrantLocationType.Address)
-			{
-				return new AddressGeneratorWithDb().GenerateAddressFromAddressLocationType(Context, idLane, civicNumber, addressLocationType, languageCode);
-			}
-			if (type == FireHydrantLocationType.Text)
-				return physicalPosition;
-			if (type == FireHydrantLocationType.Coordinates)
-			{
-				if (physicalPosition != string.Empty)
-					return physicalPosition;
-				if (!coordinate.IsEmpty && coordinate.IsValid)
-					return $"{coordinate.ToText()}";
-			}
+        private string GenerateAddress(FireHydrantLocationType type, Guid? idLane, Guid? idIntersection,
+            string physicalPosition,
+            NetTopologySuite.Geometries.Point coordinate, string civicNumber,
+            FireHydrantAddressLocationType addressLocationType, string languageCode)
+        {
+            if (type == FireHydrantLocationType.Address)
+            {
+                return new AddressGeneratorWithDb().GenerateAddressFromAddressLocationType(Context, idLane, civicNumber,
+                    addressLocationType, languageCode);
+            }
 
-			if (type == FireHydrantLocationType.LaneAndTransversal)			
-				return new AddressGeneratorWithDb().GenerateAddressFromLanes(Context, idLane, idIntersection, languageCode);
-			
-			return "";
-		}
+            if (type == FireHydrantLocationType.Text)
+                return physicalPosition;
+            if (type == FireHydrantLocationType.Coordinates)
+            {
+                if (physicalPosition != string.Empty)
+                    return physicalPosition;
+                if (!coordinate.IsEmpty && coordinate.IsValid)
+                    return $"{coordinate.ToText()}";
+            }
 
-		public bool DeleteBuildingFireHydrant(Guid idBuildingFireHydrant)
-		{
-			var buildingfirehydrant = Context.InspectionBuildingFireHydrants.Find(idBuildingFireHydrant);
-			if(buildingfirehydrant != null)
-			{
-				buildingfirehydrant.IsActive = false;
-				Context.SaveChanges();
-				return true;
-			}
-			return false;
-		}
+            if (type == FireHydrantLocationType.LaneAndTransversal)
+                return new AddressGeneratorWithDb().GenerateAddressFromLanes(Context, idLane, idIntersection,
+                    languageCode);
 
-		public bool AddBuildingFireHydrant(Guid idBuilding, Guid idFireHydrant)
-		{
-			if(idBuilding != Guid.Empty && idFireHydrant != Guid.Empty)
-			{
-				var fireHydrant = new InspectionBuildingFireHydrant
-				{
-					IdFireHydrant = idFireHydrant,
-					IdBuilding = idBuilding,
-					IsActive = true,
-				};
-				Context.InspectionBuildingFireHydrants.Add(fireHydrant);
+            return "";
+        }
 
-				Context.SaveChanges();
-				return true;
-			}
-			return false;
-		}
-	}
+        public bool DeleteBuildingFireHydrant(Guid idBuildingFireHydrant)
+        {
+            var buildingfirehydrant = Context.InspectionBuildingFireHydrants.Find(idBuildingFireHydrant);
+            if (buildingfirehydrant != null)
+            {
+                buildingfirehydrant.IsActive = false;
+                Context.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool AddBuildingFireHydrant(Guid idBuilding, Guid idFireHydrant)
+        {
+            if (idBuilding != Guid.Empty && idFireHydrant != Guid.Empty)
+            {
+                var fireHydrant = new InspectionBuildingFireHydrant
+                {
+                    IdFireHydrant = idFireHydrant,
+                    IdBuilding = idBuilding,
+                    IsActive = true,
+                };
+                Context.InspectionBuildingFireHydrants.Add(fireHydrant);
+
+                Context.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool SaveFireHydrants(Guid idBuilding, List<Guid> fireHydrantIds)
+        {
+            var currentFireHydrants =
+                Context.InspectionBuildingFireHydrants.Where(f => f.IdBuilding == idBuilding).ToList();
+
+            var hydrantsToDelete = currentFireHydrants.Where(h => !fireHydrantIds.Contains(h.IdFireHydrant)).ToList();
+
+            foreach (var hydrantId in fireHydrantIds)
+            {
+                if (currentFireHydrants.All(h => h.IdFireHydrant != hydrantId))
+                {
+                    var hydrant = new InspectionBuildingFireHydrant {IdFireHydrant = hydrantId, IdBuilding = idBuilding};
+                    Context.Add(hydrant);
+                }
+            }
+
+            foreach (var hydrant in hydrantsToDelete)
+            {
+                Context.Remove(hydrant);
+            }
+
+            Context.SaveChanges();
+            return true;
+        }
+    }
 }
