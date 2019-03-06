@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Remotion.Linq.Clauses;
+using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
+using BuildingHazardousMaterial = Survi.Prevention.Models.Buildings.BuildingHazardousMaterial;
 using StorageTankType = Survi.Prevention.ApiClient.DataTransferObjects.StorageTankType;
 
 namespace Survi.Prevention.ServiceLayer.Services
@@ -71,7 +72,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result.ToList();
 		}
 
-		private string GetQuantityDescription(int quantity, decimal capacityContainer, string abbreviation)
+       
+
+        private string GetQuantityDescription(int quantity, decimal capacityContainer, string abbreviation)
 		{
 			var quantityDescription = "";
 			if (capacityContainer > 0)
@@ -96,7 +99,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                       idBuildings.Contains(buildingHazardousMaterial.IdBuilding.ToString())
                 select new ApiClient.DataTransferObjects.BuildingHazardousMaterial
                 {
-                    Id = buildingHazardousMaterial.IdExtern,
+                    Id = buildingHazardousMaterial.IdExtern ?? buildingHazardousMaterial.Id.ToString(),
                     CapacityContainer = buildingHazardousMaterial.CapacityContainer,
                     Container = buildingHazardousMaterial.Container,
                     IdBuilding = buildingHazardousMaterial.Building.IdExtern,
@@ -117,6 +120,51 @@ namespace Survi.Prevention.ServiceLayer.Services
                 };
 
             return query.ToList();
+        }
+
+        public bool UpdateExternalIds(List<TransferIdCorrespondence> correspondenceIds)
+        {
+            try
+            {
+                List<string> ids = correspondenceIds.Select(ci => ci.Id).ToList();
+                var query = from buildingHm in Context.BuildingHazardousMaterials.AsNoTracking().IgnoreQueryFilters()
+                    where ids.Contains(buildingHm.Id.ToString()) && buildingHm.IdExtern == ""
+                    select new BuildingHazardousMaterial();
+
+                query.ToList().ForEach(bc =>
+                {
+                    bc.IdExtern = correspondenceIds.SingleOrDefault(ci => ci.Id == bc.Id.ToString())?.IdExtern;
+                });
+                Context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool SetEntityAsTransferedToCad(List<string> ids)
+        {
+            try
+            {
+                Context.IsInImportationMode = true;
+                var buildingHazardousMaterials = Context.BuildingHazardousMaterials.Where(b => ids.Contains(b.Id.ToString())).ToList();
+
+                buildingHazardousMaterials.ForEach(b =>
+                {
+                    b.HasBeenModified = false;
+                });
+                Context.SaveChanges();
+                Context.IsInImportationMode = false;
+                return true;
+            }
+            catch (Exception)
+            {
+                Context.IsInImportationMode = false;
+                return false;
+            }
         }
     }
 }

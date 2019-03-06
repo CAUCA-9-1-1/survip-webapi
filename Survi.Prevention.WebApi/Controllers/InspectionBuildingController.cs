@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.ServiceLayer.Services;
@@ -12,7 +11,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		private readonly InspectionBuildingService service;
         private readonly BuildingService BuildingService;
 
-        public InspectionBuildingController(InspectionBuildingService service, BuildingService buildingService) : base(service)
+        public InspectionBuildingController(InspectionBuildingService service, BuildingService buildingService)
         {
             this.service = service;
             BuildingService = buildingService;
@@ -34,13 +33,6 @@ namespace Survi.Prevention.WebApi.Controllers
         public ActionResult GetInspectionForExport()
         {
             return Ok(service.GetInspectionForExport());
-        }
-
-        [HttpPost, Route("Building/TransferedToCad"), AllowAnonymous]
-        public ActionResult SetBuildingAsTransferedToCad([FromBody] List<string> ids)
-        {
-            List<string> completeIdBuildList = BuildingService.AddBuildingChildToParentList(ids);
-            return Ok(service.SetBuildingAsTransferedToCad(completeIdBuildList));
         }
     }
 }

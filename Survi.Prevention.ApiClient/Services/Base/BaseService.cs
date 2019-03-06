@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Flurl;
 using Flurl.Http;
 using Survi.Prevention.ApiClient.Configurations;
+using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 
 namespace Survi.Prevention.ApiClient.Services.Base
@@ -124,6 +125,28 @@ namespace Survi.Prevention.ApiClient.Services.Base
                 .WithTimeout(TimeSpan.FromSeconds(Configuration.RequestTimeoutInSeconds))
                 .PostJsonAsync(ids)
                 .ReceiveJson<bool>();
+
+                return result;
+            }
+            catch (FlurlHttpException exception)
+            {
+                new RestResponseValidator()
+                    .ThrowExceptionForStatusCode(request.ToUri().ToString(), exception.Call.Succeeded, exception.Call.HttpStatus, exception);
+                //throw;
+                return false;
+            }
+        }
+
+        public async Task<bool> SetTransferCorrespondenceIds(List<TransferIdCorrespondence> correspondenceIds)
+        {
+            BaseUrl = BaseUrl.Replace("Import", "TransferedToCad/CorrespondenceIds");
+            var request = GenerateRequest();
+            try
+            {
+                var result = await request
+                    .WithTimeout(TimeSpan.FromSeconds(Configuration.RequestTimeoutInSeconds))
+                    .PostJsonAsync(correspondenceIds)
+                    .ReceiveJson<bool>();
 
                 return result;
             }
