@@ -200,5 +200,19 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 			return true;
 		}
+
+	    public List<InspectionBuildingCourse> GetCompleteCoursesByBuilding(Guid idBuilding)
+	    {
+	        var query =
+	            from course in Context.InspectionBuildingCourses.AsNoTracking()
+                where course.IdBuilding == idBuilding && course.IsActive
+	            select course;
+
+	        var result = query
+	            .Include(c => c.Lanes)
+	            .ToList();
+
+	        return result;
+        }
 	}
 }

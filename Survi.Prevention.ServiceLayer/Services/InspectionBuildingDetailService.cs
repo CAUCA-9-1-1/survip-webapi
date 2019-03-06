@@ -63,5 +63,48 @@ namespace Survi.Prevention.ServiceLayer.Services
 	            SketchJson = picture.SketchJson
 	        };
         }
+
+	    public bool SavePictureByIdBuilding(Guid idBuilding, InspectionPictureForWeb picture)
+	    {
+	        var detail = Context.BuildingDetails
+	            .Include(d => d.PlanPicture)
+	            .First(d => d.IdBuilding == idBuilding);
+
+	        if (detail != null)
+	        {
+	            if (string.IsNullOrEmpty(picture.DataUri) && detail.PlanPicture != null)
+	            {
+	                Context.Remove(detail.PlanPicture);
+	            }
+	            else
+	            {
+	                if (detail.PlanPicture == null)
+	                    detail.PlanPicture = new Picture();
+
+	                detail.PlanPicture.DataUri = picture.DataUri;
+	            }
+
+	            Context.SaveChanges();
+	            return true;
+	        }
+            return false;
+	    }
+
+	    public override Guid AddOrUpdate(InspectionBuildingDetail entity)
+	    {
+	        var isExistRecord = Context.Set<InspectionBuildingDetail>().Any(c => c.Id == entity.Id);
+
+	        if (isExistRecord)
+	        {
+	            Context.Set<InspectionBuildingDetail>().Update(entity);
+                // patch: this is a way to NOT try to update IdPicturePlan because this field will be managed elsewhere.
+	            Context.Entry(entity).Property(nameof(entity.IdPicturePlan)).IsModified = false;
+	        }
+	        else
+	            Context.Set<InspectionBuildingDetail>().Add(entity);
+
+	        Context.SaveChanges();
+	        return entity.Id;
+        }
 	}
 }

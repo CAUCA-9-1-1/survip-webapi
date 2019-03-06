@@ -39,7 +39,15 @@ namespace Survi.Prevention.WebApi.Controllers
 			return BadRequest("Error on question answer saving process");
 		}
 
-		[HttpPost, Route("SetSurveyStatus")]
+	    [HttpPost, Route("/api/inspection/{idInspection:Guid}/Answers")]
+	    public ActionResult SaveQuestionAnswers(Guid idInspection, [FromBody] List<InspectionQuestionForList> inspectionQuestionAnswers)
+	    {
+	        if (Service.SaveQuestionAnswers(idInspection, inspectionQuestionAnswers))
+	            return Ok();
+	        return BadRequest("Error on answers saving process");
+	    }
+
+        [HttpPost, Route("SetSurveyStatus")]
 		public ActionResult SetSurveyStatus([FromBody] InspectionSurveyCompletion surveyStatus)
 		{
 			if (Service.SetSurveyStatus(surveyStatus))

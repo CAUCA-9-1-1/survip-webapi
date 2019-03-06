@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
@@ -23,6 +25,14 @@ namespace Survi.Prevention.WebApi.Controllers
         public ActionResult<InspectionPictureForWeb> GetPlanByBuilding(Guid idBuilding)
         {
             return Ok(Service.GetPictureByIdBuilding(idBuilding));
+        }
+
+        [Route("/api/inspection/building/{idBuilding:Guid}/detail/picture"), HttpPost]
+        public ActionResult<InspectionPictureForWeb> SavePlanByBuilding(Guid idBuilding, [FromBody]List<InspectionPictureForWeb> pictures)
+        {            
+            if (pictures.Count > 0)
+                return Ok(Service.SavePictureByIdBuilding(idBuilding, pictures.First()));
+            return Ok();
         }
     }
 }

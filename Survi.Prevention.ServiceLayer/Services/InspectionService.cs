@@ -120,9 +120,8 @@ namespace Survi.Prevention.ServiceLayer.Services
                     transAddWhiteSpace = transversal != null && transversal.LaneGenericCode.AddWhiteSpaceAfter,
                     approbationRefusalReason = (
                         Context.InspectionVisits
-                            .Where(visit => visit.IdInspection == inspection.Id)
+                            .Where(visit => visit.IdInspection == inspection.Id && visit.IsActive && visit.Status == InspectionVisitStatus.Completed)
                             .OrderBy(visit => visit.EndedOn)
-                            .Where(iv => iv.IsActive && iv.Status == InspectionVisitStatus.Completed)
                             .Select(visit => visit.ReasonForApprobationRefusal)
                             .LastOrDefault())
                 };
@@ -306,7 +305,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                 select new InspectionBuildingResume
                 {
                     IdBuilding = building.Id,
-                    Name = loc.Name,
+                    AliasName = loc.Name,
                     IsMainBuilding = building.Id == currentInspection.IdBuilding,
                     Coordinates = building.Coordinates,
                     IdLaneTransversal = building.IdLaneTransversal

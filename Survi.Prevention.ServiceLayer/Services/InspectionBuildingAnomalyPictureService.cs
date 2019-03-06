@@ -58,7 +58,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             return entity.Id;
         }
 
-        public bool AddUpdatePictures(InspectionPictureForWeb[] entity)
+        public bool AddUpdatePictures(List<InspectionPictureForWeb> entity)
         {
             bool retValue = false;
             foreach (var pic in entity)

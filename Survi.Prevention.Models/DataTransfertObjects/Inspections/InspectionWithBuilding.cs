@@ -19,7 +19,8 @@ namespace Survi.Prevention.Models.DataTransfertObjects.Inspections
     public class InspectionBuildingResume
     {
         public Guid IdBuilding { get; set; }
-        public string Name { get; set; }
+        public string AliasName { get; set; }
+        public string CorporateName { get; set; }
         public bool IsMainBuilding { get; set; }
         public string Coordinates { get; set; }
         public Guid? IdLaneTransversal { get; set; }
