@@ -109,7 +109,7 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
             var query =
                 from user in Context.Webusers
-                where user.IsActive //&& user.FireSafetyDepartments.Any(dep => allowedDepartmentIds.Contains(dep.IdFireSafetyDepartment) && dep.IsActive)
+                where user.IsActive && user.FireSafetyDepartments.Any(dep => allowedDepartmentIds.Contains(dep.IdFireSafetyDepartment) && dep.IsActive)
                 let firstName = user.Attributes.FirstOrDefault(a => a.AttributeName == "first_name")
                 let lastName = user.Attributes.FirstOrDefault(a => a.AttributeName == "last_name")
                 select new {
