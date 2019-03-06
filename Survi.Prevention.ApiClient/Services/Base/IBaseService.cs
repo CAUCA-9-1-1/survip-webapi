@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 
 namespace Survi.Prevention.ApiClient.Services.Base
@@ -14,5 +15,6 @@ namespace Survi.Prevention.ApiClient.Services.Base
         Task<List<T>> GetAsync(List<string> ids, IProgress<int> progressReporter);
 
         Task<Boolean> SetItemsAsTransfered(List<string> ids);
+        Task<Boolean> SetTransferCorrespondenceIds(List<TransferIdCorrespondence> correspondenceIds);
     }
 }

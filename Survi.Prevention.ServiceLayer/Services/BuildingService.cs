@@ -216,5 +216,27 @@ namespace Survi.Prevention.ServiceLayer.Services
                 select building.Id).ToList();
             return query.Select(q => q.ToString()).ToList();
         }
+
+        public Boolean SetEntityAsTransferedToCad(List<string> ids)
+        {
+            try
+            {
+                Context.IsInImportationMode = true;
+                var buildings = Context.Buildings.Where(b => ids.Contains(b.Id.ToString())).ToList();
+
+                buildings.ForEach(b =>
+                {
+                    b.HasBeenModified = false;
+                });
+                Context.SaveChanges();
+                Context.IsInImportationMode = false;
+                return true;
+            }
+            catch (Exception)
+            {
+                Context.IsInImportationMode = false;
+                return false;
+            }
+        }
     }
 }

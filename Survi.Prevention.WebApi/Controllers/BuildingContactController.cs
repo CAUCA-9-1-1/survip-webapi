@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Survi.Prevention.Models.Buildings;
+using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ServiceLayer.Services;
+using BuildingContact = Survi.Prevention.Models.Buildings.BuildingContact;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
@@ -27,6 +28,19 @@ namespace Survi.Prevention.WebApi.Controllers
         {
             List<string> completeIdBuildList = BuildingService.AddBuildingChildToParentList(idBuildings);
             return Ok(Service.Export(completeIdBuildList));
+        }
+
+        [HttpPost, Route("TransferedToCad"), AllowAnonymous]
+        public ActionResult SetBuildingAsTransferedToCad([FromBody] List<string> ids)
+        {
+            List<string> completeIdBuildList = BuildingService.AddBuildingChildToParentList(ids);
+            return Ok(Service.SetEntityAsTransferedToCad(completeIdBuildList));
+        }
+
+        [HttpPost, Route("TransferedToCad/CorrespondenceIds"), AllowAnonymous]
+        public ActionResult SetBuildingAsTransferedToCad([FromBody] List<TransferIdCorrespondence> correspondenceIds)
+        {
+            return Ok(Service.UpdateExternalIds(correspondenceIds));
         }
     }
 }
