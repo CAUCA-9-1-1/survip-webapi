@@ -14,7 +14,7 @@ namespace Survi.Prevention.ApiClient.Services.Base
         Task<List<T>> GetAsync(List<string> ids = null);
         Task<List<T>> GetAsync(List<string> ids, IProgress<int> progressReporter);
 
-        Task<Boolean> SetItemsAsTransfered(List<string> ids);
-        Task<Boolean> SetTransferCorrespondenceIds(List<TransferIdCorrespondence> correspondenceIds);
+        Task<bool> SetItemsAsTransfered(List<string> ids);
+        Task<bool> SetTransferCorrespondenceIds(List<TransferIdCorrespondence> correspondenceIds);
     }
 }
