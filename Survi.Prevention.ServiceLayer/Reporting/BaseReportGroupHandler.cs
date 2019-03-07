@@ -65,7 +65,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 	    private bool IsPhoneNumber(string property)
 	    {  
-	        return Enum.GetNames(typeof(PhoneNumberEnum)).Contains(property);
+	        return Enum.GetNames(typeof(PhoneNumberType)).Contains(property);
 	    }
 	}
 }
