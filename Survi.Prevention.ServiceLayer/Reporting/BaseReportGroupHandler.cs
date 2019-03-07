@@ -49,7 +49,10 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 		protected virtual string FormatPropertyValue((string name, object value) property, string languageCode)
 		{
-			if (property.value is bool value)
+            if(IsPhoneNumber(property.name))
+                return $"{long.Parse((string)property.value):(###) ###-####}";
+
+            if (property.value is bool value)
 				return Localization.EnumResource.ResourceManager.GetString(value ? "Yes" : "No", System.Globalization.CultureInfo.GetCultureInfo(languageCode));
 
 			if (property.value is decimal valueDecimal)
@@ -58,6 +61,11 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			return (property.value ?? "").ToString();
 		}
 
-		protected abstract List<T> GetData(Guid idParent, string languageCode);		
+		protected abstract List<T> GetData(Guid idParent, string languageCode);  
+
+	    private bool IsPhoneNumber(string property)
+	    {  
+	        return Enum.GetNames(typeof(PhoneNumberEnum)).Contains(property);
+	    }
 	}
 }
