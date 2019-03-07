@@ -12,7 +12,7 @@ namespace Survi.Prevention.WebApi.Controllers
     {
         private readonly string applicationName;
 
-        public WebuserController(WebuserService service, IConfiguration configuration, WebuserService userService) : base(service)
+        public WebuserController(WebuserService service, IConfiguration configuration) : base(service)
         {
             applicationName = configuration.GetSection("APIConfig:PackageName").Value;
         }
