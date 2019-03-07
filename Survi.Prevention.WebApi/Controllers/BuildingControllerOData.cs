@@ -57,6 +57,23 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok();
 		}
 
+
+		[HttpPost]
+		[ODataRoute("BuildingChild"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
+		public IActionResult PostChild()
+		{
+			var json = JObject.Parse(ReadBody());
+			var building = json.ToObject<Building>();
+
+			if (building is null)
+			{
+				return BadRequest("cantAddBuilding");
+			}
+
+			Service.AddOrUpdate(building);
+			return Ok();
+		}
+
 		[HttpPatch]
 		[ODataRoute("Building({id})"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
 		public IActionResult Patch([FromODataUri]Guid id)
