@@ -130,6 +130,5 @@ namespace Survi.Prevention.DataLayer
         int SaveChanges();
 
 	    EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
-
     }
 }
