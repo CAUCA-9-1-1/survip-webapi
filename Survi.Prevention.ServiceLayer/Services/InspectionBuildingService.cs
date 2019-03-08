@@ -99,7 +99,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 	    public bool SaveBuildingsResume(InspectionBuildingResume building)
 	    {
-	        var currentBuilding = Context.Buildings.FirstOrDefault(b => b.Id == building.IdBuilding);
+	        var currentBuilding = Context.InspectionBuildings.FirstOrDefault(b => b.Id == building.IdBuilding);
 	        if (currentBuilding != null)
 	        {
 	            currentBuilding.IdLaneTransversal = building.IdLaneTransversal;

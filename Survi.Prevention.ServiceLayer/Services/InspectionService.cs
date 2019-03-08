@@ -291,6 +291,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     inspection.IdBuilding,
                     inspection.IdSurvey,
                     inspection.IsSurveyCompleted,
+                    inspection.SurveyCompletedOn,
                     inspection.Status,
                     inspection.StartedOn,
                     currentVisit = inspection.Visits.SingleOrDefault(visit =>
@@ -317,6 +318,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             {
                 Id = inspectionId,
                 Buildings = buildings,
+                SurveyCompletedOn = currentInspection.SurveyCompletedOn,
                 Configuration = GetInspectionConfiguration(inspectionId),
                 IdSurvey = currentInspection.IdSurvey,
                 IsSurveyCompleted = currentInspection.IsSurveyCompleted,
@@ -458,6 +460,8 @@ namespace Survi.Prevention.ServiceLayer.Services
             Inspection currentInspection)
         {
             currentInspection.StartedOn = inspection.StartedOn;
+            currentInspection.IsSurveyCompleted = inspection.IsSurveyCompleted;
+            currentInspection.SurveyCompletedOn = inspection.SurveyCompletedOn;
             currentInspection.CompletedOn = inspection.CurrentVisit.EndedOn;
             currentInspection.IdWebUserLastModifiedBy = idUser;
             currentInspection.Status = inspection.Status;

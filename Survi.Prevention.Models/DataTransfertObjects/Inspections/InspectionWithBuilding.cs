@@ -12,6 +12,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects.Inspections
         public InspectionVisit CurrentVisit { get; set; }
         public Guid? IdSurvey { get; set; }
         public bool IsSurveyCompleted { get; set; }
+        public DateTime? SurveyCompletedOn { get; set; }
         public InspectionStatus Status { get; set; }
         public DateTime? StartedOn { get; set; }
     }
