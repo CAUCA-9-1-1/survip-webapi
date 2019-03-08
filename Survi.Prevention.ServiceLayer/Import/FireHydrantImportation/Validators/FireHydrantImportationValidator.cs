@@ -35,7 +35,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
 
             RuleFor(m => m.IdLane)
                 .RequiredKeyIsValid()
-                .When(m => m.LocationType == FireHydrantLocationType.Address || m.LocationType == FireHydrantLocationType.LaneAndLaneTransversal);
+                .When(m => m.LocationType == FireHydrantLocationType.Address || m.LocationType == FireHydrantLocationType.LaneAndTransversal);
 
             RuleFor(m => m.CivicNumber)
                 .NotNullOrEmptyWithMaxLength(5)
@@ -43,11 +43,11 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
 
             RuleFor(m => m.IdLaneTransversal)
                 .RequiredKeyIsValid()
-                .When(m => m.LocationType == FireHydrantLocationType.LaneAndLaneTransversal);
+                .When(m => m.LocationType == FireHydrantLocationType.LaneAndTransversal);
 
             RuleFor(m => m.WktCoordinates)
                 .NotNullOrEmpty()
-                .When(m => m.LocationType == FireHydrantLocationType.Coordinates);
+                .When(m => m.LocationType == FireHydrantLocationType.NotSpecified);
 
             RuleFor(m => m.PhysicalPosition)
                 .NotNullOrEmptyWithMaxLength(200)
@@ -55,7 +55,7 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
 
             RuleFor(m => m.WktCoordinates)
                 .Must(BeAValidWktCoordinate)
-                .When(m => !string.IsNullOrWhiteSpace(m.WktCoordinates) || m.LocationType == FireHydrantLocationType.Coordinates);
+                .When(m => !string.IsNullOrWhiteSpace(m.WktCoordinates) || m.LocationType == FireHydrantLocationType.NotSpecified);
 
             RuleFor(m => m.AddressLocationType).IsInEnum()
                 .WithMessage("{PropertyName}_InvalidValue");

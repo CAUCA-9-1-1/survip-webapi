@@ -62,7 +62,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			}
 			if (type == FireHydrantLocationType.Text)
 				return physicalPosition;
-			if (type == FireHydrantLocationType.Coordinates)
+			if (type == FireHydrantLocationType.NotSpecified)
 			{
 				if (physicalPosition != String.Empty)
 					return physicalPosition;

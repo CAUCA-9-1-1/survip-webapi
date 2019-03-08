@@ -2,9 +2,9 @@
 {
     public enum FireHydrantLocationType
     {
+        NotSpecified,
         Address,
-        LaneAndLaneTransversal,
-        Coordinates,
+        LaneAndTransversal,
         Text
     }
 }

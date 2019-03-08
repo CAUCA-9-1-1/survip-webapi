@@ -149,7 +149,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		    }
 		    if (hydrant.LocationType == FireHydrantLocationType.Text)
 			    return hydrant.PhysicalPosition;
-		    if (hydrant.LocationType == FireHydrantLocationType.Coordinates)
+		    if (hydrant.LocationType == FireHydrantLocationType.NotSpecified)
 		    {
 			    if (hydrant.PhysicalPosition != String.Empty)
 				    return hydrant.PhysicalPosition;

@@ -86,7 +86,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.FireHydrantImportation
 
         [Theory]
         [InlineData(FireHydrantLocationType.Address)]
-        [InlineData(FireHydrantLocationType.LaneAndLaneTransversal)]
+        [InlineData(FireHydrantLocationType.LaneAndTransversal)]
         public void EntityShouldNotBeValidWhenIdLaneIsMissingAndLocationTypeIsAddressOrIntersection(FireHydrantLocationType type)
         {
             validator.ShouldHaveValidationErrorFor(m => m.IdLane, new FireHydrant { LocationType = type, IdLane = null });
@@ -101,7 +101,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.FireHydrantImportation
         [Fact]
         public void EntityShouldNotBeValidWhenIdIntersectionIsNotSetAndLocationTypeIsIntersection()
         {
-            validator.ShouldHaveValidationErrorFor(m => m.IdLaneTransversal, new FireHydrant { LocationType = FireHydrantLocationType.LaneAndLaneTransversal, IdLaneTransversal = null });
+            validator.ShouldHaveValidationErrorFor(m => m.IdLaneTransversal, new FireHydrant { LocationType = FireHydrantLocationType.LaneAndTransversal, IdLaneTransversal = null });
         }
 
         [Fact]
@@ -112,7 +112,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.FireHydrantImportation
 
         [Theory]
         [InlineData(FireHydrantLocationType.Address, "test")]
-        [InlineData(FireHydrantLocationType.Coordinates, null)]
+        [InlineData(FireHydrantLocationType.NotSpecified, null)]
         public void EntityShouldNotBeValidWhenCoordinatesIsInvalidOrLocationTypeIsCoordinatesAndCoordinatesAreInvalid(FireHydrantLocationType type, string coordinates)
         {
             validator.ShouldHaveValidationErrorFor(m => m.WktCoordinates, new FireHydrant { LocationType = type, WktCoordinates = coordinates });
@@ -169,7 +169,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.FireHydrantImportation
         [Fact]
         public void LocationTypeIsValidWhenValueInEnum()
         {
-            validator.ShouldNotHaveValidationErrorFor(m => m.LocationType, FireHydrantLocationType.Coordinates);
+            validator.ShouldNotHaveValidationErrorFor(m => m.LocationType, FireHydrantLocationType.NotSpecified);
         }
     }
 }

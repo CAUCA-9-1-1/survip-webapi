@@ -9,11 +9,11 @@ namespace Survi.Prevention.Models.FireHydrants
 {
 	public enum FireHydrantLocationType
 	{
-		Address,
-		LaneAndTransversal,
-		Coordinates,
-		Text
-	}
+        NotSpecified,
+        Address,
+        LaneAndTransversal,
+        Text
+    }
 
 	public enum FireHydrantAddressLocationType
 	{
