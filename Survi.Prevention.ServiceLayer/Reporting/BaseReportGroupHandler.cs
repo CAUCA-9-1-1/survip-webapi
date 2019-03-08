@@ -49,7 +49,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 		protected virtual string FormatPropertyValue((string name, object value) property, string languageCode)
 		{
-            if(IsPhoneNumber(property.name))
+            if(IsPhoneNumber(property.name) && !string.IsNullOrEmpty((string)property.value))
                 return $"{long.Parse((string)property.value):(###) ###-####}";
 
             if (property.value is bool value)
