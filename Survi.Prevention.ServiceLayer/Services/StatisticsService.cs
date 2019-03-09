@@ -17,8 +17,40 @@ namespace Survi.Prevention.ServiceLayer.Services
 
         public List<InspectionForStatistics> GetStatistics()
         {
+            var query =
+                           from inspection in Context.Inspections
+                           where inspection.IsActive
+                                 && (inspection.Status == InspectionStatus.Todo || inspection.Status == InspectionStatus.Started ||
+                                     inspection.Status == InspectionStatus.Refused)
+                           let building = inspection.MainBuilding
+                           select new
+                           {
+                               inspection.Id,
+                               inspection.Status,
+                               date  = (
+                                   Context.InspectionVisits
+                                       .Where(visit => visit.IdInspection == inspection.Id)
+                                       .OrderBy(visit => visit.EndedOn)
+                                       .Where(iv => iv.IsActive && iv.Status == InspectionVisitStatus.Completed)
+                                       .Select(visit => visit.EndedOn)
+                                       .LastOrDefault()),
+                              approbationRefusalReason = (
+                                   Context.InspectionVisits
+                                       .Where(visit => visit.IdInspection == inspection.Id)
+                                       .OrderBy(visit => visit.EndedOn)
+                                       .Where(iv => iv.IsActive && iv.Status == InspectionVisitStatus.Completed)
+                                       .Select(visit => visit.ReasonForApprobationRefusal)
+                                       .LastOrDefault())
+                           };
 
-
+            var results = query.AsNoTracking().ToList()
+                .Select(result => new InspectionForStatistics
+                {
+                    Id = result.Id,
+                    Status = result.Status,
+                    ApprobationRefusalReason = result.approbationRefusalReason ?? "",
+                    InspectionOn = result.date ?? null,
+                });
 
             return results.ToList();
         }
