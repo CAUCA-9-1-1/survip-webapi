@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Survi.Prevention.ApiClient.Configurations;
 using Survi.Prevention.ApiClient.DataTransferObjects;
-using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 using Survi.Prevention.ApiClient.Services;
 using Survi.Prevention.ApiClient.Services.Building;
 using Survi.Prevention.ApiClient.Services.Places;
@@ -25,7 +24,7 @@ namespace Survi.Prevention.ApiClient.Tester
         {
             authConfig = new AuthentificationConfiguration
             {
-                ApiBaseUrl = "http://localhost:5555/api",
+                ApiBaseUrl = "http://localhost:5000/api",
                 UserName = "admin",
                 Password = "admincauca"
             };
@@ -81,12 +80,29 @@ namespace Survi.Prevention.ApiClient.Tester
 
         private async void simpleButton2_Click(object sender, EventArgs e)
         {
-            var service = new InspectionBuildingService(authConfig);
-            var result = await service.SetItemsAsTransfered(new List<string> { "1e463c90-188a-4d0c-bee7-01e6bec788e7" });
+            var service = new BuildingContactService(authConfig);
+            var result = await service.SetItemsAsTransfered(new List<string> { "309b5464-dd93-4268-8e64-8407ff794d08" });
             if (result)
                 MessageBox.Show("Les données ont été mises à jour comme transférées vers le CAD.", "Résultat du transfert", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
                 MessageBox.Show("Un problème est survenue lors de la mise à jour du statut de transfert.", "Résultat du transfert", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private async void SetCorrepondenceIds()
+        {
+            var service = new BuildingContactService(authConfig);
+            List<TransferIdCorrespondence> IdsList = new List<TransferIdCorrespondence>();
+            IdsList.Add(new TransferIdCorrespondence {Id = "84d97d3d-02d2-c37b-51cf-c3834c747f37", IdExtern = "9132f7e3-c4a9-4f97-9749-939bb5d7d7b4" });
+            var result = await service.SetTransferCorrespondenceIds(IdsList);
+            if (result)
+                MessageBox.Show("Les données ont été mises à jour comme transférées vers le CAD.", "Résultat du transfert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+                MessageBox.Show("Un problème est survenue lors de la mise à jour du statut de transfert.", "Résultat du transfert", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void simpleButton3_Click(object sender, EventArgs e)
+        {
+            SetCorrepondenceIds();
         }
     }
 }

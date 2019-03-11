@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.Models.DataTransfertObjects.Inspections;
 using Survi.Prevention.Models.InspectionManagement;
 
 namespace Survi.Prevention.ServiceLayer.Services
@@ -93,28 +94,6 @@ namespace Survi.Prevention.ServiceLayer.Services
                 });
 
             return query.ToList();
-        }
-
-        public bool SetBuildingAsTransferedToCad(List<string> ids)
-        {
-            try
-            {
-                Context.IsInImportationMode = true;
-                var buildings = Context.Buildings.Where(b => ids.Contains(b.Id.ToString())).ToList();
-
-                buildings.ForEach(b =>
-                {
-                    b.HasBeenModified = false;
-                });
-                Context.SaveChanges();
-                Context.IsInImportationMode = false;
-                return true;
-            }
-            catch(Exception)
-            {
-                Context.IsInImportationMode = false;
-                return false;
-            }
         }
 
 	    public bool SaveBuildingsResume(InspectionBuildingResume building)

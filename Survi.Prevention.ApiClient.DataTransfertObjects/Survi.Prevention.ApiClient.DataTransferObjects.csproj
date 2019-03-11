@@ -5,8 +5,8 @@
     <Configurations>Debug;Release;NuGet</Configurations>
     <Version>1.2.3-beta1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>1.2.1</AssemblyVersion>
-    <FileVersion>1.2.1</FileVersion>
+    <AssemblyVersion>1.2.2</AssemblyVersion>
+    <FileVersion>1.2.2</FileVersion>
   </PropertyGroup>
 
 </Project>

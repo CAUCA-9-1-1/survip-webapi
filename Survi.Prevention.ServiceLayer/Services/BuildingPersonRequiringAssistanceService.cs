@@ -116,11 +116,10 @@ namespace Survi.Prevention.ServiceLayer.Services
             try
             {
                 List<string> ids = correspondenceIds.Select(ci => ci.Id).ToList();
-                var query = from buildingPnap in Context.BuildingPersonsRequiringAssistances.AsNoTracking().IgnoreQueryFilters()
-                    where ids.Contains(buildingPnap.Id.ToString()) && buildingPnap.IdExtern == ""
-                    select new BuildingPersonRequiringAssistance();
+                var query = Context.BuildingPersonsRequiringAssistances.IgnoreQueryFilters()
+                    .Where(bpnap => ids.Contains(bpnap.Id.ToString()) && string.IsNullOrEmpty(bpnap.IdExtern)).ToList();
 
-                query.ToList().ForEach(bc =>
+                query.ForEach(bc =>
                 {
                     bc.IdExtern = correspondenceIds.SingleOrDefault(ci => ci.Id == bc.Id.ToString())?.IdExtern;
                 });

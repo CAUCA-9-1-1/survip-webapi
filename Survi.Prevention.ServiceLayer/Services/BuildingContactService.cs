@@ -66,14 +66,13 @@ namespace Survi.Prevention.ServiceLayer.Services
             try
             {
                 List<string> ids = correspondenceIds.Select(ci => ci.Id).ToList();
-                var query = from buildingContact in Context.BuildingContacts.AsNoTracking().IgnoreQueryFilters()
-                            where ids.Contains(buildingContact.Id.ToString()) && buildingContact.IdExtern == ""
-                            select new BuildingContact();
+                var query = Context.BuildingContacts
+                    .Where(bc => ids.Contains(bc.Id.ToString()) && string.IsNullOrEmpty(bc.IdExtern)).ToList();
 
-                query.ToList().ForEach(bc =>
-                    {
-                        bc.IdExtern = correspondenceIds.SingleOrDefault(ci => ci.Id == bc.Id.ToString())?.IdExtern;
-                    });
+                query.ForEach(bc =>
+                {
+                    bc.IdExtern = correspondenceIds.SingleOrDefault(ci => ci.Id == bc.Id.ToString())?.IdExtern;
+                });
                 Context.SaveChanges();
 
                 return true;
@@ -89,7 +88,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             try
             {
                 Context.IsInImportationMode = true;
-                var buildingContacts = Context.BuildingContacts.Where(b => ids.Contains(b.Id.ToString())).ToList();
+                var buildingContacts = Context.BuildingContacts.Where(b => ids.Contains(b.IdBuilding.ToString())).ToList();
 
                 buildingContacts.ForEach(b =>
                 {
