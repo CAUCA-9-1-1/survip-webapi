@@ -127,11 +127,10 @@ namespace Survi.Prevention.ServiceLayer.Services
             try
             {
                 List<string> ids = correspondenceIds.Select(ci => ci.Id).ToList();
-                var query = from buildingHm in Context.BuildingHazardousMaterials.AsNoTracking().IgnoreQueryFilters()
-                    where ids.Contains(buildingHm.Id.ToString()) && buildingHm.IdExtern == ""
-                    select new BuildingHazardousMaterial();
+                var query = Context.BuildingHazardousMaterials.IgnoreQueryFilters()
+                    .Where(bhm => ids.Contains(bhm.Id.ToString()) && string.IsNullOrEmpty(bhm.IdExtern)).ToList();
 
-                query.ToList().ForEach(bc =>
+                query.ForEach(bc =>
                 {
                     bc.IdExtern = correspondenceIds.SingleOrDefault(ci => ci.Id == bc.Id.ToString())?.IdExtern;
                 });
