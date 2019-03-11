@@ -50,7 +50,7 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Survi.Prevention.ApiClient.DataTransferObjects, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Survi.Prevention.ApiClient.DataTransferObjects.1.2.1\lib\netstandard1.2\Survi.Prevention.ApiClient.DataTransferObjects.dll</HintPath>
+      <HintPath>..\packages\Survi.Prevention.ApiClient.DataTransferObjects.1.2.2\lib\netstandard1.2\Survi.Prevention.ApiClient.DataTransferObjects.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
