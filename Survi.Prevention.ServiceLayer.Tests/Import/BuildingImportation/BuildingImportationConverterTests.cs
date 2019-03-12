@@ -50,12 +50,9 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 				ChildType = ApiClient.DataTransferObjects.BuildingChildType.None,
 				PictureData = new byte[100],
 				MimeType = "png",
-				IsActive =  false
-			};
-			imported.Localizations = new List<ApiClient.DataTransferObjects.Base.Localization>
-			{
-				new ApiClient.DataTransferObjects.Base.Localization{LanguageCode = "en", Name = "Building 1"},
-				new ApiClient.DataTransferObjects.Base.Localization{LanguageCode = "fr", Name = "Bâtiment 1"}
+				IsActive =  false,
+                AliasName =  "Alias",
+                CorporateName = "Corporate"
 			};
 
 			existing = new Building
@@ -106,6 +103,8 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation
 						result.Coordinates == imported.WktCoordinates &&
 						result.CoordinatesSource == imported.CoordinatesSource &&
 						result.Details == imported.Details &&
+                        result.CorporateName == imported.CorporateName &&
+                        result.AliasName == imported.AliasName &&
 						result.ChildType == (BuildingChildType) imported.ChildType);
 		}
     }

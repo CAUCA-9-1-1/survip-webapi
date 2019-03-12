@@ -18,7 +18,9 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.Property(m => m.Floor).HasMaxLength(10).IsRequired();
 			b.Property(m => m.PostalCode).HasMaxLength(6).IsRequired();
 			b.Property(m => m.Source).HasMaxLength(25).IsRequired();
-			b.Property(m => m.UtilisationDescription).HasMaxLength(255).IsRequired();
+		    b.Property(m => m.AliasName).HasMaxLength(250).IsRequired();
+		    b.Property(m => m.CorporateName).HasMaxLength(250).IsRequired();
+            b.Property(m => m.UtilisationDescription).HasMaxLength(255).IsRequired();
 			b.Property(m => m.Matricule).HasMaxLength(18).IsRequired();
 			b.Property(m => m.PointCoordinates).HasColumnType("geometry").HasColumnName("coordinates");
 			b.Ignore(m => m.Coordinates);
@@ -36,7 +38,6 @@ namespace Survi.Prevention.DataLayer.Mapping
 			b.HasMany(m => m.Contacts).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
 			b.HasMany(m => m.HazardousMaterials).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
 			b.HasMany(m => m.PersonsRequiringAssistance).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
-			b.HasMany(m => m.Localizations).WithOne().HasForeignKey(m => m.IdParent);
 			b.HasMany(m => m.AlarmPanels).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
 			b.HasMany(m => m.FireHydrants).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);
 			b.HasMany(m => m.Sprinklers).WithOne(m => m.Building).HasForeignKey(m => m.IdBuilding);

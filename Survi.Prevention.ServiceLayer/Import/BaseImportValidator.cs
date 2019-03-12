@@ -4,7 +4,7 @@ using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
 namespace Survi.Prevention.ServiceLayer.Import
 {
-    public abstract class BaseImportValidator<T>: AbstractValidator<T> where T : BaseLocalizableTransferObject,new()
+    /*public abstract class BaseImportValidator<T>: AbstractValidator<T> where T : BaseLocalizableTransferObject,new()
     {
 	    protected BaseImportValidator()
 	    {
@@ -17,5 +17,5 @@ namespace Survi.Prevention.ServiceLayer.Import
 			    .Must(new BaseLocalizationValidator().HaveRequiredLanguages).WithMessage("{PropertyName}_InvalidValue")
 			    .Must(new BaseLocalizationValidator().HaveLocalizationNames).WithMessage("{PropertyName}_InvalidValue");
 	    }
-    }
+    }*/
 }

@@ -6,8 +6,9 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 	{
 		public Guid Id { get; set; }
 		public Guid IdInspection { get; set; }
-        public Boolean IsParent { get; set; }
-        public string Name { get; set; }
+        public bool IsParent { get; set; }
+        public string AliasName { get; set; }
+        public string CorporateName { get; set; }
 		public string Picture { get; set; }
 	}
 }

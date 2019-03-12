@@ -51,6 +51,8 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.CustomFieldsC
 			entity.CoordinatesSource = importedObject.CoordinatesSource;
 			entity.Details = importedObject.Details;
 			entity.ChildType = (BuildingChildType) importedObject.ChildType;
+		    entity.AliasName = importedObject.AliasName;
+		    entity.CorporateName = importedObject.CorporateName;
 		}
 
 		private void InitiateForeignKeyValues(importedBuilding importedObject, Building entity)

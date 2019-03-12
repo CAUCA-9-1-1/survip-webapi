@@ -22,7 +22,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public override Building Get(Guid id)
 		{
 			var result = Context.Buildings.AsNoTracking()
-                .Include(b => b.Localizations)
 				.First(b => b.Id == id);
 
 			return result;
@@ -56,7 +55,6 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
             var result = Context.Buildings
                 .Where(b => b.ChildType == BuildingChildType.Child && b.IdParentBuilding == idParentBuilding)
-                .Include(b => b.Localizations)
                 .ToList();
 
             return result;
@@ -82,17 +80,17 @@ namespace Survi.Prevention.ServiceLayer.Services
                 {
                     building.Id,
                     building.CivicNumber,
-                    building.Localizations.FirstOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
-                    Lane = laneName.FirstOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
-                    City = cityName.FirstOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
-                    RiskLevel = riskLevel.FirstOrDefault(l => l.IsActive && l.LanguageCode == languageCode).Name,
+                    building.AliasName,
+                    Lane = laneName.Where(l => l.IsActive && l.LanguageCode == languageCode).Select(l => l.Name).FirstOrDefault(),
+                    City = cityName.Where(l => l.IsActive && l.LanguageCode == languageCode).Select(l => l.Name).FirstOrDefault(),
+                    RiskLevel = riskLevel.Where(l => l.IsActive && l.LanguageCode == languageCode).Select(l => l.Name).FirstOrDefault(),
                 };
 
             var result = query.ToList()
                 .Select(b => new BuildingForWeb
                 {
                     Id = b.Id,
-                    Name = b.Name,
+                    Name = b.AliasName,
                     CivicNumber = b.CivicNumber,
                     Lane = b.Lane,
                     City = b.City,
@@ -155,7 +153,6 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
             var query = from building in Context.Buildings.AsNoTracking()
                     .IgnoreQueryFilters()
-                    .Include(b=>b.Localizations)
                 where idBuildings.Contains(building.Id.ToString()) && building.HasBeenModified
                 select new ApiClient.DataTransferObjects.Building
                 {
@@ -191,25 +188,14 @@ namespace Survi.Prevention.ServiceLayer.Services
                     UtilisationDescription = building.UtilisationDescription,
                     VacantLand = building.VacantLand,
                     WktCoordinates = building.Coordinates,
-                    Localizations = GetLocationCollection(building.Localizations),
+                    AliasName = building.AliasName,
+                    CorporateName = building.CorporateName,                    
                     MimeType = building.Picture.MimeType,
                     PictureData = building.Picture.Data,
                     PictureName = building.Picture.Name,
                     SketchJson = building.Picture.SketchJson
                 };
             return query.ToList();
-        }
-
-        private ICollection<ApiClient.DataTransferObjects.Base.Localization> GetLocationCollection(
-            List<BuildingLocalization> localizations)
-        {
-            ICollection<ApiClient.DataTransferObjects.Base.Localization> locCollection = new List<ApiClient.DataTransferObjects.Base.Localization>();
-           localizations.ForEach(loc =>
-           {
-               locCollection.Add(new ApiClient.DataTransferObjects.Base.Localization{Name = loc.Name, LanguageCode = loc.LanguageCode});
-           });
-
-           return locCollection;
         }
 
 	    public Guid GetIdCity(Guid buildingId)

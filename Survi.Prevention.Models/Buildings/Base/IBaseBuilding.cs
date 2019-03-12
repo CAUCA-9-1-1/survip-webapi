@@ -42,5 +42,7 @@ namespace Survi.Prevention.Models.Buildings.Base
         string UtilisationDescription { get; set; }
         bool VacantLand { get; set; }
         int YearOfConstruction { get; set; }
+        string CorporateName { get; set; }
+        string AliasName { get; set; }
     }
 }

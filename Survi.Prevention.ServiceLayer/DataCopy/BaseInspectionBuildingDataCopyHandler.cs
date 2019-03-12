@@ -31,7 +31,6 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 				.ThenInclude(detail => detail.PlanPicture)
 				.Include(building => building.FireHydrants)
 				.Include(building => building.HazardousMaterials)
-				.Include(building => building.Localizations)
 				.Include(building => building.PersonsRequiringAssistance)
 				.Include(building => building.Sprinklers)
 				.Include(building => building.Courses)

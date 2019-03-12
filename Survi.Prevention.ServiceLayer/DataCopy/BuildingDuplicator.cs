@@ -201,23 +201,8 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 				.Duplicate<BuildingPersonRequiringAssistance, InspectionBuildingPersonRequiringAssistance>(building.PersonsRequiringAssistance).ToList();
 			copy.Sprinklers = new SprinklerDuplicator()
 				.Duplicate<BuildingSprinkler, InspectionBuildingSprinkler>(building.Sprinklers).ToList();
-			copy.Localizations = CopyLocalizations(building.Localizations).ToList();
 
 			return copy;
-		}
-
-		private IEnumerable<InspectionBuildingLocalization> CopyLocalizations(ICollection<BuildingLocalization> buildingLocalizations)
-		{
-			foreach (var loc in buildingLocalizations)
-				yield return new InspectionBuildingLocalization
-				{
-					CreatedOn = loc.CreatedOn,
-					Id = loc.Id,
-					IdParent = loc.IdParent,
-					LanguageCode = loc.LanguageCode,
-					Name = loc.Name,
-					IsActive = loc.IsActive
-				};
 		}
 
 		private InspectionBuildingDetail CopyDetail(BuildingDetail detail)

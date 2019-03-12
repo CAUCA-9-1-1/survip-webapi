@@ -76,7 +76,6 @@ namespace Survi.Prevention.ServiceLayer.Services
                           inspection.Status == InspectionStatus.Refused)
                       && (inspection.IdWebuserAssignedTo == null || inspection.IdWebuserAssignedTo == userId)
                 let building = inspection.MainBuilding
-                from alias in building.Localizations.Where(loc => loc.LanguageCode == languageCode && loc.IsActive)
                 from laneLocalization in building.Lane.Localizations
                 where laneLocalization.IsActive && laneLocalization.LanguageCode == languageCode
                 let transversal = building.Transversal
@@ -100,7 +99,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 
                     building.CivicLetter,
                     building.CivicNumber,
-                    aliasName = alias.Name,
+                    aliasName = building.AliasName,
+                    corporateName = building.CorporateName,
                     ownerName = Context.BuildingContacts
                         .Where(c => c.IsActive && c.IdBuilding == building.Id && c.IsOwner)
                         .Select(c => c.FirstName + " " + c.LastName)
@@ -301,12 +301,11 @@ namespace Survi.Prevention.ServiceLayer.Services
             var query =
                 from building in Context.InspectionBuildings.AsNoTracking()
                 where building.IsActive && building.IdInspection == inspectionId
-                from loc in building.Localizations
-                where loc.IsActive && loc.LanguageCode == languageCode
                 select new InspectionBuildingResume
                 {
                     IdBuilding = building.Id,
-                    AliasName = loc.Name,
+                    AliasName = building.AliasName,
+                    CorporateName = building.CorporateName,
                     IsMainBuilding = building.Id == currentInspection.IdBuilding,
                     Coordinates = building.Coordinates,
                     IdLaneTransversal = building.IdLaneTransversal
