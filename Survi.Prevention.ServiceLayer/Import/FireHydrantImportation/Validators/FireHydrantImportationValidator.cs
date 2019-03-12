@@ -45,17 +45,13 @@ namespace Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators
                 .RequiredKeyIsValid()
                 .When(m => m.LocationType == FireHydrantLocationType.LaneAndTransversal);
 
-            RuleFor(m => m.WktCoordinates)
-                .NotNullOrEmpty()
-                .When(m => m.LocationType == FireHydrantLocationType.NotSpecified);
-
             RuleFor(m => m.PhysicalPosition)
                 .NotNullOrEmptyWithMaxLength(200)
                 .When(m => m.LocationType == FireHydrantLocationType.Text);
 
             RuleFor(m => m.WktCoordinates)
-                .Must(BeAValidWktCoordinate)
-                .When(m => !string.IsNullOrWhiteSpace(m.WktCoordinates) || m.LocationType == FireHydrantLocationType.NotSpecified);
+                .NotNullOrEmpty()
+                .Must(BeAValidWktCoordinate);
 
             RuleFor(m => m.AddressLocationType).IsInEnum()
                 .WithMessage("{PropertyName}_InvalidValue");
