@@ -32,8 +32,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 				where building.ChildType == BuildingChildType.None
 				let visits = inspection.Visits
 				let lane = building.Lane
-				from loc in building.Localizations
-				where loc.IsActive && loc.LanguageCode == languageCode
 				from laneLoc in lane.Localizations
 				where laneLoc.IsActive && laneLoc.LanguageCode == languageCode
 				let detail = building.Detail
@@ -43,7 +41,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					IdDetail = detail != null ? (Guid?) building.Detail.Id : null,
 					building.IdLaneTransversal,
 					building.Detail.IdPicturePlan,
-					MainBuildingName = loc.Name,
+					MainBuildingName = building.AliasName,
 					MainBuildingIdLane = building.IdLane,
 					MainBuildingIdRiskLevel = building.IdRiskLevel,
 					MainBuildingIdUtilisationCode = building.IdUtilisationCode,
@@ -110,8 +108,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 				where building.ChildType == BuildingChildType.None
 				let visits = inspection.Visits
 				let lane = building.Lane
-				from loc in building.Localizations
-				where loc.IsActive && loc.LanguageCode == languageCode
 				from laneLoc in lane.Localizations
 				where laneLoc.IsActive && laneLoc.LanguageCode == languageCode
 				let detail = building.Detail
@@ -121,7 +117,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 					IdDetail = detail != null ? (Guid?)building.Detail.Id : null,
 					building.IdLaneTransversal,
 					building.Detail.IdPicturePlan,
-					MainBuildingName = loc.Name,
+					MainBuildingName = building.AliasName,
 					MainBuildingIdLane = building.IdLane,
 					MainBuildingIdRiskLevel = building.IdRiskLevel,
 					MainBuildingIdUtilisationCode = building.IdUtilisationCode,

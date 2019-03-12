@@ -11,7 +11,7 @@ using importedBuilding = Survi.Prevention.ApiClient.DataTransferObjects.Building
 
 namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
 {
-	public class BuildingImportationConverter : BaseLocalizableEntityWithPictureConverter<importedBuilding, Building, BuildingLocalization>
+	public class BuildingImportationConverter : BaseEntityConverter<importedBuilding, Building>
 	{
 		public BuildingImportationConverter
 			(IManagementContext context, 

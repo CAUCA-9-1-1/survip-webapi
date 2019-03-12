@@ -2,7 +2,7 @@
 <Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Major>1</Major>
   <Minor>3</Minor>
-  <Revision>6</Revision>
-  <IsTestVersion>false</IsTestVersion>
-  <TestVersionRelease xsi:nil="true" />
+  <Revision>7</Revision>
+  <IsTestVersion>true</IsTestVersion>
+  <TestVersionRelease>1</TestVersionRelease>
 </Config>

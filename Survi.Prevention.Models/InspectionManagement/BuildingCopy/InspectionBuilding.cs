@@ -4,7 +4,7 @@ using Survi.Prevention.Models.Buildings.Base;
 
 namespace Survi.Prevention.Models.InspectionManagement.BuildingCopy
 {
-	public class InspectionBuilding : BaseBuilding<InspectionBuildingLocalization>
+	public class InspectionBuilding : BaseBuilding
 	{
 		public Guid IdInspection { get; set; }
 

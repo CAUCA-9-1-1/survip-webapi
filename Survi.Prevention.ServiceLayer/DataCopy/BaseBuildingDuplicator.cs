@@ -52,7 +52,9 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
                 Suite = building.Suite,
                 UtilisationDescription = building.UtilisationDescription,
                 VacantLand = building.VacantLand,
-                YearOfConstruction = building.YearOfConstruction
+                YearOfConstruction = building.YearOfConstruction,
+                AliasName = building.AliasName,
+                CorporateName = building.CorporateName
             };
         }	
     }

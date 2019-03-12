@@ -32,12 +32,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 				where inspection.Id == inspectionId && inspection.IsActive
 				from building in inspection.Buildings
 				where building.IsActive
-				from loc in building.Localizations
-				where loc.IsActive && loc.LanguageCode == languageCode
 				select new
 				{
 					building.Id,
-					loc.Name,
+					building.AliasName,
+                    building.CorporateName,
                     building.ChildType,
 					building.Picture.Data
 				}).ToList();
@@ -48,7 +47,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 					Id = building.Id,
 					IdInspection = inspectionId,
                     IsParent = building.ChildType == 0,
-                    Name = building.Name,
+                    AliasName = building.AliasName,
+                    CorporateName = building.CorporateName,
 					Picture = building.Data == null ? null : Convert.ToBase64String(building.Data)
 				})
                 .ToList();
@@ -60,13 +60,12 @@ namespace Survi.Prevention.ServiceLayer.Services
                 where inspection.IsActive && inspection.Status == InspectionStatus.Approved
                 from building in Context.Buildings
                 where building.IsActive && building.Id == inspection.IdBuilding && !string.IsNullOrEmpty(building.IdExtern)
-                from buildingLoc in building.Localizations.Where(bl => bl.LanguageCode == "fr" && bl.IsActive)
                 from cityLoc in building.City.Localizations.Where(cl => cl.LanguageCode == "fr" && cl.IsActive)
                 from laneLocalization in building.Lane.Localizations.Where(ll => ll.LanguageCode == "fr" && ll.IsActive)
                          select new InspectionForExport
                 {
                     CityName = cityLoc.Name,
-                    Name = buildingLoc.Name,
+                    Name = building.AliasName,
                     Id = inspection.Id,
                     IdBuilding = inspection.IdBuilding,
                     Address = new AddressGenerator().GenerateAddress(building.CivicNumber, building.CivicLetter, laneLocalization.Name, building.Lane.LaneGenericCode.Description, building.Lane.PublicCode.Description, building.Lane.LaneGenericCode.AddWhiteSpaceAfter)

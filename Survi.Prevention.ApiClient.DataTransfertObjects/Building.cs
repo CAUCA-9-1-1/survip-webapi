@@ -2,7 +2,7 @@
 
 namespace Survi.Prevention.ApiClient.DataTransferObjects
 {
-	public class Building : BaseLocalizableTransferObjectWithPicture
+	public class Building : BaseTransferObjectWithPicture
 	{
 		public string CivicNumber { get; set; }
 		public string CivicLetter { get; set; }
@@ -22,6 +22,8 @@ namespace Survi.Prevention.ApiClient.DataTransferObjects
 		public string UtilisationDescription { get; set; }
 		public bool ShowInResources { get; set; }
 		public string Matricule { get; set; }
+        public string CorporateName { get; set; }
+        public string AliasName { get; set; }
 
 		public string WktCoordinates { get; set; }
 		public string CoordinatesSource { get; set; }

@@ -5,7 +5,7 @@ using Survi.Prevention.ServiceLayer.ValidationUtilities;
 
 namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 {
-	public class BuildingImportationValidator : BaseImportWithPictureValidator<Building>
+	public class BuildingImportationValidator : BaseImportValidator<Building>
 	{
 		public BuildingImportationValidator()
 		{
@@ -30,7 +30,13 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators
 			RuleFor(m => m.CivicLetterSupp)
 				.NotNullMaxLength(10);
 
-			RuleFor(m => m.CivicSupp)
+		    RuleFor(m => m.AliasName)
+		        .NotNullMaxLength(250);
+
+		    RuleFor(m => m.CorporateName)
+		        .NotNullMaxLength(250);
+
+            RuleFor(m => m.CivicSupp)
 				.NotNullMaxLength(10);
 
 			RuleFor(m => m.AppartmentNumber)

@@ -34,7 +34,6 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 			ReplaceContacts(copy, building);
 			ReplaceFireHydrants(copy, building);
 			ReplaceHazardousMaterials(copy, building);
-			ReplaceLocalizations(copy, building);
 			ReplaceParticularRisks(copy, building);
 			ReplacePersonsRequiringAssistance(copy, building);
 			ReplaceSprinklers(copy, building);
@@ -228,21 +227,6 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 			return new BuildingRoofParticularRisk { Pictures = new List<BuildingParticularRiskPicture>() };
 		}
 
-		private void ReplaceLocalizations(InspectionBuilding copy, Building building)
-		{
-			foreach (var localization in copy.Localizations)
-			{
-				var original = building.Localizations.FirstOrDefault(p => p.Id == localization.Id);
-				if (original == null)
-				{
-					original = new BuildingLocalization();
-					building.Localizations.Add(original);
-				}
-
-				localization.CopyProperties(original);
-			}
-		}
-
 		private void ReplaceHazardousMaterials(InspectionBuilding copy, Building building)
 		{
 			foreach (var material in copy.HazardousMaterials)
@@ -315,7 +299,6 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 				.ThenInclude(detail => detail.PlanPicture)
 				.Include(building => building.FireHydrants)
 				.Include(building => building.HazardousMaterials)
-				.Include(building => building.Localizations)
 				.Include(building => building.PersonsRequiringAssistance)
 				.Include(building => building.Sprinklers)
 				.Include(building => building.Anomalies)
