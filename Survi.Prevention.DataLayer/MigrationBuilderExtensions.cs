@@ -293,7 +293,7 @@ namespace Survi.Prevention.DataLayer
 				  b.year_of_construction,
 				  b.details,
 
-				  bloc.name,
+				  b.alias_name as name,
 
 				  ucloc.name        AS utilisation_code,
 				  riskloc.name             AS risk_level,
@@ -328,8 +328,6 @@ namespace Survi.Prevention.DataLayer
 				  INNER JOIN lane_public_code AS lpc ON lpc.id = l.id_public_code
 				  INNER JOIN lane_generic_code AS lgc ON lgc.id = l.id_lane_generic_code
 				  INNER JOIN lane_localization AS laneloc ON l.id = laneloc.id_lane
-
-				  INNER JOIN building_localization AS bloc ON b.id = bloc.id_building AND bloc.language_code = laneloc.language_code
 
 				  INNER JOIN city ON l.id_city = city.id
 				  INNER JOIN city_localization as cl on city.id = cl.id_city and cl.language_code = laneloc.language_code
