@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190312182102_Issue493_CorporateNameAndRemoveLocalization.cs" />
+    <Compile Remove="Migrations\20190312182319_Issue493_CorporateNameAndRemoveLocalization.cs" />
+    <Compile Remove="Migrations\20190312182624_Issue493_CorporateNameAndRemoveLocalization.cs" />
+    <Compile Remove="Migrations\20190312183641_Issue493_CorporateNameAndRemoveLocalization.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.0" />
