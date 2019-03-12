@@ -67,6 +67,10 @@ namespace Survi.Prevention.ApiClient.Tester
             var service = new InspectionBuildingService(authConfig);
 
             var result = await service.GetAsync(null);
+
+            var contactService = new BuildingContactService(authConfig);
+            var resultContact = await contactService.SetItemsAsTransfered(new List<string> { "309b5464-dd93-4268-8e64-8407ff794d08" });
+
             if (result.Count > 0)
                 MessageBox.Show(string.Join(",", result.Select(m => m.Id)), "Récupération des données du transfert", MessageBoxButtons.OK);
             else

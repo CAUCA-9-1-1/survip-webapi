@@ -50,12 +50,6 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Survi.Prevention.ApiClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Survi.Prevention.ApiClient.1.3.6-beta.1\lib\net452\Survi.Prevention.ApiClient.dll</HintPath>
-    </Reference>
-    <Reference Include="Survi.Prevention.ApiClient.DataTransferObjects, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Survi.Prevention.ApiClient.DataTransferObjects.1.2.2-beta.1\lib\netstandard1.2\Survi.Prevention.ApiClient.DataTransferObjects.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
@@ -155,6 +149,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Survi.Prevention.ApiClient.DataTransfertObjects\Survi.Prevention.ApiClient.DataTransferObjects.csproj">
+      <Project>{1acc3cfb-de6a-4dcf-9fe9-9744138c2541}</Project>
+      <Name>Survi.Prevention.ApiClient.DataTransferObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Survi.Prevention.ApiClient\Survi.Prevention.ApiClient.csproj">
+      <Project>{f776f8ca-cb78-492a-8ed3-4a2fec00d134}</Project>
+      <Name>Survi.Prevention.ApiClient</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
