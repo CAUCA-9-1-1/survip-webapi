@@ -210,7 +210,6 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
             var query = (from building in Context.Buildings.AsNoTracking()
                     .IgnoreQueryFilters()
-                    .Include(b => b.Localizations)
                 where (idBuildings.Contains(building.Id.ToString()) ||
                        idBuildings.Contains(building.IdParentBuilding.ToString())) && building.HasBeenModified
                 select building.Id).ToList();
