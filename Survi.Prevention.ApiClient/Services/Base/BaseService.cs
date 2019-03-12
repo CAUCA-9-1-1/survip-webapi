@@ -14,6 +14,7 @@ namespace Survi.Prevention.ApiClient.Services.Base
     {
         protected abstract string BaseUrl { get; set; }
         protected IConfiguration Configuration { get; set; }
+        protected string RequestBaseUrl { get; set; } = "";
 
         protected BaseService(IConfiguration configuration)
         {
@@ -22,8 +23,11 @@ namespace Survi.Prevention.ApiClient.Services.Base
 
         protected virtual Url GenerateRequest()
         {
+            if (string.IsNullOrEmpty(RequestBaseUrl))
+                RequestBaseUrl = BaseUrl;
+
             return Configuration.ApiBaseUrl                
-                .AppendPathSegment(BaseUrl);
+                .AppendPathSegment(RequestBaseUrl);
         }
 
         public virtual async Task<List<TResult>> SendAsync<TResult>(T entity)
@@ -100,11 +104,14 @@ namespace Survi.Prevention.ApiClient.Services.Base
 
         private async Task<List<T>> GetObjectAsync(object entity)
         {
-            BaseUrl = BaseUrl.Replace("Import", "Export");
-            var request = GenerateRequest();
+            RequestBaseUrl = BaseUrl.Replace("Import", "Export");
+
+            var request = GenerateRequest(); 
             try
             {
-                return await ExecutePostAsync<T>(entity, request);
+                List<T> result = await ExecutePostAsync<T>(entity, request);
+                RequestBaseUrl = BaseUrl;
+                return result;
             }
             catch (FlurlHttpException exception)
             {
@@ -117,14 +124,17 @@ namespace Survi.Prevention.ApiClient.Services.Base
 
         public async Task<bool> SetItemsAsTransfered(List<string> ids)
         {
-            BaseUrl = BaseUrl.Replace("Import", "TransferedToCad");
+            RequestBaseUrl = BaseUrl.Replace("Import", "TransferedToCad");
             var request = GenerateRequest();
+        
             try
             {
                 var result =  await request
                 .WithTimeout(TimeSpan.FromSeconds(Configuration.RequestTimeoutInSeconds))
                 .PostJsonAsync(ids)
                 .ReceiveJson<bool>();
+
+                RequestBaseUrl = BaseUrl;
 
                 return result;
             }
@@ -139,14 +149,17 @@ namespace Survi.Prevention.ApiClient.Services.Base
 
         public async Task<bool> SetTransferCorrespondenceIds(List<TransferIdCorrespondence> correspondenceIds)
         {
-            BaseUrl = BaseUrl.Replace("Import", "TransferedToCad/CorrespondenceIds");
+            RequestBaseUrl = BaseUrl.Replace("Import", "TransferedToCad/CorrespondenceIds");
             var request = GenerateRequest();
+            
             try
             {
                 var result = await request
                     .WithTimeout(TimeSpan.FromSeconds(Configuration.RequestTimeoutInSeconds))
                     .PostJsonAsync(correspondenceIds)
                     .ReceiveJson<bool>();
+
+                RequestBaseUrl = BaseUrl;
 
                 return result;
             }
