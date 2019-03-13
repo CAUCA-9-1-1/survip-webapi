@@ -45,7 +45,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 	    public InspectionPictureForWeb GetPictureByIdBuilding(Guid idBuilding)
 	    {
 	        var query =
-	            from detail in Context.BuildingDetails.AsNoTracking()
+	            from detail in Context.InspectionBuildingDetails.AsNoTracking()
 	            where detail.IdBuilding == idBuilding && detail.IsActive
 	            select detail.PlanPicture;
 
@@ -66,28 +66,43 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 	    public bool SavePictureByIdBuilding(Guid idBuilding, InspectionPictureForWeb picture)
 	    {
-	        var detail = Context.BuildingDetails
-	            .Include(d => d.PlanPicture)
-	            .First(d => d.IdBuilding == idBuilding);
+	        var detail = GetBuildingDetail(idBuilding);
 
 	        if (detail != null)
 	        {
-	            if (string.IsNullOrEmpty(picture.DataUri) && detail.PlanPicture != null)
-	            {
-	                Context.Remove(detail.PlanPicture);
-	            }
-	            else
-	            {
-	                if (detail.PlanPicture == null)
-	                    detail.PlanPicture = new Picture();
-
-	                detail.PlanPicture.DataUri = picture.DataUri;
-	            }
-
-	            Context.SaveChanges();
+	            EditDetailPicture(picture, detail);
 	            return true;
 	        }
             return false;
+	    }
+
+	    private void EditDetailPicture(InspectionPictureForWeb picture, InspectionBuildingDetail detail)
+	    {
+	        if (string.IsNullOrEmpty(picture.DataUri) && detail.PlanPicture != null)
+	        {
+	            Context.Remove(detail.PlanPicture);
+	        }
+	        else
+	        {
+	            AddPictureToDetail(picture, detail);
+	        }
+
+	        Context.SaveChanges();
+	    }
+
+	    private static void AddPictureToDetail(InspectionPictureForWeb picture, InspectionBuildingDetail detail)
+	    {
+	        if (detail.PlanPicture == null)
+	            detail.PlanPicture = new InspectionPicture();
+
+	        detail.PlanPicture.DataUri = picture.DataUri;
+	    }
+
+	    private InspectionBuildingDetail GetBuildingDetail(Guid idBuilding)
+	    {
+	        return Context.InspectionBuildingDetails
+	            .Include(d => d.PlanPicture)
+	            .First(d => d.IdBuilding == idBuilding);
 	    }
 
 	    public override Guid AddOrUpdate(InspectionBuildingDetail entity)
