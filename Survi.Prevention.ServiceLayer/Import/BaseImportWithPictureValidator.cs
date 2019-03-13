@@ -20,14 +20,4 @@ namespace Survi.Prevention.ServiceLayer.Import
                 .Must(new BaseLocalizationValidator().HaveLocalizationNames).WithMessage("{PropertyName}_InvalidValue");
         }
     }
-
-    public abstract class BaseImportValidator<T> : AbstractValidator<T>
-        where T : BaseTransferObject, new()
-    {
-        protected BaseImportValidator()
-        {
-            RuleFor(m => m.Id)
-                .NotNullOrEmpty();
-        }
-    }
 }
