@@ -5,7 +5,7 @@ using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.ServiceLayer.Reporting
 {
-	public class ReportBuildingSprinklerGroupHandler : BaseReportGroupHandler<FireProtectionForReport>
+	public class ReportBuildingSprinklerGroupHandler : BaseReportGroupHandler<SprinklerForReport>
 	{
 		private readonly BuildingSprinklerService service;
 		protected override ReportBuildingGroup Group => ReportBuildingGroup.BuildingSprinkler;
@@ -15,7 +15,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			this.service = service;
 		}
 
-		protected override List<FireProtectionForReport> GetData(Guid idParent, string languageCode)
+		protected override List<SprinklerForReport> GetData(Guid idParent, string languageCode)
 		{
 			return service.GetSprinklersForReport(idParent, languageCode);
 		}

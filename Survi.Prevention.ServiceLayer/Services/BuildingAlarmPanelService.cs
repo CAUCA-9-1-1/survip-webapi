@@ -15,14 +15,14 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
 		}
 
-		public List<FireProtectionForReport> GetPanelsForReport(Guid idParent, string languageCode)
+		public List<AlarmPanelForReport> GetPanelsForReport(Guid idParent, string languageCode)
 		{
 			var query =
 				from panel in Context.BuildingAlarmPanels.AsNoTracking()
 				where panel.IsActive && panel.IdBuilding == idParent
 				from localization in panel.AlarmPanelType.Localizations.Where(loc => loc.IsActive && loc.LanguageCode == languageCode).DefaultIfEmpty()
-				select new FireProtectionForReport
-				{
+				select new AlarmPanelForReport
+                {
 					Floor = panel.Floor,
 					Wall = panel.Wall,
 					Sector = panel.Sector,

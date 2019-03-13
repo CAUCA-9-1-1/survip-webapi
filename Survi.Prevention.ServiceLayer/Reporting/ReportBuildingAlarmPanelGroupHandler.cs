@@ -5,7 +5,7 @@ using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.ServiceLayer.Reporting
 {
-	public class ReportBuildingAlarmPanelGroupHandler : BaseReportGroupHandler<FireProtectionForReport>
+	public class ReportBuildingAlarmPanelGroupHandler : BaseReportGroupHandler<AlarmPanelForReport>
 	{
 		private readonly BuildingAlarmPanelService service;
 
@@ -16,7 +16,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			this.service = service;
 		}
 
-		protected override List<FireProtectionForReport> GetData(Guid idParent, string languageCode)
+		protected override List<AlarmPanelForReport> GetData(Guid idParent, string languageCode)
 		{
 			return service.GetPanelsForReport(idParent, languageCode);
 		}
