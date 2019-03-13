@@ -27,7 +27,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			var query =
 				from risk in Context.BuildingParticularRisks.AsNoTracking()
-				where risk.IdBuilding == idBuilding && risk.IsActive
+				where risk.IdBuilding == idBuilding && risk.IsActive 
+                      && (risk.IsWeakened || risk.HasOpening || !string.IsNullOrWhiteSpace(risk.Comments) || risk.Pictures.Any())
 				select new ParticularRiskForReport
 				{
                     Id = risk.Id,
