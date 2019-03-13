@@ -16,14 +16,14 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 		}
 
-		public List<FireProtectionForReport> GetSprinklersForReport(Guid idBuilding, string languageCode)
+		public List<SprinklerForReport> GetSprinklersForReport(Guid idBuilding, string languageCode)
 		{
 			var query =
 				from sprinkler in Context.BuildingSprinklers.AsNoTracking()
 				where sprinkler.IsActive && sprinkler.IdBuilding == idBuilding
 				from localization in sprinkler.SprinklerType.Localizations.Where(loc => loc.IsActive && loc.LanguageCode == languageCode).DefaultIfEmpty()
-				select new FireProtectionForReport
-				{
+				select new SprinklerForReport
+                {
 					Floor = sprinkler.Floor,
 					PipeLocation = sprinkler.PipeLocation,
 					Wall = sprinkler.Wall,
