@@ -22,6 +22,12 @@ namespace Survi.Prevention.WebApi.Controllers
             return Ok(service.GetBuildings(idInspection, languageCode));
         }
 
+        [HttpGet, Route("{idInspection:Guid}/buildingresume")]
+        public ActionResult GetResumeList(Guid idInspection)
+        {
+            return Ok(service.GetBuildingsResume(idInspection));
+        }
+
         [HttpPost, Route("Building/Export"), AllowAnonymous]
         public ActionResult GetInspectionForExport()
         {

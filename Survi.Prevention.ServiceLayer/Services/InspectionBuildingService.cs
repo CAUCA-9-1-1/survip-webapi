@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.DataTransfertObjects.Inspections;
 using Survi.Prevention.Models.InspectionManagement;
@@ -54,6 +55,25 @@ namespace Survi.Prevention.ServiceLayer.Services
                 .ToList();
 		}
 
+	    public List<InspectionBuildingResume> GetBuildingsResume(Guid inspectionId)
+	    {
+	        var query =
+	            from building in Context.InspectionBuildings.AsNoTracking()
+	            where building.IsActive && building.IdInspection == inspectionId
+	            select new InspectionBuildingResume
+	            {
+	                IdBuilding = building.Id,
+	                AliasName = building.AliasName,
+	                CorporateName = building.CorporateName,
+	                IsMainBuilding = building.ChildType == BuildingChildType.None,
+	                Coordinates = building.Coordinates,
+	                IdLaneTransversal = building.IdLaneTransversal
+	            };
+
+	        var result = query.ToList();
+	        return result;
+	    }
+
         public List<InspectionForExport> GetInspectionForExport()
         {
             var query = (from inspection in Context.Inspections.AsNoTracking()
@@ -102,6 +122,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 	        if (currentBuilding != null)
 	        {
 	            currentBuilding.IdLaneTransversal = building.IdLaneTransversal;
+	            currentBuilding.AliasName = building.AliasName;
+	            currentBuilding.CorporateName = building.CorporateName;
 	        }
 	        else
 	            return false;
