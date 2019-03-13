@@ -10,5 +10,6 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 		public string Color { get; set; }
 		public string Number { get; set; }
 		public string Address { get; set; }
+	    public bool IsActive { get; set; } = true;
 	}
 }

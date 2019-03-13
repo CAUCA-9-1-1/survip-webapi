@@ -57,9 +57,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 	    public List<InspectionBuildingFireHydrantForList> GetBuildingFireHydrants(Guid buildingId, string languageCode)
 	    {
-	        var results = (
+	        var query = (
 	            from formHydrant in Context.InspectionBuildingFireHydrants.AsNoTracking()
-	            where formHydrant.IsActive
+	            where formHydrant.IsActive && formHydrant.IdBuilding == buildingId
 	            let hydrant = formHydrant.Hydrant
 	            select new
 	            {
@@ -75,7 +75,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 	                formHydrant.IdFireHydrant,
 	                hydrant.CivicNumber,
 	                hydrant.AddressLocationType
-	            }).ToList();
+	            });
+	            
+	        var results = query.ToList();
 
 	        return results
 	            .Select(hydrant => new InspectionBuildingFireHydrantForList
