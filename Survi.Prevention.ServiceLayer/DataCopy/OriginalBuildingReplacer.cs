@@ -29,7 +29,7 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 		{
 			var building = GetBuilding(copy.Id);
 
-			building.CopyProperties(copy);
+            copy.CopyProperties(building);
 			ReplaceAlarmPanel(copy, building);
 			ReplaceContacts(copy, building);
 			ReplaceFireHydrants(copy, building);
