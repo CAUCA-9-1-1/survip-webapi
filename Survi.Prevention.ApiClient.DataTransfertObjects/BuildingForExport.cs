@@ -3,7 +3,7 @@ using System;
 
 namespace Survi.Prevention.ApiClient.DataTransferObjects
 {
-   public class BuidldingForExport: BaseTransferObject
+   public class BuildingForExport: BaseTransferObject
     {
         public Guid IdBuilding { get; set; }
         public Guid IdCity { get; set; }
