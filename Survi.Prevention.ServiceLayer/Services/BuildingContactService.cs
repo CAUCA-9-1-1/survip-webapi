@@ -88,7 +88,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             try
             {
                 Context.IsInImportationMode = true;
-                var buildingContacts = Context.BuildingContacts.Where(b => ids.Contains(b.IdBuilding.ToString())).ToList();
+                var buildingContacts = Context.BuildingContacts.Where(b => ids.Contains(b.IdExtern)).ToList();
 
                 buildingContacts.ForEach(b =>
                 {

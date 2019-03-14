@@ -65,7 +65,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             try
             {
                 Context.IsInImportationMode = true;
-                var buildingPnaps = Context.BuildingPersonsRequiringAssistances.Where(b => ids.Contains(b.Id.ToString())).ToList();
+                var buildingPnaps = Context.BuildingPersonsRequiringAssistances.Where(b => ids.Contains(b.IdExtern)).ToList();
 
                 buildingPnaps.ForEach(b =>
                 {
