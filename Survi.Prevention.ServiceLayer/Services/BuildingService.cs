@@ -206,14 +206,18 @@ namespace Survi.Prevention.ServiceLayer.Services
 	            .First();
 	    }
 
-        public List<string> AddBuildingChildToParentList(List<string> idBuildings)
+        public List<string> GetCompleteBuildingIdListFromParentId(List<string> idBuildings)
         {
+            List<string> completeList = new List<string>( );
+            completeList.AddRange(idBuildings);
+
             var query = (from building in Context.Buildings.AsNoTracking()
                     .IgnoreQueryFilters()
-                where (idBuildings.Contains(building.Id.ToString()) ||
-                       idBuildings.Contains(building.IdParentBuilding.ToString())) && building.HasBeenModified
+                where idBuildings.Contains(building.IdParentBuilding.ToString()) && building.HasBeenModified
                 select building.Id).ToList();
-            return query.Select(q => q.ToString()).ToList();
+            completeList.AddRange(query.Select(q => q.ToString()).ToList());
+
+            return completeList;
         }
 
         public Boolean SetEntityAsTransferedToCad(List<string> ids)
@@ -221,7 +225,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             try
             {
                 Context.IsInImportationMode = true;
-                var buildings = Context.Buildings.Where(b => ids.Contains(b.Id.ToString())).ToList();
+                var buildings = Context.Buildings.Where(b => ids.Contains(b.IdExtern)).ToList();
 
                 buildings.ForEach(b =>
                 {

@@ -156,14 +156,20 @@ namespace Survi.Prevention.WebApi.Controllers
         [HttpPost, Route("Export"), AllowAnonymous]
         public ActionResult Export([FromBody] List<string> idBuildings)
         {
-            return Ok(Service.Export(idBuildings));
+            List<string> completeIdBuildList = Service.GetCompleteBuildingIdListFromParentId(idBuildings);
+            return Ok(Service.Export(completeIdBuildList));
         }
 
         [HttpPost, Route("TransferedToCad"), AllowAnonymous]
         public ActionResult SetBuildingAsTransferedToCad([FromBody] List<string> ids)
         {
-            List<string> completeIdBuildList = Service.AddBuildingChildToParentList(ids);
-            return Ok(Service.SetEntityAsTransferedToCad(completeIdBuildList));
+            return Ok(Service.SetEntityAsTransferedToCad(ids));
+        }
+
+        [HttpPost, Route("TransferedToCad/CorrespondenceIds"), AllowAnonymous]
+        public ActionResult SetBuildingAsTransferedToCad([FromBody] List<ApiClient.DataTransferObjects.TransferIdCorrespondence> correspondenceIds)
+        {
+            return Ok();
         }
     }
 }

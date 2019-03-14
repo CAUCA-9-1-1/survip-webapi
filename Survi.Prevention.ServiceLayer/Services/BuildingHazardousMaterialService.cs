@@ -149,7 +149,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             try
             {
                 Context.IsInImportationMode = true;
-                var buildingHazardousMaterials = Context.BuildingHazardousMaterials.Where(b => ids.Contains(b.Id.ToString())).ToList();
+                var buildingHazardousMaterials = Context.BuildingHazardousMaterials.Where(b => ids.Contains(b.IdExtern)).ToList();
 
                 buildingHazardousMaterials.ForEach(b =>
                 {

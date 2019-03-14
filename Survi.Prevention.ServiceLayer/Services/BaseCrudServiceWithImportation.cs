@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.ApiClient.DataTransferObjects.Base;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models;
