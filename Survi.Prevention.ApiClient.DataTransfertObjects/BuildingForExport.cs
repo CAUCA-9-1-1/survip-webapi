@@ -10,5 +10,6 @@ namespace Survi.Prevention.ApiClient.DataTransferObjects
         public string CityName { get; set; }
         public string Address { get; set; }
         public string Name { get; set; }
+        public string IdBuildingExtern { get; set; }
     }
 }

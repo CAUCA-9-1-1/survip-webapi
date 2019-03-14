@@ -90,7 +90,8 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdBuilding = inspection.IdBuilding,
                     IdCity = building.City.Id,
                     Address = new AddressGenerator().GenerateAddress(building.CivicNumber, building.CivicLetter, laneLocalization.Name, building.Lane.LaneGenericCode.Description, building.Lane.PublicCode.Description, building.Lane.LaneGenericCode.AddWhiteSpaceAfter),
-                    LastEditedOn = inspection.LastModifiedOn ?? DateTime.Now
+                    LastEditedOn = inspection.LastModifiedOn ?? DateTime.Now,
+                    IdBuildingExtern = building.IdExtern
                 });
 
             return query.ToList();
