@@ -1,5 +1,4 @@
-﻿
-namespace Survi.Prevention.ApiClient.DataTransferObjects
+﻿namespace Survi.Prevention.ApiClient.DataTransferObjects
 {
     public class TransferIdCorrespondence
     {

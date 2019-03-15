@@ -4,7 +4,6 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.DataLayer;
-using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 using BuildingHazardousMaterial = Survi.Prevention.Models.Buildings.BuildingHazardousMaterial;
@@ -68,11 +67,8 @@ namespace Survi.Prevention.ServiceLayer.Services
 					HazardousMaterialName = mat.Name,
 					QuantityDescription = GetQuantityDescription(mat.Quantity, mat.CapacityContainer, mat.abbreviation ?? mat.unitName)
 				});
-
 			return result.ToList();
 		}
-
-       
 
         private string GetQuantityDescription(int quantity, decimal capacityContainer, string abbreviation)
 		{
@@ -86,7 +82,6 @@ namespace Survi.Prevention.ServiceLayer.Services
 				if (quantity > 0)
 					quantityDescription = $"{quantity} x {quantityDescription}";
 			}
-
 			return quantityDescription;
 		}
 
