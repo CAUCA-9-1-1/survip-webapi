@@ -68,13 +68,13 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			if (answer.QuestionType == 4 && answer.ChildSurveyAnswerList.Count != 0)
 			{
 				surveyToText += "<h3>" + answer.QuestionTitle + " #" + (i + 1) + "</h3>\n";
-				surveyToText += "<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:8.5in\">\n";
+				surveyToText += "<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:100%\">\n";
 				foreach (var answerChild in answer.ChildSurveyAnswerList)
 					surveyToText += AddAnswer(answerChild);
 			}
 			else
 			{
-				surveyToText += "<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:8.5in\">\n";
+				surveyToText += "<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:100%\">\n";
 				surveyToText += AddAnswer(answer);
 			}
 
@@ -86,8 +86,8 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		{
 			var answerText = "";
 			answerText += "<tr>\n";
-			answerText += "<td style=\"width:5.5in\">" + answer.QuestionDescription + "</td>\n";
-			answerText += "<td style=\"width:3.0in\">" + answer.Answer + "</td>\n";
+			answerText += "<td style=\"width:35%\">" + answer.QuestionDescription + "</td>\n";
+			answerText += "<td style=\"width:65%\">" + answer.Answer + "</td>\n";
 			answerText += "</tr>\n";
 			return answerText;
 		}
