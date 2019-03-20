@@ -35,7 +35,51 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-		public List<BuildingHazardousMaterialForList> GetMaterialsForList(Guid idBuilding, string languageCode)
+	    public List<BuildingHazardousMaterialForReport> GetMaterialsForReport(Guid idBuilding, string languageCode)
+	    {
+	        var query =
+	            from matBuilding in Context.BuildingHazardousMaterials.AsNoTracking()
+	            where matBuilding.IdBuilding == idBuilding && matBuilding.IsActive
+	            let mat = matBuilding.Material
+	            from loc in mat.Localizations
+	            where loc.IsActive && loc.LanguageCode == languageCode
+	            select new
+	            {
+	                loc.Name,
+	                matNumber = mat.Number,
+                    matBuilding,
+	                abbreviation = matBuilding.Unit == null ? null : matBuilding.Unit.Abbreviation,
+	                unitName = matBuilding.Unit == null ? "" :
+	                    matBuilding.Unit.Localizations
+	                        .Where(locUnit => locUnit.IsActive && locUnit.LanguageCode == languageCode)
+	                        .Select(locUnit => locUnit.Name)
+	                        .FirstOrDefault()
+	            };
+
+	        var result = query
+	            .ToList()
+	            .Select(mat => new BuildingHazardousMaterialForReport
+	            {
+	                Id = mat.matBuilding.Id,
+	                MaterialNumber = mat.matNumber,
+	                MaterialName = mat.Name,
+                    CapacityContainer = mat.matBuilding.CapacityContainer.ToString("f2"),
+                    Container = mat.matBuilding.Container,
+                    Floor = mat.matBuilding.Container,
+                    GasInlet = mat.matBuilding.GasInlet,
+                    OtherInformation = mat.matBuilding.OtherInformation,
+                    Place = mat.matBuilding.Place,
+                    Quantity = mat.matBuilding.Quantity.ToString(),
+                    SecurityPerimeter = mat.matBuilding.SecurityPerimeter,
+                    SupplyLine = mat.matBuilding.SupplyLine,
+                    UnitOfMeasure = mat.abbreviation ?? mat.unitName,
+                    TankType = mat.matBuilding.TankType,
+                    Wall = mat.matBuilding.Wall,
+	            });
+	        return result.ToList();
+	    }
+
+        public List<BuildingHazardousMaterialForList> GetMaterialsForList(Guid idBuilding, string languageCode)
 		{
 			var query =
 				from matBuilding in Context.BuildingHazardousMaterials.AsNoTracking()

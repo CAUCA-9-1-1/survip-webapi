@@ -277,6 +277,33 @@ namespace Survi.Prevention.ServiceLayer.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hors-terre.
+        /// </summary>
+        internal static string StorageTankType_Aboveground {
+            get {
+                return ResourceManager.GetString("StorageTankType_Aboveground", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sous-terre.
+        /// </summary>
+        internal static string StorageTankType_Underground {
+            get {
+                return ResourceManager.GetString("StorageTankType_Underground", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inconnu.
+        /// </summary>
+        internal static string StorageTankType_Unknown {
+            get {
+                return ResourceManager.GetString("StorageTankType_Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mur.
         /// </summary>
         internal static string wall {
