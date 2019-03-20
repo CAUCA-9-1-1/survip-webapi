@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Survi.Prevention.Models.DataTransfertObjects.Inspections;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
@@ -9,12 +10,10 @@ namespace Survi.Prevention.WebApi.Controllers
 	public class InspectionBuildingController : BaseSecuredController
 	{
 		private readonly InspectionBuildingService service;
-        private readonly BuildingService BuildingService;
-
-        public InspectionBuildingController(InspectionBuildingService service, BuildingService buildingService)
+        
+        public InspectionBuildingController(InspectionBuildingService service)
         {
             this.service = service;
-            BuildingService = buildingService;
         }
 
         [HttpGet, Route("{idInspection:Guid}/building")]
@@ -34,5 +33,11 @@ namespace Survi.Prevention.WebApi.Controllers
         {
             return Ok(service.GetInspectionForExport());
         }
+
+	    [HttpPost, Route("Building"), AllowAnonymous]
+	    public ActionResult Save([FromBody]InspectionBuildingResume building)
+	    {
+	        return Ok(service.SaveBuildingsResume(building));
+	    }
     }
 }
