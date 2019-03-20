@@ -11,10 +11,12 @@ namespace Survi.Prevention.WebApi.Controllers
     public class WebuserController : BaseCrudController<WebuserService, Webuser>
     {
         private readonly string applicationName;
+        private readonly PermissionObjectService permissionObjectService;
 
-        public WebuserController(WebuserService service, IConfiguration configuration) : base(service)
+        public WebuserController(WebuserService service, IConfiguration configuration, PermissionObjectService permissionObjectService) : base(service)
         {
             applicationName = configuration.GetSection("APIConfig:PackageName").Value;
+            this.permissionObjectService = permissionObjectService;
         }
 
 	    private List<Guid> GetCurrentUserDepartmentIds()
@@ -28,7 +30,10 @@ namespace Survi.Prevention.WebApi.Controllers
         public override ActionResult Post([FromBody] Webuser entity)
         {
             if (Service.AddOrUpdate(entity, applicationName, CurrentUserId) != Guid.Empty)
-                return Ok(new { id = entity.Id });
+            {
+                permissionObjectService.CreateNewUserPermissionObject(entity.Id);
+                return Ok(new {id = entity.Id});
+            }
 
             return BadRequest();
         }
@@ -44,5 +49,5 @@ namespace Survi.Prevention.WebApi.Controllers
 	    {
 		    return Ok(Service.GetListActive());
 	    }
-	}
+    }
 }

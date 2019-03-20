@@ -68,5 +68,27 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return true;
 		}
+
+        public void CreateNewUserPermissionObject(Guid idUser)
+        {
+            var isExistRecord = Context.PermissionObjects.Any(p => p.GenericId == idUser.ToString());
+            if (isExistRecord)
+                return;
+
+            var permissionSystem =
+                Context.PermissionSystems.SingleOrDefault(ps => ps.Description == "SURVI-Prevention");
+            if (permissionSystem != null)
+            {
+                PermissionObject newUserPermissionObject = new PermissionObject
+                {
+                    GenericId = idUser.ToString(),
+                    IdPermissionSystem = permissionSystem.Id,
+                    IsGroup = false,
+                    ObjectTable = "webuser"
+                };
+                Context.PermissionObjects.Add(newUserPermissionObject);
+                Context.SaveChanges();
+            }
+        }
     }
 }
