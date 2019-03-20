@@ -979,7 +979,7 @@ namespace Survi.Prevention.ApiClient.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La valeur ne doit pas dépasser .
+        ///   Looks up a localized string similar to Le nombre de caractères maximal est de.
         /// </summary>
         public static string TooLong {
             get {

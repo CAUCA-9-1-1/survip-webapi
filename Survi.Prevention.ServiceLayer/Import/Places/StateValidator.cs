@@ -2,7 +2,7 @@
 
 namespace Survi.Prevention.ServiceLayer.Import.Places
 {
-    public class StateValidator: BaseImportValidator<ApiClient.DataTransferObjects.State>
+    public class StateValidator: BaseImportWithLocalizationValidator<ApiClient.DataTransferObjects.State>
     {
 	    public StateValidator()
 	    {

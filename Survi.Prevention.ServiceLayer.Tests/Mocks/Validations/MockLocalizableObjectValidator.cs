@@ -2,6 +2,6 @@
 
 namespace Survi.Prevention.ServiceLayer.Tests.Mocks.Validations
 {
-    public class MockLocalizableObjectValidator : BaseImportValidator<MockLocalizableObject>
+    public class MockLocalizableObjectValidator : BaseImportWithLocalizationValidator<MockLocalizableObject>
     { }
 }

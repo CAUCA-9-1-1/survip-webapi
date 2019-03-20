@@ -26,6 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
                 IsActive = true,
 				IdCounty = "CAUCA21092005-10",
 				IdCityType = "CAUCA16022006-15",
+                UtilizationCodeYear = 2012,
                 Localizations = new List<cityImported.Base.Localization>
                 {
                     new cityImported.Base.Localization {Name = "City 1", LanguageCode = "en"},
@@ -42,7 +43,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
                 IsActive = true,
 	            IdCounty = Guid.NewGuid(),
 	            IdCityType = Guid.NewGuid(),
-
+                UtilizationCodeYear = 1966
             };
             existingCity.Localizations = new List<CityLocalization>
             {
@@ -72,7 +73,11 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
             var converter = new CityImportationConverter(CreateMockContext(), validator, new CacheSystem());
             var result = converter.Convert(importedCity).Result;
 
-            Assert.True(result.Code == importedCity.Code && result.Code3Letters == importedCity.Code3Letters && result.EmailAddress == importedCity.EmailAddress);
+            Assert.True(
+                result.Code == importedCity.Code 
+                && result.UtilizationCodeYear == importedCity.UtilizationCodeYear
+                && result.Code3Letters == importedCity.Code3Letters 
+                && result.EmailAddress == importedCity.EmailAddress);
         }
     }
 }
