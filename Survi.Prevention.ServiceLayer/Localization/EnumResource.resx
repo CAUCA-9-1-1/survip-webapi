@@ -195,4 +195,13 @@
   <data name="Copy" xml:space="preserve">
     <value> (Copie)</value>
   </data>
+  <data name="StorageTankType_Aboveground" xml:space="preserve">
+    <value>Hors-terre</value>
+  </data>
+  <data name="StorageTankType_Underground" xml:space="preserve">
+    <value>Sous-terre</value>
+  </data>
+  <data name="StorageTankType_Unknown" xml:space="preserve">
+    <value>Inconnu</value>
+  </data>
 </root>
