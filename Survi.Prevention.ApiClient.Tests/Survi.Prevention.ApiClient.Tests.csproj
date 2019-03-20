@@ -101,6 +101,8 @@
     <Compile Include="Repositories\CountryServiceValidationTests.cs" />
     <Compile Include="Repositories\EntityTranslationTests.cs" />
     <Compile Include="Repositories\ErrorMessageTranslatorTests.cs" />
+    <Compile Include="Repositories\ErrorMessageTranslatorTestsEnglishTranslation.cs" />
+    <Compile Include="Repositories\ErrorMessageTranslatorTestsFrenchTranslation.cs" />
     <Compile Include="Repositories\ExceptionsTests.cs" />
     <Compile Include="Repositories\RefreshTokenHandlerTests.cs" />
     <Compile Include="Repositories\RestResponseExtensionsTests.cs" />

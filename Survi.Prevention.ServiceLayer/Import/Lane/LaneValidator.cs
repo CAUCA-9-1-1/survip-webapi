@@ -2,7 +2,7 @@
 
 namespace Survi.Prevention.ServiceLayer.Import.Lane
 {
-    public class LaneValidator: BaseImportValidator<ApiClient.DataTransferObjects.Lane>
+    public class LaneValidator: BaseImportWithLocalizationValidator<ApiClient.DataTransferObjects.Lane>
     {
 	    public LaneValidator()
 	    {

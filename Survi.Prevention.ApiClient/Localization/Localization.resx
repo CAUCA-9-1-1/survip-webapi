@@ -424,7 +424,7 @@
     <value>Thème</value>
   </data>
   <data name="TooLong" xml:space="preserve">
-    <value>La valeur ne doit pas dépasser </value>
+    <value>Le nombre de caractères maximal est de</value>
   </data>
   <data name="TooShort" xml:space="preserve">
     <value>La valeur doit avoir au moins</value>

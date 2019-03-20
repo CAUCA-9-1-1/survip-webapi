@@ -2,7 +2,7 @@
 
 namespace Survi.Prevention.ServiceLayer.Import.Places
 {
-    public class RegionValidator: BaseImportValidator<ApiClient.DataTransferObjects.Region>
+    public class RegionValidator: BaseImportWithLocalizationValidator<ApiClient.DataTransferObjects.Region>
     {
 	    public RegionValidator()
 	    {
