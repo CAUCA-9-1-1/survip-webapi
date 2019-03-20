@@ -49,8 +49,12 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 		public List<Permission> GetListOfUserPermission(Guid id)
 		{
-			var idPermisionObject = Context.PermissionObjects.First(p => p.GenericId == id.ToString()).Id;
-			var permissions = GetFeatureListOfPermissionObject(idPermisionObject);
+			var permisionObject = Context.PermissionObjects.SingleOrDefault(p => p.GenericId == id.ToString());
+
+            if(permisionObject == null)
+                return new List<Permission>();
+
+            var permissions = GetFeatureListOfPermissionObject(permisionObject.Id);
 			
 			permissions.ForEach(permission =>
 			{
@@ -86,13 +90,9 @@ namespace Survi.Prevention.ServiceLayer.Services
 		public Guid Save(Permission permission)
 		{
 			if (permission.Access is null)
-			{
-				this.Delete(permission);
-			}
+				Delete(permission);
 			else
-			{
-				this.AddOrUpdate(permission);
-			}
+			    AddOrUpdate(permission);
 			
 			return permission.Id;
 		}
