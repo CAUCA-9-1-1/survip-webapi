@@ -88,6 +88,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
 
 	public class InspectionCompleted : BaseInspectionForDashboard
 	{
+        public DateTime? CompletedOn { get; set; }
 	}
 
 	public class BuildingWithoutInspection : BaseInspectionForDashboard

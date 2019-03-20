@@ -245,6 +245,7 @@ namespace Survi.Prevention.DataLayer
 				  b.id as id_building,
 				  i.id_webuser_assigned_to,
 				  i.status as inspection_status,
+                  i.completed_on,
 				  batch.is_ready_for_inspection,
 				  batch.should_start_on,
 				  COALESCE((CASE WHEN i.id_webuser_assigned_to IS NOT NULL THEN
