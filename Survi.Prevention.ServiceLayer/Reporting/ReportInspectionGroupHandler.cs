@@ -53,7 +53,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			var surveyToText = "";
 			foreach (var category in answers)
 			{
-				surveyToText += "<h3>" + category.Title + "</h3>\n";
+				surveyToText += "<h2>" + category.Title + "</h2>\n";
 				
 				for (var i = 0; i < category.AnswerSummary.Count; i++)
 					surveyToText = AddAnswer(category, i, surveyToText);
