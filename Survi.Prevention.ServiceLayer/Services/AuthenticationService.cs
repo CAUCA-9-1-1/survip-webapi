@@ -30,7 +30,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			{
 				var accessToken = GenerateAccessToken(userFound, applicationName, issuer, secretKey);
 				var refreshToken = GenerateRefreshToken();				
-				var token = new AccessToken {TokenForAccess = accessToken, RefreshToken = refreshToken, ExpiresIn = (int)(TimeSpan.FromHours(9).TotalSeconds), IdWebuser = userFound.Id};
+				var token = new AccessToken {TokenForAccess = accessToken, RefreshToken = refreshToken, ExpiresIn = (int)(TimeSpan.FromHours(24).TotalSeconds), IdWebuser = userFound.Id};
 				Context.Add(token);
 				Context.SaveChanges();
 				return (token, userFound);
@@ -123,7 +123,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 			var token = new JwtSecurityToken(issuer,
 				applicationName,
 				claims,
-				expires: DateTime.UtcNow.AddMinutes(60),
+				expires: DateTime.UtcNow.AddMinutes(15),
 				signingCredentials: creds);
 
 			return new JwtSecurityTokenHandler().WriteToken(token);
