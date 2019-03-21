@@ -57,7 +57,6 @@ namespace Survi.Prevention.WebApi.Controllers
 			return Ok();
 		}
 
-
 		[HttpPost]
 		[ODataRoute("BuildingChild"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
 		public IActionResult PostChild()
