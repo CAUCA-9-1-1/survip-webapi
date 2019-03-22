@@ -7,7 +7,7 @@ namespace Survi.Prevention.DataLayer.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropInitialInspectionViews();
+            //migrationBuilder.DropInitialInspectionViews();
 
             migrationBuilder.DropTable(
                 name: "building_localization");

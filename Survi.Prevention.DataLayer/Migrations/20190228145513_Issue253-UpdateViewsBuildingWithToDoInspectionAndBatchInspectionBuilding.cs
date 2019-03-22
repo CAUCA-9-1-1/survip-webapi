@@ -7,8 +7,7 @@ namespace Survi.Prevention.DataLayer.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropInitialInspectionViews();
-            migrationBuilder.CreateInitialInspectionViews();
-
+            
             migrationBuilder.DropInspectionBuildingManagementView();
             migrationBuilder.CreateInspectionBuildingManagementView();
         }
