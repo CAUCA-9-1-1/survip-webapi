@@ -100,5 +100,17 @@ namespace Survi.Prevention.WebApi.Controllers
 
 			return BadRequest("cantRemoveBuilding");
 		}
-	}
+
+        [HttpDelete]
+        [ODataRoute("BuildingChild({id})"), EnableQuery(AllowedQueryOptions = Microsoft.AspNet.OData.Query.AllowedQueryOptions.All)]
+        public IActionResult DeleteChild([FromODataUri] Guid id)
+        {
+            if (Service.Remove(id))
+            {
+                return Ok();
+            }
+
+            return BadRequest("cantRemoveBuilding");
+        }
+    }
 }
