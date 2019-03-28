@@ -51,7 +51,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			var query =
 				from picRisk in Context.BuildingParticularRiskPictures.AsNoTracking()
-				where picRisk.IdBuildingParticularRisk == idRisk && picRisk.IsActive
+				where picRisk.IdBuildingParticularRisk == idRisk && picRisk.IsActive && picRisk.IdPicture != null
 				let pic = picRisk.Picture
 				select new InspectionPictureForWeb
 				{
