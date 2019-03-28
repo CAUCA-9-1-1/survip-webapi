@@ -40,7 +40,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 		{
 			var query =
 				from picAnomaly in Context.BuildingAnomalyPictures.AsNoTracking()
-				where picAnomaly.IdBuildingAnomaly == idAnomaly && picAnomaly.IsActive
+				where picAnomaly.IdBuildingAnomaly == idAnomaly && picAnomaly.IsActive && picAnomaly.IdPicture != null
 				let pic = picAnomaly.Picture
 				select new InspectionPictureForWeb
 				{
