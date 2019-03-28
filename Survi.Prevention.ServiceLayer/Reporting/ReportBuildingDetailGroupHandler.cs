@@ -27,7 +27,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		protected override string GetFilledTemplate(string groupTemplate, BuildingDetailForReport entity, string languageCode)
 		{
 			var filledTemplate = base.GetFilledTemplate(groupTemplate, entity, languageCode);
-			if (filledTemplate.Contains(sitePlanPlaceholder))
+			if (filledTemplate.Contains($"@{Group.ToString()}.{sitePlanPlaceholder}@"))
 				filledTemplate = ReplaceSitePlanPlaceholderByPicture(entity, filledTemplate);
 			
 			return filledTemplate;
@@ -37,7 +37,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		{
 			var picture = service.GetSitePlan(entity.Id);
 			filledTemplate = picture == null 
-				? filledTemplate.Replace(sitePlanPlaceholder, "") 
+				? filledTemplate.Replace($"@{Group.ToString()}.{sitePlanPlaceholder}@", "") 
 				: filledTemplate.Replace($"@{Group.ToString()}.{sitePlanPlaceholder}@", FormatPicture(picture.DataUri));
 			return filledTemplate;
 		}
