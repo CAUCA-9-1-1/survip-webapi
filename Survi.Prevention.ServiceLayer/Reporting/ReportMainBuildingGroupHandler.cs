@@ -35,9 +35,9 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		protected override string GetFilledTemplate(string groupTemplate, BuildingForReport entity, string languageCode)
 		{
 			var filledTemplate = base.GetFilledTemplate(groupTemplate, entity, languageCode);
-			if (filledTemplate.Contains(sitePlanPlaceholder))
+			if (filledTemplate.Contains($"@{Group.ToString()}.{sitePlanPlaceholder}@"))
 				filledTemplate = ReplaceSitePlanPlaceholderByPicture(entity, filledTemplate);
-		    if (filledTemplate.Contains(fireSafetyDepartmentLogoPlaceholder))
+		    if (filledTemplate.Contains($"@{Group.ToString()}.{fireSafetyDepartmentLogoPlaceholder}@"))
 		        filledTemplate = ReplaceFireSafetyLogoByPicture(entity, filledTemplate);
 
 			return filledTemplate;
