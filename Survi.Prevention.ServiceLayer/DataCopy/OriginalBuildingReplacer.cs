@@ -90,27 +90,42 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 
 		private Picture ReplacePicture(InspectionPicture copy, Picture original)
 		{
-			if (copy != null && original == null)
+			if (IsNewPicture(copy, original))
 			{
 				return CreatePicture(copy);
 			}
 
-			if (copy != null && copy.Id != original.Id)
+			if (PictureHasChanged(copy, original))
 			{
 				original.IsActive = false;
 				return CreatePicture(copy);
 			}
 
-			if (copy == null && original != null)
+			if (PictureHasBeenDeleted(copy, original))
 			{
 				original.IsActive = false;
 				return original;
 			}
 
-			return null;
+			return original;
 		}
 
-		private Picture CreatePicture(InspectionPicture copy)
+        private static bool PictureHasBeenDeleted(InspectionPicture copy, Picture original)
+        {
+            return copy == null && original != null;
+        }
+
+        private static bool PictureHasChanged(InspectionPicture copy, Picture original)
+        {
+            return copy != null && copy.Id != original.Id;
+        }
+
+        private static bool IsNewPicture(InspectionPicture copy, Picture original)
+        {
+            return copy != null && original == null;
+        }
+
+        private Picture CreatePicture(InspectionPicture copy)
 		{
 			return new Picture
 			{
