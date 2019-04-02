@@ -155,7 +155,8 @@ namespace Survi.Prevention.ServiceLayer.Services
                     TankType = (StorageTankType) buildingHazardousMaterial.TankType,
                     Wall = buildingHazardousMaterial.Wall,
                     IsActive = buildingHazardousMaterial.IsActive,
-                    LastEditedOn = buildingHazardousMaterial.LastModifiedOn
+                    LastEditedOn = buildingHazardousMaterial.LastModifiedOn,
+                    CreatedOn = buildingHazardousMaterial.CreatedOn
                 };
 
             return query.ToList();

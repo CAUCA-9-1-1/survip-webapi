@@ -106,7 +106,8 @@ namespace Survi.Prevention.ServiceLayer.Services
                     NightResidentCount = buildingPnap.NightResidentCount,
                     PersonName = buildingPnap.PersonName,
                     IsActive = buildingPnap.IsActive,
-                    LastEditedOn = buildingPnap.LastModifiedOn
+                    LastEditedOn = buildingPnap.LastModifiedOn,
+                    CreatedOn = buildingPnap.CreatedOn
                 };
             return query.ToList();
         }
