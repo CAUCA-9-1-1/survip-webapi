@@ -27,7 +27,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		[HttpGet("list")]
 		public ActionResult GetAvailableReports()
 		{
-			List<ReportConfigurationTemplate> groups = Service.GetPlaceholders(GetDepartmentIds());
+			List<ReportConfigurationTemplate> groups = Service.GetReports(GetDepartmentIds());
 			return Ok(groups);
 		}
 

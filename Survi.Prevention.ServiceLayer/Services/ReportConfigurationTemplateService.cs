@@ -22,10 +22,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 			return result;
 		}
 
-		public List<ReportConfigurationTemplate> GetPlaceholders(List<Guid> allowedDepartmentIds = null)
+	    public List<ReportConfigurationTemplate> GetReports(List<Guid> allowedDepartmentIds = null)
 		{
 		    var query =
 		        from template in Context.ReportConfigurationTemplate
+                where template.IsActive
 		        select template;
 
 		    if (allowedDepartmentIds != null)
