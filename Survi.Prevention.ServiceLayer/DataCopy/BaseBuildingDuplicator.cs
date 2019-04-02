@@ -11,8 +11,8 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 
         protected BaseBuildingDuplicator(IManagementContext context, Guid inspectionId)
         {
-            this.Context = context;
-            this.InspectionId = inspectionId;
+            Context = context;
+            InspectionId = inspectionId;
         }
 
         protected TCopy DuplicateBuilding<TOriginal, TCopy>(TOriginal building)
@@ -54,7 +54,11 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
                 VacantLand = building.VacantLand,
                 YearOfConstruction = building.YearOfConstruction,
                 AliasName = building.AliasName,
-                CorporateName = building.CorporateName
+                CorporateName = building.CorporateName,
+                IdWebUserLastModifiedBy = building.IdWebUserLastModifiedBy,
+                LastModifiedOn = building.LastModifiedOn,
+                HasBeenModified = building.HasBeenModified,
+                IdExtern = building.IdExtern                
             };
         }	
     }

@@ -9,27 +9,9 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 			where TOriginal : IBaseBuildingHazardousMaterial, new()
 			where TCopy : IBaseBuildingHazardousMaterial, new()
 		{
-			return new TCopy
-			{
-				CapacityContainer = material.CapacityContainer,
-				Container = material.Container,
-				CreatedOn = material.CreatedOn,
-				Floor = material.Floor,
-				GasInlet = material.GasInlet,
-				Id = material.Id,
-				IdBuilding = material.IdBuilding,
-				IdHazardousMaterial = material.IdHazardousMaterial,
-				IdUnitOfMeasure = material.IdUnitOfMeasure,
-				IsActive = material.IsActive,
-				OtherInformation = material.OtherInformation,
-				Place = material.Place,
-				Quantity = material.Quantity,
-				Sector = material.Sector,
-				SecurityPerimeter = material.SecurityPerimeter,
-				SupplyLine = material.SupplyLine,
-				TankType = material.TankType,
-				Wall = material.Wall
-			};
+		    var copy = new TCopy();
+		    material.CopyProperties(copy);
+		    return copy;
 		}
 
 		public IEnumerable<TCopy> Duplicate<TOriginal, TCopy>(ICollection<TOriginal> materials)

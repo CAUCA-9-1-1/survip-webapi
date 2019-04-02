@@ -72,8 +72,13 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 				IsWeakened = risk.IsWeakened,
 				Sector = risk.Sector,
 				Wall = risk.Wall,
-				Pictures = CopyRiskPictures(risk.Pictures)
-			};
+				Pictures = CopyRiskPictures(risk.Pictures),
+			    IdWebUserLastModifiedBy = risk.IdWebUserLastModifiedBy,
+			    HasBeenModified = risk.HasBeenModified,
+			    IdExtern = risk.IdExtern,
+			    ImportedOn = risk.ImportedOn,
+			    LastModifiedOn = risk.LastModifiedOn
+            };
 		}
 
 		private List<InspectionBuildingParticularRiskPicture> CopyRiskPictures(ICollection<BuildingParticularRiskPicture> riskPictures)
@@ -86,8 +91,13 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 					IdBuildingParticularRisk = pic.IdBuildingParticularRisk,
 					IdPicture = pic.IdPicture,
 					IsActive = pic.IsActive,
-					Picture = CopyPicture(pic.Picture)
-				})
+					Picture = CopyPicture(pic.Picture),
+				    IdWebUserLastModifiedBy = pic.IdWebUserLastModifiedBy,
+				    HasBeenModified = pic.HasBeenModified,
+				    IdExtern = pic.IdExtern,
+				    ImportedOn = pic.ImportedOn,
+				    LastModifiedOn = pic.LastModifiedOn
+                })
 				.ToList();
 		}
 
@@ -109,8 +119,13 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 					IsActive = anomaly.IsActive,
 					Notes = anomaly.Notes,
 					Theme = anomaly.Theme,
-					Pictures = CopyAnomalyPictures(anomaly)
-				});
+					Pictures = CopyAnomalyPictures(anomaly),
+				    IdWebUserLastModifiedBy = anomaly.IdWebUserLastModifiedBy,
+				    HasBeenModified = anomaly.HasBeenModified,
+				    IdExtern = anomaly.IdExtern,
+				    ImportedOn = anomaly.ImportedOn,
+				    LastModifiedOn = anomaly.LastModifiedOn
+                });
 			}
 		}
 
@@ -124,8 +139,13 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 					IdBuildingAnomaly = pic.IdBuildingAnomaly,
 					IdPicture = pic.IdPicture,
 					IsActive = pic.IsActive,
-					Picture = CopyPicture(pic.Picture)
-				})
+					Picture = CopyPicture(pic.Picture),
+				    IdWebUserLastModifiedBy = pic.IdWebUserLastModifiedBy,
+				    HasBeenModified = pic.HasBeenModified,
+				    IdExtern = pic.IdExtern,
+				    ImportedOn = pic.ImportedOn,
+				    LastModifiedOn = pic.LastModifiedOn
+                })
 				.ToList();
 		}
 
@@ -141,8 +161,10 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 				IsActive = picture.IsActive,
 				MimeType = picture.MimeType,
 				Name = picture.Name,
-				SketchJson = picture.SketchJson
-			};
+				SketchJson = picture.SketchJson,
+			    IdWebUserLastModifiedBy = picture.IdWebUserLastModifiedBy,
+			    LastModifiedOn = picture.LastModifiedOn
+            };
 		}
 
 		private void CopyBuildingCourses(Guid buildingId)
@@ -165,8 +187,13 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 				IdBuilding = course.IdBuilding,
 				IdFirestation = course.IdFirestation,
 				IsActive = course.IsActive,
-				Lanes = CopyCourseLanes(course)
-			});
+				Lanes = CopyCourseLanes(course),
+			    IdWebUserLastModifiedBy = course.IdWebUserLastModifiedBy,
+			    HasBeenModified = course.HasBeenModified,
+			    IdExtern = course.IdExtern,
+			    ImportedOn = course.ImportedOn,
+			    LastModifiedOn = course.LastModifiedOn
+            });
 		}
 
 		private static List<InspectionBuildingCourseLane> CopyCourseLanes(BuildingCourse course)
@@ -180,8 +207,13 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 					IdLane = lane.IdLane,
 					IsActive = lane.IsActive,
 					Direction = lane.Direction,
-					Sequence = lane.Sequence
-				}).ToList();
+					Sequence = lane.Sequence,
+				    IdWebUserLastModifiedBy = lane.IdWebUserLastModifiedBy,
+				    HasBeenModified = lane.HasBeenModified,
+				    IdExtern = lane.IdExtern,
+				    ImportedOn = lane.ImportedOn,
+                    LastModifiedOn = lane.LastModifiedOn
+                }).ToList();
 		}
 
 		private InspectionBuilding GenerateInspectionBuilding(Building building)
@@ -210,6 +242,7 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 			return new InspectionBuildingDetail
 			{
 				Id = detail.Id,
+                GarageType = detail.GarageType,                
 				AdditionalInformation = detail.AdditionalInformation,
 				ApprovedOn = detail.ApprovedOn,
 				IsActive = detail.IsActive,
@@ -226,7 +259,13 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 				IdUnitOfMeasureEstimatedWaterFlow = detail.IdUnitOfMeasureEstimatedWaterFlow,
 				RevisedOn = detail.RevisedOn,
 				IdUnitOfMeasureHeight = detail.IdUnitOfMeasureHeight,
-				PlanPicture = CopyPicture(detail.PlanPicture)
+				PlanPicture = CopyPicture(detail.PlanPicture),
+
+                IdWebUserLastModifiedBy = detail.IdWebUserLastModifiedBy,
+                HasBeenModified = detail.HasBeenModified,
+                IdExtern = detail.IdExtern,
+                ImportedOn = detail.ImportedOn,
+                LastModifiedOn = detail.LastModifiedOn
 			};
 		}		
 	}

@@ -9,17 +9,9 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 			where TOriginal : IBaseBuildingAlarmPanel, new()
 			where TCopy : IBaseBuildingAlarmPanel, new()
 		{
-			return new TCopy
-			{
-				Id = panel.Id,
-				CreatedOn = panel.CreatedOn,
-				Floor = panel.Floor,
-				IdAlarmPanelType = panel.IdAlarmPanelType,
-				IdBuilding = panel.IdBuilding,
-				IsActive = panel.IsActive,
-				Sector = panel.Sector,
-				Wall = panel.Wall
-			};
+		    var copy = new TCopy();
+            panel.CopyProperties(copy);
+		    return copy;
 		}
 
 		public IEnumerable<TCopy> Duplicate<TOriginal, TCopy>(ICollection<TOriginal> alarmPanels)

@@ -9,26 +9,9 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 			where TOriginal : IBaseBuildingPersonRequiringAssistance, new()
 			where TCopy : IBaseBuildingPersonRequiringAssistance, new()
 		{
-			return new TCopy
-			{
-				ContactName = person.ContactName,
-				ContactPhoneNumber = person.ContactPhoneNumber,
-				CreatedOn = person.CreatedOn,
-				DayIsApproximate = person.DayIsApproximate,
-				DayResidentCount = person.DayResidentCount,
-				Description = person.Description,
-				EveningIsApproximate = person.EveningIsApproximate,
-				EveningResidentCount = person.EveningResidentCount,
-				Floor = person.Floor,
-				Id = person.Id,
-				IdBuilding = person.IdBuilding,
-				IdPersonRequiringAssistanceType = person.IdPersonRequiringAssistanceType,
-				IsActive = person.IsActive,
-				Local = person.Local,
-				NightIsApproximate = person.NightIsApproximate,
-				NightResidentCount = person.NightResidentCount,
-				PersonName = person.PersonName,
-			};
+		    var copy = new TCopy();
+		    person.CopyProperties(copy);
+		    return copy;
 		}
 
 		public IEnumerable<TCopy> Duplicate<TOriginal, TCopy>(ICollection<TOriginal> persons)
