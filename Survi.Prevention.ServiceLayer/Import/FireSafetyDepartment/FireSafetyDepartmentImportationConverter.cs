@@ -1,10 +1,8 @@
-﻿using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
 using FluentValidation;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Import.Base;
-using Survi.Prevention.Models;
 using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 using importedFireSafetyDepartment = Survi.Prevention.ApiClient.DataTransferObjects.FireSafetyDepartment;

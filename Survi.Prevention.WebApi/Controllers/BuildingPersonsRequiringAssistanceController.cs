@@ -10,11 +10,11 @@ namespace Survi.Prevention.WebApi.Controllers
 	[Route("api/building/pnaps")]
 	public class BuildingPersonsRequiringAssistanceController : BaseCrudControllerWithImportation<BuildingPersonRequiringAssistanceService, BuildingPersonRequiringAssistance, ApiClient.DataTransferObjects.BuildingPersonRequiringAssistance>
     {
-        private readonly BuildingService BuildingService;
+        private readonly BuildingService buildingService;
 
         public BuildingPersonsRequiringAssistanceController(BuildingPersonRequiringAssistanceService service, BuildingService buildingService) : base(service)
         {
-            BuildingService = buildingService;
+            this.buildingService = buildingService;
         }
 
 		[Route("/api/building/{idBuilding:Guid}/pnaps"), HttpGet]
@@ -26,7 +26,7 @@ namespace Survi.Prevention.WebApi.Controllers
         [HttpPost, Route("Export"), AllowAnonymous]
         public ActionResult Export([FromBody] List<string> idBuildings)
         {
-            List<string> completeIdBuildList = BuildingService.GetCompleteBuildingIdListFromParentId(idBuildings);
+            List<string> completeIdBuildList = buildingService.GetCompleteBuildingIdListFromParentId(idBuildings);
             return Ok(Service.Export(completeIdBuildList));
         }
 

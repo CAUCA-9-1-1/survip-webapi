@@ -17,11 +17,5 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 				IsDefault = false
 			};
 		}
-
-		public IEnumerable<ReportConfigurationTemplate> Duplicate(ICollection<ReportConfigurationTemplate> templates)
-		{
-			foreach (var template in templates)
-				yield return DuplicateReportTemplate(template);
-		}
 	}
 }

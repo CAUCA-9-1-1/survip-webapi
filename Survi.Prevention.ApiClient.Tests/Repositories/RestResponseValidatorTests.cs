@@ -11,49 +11,49 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
        [Test]
         public void CorrectlyThrowsNotFoundException()
         {
-            Assert.Throws<NotFoundApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", true, HttpStatusCode.NotFound, null));
+            Assert.Throws<NotFoundApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", true, HttpStatusCode.NotFound));
         }
 
         [Test]
         public void CorrectlyThrowsBadParameterException()
         {
-            Assert.Throws<BadParameterApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", true, HttpStatusCode.BadRequest, null));
+            Assert.Throws<BadParameterApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", true, HttpStatusCode.BadRequest));
         }
 
         [Test]
         public void CorrectlyThrowsUnauthorizedException()
         {
-            Assert.Throws<UnauthorizedApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", true, HttpStatusCode.Unauthorized, null));
+            Assert.Throws<UnauthorizedApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", true, HttpStatusCode.Unauthorized));
         }
 
         [Test]
         public void CorrectlyThrowsForbiddenException()
         {
-            Assert.Throws<ForbiddenApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", true, HttpStatusCode.Forbidden, null));
+            Assert.Throws<ForbiddenApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", true, HttpStatusCode.Forbidden));
         }
 
         [Test]
         public void CorrectlyThrowsInternalErrorException()
         {
-            Assert.Throws<InternalErrorApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", true, HttpStatusCode.InternalServerError, null));
+            Assert.Throws<InternalErrorApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", true, HttpStatusCode.InternalServerError));
         }
 
         [Test]
         public void CorrectlyThrowsNoResponseForZeroStatusCode()
         {
-            Assert.Throws<NoResponseApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", false, 0, null));
+            Assert.Throws<NoResponseApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", false, 0));
         }        
 
         [Test]
         public void CorrectlyThrowsNoResponseForResponseStatusTimedOut()
         {
-            Assert.Throws<NoResponseApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", false, HttpStatusCode.RequestTimeout, null));
+            Assert.Throws<NoResponseApiException>(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", false, HttpStatusCode.RequestTimeout));
         }
 
         [Test]
         public void DoesNoThrowExceptionWhenNoErrors()
         {
-            Assert.DoesNotThrow(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", true, HttpStatusCode.OK, null));
+            Assert.DoesNotThrow(() => new RestResponseValidator().ThrowExceptionForStatusCode("test", true, HttpStatusCode.OK));
         }
     }
 }

@@ -2,7 +2,6 @@
 using Flurl.Http.Testing;
 using NUnit.Framework;
 using Survi.Prevention.ApiClient.Configurations;
-using Survi.Prevention.ApiClient.Exceptions;
 using Survi.Prevention.ApiClient.Services.Base;
 using Survi.Prevention.ApiClient.Tests.Mocks;
 

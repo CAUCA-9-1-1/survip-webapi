@@ -1,6 +1,4 @@
-﻿using Survi.Prevention.ApiClient.DataTransferObjects.Base;
-
-namespace Survi.Prevention.ApiClient.DataTransferObjects
+﻿namespace Survi.Prevention.ApiClient.DataTransferObjects
 {
     public class BuildingCourseLane
     {
