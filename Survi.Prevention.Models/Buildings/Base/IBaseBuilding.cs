@@ -5,7 +5,7 @@ using Survi.Prevention.Models.FireSafetyDepartments;
 
 namespace Survi.Prevention.Models.Buildings.Base
 {
-    public interface IBaseBuilding : IBaseModel
+    public interface IBaseBuilding : IBaseImportedModel
     {
         string AppartmentNumber { get; set; }
         decimal BuildingValue { get; set; }

@@ -9,19 +9,9 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 			where TOriginal : IBaseBuildingSprinkler, new()
 			where TCopy : IBaseBuildingSprinkler, new()
 		{
-			return new TCopy
-			{
-				CollectorLocation = sprinkler.CollectorLocation,
-				CreatedOn = sprinkler.CreatedOn,
-				Floor = sprinkler.Floor,
-				Id = sprinkler.Id,
-				IdBuilding = sprinkler.IdBuilding,
-				IdSprinklerType = sprinkler.IdSprinklerType,
-				IsActive = sprinkler.IsActive,
-				PipeLocation = sprinkler.PipeLocation,
-				Sector = sprinkler.Sector,
-				Wall = sprinkler.Wall
-			};
+		    var copy = new TCopy();
+		    sprinkler.CopyProperties(copy);
+		    return copy;
 		}
 
 		public IEnumerable<TCopy> Duplicate<TOriginal, TCopy>(ICollection<TOriginal> sprinklers)

@@ -9,15 +9,9 @@ namespace Survi.Prevention.ServiceLayer.DataCopy
 			where TOriginal : IBaseBuildingFireHydrant, new()
 			where TCopy : IBaseBuildingFireHydrant, new()
 		{
-			return new TCopy
-			{
-				CreatedOn = hydrant.CreatedOn,
-				DeletedOn = hydrant.DeletedOn,
-				Id = hydrant.Id,
-				IdBuilding = hydrant.IdBuilding,
-				IdFireHydrant = hydrant.IdFireHydrant,
-				IsActive = hydrant.IsActive
-			};
+		    var copy = new TCopy();
+		    hydrant.CopyProperties(copy);
+		    return copy;
 		}
 
 		public IEnumerable<TCopy> Duplicate<TOriginal, TCopy>(ICollection<TOriginal> hydrants)

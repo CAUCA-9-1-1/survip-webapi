@@ -2,7 +2,7 @@
 
 namespace Survi.Prevention.Models.Base
 {
-    public abstract class BaseImportedModel : BaseModel
+    public abstract class BaseImportedModel : BaseModel, IBaseImportedModel
     {
 		public string IdExtern { get; set;}
 		public DateTime? ImportedOn { get; set;}
