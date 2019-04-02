@@ -11,10 +11,10 @@ namespace Survi.Prevention.WebApi.Controllers
 	[Route("api/building/contact")]
 	public class BuildingContactController : BaseCrudControllerWithImportation<BuildingContactService, BuildingContact, ApiClient.DataTransferObjects.BuildingContact>
 	{
-        private readonly BuildingService BuildingService;
+        private readonly BuildingService buildingService;
         public BuildingContactController(BuildingContactService service, BuildingService buildingService) : base(service)
         {
-            BuildingService = buildingService;
+            this.buildingService = buildingService;
         }
 
         [HttpGet, Route("/api/building/{idBuilding:Guid}/contact")]
@@ -26,7 +26,7 @@ namespace Survi.Prevention.WebApi.Controllers
         [HttpPost, Route("Export"), AllowAnonymous]
         public ActionResult Export([FromBody] List<string> idBuildings)
         {
-            List<string> completeIdBuildList = BuildingService.GetCompleteBuildingIdListFromParentId(idBuildings);
+            List<string> completeIdBuildList = buildingService.GetCompleteBuildingIdListFromParentId(idBuildings);
             return Ok(Service.Export(completeIdBuildList));
         }
 

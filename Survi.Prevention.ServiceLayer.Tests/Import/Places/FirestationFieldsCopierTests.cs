@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Survi.Prevention.ApiClient.DataTransferObjects;
 using Survi.Prevention.ServiceLayer.Import.Places.Copiers;
 using Xunit;
@@ -9,7 +7,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.Places
 {
     public class FirestationFieldsCopierTests
     {
-        public readonly FirestationFieldsCopier copier;
+        private readonly FirestationFieldsCopier copier;
         private readonly Guid? idBuilding = Guid.NewGuid();
         private readonly Firestation imported;
         private readonly Models.FireSafetyDepartments.Firestation entity;

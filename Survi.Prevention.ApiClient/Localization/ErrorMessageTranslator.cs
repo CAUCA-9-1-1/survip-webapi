@@ -8,7 +8,7 @@ namespace Survi.Prevention.ApiClient.Localization
 	public class ErrorMessageTranslator
     {
         private string[] errorMessageList;
-        private CultureInfo currentCulture;
+        private readonly CultureInfo currentCulture;
 
         public ErrorMessageTranslator()
         {

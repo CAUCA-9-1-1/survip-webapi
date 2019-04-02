@@ -26,7 +26,7 @@ namespace Survi.Prevention.ServiceLayer.Import.BuildingImportation
             DataRisk entity)
         {
             entity.Code = importedObject.Code;
-            entity.Color = importedObject.Color.ToString();
+            entity.Color = importedObject.Color;
             entity.Sequence = importedObject.Sequence;
         }
     }

@@ -11,7 +11,7 @@ namespace Survi.Prevention.ServiceLayer.Tests.Import.BuildingImportation.Validat
 
         public BuildingDetailImportationValidatorTests()
         {
-            this.validator = new BuildingDetailImportationValidator();
+            validator = new BuildingDetailImportationValidator();
         }
 
         [Theory]

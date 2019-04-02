@@ -61,11 +61,7 @@ namespace Survi.Prevention.ApiClient.Tests.Repositories
         [TestCase]
         public static void TranslateErrorMessagesStringToObject()
         {
-            var listOfErrors = new List<string>() {"Number_TooLong_4", "LastName_InvalidValue", "Quantity_NullValue"};
-            var result = new List<ErrorMessageInformation>();
-            result.Add(new ErrorMessageInformation(){ FieldName = "Number", ErrorMessage = "The maximum number of characters is 4."});
-            result.Add(new ErrorMessageInformation(){ FieldName = "Last name", ErrorMessage = "The value is invalid."});
-            result.Add(new ErrorMessageInformation(){ FieldName = "Quantity", ErrorMessage = "The value does not exist."});
+            var listOfErrors = new List<string> {"Number_TooLong_4", "LastName_InvalidValue", "Quantity_NullValue"};
             var test = new ErrorMessageTranslator().TranslateErrorMessages(listOfErrors);
             Assert.AreEqual(3, test.Count);
         }

@@ -2,9 +2,7 @@
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Tests.Mocks;
-using Xunit;
 using imported = Survi.Prevention.ApiClient.DataTransferObjects;
-using Survi.Prevention.ServiceLayer.Import.Lane;
 
 namespace Survi.Prevention.ServiceLayer.Tests.Import.LaneImportation
 {
