@@ -56,7 +56,8 @@ namespace Survi.Prevention.ServiceLayer.Services
                     PhoneNumber = buildingcontact.PhoneNumber,
                     PhoneNumberExtension = buildingcontact.PhoneNumberExtension,
                     IsActive = buildingcontact.IsActive,
-                    LastEditedOn = buildingcontact.LastModifiedOn
+                    LastEditedOn = buildingcontact.LastModifiedOn,
+                    CreatedOn = buildingcontact.CreatedOn
                 });
             return query.ToList();
         }
