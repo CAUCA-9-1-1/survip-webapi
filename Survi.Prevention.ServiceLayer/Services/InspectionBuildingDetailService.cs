@@ -111,8 +111,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 	        if (isExistRecord)
 	        {
 	            Context.Set<InspectionBuildingDetail>().Update(entity);
-                // patch: this is a way to NOT try to update IdPicturePlan because this field will be managed elsewhere.
-	            Context.Entry(entity).Property(nameof(entity.IdPicturePlan)).IsModified = false;
+	            PreventIdPicturePlanFromBeingUpdatedExceptWhenItIsSetToNull(entity);
 	        }
 	        else
 	            Context.Set<InspectionBuildingDetail>().Add(entity);
@@ -120,5 +119,11 @@ namespace Survi.Prevention.ServiceLayer.Services
 	        Context.SaveChanges();
 	        return entity.Id;
         }
+
+	    private void PreventIdPicturePlanFromBeingUpdatedExceptWhenItIsSetToNull(InspectionBuildingDetail entity)
+	    {
+	        if (entity.IdPicturePlan != null)
+	            Context.Entry(entity).Property(nameof(entity.IdPicturePlan)).IsModified = false;
+	    }
 	}
 }
