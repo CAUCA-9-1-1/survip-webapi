@@ -9,8 +9,8 @@ namespace Survi.Prevention.DataLayer.Mapping
 		{
 			b.HasQueryFilter(m => m.IsActive);
 
-			b.Property(m => m.FirstName).HasMaxLength(30).IsRequired();
-			b.Property(m => m.LastName).HasMaxLength(30).IsRequired();
+			b.Property(m => m.FirstName).HasMaxLength(100).IsRequired();
+			b.Property(m => m.LastName).HasMaxLength(100).IsRequired();
 			b.Property(m => m.PhoneNumber).HasMaxLength(10).IsRequired();
 			b.Property(m => m.PhoneNumberExtension).HasMaxLength(10).IsRequired();
 			b.Property(m => m.PagerNumber).HasMaxLength(10).IsRequired();
