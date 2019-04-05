@@ -11,7 +11,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                 .Annotation("Npgsql:PostgresExtension:postgis", ",,")
                 .Annotation("Npgsql:PostgresExtension:uuid-ossp", ",,")
                 .OldAnnotation("Npgsql:PostgresExtension:postgis", "'postgis', '', ''")
-                .OldAnnotation("Npgsql:PostgresExtension:uuid-ossp", "'uuid-ossp', '', ''");
+                .OldAnnotation("Npgsql:PostgresExtension:uuid-ossp", ",,");
 
             migrationBuilder.AddColumn<Guid>(
                 name: "id_picture",
@@ -47,8 +47,8 @@ namespace Survi.Prevention.DataLayer.Migrations
                 table: "fire_safety_department");
 
             migrationBuilder.AlterDatabase()
-                .Annotation("Npgsql:PostgresExtension:postgis", "'postgis', '', ''")
-                .Annotation("Npgsql:PostgresExtension:uuid-ossp", "'uuid-ossp', '', ''")
+                .Annotation("Npgsql:PostgresExtension:postgis", ",,")
+                .Annotation("Npgsql:PostgresExtension:uuid-ossp", ",,")
                 .OldAnnotation("Npgsql:PostgresExtension:postgis", ",,")
                 .OldAnnotation("Npgsql:PostgresExtension:uuid-ossp", ",,");
         }

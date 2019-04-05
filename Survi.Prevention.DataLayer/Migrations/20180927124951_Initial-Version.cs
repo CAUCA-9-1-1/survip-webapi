@@ -9,8 +9,8 @@ namespace Survi.Prevention.DataLayer.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
-                .Annotation("Npgsql:PostgresExtension:postgis", "'postgis', '', ''")
-                .Annotation("Npgsql:PostgresExtension:uuid-ossp", "'uuid-ossp', '', ''");
+                .Annotation("Npgsql:PostgresExtension:postgis", ",,")
+                .Annotation("Npgsql:PostgresExtension:uuid-ossp", ",,");
 
             migrationBuilder.CreateTable(
                 name: "access_secret_key",
@@ -4366,7 +4366,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                 table: "webuser_fire_safety_department",
                 column: "id_webuser");
 
-	        migrationBuilder.CreateInitialInspectionViews();
+	        //migrationBuilder.CreateInitialInspectionViews();
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

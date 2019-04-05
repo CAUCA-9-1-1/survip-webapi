@@ -7,13 +7,13 @@ namespace Survi.Prevention.DataLayer.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropInitialInspectionViews();
-            migrationBuilder.CreateInitialInspectionViews();
+            migrationBuilder.CreateCurrentInspectionViews();
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropInitialInspectionViews();
-            migrationBuilder.CreateInitialInspectionViews();
+            migrationBuilder.CreateCurrentInspectionViews();
         }
     }
 }

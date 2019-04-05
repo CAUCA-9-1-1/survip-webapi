@@ -6,15 +6,144 @@ namespace Survi.Prevention.DataLayer
 	{
 		public static void DropInitialInspectionViews(this MigrationBuilder migrationBuilder)
 		{
-			migrationBuilder.Sql("DROP VIEW building_with_no_active_inspection;");
-			migrationBuilder.Sql("DROP VIEW building_with_todo_inspection;");
-			migrationBuilder.Sql("DROP VIEW building_with_ready_for_approbation_inspection;");
-			migrationBuilder.Sql("DROP VIEW building_with_completed_inspection;");
-			migrationBuilder.Sql("DROP VIEW building_for_report");
-			migrationBuilder.Sql("DROP VIEW building_detail_for_report");
+			migrationBuilder.Sql("DROP VIEW IF EXISTS building_with_no_active_inspection;");
+			migrationBuilder.Sql("DROP VIEW IF EXISTS building_with_todo_inspection;");
+			migrationBuilder.Sql("DROP VIEW IF EXISTS building_with_ready_for_approbation_inspection;");
+			migrationBuilder.Sql("DROP VIEW IF EXISTS building_with_completed_inspection;");
+			migrationBuilder.Sql("DROP VIEW IF EXISTS building_for_report");
+			migrationBuilder.Sql("DROP VIEW IF EXISTS building_detail_for_report");
 		}
+        public static void CreateInitialInspectionViews(this MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.Sql(@"
+				CREATE VIEW building_with_no_active_inspection
+				  AS
+				SELECT
+				  b.id				  
 
-		public static void CreateInitialInspectionViews(this MigrationBuilder migrationBuilder)
+				FROM building as b
+				INNER JOIN lane as l on b.id_lane = l.id
+				INNER JOIN lane_public_code as lpc ON lpc.id = l.id_public_code
+				INNER JOIN lane_generic_code as lgc ON lgc.id = l.id_lane_generic_code
+				INNER JOIN lane_localization as laneloc ON l.id = laneloc.id_lane
+
+				WHERE b.is_active = true
+				AND 	b.child_type = 0
+				AND 	not exists(select id from inspection as i where i.id_building = b.id and (i.status IN (0, 1, 2, 4)));
+				");
+
+            migrationBuilder.Sql(@"
+				CREATE VIEW building_with_todo_inspection
+				  AS
+				SELECT
+				  b.id
+
+				FROM inspection as i
+				INNER JOIN batch on batch.id = i.id_batch
+				INNER JOIN building as b ON i.id_building = b.id AND b.is_active = true and b.child_type = 0
+				INNER JOIN lane as l on b.id_lane = l.id
+				INNER JOIN lane_public_code as lpc ON lpc.id = l.id_public_code
+				INNER JOIN lane_generic_code as lgc ON lgc.id = l.id_lane_generic_code
+				INNER JOIN lane_localization as laneloc ON l.id = laneloc.id_lane
+
+				WHERE i.is_active = true and i.status in (0, 1, 4);
+				");
+
+            migrationBuilder.Sql(@"
+				CREATE VIEW building_with_ready_for_approbation_inspection
+				  AS
+				SELECT
+				  b.id
+
+				FROM inspection as i
+				INNER JOIN batch on batch.id = i.id_batch
+				INNER JOIN building as b ON i.id_building = b.id AND b.is_active = true and b.child_type = 0
+				INNER JOIN lane as l on b.id_lane = l.id
+				INNER JOIN lane_public_code as lpc ON lpc.id = l.id_public_code
+				INNER JOIN lane_generic_code as lgc ON lgc.id = l.id_lane_generic_code
+				INNER JOIN lane_localization as laneloc ON l.id = laneloc.id_lane
+
+				WHERE i.is_active = true and i.status = 2;
+				");
+
+            migrationBuilder.Sql(@"
+				CREATE VIEW building_with_completed_inspection
+				  AS
+				SELECT
+				  b.id
+
+				FROM inspection as i
+				INNER JOIN batch on batch.id = i.id_batch
+				INNER JOIN building as b ON i.id_building = b.id AND b.is_active = true and b.child_type = 0
+				INNER JOIN lane as l on b.id_lane = l.id
+				INNER JOIN lane_public_code as lpc ON lpc.id = l.id_public_code
+				INNER JOIN lane_generic_code as lgc ON lgc.id = l.id_lane_generic_code
+				INNER JOIN lane_localization as laneloc ON l.id = laneloc.id_lane
+
+				WHERE i.is_active = true and i.status = 3;
+				");
+
+            migrationBuilder.Sql(@"
+				CREATE OR REPLACE VIEW building_for_report
+				  AS
+				SELECT
+				  b.id
+
+				FROM building AS b
+				  INNER JOIN building_detail AS bd ON b.id = bd.id_building
+				  INNER JOIN lane AS l ON b.id_lane = l.id
+				  INNER JOIN lane_public_code AS lpc ON lpc.id = l.id_public_code
+				  INNER JOIN lane_generic_code AS lgc ON lgc.id = l.id_lane_generic_code
+				  INNER JOIN lane_localization AS laneloc ON l.id = laneloc.id_lane
+
+				  INNER JOIN city ON l.id_city = city.id
+				  INNER JOIN city_localization as cl on city.id = cl.id_city and cl.language_code = laneloc.language_code
+				  INNER JOIN county_localization as countyloc on city.id_county = countyloc.id_county and countyloc.language_code = laneloc.language_code
+				  INNER JOIN county on countyloc.id_county = county.id
+                  INNER JOIN region on county.id_region = region.id
+				  INNER JOIN state on region.id_state = state.id
+				  INNER JOIN country_localization as countryloc ON state.id_country = countryloc.id_country and countryloc.language_code = laneloc.language_code
+
+				  LEFT JOIN lane AS lt ON b.id_lane_transversal = lt.id
+				  LEFT JOIN lane_public_code AS lpct ON lpct.id = lt.id_public_code
+				  LEFT JOIN lane_generic_code AS lgct ON lgct.id = lt.id_lane_generic_code
+				  LEFT JOIN lane_localization AS laneloct ON lt.id = laneloct.id_lane AND laneloct.language_code = laneloc.language_code
+
+				  LEFT JOIN utilisation_code AS uc ON b.id_utilisation_code = uc.id
+				  LEFT JOIN utilisation_code_localization AS ucloc
+					ON uc.id = ucloc.id_utilisation_code AND ucloc.language_code = laneloc.language_code
+
+				  LEFT JOIN risk_level AS risk ON b.id_risk_level = risk.id
+				  LEFT JOIN risk_level_localization AS riskloc
+					ON riskloc.id_risk_level = risk.id AND riskloc.language_code = laneloc.language_code
+
+				WHERE b.is_active = TRUE;
+				");
+
+            migrationBuilder.Sql(@"
+				CREATE OR REPLACE VIEW building_detail_for_report
+					AS
+				SELECT
+					bd.id
+
+				FROM building as b
+				INNER JOIN building_detail as bd ON b.id = bd.id_building
+				CROSS JOIN (select 'fr' as code union select 'en' as code) as lang
+				LEFT JOIN building_type_localization as btype on btype.id_building_type = bd.id_building_type and btype.language_code = lang.code
+				LEFT JOIN siding_type_localization as stype on stype.id_siding_type = bd.id_building_siding_type and stype.language_code = lang.code
+					LEFT JOIN construction_type_localization as ctype on ctype.id_construction_type = bd.id_construction_type and ctype.language_code = lang.code
+					LEFT JOIN construction_fire_resistance_type_localization as cfrtype on cfrtype.id_parent = bd.id_construction_fire_resistance_type and cfrtype.language_code = lang.code
+					LEFT JOIN roof_material_type_localization as rmtype on rmtype.id_roof_material_type = bd.id_roof_material_type and rmtype.language_code = lang.code
+					LEFT JOIN roof_type_localization as rtype on rtype.id_roof_type = bd.id_roof_type and rtype.language_code = lang.code
+					LEFT JOIN unit_of_measure as ewfunit on ewfunit.id = bd.id_unit_of_measure_estimated_water_flow --and ewfunit.language_code = lang.code
+					LEFT JOIN unit_of_measure as heightunit on heightunit.id = bd.id_unit_of_measure_height --and heightunit.language_code = lang.code
+
+				WHERE b.is_active = true;
+				");
+        }
+
+
+        public static void CreateCurrentInspectionViews(this MigrationBuilder migrationBuilder)
 		{
 			migrationBuilder.Sql(@"
 				CREATE VIEW building_with_no_active_inspection
@@ -394,8 +523,8 @@ namespace Survi.Prevention.DataLayer
 
 		public static void DropInspectionBuildingManagementView(this MigrationBuilder builder)
 		{
-			builder.Sql("DROP VIEW batch_inspection_building;");
-			builder.Sql("DROP VIEW available_building_for_management;");
+			builder.Sql("DROP VIEW IF EXISTS batch_inspection_building;");
+			builder.Sql("DROP VIEW IF EXISTS available_building_for_management;");
 		}
 
 		public static void CreateInspectionBuildingManagementView(this MigrationBuilder builder)
