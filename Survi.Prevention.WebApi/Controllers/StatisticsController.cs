@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.ServiceLayer.Services;
+
 
 namespace Survi.Prevention.WebApi.Controllers
 {
@@ -16,7 +19,7 @@ namespace Survi.Prevention.WebApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetStatistics()
+        public ActionResult GetStatistics([FromBody] Guid idFireSafetyDepartment)
         {
             return Ok(service.GetStatistics());
         }

@@ -112,6 +112,7 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<FireSafetyDepartmentInspectionConfigurationRiskLevel> FireSafetyDepartmentInspectionConfigurationRiskLevels { get; set; }
 
         public DbSet<FireSafetyDepartmentCityServing> FireSafetyDepartmentCityServings { get; set; }
+        public DbSet<Objectives> Objectives { get; set; }
 
         public DbQuery<BuildingWithoutInspection> BuildingsWithoutInspection { get; set; }
 		public DbQuery<InspectionToDo> InspectionsToDo { get; set; }
