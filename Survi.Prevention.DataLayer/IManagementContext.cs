@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Survi.Prevention.Models;
@@ -110,6 +110,7 @@ namespace Survi.Prevention.DataLayer
         DbSet<FireSafetyDepartmentInspectionConfigurationRiskLevel> FireSafetyDepartmentInspectionConfigurationRiskLevels { get; set; }
 
         DbSet<FireSafetyDepartmentCityServing> FireSafetyDepartmentCityServings { get; set; }
+        DbSet<Objectives> Objectives { get; set; }
 
         DbQuery<BuildingWithoutInspection> BuildingsWithoutInspection { get; set; }
         DbQuery<InspectionToDo> InspectionsToDo { get; set; }
