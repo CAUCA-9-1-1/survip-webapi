@@ -8,7 +8,7 @@ using Survi.Prevention.ServiceLayer.Services;
 namespace Survi.Prevention.WebApi.Controllers
 {
     [Route("api/Objectives")]
-    public class ObjectivesController : Controller
+    public class ObjectivesController : BaseSecuredController
     {
         private readonly ObjectiveService service;
 
@@ -17,8 +17,8 @@ namespace Survi.Prevention.WebApi.Controllers
             this.service = service;
         }
 
-        [HttpGet]
-        public ActionResult GetObjectives([FromBody] Guid idFireSafetyDepartment)
+        [HttpGet, Route("{idFireSafetyDepartment:Guid}")]
+        public ActionResult GetObjectives(Guid idFireSafetyDepartment)
         {
             return Ok(service.GetList(idFireSafetyDepartment));
         }
@@ -27,6 +27,12 @@ namespace Survi.Prevention.WebApi.Controllers
         public ActionResult Post([FromBody] Objectives entity)
         {
             return Ok(service.Save(entity));
+        }
+
+        [HttpDelete, Route("{id:Guid}")]
+        public ActionResult Delete(Guid id)
+        {
+            return Ok(service.Remove(id));
         }
     }
 }
