@@ -18,10 +18,11 @@ namespace Survi.Prevention.ServiceLayer.Services
         public List<Objectives> GetList(Guid idFireSafetyDeparment)
         {
             var result = Context.Objectives
-                .Where(r => r.IdFireSafetyDepartment == idFireSafetyDeparment)
+                .Where(r => r.IsActive && r.IdFireSafetyDepartment == idFireSafetyDeparment)
                 .ToList();
 
             return result;
+
         }
 
         public Guid Save(Objectives objective)
@@ -29,6 +30,18 @@ namespace Survi.Prevention.ServiceLayer.Services
             AddOrUpdate(objective);
 
             return objective.Id;
+        }
+
+        public bool Remove(Guid id)
+        {
+            var entity = Context.Set<Objectives>().Find(id);
+
+            if (entity == null)
+                return false;
+
+            entity.IsActive = false;
+            Context.SaveChanges();
+            return true;
         }
 
         private void AddOrUpdate(Objectives objective)
@@ -42,6 +55,5 @@ namespace Survi.Prevention.ServiceLayer.Services
 
             Context.SaveChanges();
         }
-
     }
 }
