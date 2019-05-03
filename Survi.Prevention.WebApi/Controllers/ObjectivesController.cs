@@ -4,35 +4,34 @@ using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.ServiceLayer.Services;
 
-
 namespace Survi.Prevention.WebApi.Controllers
 {
     [Route("api/Objectives")]
     public class ObjectivesController : BaseSecuredController
     {
-        private readonly ObjectiveService service;
+        private readonly ObjectiveService objectiveService;
 
         public ObjectivesController(ObjectiveService service)
         {
-            this.service = service;
+            this.objectiveService = service;
         }
 
-        [HttpGet, Route("{idFireSafetyDepartment:Guid}")]
-        public ActionResult GetObjectives(Guid idFireSafetyDepartment)
+        [HttpGet]
+        public ActionResult GetList()
         {
-            return Ok(service.GetList(idFireSafetyDepartment));
+            return Ok(objectiveService.GetList());
         }
 
         [HttpPost]
         public ActionResult Post([FromBody] Objectives entity)
         {
-            return Ok(service.Save(entity));
+            return Ok(objectiveService.Save(entity));
         }
 
         [HttpDelete, Route("{id:Guid}")]
         public ActionResult Delete(Guid id)
         {
-            return Ok(service.Remove(id));
+            return Ok(objectiveService.Remove(id));
         }
     }
 }
