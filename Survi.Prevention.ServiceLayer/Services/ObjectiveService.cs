@@ -15,14 +15,14 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
         }
 
-        public List<Objectives> GetList(Guid idFireSafetyDeparment)
+        public List<Objectives> GetList()
         {
             var result = Context.Objectives
-                .Where(r => r.IsActive && r.IdFireSafetyDepartment == idFireSafetyDeparment)
+                .Where(r => r.IsActive)
+                .Include(r => r.FireSafetyDepartment)
                 .ToList();
 
             return result;
-
         }
 
         public Guid Save(Objectives objective)
