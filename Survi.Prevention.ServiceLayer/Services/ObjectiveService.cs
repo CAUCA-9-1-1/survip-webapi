@@ -15,16 +15,27 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
         }
 
-        public List<Objectives> GetList()
+        public List<Objectives> GetList(bool isHighRisk)
         {
             var result = Context.Objectives
-                .Where(r => r.IsActive)
+                .Where(r => r.IsActive && r.IsHighRisk == isHighRisk)
                 .Include(r => r.FireSafetyDepartment)
+                .OrderBy(r => r.Year)
                 .ToList();
 
             return result;
         }
 
+        public List<Objectives> GetList(Guid idFireSafetyDepartment)
+        {
+            var result = Context.Objectives
+                .Where(r => r.IsActive && r.IdFireSafetyDepartment == idFireSafetyDepartment)
+                .Include(r => r.FireSafetyDepartment)
+                .OrderBy(r => r.Year)
+                .ToList();
+
+            return result;
+        }
         public Guid Save(Objectives objective)
         {
             AddOrUpdate(objective);
@@ -54,6 +65,57 @@ namespace Survi.Prevention.ServiceLayer.Services
                 Context.Objectives.Add(objective);
 
             Context.SaveChanges();
+        }
+
+        public StatusStatistics GetStatusStatistics(List<Guid> idCities)
+        {
+            var statistics = new StatusStatistics();
+
+            statistics.InspectionRefused = Context.InspectionVisits
+                .Where(r => r.IsActive && r.HasBeenRefused && idCities.Contains(r.Inspection.MainBuilding.IdCity))
+                .Count();
+
+            statistics.OwnerWasAbsent = Context.InspectionVisits
+                .Where(r => r.IsActive && r.OwnerWasAbsent && idCities.Contains(r.Inspection.MainBuilding.IdCity))
+                .Count();
+
+            statistics.DoorHangerHasBeenLeft = Context.InspectionVisits
+                .Where(r => r.IsActive && r.DoorHangerHasBeenLeft && idCities.Contains(r.Inspection.MainBuilding.IdCity))
+                .Count();
+
+            statistics.Success = Context.InspectionVisits
+                .Where(r => r.IsActive && r.Status == InspectionVisitStatus.Completed && idCities.Contains(r.Inspection.MainBuilding.IdCity))
+                .Count();
+
+            return statistics;
+        }
+
+        public List<InspectionVisitForStatistics> GetInspectionsStatistics(List<Guid> idCities)
+        {
+            var query =
+               from visit in Context.InspectionVisits
+               where visit.IsActive
+                     && idCities.Contains(visit.Inspection.MainBuilding.IdCity)
+               let building = visit.Inspection.MainBuilding
+               select new
+               {
+                   visit.Id,
+                   building.IdCity,
+                   visit.Status,
+                   visit.EndedOn,
+                   building.RiskLevel.Code,
+               };
+
+            return query.AsNoTracking().ToList()
+                .Select(result => new InspectionVisitForStatistics
+                {
+                    Id = result.Id,
+                    IdCity = result.IdCity,
+                    Status = result.Status,
+                    CompletedOn = result.EndedOn,
+                    RiskLevel = result.Code,
+
+                }).ToList();
         }
     }
 }
