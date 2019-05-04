@@ -97,24 +97,33 @@ namespace Survi.Prevention.ServiceLayer.Services
                where visit.IsActive
                      && idCities.Contains(visit.Inspection.MainBuilding.IdCity)
                let building = visit.Inspection.MainBuilding
+               from fireSafetyDeparmentCityServing in Context.FireSafetyDepartmentCityServings
+               where fireSafetyDeparmentCityServing.IsActive
+                    && fireSafetyDeparmentCityServing.IdCity == building.IdCity
                select new
                {
                    visit.Id,
                    building.IdCity,
+                   fireSafetyDeparmentCityServing.IdFireSafetyDepartment,
                    visit.Status,
                    visit.EndedOn,
                    building.RiskLevel.Code,
+                   visit.HasBeenRefused,
+                   visit.OwnerWasAbsent,
+                   visit.DoorHangerHasBeenLeft,
                };
 
             return query.AsNoTracking().ToList()
                 .Select(result => new InspectionVisitForStatistics
                 {
                     Id = result.Id,
-                    IdCity = result.IdCity,
+                    IdFireSafetyDepartment = result.IdFireSafetyDepartment,
                     Status = result.Status,
                     CompletedOn = result.EndedOn,
                     RiskLevel = result.Code,
-
+                    HasBeenRefused = result.HasBeenRefused,
+                    OwnerWasAbsent = result.OwnerWasAbsent,
+                    DoorHangerHasBeenLeft = result.DoorHangerHasBeenLeft
                 }).ToList();
         }
     }
