@@ -9,13 +9,13 @@ using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-    public class ObjectiveService : BaseService
+    public class StatisticService : BaseService
     {
-        public ObjectiveService(IManagementContext context) : base(context)
+        public StatisticService(IManagementContext context) : base(context)
         {
         }
 
-        public List<Objectives> GetList(bool isHighRisk)
+        public List<Objectives> GetObjectiveList(bool isHighRisk)
         {
             var result = Context.Objectives
                 .Where(r => r.IsActive && r.IsHighRisk == isHighRisk)
@@ -36,6 +36,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 
             return result;
         }
+
         public Guid Save(Objectives objective)
         {
             AddOrUpdate(objective);
@@ -67,30 +68,7 @@ namespace Survi.Prevention.ServiceLayer.Services
             Context.SaveChanges();
         }
 
-        public StatusStatistics GetStatusStatistics(List<Guid> idCities)
-        {
-            var statistics = new StatusStatistics();
-
-            statistics.InspectionRefused = Context.InspectionVisits
-                .Where(r => r.IsActive && r.HasBeenRefused && idCities.Contains(r.Inspection.MainBuilding.IdCity))
-                .Count();
-
-            statistics.OwnerWasAbsent = Context.InspectionVisits
-                .Where(r => r.IsActive && r.OwnerWasAbsent && idCities.Contains(r.Inspection.MainBuilding.IdCity))
-                .Count();
-
-            statistics.DoorHangerHasBeenLeft = Context.InspectionVisits
-                .Where(r => r.IsActive && r.DoorHangerHasBeenLeft && idCities.Contains(r.Inspection.MainBuilding.IdCity))
-                .Count();
-
-            statistics.Success = Context.InspectionVisits
-                .Where(r => r.IsActive && r.Status == InspectionVisitStatus.Completed && idCities.Contains(r.Inspection.MainBuilding.IdCity))
-                .Count();
-
-            return statistics;
-        }
-
-        public List<InspectionVisitForStatistics> GetInspectionsStatistics(List<Guid> idCities)
+        public List<InspectionVisitForStatistics> GetInspectionVisitStatistics(List<Guid> idCities)
         {
             var query =
                from visit in Context.InspectionVisits
