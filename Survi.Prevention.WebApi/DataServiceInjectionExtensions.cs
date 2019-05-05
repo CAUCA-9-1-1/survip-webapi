@@ -92,7 +92,7 @@ namespace Survi.Prevention.WebApi
             services.AddTransient<PermissionSystemFeatureService>();
             services.AddTransient<GeolocationService>();
             services.AddTransient<GeneralConfigurationService>();
-            services.AddTransient<ObjectiveService>();
+            services.AddTransient<StatisticService>();
             return services;
         }
 

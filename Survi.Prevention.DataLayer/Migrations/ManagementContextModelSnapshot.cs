@@ -22,6 +22,44 @@ namespace Survi.Prevention.DataLayer.Migrations
                 .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            modelBuilder.Entity("Survi.Prevention.DataLayer.Objectives", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("created_on");
+
+                    b.Property<Guid>("IdFireSafetyDepartment")
+                        .HasColumnName("id_fire_safety_department");
+
+                    b.Property<Guid?>("IdWebUserLastModifiedBy")
+                        .HasColumnName("id_web_user_last_modified_by");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active");
+
+                    b.Property<bool>("IsHighRisk")
+                        .HasColumnName("is_high_risk");
+
+                    b.Property<DateTime?>("LastModifiedOn")
+                        .HasColumnName("last_modified_on");
+
+                    b.Property<int>("Objective")
+                        .HasColumnName("objective");
+
+                    b.Property<int>("Year")
+                        .HasColumnName("year");
+
+                    b.HasKey("Id")
+                        .HasName("pk_objectives");
+
+                    b.HasIndex("IdFireSafetyDepartment");
+
+                    b.ToTable("objectives");
+                });
+
             modelBuilder.Entity("Survi.Prevention.Models.Buildings.AlarmPanelType", b =>
                 {
                     b.Property<Guid>("Id")
@@ -9893,6 +9931,15 @@ namespace Survi.Prevention.DataLayer.Migrations
                     b.HasBaseType("Survi.Prevention.Models.InspectionManagement.BuildingCopy.InspectionBuildingParticularRisk");
 
                     b.HasDiscriminator().HasValue(2);
+                });
+
+            modelBuilder.Entity("Survi.Prevention.DataLayer.Objectives", b =>
+                {
+                    b.HasOne("Survi.Prevention.Models.FireSafetyDepartments.FireSafetyDepartment", "FireSafetyDepartment")
+                        .WithMany()
+                        .HasForeignKey("IdFireSafetyDepartment")
+                        .HasConstraintName("fk_objectives_fire_safety_departments_fire_safety_department_id")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Survi.Prevention.Models.Buildings.AlarmPanelTypeLocalization", b =>
