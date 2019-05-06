@@ -2,8 +2,7 @@ using System;
 using Survi.Prevention.Models.Base;
 using Survi.Prevention.Models.FireSafetyDepartments;
 
-
-namespace Survi.Prevention.DataLayer
+namespace Survi.Prevention.Models
 {
     public class Objectives : BaseModel
     {
