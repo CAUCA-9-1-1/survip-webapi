@@ -29,12 +29,12 @@ namespace Survi.Prevention.WebApi.Controllers
                 }
                 else
                 {
-                    return BadRequest();
+                    return StatusCode(500);
                 }
             }
             catch (Exception)
             {
-                return BadRequest();
+                return StatusCode(500);
             }
         }
     }
