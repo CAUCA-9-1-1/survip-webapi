@@ -1,8 +1,11 @@
+using System;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using System.Linq;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
+using Survi.Prevention.DataLayer;
 
 namespace Survi.Prevention.WebApi
 {
@@ -10,12 +13,24 @@ namespace Survi.Prevention.WebApi
     {
         public static void Main(string[] args)
         {
-	        var host = CreateWebHostBuilding(args)
+            foreach(var arg in args)
+                Console.WriteLine($"args: {arg}");
+
+	        var host = CreateWebHostBuilder(args)	            
 		        .Build();
-			host.Run();
+
+            if (args.Any(arg => arg.ToLower() == "run-migration"))
+            {
+                host.MigrateDatabase<ManagementContext>();
+                Environment.Exit(0);
+            }
+            else
+            {
+                host.Run();
+            }
         }
 
-	    public static IWebHostBuilder CreateWebHostBuilding(string[] args)
+	    public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 	    {
 	        ValidatorOptions.DisplayNameResolver = (type, memberInfo, expression) => memberInfo.Name;
 

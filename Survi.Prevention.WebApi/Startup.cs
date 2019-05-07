@@ -68,6 +68,7 @@ namespace Survi.Prevention.WebApi
 			var connectionString = Configuration.GetConnectionString("SurviPreventionDatabase");
 			services.AddDbContext<ManagementContext>(options => options.UseNpgsql(connectionString, npgOptions =>
 			{
+			    npgOptions.MigrationsAssembly("Survi.Prevention.DataLayer");
 				npgOptions.UseNetTopologySuite();
 			}));
 		    services.AddScoped<IManagementContext, ManagementContext>();
