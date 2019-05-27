@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
 using Survi.Prevention.ServiceLayer.Services;
 
@@ -37,7 +38,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			var filledTemplate = base.GetFilledTemplate(groupTemplate, entity, languageCode);
 			if (filledTemplate.Contains($"@{Group.ToString()}.{sitePlanPlaceholder}@"))
 				filledTemplate = ReplaceSitePlanPlaceholderByPicture(entity, filledTemplate);
-		    if (filledTemplate.Contains($"@{Group.ToString()}.{fireSafetyDepartmentLogoPlaceholder}@"))
+		    if (filledTemplate.Contains($"@{Group.ToString()}.{fireSafetyDepartmentLogoPlaceholder}"))
 		        filledTemplate = ReplaceFireSafetyLogoByPicture(entity, filledTemplate);
 
 			return filledTemplate;
@@ -73,10 +74,40 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 	    {
 	        var idCity = service.GetIdCity(entity.Id);
 	        var picture = departmentService.GetLogoByCity(idCity);
-	        filledTemplate = picture == null
-	            ? filledTemplate.Replace($"@{Group.ToString()}.{fireSafetyDepartmentLogoPlaceholder}@", "")
-	            : ReplaceAltForSrcWithLogo(filledTemplate, picture.DataUri);
-	        return filledTemplate;
+
+	        if (picture == null)
+	        {
+	            filledTemplate = filledTemplate.Replace($"@{Group.ToString()}.{fireSafetyDepartmentLogoPlaceholder}@", "");
+	        }
+	        else
+	        {
+
+                var heightWidthInt = filledTemplate.IndexOf($"@{Group.ToString()}.{fireSafetyDepartmentLogoPlaceholder}", StringComparison.Ordinal);
+	            bool canStop = false;
+	            int countForEnd = (Group.ToString().Length + fireSafetyDepartmentLogoPlaceholder.Length + 2);
+	            do
+	            {
+	                var stringToCheck = filledTemplate.Substring(heightWidthInt, countForEnd);
+
+                    if (!stringToCheck.EndsWith("@"))
+	                    countForEnd++;
+	                else
+	                    canStop = true;
+	            } while (canStop == false);
+
+	            var holderSplit = filledTemplate.Substring(heightWidthInt, countForEnd).Split('.');
+
+	            var height = String.Empty;
+	            if (holderSplit.Length == 3)
+	                height = holderSplit[2].Replace("@", "");
+
+	            filledTemplate = !String.IsNullOrEmpty(height) 
+	                ? filledTemplate.Replace($"@{Group.ToString()}.{fireSafetyDepartmentLogoPlaceholder}.{height}@", PictureHtmlTagGenerator.GetTagForLogo(picture.DataUri, height))
+	                : filledTemplate.Replace($"@{Group.ToString()}.{fireSafetyDepartmentLogoPlaceholder}@", PictureHtmlTagGenerator.GetTagForLogo(picture.DataUri, "100"));
+	        }
+
+
+            return filledTemplate;
 	    }
 
 	    private string ReplaceAltForSrcWithLogo(string filledTemplate, string dataUri)
