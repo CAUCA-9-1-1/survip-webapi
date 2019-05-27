@@ -8,10 +8,10 @@
 			       "\" height=\"400\" />";
 		}
 
-	    public static string GetTagForLogo(object value)
+	    public static string GetTagForLogo(object value, string height)
 	    {
 	        return "<img style=\"margin: 5px 5px\" src=\"" + value +
-	               "\" height=\"100\" />";
+	               $"\" height=\"{height}\" width=\"auto\" />";
 	    }
     }
 }
