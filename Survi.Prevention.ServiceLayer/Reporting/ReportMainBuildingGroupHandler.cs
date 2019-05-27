@@ -37,7 +37,7 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			var filledTemplate = base.GetFilledTemplate(groupTemplate, entity, languageCode);
 			if (filledTemplate.Contains($"@{Group.ToString()}.{sitePlanPlaceholder}@"))
 				filledTemplate = ReplaceSitePlanPlaceholderByPicture(entity, filledTemplate);
-		    if (filledTemplate.Contains($"@{Group.ToString()}.{fireSafetyDepartmentLogoPlaceholder}@"))
+		    if (filledTemplate.Contains($"@{Group.ToString()}.{fireSafetyDepartmentLogoPlaceholder}"))
 		        filledTemplate = ReplaceFireSafetyLogoByPicture(entity, filledTemplate);
 
 			return filledTemplate;
@@ -75,8 +75,16 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 	        var picture = departmentService.GetLogoByCity(idCity);
 	        filledTemplate = picture == null
 	            ? filledTemplate.Replace($"@{Group.ToString()}.{fireSafetyDepartmentLogoPlaceholder}@", "")
-	            : filledTemplate.Replace($"@{Group.ToString()}.{fireSafetyDepartmentLogoPlaceholder}@", PictureHtmlTagGenerator.GetTagForLogo(picture.DataUri));
+	            : ReplaceAltForSrcWithLogo(filledTemplate,picture.DataUri);
 	        return filledTemplate;
 	    }
+
+	    private string ReplaceAltForSrcWithLogo(string filledTemplate, string dataUri)
+	    {
+            filledTemplate = filledTemplate.Replace($"alt=\"@{Group.ToString()}.{fireSafetyDepartmentLogoPlaceholder}@\"", "");
+	        filledTemplate = filledTemplate.Replace("src=\" \"", $"src=\"{dataUri}\"");
+            return filledTemplate;
+	    }
+
     }
 }
