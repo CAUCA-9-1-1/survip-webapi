@@ -65,7 +65,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 	                MaterialName = mat.Name,
                     CapacityContainer = mat.matBuilding.CapacityContainer.ToString("f2"),
                     Container = mat.matBuilding.Container,
-                    Floor = mat.matBuilding.Container,
+                    Floor = mat.matBuilding.Floor,
                     GasInlet = mat.matBuilding.GasInlet,
                     OtherInformation = mat.matBuilding.OtherInformation,
                     Place = mat.matBuilding.Place,
@@ -74,6 +74,7 @@ namespace Survi.Prevention.ServiceLayer.Services
                     SupplyLine = mat.matBuilding.SupplyLine,
                     UnitOfMeasure = mat.abbreviation ?? mat.unitName,
                     TankType = mat.matBuilding.TankType,
+                    Sector = mat.matBuilding.Sector,
                     Wall = mat.matBuilding.Wall,
 	            });
 	        return result.ToList();
