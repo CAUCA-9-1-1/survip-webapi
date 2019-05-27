@@ -18,6 +18,7 @@ namespace Survi.Prevention.Models.DataTransfertObjects
         public string GasInlet { get; set; }
         public string SecurityPerimeter { get; set; }
         public string OtherInformation { get; set; }
+        public string Sector { get; set; }
         public string SupplyLine { get; set; }
         public StorageTankType TankType { get; set; }
     }
