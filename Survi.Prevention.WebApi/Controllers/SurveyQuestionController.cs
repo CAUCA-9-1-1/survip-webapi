@@ -25,5 +25,17 @@ namespace Survi.Prevention.WebApi.Controllers
 			else
 				return BadRequest("Error during the moving processs of the question");
 		}
-	}
+
+	    [HttpGet, Route("CheckIfQuestionUsedAsNext/{idSurveyQuestion:Guid}")]
+	    public ActionResult CheckIfQuestionUsedAsNext(Guid idSurveyQuestion)
+	    {
+	        return Ok(Service.CheckIfQuestionUsedAsNext(idSurveyQuestion));
+	    }
+
+	    [HttpDelete, Route("Choice/{idSurveyQuestion:Guid}")]
+	    public ActionResult RemoveQuestionFromChoice(Guid idSurveyQuestion)
+	    {
+	        return Ok(Service.RemoveQuestionFromChoice(idSurveyQuestion));
+	    }
+    }
 }

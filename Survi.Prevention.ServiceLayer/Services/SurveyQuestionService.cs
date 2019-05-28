@@ -119,5 +119,25 @@ namespace Survi.Prevention.ServiceLayer.Services
 
 			return result;
 		}
+
+	    public bool CheckIfQuestionUsedAsNext(Guid idSurveyQuestion)
+	    {
+	        return Context.SurveyQuestions.AsNoTracking().Any(c => c.IdSurveyQuestionNext == idSurveyQuestion) || Context.SurveyQuestionChoices.AsNoTracking().Any(x => x.IdSurveyQuestionNext == idSurveyQuestion);
+	    }
+
+	    public bool RemoveQuestionFromChoice(Guid idSurveyQuestion)
+	    {
+	        var questions = Context.SurveyQuestionChoices
+	            .Where(c => c.IdSurveyQuestionNext == idSurveyQuestion)
+	            .ToList();
+
+	        questions.ForEach(question =>
+	        {
+	            question.IdSurveyQuestionNext = null;
+	        });
+
+	        Context.SaveChanges();
+	        return true;
+	    }
 	}
 }
