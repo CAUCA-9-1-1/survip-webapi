@@ -11,7 +11,6 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 	public class PictureHtmlTagGenerator
 	{
-
 		public static string GetTag(object value, string height)
 		{
 			return "<img style=\"margin: 20px 20px\" src=\"" + value +
@@ -26,7 +25,6 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
         public static string GetFilledTemplateWithPicture(string filledTemplate, string group, string placeholder, string dataUri, PictureType type)
         {
-
             var placeholderPosition = filledTemplate.IndexOf($"@{group}.{placeholder}", StringComparison.Ordinal);
             var countForEnd = GetCountToUntilAtSign(filledTemplate, placeholderPosition, placeholder.Length, group);
 
