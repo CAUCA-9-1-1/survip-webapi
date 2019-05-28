@@ -63,10 +63,10 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		private string ReplaceSitePlanPlaceholderByPicture(BuildingForReport entity, string filledTemplate)
 		{
 			var detailId = detailService.GetIdByIdBuilding(entity.Id);
-			var picture = detailId != null ? detailService.GetSitePlan(detailId.Value) : null; 
-			filledTemplate = picture == null
-				? filledTemplate.Replace($"@{Group.ToString()}.{sitePlanPlaceholder}@", "")
-				: filledTemplate.Replace($"@{Group.ToString()}.{sitePlanPlaceholder}@", PictureHtmlTagGenerator.GetTag(picture.DataUri));
+			var picture = detailId != null ? detailService.GetSitePlan(detailId.Value) : null;
+
+            filledTemplate = PictureHtmlTagGenerator.GetFilledTemplateWithPicture(filledTemplate, Group.ToString(), sitePlanPlaceholder, picture?.DataUri, PictureType.Tag);
+
 			return filledTemplate;
 		}
 
@@ -75,46 +75,9 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 	        var idCity = service.GetIdCity(entity.Id);
 	        var picture = departmentService.GetLogoByCity(idCity);
 
-	        if (picture == null)
-	        {
-	            filledTemplate = filledTemplate.Replace($"@{Group.ToString()}.{fireSafetyDepartmentLogoPlaceholder}@", "");
-	        }
-	        else
-	        {
-
-                var heightWidthInt = filledTemplate.IndexOf($"@{Group.ToString()}.{fireSafetyDepartmentLogoPlaceholder}", StringComparison.Ordinal);
-	            bool canStop = false;
-	            int countForEnd = (Group.ToString().Length + fireSafetyDepartmentLogoPlaceholder.Length + 2);
-	            do
-	            {
-	                var stringToCheck = filledTemplate.Substring(heightWidthInt, countForEnd);
-
-                    if (!stringToCheck.EndsWith("@"))
-	                    countForEnd++;
-	                else
-	                    canStop = true;
-	            } while (canStop == false);
-
-	            var holderSplit = filledTemplate.Substring(heightWidthInt, countForEnd).Split('.');
-
-	            var height = String.Empty;
-	            if (holderSplit.Length == 3)
-	                height = holderSplit[2].Replace("@", "");
-
-	            filledTemplate = !String.IsNullOrEmpty(height) 
-	                ? filledTemplate.Replace($"@{Group.ToString()}.{fireSafetyDepartmentLogoPlaceholder}.{height}@", PictureHtmlTagGenerator.GetTagForLogo(picture.DataUri, height))
-	                : filledTemplate.Replace($"@{Group.ToString()}.{fireSafetyDepartmentLogoPlaceholder}@", PictureHtmlTagGenerator.GetTagForLogo(picture.DataUri, "100"));
-	        }
-
+	        filledTemplate = PictureHtmlTagGenerator.GetFilledTemplateWithPicture(filledTemplate, Group.ToString(), fireSafetyDepartmentLogoPlaceholder, picture?.DataUri, PictureType.Logo);
 
             return filledTemplate;
-	    }
-
-	    private string ReplaceAltForSrcWithLogo(string filledTemplate, string dataUri)
-	    {
-	        filledTemplate = filledTemplate.Replace($"alt=\"@{Group.ToString()}.{fireSafetyDepartmentLogoPlaceholder}@\"", "");
-	        filledTemplate = filledTemplate.Replace("src=\" \"", $"src=\"{dataUri}\"");
-	        return filledTemplate;
 	    }
     }
 }

@@ -43,8 +43,10 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 
 		protected string ReplacePropertiesPlaceholder(string groupTemplate, string languageCode, (string name, object value) property)
 		{
-			groupTemplate = groupTemplate.Replace($"@{Group.ToString()}.{property.name}@", FormatPropertyValue(property, languageCode));
-			return groupTemplate;
+		    groupTemplate = property.name == "DataUri" ?
+		        PictureHtmlTagGenerator.GetFilledTemplateWithPicture(groupTemplate, Group.ToString(), property.name, property.value.ToString(), PictureType.Tag)
+		        : groupTemplate.Replace($"@{Group.ToString()}.{property.name}@", FormatPropertyValue(property, languageCode));
+		    return groupTemplate;
 		}
 
 		protected virtual string FormatPropertyValue((string name, object value) property, string languageCode)

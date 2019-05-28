@@ -21,13 +21,6 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 			return service.GetAnomalyPictures(idParent, languageCode);
 		}
 
-		protected override string FormatPropertyValue((string name, object value) property, string languageCode)
-		{
-			if (property.name == "DataUri")
-				return PictureHtmlTagGenerator.GetTag(property.value);
-			return base.FormatPropertyValue(property, languageCode);
-		}
-
 		public static (string Group, List<string> Placeholders) GetPlaceholders()
 		{
 			var placeholders = GetPlaceholderList();

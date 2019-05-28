@@ -36,15 +36,10 @@ namespace Survi.Prevention.ServiceLayer.Reporting
 		private string ReplaceSitePlanPlaceholderByPicture(BuildingDetailForReport entity, string filledTemplate)
 		{
 			var picture = service.GetSitePlan(entity.Id);
-			filledTemplate = picture == null 
-				? filledTemplate.Replace($"@{Group.ToString()}.{sitePlanPlaceholder}@", "") 
-				: filledTemplate.Replace($"@{Group.ToString()}.{sitePlanPlaceholder}@", FormatPicture(picture.DataUri));
-			return filledTemplate;
-		}
 
-		private string FormatPicture(string picture)
-		{
-			return PictureHtmlTagGenerator.GetTag(picture);
+		    filledTemplate = PictureHtmlTagGenerator.GetFilledTemplateWithPicture(filledTemplate, Group.ToString(), sitePlanPlaceholder, picture.DataUri, PictureType.Tag);
+
+			return filledTemplate;
 		}
 
 		protected override string FormatPropertyValue((string name, object value) property, string languageCode)
