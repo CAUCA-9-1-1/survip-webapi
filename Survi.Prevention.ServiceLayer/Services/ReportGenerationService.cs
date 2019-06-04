@@ -91,7 +91,7 @@ namespace Survi.Prevention.ServiceLayer.Services
         private string GetFilledTemplate(Guid buildingId, Guid templateId, string languageCode)
         {
             var template = GetTemplate(templateId);
-            template.Data = "<style type=\"text/css\">h3, tr { page-break-inside: avoid; }<\\style>" + template.Data;
+            template.Data = "<style type=\"text/css\">h3, tr { page-break-inside: avoid; }</style>" + template.Data;
             var filledTemplate = templateFiller.FillTemplate(buildingId, template.Data, languageCode);
             return filledTemplate;
         }
