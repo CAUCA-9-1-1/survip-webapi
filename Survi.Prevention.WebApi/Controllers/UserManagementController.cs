@@ -11,7 +11,7 @@ using Survi.Prevention.ServiceLayer.SecurityManagement;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
-	[Route("api/Statistics")]
+	[Route("api/[Controller]")]
 	[ApiController]
 	public class UserManagementController : BaseUserManagementController<UserManagementService<User>,User>
 	{
@@ -31,6 +31,21 @@ namespace Survi.Prevention.WebApi.Controllers
 		public ActionResult GetAllUsersWithInfo()
 		{
 			return Ok(userService.GetAllUsersWithInfo());
+		}
+
+		[HttpPost("SaveUserWithCitiesAndFireSafetyDepartments")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(401)]
+		public ActionResult SaveUserWithCitiesAndFireSafetyDepartments(User user)
+		{
+			var fireSafetyDepartments = user.UserFireSafetyDepartments.ToList();
+			user.UserFireSafetyDepartments = null;
+
+			UserService.UpdateUser(user, applicationName);
+			userService.UpdateUserFireSafetyDepartment(fireSafetyDepartments, user.Id);
+
+			return Ok();
 		}
 	}
 }

@@ -4,6 +4,7 @@
     <Configurations>Debug;Release;NuGet</Configurations>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Cause.SecurityManagement.Models" Version="1.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.4" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite" Version="2.2.4" />

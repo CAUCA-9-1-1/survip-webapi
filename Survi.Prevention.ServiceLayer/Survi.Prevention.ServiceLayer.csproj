@@ -4,6 +4,7 @@
     <Configurations>Debug;Release;NuGet</Configurations>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Cause.SecurityManagement.Models" Version="1.2.1" />
     <PackageReference Include="FluentValidation" Version="8.4.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.18" />
   </ItemGroup>
