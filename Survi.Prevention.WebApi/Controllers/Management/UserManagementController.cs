@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Cause.SecurityManagement.Controllers;
 using Cause.SecurityManagement.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Survi.Prevention.Models.Security;
 using Survi.Prevention.ServiceLayer.SecurityManagement;
 
-namespace Survi.Prevention.WebApi.Controllers
+namespace Survi.Prevention.WebApi.Controllers.Management
 {
 	[Route("api/[Controller]")]
 	[ApiController]
