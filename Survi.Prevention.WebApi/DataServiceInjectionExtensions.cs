@@ -18,6 +18,7 @@ using Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators;
 using Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment.CustomFieldsCopier;
 using Survi.Prevention.ServiceLayer.Import.Places;
 using Survi.Prevention.ServiceLayer.Import.Places.Copiers;
+using Survi.Prevention.ServiceLayer.SecurityManagement;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi
@@ -93,6 +94,7 @@ namespace Survi.Prevention.WebApi
             services.AddTransient<GeolocationService>();
             services.AddTransient<GeneralConfigurationService>();
             services.AddTransient<StatisticService>();
+            services.AddTransient<UserService>();
             return services;
         }
 
