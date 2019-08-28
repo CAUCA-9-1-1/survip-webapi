@@ -10,6 +10,7 @@ using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.Models.InspectionManagement;
 using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
+using Survi.Prevention.Models.Security;
 using Survi.Prevention.Models.SecurityManagement;
 using Survi.Prevention.Models.SurveyManagement;
 
@@ -111,6 +112,7 @@ namespace Survi.Prevention.DataLayer
 
         DbSet<FireSafetyDepartmentCityServing> FireSafetyDepartmentCityServings { get; set; }
         DbSet<Objectives> Objectives { get; set; }
+		DbSet<UserFireSafetyDepartment> UserFireSafetyDepartments { get; set; }
 
         DbQuery<BuildingWithoutInspection> BuildingsWithoutInspection { get; set; }
         DbQuery<InspectionToDo> InspectionsToDo { get; set; }
