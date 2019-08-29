@@ -1,9 +1,12 @@
-using System.Linq;
+using Cause.SecurityManagement;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNet.OData.Formatter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +20,8 @@ using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.Models.Security;
+using System.Linq;
 
 namespace Survi.Prevention.WebApi
 {
@@ -45,6 +50,7 @@ namespace Survi.Prevention.WebApi
 			services.AddOData();
 			services.AddMvc(options =>
 				{
+					AskForAuthorizationByDefault(options);
 					options.ModelMetadataDetailsProviders.Add(new SuppressChildValidationMetadataProvider(typeof(Point)));
 					foreach (var outputFormatter in options.OutputFormatters.OfType<ODataOutputFormatter>().Where(_ => _.SupportedMediaTypes.Count == 0))
 					{
@@ -55,6 +61,7 @@ namespace Survi.Prevention.WebApi
 						inputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
 					}
 				})
+				.InjectSecurityControllers()
 				.AddJsonOptions(options =>
 				{
 					options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -71,7 +78,10 @@ namespace Survi.Prevention.WebApi
 			    npgOptions.MigrationsAssembly("Survi.Prevention.DataLayer");
 				npgOptions.UseNetTopologySuite();
 			}));
-		    services.AddScoped<IManagementContext, ManagementContext>();
+			services.AddScoped<ManagementContext>();
+			services.AddScoped<IManagementContext>(c => c.GetRequiredService<ManagementContext>());
+			services.AddScoped<ISecurityContext<User>>(c => c.GetRequiredService<ManagementContext>());
+
 			services.InjectDataServices();
 		    services.InjectValidators();
 		    services.InjectImportationConverters();
@@ -119,6 +129,14 @@ namespace Survi.Prevention.WebApi
 			builder.EntitySet<BatchInspectionBuilding>("BatchInspectionBuilding").AllowAllQueryType();
 
 			return builder.GetEdmModel();
+		}
+
+		private static void AskForAuthorizationByDefault(MvcOptions options)
+		{
+			var policy = new AuthorizationPolicyBuilder()
+				.RequireAuthenticatedUser()
+				.Build();
+			options.Filters.Add(new AuthorizeFilter(policy));
 		}
 	}
 }

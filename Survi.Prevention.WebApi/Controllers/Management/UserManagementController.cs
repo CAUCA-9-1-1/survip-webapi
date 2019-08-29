@@ -31,11 +31,11 @@ namespace Survi.Prevention.WebApi.Controllers.Management
 			return Ok(userService.GetAllUsersWithInfo());
 		}
 
-		[HttpPost("SaveUserWithCitiesAndFireSafetyDepartments")]
+		[HttpPost("SaveUserWithFireSafetyDepartments")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(401)]
-		public ActionResult SaveUserWithCitiesAndFireSafetyDepartments(User user)
+		public ActionResult SaveUserWithFireSafetyDepartments(User user)
 		{
 			var fireSafetyDepartments = user.UserFireSafetyDepartments.ToList();
 			user.UserFireSafetyDepartments = null;
