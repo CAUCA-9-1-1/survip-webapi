@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Cause.SecurityManagement;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer.InitialData;
 using Survi.Prevention.Models;
@@ -18,7 +19,7 @@ using Survi.Prevention.Models.SurveyManagement;
 
 namespace Survi.Prevention.DataLayer
 {
-	public class ManagementContext : DbContext, IManagementContext
+	public class ManagementContext : BaseSecurityContext<User>, IManagementContext
 	{
 	    public Guid? CurrentUserId { get; set; }
 	    public bool IsInImportationMode { get; set; } = false;
@@ -138,6 +139,7 @@ namespace Survi.Prevention.DataLayer
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			AddSecurityManagementMappings(modelBuilder);
 			modelBuilder.HasPostgresExtension("uuid-ossp");
 			modelBuilder.HasPostgresExtension("postgis");
 			modelBuilder.UseAutoSnakeCaseMapping();

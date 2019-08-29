@@ -1,9 +1,12 @@
+using Cause.SecurityManagement;
+using Cause.SecurityManagement.Services;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Survi.Prevention.Models;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.Models.Security;
 using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
@@ -95,6 +98,7 @@ namespace Survi.Prevention.WebApi
             services.AddTransient<GeneralConfigurationService>();
             services.AddTransient<StatisticService>();
             services.AddTransient<UserService>();
+            services.InjectSecurityServices<UserManagementService<User>, User>();
             return services;
         }
 

@@ -1,10 +1,13 @@
-﻿using System;
-using System.Linq;
+﻿using Cause.SecurityManagement.Models;
+using Cause.SecurityManagement.Services;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.FireHydrants;
 using Survi.Prevention.Models.FireSafetyDepartments;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Survi.Prevention.DataLayer.InitialData
 {
@@ -15,6 +18,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 
 		public static void SeedInitialData(this ModelBuilder builder)
 		{
+			SeedBaseSecurityData(builder);
 			SeedInitialConstructionType(builder);
 			SeedInitialFireResistanceType(builder);
 			SeedInitialBuildingType(builder);
@@ -31,9 +35,138 @@ namespace Survi.Prevention.DataLayer.InitialData
 			builder.Entity<LaneGenericCode>().HasData(InitialLaneGenericCodesGenerator.GetInitialData().ToArray());
 			builder.Entity<LanePublicCode>().HasData(InitialLanePublicCodesGenerator.GetInitialData().ToArray());
 
-			InitialUserGenerator.SeedInitialData(builder, IdUser);
-			InitialPermissionGenerator.SeedInitialData(builder, IdUser);
+		//	InitialUserGenerator.SeedInitialData(builder, IdUser);
+		//	InitialPermissionGenerator.SeedInitialData(builder, IdUser);
 			InitialRiskLevelGenerator.SeedInitialData(builder);	
+		}
+
+		private static void SeedBaseSecurityData(ModelBuilder builder)
+		{
+			var modulePermissions = SeedInitialModulePermission(builder);
+			var groupPermission = SeedInitialGroupPermission(builder, modulePermissions);
+			SeedUser(builder, groupPermission, modulePermissions);
+		}
+
+		private static List<Group> SeedInitialGroupPermission(ModelBuilder builder, List<ModulePermission> modulePermissions)
+		{
+			var groups = new List<Group>();
+			groups.Add(new Group { Id = Guid.Parse("98db62c4-51b1-492e-b616-cfbd3ff53875"), Name = "Administration", Permissions = GetGroupPermission(modulePermissions)});
+			groups.Add(new Group { Id = Guid.Parse("aa69bf4d-d9ef-4f33-8c09-dfb2b48c06c1"), Name = "Pompier" });
+			groups.ForEach(c => builder.Entity<Group>().HasData(c));
+			return groups;
+		}
+
+		private static ICollection<GroupPermission> GetGroupPermission(List<ModulePermission> modulePermissions)
+		{
+			var groupPermissions = new List<GroupPermission>();
+			modulePermissions.ForEach(modulePermission =>
+			{
+				groupPermissions.Add(new GroupPermission()
+				{
+					Id = Guid.NewGuid(),
+					IdGroup = Guid.Parse("98db62c4-51b1-492e-b616-cfbd3ff53875"),
+					IdModulePermission = modulePermission.Id,
+					IsAllowed = true
+				});
+			});
+			return groupPermissions;
+		}
+
+		private static void SeedUser(ModelBuilder builder, List<Group> groups, List<ModulePermission> modulePermissions)
+		{
+			var applicationName = "";
+			var user = new User
+			{
+				Id = IdUser,
+				UserName = "admin",
+				Password = new PasswordGenerator().EncodePassword("admincauca", applicationName),
+				Email = "dev@cause911.ca",
+				FirstName = "Dev",
+				LastName = "Cause",
+				Groups = GetUserGroup(builder, groups.First())
+			};
+			builder.Entity<User>().HasData(user);
+		}
+
+		private static ICollection<UserGroup> GetUserGroup(ModelBuilder builder, Group @group)
+		{
+			var userGroup = new List<UserGroup>();
+			userGroup.Add(new UserGroup
+			{
+				Id = Guid.NewGuid(),
+				Group = group,
+				IdUser = IdUser,
+				IdGroup = group.Id
+			});
+			builder.Entity<User>().HasData(userGroup.First());
+			return userGroup;
+		}
+
+		private static List<ModulePermission> SeedInitialModulePermission(ModelBuilder builder)
+		{
+			Module module = SeedModule(builder, "SURVI-Prevention", "SURVIPrevention");
+			var modulePermissions = new List<ModulePermission>();
+			modulePermissions.Add(SeedModulePermission(builder, "Accès au tableau de bord", "url-inspection-dashboard", module.Id, "2cba3c2f-4d78-4294-853d-9c5f0c0d5162"));
+			modulePermissions.Add(SeedModulePermission(builder, "Accès aux statistiques", "url-statistics", module.Id, "4b920789-e3bf-4b8c-a1fe-a09128e30843"));
+			modulePermissions.Add(SeedModulePermission(builder, "Accès à la gestion des rapports", "url-report-configuration", module.Id, "f7bf8f9a-768e-4570-bddc-7cff2c1f1780"));
+			modulePermissions.Add(SeedModulePermission(builder, "Accès à la gestion système", "url-management-system", module.Id, "4a679efb-16d7-4b67-8cf5-0f1d1da8733b"));
+			modulePermissions.Add(SeedModulePermission(builder, "Accès à la gestion des types du système", "url-management-typesystem", module.Id, "05d57316-7b0a-4195-bfdb-796262d4128a"));
+			modulePermissions.Add(SeedModulePermission(builder, "Accès à la gestion des questionnaires", "url-management-survey", module.Id, "1f350fa7-60a5-4b8c-9696-d2331545012d"));
+			modulePermissions.Add(SeedModulePermission(builder, "Accès à la gestion des villes", "url-management-address", module.Id, "c21611c3-e1b2-4d74-a7df-7503ca7fda60"));
+			modulePermissions.Add(SeedModulePermission(builder, "Accès à la gestion du SSI", "url-management-department", module.Id, "b104208c-f7a9-4f70-b414-5352b55fb7c4"));
+			modulePermissions.Add(SeedModulePermission(builder, "Accès au mobile", "RightMobile", module.Id, "1257e63b-b40a-4410-a9ce-00d8d0abdf43"));
+			modulePermissions.Add(SeedModulePermission(builder, "Acception des inspections", "RightApproveInspection", module.Id, "aa163670-487c-461e-8112-9bf98070f5b3"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des lots", "RightBatchManagement", module.Id, "c4237a41-fbf3-481b-aa18-a7e469331c43"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des casernes", "RightFireStationManagement", module.Id, "33f4995e-d5cb-45cb-91a3-7b60c07f7465"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des voies", "RightLaneManagement", module.Id, "0615bbba-ae42-472b-b768-227b80efd4f1"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des bâtiments", "RightBuildingManagement", module.Id, "98075263-e986-4823-aa11-cfca837adcbc"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des permissions", "RightPermissionManagement", module.Id, "3614fb19-6ce4-4322-b8dc-8cdd2b187a0b"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des utilisateurs", "RightUserManagement", module.Id, "89dbc380-186b-440c-a069-bd42d0664ed8"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des types de bornes", "RightFireHydrantTypeManagement", module.Id, "314b0c77-b8e7-411c-9002-3a56a54f6749"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des types de connexion", "RightConnectionTypeManagement", module.Id, "1864a414-64a3-4f67-9556-059ad9c5a672"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des opérateurs", "RightOperatorManagement", module.Id, "b38a094f-b0a6-494b-9104-009d30199cbf"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des unités de mesure", "RightUnitManagement", module.Id, "78b19b2a-f31b-4027-8b92-105a0ac44282"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des comtés", "RightCountyManagement", module.Id, "d68c1911-e063-4b22-a635-413004d3bd60"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des régions", "RightRegionManagement", module.Id, "62982bdc-2ae9-407b-9396-01bfb3c50d23"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des provinces/états", "RightStateManagement", module.Id, "193ab58d-0a0f-48d5-bb65-6a2d67db58c4"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des pays", "RightCountryManagement", module.Id, "08dfbdb1-6cf4-449b-85e3-8134de4ed052"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des types de ville", "RightCityTypeManagement", module.Id, "8a9896a5-0ab5-4c33-a01f-7e97742c9570"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des villes", "RightCityManagement", module.Id, "0afb3f9b-da1c-4625-a18e-d4f72c7ba0cd"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des niveaux de risque", "RightRiskLevelManagement", module.Id, "2dfaae63-39a2-471c-9a42-705cba52c565"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des codes d'utilisation", "RightUtilisationCodeManagement", module.Id, "4e5be439-7249-4f7c-b9c1-e0a448046c57"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des types de PNAPs", "RightRPATypeManagement", module.Id, "6da8395e-4057-415c-9710-ea098fdf2e9e"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des matières dangereuses", "RightHazardousMaterialManagement", module.Id, "e8c4cc98-7e17-450b-8333-9d87cd8f695a"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des niveaux de risque par SSI", "RightDepartmentRiskLevel", module.Id, "9898d805-e8ef-4595-a0d2-66d1b022ea86"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des SSI", "RightDepartmentManagement", module.Id, "26d14cda-d321-4db2-a604-6daaff0483e9"));
+			modulePermissions.Add(SeedModulePermission(builder, "Gestion des bornes", "RightFireHydrantManagement", module.Id, "612b33fa-7209-4bd1-a21a-fa610d73f4d2"));
+			return modulePermissions;
+		}
+
+		private static ModulePermission SeedModulePermission(ModelBuilder builder, string permissionName, string permissionTag, Guid idModule, string permissionId)
+		{
+			var permission = new ModulePermission
+			{
+				Id = Guid.Parse(permissionId),
+				Name = permissionName,
+				Tag = permissionTag,
+				IdModule = idModule
+			};
+
+			builder.Entity<ModulePermission>().HasData(permission);
+			return permission;
+		}
+
+		private static Module SeedModule(ModelBuilder builder, string name, string tag)
+		{
+			var module = new Module
+			{
+				Id = Guid.Parse("1c365d12-a809-11e9-9916-525400cc3eb9"),
+				Name = name,
+				Tag = tag
+			};
+
+			builder.Entity<Module>().HasData(module);
+			return module;
 		}
 
 		public static void SeedInitialDataForDevelopment(this ModelBuilder builder)
