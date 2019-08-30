@@ -10,6 +10,12 @@
     <Compile Remove="Migrations\20190312182319_Issue493_CorporateNameAndRemoveLocalization.cs" />
     <Compile Remove="Migrations\20190312182624_Issue493_CorporateNameAndRemoveLocalization.cs" />
     <Compile Remove="Migrations\20190312183641_Issue493_CorporateNameAndRemoveLocalization.cs" />
+    <Compile Remove="Migrations\20190829145052_PRE-430-UpgradeSecurityToCauseSecurityManagement.cs" />
+    <Compile Remove="Migrations\20190829145702_PRE-430-UpgradeSecurityToCauseSecurityManagement.cs" />
+    <Compile Remove="Migrations\20190829174728_PRE-430-UpgradeSecurityToCauseSecurityManagement.cs" />
+    <Compile Remove="Migrations\20190829175425_PRE-430-UpgradeSecurityToCauseSecurityManagement.cs" />
+    <Compile Remove="Migrations\20190829175539_PRE-430-UpgradeSecurityToCauseSecurityManagement.cs" />
+    <Compile Remove="Migrations\20190829181738_PRE-430-UpgradeSecurityToCauseSecurityManagement.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +31,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
   </ItemGroup>
 

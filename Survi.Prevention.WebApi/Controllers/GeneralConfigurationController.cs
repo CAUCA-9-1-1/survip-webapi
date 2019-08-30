@@ -4,7 +4,7 @@ using Survi.Prevention.ServiceLayer.Services;
 namespace Survi.Prevention.WebApi.Controllers
 {
     [Route("api/GeneralConfiguration")]
-    public class GeneralConfigurationController : BaseSecuredController
+    public class GeneralConfigurationController : ControllerBase
     {
         private readonly GeneralConfigurationService service;
 

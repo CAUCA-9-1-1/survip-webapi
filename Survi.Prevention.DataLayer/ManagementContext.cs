@@ -1,7 +1,9 @@
 using System;
+using System.IO;
 using System.Linq;
 using Cause.SecurityManagement;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Survi.Prevention.DataLayer.InitialData;
 using Survi.Prevention.Models;
 using Survi.Prevention.Models.Base;
@@ -139,11 +141,17 @@ namespace Survi.Prevention.DataLayer
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			AddSecurityManagementMappings(modelBuilder);
+			var configuration = new ConfigurationBuilder()
+				.SetBasePath(Directory.GetCurrentDirectory())
+				.AddJsonFile("appsettings.json")
+				.Build();
+			var applicationName = configuration.GetSection("APIConfig:PackageName").Value;
 			modelBuilder.HasPostgresExtension("uuid-ossp");
 			modelBuilder.HasPostgresExtension("postgis");
 			modelBuilder.UseAutoSnakeCaseMapping();
 			this.UseAutoDetectedMappings(modelBuilder);
+			AddSecurityManagementMappings(modelBuilder);
+
 			modelBuilder.Query<BuildingWithoutInspection>()
 				.ToView("building_with_no_active_inspection");
 			modelBuilder.Query<InspectionToDo>()
@@ -160,7 +168,7 @@ namespace Survi.Prevention.DataLayer
 				.ToView("batch_inspection_building");
 			modelBuilder.Query<AvailableBuildingForManagement>()
 				.ToView("available_building_for_management");
-			modelBuilder.SeedInitialData();
+			modelBuilder.SeedInitialData(applicationName);
 			//modelBuilder.SeedInitialDataForDevelopment();
 		}
 

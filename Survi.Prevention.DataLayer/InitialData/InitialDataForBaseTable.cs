@@ -16,9 +16,9 @@ namespace Survi.Prevention.DataLayer.InitialData
 		private static readonly DateTime Now = new DateTime(2018, 06, 01);
 		private static readonly Guid IdUser = Guid.Parse("0540e8f7-dc44-4b2f-8e42-5004cca3700b");
 
-		public static void SeedInitialData(this ModelBuilder builder)
+		public static void SeedInitialData(this ModelBuilder builder, string applicationName)
 		{
-			SeedBaseSecurityData(builder);
+			SeedBaseSecurityData(builder, applicationName);
 			SeedInitialConstructionType(builder);
 			SeedInitialFireResistanceType(builder);
 			SeedInitialBuildingType(builder);
@@ -35,33 +35,35 @@ namespace Survi.Prevention.DataLayer.InitialData
 			builder.Entity<LaneGenericCode>().HasData(InitialLaneGenericCodesGenerator.GetInitialData().ToArray());
 			builder.Entity<LanePublicCode>().HasData(InitialLanePublicCodesGenerator.GetInitialData().ToArray());
 
-		//	InitialUserGenerator.SeedInitialData(builder, IdUser);
-		//	InitialPermissionGenerator.SeedInitialData(builder, IdUser);
+			InitialUserGenerator.SeedInitialData(builder, IdUser);
+			InitialPermissionGenerator.SeedInitialData(builder, IdUser);
 			InitialRiskLevelGenerator.SeedInitialData(builder);	
 		}
 
-		private static void SeedBaseSecurityData(ModelBuilder builder)
+		private static void SeedBaseSecurityData(ModelBuilder builder, string applicationName)
 		{
 			var modulePermissions = SeedInitialModulePermission(builder);
+			SeedGroupPermission(builder, modulePermissions);
 			var groupPermission = SeedInitialGroupPermission(builder, modulePermissions);
-			SeedUser(builder, groupPermission, modulePermissions);
+			SeedUserGroups(builder);
+			SeedUser(builder, applicationName);
 		}
 
 		private static List<Group> SeedInitialGroupPermission(ModelBuilder builder, List<ModulePermission> modulePermissions)
 		{
 			var groups = new List<Group>();
-			groups.Add(new Group { Id = Guid.Parse("98db62c4-51b1-492e-b616-cfbd3ff53875"), Name = "Administration", Permissions = GetGroupPermission(modulePermissions)});
+			groups.Add(new Group { Id = Guid.Parse("98db62c4-51b1-492e-b616-cfbd3ff53875"), Name = "Administration"});
 			groups.Add(new Group { Id = Guid.Parse("aa69bf4d-d9ef-4f33-8c09-dfb2b48c06c1"), Name = "Pompier" });
-			groups.ForEach(c => builder.Entity<Group>().HasData(c));
+			builder.Entity<Group>().HasData(groups);
 			return groups;
 		}
 
-		private static ICollection<GroupPermission> GetGroupPermission(List<ModulePermission> modulePermissions)
+		private static List<GroupPermission> SeedGroupPermission(ModelBuilder builder, List<ModulePermission> modulePermissions)
 		{
 			var groupPermissions = new List<GroupPermission>();
 			modulePermissions.ForEach(modulePermission =>
 			{
-				groupPermissions.Add(new GroupPermission()
+				groupPermissions.Add(new GroupPermission
 				{
 					Id = Guid.NewGuid(),
 					IdGroup = Guid.Parse("98db62c4-51b1-492e-b616-cfbd3ff53875"),
@@ -69,13 +71,13 @@ namespace Survi.Prevention.DataLayer.InitialData
 					IsAllowed = true
 				});
 			});
+			builder.Entity<GroupPermission>().HasData(groupPermissions);
 			return groupPermissions;
 		}
 
-		private static void SeedUser(ModelBuilder builder, List<Group> groups, List<ModulePermission> modulePermissions)
+		private static void SeedUser(ModelBuilder builder, string applicationName)
 		{
-			var applicationName = "";
-			var user = new User
+			var user = new Models.Security.User
 			{
 				Id = IdUser,
 				UserName = "admin",
@@ -83,22 +85,21 @@ namespace Survi.Prevention.DataLayer.InitialData
 				Email = "dev@cause911.ca",
 				FirstName = "Dev",
 				LastName = "Cause",
-				Groups = GetUserGroup(builder, groups.First())
+				IsActive = true
 			};
-			builder.Entity<User>().HasData(user);
+			builder.Entity<Models.Security.User>().HasData(user);
 		}
 
-		private static ICollection<UserGroup> GetUserGroup(ModelBuilder builder, Group @group)
+		private static ICollection<UserGroup> SeedUserGroups(ModelBuilder builder)
 		{
 			var userGroup = new List<UserGroup>();
 			userGroup.Add(new UserGroup
 			{
 				Id = Guid.NewGuid(),
-				Group = group,
 				IdUser = IdUser,
-				IdGroup = group.Id
-			});
-			builder.Entity<User>().HasData(userGroup.First());
+				IdGroup = Guid.Parse("98db62c4-51b1-492e-b616-cfbd3ff53875")
+		});
+			builder.Entity<UserGroup>().HasData(userGroup.First());
 			return userGroup;
 		}
 
