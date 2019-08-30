@@ -1,15 +1,13 @@
-using System.Linq;
+using Cause.SecurityManagement.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
 	[Route("api/[controller]")]
-	public class AuthentificationController : Controller
+	public class AuthentificationController : AuthentifiedController
 	{
 		private readonly AuthenticationService service;
 		private readonly string issuer;
@@ -24,49 +22,6 @@ namespace Survi.Prevention.WebApi.Controllers
 			applicationName = configuration.GetSection("APIConfig:PackageName").Value;
 			secretKey = configuration.GetSection("APIConfig:SecretKey").Value;
 			minimalVersion = configuration.GetSection("APIConfig:MinimalVersion").Value;
-		}
-
-		[Route("[Action]"), HttpPost]
-		public ActionResult Logon([FromBody]LoginInformations login)
-		{
-			var (token, user) = service.Login(login.Username, login.Password, applicationName, issuer, secretKey);
-			if (user == null || token == null)
-				return Unauthorized();
-
-			return Ok(new
-			{
-				Data =
-					new
-					{
-						AuthorizationType = "Bearer",
-						token.ExpiresIn,
-						AccessToken = token.TokenForAccess,
-						token.RefreshToken,
-						IdWebuser = user.Id,
-						LastName = user.Attributes.Where(a => a.AttributeName=="last_name").Select(a => a.AttributeValue).FirstOrDefault() ?? "",
-						FirstName = user.Attributes.Where(a => a.AttributeName == "first_name").Select(a => a.AttributeValue).FirstOrDefault() ?? "",
-					}
-			});
-		}
-
-		[Route("[Action]"), HttpPost, AllowAnonymous]
-		public ActionResult Refresh([FromBody]TokenRefreshResult tokens)
-		{
-			try
-			{
-				var newAccessToken = service.Refresh(tokens.AccessToken, tokens.RefreshToken, applicationName, issuer, secretKey);
-				return Ok(new { AccessToken = newAccessToken, tokens.RefreshToken });
-			}
-			catch (SecurityTokenExpiredException)
-			{
-				HttpContext.Response.Headers.Add("Refresh-Token-Expired", "true");
-			}
-			catch (SecurityTokenException)
-			{
-				HttpContext.Response.Headers.Add("Token-Invalid", "true");
-			}
-
-			return Unauthorized();
 		}
 
 		[HttpGet, Route("SessionStatus"), Authorize]
