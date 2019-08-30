@@ -1,9 +1,11 @@
 using Cause.SecurityManagement;
+using Cause.SecurityManagement.Antiforgery;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNet.OData.Formatter;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -47,6 +49,9 @@ namespace Survi.Prevention.WebApi
 
             services.AddTokenAuthentification(Configuration);
 			services.AddSwaggerDocumentation();
+			services.AddDataProtection().AddKeyManagementOptions(options => {
+				options.XmlRepository = new SqlXmlRepository<User>(services.BuildServiceProvider().GetService<ISecurityContext<User>>());
+			});
 			services.AddOData();
 			services.AddMvc(options =>
 				{

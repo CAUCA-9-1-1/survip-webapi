@@ -2,6 +2,7 @@ using Cause.SecurityManagement;
 using Cause.SecurityManagement.Services;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.FireHydrants;
@@ -30,7 +31,8 @@ namespace Survi.Prevention.WebApi
     {
         public static IServiceCollection InjectDataServices(this IServiceCollection services)
         {
-            services.AddTransient<AuthenticationService>();
+	        services.InjectSecurityServices<UserManagementService<User>, User>();
+			services.AddTransient<AuthenticationService>();
             services.AddTransient<WebuserService>();
             services.AddTransient<CountryService>();
             services.AddTransient<StateService>();
@@ -98,7 +100,7 @@ namespace Survi.Prevention.WebApi
             services.AddTransient<GeneralConfigurationService>();
             services.AddTransient<StatisticService>();
             services.AddTransient<UserService>();
-            services.InjectSecurityServices<UserManagementService<User>, User>();
+            services.AddTransient<ISecurityContext<User>, ManagementContext>();
             return services;
         }
 
