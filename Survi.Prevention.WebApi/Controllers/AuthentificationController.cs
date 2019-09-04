@@ -31,13 +31,5 @@ namespace Survi.Prevention.WebApi.Controllers
 		{
 			return Ok(true);
 		}
-
-		[HttpGet, Route("VersionValidator/{mobileVersion}"), AllowAnonymous]
-		[ProducesResponseType(200)]
-		[ProducesResponseType(401)]
-		public ActionResult MobileVersionIsValid(string mobileVersion)
-		{
-			return Ok(service.IsMobileVersionValid(mobileVersion, minimalVersion));
-		}
 	}
 }
