@@ -78,15 +78,15 @@ namespace Survi.Prevention.ServiceLayer.Services
         {
             var query =
                 from building in Context.Buildings.AsNoTracking()
-                where building.IsActive &&
-                      !string.IsNullOrEmpty(building.IdExtern) &&
-                      building.HasBeenModified
-                let inspection = Context.Inspections
-                    .Where(i => i.IsActive && i.Status == InspectionStatus.Approved && i.IdBuilding == building.Id)
-                    .OrderByDescending(i => i.CompletedOn)
-                    .LastOrDefault()
+                where building.IsActive && !string.IsNullOrEmpty(building.IdExtern) && building.HasBeenModified
                 from cityLoc in building.City.Localizations.Where(cl => cl.LanguageCode == "fr" && cl.IsActive)
                 from laneLocalization in building.Lane.Localizations.Where(ll => ll.LanguageCode == "fr" && ll.IsActive)
+                let id = building.ChildType == BuildingChildType.None ? building.Id : building.IdParentBuilding
+                let inspection = Context.Inspections
+                    .Where(inspection => inspection.Status == InspectionStatus.Approved && inspection.IdBuilding == id)
+                    .OrderByDescending(inspection => inspection.CompletedOn)
+                    .LastOrDefault()
+                where inspection != null
                 select new InspectionForExport
                 {
                     CityName = cityLoc.Name,
@@ -99,7 +99,9 @@ namespace Survi.Prevention.ServiceLayer.Services
                     IdBuildingExtern = building.IdExtern
                 };
 
-            return query.ToList();
+            var result = query.ToList();
+
+            return result;
         }
 
         public bool SaveBuildingsResume(InspectionBuildingResume building)
