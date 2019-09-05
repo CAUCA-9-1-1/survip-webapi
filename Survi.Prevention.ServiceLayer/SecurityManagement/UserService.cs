@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Cause.SecurityManagement;
+﻿using Cause.SecurityManagement;
 using Cause.SecurityManagement.Services;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.Security;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Survi.Prevention.ServiceLayer.SecurityManagement
 {
@@ -21,7 +20,7 @@ namespace Survi.Prevention.ServiceLayer.SecurityManagement
 
 		public List<User> GetAllUsersWithInfo()
 		{
-			return SecurityContext.Users
+			return SecurityContext.Users.Where(c => c.IsActive)
 				.Include(u => u.UserFireSafetyDepartments)
 				.Include(u => u.Groups)
 				.Include(u => u.Permissions)
@@ -61,7 +60,7 @@ namespace Survi.Prevention.ServiceLayer.SecurityManagement
 		{
 			dbUserFireSafetyDepartments.ForEach(userFireSafetyDepartment =>
 			{
-				if (userFireSafetyDepartments.Any(u => u.Id == userFireSafetyDepartment.Id) == false)
+				if (userFireSafetyDepartments.All(u => u.Id != userFireSafetyDepartment.Id))
 					context.UserFireSafetyDepartments.Remove(userFireSafetyDepartment);
 			});
 		}
