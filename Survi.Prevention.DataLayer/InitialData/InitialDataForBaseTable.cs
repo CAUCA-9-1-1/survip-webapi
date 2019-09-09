@@ -1,5 +1,4 @@
 ﻿using Cause.SecurityManagement.Models;
-using Cause.SecurityManagement.Services;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.Models;
 using Survi.Prevention.Models.Buildings;
@@ -18,7 +17,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 
 		public static void SeedInitialData(this ModelBuilder builder, string applicationName)
 		{
-			SeedBaseSecurityData(builder, applicationName);
+			SeedBaseSecurityData(builder);
 			SeedInitialConstructionType(builder);
 			SeedInitialFireResistanceType(builder);
 			SeedInitialBuildingType(builder);
@@ -40,67 +39,9 @@ namespace Survi.Prevention.DataLayer.InitialData
 			InitialRiskLevelGenerator.SeedInitialData(builder);	
 		}
 
-		private static void SeedBaseSecurityData(ModelBuilder builder, string applicationName)
+		private static void SeedBaseSecurityData(ModelBuilder builder)
 		{
 			var modulePermissions = SeedInitialModulePermission(builder);
-			SeedGroupPermission(builder, modulePermissions);
-			var groupPermission = SeedInitialGroupPermission(builder, modulePermissions);
-			SeedUserGroups(builder);
-			SeedUser(builder, applicationName);
-		}
-
-		private static List<Group> SeedInitialGroupPermission(ModelBuilder builder, List<ModulePermission> modulePermissions)
-		{
-			var groups = new List<Group>();
-			groups.Add(new Group { Id = Guid.Parse("98db62c4-51b1-492e-b616-cfbd3ff53875"), Name = "Administration"});
-			groups.Add(new Group { Id = Guid.Parse("aa69bf4d-d9ef-4f33-8c09-dfb2b48c06c1"), Name = "Pompier" });
-			builder.Entity<Group>().HasData(groups);
-			return groups;
-		}
-
-		private static List<GroupPermission> SeedGroupPermission(ModelBuilder builder, List<ModulePermission> modulePermissions)
-		{
-			var groupPermissions = new List<GroupPermission>();
-			modulePermissions.ForEach(modulePermission =>
-			{
-				groupPermissions.Add(new GroupPermission
-				{
-					Id = Guid.NewGuid(),
-					IdGroup = Guid.Parse("98db62c4-51b1-492e-b616-cfbd3ff53875"),
-					IdModulePermission = modulePermission.Id,
-					IsAllowed = true
-				});
-			});
-			builder.Entity<GroupPermission>().HasData(groupPermissions);
-			return groupPermissions;
-		}
-
-		private static void SeedUser(ModelBuilder builder, string applicationName)
-		{
-			var user = new Models.Security.User
-			{
-				Id = IdUser,
-				UserName = "admin",
-				Password = new PasswordGenerator().EncodePassword("admincauca", applicationName),
-				Email = "dev@cause911.ca",
-				FirstName = "Dev",
-				LastName = "Cause",
-				IsActive = true
-			};
-			builder.Entity<Models.Security.User>().HasData(user);
-		}
-
-		private static ICollection<UserGroup> SeedUserGroups(ModelBuilder builder)
-		{
-			var userGroup = new List<UserGroup>();
-			userGroup.Add(new UserGroup
-			{
-				Id = Guid.NewGuid(),
-				IdUser = IdUser,
-				IdGroup = Guid.Parse("98db62c4-51b1-492e-b616-cfbd3ff53875")
-		});
-			builder.Entity<UserGroup>().HasData(userGroup.First());
-			return userGroup;
 		}
 
 		private static List<ModulePermission> SeedInitialModulePermission(ModelBuilder builder)

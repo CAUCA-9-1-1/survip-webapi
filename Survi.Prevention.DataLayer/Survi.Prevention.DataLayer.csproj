@@ -16,6 +16,12 @@
     <Compile Remove="Migrations\20190829175425_PRE-430-UpgradeSecurityToCauseSecurityManagement.cs" />
     <Compile Remove="Migrations\20190829175539_PRE-430-UpgradeSecurityToCauseSecurityManagement.cs" />
     <Compile Remove="Migrations\20190829181738_PRE-430-UpgradeSecurityToCauseSecurityManagement.cs" />
+    <Compile Remove="Migrations\20190906142655_feat#334-TransferOldSecurityTablesToCauseSecurityManagement.cs" />
+    <Compile Remove="Migrations\20190906142655_feat#334-TransferOldSecurityTablesToCauseSecurityManagement.Designer.cs" />
+    <Compile Remove="Migrations\20190909121813_feat#334-AddPhoneNumberToUser.cs" />
+    <Compile Remove="Migrations\20190909121813_feat#334-AddPhoneNumberToUser.Designer.cs" />
+    <Compile Remove="Migrations\20190909130007_feat#334-MigratePhoneNumbers.cs" />
+    <Compile Remove="Migrations\20190909130007_feat#334-MigratePhoneNumbers.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
