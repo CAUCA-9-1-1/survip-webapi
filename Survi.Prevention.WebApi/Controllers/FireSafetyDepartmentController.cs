@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.ServiceLayer.SecurityManagement;
 using Survi.Prevention.ServiceLayer.Services;
+using System;
+using System.Collections.Generic;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
 	[Route("api/FireSafetyDepartment")]
 	public class FireSafetyDepartmentController : BaseCrudControllerWithImportation<FireSafetyDepartmentService, FireSafetyDepartment, ApiClient.DataTransferObjects.FireSafetyDepartment>
 	{
-		private readonly WebuserService userService;
+		private readonly UserService userService;
 
-		public FireSafetyDepartmentController(FireSafetyDepartmentService service, WebuserService userService) : base(service)
+		public FireSafetyDepartmentController(FireSafetyDepartmentService service, UserService userService) : base(service)
 		{
 			this.userService = userService;
 		}

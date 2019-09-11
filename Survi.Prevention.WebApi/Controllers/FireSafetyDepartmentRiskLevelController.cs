@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.SecurityManagement;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
@@ -8,10 +9,10 @@ namespace Survi.Prevention.WebApi.Controllers
 	[Route("api/FireSafetyDepartmentRiskLevel")]
 	public class FireSafetyDepartmentRiskLevelController : BaseSecuredController
 	{
-		private readonly WebuserService userService;
+		private readonly UserService userService;
 		protected FireSafetyDepartmentInspectionConfigurationService Service;
 
-		public FireSafetyDepartmentRiskLevelController(FireSafetyDepartmentInspectionConfigurationService service, WebuserService userService) 
+		public FireSafetyDepartmentRiskLevelController(FireSafetyDepartmentInspectionConfigurationService service, UserService userService) 
 		{
 			Service = service;
 			this.userService = userService;

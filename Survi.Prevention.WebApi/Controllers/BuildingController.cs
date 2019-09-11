@@ -5,13 +5,14 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.SecurityManagement;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
 	[Route("api/Building")]
 	public class BuildingController : BaseCrudControllerWithImportation<BuildingService, Building, ApiClient.DataTransferObjects.Building>
 	{
-		private readonly WebuserService userService;
+		private readonly UserService userService;
 		private readonly CityService cityService;
         private readonly BuildingDetailService detailService;
 	    private readonly BuildingSprinklerService sprinklerService;
@@ -30,8 +31,8 @@ namespace Survi.Prevention.WebApi.Controllers
             BuildingParticularRiskService riskService,
             BuildingFireHydrantService hydrantService,
             BuildingCourseService courseService,
-		    CityService cityService, 
-		    WebuserService userService) 
+		    CityService cityService,
+		    UserService userService) 
 		    : base(service)
 		{
 		    this.sprinklerService = sprinklerService;

@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
 using Survi.Prevention.Models.Base;
 using Survi.Prevention.Models.Buildings;
 using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
-using Survi.Prevention.Models.SecurityManagement;
+using Survi.Prevention.Models.Security;
 using Survi.Prevention.Models.SurveyManagement;
+using System;
+using System.Collections.Generic;
 
 namespace Survi.Prevention.Models.InspectionManagement
 {
@@ -28,8 +28,8 @@ namespace Survi.Prevention.Models.InspectionManagement
 
 		public Batch Batch { get; set; }
 		public Survey Survey { get; set; }
-		public Webuser CreatedBy { get; set; }
-		public Webuser AssignedTo { get; set; }
+		public User CreatedBy { get; set; }
+		public User AssignedTo { get; set; }
 		public Building MainBuilding { get; set; }
 
 		public ICollection<InspectionVisit> Visits { get; set; }

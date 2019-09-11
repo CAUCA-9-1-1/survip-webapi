@@ -1,4 +1,5 @@
 using System;
+using Survi.Prevention.Models.Security;
 using Survi.Prevention.Models.SecurityManagement;
 
 namespace Survi.Prevention.Models.InspectionManagement
@@ -10,6 +11,6 @@ namespace Survi.Prevention.Models.InspectionManagement
 		public Guid IdBatch { get; set; }
 
 		public Batch Batch { get; set; }
-		public Webuser User { get; set; }
+		public User User { get; set; }
 	}
 }

@@ -1,6 +1,6 @@
-using System;
 using Survi.Prevention.Models.Base;
-using Survi.Prevention.Models.SecurityManagement;
+using Survi.Prevention.Models.Security;
+using System;
 
 namespace Survi.Prevention.Models.InspectionManagement
 {
@@ -22,6 +22,6 @@ namespace Survi.Prevention.Models.InspectionManagement
 		public Guid? IdWebuserVisitedBy { get; set; }
 
 		public Inspection Inspection { get; set; }
-		public Webuser VisitedBy { get; set; }		
+		public User VisitedBy { get; set; }		
 	}
 }
