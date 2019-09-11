@@ -231,7 +231,6 @@ namespace Survi.Prevention.DataLayer.Migrations
                 name: "fk_inspection_webusers_created_by_id",
                 table: "inspection");
 
-
             migrationBuilder.DropForeignKey(
                 name: "fk_inspection_visit_webusers_visited_by_id",
                 table: "inspection_visit");
@@ -303,11 +302,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                 principalColumn: "id",
                 onDelete: ReferentialAction.Restrict);
         }
-
-
-
-
-
+		
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
@@ -581,7 +576,6 @@ namespace Survi.Prevention.DataLayer.Migrations
                     { new Guid("1257e63b-b40a-4410-a9ce-00d8d0abdf43"), true, "Accès au mobile", "RightMobile", new Guid("4c0b5365-c308-4bb6-b412-36b22eea59a4") }
                 });
 
-           
             migrationBuilder.CreateIndex(
                 name: "IX_access_token_id_webuser",
                 table: "access_token",

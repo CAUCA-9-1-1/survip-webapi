@@ -24,8 +24,7 @@ namespace Survi.Prevention.WebApi.Controllers
             {
 
                 if (service.GetUserName(Guid.Parse("0540e8f7-dc44-4b2f-8e42-5004cca3700b")).Any())
-
-				{
+                {
                     return Ok();
                 }
                 else
