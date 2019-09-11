@@ -2,7 +2,7 @@
 
 namespace Survi.Prevention.DataLayer.Migrations
 {
-    public partial class feat334migrateFireSafetyDepartmentsAndPhoneNumbers : Migration
+	public partial class feat334migrateFireSafetyDepartmentsAndPhoneNumbers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,12 +15,10 @@ namespace Survi.Prevention.DataLayer.Migrations
 	        migrationBuilder.Sql("insert into user_fire_safety_department (id, fire_safety_department_id, user_id) " +
 	                             "select id, id_fire_safety_department as fire_safety_department_id," +
 	                             " id_webuser as user_id from webuser_fire_safety_department;");
-
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
         }
     }
 }
