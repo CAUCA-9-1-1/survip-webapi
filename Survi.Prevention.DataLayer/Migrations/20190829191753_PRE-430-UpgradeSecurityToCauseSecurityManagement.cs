@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace Survi.Prevention.DataLayer.Migrations
 {
-    public partial class PRE430UpgradeSecurityToCauseSecurityManagement : Migration
+	public partial class PRE430UpgradeSecurityToCauseSecurityManagement : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,6 +58,7 @@ namespace Survi.Prevention.DataLayer.Migrations
                     last_name = table.Column<string>(maxLength: 100, nullable: false),
                     password = table.Column<string>(maxLength: 100, nullable: false),
                     email = table.Column<string>(maxLength: 100, nullable: false),
+					phone_number = table.Column<string>(nullable:true),
                     is_active = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>

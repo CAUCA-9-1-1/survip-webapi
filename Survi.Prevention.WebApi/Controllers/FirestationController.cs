@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.ServiceLayer.SecurityManagement;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
@@ -9,9 +10,9 @@ namespace Survi.Prevention.WebApi.Controllers
 	[Route("api/Firestation")]
 	public class FirestationController : BaseCrudControllerWithImportation<FirestationService, Firestation, ApiClient.DataTransferObjects.Firestation>
 	{
-		private readonly WebuserService userService;
+		private readonly UserService userService;
 
-		public FirestationController(FirestationService service, WebuserService userService) : base(service)
+		public FirestationController(FirestationService service, UserService userService) : base(service)
 		{
 			this.userService = userService;
 		}

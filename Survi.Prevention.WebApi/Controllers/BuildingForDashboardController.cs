@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using Microsoft.AspNet.OData;
+﻿using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.SecurityManagement;
 using Survi.Prevention.ServiceLayer.Services;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
@@ -18,7 +19,7 @@ namespace Survi.Prevention.WebApi.Controllers
 		protected string CurrentUserName => User.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.UniqueName)?.Value;
 
 		private readonly InspectionService service;
-		private readonly WebuserService userService;
+		private readonly UserService userService;
 		private readonly CityService cityService; 
 
 		private List<Guid> GetUserCityIds()
@@ -27,7 +28,7 @@ namespace Survi.Prevention.WebApi.Controllers
 			return cityService.GetCityIdsByFireSafetyDepartments(departmentIds);
 		}
 
-		public BuildingForDashboardController(InspectionService service, WebuserService userService, CityService cityService)
+		public BuildingForDashboardController(InspectionService service, UserService userService, CityService cityService)
 		{
 			this.service = service;
 			this.cityService = cityService;

@@ -11,15 +11,15 @@ using Survi.Prevention.Models.Security;
 using Survi.Prevention.ServiceLayer.Import.Base.Cache;
 using Survi.Prevention.ServiceLayer.Import.Base.Interfaces;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation;
+using Survi.Prevention.ServiceLayer.Import.BuildingImportation.CustomFieldsCopiers;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Types;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Types.Validators;
-using Survi.Prevention.ServiceLayer.Import.BuildingImportation.CustomFieldsCopiers;
 using Survi.Prevention.ServiceLayer.Import.BuildingImportation.Validators;
-using Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment;
-using Survi.Prevention.ServiceLayer.Import.Lane;
 using Survi.Prevention.ServiceLayer.Import.FireHydrantImportation;
 using Survi.Prevention.ServiceLayer.Import.FireHydrantImportation.Validators;
+using Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment;
 using Survi.Prevention.ServiceLayer.Import.FireSafetyDepartment.CustomFieldsCopier;
+using Survi.Prevention.ServiceLayer.Import.Lane;
 using Survi.Prevention.ServiceLayer.Import.Places;
 using Survi.Prevention.ServiceLayer.Import.Places.Copiers;
 using Survi.Prevention.ServiceLayer.SecurityManagement;
@@ -27,13 +27,11 @@ using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi
 {
-    public static class DataServiceInjectionExtensions
+	public static class DataServiceInjectionExtensions
     {
         public static IServiceCollection InjectDataServices(this IServiceCollection services)
         {
 	        services.InjectSecurityServices<UserManagementService<User>, User>();
-			services.AddTransient<AuthenticationService>();
-            services.AddTransient<WebuserService>();
             services.AddTransient<CountryService>();
             services.AddTransient<StateService>();
             services.AddTransient<RegionService>();
@@ -93,9 +91,6 @@ namespace Survi.Prevention.WebApi
             services.AddTransient<ReportGenerationService>();
             services.AddTransient<InspectionBuildingDetailService>();
             services.AddTransient<InspectionPictureService>();
-            services.AddTransient<PermissionService>();
-            services.AddTransient<PermissionObjectService>();
-            services.AddTransient<PermissionSystemFeatureService>();
             services.AddTransient<GeolocationService>();
             services.AddTransient<GeneralConfigurationService>();
             services.AddTransient<StatisticService>();

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Survi.Prevention.Models.DataTransfertObjects;
+using Survi.Prevention.ServiceLayer.SecurityManagement;
 using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
@@ -17,11 +18,11 @@ namespace Survi.Prevention.WebApi.Controllers
 		protected Guid CurrentUserId => Guid.Parse(User.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.Sid)?.Value);
 		protected string CurrentUserName => User.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.UniqueName)?.Value;
 
-		private readonly WebuserService userService;
+		private readonly UserService userService;
 		private readonly CityService cityService;
 		private readonly BuildingService service;
 
-		public AvailableBuildingControllerOData(BuildingService service, WebuserService userService, CityService cityService)
+		public AvailableBuildingControllerOData(BuildingService service, UserService userService, CityService cityService)
 		{
 			this.service = service;
 			this.cityService = cityService;

@@ -1,6 +1,3 @@
-using System;
-using System.IO;
-using System.Linq;
 using Cause.SecurityManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,8 +13,10 @@ using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.Models.InspectionManagement;
 using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 using Survi.Prevention.Models.Security;
-using Survi.Prevention.Models.SecurityManagement;
 using Survi.Prevention.Models.SurveyManagement;
+using System;
+using System.IO;
+using System.Linq;
 
 namespace Survi.Prevention.DataLayer
 {
@@ -25,17 +24,6 @@ namespace Survi.Prevention.DataLayer
 	{
 	    public Guid? CurrentUserId { get; set; }
 	    public bool IsInImportationMode { get; set; } = false;
-
-        public DbSet<AccessSecretKey> AccessSecretKeys { get; set; }
-		public DbSet<AccessToken> AccessTokens { get; set; }
-		public DbSet<Webuser> Webusers { get; set; }
-        public DbSet<WebuserAttributes> WebuserAttributes { get; set; }
-
-		public DbSet<Permission> Permissions { get; set; }
-		public DbSet<PermissionObject> PermissionObjects { get; set; }
-		public DbSet<PermissionSystemFeature> PermissionSystemFeatures { get; set; }
-		public DbSet<PermissionSystem> PermissionSystems { get; set; }
-
 		public DbSet<Batch> Batches { get; set; }
         public DbSet<BatchUser> BatchUsers { get; set; }
 		public DbSet<Inspection> Inspections { get; set; }
@@ -88,7 +76,6 @@ namespace Survi.Prevention.DataLayer
 		public DbSet<Picture> Pictures { get; set; }
 		public DbSet<ReportConfigurationTemplate> ReportConfigurationTemplate { get; set; }
         public DbSet<FireSafetyDepartment> FireSafetyDepartments { get; set; }
-        public DbSet<WebuserFireSafetyDepartment> WebuserFireSafetyDepartments { get; set; }
         public DbSet<Firestation> Firestations { get; set; }
         public DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
 
@@ -127,9 +114,9 @@ namespace Survi.Prevention.DataLayer
 		public DbQuery<BuildingDetailForReport> BuildingDetailsForReport { get; set; }
 
 		public DbQuery<BatchInspectionBuilding> BatchInspectionBuildings { get; set; }
-		public DbQuery<AvailableBuildingForManagement> AvailableBuildingsForManagement { get; set; }	    
+		public DbQuery<AvailableBuildingForManagement> AvailableBuildingsForManagement { get; set; }
 
-	    public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
+		public ManagementContext(DbContextOptions<ManagementContext> options) : base(options)
 		{
 		}
 

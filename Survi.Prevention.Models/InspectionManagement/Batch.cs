@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Survi.Prevention.Models.Base;
+using Survi.Prevention.Models.Security;
 using Survi.Prevention.Models.SecurityManagement;
 
 namespace Survi.Prevention.Models.InspectionManagement
@@ -13,7 +14,7 @@ namespace Survi.Prevention.Models.InspectionManagement
 
 		public Guid IdWebuserCreatedBy { get; set; }
 
-		public Webuser CreatedBy { get; set; }
+		public User CreatedBy { get; set; }
 		public ICollection<BatchUser> Users { get; set; }
 		public ICollection<Inspection> Inspections { get; set; }
 	}

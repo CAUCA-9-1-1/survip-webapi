@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
 using Survi.Prevention.Models.DataTransfertObjects;
@@ -8,10 +5,13 @@ using Survi.Prevention.Models.DataTransfertObjects.Inspections;
 using Survi.Prevention.Models.DataTransfertObjects.Reporting;
 using Survi.Prevention.Models.InspectionManagement;
 using Survi.Prevention.ServiceLayer.DataCopy;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Survi.Prevention.ServiceLayer.Services
 {
-    public class InspectionService : BaseService
+	public class InspectionService : BaseService
     {
         public InspectionService(IManagementContext context) : base(context)
         {
@@ -410,21 +410,20 @@ namespace Survi.Prevention.ServiceLayer.Services
                     orderby visit.EndedOn descending
                     select visit)
                 .Include(visit => visit.VisitedBy)
-                .ThenInclude(user => user.Attributes)
                 .FirstOrDefault();
 
             if (lastVisit == null)
                 return null;
 
-            var firstName = lastVisit.VisitedBy?.Attributes?.FirstOrDefault(a => a.AttributeName == "first_name");
-            var lastName = lastVisit.VisitedBy?.Attributes?.FirstOrDefault(a => a.AttributeName == "last_name");
+            var firstName = lastVisit.VisitedBy?.FirstName;
+            var lastName = lastVisit.VisitedBy?.LastName;
 
             return new InspectionForReport
             {
                 Id = lastInspectionId,
                 StartedOn = lastVisit.StartedOn,
                 EndedOn = lastVisit.EndedOn,
-                InspectorName = (firstName?.AttributeValue ?? "") + " " + (lastName?.AttributeValue ?? "")
+                InspectorName = (firstName ?? "") + " " + (lastName ?? "")
             };
         }
 

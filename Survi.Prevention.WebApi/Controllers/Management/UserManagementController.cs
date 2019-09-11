@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Cause.SecurityManagement.Controllers;
+﻿using Cause.SecurityManagement.Controllers;
 using Cause.SecurityManagement.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Survi.Prevention.Models.Security;
 using Survi.Prevention.ServiceLayer.SecurityManagement;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Survi.Prevention.WebApi.Controllers.Management
 {

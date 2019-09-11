@@ -2,6 +2,7 @@
 using Cause.SecurityManagement.Services;
 using Microsoft.EntityFrameworkCore;
 using Survi.Prevention.DataLayer;
+using Survi.Prevention.Models.DataTransfertObjects;
 using Survi.Prevention.Models.Security;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,24 @@ namespace Survi.Prevention.ServiceLayer.SecurityManagement
 			AddNewUserFireSafetyDepartments(userFireSafetyDepartments);
 
 			context.SaveChanges();
+		}
+
+		public List<Guid> GetUserFireSafetyDepartments(Guid currentUserId)
+		{
+			return context.UserFireSafetyDepartments.Where(c => c.UserId == currentUserId)
+				.Select(c => Guid.Parse(c.FireSafetyDepartmentId)).ToList();
+		}
+
+		public List<WebuserForWeb> GetWebUsersByAllowedFireSafetyDepartments(Guid currentUserId)
+		{
+			var allowedDepartments = GetUserFireSafetyDepartments(currentUserId);
+			var usersForDepartment = context.UserFireSafetyDepartments
+				.Where(c => allowedDepartments.Contains(Guid.Parse(c.FireSafetyDepartmentId))).Select(c => c.UserId).ToList();
+			return SecurityContext.Users.Where(c => usersForDepartment.Contains(c.Id)).Select(c => new WebuserForWeb()
+			{
+				Id = c.Id,
+				Name = (c.FirstName ?? "") + " " + (c.LastName ?? "")
+			}).ToList();
 		}
 
 		private void AddNewUserFireSafetyDepartments(List<UserFireSafetyDepartment> userFireSafetyDepartments)

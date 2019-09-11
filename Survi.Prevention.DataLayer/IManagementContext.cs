@@ -1,4 +1,3 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Survi.Prevention.Models;
@@ -11,8 +10,8 @@ using Survi.Prevention.Models.FireSafetyDepartments;
 using Survi.Prevention.Models.InspectionManagement;
 using Survi.Prevention.Models.InspectionManagement.BuildingCopy;
 using Survi.Prevention.Models.Security;
-using Survi.Prevention.Models.SecurityManagement;
 using Survi.Prevention.Models.SurveyManagement;
+using System;
 
 namespace Survi.Prevention.DataLayer
 {
@@ -20,16 +19,6 @@ namespace Survi.Prevention.DataLayer
 	{
 	    Guid? CurrentUserId { get; set; }
 	    bool IsInImportationMode { get; set; }
-
-        DbSet<AccessSecretKey> AccessSecretKeys { get; set; }
-        DbSet<AccessToken> AccessTokens { get; set; }
-        DbSet<Webuser> Webusers { get; set; }
-        DbSet<WebuserAttributes> WebuserAttributes { get; set; }
-
-        DbSet<Permission> Permissions { get; set; }
-        DbSet<PermissionObject> PermissionObjects { get; set; }
-        DbSet<PermissionSystemFeature> PermissionSystemFeatures { get; set; }
-        DbSet<PermissionSystem> PermissionSystems { get; set; }
 
         DbSet<Batch> Batches { get; set; }
         DbSet<BatchUser> BatchUsers { get; set; }
@@ -83,7 +72,6 @@ namespace Survi.Prevention.DataLayer
         DbSet<Picture> Pictures { get; set; }
         DbSet<ReportConfigurationTemplate> ReportConfigurationTemplate { get; set; }
         DbSet<FireSafetyDepartment> FireSafetyDepartments { get; set; }
-        DbSet<WebuserFireSafetyDepartment> WebuserFireSafetyDepartments { get; set; }
         DbSet<Firestation> Firestations { get; set; }
         DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
 

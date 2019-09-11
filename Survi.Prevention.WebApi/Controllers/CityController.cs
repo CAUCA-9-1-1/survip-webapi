@@ -1,19 +1,20 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Survi.Prevention.Models.FireSafetyDepartments;
+using Survi.Prevention.ServiceLayer.SecurityManagement;
+using Survi.Prevention.ServiceLayer.Services;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Survi.Prevention.Models.FireSafetyDepartments;
-using Survi.Prevention.ServiceLayer.Services;
 
 namespace Survi.Prevention.WebApi.Controllers
 {
-    [Route("api/City")]
+	[Route("api/City")]
     public class CityController : BaseCrudControllerWithImportation<CityService, City, ApiClient.DataTransferObjects.City>
     {
-	    private readonly WebuserService userService;
+	    private readonly UserService userService;
 	    private readonly GeolocationService geolocationService;
 
-        public CityController(CityService service, WebuserService userService, GeolocationService geolocationService) : base(service)
+        public CityController(CityService service, UserService userService, GeolocationService geolocationService) : base(service)
         {
 	        this.userService = userService;
 	        this.geolocationService = geolocationService;

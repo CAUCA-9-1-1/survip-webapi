@@ -34,14 +34,12 @@ namespace Survi.Prevention.DataLayer.InitialData
 			builder.Entity<LaneGenericCode>().HasData(InitialLaneGenericCodesGenerator.GetInitialData().ToArray());
 			builder.Entity<LanePublicCode>().HasData(InitialLanePublicCodesGenerator.GetInitialData().ToArray());
 
-			InitialUserGenerator.SeedInitialData(builder, IdUser);
-			InitialPermissionGenerator.SeedInitialData(builder, IdUser);
 			InitialRiskLevelGenerator.SeedInitialData(builder);	
 		}
 
 		private static void SeedBaseSecurityData(ModelBuilder builder)
 		{
-			var modulePermissions = SeedInitialModulePermission(builder);
+			SeedInitialModulePermission(builder);
 		}
 
 		private static List<ModulePermission> SeedInitialModulePermission(ModelBuilder builder)
