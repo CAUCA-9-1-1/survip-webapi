@@ -15,7 +15,7 @@ namespace Survi.Prevention.DataLayer.InitialData
 		private static readonly DateTime Now = new DateTime(2018, 06, 01);
 		private static readonly Guid IdUser = Guid.Parse("0540e8f7-dc44-4b2f-8e42-5004cca3700b");
 
-		public static void SeedInitialData(this ModelBuilder builder, string applicationName)
+		public static void SeedInitialData(this ModelBuilder builder)
 		{
 			SeedBaseSecurityData(builder);
 			SeedInitialConstructionType(builder);

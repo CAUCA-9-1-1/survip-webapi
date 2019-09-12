@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Cause.SecurityManagement.Mapping;
+﻿using Cause.SecurityManagement.Mapping;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Survi.Prevention.Models.Security;
 
-namespace Survi.Prevention.DataLayer.Mapping
+namespace Survi.Prevention.DataLayer.Mapping.SecurityManagement
 {
 	public class UserMapping : UserMapping<User>
 	{
