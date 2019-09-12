@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Cause.SecurityManagement.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Cause.SecurityManagement.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Survi.Prevention.DataLayer.Mapping.SecurityManagement
