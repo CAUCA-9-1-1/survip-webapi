@@ -1,10 +1,5 @@
 ﻿namespace Survi.Prevention.ApiClient.Configurations
 {
-    public class LoginData
-    {        
-        public LoginResult Data { get; set; }
-    }
-
     public class LoginResult
     {
         public string AuthorizationType { get; set; }

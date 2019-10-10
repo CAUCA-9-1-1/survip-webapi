@@ -51,8 +51,8 @@ namespace Survi.Prevention.ApiClient.Services.Base
             {
                 var response = await request
                     .PostJsonAsync(new {Configuration.UserName, Configuration.Password})
-                    .ReceiveJson<LoginData>();
-                return response.Data;
+                    .ReceiveJson<LoginResult>();
+                return response;
             }
             catch (FlurlHttpException exception)
             {

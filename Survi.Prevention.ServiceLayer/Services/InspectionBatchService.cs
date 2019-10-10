@@ -93,7 +93,7 @@ namespace Survi.Prevention.ServiceLayer.Services
 						.Include(b => b.Lane)
 						.Single(b => b.Id == child.IdBuilding && b.IsActive);
 					var fireSafetyDepartmentId = Context.FireSafetyDepartments.AsNoTracking()
-						.Single(d => d.FireSafetyDepartmentServing.Any(c => c.IdCity == building.Lane.IdCity)).Id;
+						.First(d => d.FireSafetyDepartmentServing.Any(c => c.IdCity == building.Lane.IdCity)).Id;
 
 					child.IdSurvey = GetConfiguredSurvey(building.IdRiskLevel, fireSafetyDepartmentId);
 				}
