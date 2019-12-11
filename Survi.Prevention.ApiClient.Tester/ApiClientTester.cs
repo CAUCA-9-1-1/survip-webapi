@@ -24,7 +24,7 @@ namespace Survi.Prevention.ApiClient.Tester
         {
             authConfig = new AuthentificationConfiguration
             {
-                ApiBaseUrl = "http://localhost:5555/api",
+                ApiBaseUrl = "https://survipreventiontest.cauca.ca/api",
                 UserName = "admin",
                 Password = "admincauca"
             };

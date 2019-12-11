@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Net;
 using Flurl.Http;
 
 namespace Survi.Prevention.ApiClient.Services.Base
@@ -34,7 +35,7 @@ namespace Survi.Prevention.ApiClient.Services.Base
 
         public static bool NoResponse(this HttpCall response)
         {
-            return response.Response == null;
+            return response.Response == null && response.HttpStatus != HttpStatusCode.NotFound;
         }
     }
 }
